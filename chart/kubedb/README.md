@@ -1,5 +1,5 @@
 # KubeDB
-[KubeDB by AppsCode](https://github.com/kubedb/cli) - Making running production-grade databases easy on Kubernetes
+[KubeDB by AppsCode](https://github.com/kubedb/installer) - Making running production-grade databases easy on Kubernetes
 
 ## TL;DR;
 
@@ -11,7 +11,7 @@ $ helm install appscode/kubedb
 
 ## Introduction
 
-This chart bootstraps a [KubeDB controller](https://github.com/kubedb/cli) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [KubeDB controller](https://github.com/kubedb/installer) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 ## Prerequisites
 

@@ -37,46 +37,6 @@ function cleanup() {
 }
 trap cleanup EXIT
 
-# ref: https://github.com/appscodelabs/libbuild/blob/master/common/lib.sh#L55
-inside_git_repo() {
-  git rev-parse --is-inside-work-tree >/dev/null 2>&1
-  inside_git=$?
-  if [ "$inside_git" -ne 0 ]; then
-    echo "Not inside a git repository"
-    exit 1
-  fi
-}
-
-detect_tag() {
-  inside_git_repo
-
-  # http://stackoverflow.com/a/1404862/3476121
-  git_tag=$(git describe --exact-match --abbrev=0 2>/dev/null || echo '')
-
-  commit_hash=$(git rev-parse --verify HEAD)
-  git_branch=$(git rev-parse --abbrev-ref HEAD)
-  commit_timestamp=$(git show -s --format=%ct)
-
-  if [ "$git_tag" != '' ]; then
-    TAG=$git_tag
-    TAG_STRATEGY='git_tag'
-  elif [ "$git_branch" != 'master' ] && [ "$git_branch" != 'HEAD' ] && [[ "$git_branch" != release-* ]]; then
-    TAG=$git_branch
-    TAG_STRATEGY='git_branch'
-  else
-    hash_ver=$(git describe --tags --always --dirty)
-    TAG="${hash_ver}"
-    TAG_STRATEGY='commit_hash'
-  fi
-
-  export TAG
-  export TAG_STRATEGY
-  export git_tag
-  export git_branch
-  export commit_hash
-  export commit_timestamp
-}
-
 onessl_found() {
   # https://stackoverflow.com/a/677212/244009
   if [ -x "$(command -v onessl)" ]; then
@@ -135,8 +95,8 @@ export KUBEDB_RUN_ON_MASTER=0
 export KUBEDB_ENABLE_VALIDATING_WEBHOOK=false
 export KUBEDB_ENABLE_MUTATING_WEBHOOK=false
 export KUBEDB_CATALOG=${KUBEDB_CATALOG:-all}
-export KUBEDB_DOCKER_REGISTRY=kubedb
-export KUBEDB_OPERATOR_TAG=0.12.0
+export KUBEDB_DOCKER_REGISTRY=${KUBEDB_DOCKER_REGISTRY:-kubedb}
+export KUBEDB_OPERATOR_TAG=${KUBEDB_OPERATOR_TAG:-0.12.0}
 export KUBEDB_OPERATOR_NAME=operator
 export KUBEDB_IMAGE_PULL_SECRET=
 export KUBEDB_IMAGE_PULL_POLICY=IfNotPresent
@@ -149,11 +109,10 @@ export KUBEDB_USE_KUBEAPISERVER_FQDN_FOR_AKS=true
 export KUBEDB_PRIORITY_CLASS=system-cluster-critical
 
 export APPSCODE_ENV=${APPSCODE_ENV:-prod}
-export SCRIPT_LOCATION="curl -fsSL https://raw.githubusercontent.com/kubedb/cli/0.12.0/"
+export SCRIPT_LOCATION="curl -fsSL https://raw.githubusercontent.com/kubedb/installer/0.12.0/"
 if [ "$APPSCODE_ENV" = "dev" ]; then
   detect_tag
   export SCRIPT_LOCATION="cat "
-  export KUBEDB_OPERATOR_TAG=$TAG
   export KUBEDB_IMAGE_PULL_POLICY=Always
 fi
 
@@ -465,35 +424,35 @@ export SERVICE_SERVING_CERT_CA=$(cat ca.crt | $ONESSL base64)
 export TLS_SERVING_CERT=$(cat server.crt | $ONESSL base64)
 export TLS_SERVING_KEY=$(cat server.key | $ONESSL base64)
 
-${SCRIPT_LOCATION}hack/deploy/operator.yaml | $ONESSL envsubst | kubectl apply -f -
+${SCRIPT_LOCATION}deploy/operator.yaml | $ONESSL envsubst | kubectl apply -f -
 
 if [ "$KUBEDB_ENABLE_RBAC" = true ]; then
-  ${SCRIPT_LOCATION}hack/deploy/service-account.yaml | $ONESSL envsubst | kubectl apply -f -
-  ${SCRIPT_LOCATION}hack/deploy/rbac-list.yaml | $ONESSL envsubst | kubectl auth reconcile -f -
-  ${SCRIPT_LOCATION}hack/deploy/user-roles.yaml | $ONESSL envsubst | kubectl auth reconcile -f -
-  ${SCRIPT_LOCATION}hack/deploy/appcatalog-user-roles.yaml | $ONESSL envsubst | kubectl auth reconcile -f -
+  ${SCRIPT_LOCATION}deploy/service-account.yaml | $ONESSL envsubst | kubectl apply -f -
+  ${SCRIPT_LOCATION}deploy/rbac-list.yaml | $ONESSL envsubst | kubectl auth reconcile -f -
+  ${SCRIPT_LOCATION}deploy/user-roles.yaml | $ONESSL envsubst | kubectl auth reconcile -f -
+  ${SCRIPT_LOCATION}deploy/appcatalog-user-roles.yaml | $ONESSL envsubst | kubectl auth reconcile -f -
 fi
 
 echo "Applying Pod Sucurity Policies"
-${SCRIPT_LOCATION}hack/deploy/psp/operator.yaml | $ONESSL envsubst | kubectl apply -f -
-${SCRIPT_LOCATION}hack/deploy/psp/elasticsearch.yaml | $ONESSL envsubst | kubectl apply -f -
-${SCRIPT_LOCATION}hack/deploy/psp/memcached.yaml | $ONESSL envsubst | kubectl apply -f -
-${SCRIPT_LOCATION}hack/deploy/psp/mongodb.yaml | $ONESSL envsubst | kubectl apply -f -
-${SCRIPT_LOCATION}hack/deploy/psp/mysql.yaml | $ONESSL envsubst | kubectl apply -f -
-${SCRIPT_LOCATION}hack/deploy/psp/postgres.yaml | $ONESSL envsubst | kubectl apply -f -
-${SCRIPT_LOCATION}hack/deploy/psp/redis.yaml | $ONESSL envsubst | kubectl apply -f -
+${SCRIPT_LOCATION}deploy/psp/operator.yaml | $ONESSL envsubst | kubectl apply -f -
+${SCRIPT_LOCATION}deploy/psp/elasticsearch.yaml | $ONESSL envsubst | kubectl apply -f -
+${SCRIPT_LOCATION}deploy/psp/memcached.yaml | $ONESSL envsubst | kubectl apply -f -
+${SCRIPT_LOCATION}deploy/psp/mongodb.yaml | $ONESSL envsubst | kubectl apply -f -
+${SCRIPT_LOCATION}deploy/psp/mysql.yaml | $ONESSL envsubst | kubectl apply -f -
+${SCRIPT_LOCATION}deploy/psp/postgres.yaml | $ONESSL envsubst | kubectl apply -f -
+${SCRIPT_LOCATION}deploy/psp/redis.yaml | $ONESSL envsubst | kubectl apply -f -
 
 if [ "$KUBEDB_RUN_ON_MASTER" -eq 1 ]; then
   kubectl patch deploy kubedb-$KUBEDB_OPERATOR_NAME -n $KUBEDB_NAMESPACE \
-    --patch="$(${SCRIPT_LOCATION}hack/deploy/run-on-master.yaml)"
+    --patch="$(${SCRIPT_LOCATION}deploy/run-on-master.yaml)"
 fi
 
 if [ "$KUBEDB_ENABLE_VALIDATING_WEBHOOK" = true ]; then
-  ${SCRIPT_LOCATION}hack/deploy/validating-webhook.yaml | $ONESSL envsubst | kubectl apply -f -
+  ${SCRIPT_LOCATION}deploy/validating-webhook.yaml | $ONESSL envsubst | kubectl apply -f -
 fi
 
 if [ "$KUBEDB_ENABLE_MUTATING_WEBHOOK" = true ]; then
-  ${SCRIPT_LOCATION}hack/deploy/mutating-webhook.yaml | $ONESSL envsubst | kubectl apply -f -
+  ${SCRIPT_LOCATION}deploy/mutating-webhook.yaml | $ONESSL envsubst | kubectl apply -f -
 fi
 
 echo
@@ -526,37 +485,37 @@ fi
 if [ "$KUBEDB_CATALOG" = "all" ] || [ "$KUBEDB_CATALOG" = "elasticsearch" ]; then
   echo
   echo "installing KubeDB Elasticsearch catalog"
-  ${SCRIPT_LOCATION}hack/deploy/kubedb-catalog/elasticsearch.yaml | $ONESSL envsubst | kubectl apply -f -
+  ${SCRIPT_LOCATION}deploy/kubedb-catalog/elasticsearch.yaml | $ONESSL envsubst | kubectl apply -f -
 fi
 
 if [ "$KUBEDB_CATALOG" = "all" ] || [ "$KUBEDB_CATALOG" = "etcd" ]; then
   echo "installing KubeDB Etcd catalog"
-  ${SCRIPT_LOCATION}hack/deploy/kubedb-catalog/etcd.yaml | $ONESSL envsubst | kubectl apply -f -
+  ${SCRIPT_LOCATION}deploy/kubedb-catalog/etcd.yaml | $ONESSL envsubst | kubectl apply -f -
 fi
 
 if [ "$KUBEDB_CATALOG" = "all" ] || [ "$KUBEDB_CATALOG" = "memcached" ]; then
   echo "installing KubeDB Memcached catalog"
-  ${SCRIPT_LOCATION}hack/deploy/kubedb-catalog/memcached.yaml | $ONESSL envsubst | kubectl apply -f -
+  ${SCRIPT_LOCATION}deploy/kubedb-catalog/memcached.yaml | $ONESSL envsubst | kubectl apply -f -
 fi
 
 if [ "$KUBEDB_CATALOG" = "all" ] || [ "$KUBEDB_CATALOG" = "mongo" ]; then
   echo "installing KubeDB MongoDB catalog"
-  ${SCRIPT_LOCATION}hack/deploy/kubedb-catalog/mongodb.yaml | $ONESSL envsubst | kubectl apply -f -
+  ${SCRIPT_LOCATION}deploy/kubedb-catalog/mongodb.yaml | $ONESSL envsubst | kubectl apply -f -
 fi
 
 if [ "$KUBEDB_CATALOG" = "all" ] || [ "$KUBEDB_CATALOG" = "mysql" ]; then
   echo "installing KubeDB MySQL catalog"
-  ${SCRIPT_LOCATION}hack/deploy/kubedb-catalog/mysql.yaml | $ONESSL envsubst | kubectl apply -f -
+  ${SCRIPT_LOCATION}deploy/kubedb-catalog/mysql.yaml | $ONESSL envsubst | kubectl apply -f -
 fi
 
 if [ "$KUBEDB_CATALOG" = "all" ] || [ "$KUBEDB_CATALOG" = "postgres" ]; then
   echo "installing KubeDB Postgres catalog"
-  ${SCRIPT_LOCATION}hack/deploy/kubedb-catalog/postgres.yaml | $ONESSL envsubst | kubectl apply -f -
+  ${SCRIPT_LOCATION}deploy/kubedb-catalog/postgres.yaml | $ONESSL envsubst | kubectl apply -f -
 fi
 
 if [ "$KUBEDB_CATALOG" = "all" ] || [ "$KUBEDB_CATALOG" = "redis" ]; then
   echo "installing KubeDB Redis catalog"
-  ${SCRIPT_LOCATION}hack/deploy/kubedb-catalog/redis.yaml | $ONESSL envsubst | kubectl apply -f -
+  ${SCRIPT_LOCATION}deploy/kubedb-catalog/redis.yaml | $ONESSL envsubst | kubectl apply -f -
 fi
 
 if [ "$KUBEDB_ENABLE_VALIDATING_WEBHOOK" = true ]; then
@@ -595,14 +554,14 @@ fi
           prometheus.io/scheme="https"
        ;;
      "$MONITORING_AGENT_COREOS_OPERATOR")
-       ${SCRIPT_LOCATION}hack/deploy/monitoring/servicemonitor.yaml | $ONESSL envsubst | kubectl apply -f -
+       ${SCRIPT_LOCATION}deploy/monitoring/servicemonitor.yaml | $ONESSL envsubst | kubectl apply -f -
        ;;
    esac
 
     # if operator monitoring is enabled and prometheus-namespace is provided,
    # create kubedb-operator-apiserver-cert there. this will be mounted on prometheus pod.
    if [ "$PROMETHEUS_NAMESPACE" != "$KUBEDB_NAMESPACE" ]; then
-     ${SCRIPT_LOCATION}hack/deploy/monitoring/apiserver-cert.yaml | $ONESSL envsubst | kubectl apply -f -
+     ${SCRIPT_LOCATION}deploy/monitoring/apiserver-cert.yaml | $ONESSL envsubst | kubectl apply -f -
    fi
  fi
 
