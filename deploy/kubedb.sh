@@ -111,13 +111,8 @@ export KUBEDB_PRIORITY_CLASS=system-cluster-critical
 export APPSCODE_ENV=${APPSCODE_ENV:-prod}
 export SCRIPT_LOCATION="curl -fsSL https://raw.githubusercontent.com/kubedb/installer/0.12.0/"
 if [ "$APPSCODE_ENV" = "dev" ]; then
-  detect_tag
   export SCRIPT_LOCATION="cat "
   export KUBEDB_IMAGE_PULL_POLICY=Always
-fi
-
-if [ ! -z ${CUSTOM_OPERATOR_TAG:-} ]; then
-  export KUBEDB_OPERATOR_TAG="${CUSTOM_OPERATOR_TAG}"
 fi
 
 KUBE_APISERVER_VERSION=$(kubectl version -o=json | $ONESSL jsonpath '{.serverVersion.gitVersion}')
