@@ -174,3 +174,17 @@ webhooks:
     operations: ["DELETE"]
   failurePolicy: Fail
   ${KUBEDB_WEBHOOK_SIDE_EFFECTS}
+- name: proxysql.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.kubedb.com/v1alpha1/proxysqlvalidators
+    caBundle: ${KUBE_CA}
+  rules:
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["proxysqls"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  failurePolicy: Fail
+  ${KUBEDB_WEBHOOK_SIDE_EFFECTS}
