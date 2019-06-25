@@ -48,6 +48,20 @@ webhooks:
     operations: ["CREATE", "UPDATE"]
   failurePolicy: Fail
   ${KUBEDB_WEBHOOK_SIDE_EFFECTS}
+- name: perconaxtradb.mutators.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/mutators.kubedb.com/v1alpha1/perconaxtradbmutators
+    caBundle: ${KUBE_CA}
+  rules:
+  - apiGroups: ["kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["perconaxtradbs"]
+    operations: ["CREATE", "UPDATE"]
+  failurePolicy: Fail
+  ${KUBEDB_WEBHOOK_SIDE_EFFECTS}
 - name: mongodb.mutators.kubedb.com
   clientConfig:
     service:

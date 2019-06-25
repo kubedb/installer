@@ -48,6 +48,20 @@ webhooks:
     operations: ["CREATE", "UPDATE", "DELETE"]
   failurePolicy: Fail
   ${KUBEDB_WEBHOOK_SIDE_EFFECTS}
+- name: perconaxtradb.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.kubedb.com/v1alpha1/perconaxtradbvalidators
+    caBundle: ${KUBE_CA}
+  rules:
+  - apiGroups: ["kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["perconaxtradbs"]
+    operations: ["CREATE", "UPDATE", "DELETE"]
+  failurePolicy: Fail
+  ${KUBEDB_WEBHOOK_SIDE_EFFECTS}
 - name: mongodb.validators.kubedb.com
   clientConfig:
     service:
