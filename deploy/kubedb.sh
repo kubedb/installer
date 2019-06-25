@@ -17,27 +17,27 @@
 set -eou pipefail
 
 crds=(
-    dormantdatabases.kubedb.com
-    elasticsearches.kubedb.com
-    etcds.kubedb.com
-    memcacheds.kubedb.com
-    mongodbs.kubedb.com
-    mysqls.kubedb.com
-    perconaxtradbs.kubedb.com
-    postgreses.kubedb.com
-    pgbouncers.kubedb.com
-    redises.kubedb.com
-    snapshots.kubedb.com
-    elasticsearchversions.catalog.kubedb.com
-    etcdversions.catalog.kubedb.com
-    memcachedversions.catalog.kubedb.com
-    mongodbversions.catalog.kubedb.com
-    mysqlversions.catalog.kubedb.com
-    perconaxtradbversions.catalog.kubedb.com
-    postgresversions.catalog.kubedb.com
-    pgbouncerversions.catalog.kubedb.com
-    redisversions.catalog.kubedb.com
-    appbindings.appcatalog.appscode.com
+  dormantdatabases.kubedb.com
+  elasticsearches.kubedb.com
+  etcds.kubedb.com
+  memcacheds.kubedb.com
+  mongodbs.kubedb.com
+  mysqls.kubedb.com
+  perconaxtradbs.kubedb.com
+  postgreses.kubedb.com
+  pgbouncers.kubedb.com
+  redises.kubedb.com
+  snapshots.kubedb.com
+  elasticsearchversions.catalog.kubedb.com
+  etcdversions.catalog.kubedb.com
+  memcachedversions.catalog.kubedb.com
+  mongodbversions.catalog.kubedb.com
+  mysqlversions.catalog.kubedb.com
+  perconaxtradbversions.catalog.kubedb.com
+  postgresversions.catalog.kubedb.com
+  pgbouncerversions.catalog.kubedb.com
+  redisversions.catalog.kubedb.com
+  appbindings.appcatalog.appscode.com
 )
 apiServices=(v1alpha1.validators v1alpha1.mutators)
 
@@ -555,6 +555,11 @@ fi
 if [ "$KUBEDB_CATALOG" = "all" ] || [ "$KUBEDB_CATALOG" = "percona-xtradb" ]; then
     echo "installing KubeDB PerconaXtraDB catalog"
     ${SCRIPT_LOCATION}deploy/kubedb-catalog/percona-xtradb.yaml | $ONESSL envsubst | kubectl apply -f -
+fi
+
+if [ "$KUBEDB_CATALOG" = "all" ] || [ "$KUBEDB_CATALOG" = "percona-xtradb" ]; then
+  echo "installing KubeDB PerconaXtraDB catalog"
+  ${SCRIPT_LOCATION}deploy/kubedb-catalog/percona-xtradb.yaml | $ONESSL envsubst | kubectl apply -f -
 fi
 
 if [ "$KUBEDB_CATALOG" = "all" ] || [ "$KUBEDB_CATALOG" = "postgres" ]; then
