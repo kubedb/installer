@@ -104,3 +104,17 @@ webhooks:
     operations: ["CREATE", "UPDATE"]
   failurePolicy: Fail
   ${KUBEDB_WEBHOOK_SIDE_EFFECTS}
+- name: pgbouncer.mutators.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/mutators.kubedb.com/v1alpha1/pgbouncermutators
+    caBundle: ${KUBE_CA}
+  rules:
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["pgbouncers"]
+      operations: ["CREATE", "UPDATE"]
+  failurePolicy: Fail
+  ${KUBEDB_WEBHOOK_SIDE_EFFECTS}
