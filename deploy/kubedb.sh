@@ -9,6 +9,7 @@ crds=(
   mongodbs.kubedb.com
   mysqls.kubedb.com
   postgreses.kubedb.com
+  pgbouncers.kubedb.com
   redises.kubedb.com
   snapshots.kubedb.com
   elasticsearchversions.catalog.kubedb.com
@@ -17,6 +18,7 @@ crds=(
   mongodbversions.catalog.kubedb.com
   mysqlversions.catalog.kubedb.com
   postgresversions.catalog.kubedb.com
+  pgbouncerversions.catalog.kubedb.com
   redisversions.catalog.kubedb.com
   appbindings.appcatalog.appscode.com
 )
@@ -545,6 +547,11 @@ if [ "$KUBEDB_CATALOG" = "all" ] || [ "$KUBEDB_CATALOG" = "redis" ]; then
   ${SCRIPT_LOCATION}deploy/kubedb-catalog/redis.yaml | $ONESSL envsubst | kubectl apply -f -
 fi
 
+if [ "$KUBEDB_CATALOG" = "all" ] || [ "$KUBEDB_CATALOG" = "pgbouncer" ]; then
+  echo "installing KubeDB PgBouncer catalog"
+  ${SCRIPT_LOCATION}deploy/kubedb-catalog/pgbouncer.yaml | $ONESSL envsubst | kubectl apply -f -
+fi
+
 if [ "$KUBEDB_ENABLE_VALIDATING_WEBHOOK" = true ]; then
   echo "checking whether admission webhook(s) are activated or not"
   active=$($ONESSL wait-until-has annotation \
@@ -562,7 +569,7 @@ if [ "$KUBEDB_ENABLE_VALIDATING_WEBHOOK" = true ]; then
     echo "Admission webhooks are not activated."
     echo "Enable it by configuring --enable-admission-plugins flag of kube-apiserver."
     echo "For details, visit: https://appsco.de/kube-apiserver-webhooks ."
-    echo "After admission webhooks are activated, please uninstall and then reinstall Voyager operator."
+    echo "After admission webhooks are activated, please uninstall and then reinstall KubeDB operator."
     # uninstall misconfigured webhooks to avoid failures
     kubectl delete validatingwebhookconfiguration -l app=kubedb || true
     kubectl delete mutatingwebhookconfiguration -l app=kubedb || true
