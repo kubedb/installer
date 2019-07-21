@@ -46,7 +46,7 @@ spec:
         - --v={{ .Values.logLevel }}
         - --governing-service=kubedb
         - --rbac={{ .Values.rbac.create }}
-        - --secure-port=8443
+        - --secure-port={{ .Values.apiserver.port }}
         - --audit-log-path=-
         - --tls-cert-file=/var/serving-cert/tls.crt
         - --tls-private-key-file=/var/serving-cert/tls.key
@@ -68,7 +68,8 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         ports:
-        - containerPort: 8443
+        - name: https
+          containerPort: {{ .Values.apiserver.port }}
         volumeMounts:
         - mountPath: /var/serving-cert
           name: serving-cert
@@ -76,13 +77,13 @@ spec:
         readinessProbe:
           httpGet:
             path: /healthz
-            port: 8443
+            port: https
             scheme: HTTPS
           initialDelaySeconds: 5
         livenessProbe:
           httpGet:
             path: /healthz
-            port: 8443
+            port: https
             scheme: HTTPS
           initialDelaySeconds: 15
           timeoutSeconds: 15

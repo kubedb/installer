@@ -9,14 +9,14 @@ metadata:
   annotations:
     prometheus.io/scrape: "true"
     prometheus.io/path: "/metrics"
-    prometheus.io/port: "8443"
+    prometheus.io/port: {{ .Values.apiserver.port | quote }}
     prometheus.io/scheme: "https"
   {{- end }}
 spec:
   ports:
   - name: api
     port: 443
-    targetPort: 8443
+    targetPort: https
   selector:
     app: "{{ template "kubedb.name" . }}"
     release: "{{ .Release.Name }}"
