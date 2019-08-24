@@ -96,7 +96,7 @@ export KUBEDB_ENABLE_VALIDATING_WEBHOOK=false
 export KUBEDB_ENABLE_MUTATING_WEBHOOK=false
 export KUBEDB_CATALOG=${KUBEDB_CATALOG:-all}
 export KUBEDB_DOCKER_REGISTRY=${KUBEDB_DOCKER_REGISTRY:-kubedb}
-export KUBEDB_OPERATOR_TAG=${KUBEDB_OPERATOR_TAG:-0.12.0}
+export KUBEDB_OPERATOR_TAG=${KUBEDB_OPERATOR_TAG:-v0.13.0-rc.0}
 export KUBEDB_OPERATOR_NAME=operator
 export KUBEDB_IMAGE_PULL_SECRET=
 export KUBEDB_IMAGE_PULL_POLICY=IfNotPresent
@@ -109,7 +109,7 @@ export KUBEDB_USE_KUBEAPISERVER_FQDN_FOR_AKS=true
 export KUBEDB_PRIORITY_CLASS=system-cluster-critical
 
 export APPSCODE_ENV=${APPSCODE_ENV:-prod}
-export SCRIPT_LOCATION="curl -fsSL https://raw.githubusercontent.com/kubedb/installer/0.12.0/"
+export SCRIPT_LOCATION="curl -fsSL https://raw.githubusercontent.com/kubedb/installer/v0.13.0-rc.0/"
 if [ "$APPSCODE_ENV" = "dev" ]; then
   export SCRIPT_LOCATION="cat "
   export KUBEDB_IMAGE_PULL_POLICY=Always
