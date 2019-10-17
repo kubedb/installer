@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: wait-kubedb-crd
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: wait-kubedb-crd
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    metadata:
+      name: wait-kubedb-crd
+      labels:
+        app: wait-kubedb-crd
+    spec:
+      restartPolicy: Never
+      serviceAccountName: kubedb-catalog-serviceaccount
+      containers:
+      - name: pre-install-job
+        image: {{ .Values.wait.registry }}/{{ .Values.wait.repository }}:{{ .Values.wait.tag }}
+        command: ["/bin/sh"]
+        args:
+        - -c
+        - "while true \n\t do \n \t\t kubectl get crd mongodbversions.catalog.kubedb.com \n\t\t if [ $? == 0 ] \n\t\t then \n\t\tbreak \n\t\t fi \n\t done \n sleep 5 \n exit 0"
