@@ -104,6 +104,20 @@ webhooks:
     operations: ["CREATE", "UPDATE", "DELETE"]
   failurePolicy: Fail
   ${KUBEDB_WEBHOOK_SIDE_EFFECTS}
+- name: pgbouncer.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.kubedb.com/v1alpha1/pgbouncervalidators
+    caBundle: ${KUBE_CA}
+  rules:
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["pgbouncers"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  failurePolicy: Fail
+  ${KUBEDB_WEBHOOK_SIDE_EFFECTS}
 - name: snapshot.validators.kubedb.com
   clientConfig:
     service:
