@@ -140,6 +140,7 @@ export KUBEDB_ENABLE_VALIDATING_WEBHOOK=false
 export KUBEDB_ENABLE_MUTATING_WEBHOOK=false
 export KUBEDB_CATALOG=${KUBEDB_CATALOG:-all}
 export KUBEDB_DOCKER_REGISTRY=${KUBEDB_DOCKER_REGISTRY:-kubedb}
+export KUBEDB_CATALOG_REGISTRY=${KUBEDB_CATALOG_REGISTRY:-kubedb}
 export KUBEDB_OPERATOR_TAG=${KUBEDB_OPERATOR_TAG:-v0.13.0-rc.0}
 export KUBEDB_OPERATOR_NAME=operator
 export KUBEDB_IMAGE_PULL_SECRET=
@@ -185,7 +186,8 @@ show_help() {
   echo "-h, --help                             show brief help"
   echo "-n, --namespace=NAMESPACE              specify namespace (default: kube-system)"
   echo "    --rbac                             create RBAC roles and bindings (default: true)"
-  echo "    --docker-registry                  docker registry used to pull KubeDB images (default: appscode)"
+  echo "    --docker-registry                  docker registry used to pull KubeDB operator images (default: kubedb)"
+  echo "    --catalog-registry                 docker registry used to pull KubeDB catalog images (default: kubedb)"
   echo "    --image-pull-secret                name of secret used to pull KubeDB operator images"
   echo "    --run-on-master                    run KubeDB operator on master"
   echo "    --enable-validating-webhook        enable/disable validating webhooks for KubeDB CRDs"
@@ -225,6 +227,10 @@ while test $# -gt 0; do
       ;;
     --docker-registry*)
       export KUBEDB_DOCKER_REGISTRY=$(echo $1 | sed -e 's/^[^=]*=//g')
+      shift
+      ;;
+    --catalog-registry*)
+      export KUBEDB_CATALOG_REGISTRY=$(echo $1 | sed -e 's/^[^=]*=//g')
       shift
       ;;
     --image-pull-secret*)
