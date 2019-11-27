@@ -577,6 +577,7 @@ fi
 if [ "$KUBEDB_CATALOG" = "all" ] || [ "$KUBEDB_CATALOG" = "pgbouncer" ]; then
   echo "installing KubeDB PgBouncer catalog"
   ${SCRIPT_LOCATION}deploy/kubedb-catalog/pgbouncer.yaml | $ONESSL envsubst | kubectl apply -f -
+fi
 
 if [ "$KUBEDB_CATALOG" = "all" ] || [ "$KUBEDB_CATALOG" = "proxysql" ]; then
   echo "installing KubeDB ProxySQL catalog"
