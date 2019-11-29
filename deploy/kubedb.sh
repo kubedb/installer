@@ -468,7 +468,7 @@ if [ "$KUBEDB_ENABLE_RBAC" = true ]; then
   ${SCRIPT_LOCATION}deploy/appcatalog-user-roles.yaml | $ONESSL envsubst | kubectl auth reconcile -f -
 fi
 
-echo "Applying Pod Sucurity Policies"
+echo "Applying Pod Security Policies"
 ${SCRIPT_LOCATION}deploy/psp/operator.yaml | $ONESSL envsubst | kubectl apply -f -
 ${SCRIPT_LOCATION}deploy/psp/elasticsearch.yaml | $ONESSL envsubst | kubectl apply -f -
 ${SCRIPT_LOCATION}deploy/psp/memcached.yaml | $ONESSL envsubst | kubectl apply -f -
