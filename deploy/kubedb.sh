@@ -158,7 +158,7 @@ export KUBEDB_DOCKER_REGISTRY=${KUBEDB_DOCKER_REGISTRY:-kubedb}
 export KUBEDB_CATALOG_REGISTRY=${KUBEDB_CATALOG_REGISTRY:-kubedb}
 export KUBEDB_OPERATOR_TAG=${KUBEDB_OPERATOR_TAG:-v0.13.0-rc.0}
 export KUBEDB_OPERATOR_NAME=operator
-export KUBEDB_IMAGE_PULL_SECRET=
+export KUBEDB_IMAGE_PULL_SECRET_NAME=
 export KUBEDB_IMAGE_PULL_POLICY=IfNotPresent
 export KUBEDB_ENABLE_ANALYTICS=true
 export KUBEDB_UNINSTALL=0
@@ -249,8 +249,7 @@ while test $# -gt 0; do
             shift
             ;;
         --image-pull-secret*)
-            secret=$(echo $1 | sed -e 's/^[^=]*=//g')
-            export KUBEDB_IMAGE_PULL_SECRET="name: '$secret'"
+            export KUBEDB_IMAGE_PULL_SECRET_NAME=$(echo $1 | sed -e 's/^[^=]*=//g')
             shift
             ;;
         --enable-validating-webhook*)
@@ -366,6 +365,11 @@ while test $# -gt 0; do
             ;;
     esac
 done
+
+export KUBEDB_IMAGE_PULL_SECRET=
+if [ -n "$KUBEDB_IMAGE_PULL_SECRET_NAME" ]; then
+    export KUBEDB_IMAGE_PULL_SECRET="name: '$KUBEDB_IMAGE_PULL_SECRET_NAME'"
+fi
 
 export PROMETHEUS_NAMESPACE=${PROMETHEUS_NAMESPACE:-$KUBEDB_NAMESPACE}
 
