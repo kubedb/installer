@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        k8s: [v1.12.10, v1.13.10, v1.14.6, v1.15.3, v1.16.2]
+        k8s: [v1.12.10, v1.13.10, v1.14.6, v1.15.3, v1.16.3]
     steps:
 
     - name: Check out code into the Go module directory
@@ -30,6 +30,7 @@ jobs:
       id: kind
       uses: engineerd/setup-kind@v0.1.0
       with:
+        version: v0.6.1
         config: hack/kubernetes/kind.yaml
         image: kindest/node:${{ matrix.k8s }}
 
@@ -40,11 +41,11 @@ jobs:
         USERNAME: 1gtm
         REGISTRY_SECRET: regcred
       run: |
-        export KUBECONFIG="$(kind get kubeconfig-path)"
-        echo
         echo "waiting for nodes to be ready ..."
         kubectl wait --for=condition=Ready nodes --all --timeout=5m
         kubectl get nodes
+        echo
+        kubectl version
         echo
         echo "installing local-path provisioner ..."
         kubectl delete storageclass --all
@@ -57,25 +58,24 @@ jobs:
 
     - name: Test charts
       run: |
-        export KUBECONFIG="$(kind get kubeconfig-path)"
         make ct TEST_CHARTS=charts/kubedb
         echo
-        kubectl apply -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_elasticsearchversions.yaml
-        kubectl apply -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_etcdversions.yaml
-        kubectl apply -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_memcachedversions.yaml
-        kubectl apply -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_mongodbversions.yaml
-        kubectl apply -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_mysqlversions.yaml
-        kubectl apply -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_perconaxtradbversions.yaml
-        kubectl apply -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_pgbouncerversions.yaml
-        kubectl apply -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_postgresversions.yaml
-        kubectl apply -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_proxysqlversions.yaml
-        kubectl apply -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_redisversions.yaml
+        kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_elasticsearchversions.yaml
+        kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_etcdversions.yaml
+        kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_memcachedversions.yaml
+        kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_mongodbversions.yaml
+        kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_mysqlversions.yaml
+        kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_perconaxtradbversions.yaml
+        kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_pgbouncerversions.yaml
+        kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_postgresversions.yaml
+        kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_proxysqlversions.yaml
+        kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_redisversions.yaml
         kubectl wait --for=condition=NamesAccepted crds --all --timeout=5m
         make ct TEST_CHARTS=charts/kubedb-catalog
+        kubectl delete crd --all
 
     - name: Test script installer
       run: |
-        export KUBECONFIG="$(kind get kubeconfig-path)"
         echo "installing operator"
         ./deploy/kubedb.sh
         echo
