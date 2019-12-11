@@ -50,14 +50,14 @@ type ImageRef struct {
 
 // KubeDBOperatorSpec is the spec for redis version
 type KubeDBOperatorSpec struct {
-	ReplicaCount    int               `json:"replicaCount"`
+	ReplicaCount    int32             `json:"replicaCount"`
 	KubeDB          ImageRef          `json:"kubedb"`
 	Cleaner         ImageRef          `json:"cleaner"`
 	ImagePullPolicy string            `json:"imagePullPolicy"`
-	CriticalAddon   bool              `json:"criticalAddon"`
-	LogLevel        int               `json:"logLevel"`
-	Annotations     map[string]string `json:"annotations"`
-	NodeSelector    map[string]string `json:"nodeSelector"`
+	CriticalAddon   bool              `json:"criticalAddon,omitempty"`
+	LogLevel        int32             `json:"logLevel"`
+	Annotations     map[string]string `json:"annotations,omitempty"`
+	NodeSelector    map[string]string `json:"nodeSelector,omitempty"`
 	// If specified, the pod's tolerations.
 	// +optional
 	Tolerations []core.Toleration `json:"tolerations,omitempty"`
@@ -79,26 +79,26 @@ type ServiceAccountSpec struct {
 }
 
 type WebHookSpec struct {
-	GroupPriorityMinimum        int             `json:"groupPriorityMinimum"`
-	VersionPriority             int             `json:"versionPriority"`
+	GroupPriorityMinimum        int32           `json:"groupPriorityMinimum"`
+	VersionPriority             int32           `json:"versionPriority"`
 	EnableMutatingWebhook       bool            `json:"enableMutatingWebhook"`
 	EnableValidatingWebhook     bool            `json:"enableValidatingWebhook"`
-	Ca                          string          `json:"ca"`
-	BypassValidatingWebhookXray bool            `json:"bypassValidatingWebhookXray"`
+	CA                          string          `json:"ca"`
+	BypassValidatingWebhookXray bool            `json:"bypassValidatingWebhookXray,omitempty"`
 	UseKubeapiserverFqdnForAks  bool            `json:"useKubeapiserverFqdnForAks"`
 	Healthcheck                 HealthcheckSpec `json:"healthcheck"`
-	Port int `json:"port"`
+	Port                        int32           `json:"port"`
 }
 
 type HealthcheckSpec struct {
-	Enabled bool `json:"enabled"`
+	Enabled bool `json:"enabled,omitempty"`
 }
 
 type Monitoring struct {
-	Enabled    bool   `json:"enabled"`
-	Agent          string               `json:"agent"`
-	Prometheus     PrometheusSpec       `json:"prometheus"`
-	ServiceMonitor ServiceMonitorLabels `json:"serviceMonitor"`
+	Enabled        bool                  `json:"enabled"`
+	Agent          string                `json:"agent"`
+	Prometheus     *PrometheusSpec       `json:"prometheus"`
+	ServiceMonitor *ServiceMonitorLabels `json:"serviceMonitor"`
 }
 
 type PrometheusSpec struct {
