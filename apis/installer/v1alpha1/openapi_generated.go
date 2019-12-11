@@ -15483,7 +15483,6 @@ func schema_installer_apis_installer_v1alpha1_HealthcheckSpec(ref common.Referen
 						},
 					},
 				},
-				Required: []string{"enabled"},
 			},
 		},
 	}
@@ -15734,7 +15733,7 @@ func schema_installer_apis_installer_v1alpha1_KubeDBOperatorSpec(ref common.Refe
 						},
 					},
 				},
-				Required: []string{"replicaCount", "kubedb", "cleaner", "imagePullPolicy", "criticalAddon", "logLevel", "annotations", "nodeSelector", "serviceAccount", "apiserver", "enableAnalytics", "monitoring", "additionalPodSecurityPolicies"},
+				Required: []string{"replicaCount", "kubedb", "cleaner", "imagePullPolicy", "logLevel", "serviceAccount", "apiserver", "enableAnalytics", "monitoring", "additionalPodSecurityPolicies"},
 			},
 		},
 		Dependencies: []string{
@@ -15910,7 +15909,7 @@ func schema_installer_apis_installer_v1alpha1_WebHookSpec(ref common.ReferenceCa
 						},
 					},
 				},
-				Required: []string{"groupPriorityMinimum", "versionPriority", "enableMutatingWebhook", "enableValidatingWebhook", "ca", "bypassValidatingWebhookXray", "useKubeapiserverFqdnForAks", "healthcheck", "port"},
+				Required: []string{"groupPriorityMinimum", "versionPriority", "enableMutatingWebhook", "enableValidatingWebhook", "ca", "useKubeapiserverFqdnForAks", "healthcheck", "port"},
 			},
 		},
 		Dependencies: []string{

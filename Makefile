@@ -49,7 +49,7 @@ endif
 ### These variables should not need tweaking.
 ###
 
-SRC_DIRS := # directories which hold app source (not vendored)
+SRC_DIRS := api apis hack/gencrd # directories which hold app source (not vendored)
 
 DOCKER_PLATFORMS := linux/amd64 linux/arm linux/arm64
 BIN_PLATFORMS    := $(DOCKER_PLATFORMS)
