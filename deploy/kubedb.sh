@@ -149,7 +149,6 @@ onessl_found || {
 
 export KUBEDB_NAMESPACE=kube-system
 export KUBEDB_SERVICE_ACCOUNT=kubedb-operator
-export KUBEDB_ENABLE_RBAC=true
 export KUBEDB_RUN_ON_MASTER=0
 export KUBEDB_ENABLE_VALIDATING_WEBHOOK=false
 export KUBEDB_ENABLE_MUTATING_WEBHOOK=false
@@ -200,7 +199,6 @@ show_help() {
     echo "options:"
     echo "-h, --help                             show brief help"
     echo "-n, --namespace=NAMESPACE              specify namespace (default: kube-system)"
-    echo "    --rbac                             create RBAC roles and bindings (default: true)"
     echo "    --docker-registry                  docker registry used to pull KubeDB operator images (default: kubedb)"
     echo "    --catalog-registry                 docker registry used to pull KubeDB catalog images (default: kubedb)"
     echo "    --image-pull-secret                name of secret used to pull KubeDB operator images"
@@ -295,14 +293,6 @@ while test $# -gt 0; do
             val=$(echo $1 | sed -e 's/^[^=]*=//g')
             if [ "$val" = "false" ]; then
                 export KUBEDB_CATALOG=false
-            fi
-            shift
-            ;;
-        --rbac*)
-            val=$(echo $1 | sed -e 's/^[^=]*=//g')
-            if [ "$val" = "false" ]; then
-                export KUBEDB_SERVICE_ACCOUNT=default
-                export KUBEDB_ENABLE_RBAC=false
             fi
             shift
             ;;
@@ -480,12 +470,10 @@ export TLS_SERVING_KEY=$(cat server.key | $ONESSL base64)
 
 ${SCRIPT_LOCATION}deploy/operator.yaml | $ONESSL envsubst | kubectl apply -f -
 
-if [ "$KUBEDB_ENABLE_RBAC" = true ]; then
-    ${SCRIPT_LOCATION}deploy/service-account.yaml | $ONESSL envsubst | kubectl apply -f -
-    ${SCRIPT_LOCATION}deploy/rbac-list.yaml | $ONESSL envsubst | kubectl auth reconcile -f -
-    ${SCRIPT_LOCATION}deploy/user-roles.yaml | $ONESSL envsubst | kubectl auth reconcile -f -
-    ${SCRIPT_LOCATION}deploy/appcatalog-user-roles.yaml | $ONESSL envsubst | kubectl auth reconcile -f -
-fi
+${SCRIPT_LOCATION}deploy/service-account.yaml | $ONESSL envsubst | kubectl apply -f -
+${SCRIPT_LOCATION}deploy/rbac-list.yaml | $ONESSL envsubst | kubectl auth reconcile -f -
+${SCRIPT_LOCATION}deploy/user-roles.yaml | $ONESSL envsubst | kubectl auth reconcile -f -
+${SCRIPT_LOCATION}deploy/appcatalog-user-roles.yaml | $ONESSL envsubst | kubectl auth reconcile -f -
 
 echo "Applying Pod Security Policies"
 ${SCRIPT_LOCATION}deploy/psp/operator.yaml | $ONESSL envsubst | kubectl apply -f -
