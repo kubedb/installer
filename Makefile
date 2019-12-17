@@ -61,9 +61,9 @@ ARCH := $(if $(GOARCH),$(GOARCH),$(shell go env GOARCH))
 BASEIMAGE_PROD   ?= gcr.io/distroless/static
 BASEIMAGE_DBG    ?= debian:stretch
 
-GO_VERSION       ?= 1.13.4
+GO_VERSION       ?= 1.13.5
 BUILD_IMAGE      ?= appscode/golang-dev:$(GO_VERSION)
-CHART_TEST_IMAGE ?= quay.io/helmpack/chart-testing:v2.4.0
+CHART_TEST_IMAGE ?= quay.io/helmpack/chart-testing:v3.0.0-beta.1
 
 OUTBIN = bin/$(OS)_$(ARCH)/$(BIN)
 ifeq ($(OS),windows)
@@ -280,6 +280,14 @@ unit-tests: $(BUILD_DIRS)
 	        ./hack/test.sh $(SRC_DIRS)                          \
 	    "
 
+TEST_CHARTS ?=
+
+ifeq ($(strip $(TEST_CHARTS)),)
+	CT_ARGS = --all
+else
+	CT_ARGS = --charts=$(TEST_CHARTS)
+endif
+
 .PHONY: ct
 ct: $(BUILD_DIRS)
 	@docker run                                                 \
@@ -298,13 +306,7 @@ ct: $(BUILD_DIRS)
 	    --env HTTPS_PROXY=$(HTTPS_PROXY)                        \
 	    --env KUBECONFIG=$(subst $(HOME),,$(KUBECONFIG))        \
 	    $(CHART_TEST_IMAGE)                                     \
-	    /bin/sh -c "                                            \
-			kubectl -n kube-system create sa tiller;            \
-			kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller;   \
-			helm init --service-account tiller;                 \
-			kubectl wait --for=condition=Ready pods -n kube-system --all --timeout=5m;  \
-			ct lint-and-install --all;                          \
-		"
+	    ct lint-and-install --debug $(CT_ARGS)
 
 ADDTL_LINTERS   := goconst,gofmt,goimports,unparam
 
