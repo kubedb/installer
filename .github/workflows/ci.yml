@@ -28,7 +28,7 @@ jobs:
 
     - name: Run checks
       run: |
-        sudo apt-get -qq update
+        sudo apt-get -qq update || true
         sudo apt-get install -y bzr
         make ci
 
@@ -64,7 +64,11 @@ jobs:
 
     - name: Test charts
       run: |
+        export KUBECONFIG="$(kind get kubeconfig-path)"
         make ct TEST_CHARTS=charts/kubedb
+        echo
+        kubectl delete crds -l app=kubedb
+        sleep 10
         echo
         kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_elasticsearchversions.yaml
         kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_etcdversions.yaml
@@ -78,15 +82,3 @@ jobs:
         kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_redisversions.yaml
         kubectl wait --for=condition=NamesAccepted crds --all --timeout=5m
         make ct TEST_CHARTS=charts/kubedb-catalog
-        kubectl delete crd --all
-
-    - name: Test script installer
-      run: |
-        echo "installing operator"
-        ./deploy/kubedb.sh
-        echo
-        echo "uninstalling operator"
-        ./deploy/kubedb.sh --uninstall
-        echo
-        echo "purging operator"
-        ./deploy/kubedb.sh --uninstall --purge
