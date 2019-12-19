@@ -17,27 +17,29 @@
 set -eou pipefail
 
 crds=(
-    dormantdatabases.kubedb.com
-    elasticsearches.kubedb.com
-    etcds.kubedb.com
-    memcacheds.kubedb.com
-    mongodbs.kubedb.com
-    mysqls.kubedb.com
-    perconaxtradbs.kubedb.com
-    postgreses.kubedb.com
-    pgbouncers.kubedb.com
-    redises.kubedb.com
-    snapshots.kubedb.com
-    elasticsearchversions.catalog.kubedb.com
-    etcdversions.catalog.kubedb.com
-    memcachedversions.catalog.kubedb.com
-    mongodbversions.catalog.kubedb.com
-    mysqlversions.catalog.kubedb.com
-    perconaxtradbversions.catalog.kubedb.com
-    postgresversions.catalog.kubedb.com
-    pgbouncerversions.catalog.kubedb.com
-    redisversions.catalog.kubedb.com
-    appbindings.appcatalog.appscode.com
+  dormantdatabases.kubedb.com
+  elasticsearches.kubedb.com
+  etcds.kubedb.com
+  memcacheds.kubedb.com
+  mongodbs.kubedb.com
+  mysqls.kubedb.com
+  perconaxtradbs.kubedb.com
+  postgreses.kubedb.com
+  pgbouncers.kubedb.com
+  redises.kubedb.com
+  snapshots.kubedb.com
+  proxysqls.kubedb.com
+  elasticsearchversions.catalog.kubedb.com
+  etcdversions.catalog.kubedb.com
+  memcachedversions.catalog.kubedb.com
+  mongodbversions.catalog.kubedb.com
+  mysqlversions.catalog.kubedb.com
+  perconaxtradbversions.catalog.kubedb.com
+  postgresversions.catalog.kubedb.com
+  pgbouncerversions.catalog.kubedb.com
+  redisversions.catalog.kubedb.com
+  appbindings.appcatalog.appscode.com
+  proxysqlversions.catalog.kubedb.com
 )
 apiServices=(v1alpha1.validators v1alpha1.mutators)
 
@@ -557,6 +559,11 @@ if [ "$KUBEDB_CATALOG" = "all" ] || [ "$KUBEDB_CATALOG" = "percona-xtradb" ]; th
     ${SCRIPT_LOCATION}deploy/kubedb-catalog/percona-xtradb.yaml | $ONESSL envsubst | kubectl apply -f -
 fi
 
+if [ "$KUBEDB_CATALOG" = "all" ] || [ "$KUBEDB_CATALOG" = "percona-xtradb" ]; then
+  echo "installing KubeDB PerconaXtraDB catalog"
+  ${SCRIPT_LOCATION}deploy/kubedb-catalog/percona-xtradb.yaml | $ONESSL envsubst | kubectl apply -f -
+fi
+
 if [ "$KUBEDB_CATALOG" = "all" ] || [ "$KUBEDB_CATALOG" = "postgres" ]; then
     echo "installing KubeDB Postgres catalog"
     ${SCRIPT_LOCATION}deploy/kubedb-catalog/postgres.yaml | $ONESSL envsubst | kubectl apply -f -
@@ -568,8 +575,13 @@ if [ "$KUBEDB_CATALOG" = "all" ] || [ "$KUBEDB_CATALOG" = "redis" ]; then
 fi
 
 if [ "$KUBEDB_CATALOG" = "all" ] || [ "$KUBEDB_CATALOG" = "pgbouncer" ]; then
-    echo "installing KubeDB PgBouncer catalog"
-    ${SCRIPT_LOCATION}deploy/kubedb-catalog/pgbouncer.yaml | $ONESSL envsubst | kubectl apply -f -
+  echo "installing KubeDB PgBouncer catalog"
+  ${SCRIPT_LOCATION}deploy/kubedb-catalog/pgbouncer.yaml | $ONESSL envsubst | kubectl apply -f -
+fi
+
+if [ "$KUBEDB_CATALOG" = "all" ] || [ "$KUBEDB_CATALOG" = "proxysql" ]; then
+  echo "installing KubeDB ProxySQL catalog"
+  ${SCRIPT_LOCATION}deploy/kubedb-catalog/proxysql.yaml | $ONESSL envsubst | kubectl apply -f -
 fi
 
 if [ "$KUBEDB_ENABLE_VALIDATING_WEBHOOK" = true ]; then
