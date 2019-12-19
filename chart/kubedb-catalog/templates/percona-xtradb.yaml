@@ -1,0 +1,20 @@
+{{ if .Values.catalog.perconaxtradb }}
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PerconaXtraDBVersion
+metadata:
+  name: "5.7"
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  version: "5.7"
+  db:
+    image: "{{ .Values.dockerRegistry }}"/percona-xtradb-cluster:5.7
+  exporter:
+    image: "{{ .Values.dockerRegistry }}"/mysqld-exporter:v0.11.0
+  initContainer:
+    image: "{{ .Values.dockerRegistry }}"/busybox
+  podSecurityPolicies:
+    databasePolicyName: percona-xtradb-db
+
+{{ end }}
