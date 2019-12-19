@@ -60,6 +60,22 @@ webhooks:
 {{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
 {{- end }}
+- name: perconaxtradb.mutators.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/mutators.kubedb.com/v1alpha1/perconaxtradbmutators
+    caBundle: {{ b64enc .Values.apiserver.ca }}
+  rules:
+  - apiGroups: ["kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["perconaxtradbs"]
+    operations: ["CREATE", "UPDATE"]
+  failurePolicy: Fail
+{{- if and (ge $major 1) (ge $minor 12) }}
+  sideEffects: None
+{{- end }}
 - name: mongodb.mutators.kubedb.com
   clientConfig:
     service:

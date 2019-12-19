@@ -60,6 +60,22 @@ webhooks:
 {{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
 {{- end }}
+- name: perconaxtradb.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.kubedb.com/v1alpha1/perconaxtradbvalidators
+    caBundle: {{ b64enc .Values.apiserver.ca }}
+  rules:
+  - apiGroups: ["kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["perconaxtradbs"]
+    operations: ["CREATE", "UPDATE", "DELETE"]
+  failurePolicy: Fail
+{{- if and (ge $major 1) (ge $minor 12) }}
+  sideEffects: None
+{{- end }}
 - name: mongodb.validators.kubedb.com
   clientConfig:
     service:
