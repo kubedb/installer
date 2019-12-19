@@ -12,6 +12,7 @@ metadata:
     "helm.sh/hook": post-install,post-upgrade
     "helm.sh/hook-delete-policy": before-hook-creation
 webhooks:
+{{- if or (eq .Values.kubedb.repository "operator") (eq .Values.kubedb.repository "kubedb-operator") (eq .Values.kubedb.repository "es-operator") }}
 - name: elasticsearch.mutators.kubedb.com
   clientConfig:
     service:
@@ -28,6 +29,8 @@ webhooks:
 {{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
 {{- end }}
+{{- end }}
+{{- if or (eq .Values.kubedb.repository "operator") (eq .Values.kubedb.repository "kubedb-operator") (eq .Values.kubedb.repository "pg-operator") }}
 - name: postgres.mutators.kubedb.com
   clientConfig:
     service:
@@ -44,6 +47,8 @@ webhooks:
 {{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
 {{- end }}
+{{- end }}
+{{- if or (eq .Values.kubedb.repository "operator") (eq .Values.kubedb.repository "kubedb-operator") (eq .Values.kubedb.repository "my-operator") }}
 - name: mysql.mutators.kubedb.com
   clientConfig:
     service:
@@ -60,6 +65,8 @@ webhooks:
 {{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
 {{- end }}
+{{- end }}
+{{- if or (eq .Values.kubedb.repository "operator") (eq .Values.kubedb.repository "kubedb-operator") (eq .Values.kubedb.repository "percona-xtradb-operator") }}
 - name: perconaxtradb.mutators.kubedb.com
   clientConfig:
     service:
@@ -76,6 +83,8 @@ webhooks:
 {{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
 {{- end }}
+{{- end }}
+{{- if or (eq .Values.kubedb.repository "operator") (eq .Values.kubedb.repository "kubedb-operator") (eq .Values.kubedb.repository "mg-operator") }}
 - name: mongodb.mutators.kubedb.com
   clientConfig:
     service:
@@ -92,6 +101,8 @@ webhooks:
 {{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
 {{- end }}
+{{- end }}
+{{- if or (eq .Values.kubedb.repository "operator") (eq .Values.kubedb.repository "kubedb-operator") (eq .Values.kubedb.repository "rd-operator") }}
 - name: redis.mutators.kubedb.com
   clientConfig:
     service:
@@ -108,6 +119,8 @@ webhooks:
 {{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
 {{- end }}
+{{- end }}
+{{- if or (eq .Values.kubedb.repository "operator") (eq .Values.kubedb.repository "kubedb-operator") (eq .Values.kubedb.repository "mc-operator") }}
 - name: memcached.mutators.kubedb.com
   clientConfig:
     service:
@@ -124,6 +137,8 @@ webhooks:
 {{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
 {{- end }}
+{{- end }}
+{{- if or (eq .Values.kubedb.repository "operator") (eq .Values.kubedb.repository "kubedb-operator") (eq .Values.kubedb.repository "etcd-operator") }}
 - name: etcd.mutators.kubedb.com
   clientConfig:
     service:
@@ -140,6 +155,8 @@ webhooks:
 {{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
 {{- end }}
+{{- end }}
+{{- if or (eq .Values.kubedb.repository "operator") (eq .Values.kubedb.repository "kubedb-operator") (eq .Values.kubedb.repository "proxysql-operator") }}
 - name: proxysql.mutators.kubedb.com
   clientConfig:
     service:
@@ -148,12 +165,13 @@ webhooks:
       path: /apis/mutators.kubedb.com/v1alpha1/proxysqlmutators
     caBundle: {{ b64enc .Values.apiserver.ca }}
   rules:
-    - apiGroups: ["kubedb.com"]
-      apiVersions: ["*"]
-      resources: ["proxysqls"]
-      operations: ["CREATE", "UPDATE"]
+  - apiGroups: ["kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["proxysqls"]
+    operations: ["CREATE", "UPDATE"]
   failurePolicy: Fail
-        {{- if and (ge $major 1) (ge $minor 12) }}
+{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-        {{- end }}
+{{- end }}
+{{- end }}
 {{ end }}
