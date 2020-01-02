@@ -1,4 +1,5 @@
 # KubeDB
+
 [KubeDB by AppsCode](https://github.com/kubedb/installer) - Making running production-grade databases easy on Kubernetes
 
 ## TL;DR;
@@ -6,7 +7,7 @@
 ```console
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm install appscode/kubedb
+$ helm install appscode/kubedb -n kube-system
 ```
 
 ## Introduction
@@ -15,13 +16,14 @@ This chart bootstraps a [KubeDB controller](https://github.com/kubedb/installer)
 
 ## Prerequisites
 
-- Kubernetes 1.9+
+- Kubernetes 1.12+
 
 ## Installing the Chart
+
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install appscode/kubedb --name my-release
+$ helm install my-release appscode/kubedb -n kube-system
 ```
 
 The command deploys KubeDB operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -33,7 +35,7 @@ The command deploys KubeDB operator on the Kubernetes cluster in the default con
 To uninstall/delete the `my-release`:
 
 ```console
-$ helm delete my-release
+$ helm delete my-release -n kube-system
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
@@ -83,12 +85,12 @@ The following table lists the configurable parameters of the KubeDB chart and th
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
 
 ```console
-$ helm install --name my-release --set image.tag=v0.2.1 appscode/kubedb
+$ helm install my-release appscode/kubedb -n kube-system --set image.tag=v0.2.1
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```console
-$ helm install --name my-release --values values.yaml appscode/kubedb
+$ helm install my-release appscode/kubedb -n kube-system --values values.yaml
 ```

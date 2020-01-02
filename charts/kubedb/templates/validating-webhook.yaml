@@ -1,6 +1,3 @@
-# GKE returns Major:"1", Minor:"10+"
-{{- $major := default "0" .Capabilities.KubeVersion.Major | trimSuffix "+" | int64 }}
-{{- $minor := default "0" .Capabilities.KubeVersion.Minor | trimSuffix "+" | int64 }}
 {{- if .Values.apiserver.enableValidatingWebhook }}
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: ValidatingWebhookConfiguration
@@ -26,9 +23,7 @@ webhooks:
     resources: ["elasticsearches"]
     operations: ["CREATE", "UPDATE", "DELETE"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 {{- end }}
 {{- if or (eq .Values.kubedb.repository "operator") (eq .Values.kubedb.repository "kubedb-operator") (eq .Values.kubedb.repository "pg-operator") }}
 - name: postgres.validators.kubedb.com
@@ -44,9 +39,7 @@ webhooks:
     resources: ["postgreses"]
     operations: ["CREATE", "UPDATE", "DELETE"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 {{- end }}
 {{- if or (eq .Values.kubedb.repository "operator") (eq .Values.kubedb.repository "kubedb-operator") (eq .Values.kubedb.repository "my-operator") }}
 - name: mysql.validators.kubedb.com
@@ -62,9 +55,7 @@ webhooks:
     resources: ["mysqls"]
     operations: ["CREATE", "UPDATE", "DELETE"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 {{- end }}
 {{- if or (eq .Values.kubedb.repository "operator") (eq .Values.kubedb.repository "kubedb-operator") (eq .Values.kubedb.repository "percona-xtradb-operator") }}
 - name: perconaxtradb.validators.kubedb.com
@@ -80,9 +71,7 @@ webhooks:
     resources: ["perconaxtradbs"]
     operations: ["CREATE", "UPDATE", "DELETE"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 {{- end }}
 {{- if or (eq .Values.kubedb.repository "operator") (eq .Values.kubedb.repository "kubedb-operator") (eq .Values.kubedb.repository "mg-operator") }}
 - name: mongodb.validators.kubedb.com
@@ -98,9 +87,7 @@ webhooks:
     resources: ["mongodbs"]
     operations: ["CREATE", "UPDATE", "DELETE"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 {{- end }}
 {{- if or (eq .Values.kubedb.repository "operator") (eq .Values.kubedb.repository "kubedb-operator") (eq .Values.kubedb.repository "rd-operator") }}
 - name: redis.validators.kubedb.com
@@ -116,9 +103,7 @@ webhooks:
     resources: ["redises"]
     operations: ["CREATE", "UPDATE", "DELETE"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 {{- end }}
 {{- if or (eq .Values.kubedb.repository "operator") (eq .Values.kubedb.repository "kubedb-operator") (eq .Values.kubedb.repository "mc-operator") }}
 - name: memcached.validators.kubedb.com
@@ -134,9 +119,7 @@ webhooks:
     resources: ["memcacheds"]
     operations: ["CREATE", "UPDATE", "DELETE"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 {{- end }}
 {{- if or (eq .Values.kubedb.repository "operator") (eq .Values.kubedb.repository "kubedb-operator") (eq .Values.kubedb.repository "etcd-operator") }}
 - name: etcd.validators.kubedb.com
@@ -152,9 +135,7 @@ webhooks:
     resources: ["etcds"]
     operations: ["CREATE", "UPDATE", "DELETE"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 {{- end }}
 {{- if or (eq .Values.kubedb.repository "operator") (eq .Values.kubedb.repository "kubedb-operator") (eq .Values.kubedb.repository "proxysql-operator") }}
 - name: proxysql.validators.kubedb.com
@@ -170,9 +151,7 @@ webhooks:
     resources: ["proxysqls"]
     operations: ["CREATE", "UPDATE", "DELETE"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 {{- end }}
 - name: snapshot.validators.kubedb.com
   clientConfig:
@@ -187,9 +166,7 @@ webhooks:
     resources: ["snapshots"]
     operations: ["CREATE", "UPDATE"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 - name: dormantdatabase.validators.kubedb.com
   clientConfig:
     service:
@@ -203,9 +180,7 @@ webhooks:
     resources: ["dormantdatabases"]
     operations: ["CREATE", "UPDATE", "DELETE"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 - name: namespace.validators.kubedb.com
   clientConfig:
     service:
@@ -219,7 +194,5 @@ webhooks:
     resources: ["namespaces"]
     operations: ["DELETE"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 {{ end }}
