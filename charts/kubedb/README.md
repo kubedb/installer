@@ -16,7 +16,7 @@ This chart bootstraps a [KubeDB controller](https://github.com/kubedb/installer)
 
 ## Prerequisites
 
-- Kubernetes 1.12+
+- Kubernetes 1.11+
 
 ## Installing the Chart
 
