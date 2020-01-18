@@ -156,6 +156,24 @@ webhooks:
   sideEffects: None
 {{- end }}
 {{- end }}
+{{- if or (eq .Values.kubedb.repository "operator") (eq .Values.kubedb.repository "kubedb-operator") (eq .Values.kubedb.repository "pgbouncer-operator") }}
+- name: pgbouncer.mutators.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/mutators.kubedb.com/v1alpha1/pgbouncermutators
+    caBundle: {{ b64enc .Values.apiserver.ca }}
+  rules:
+  - apiGroups: ["kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["pgbouncers"]
+    operations: ["CREATE", "UPDATE"]
+  failurePolicy: Fail
+{{- if and (ge $major 1) (ge $minor 12) }}
+  sideEffects: None
+{{- end }}
+{{- end }}
 {{- if or (eq .Values.kubedb.repository "operator") (eq .Values.kubedb.repository "kubedb-operator") (eq .Values.kubedb.repository "proxysql-operator") }}
 - name: proxysql.mutators.kubedb.com
   clientConfig:
