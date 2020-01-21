@@ -1,0 +1,16 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ template "kubedb.enterprisename" . }}
+  labels:
+    {{- include "kubedb.labels" . | nindent 4 }}
+rules:
+- apiGroups:
+  - cert-manager.io
+  resources:
+  - certificates
+  - issuers
+  - clusterissuers
+  - challenges
+  - orders
+  verbs: ["get", "list", "create", "delete", "patch", "update", "watch"]
