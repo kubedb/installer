@@ -339,6 +339,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/installer/apis/installer/v1alpha1.PrometheusSpec":       schema_installer_apis_installer_v1alpha1_PrometheusSpec(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.ServiceAccountSpec":   schema_installer_apis_installer_v1alpha1_ServiceAccountSpec(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.ServiceMonitorLabels": schema_installer_apis_installer_v1alpha1_ServiceMonitorLabels(ref),
+		"kubedb.dev/installer/apis/installer/v1alpha1.ServingCerts":         schema_installer_apis_installer_v1alpha1_ServingCerts(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.WebHookSpec":          schema_installer_apis_installer_v1alpha1_WebHookSpec(ref),
 	}
 }
@@ -15849,6 +15850,43 @@ func schema_installer_apis_installer_v1alpha1_ServiceMonitorLabels(ref common.Re
 	}
 }
 
+func schema_installer_apis_installer_v1alpha1_ServingCerts(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"generate": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"caCrt": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"serverCrt": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"serverKey": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"generate", "caCrt", "serverCrt", "serverKey"},
+			},
+		},
+	}
+}
+
 func schema_installer_apis_installer_v1alpha1_WebHookSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -15908,11 +15946,16 @@ func schema_installer_apis_installer_v1alpha1_WebHookSpec(ref common.ReferenceCa
 							Format: "int32",
 						},
 					},
+					"servingCerts": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubedb.dev/installer/apis/installer/v1alpha1.ServingCerts"),
+						},
+					},
 				},
-				Required: []string{"groupPriorityMinimum", "versionPriority", "enableMutatingWebhook", "enableValidatingWebhook", "ca", "useKubeapiserverFqdnForAks", "healthcheck", "port"},
+				Required: []string{"groupPriorityMinimum", "versionPriority", "enableMutatingWebhook", "enableValidatingWebhook", "ca", "useKubeapiserverFqdnForAks", "healthcheck", "port", "servingCerts"},
 			},
 		},
 		Dependencies: []string{
-			"kubedb.dev/installer/apis/installer/v1alpha1.HealthcheckSpec"},
+			"kubedb.dev/installer/apis/installer/v1alpha1.HealthcheckSpec", "kubedb.dev/installer/apis/installer/v1alpha1.ServingCerts"},
 	}
 }

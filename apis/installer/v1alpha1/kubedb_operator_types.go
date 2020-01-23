@@ -88,6 +88,14 @@ type WebHookSpec struct {
 	UseKubeapiserverFqdnForAks  bool            `json:"useKubeapiserverFqdnForAks"`
 	Healthcheck                 HealthcheckSpec `json:"healthcheck"`
 	Port                        int32           `json:"port"`
+	ServingCerts                ServingCerts    `json:"servingCerts"`
+}
+
+type ServingCerts struct {
+	Generate  bool   `json:"generate"`
+	CaCrt     string `json:"caCrt"`
+	ServerCrt string `json:"serverCrt"`
+	ServerKey string `json:"serverKey"`
 }
 
 type HealthcheckSpec struct {
