@@ -57,7 +57,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         ports:
-        - name: https
+        - name: operator
           containerPort: {{ .Values.apiserver.port }}
         volumeMounts:
         - mountPath: /var/serving-cert
@@ -66,19 +66,69 @@ spec:
         readinessProbe:
           httpGet:
             path: /healthz
-            port: https
+            port: operator
             scheme: HTTPS
           initialDelaySeconds: 5
         livenessProbe:
           httpGet:
             path: /healthz
-            port: https
+            port: operator
             scheme: HTTPS
           initialDelaySeconds: 15
           timeoutSeconds: 15
           {{- end }}
         resources:
         {{- toYaml .Values.resources | nindent 10 }}
+{{- if .Values.enterprise.enabled }}
+      - name: enterprise
+        image: {{ .Values.enterprise.registry }}/{{ .Values.enterprise.repository }}:{{ .Values.enterprise.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy  }}
+        args:
+        - run
+        - --v={{ .Values.logLevel }}
+        - --governing-service=kubedb
+        - --secure-port={{ .Values.enterprise.port }}
+        - --audit-log-path=-
+        - --tls-cert-file=/var/serving-cert/tls.crt
+        - --tls-private-key-file=/var/serving-cert/tls.key
+        - --enable-mutating-webhook={{ .Values.apiserver.enableMutatingWebhook }}
+        - --enable-validating-webhook={{ .Values.apiserver.enableValidatingWebhook }}
+        - --bypass-validating-webhook-xray={{ .Values.apiserver.bypassValidatingWebhookXray }}
+        - --use-kubeapiserver-fqdn-for-aks={{ .Values.apiserver.useKubeapiserverFqdnForAks }}
+        - --enable-analytics={{ .Values.enableAnalytics }}
+        env:
+        - name: MY_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: MY_POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        ports:
+        - name: enterprise
+          containerPort: {{ .Values.enterprise.port }}
+        volumeMounts:
+        - mountPath: /var/serving-cert
+          name: serving-cert
+        {{- if .Values.apiserver.healthcheck.enabled }}
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: enterprise
+            scheme: HTTPS
+          initialDelaySeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: enterprise
+            scheme: HTTPS
+          initialDelaySeconds: 15
+          timeoutSeconds: 15
+          {{- end }}
+        resources:
+        {{- toYaml .Values.resources | nindent 10 }}
+{{- end }}
       volumes:
       - name: serving-cert
         secret:
