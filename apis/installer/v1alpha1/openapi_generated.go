@@ -330,6 +330,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"k8s.io/apimachinery/pkg/runtime.Unknown":                           schema_k8sio_apimachinery_pkg_runtime_Unknown(ref),
 		"k8s.io/apimachinery/pkg/util/intstr.IntOrString":                   schema_apimachinery_pkg_util_intstr_IntOrString(ref),
 		"k8s.io/apimachinery/pkg/version.Info":                              schema_k8sio_apimachinery_pkg_version_Info(ref),
+		"kubedb.dev/installer/apis/installer/v1alpha1.EnterpriseOptions":    schema_installer_apis_installer_v1alpha1_EnterpriseOptions(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.HealthcheckSpec":      schema_installer_apis_installer_v1alpha1_HealthcheckSpec(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.ImageRef":             schema_installer_apis_installer_v1alpha1_ImageRef(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.KubeDBOperator":       schema_installer_apis_installer_v1alpha1_KubeDBOperator(ref),
@@ -15471,6 +15472,49 @@ func schema_k8sio_apimachinery_pkg_version_Info(ref common.ReferenceCallback) co
 	}
 }
 
+func schema_installer_apis_installer_v1alpha1_EnterpriseOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"registry": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"repository": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"tag": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"enabled": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"port": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+				},
+				Required: []string{"registry", "repository", "tag", "port"},
+			},
+		},
+	}
+}
+
 func schema_installer_apis_installer_v1alpha1_HealthcheckSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -15623,6 +15667,11 @@ func schema_installer_apis_installer_v1alpha1_KubeDBOperatorSpec(ref common.Refe
 							Ref: ref("kubedb.dev/installer/apis/installer/v1alpha1.ImageRef"),
 						},
 					},
+					"enterprise": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubedb.dev/installer/apis/installer/v1alpha1.EnterpriseOptions"),
+						},
+					},
 					"cleaner": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("kubedb.dev/installer/apis/installer/v1alpha1.ImageRef"),
@@ -15632,6 +15681,19 @@ func schema_installer_apis_installer_v1alpha1_KubeDBOperatorSpec(ref common.Refe
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"string"},
 							Format: "",
+						},
+					},
+					"imagePullSecrets": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
 						},
 					},
 					"criticalAddon": {
@@ -15734,11 +15796,11 @@ func schema_installer_apis_installer_v1alpha1_KubeDBOperatorSpec(ref common.Refe
 						},
 					},
 				},
-				Required: []string{"replicaCount", "kubedb", "cleaner", "imagePullPolicy", "logLevel", "serviceAccount", "apiserver", "enableAnalytics", "monitoring", "additionalPodSecurityPolicies"},
+				Required: []string{"replicaCount", "kubedb", "enterprise", "cleaner", "imagePullPolicy", "serviceAccount", "apiserver", "monitoring"},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.Affinity", "k8s.io/api/core/v1.ResourceRequirements", "k8s.io/api/core/v1.Toleration", "kubedb.dev/installer/apis/installer/v1alpha1.ImageRef", "kubedb.dev/installer/apis/installer/v1alpha1.Monitoring", "kubedb.dev/installer/apis/installer/v1alpha1.ServiceAccountSpec", "kubedb.dev/installer/apis/installer/v1alpha1.WebHookSpec"},
+			"k8s.io/api/core/v1.Affinity", "k8s.io/api/core/v1.ResourceRequirements", "k8s.io/api/core/v1.Toleration", "kubedb.dev/installer/apis/installer/v1alpha1.EnterpriseOptions", "kubedb.dev/installer/apis/installer/v1alpha1.ImageRef", "kubedb.dev/installer/apis/installer/v1alpha1.Monitoring", "kubedb.dev/installer/apis/installer/v1alpha1.ServiceAccountSpec", "kubedb.dev/installer/apis/installer/v1alpha1.WebHookSpec"},
 	}
 }
 
@@ -15771,7 +15833,7 @@ func schema_installer_apis_installer_v1alpha1_Monitoring(ref common.ReferenceCal
 						},
 					},
 				},
-				Required: []string{"enabled", "agent", "prometheus", "serviceMonitor"},
+				Required: []string{"agent", "prometheus", "serviceMonitor"},
 			},
 		},
 		Dependencies: []string{
@@ -15792,7 +15854,6 @@ func schema_installer_apis_installer_v1alpha1_PrometheusSpec(ref common.Referenc
 						},
 					},
 				},
-				Required: []string{"namespace"},
 			},
 		},
 	}
@@ -15817,7 +15878,7 @@ func schema_installer_apis_installer_v1alpha1_ServiceAccountSpec(ref common.Refe
 						},
 					},
 				},
-				Required: []string{"create", "name"},
+				Required: []string{"create"},
 			},
 		},
 	}
@@ -15844,7 +15905,6 @@ func schema_installer_apis_installer_v1alpha1_ServiceMonitorLabels(ref common.Re
 						},
 					},
 				},
-				Required: []string{"labels"},
 			},
 		},
 	}
@@ -15881,7 +15941,7 @@ func schema_installer_apis_installer_v1alpha1_ServingCerts(ref common.ReferenceC
 						},
 					},
 				},
-				Required: []string{"generate", "caCrt", "serverCrt", "serverKey"},
+				Required: []string{"generate"},
 			},
 		},
 	}

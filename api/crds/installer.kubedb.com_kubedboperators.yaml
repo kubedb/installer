@@ -652,10 +652,7 @@ spec:
                     serverKey:
                       type: string
                   required:
-                  - caCrt
                   - generate
-                  - serverCrt
-                  - serverKey
                   type: object
                 useKubeapiserverFqdnForAks:
                   type: boolean
@@ -690,8 +687,30 @@ spec:
               type: boolean
             enableAnalytics:
               type: boolean
+            enterprise:
+              properties:
+                enabled:
+                  type: boolean
+                port:
+                  type: integer
+                registry:
+                  type: string
+                repository:
+                  type: string
+                tag:
+                  type: string
+              required:
+              - port
+              - registry
+              - repository
+              - tag
+              type: object
             imagePullPolicy:
               type: string
+            imagePullSecrets:
+              items:
+                type: string
+              type: array
             kubedb:
               properties:
                 registry:
@@ -718,8 +737,6 @@ spec:
                   properties:
                     namespace:
                       type: string
-                  required:
-                  - namespace
                   type: object
                 serviceMonitor:
                   properties:
@@ -727,12 +744,9 @@ spec:
                       additionalProperties:
                         type: string
                       type: object
-                  required:
-                  - labels
                   type: object
               required:
               - agent
-              - enabled
               - prometheus
               - serviceMonitor
               type: object
@@ -769,7 +783,6 @@ spec:
                   type: string
               required:
               - create
-              - name
               type: object
             tolerations:
               description: If specified, the pod's tolerations.
@@ -812,13 +825,11 @@ spec:
                 type: object
               type: array
           required:
-          - additionalPodSecurityPolicies
           - apiserver
           - cleaner
-          - enableAnalytics
+          - enterprise
           - imagePullPolicy
           - kubedb
-          - logLevel
           - monitoring
           - replicaCount
           - serviceAccount

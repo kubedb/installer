@@ -11,6 +11,7 @@ require (
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/google/gofuzz v1.0.0
 	github.com/stretchr/testify v1.4.0 // indirect
+	github.com/yudai/gojsondiff v1.0.0
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	k8s.io/api v0.0.0-20191114100352-16d7abae0d2a
 	k8s.io/apiextensions-apiserver v0.0.0-20191114105449-027877536833
