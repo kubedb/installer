@@ -37,7 +37,7 @@ const (
 // +kubebuilder:object:root=true
 // +kubebuilder:resource:path=kubedboperators,singular=kubedboperator,categories={kubedb,appscode}
 type KubeDBOperator struct {
-	metav1.TypeMeta   `json:",inline,omitempty"`
+	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Spec              KubeDBOperatorSpec `json:"spec,omitempty"`
 }
@@ -48,43 +48,62 @@ type ImageRef struct {
 	Tag        string `json:"tag"`
 }
 
+type EnterpriseOptions struct {
+	ImageRef `json:",inline"`
+	//+optional
+	Enabled bool `json:"enabled"`
+	Port    int  `json:"port"`
+}
+
 // KubeDBOperatorSpec is the spec for redis version
 type KubeDBOperatorSpec struct {
 	ReplicaCount    int32             `json:"replicaCount"`
 	KubeDB          ImageRef          `json:"kubedb"`
+	Enterprise      EnterpriseOptions `json:"enterprise"`
 	Cleaner         ImageRef          `json:"cleaner"`
 	ImagePullPolicy string            `json:"imagePullPolicy"`
-	CriticalAddon   bool              `json:"criticalAddon,omitempty"`
-	LogLevel        int32             `json:"logLevel"`
-	Annotations     map[string]string `json:"annotations,omitempty"`
-	NodeSelector    map[string]string `json:"nodeSelector,omitempty"`
+	//+optional
+	ImagePullSecrets []string `json:"imagePullSecrets"`
+	// +optional
+	CriticalAddon bool `json:"criticalAddon"`
+	// +optional
+	LogLevel int32 `json:"logLevel"`
+	// +optional
+	Annotations map[string]string `json:"annotations"`
+	// +optional
+	NodeSelector map[string]string `json:"nodeSelector"`
 	// If specified, the pod's tolerations.
 	// +optional
-	Tolerations []core.Toleration `json:"tolerations,omitempty"`
+	Tolerations []core.Toleration `json:"tolerations"`
 	// If specified, the pod's scheduling constraints
 	// +optional
-	Affinity                      *core.Affinity     `json:"affinity,omitempty"`
-	ServiceAccount                ServiceAccountSpec `json:"serviceAccount"`
-	Apiserver                     WebHookSpec        `json:"apiserver"`
-	EnableAnalytics               bool               `json:"enableAnalytics"`
-	Monitoring                    Monitoring         `json:"monitoring"`
-	AdditionalPodSecurityPolicies []string           `json:"additionalPodSecurityPolicies"`
+	Affinity       *core.Affinity     `json:"affinity"`
+	ServiceAccount ServiceAccountSpec `json:"serviceAccount"`
+	Apiserver      WebHookSpec        `json:"apiserver"`
+	// +optional
+	EnableAnalytics bool       `json:"enableAnalytics"`
+	Monitoring      Monitoring `json:"monitoring"`
+	// +optional
+	AdditionalPodSecurityPolicies []string `json:"additionalPodSecurityPolicies"`
 	// Compute Resources required by the sidecar container.
-	Resources core.ResourceRequirements `json:"resources,omitempty"`
+	// +optional
+	Resources core.ResourceRequirements `json:"resources"`
 }
 
 type ServiceAccountSpec struct {
-	Create bool   `json:"create"`
-	Name   string `json:"name"`
+	Create bool `json:"create"`
+	// +optional
+	Name *string `json:"name"`
 }
 
 type WebHookSpec struct {
-	GroupPriorityMinimum        int32           `json:"groupPriorityMinimum"`
-	VersionPriority             int32           `json:"versionPriority"`
-	EnableMutatingWebhook       bool            `json:"enableMutatingWebhook"`
-	EnableValidatingWebhook     bool            `json:"enableValidatingWebhook"`
-	CA                          string          `json:"ca"`
-	BypassValidatingWebhookXray bool            `json:"bypassValidatingWebhookXray,omitempty"`
+	GroupPriorityMinimum    int32  `json:"groupPriorityMinimum"`
+	VersionPriority         int32  `json:"versionPriority"`
+	EnableMutatingWebhook   bool   `json:"enableMutatingWebhook"`
+	EnableValidatingWebhook bool   `json:"enableValidatingWebhook"`
+	CA                      string `json:"ca"`
+	// +optional
+	BypassValidatingWebhookXray bool            `json:"bypassValidatingWebhookXray"`
 	UseKubeapiserverFqdnForAks  bool            `json:"useKubeapiserverFqdnForAks"`
 	Healthcheck                 HealthcheckSpec `json:"healthcheck"`
 	Port                        int32           `json:"port"`
@@ -92,17 +111,22 @@ type WebHookSpec struct {
 }
 
 type ServingCerts struct {
-	Generate  bool   `json:"generate"`
-	CaCrt     string `json:"caCrt"`
+	Generate bool `json:"generate"`
+	// +optional
+	CaCrt string `json:"caCrt"`
+	// +optional
 	ServerCrt string `json:"serverCrt"`
+	// +optional
 	ServerKey string `json:"serverKey"`
 }
 
 type HealthcheckSpec struct {
-	Enabled bool `json:"enabled,omitempty"`
+	// +optional
+	Enabled bool `json:"enabled"`
 }
 
 type Monitoring struct {
+	// +optional
 	Enabled        bool                  `json:"enabled"`
 	Agent          string                `json:"agent"`
 	Prometheus     *PrometheusSpec       `json:"prometheus"`
@@ -110,10 +134,12 @@ type Monitoring struct {
 }
 
 type PrometheusSpec struct {
+	// +optional
 	Namespace string `json:"namespace"`
 }
 
 type ServiceMonitorLabels struct {
+	// +optional
 	Labels map[string]string `json:"labels"`
 }
 
