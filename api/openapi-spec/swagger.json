@@ -866,6 +866,33 @@
     }
   },
   "definitions": {
+    "dev.kubedb.installer.apis.installer.v1alpha1.EnterpriseOptions": {
+      "type": "object",
+      "required": [
+        "registry",
+        "repository",
+        "tag",
+        "port"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "registry": {
+          "type": "string"
+        },
+        "repository": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "string"
+        }
+      }
+    },
     "dev.kubedb.installer.apis.installer.v1alpha1.HealthcheckSpec": {
       "type": "object",
       "properties": {
@@ -956,14 +983,12 @@
       "required": [
         "replicaCount",
         "kubedb",
+        "enterprise",
         "cleaner",
         "imagePullPolicy",
-        "logLevel",
         "serviceAccount",
         "apiserver",
-        "enableAnalytics",
-        "monitoring",
-        "additionalPodSecurityPolicies"
+        "monitoring"
       ],
       "properties": {
         "additionalPodSecurityPolicies": {
@@ -994,8 +1019,17 @@
         "enableAnalytics": {
           "type": "boolean"
         },
+        "enterprise": {
+          "$ref": "#/definitions/dev.kubedb.installer.apis.installer.v1alpha1.EnterpriseOptions"
+        },
         "imagePullPolicy": {
           "type": "string"
+        },
+        "imagePullSecrets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "kubedb": {
           "$ref": "#/definitions/dev.kubedb.installer.apis.installer.v1alpha1.ImageRef"
@@ -1036,7 +1070,6 @@
     "dev.kubedb.installer.apis.installer.v1alpha1.Monitoring": {
       "type": "object",
       "required": [
-        "enabled",
         "agent",
         "prometheus",
         "serviceMonitor"
@@ -1058,9 +1091,6 @@
     },
     "dev.kubedb.installer.apis.installer.v1alpha1.PrometheusSpec": {
       "type": "object",
-      "required": [
-        "namespace"
-      ],
       "properties": {
         "namespace": {
           "type": "string"
@@ -1070,8 +1100,7 @@
     "dev.kubedb.installer.apis.installer.v1alpha1.ServiceAccountSpec": {
       "type": "object",
       "required": [
-        "create",
-        "name"
+        "create"
       ],
       "properties": {
         "create": {
@@ -1084,9 +1113,6 @@
     },
     "dev.kubedb.installer.apis.installer.v1alpha1.ServiceMonitorLabels": {
       "type": "object",
-      "required": [
-        "labels"
-      ],
       "properties": {
         "labels": {
           "type": "object",
@@ -1099,10 +1125,7 @@
     "dev.kubedb.installer.apis.installer.v1alpha1.ServingCerts": {
       "type": "object",
       "required": [
-        "generate",
-        "caCrt",
-        "serverCrt",
-        "serverKey"
+        "generate"
       ],
       "properties": {
         "caCrt": {
