@@ -12,9 +12,6 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        k8s: [v1.11.10, v1.12.10, v1.13.10, v1.14.6, v1.15.3, v1.16.3, v1.17.0]
     steps:
 
     - name: Set up Go 1.13
@@ -32,11 +29,23 @@ jobs:
         sudo apt-get install -y bzr
         make ci
 
+  kubernetes:
+    name: Kubernetes
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      matrix:
+        k8s: [v1.11.10, v1.12.10, v1.13.10, v1.14.6, v1.15.3, v1.16.3, v1.17.0]
+    steps:
+
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v1
+
     - name: Create Kubernetes ${{ matrix.k8s }} cluster
       id: kind
       uses: engineerd/setup-kind@v0.1.0
       with:
-        version: v0.6.1
+        version: v0.7.0
         config: hack/kubernetes/kind.yaml
         image: kindest/node:${{ matrix.k8s }}
 
@@ -55,7 +64,7 @@ jobs:
         echo
         echo "installing local-path provisioner ..."
         kubectl delete storageclass --all
-        kubectl apply -f https://github.com/rancher/local-path-provisioner/raw/v0.0.11/deploy/local-path-storage.yaml
+        kubectl apply -f https://github.com/rancher/local-path-provisioner/raw/v0.0.12/deploy/local-path-storage.yaml
         kubectl wait --for=condition=Ready pods -n local-path-storage --all --timeout=5m
         kubectl apply -f hack/kubernetes/storageclass/standard.yaml
         echo
@@ -64,7 +73,7 @@ jobs:
 
     - name: Test charts
       run: |
-        export KUBECONFIG="$(kind get kubeconfig-path)"
+        export KUBECONFIG="${HOME}/.kube/config"
         make ct TEST_CHARTS=charts/kubedb
         echo
         kubectl delete crds -l app=kubedb
