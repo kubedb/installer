@@ -31,6 +31,25 @@ spec:
   caBundle: {{ $caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
+{{- if .Values.enterprise.enabled }}
+---
+apiVersion: apiregistration.k8s.io/v1beta1
+kind: APIService
+metadata:
+  name: v1alpha1.dbavalidators.kubedb.com
+  labels:
+    {{- include "kubedb.labels" . | nindent 4 }}
+spec:
+  group: dbavalidators.kubedb.com
+  version: v1alpha1
+  service:
+    namespace: {{ .Release.Namespace }}
+    name: {{ template "kubedb.fullname" . }}
+    port: enterprise
+  caBundle: {{ $caCrt }}
+  groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
+  versionPriority: {{ .Values.apiserver.versionPriority }}
+{{- end }}
 {{- end }}
 {{- if .Values.apiserver.enableMutatingWebhook }}
 ---
@@ -46,25 +65,6 @@ spec:
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ template "kubedb.fullname" . }}
-  caBundle: {{ $caCrt }}
-  groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
-  versionPriority: {{ .Values.apiserver.versionPriority }}
-{{- end }}
-{{- if and (.Values.apiserver.enableValidatingWebhook) (.Values.enterprise.enabled) }}
----
-apiVersion: apiregistration.k8s.io/v1beta1
-kind: APIService
-metadata:
-  name: v1alpha1.dbavalidators.kubedb.com
-  labels:
-    {{- include "kubedb.labels" . | nindent 4 }}
-spec:
-  group: dbavalidators.kubedb.com
-  version: v1alpha1
-  service:
-    namespace: {{ .Release.Namespace }}
-    name: {{ template "kubedb.fullname" . }}
-    port: 9443
   caBundle: {{ $caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
