@@ -203,8 +203,13 @@ gen-bindata:
 	    $(BUILD_IMAGE)                                          \
 	    go-bindata -ignore=\\.go -ignore=\\.DS_Store -mode=0644 -modtime=1573722179 -o bindata.go -pkg crds ./...
 
+.PHONY: gen-values-schema
+gen-values-schema:
+	@yq r api/crds/installer.kubedb.com_kubedboperators.yaml spec.validation.openAPIV3Schema.properties.spec > /tmp/kubedb-values.openapiv3_schema.yaml
+	@yq d /tmp/kubedb-values.openapiv3_schema.yaml description > charts/kubedb/values.openapiv3_schema.yaml
+
 .PHONY: manifests
-manifests: gen-crds patch-crds label-crds gen-bindata
+manifests: gen-crds patch-crds label-crds gen-bindata gen-values-schema
 
 .PHONY: gen
 gen: clientset openapi manifests
