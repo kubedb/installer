@@ -48,8 +48,18 @@ type ImageRef struct {
 	Tag        string `json:"tag"`
 }
 
-type EnterpriseOptions struct {
+type OperatorContainer struct {
 	ImageRef `json:",inline"`
+	// Compute Resources required by the sidecar container.
+	// +optional
+	Resources core.ResourceRequirements `json:"resources"`
+	// Security options the pod should run with.
+	// +optional
+	SecurityContext *core.SecurityContext `json:"securityContext"`
+}
+
+type EnterpriseContainer struct {
+	OperatorContainer `json:",inline"`
 	//+optional
 	Enabled bool `json:"enabled"`
 	Port    int  `json:"port"`
@@ -57,11 +67,15 @@ type EnterpriseOptions struct {
 
 // KubeDBOperatorSpec is the spec for redis version
 type KubeDBOperatorSpec struct {
-	ReplicaCount    int32             `json:"replicaCount"`
-	KubeDB          ImageRef          `json:"kubedb"`
-	Enterprise      EnterpriseOptions `json:"enterprise"`
-	Cleaner         ImageRef          `json:"cleaner"`
-	ImagePullPolicy string            `json:"imagePullPolicy"`
+	//+optional
+	NameOverride string `json:"nameOverride"`
+	//+optional
+	FullnameOverride string              `json:"fullnameOverride"`
+	ReplicaCount     int32               `json:"replicaCount"`
+	Operator         OperatorContainer   `json:"operator"`
+	Enterprise       EnterpriseContainer `json:"enterprise"`
+	Cleaner          ImageRef            `json:"cleaner"`
+	ImagePullPolicy  string              `json:"imagePullPolicy"`
 	//+optional
 	ImagePullSecrets []string `json:"imagePullSecrets"`
 	// +optional
@@ -77,23 +91,26 @@ type KubeDBOperatorSpec struct {
 	Tolerations []core.Toleration `json:"tolerations"`
 	// If specified, the pod's scheduling constraints
 	// +optional
-	Affinity       *core.Affinity     `json:"affinity"`
-	ServiceAccount ServiceAccountSpec `json:"serviceAccount"`
-	Apiserver      WebHookSpec        `json:"apiserver"`
+	Affinity *core.Affinity `json:"affinity"`
+	// PodSecurityContext holds pod-level security attributes and common container settings.
+	// Optional: Defaults to empty.  See type description for default values of each field.
+	// +optional
+	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext"`
+	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount"`
+	Apiserver          WebHookSpec              `json:"apiserver"`
 	// +optional
 	EnableAnalytics bool       `json:"enableAnalytics"`
 	Monitoring      Monitoring `json:"monitoring"`
 	// +optional
 	AdditionalPodSecurityPolicies []string `json:"additionalPodSecurityPolicies"`
-	// Compute Resources required by the sidecar container.
-	// +optional
-	Resources core.ResourceRequirements `json:"resources"`
 }
 
 type ServiceAccountSpec struct {
 	Create bool `json:"create"`
-	// +optional
+	//+optional
 	Name *string `json:"name"`
+	//+optional
+	Annotations map[string]string `json:"annotations"`
 }
 
 type WebHookSpec struct {

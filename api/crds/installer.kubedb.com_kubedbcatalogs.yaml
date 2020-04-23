@@ -1,0 +1,76 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  labels:
+    app: kubedb
+  name: kubedbcatalogs.installer.kubedb.com
+spec:
+  group: installer.kubedb.com
+  names:
+    categories:
+    - kubedb
+    - appscode
+    kind: KubeDBCatalog
+    listKind: KubeDBCatalogList
+    plural: kubedbcatalogs
+    singular: kubedbcatalog
+  preserveUnknownFields: false
+  scope: Namespaced
+  validation:
+    openAPIV3Schema:
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          description: KubeDBCatalogSpec is the spec for redis version
+          properties:
+            catalog:
+              properties:
+                elasticsearch:
+                  type: boolean
+                etcd:
+                  type: boolean
+                memcached:
+                  type: boolean
+                mongo:
+                  type: boolean
+                mysql:
+                  type: boolean
+                perconaxtradb:
+                  type: boolean
+                pgbouncer:
+                  type: boolean
+                postgres:
+                  type: boolean
+                proxysql:
+                  type: boolean
+                redis:
+                  type: boolean
+              type: object
+            dockerRegistry:
+              type: string
+            fullnameOverride:
+              type: string
+            nameOverride:
+              type: string
+          required:
+          - catalog
+          - dockerRegistry
+          type: object
+      type: object
+  version: v1alpha1
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true

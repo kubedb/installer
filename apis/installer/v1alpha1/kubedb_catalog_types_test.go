@@ -30,8 +30,8 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-func TestKubeDBOperatorDefaultValues(t *testing.T) {
-	diffstring, err := compareKubeDBOperatorDefaultValues()
+func TestKubeDBCatalogDefaultValues(t *testing.T) {
+	diffstring, err := compareKubeDBCatalogDefaultValues()
 	if err != nil {
 		t.Error(err)
 	}
@@ -40,8 +40,8 @@ func TestKubeDBOperatorDefaultValues(t *testing.T) {
 	}
 }
 
-func compareKubeDBOperatorDefaultValues() (string, error) {
-	data, err := ioutil.ReadFile("../../../charts/kubedb/values.yaml")
+func compareKubeDBCatalogDefaultValues() (string, error) {
+	data, err := ioutil.ReadFile("../../../charts/kubedb-catalog/values.yaml")
 	if err != nil {
 		return "", err
 	}
@@ -56,7 +56,7 @@ func compareKubeDBOperatorDefaultValues() (string, error) {
 		return "", err
 	}
 
-	var spec v1alpha1.KubeDBOperatorSpec
+	var spec v1alpha1.KubeDBCatalogSpec
 	err = yaml.Unmarshal(data, &spec)
 	if err != nil {
 		return "", err

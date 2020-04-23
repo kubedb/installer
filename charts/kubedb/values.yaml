@@ -2,18 +2,44 @@
 ## KubeDB chart configuration
 ##
 # Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: ""
+
 replicaCount: 1
 # Docker registry containing KubeDB images
-kubedb:
+operator:
   registry: kubedb
   repository: operator
   tag: v0.13.0-rc.0
+  resources: {}
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
 enterprise:
   enabled: false
   registry: kubedb
   repository: kubedb-enterprise-operator
   tag: b0e90f75_linux_amd64
   port: 9443
+  resources: {}
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
 cleaner:
   registry: appscode
   repository: kubectl
@@ -23,8 +49,7 @@ cleaner:
 ## Secrets must be manually created in the namespace.
 ## ref: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
 ## example: helm template charts/kubedb \
-##            --set imagePullSecrets[0]=abc \
-##            --set imagePullSecrets[1]=xyz
+##            --set imagePullSecrets[0].name=abc,imagePullSecrets[1].name=xyz
 imagePullSecrets: []
 
 ## Specify a imagePullPolicy
@@ -60,10 +85,14 @@ tolerations: []
 ##
 affinity: {}
 
+podSecurityContext: {}
+
 serviceAccount:
-  # Specifies whether a ServiceAccount should be created
+  # Specifies whether a service account should be created
   create: true
-  # The name of the ServiceAccount to use.
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name:
 
@@ -118,8 +147,3 @@ monitoring:
 #            --set additionalPodSecurityPolicies[0]=abc \
 #            --set additionalPodSecurityPolicies[1]=xyz
 additionalPodSecurityPolicies: []
-
-resources:
-  requests:
-    cpu: 100m
-    memory: 60Mi
