@@ -8,16 +8,38 @@ fullnameOverride: ""
 
 replicaCount: 1
 # Docker registry containing KubeDB images
-kubedb:
+operator:
   registry: kubedb
   repository: operator
   tag: v0.13.0-rc.0
+  resources: {}
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
 enterprise:
   enabled: false
   registry: kubedb
   repository: kubedb-enterprise-operator
   tag: b0e90f75_linux_amd64
   port: 9443
+  resources: {}
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
 cleaner:
   registry: appscode
   repository: kubectl
@@ -63,10 +85,14 @@ tolerations: []
 ##
 affinity: {}
 
+podSecurityContext: {}
+
 serviceAccount:
-  # Specifies whether a ServiceAccount should be created
+  # Specifies whether a service account should be created
   create: true
-  # The name of the ServiceAccount to use.
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name:
 
@@ -121,8 +147,3 @@ monitoring:
 #            --set additionalPodSecurityPolicies[0]=abc \
 #            --set additionalPodSecurityPolicies[1]=xyz
 additionalPodSecurityPolicies: []
-
-resources:
-  requests:
-    cpu: 100m
-    memory: 60Mi

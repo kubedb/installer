@@ -21,7 +21,7 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 
 {{- define "kubedb-catalog.labels" -}}
 chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
-app: "{{ template "kubedb-catalog.name" . }}"
+app: "{{ include "kubedb-catalog.name" . }}"
 release: {{ .Release.Name | quote}}
 heritage: "{{ .Release.Service }}"
 {{- end -}}

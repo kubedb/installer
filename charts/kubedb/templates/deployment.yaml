@@ -1,14 +1,18 @@
+{{- $major := default "0" .Capabilities.KubeVersion.Major | trimSuffix "+" | int64 }}
+{{- $minor := default "0" .Capabilities.KubeVersion.Minor | trimSuffix "+" | int64 }}
+{{- $criticalAddon := and .Values.criticalAddon (or (eq .Release.Namespace "kube-system") (and (ge $major 1) (ge $minor 17))) -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "kubedb.fullname" . }}
+  name: {{ include "kubedb.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "kubedb.labels" . | nindent 4 }}
-{{- if .Values.annotations }}
   annotations:
-{{ toYaml .Values.annotations | indent 4 }}
-{{- end }}
+    checksum/apiregistration.yaml: {{ include (print $.Template.BasePath "/apiregistration.yaml") . | sha256sum }}
+  {{- with .Values.annotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -17,21 +21,27 @@ spec:
   template:
     metadata:
       labels:
-        {{- include "kubedb.labels" . | nindent 8 }}
-{{- if or .Values.annotations (and .Values.criticalAddon (eq .Release.Namespace "kube-system")) }}
+        {{- include "kubedb.selectorLabels" . | nindent 8 }}
+    {{- if or .Values.annotations $criticalAddon }}
       annotations:
-{{- if and .Values.criticalAddon (eq .Release.Namespace "kube-system") }}
+      {{- if $criticalAddon }}
         scheduler.alpha.kubernetes.io/critical-pod: ''
-{{- end }}
-{{- if .Values.annotations }}
-{{ toYaml .Values.annotations | indent 8 }}
-{{- end }}
-{{- end }}
+      {{- end }}
+      {{- with .Values.annotations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- end }}
     spec:
-      serviceAccountName: {{ template "kubedb.serviceAccountName" . }}
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "kubedb.serviceAccountName" . }}
       containers:
       - name: operator
-        image: {{ .Values.kubedb.registry }}/{{ .Values.kubedb.repository }}:{{ .Values.kubedb.tag }}
+        securityContext:
+          {{- toYaml .Values.operator.securityContext | nindent 10 }}
+        image: {{ .Values.operator.registry }}/{{ .Values.operator.repository }}:{{ .Values.operator.tag }}
         imagePullPolicy: {{ .Values.imagePullPolicy  }}
         args:
         - run
@@ -61,7 +71,7 @@ spec:
         volumeMounts:
         - mountPath: /var/serving-cert
           name: serving-cert
-        {{- if .Values.apiserver.healthcheck.enabled }}
+      {{- if .Values.apiserver.healthcheck.enabled }}
         readinessProbe:
           httpGet:
             path: /healthz
@@ -75,11 +85,13 @@ spec:
             scheme: HTTPS
           initialDelaySeconds: 15
           timeoutSeconds: 15
-          {{- end }}
+      {{- end }}
         resources:
-        {{- toYaml .Values.resources | nindent 10 }}
-{{- if .Values.enterprise.enabled }}
+          {{- toYaml .Values.operator.resources | nindent 10 }}
+    {{- if .Values.enterprise.enabled }}
       - name: enterprise
+        securityContext:
+          {{- toYaml .Values.enterprise.securityContext | nindent 10 }}
         image: {{ .Values.enterprise.registry }}/{{ .Values.enterprise.repository }}:{{ .Values.enterprise.tag }}
         imagePullPolicy: {{ .Values.imagePullPolicy  }}
         args:
@@ -110,7 +122,7 @@ spec:
         volumeMounts:
         - mountPath: /var/serving-cert
           name: serving-cert
-        {{- if .Values.apiserver.healthcheck.enabled }}
+      {{- if .Values.apiserver.healthcheck.enabled }}
         readinessProbe:
           httpGet:
             path: /healthz
@@ -124,33 +136,35 @@ spec:
             scheme: HTTPS
           initialDelaySeconds: 15
           timeoutSeconds: 15
-          {{- end }}
+      {{- end }}
         resources:
-        {{- toYaml .Values.resources | nindent 10 }}
-{{- end }}
+          {{- toYaml .Values.enterprise.resources | nindent 10 }}
+    {{- end }}
       volumes:
       - name: serving-cert
         secret:
           defaultMode: 420
-          secretName: {{ template "kubedb.fullname" . }}-apiserver-cert
-{{- if or .Values.tolerations (and .Values.criticalAddon (eq .Release.Namespace "kube-system")) }}
+          secretName: {{ include "kubedb.fullname" . }}-apiserver-cert
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+    {{- if or .Values.tolerations $criticalAddon }}
       tolerations:
-{{- if .Values.tolerations }}
-{{ toYaml .Values.tolerations | indent 8 }}
-{{- end -}}
-{{- if and .Values.criticalAddon (eq .Release.Namespace "kube-system") }}
+      {{- with .Values.tolerations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if $criticalAddon }}
         - key: CriticalAddonsOnly
           operator: Exists
-{{- end -}}
-{{- end -}}
-{{- if .Values.affinity }}
+      {{- end -}}
+    {{- end -}}
+    {{- with .Values.affinity }}
       affinity:
-{{ toYaml .Values.affinity | indent 8 }}
-{{- end -}}
-{{- if .Values.nodeSelector }}
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.nodeSelector }}
       nodeSelector:
-{{ toYaml .Values.nodeSelector | indent 8 }}
-{{- end -}}
-{{- if and .Values.criticalAddon (eq .Release.Namespace "kube-system") }}
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- if $criticalAddon }}
       priorityClassName: system-cluster-critical
-{{- end -}}
+    {{- end -}}

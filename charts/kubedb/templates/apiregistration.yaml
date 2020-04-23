@@ -27,7 +27,7 @@ spec:
   version: v1alpha1
   service:
     namespace: {{ .Release.Namespace }}
-    name: {{ template "kubedb.fullname" . }}
+    name: {{ include "kubedb.fullname" . }}
   caBundle: {{ $caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
@@ -45,7 +45,7 @@ spec:
   version: v1alpha1
   service:
     namespace: {{ .Release.Namespace }}
-    name: {{ template "kubedb.fullname" . }}
+    name: {{ include "kubedb.fullname" . }}
   caBundle: {{ $caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
@@ -54,7 +54,7 @@ spec:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ template "kubedb.fullname" . }}-apiserver-cert
+  name: {{ include "kubedb.fullname" . }}-apiserver-cert
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "kubedb.labels" . | nindent 4 }}
@@ -70,7 +70,7 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ template "kubedb.fullname" . }}-apiserver-cert
+  name: {{ include "kubedb.fullname" . }}-apiserver-cert
   namespace: {{ $promNamespace }}
   labels:
     {{- include "kubedb.labels" . | nindent 4 }}
@@ -84,7 +84,7 @@ data:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: {{ template "kubedb.fullname" . }}-apiserver-extension-server-authentication-reader
+  name: {{ include "kubedb.fullname" . }}-apiserver-extension-server-authentication-reader
   namespace: kube-system
   labels:
     {{- include "kubedb.labels" . | nindent 4 }}
@@ -94,14 +94,14 @@ roleRef:
   name: extension-apiserver-authentication-reader
 subjects:
 - kind: ServiceAccount
-  name: {{ template "kubedb.serviceAccountName" . }}
+  name: {{ include "kubedb.serviceAccountName" . }}
   namespace: {{ .Release.Namespace }}
 ---
 # to delegate authentication and authorization
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ template "kubedb.fullname" . }}-apiserver-auth-delegator
+  name: {{ include "kubedb.fullname" . }}-apiserver-auth-delegator
   labels:
     {{- include "kubedb.labels" . | nindent 4 }}
 roleRef:
@@ -110,5 +110,5 @@ roleRef:
   name: system:auth-delegator
 subjects:
 - kind: ServiceAccount
-  name: {{ template "kubedb.serviceAccountName" . }}
+  name: {{ include "kubedb.serviceAccountName" . }}
   namespace: {{ .Release.Namespace }}
