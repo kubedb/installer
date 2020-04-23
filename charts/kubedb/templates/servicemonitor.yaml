@@ -2,7 +2,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ template "kubedb.fullname" . }}
+  name: {{ include "kubedb.fullname" . }}
   namespace: {{ default .Release.Namespace .Values.monitoring.prometheus.namespace }}
   labels:
     {{- if .Values.monitoring.serviceMonitor.labels }}
@@ -10,8 +10,7 @@ metadata:
     {{ $key }}: {{ $val }}
     {{- end }}
     {{- else }}
-    app: "{{ template "kubedb.name" . }}"
-    release: "{{ .Release.Name }}"
+      {{- include "kubedb.selectorLabels" . | nindent 4 }}
     {{- end }}
 spec:
   namespaceSelector:
@@ -19,19 +18,18 @@ spec:
     - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      app: "{{ template "kubedb.name" . }}"
-      release: "{{ .Release.Name }}"
+      {{- include "kubedb.selectorLabels" . | nindent 6 }}
   endpoints:
   - port: operator
     bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
     scheme: https
     tlsConfig:
-      caFile: /etc/prometheus/secrets/{{ template "kubedb.fullname" . }}-apiserver-cert/tls.crt
-      serverName: "{{ template "kubedb.fullname" . }}.{{ .Release.Namespace }}.svc"
+      caFile: /etc/prometheus/secrets/{{ include "kubedb.fullname" . }}-apiserver-cert/tls.crt
+      serverName: "{{ include "kubedb.fullname" . }}.{{ .Release.Namespace }}.svc"
   - port: enterprise
     bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
     scheme: https
     tlsConfig:
-      caFile: /etc/prometheus/secrets/{{ template "kubedb.fullname" . }}-apiserver-cert/tls.crt
-      serverName: "{{ template "kubedb.fullname" . }}.{{ .Release.Namespace }}.svc"
+      caFile: /etc/prometheus/secrets/{{ include "kubedb.fullname" . }}-apiserver-cert/tls.crt
+      serverName: "{{ include "kubedb.fullname" . }}.{{ .Release.Namespace }}.svc"
 {{- end }}
