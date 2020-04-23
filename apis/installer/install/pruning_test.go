@@ -28,5 +28,6 @@ import (
 
 func TestPruneTypes(t *testing.T) {
 	Install(clientsetscheme.Scheme)
+	crdfuzz.SchemaFuzzTestForV1beta1CRD(t, clientsetscheme.Scheme, v1alpha1.KubeDBCatalog{}.CustomResourceDefinition(), fuzzer.Funcs)
 	crdfuzz.SchemaFuzzTestForV1beta1CRD(t, clientsetscheme.Scheme, v1alpha1.KubeDBOperator{}.CustomResourceDefinition(), fuzzer.Funcs)
 }
