@@ -205,6 +205,8 @@ gen-bindata:
 
 .PHONY: gen-values-schema
 gen-values-schema:
+	@yq r api/crds/installer.kubedb.com_kubedbcatalogs.yaml spec.validation.openAPIV3Schema.properties.spec > /tmp/kubedb-catalog-values.openapiv3_schema.yaml
+	@yq d /tmp/kubedb-catalog-values.openapiv3_schema.yaml description > charts/kubedb-catalog/values.openapiv3_schema.yaml
 	@yq r api/crds/installer.kubedb.com_kubedboperators.yaml spec.validation.openAPIV3Schema.properties.spec > /tmp/kubedb-values.openapiv3_schema.yaml
 	@yq d /tmp/kubedb-values.openapiv3_schema.yaml description > charts/kubedb/values.openapiv3_schema.yaml
 
