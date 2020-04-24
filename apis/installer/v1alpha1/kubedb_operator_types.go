@@ -84,6 +84,8 @@ type KubeDBOperatorSpec struct {
 	LogLevel int32 `json:"logLevel"`
 	// +optional
 	Annotations map[string]string `json:"annotations"`
+	//+optional
+	PodAnnotations map[string]string `json:"podAnnotations"`
 	// +optional
 	NodeSelector map[string]string `json:"nodeSelector"`
 	// If specified, the pod's tolerations.
