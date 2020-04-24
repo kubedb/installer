@@ -343,6 +343,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/installer/apis/installer/v1alpha1.Monitoring":           schema_installer_apis_installer_v1alpha1_Monitoring(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.OperatorContainer":    schema_installer_apis_installer_v1alpha1_OperatorContainer(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.PrometheusSpec":       schema_installer_apis_installer_v1alpha1_PrometheusSpec(ref),
+		"kubedb.dev/installer/apis/installer/v1alpha1.RegistryRef":          schema_installer_apis_installer_v1alpha1_RegistryRef(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.ServiceAccountSpec":   schema_installer_apis_installer_v1alpha1_ServiceAccountSpec(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.ServiceMonitorLabels": schema_installer_apis_installer_v1alpha1_ServiceMonitorLabels(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.ServingCerts":         schema_installer_apis_installer_v1alpha1_ServingCerts(ref),
@@ -15759,10 +15760,9 @@ func schema_installer_apis_installer_v1alpha1_KubeDBCatalogSpec(ref common.Refer
 							Format: "",
 						},
 					},
-					"dockerRegistry": {
+					"image": {
 						SchemaProps: spec.SchemaProps{
-							Type:   []string{"string"},
-							Format: "",
+							Ref: ref("kubedb.dev/installer/apis/installer/v1alpha1.RegistryRef"),
 						},
 					},
 					"catalog": {
@@ -15771,11 +15771,11 @@ func schema_installer_apis_installer_v1alpha1_KubeDBCatalogSpec(ref common.Refer
 						},
 					},
 				},
-				Required: []string{"dockerRegistry", "catalog"},
+				Required: []string{"image", "catalog"},
 			},
 		},
 		Dependencies: []string{
-			"kubedb.dev/installer/apis/installer/v1alpha1.Catalog"},
+			"kubedb.dev/installer/apis/installer/v1alpha1.Catalog", "kubedb.dev/installer/apis/installer/v1alpha1.RegistryRef"},
 	}
 }
 
@@ -16140,6 +16140,25 @@ func schema_installer_apis_installer_v1alpha1_PrometheusSpec(ref common.Referenc
 						},
 					},
 				},
+			},
+		},
+	}
+}
+
+func schema_installer_apis_installer_v1alpha1_RegistryRef(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"registry": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"registry"},
 			},
 		},
 	}
