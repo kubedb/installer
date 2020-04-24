@@ -46,9 +46,13 @@ type KubeDBCatalogSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
-	FullnameOverride string  `json:"fullnameOverride"`
-	DockerRegistry   string  `json:"dockerRegistry"`
-	Catalog          Catalog `json:"catalog"`
+	FullnameOverride string      `json:"fullnameOverride"`
+	Image            RegistryRef `json:"image"`
+	Catalog          Catalog     `json:"catalog"`
+}
+
+type RegistryRef struct {
+	Registry string `json:"registry"`
 }
 
 type Catalog struct {
