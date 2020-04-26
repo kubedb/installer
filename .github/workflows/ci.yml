@@ -54,7 +54,7 @@ jobs:
 
     - name: Configure Docker credential helper
       env:
-        GOOGLE_SERVICE_ACCOUNT_JSON_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON_KEY }}
+        GCR_SERVICE_ACCOUNT_JSON_KEY: ${{ secrets.GCR_SERVICE_ACCOUNT_JSON_KEY }}
       run: |
         echo "install gcloud cli"
         echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
@@ -63,8 +63,8 @@ jobs:
         sudo apt-get install -y google-cloud-sdk
         echo
         echo "configure gcloud auth"
-        echo "$GOOGLE_SERVICE_ACCOUNT_JSON_KEY" > "$HOME"/gcloud.json
-        gcloud auth activate-service-account --key-file=$HOME/gcloud.json
+        echo "$GCR_SERVICE_ACCOUNT_JSON_KEY" > "$HOME"/gcr.json
+        gcloud auth activate-service-account --key-file=$HOME/gcr.json
         echo
         echo "configure docker auth"
         gcloud auth configure-docker -q
