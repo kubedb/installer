@@ -23,7 +23,7 @@ jobs:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v1
 
-    - name: Run checks
+    - name: Prepare Host
       run: |
         sudo apt-get -qq update || true
         sudo apt-get install -y bzr
@@ -35,6 +35,9 @@ jobs:
         curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.17.0/bin/linux/amd64/kubectl
         chmod +x ./kubectl
         sudo mv ./kubectl /usr/local/bin/kubectl
+
+    - name: Run checks
+      run: |
         make ci
 
   kubernetes:
@@ -48,6 +51,23 @@ jobs:
 
     - name: Check out code into the Go module directory
       uses: actions/checkout@v1
+
+    - name: Configure Docker credential helper
+      env:
+        GOOGLE_SERVICE_ACCOUNT_JSON_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON_KEY }}
+      run: |
+        echo "install gcloud cli"
+        echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+        curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+        sudo apt-get -qq update
+        sudo apt-get install -y google-cloud-sdk
+        echo
+        echo "configure gcloud auth"
+        echo "$GOOGLE_SERVICE_ACCOUNT_JSON_KEY" > "$HOME"/gcloud.json
+        gcloud auth activate-service-account --key-file=$HOME/gcloud.json
+        echo
+        echo "configure docker auth"
+        gcloud auth configure-docker -q
 
     - name: Create Kubernetes ${{ matrix.k8s }} cluster
       id: kind
