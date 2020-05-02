@@ -44,21 +44,21 @@ The command removes all the Kubernetes components associated with the chart and 
 
 The following table lists the configurable parameters of the `kubedb-catalog` chart and their default values.
 
-|       Parameter       |                   Description                    | Default  |
-|-----------------------|--------------------------------------------------|----------|
-| nameOverride          | Overrides name template                          | `""`     |
-| fullnameOverride      | Overrides fullname template                      | `""`     |
-| image.registry        | Docker registry used to pull database image      | `kubedb` |
-| catalog.elasticsearch | If true, installs Elasticsearch version catalog  | `true`   |
-| catalog.etcd          | If true, installs Etcd version catalog           | `true`   |
-| catalog.memcached     | If true, installs Memcached version catalog      | `true`   |
-| catalog.mongo         | If true, installs MongoDB version catalog        | `true`   |
-| catalog.mysql         | If true, installs MySQL version catalog          | `true`   |
-| catalog.perconaxtradb | If true, installs Percona XtraDB version catalog | `true`   |
-| catalog.pgbouncer     | If true, installs PgBouncer version catalog      | `true`   |
-| catalog.postgres      | If true, installs PostgreSQL version catalog     | `true`   |
-| catalog.proxysql      | If true, installs ProxySQL version catalog       | `true`   |
-| catalog.redis         | If true, installs Redis version catalog          | `true`   |
+|       Parameter       |                   Description                   | Default  |
+|-----------------------|-------------------------------------------------|----------|
+| nameOverride          | Overrides name template                         | `""`     |
+| fullnameOverride      | Overrides fullname template                     | `""`     |
+| image.registry        | Docker registry used to pull database image     | `kubedb` |
+| catalog.elasticsearch | If true, deploys Elasticsearch version catalog  | `true`   |
+| catalog.etcd          | If true, deploys Etcd version catalog           | `true`   |
+| catalog.memcached     | If true, deploys Memcached version catalog      | `true`   |
+| catalog.mongo         | If true, deploys MongoDB version catalog        | `true`   |
+| catalog.mysql         | If true, deploys MySQL version catalog          | `true`   |
+| catalog.perconaxtradb | If true, deploys Percona XtraDB version catalog | `true`   |
+| catalog.pgbouncer     | If true, deploys PgBouncer version catalog      | `true`   |
+| catalog.postgres      | If true, deploys PostgreSQL version catalog     | `true`   |
+| catalog.proxysql      | If true, deploys ProxySQL version catalog       | `true`   |
+| catalog.redis         | If true, deploys Redis version catalog          | `true`   |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
