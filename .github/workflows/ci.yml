@@ -46,7 +46,7 @@ jobs:
     needs: build
     strategy:
       matrix:
-        k8s: [v1.11.10, v1.12.10, v1.13.12, v1.14.10, v1.15.7, v1.16.4, v1.17.2, v1.18.0]
+        k8s: [v1.11.10, v1.12.10, v1.13.12, v1.14.10, v1.15.7, v1.16.4, v1.17.2, v1.18.2]
     steps:
 
     - name: Check out code into the Go module directory
@@ -89,12 +89,6 @@ jobs:
         kubectl get nodes
         echo
         kubectl version
-        echo
-        echo "installing local-path provisioner ..."
-        kubectl delete storageclass --all
-        kubectl apply -f https://github.com/rancher/local-path-provisioner/raw/v0.0.12/deploy/local-path-storage.yaml
-        kubectl wait --for=condition=Ready pods -n local-path-storage --all --timeout=5m
-        kubectl apply -f hack/kubernetes/storageclass/standard.yaml
         echo
         echo "create docker-registry secret"
         kubectl create secret docker-registry ${REGISTRY_SECRET} --namespace=kube-system --docker-server=https://index.docker.io/v1/ --docker-username=${USERNAME} --docker-password=${DOCKER_TOKEN}
