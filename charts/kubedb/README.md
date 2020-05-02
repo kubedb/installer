@@ -1,18 +1,18 @@
 # KubeDB
 
-[KubeDB by AppsCode](https://github.com/kubedb/installer) - Making running production-grade databases easy on Kubernetes
+[KubeDB by AppsCode](https://github.com/kubedb) - Making running production-grade databases easy on Kubernetes
 
 ## TL;DR;
 
 ```console
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm install appscode/kubedb -n kube-system
+$ helm install kubedb-operator appscode/kubedb -n kube-system
 ```
 
 ## Introduction
 
-This chart bootstraps a [KubeDB controller](https://github.com/kubedb/installer) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart deploys a KubeDB operator on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 ## Prerequisites
 
@@ -20,79 +20,93 @@ This chart bootstraps a [KubeDB controller](https://github.com/kubedb/installer)
 
 ## Installing the Chart
 
-To install the chart with the release name `my-release`:
+To install the chart with the release name `kubedb-operator`:
 
 ```console
-$ helm install my-release appscode/kubedb -n kube-system
+$ helm install kubedb-operator appscode/kubedb -n kube-system
 ```
 
-The command deploys KubeDB operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
+The command deploys a KubeDB operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
 
 > **Tip**: List all releases using `helm list`
 
 ## Uninstalling the Chart
 
-To uninstall/delete the `my-release`:
+To uninstall/delete the `kubedb-operator`:
 
 ```console
-$ helm delete my-release -n kube-system
+$ helm delete kubedb-operator -n kube-system
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
 ## Configuration
 
-The following table lists the configurable parameters of the KubeDB chart and their default values.
+The following table lists the configurable parameters of the `kubedb` chart and their default values.
 
-| Parameter                               | Description                                                                                                                                                                | Default                                                   |
-| --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| `replicaCount`                          | Number of kubedb operator replicas to create (only 1 is supported)                                                                                                         | `1`                                                       |
-| `operator.registry`                     | Docker registry used to pull KubeDB operator image                                                                                                                         | `kubedb`                                                  |
-| `operator.repository`                   | KubeDB operator container image                                                                                                                                            | `operator`                                                |
-| `operator.tag`                          | KubeDB operator container image tag                                                                                                                                        | `v0.13.0-rc.0`                                            |
-| `cleaner.registry`                      | Docker registry used to pull Webhook cleaner image                                                                                                                         | `appscode`                                                |
-| `cleaner.repository`                    | Webhook cleaner container image                                                                                                                                            | `kubectl`                                                 |
-| `cleaner.tag`                           | Webhook cleaner container image tag                                                                                                                                        | `v1.12`                                                   |
-| `imagePullSecrets`                      | Specify image pull secrets                                                                                                                                                 | `[]`                                                      |
-| `imagePullPolicy`                       | Image pull policy                                                                                                                                                          | `IfNotPresent`                                            |
-| `criticalAddon`                         | If true, installs KubeDB operator as critical addon                                                                                                                        | `false`                                                   |
-| `logLevel`                              | Log level for operator                                                                                                                                                     | `3`                                                       |
-| `affinity`                              | Affinity rules for pod assignment                                                                                                                                          | `{}`                                                      |
-| `annotations`                           | Annotations applied to operator deployment                                                                                                                                 | `{}`                                                      |
-| `podAnnotations`                        | Annotations applied to operator pod(s)                                                                                                                                     | `{}`                                                      |
-| `nodeSelector`                          | Node labels for pod assignment                                                                                                                                             | `{}`                                                      |
-| `tolerations`                           | Tolerations used pod assignment                                                                                                                                            | `{}`                                                      |
-| `resources.requests.cpu`                | CPU resources request                                                                                                                                                      | `100m`                                                    |
-| `resources.requests.memory`             | Memory resources request                                                                                                                                                   | `60Mi`                                                    |
-| `resources.limits.cpu`                  | CPU resources limit                                                                                                                                                        | `""`                                                      |
-| `resources.limits.memory`               | Memory resources limit                                                                                                                                                     | `""`                                                      |
-| `serviceAccount.create`                 | If `true`, create a new service account                                                                                                                                    | `true`                                                    |
-| `serviceAccount.name`                   | Service account to be used. If not set and `serviceAccount.create` is `true`, a name is generated using the fullname template                                              | ``                                                        |
-| `apiserver.groupPriorityMinimum`        | The minimum priority the group should have.                                                                                                                                | 10000                                                     |
-| `apiserver.versionPriority`             | The ordering of this API inside of the group.                                                                                                                              | 15                                                        |
-| `apiserver.enableValidatingWebhook`     | Enable validating webhooks for KubeDB CRDs                                                                                                                                 | `true`                                                    |
-| `apiserver.enableMutatingWebhook`       | Enable mutating webhooks for KubeDB CRDs                                                                                                                                   | `true`                                                    |
-| `apiserver.ca`                          | CA certificate used by main Kubernetes api server                                                                                                                          | `not-ca-cert`                                             |
-| `apiserver.bypassValidatingWebhookXray` | If true, bypasses validating webhook xray checks                                                                                                                           | `false`                                                   |
-| `apiserver.useKubeapiserverFqdnForAks`  | If true, uses kube-apiserver FQDN for AKS cluster to workaround https://github.com/Azure/AKS/issues/522                                                                    | `true`                                                    |
-| `apiserver.healthcheck.enabled`         | Enable readiness and liveliness probes                                                                                                                                     | `false`                                                   |
-| `apiserver.servingCerts.generate`       | If true, generate on install/upgrade the certs that allow the kube-apiserver (and potentially ServiceMonitor) to authenticate Stash operator pods. Otherwise specify in `apiserver.servingCerts.{caCrt, serverCrt, serverKey}`.  | `true`                                                    |
-| `enableAnalytics`                       | Send usage events to Google Analytics                                                                                                                                      | `true`                                                    |
-| `monitoring.enabled`                    | Specify whether to monitor KubeDB operator.                                                                                                                                | `false`                                                   |
-| `monitoring.agent`                      | Specify which monitoring agent to use for monitoring KubeDB operator. It accepts either `prometheus.io/builtin` or `prometheus.io/operator`.                        | `none`                                                    |
-| `monitoring.prometheus.namespace`       | Specify the namespace where Prometheus server is running or will be deployed.                                                                                              | Release namespace                                         |
-| `monitoring.serviceMonitor.labels`      | Specify the labels for ServiceMonitor. Prometheus crd will select ServiceMonitor using these labels. Only usable when monitoring agent is `prometheus.io/operator`. | `app: <generated app name>` and `release: <release name>` |
-| `additionalPodSecurityPolicies`         | Additional psp names passed to operator                                                                                                                                    | `[]`                                                      |
+|               Parameter               |                                                                                                                    Description                                                                                                                    |                                Default                                |
+|---------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| nameOverride                          | Overrides name template                                                                                                                                                                                                                           | `""`                                                                  |
+| fullnameOverride                      | Overrides fullname template                                                                                                                                                                                                                       | `""`                                                                  |
+| replicaCount                          | Number of KubeDB operator replicas to create (only 1 is supported)                                                                                                                                                                                | `1`                                                                   |
+| operator.registry                     | Docker registry used to pull KubeDB operator image                                                                                                                                                                                                | `kubedb`                                                              |
+| operator.repository                   | KubeDB operator container image                                                                                                                                                                                                                   | `operator`                                                            |
+| operator.tag                          | KubeDB operator container image tag                                                                                                                                                                                                               | `v0.13.0-rc.0`                                                        |
+| operator.resources                    | Compute Resources required by the operator container                                                                                                                                                                                              | `{}`                                                                  |
+| operator.securityContext              | requests: cpu: 100m memory: 128Mi Security options the operator container should run with                                                                                                                                                         | `{}`                                                                  |
+| enterprise.enabled                    | if true, installs KubeDB enterprise operator sidecar                                                                                                                                                                                              | `false`                                                               |
+| enterprise.registry                   | Docker registry used to pull KubeDB enterprise operator image                                                                                                                                                                                     | `gcr.io/appscode`                                                     |
+| enterprise.repository                 | KubeDB enterprise operator container image                                                                                                                                                                                                        | `kubedb-enterprise-operator`                                          |
+| enterprise.tag                        | KubeDB enterprise operator container image tag                                                                                                                                                                                                    | `41668265_linux_amd64`                                                |
+| enterprise.port                       | Port used to expose the enterprise operator apiserver                                                                                                                                                                                             | `9443`                                                                |
+| enterprise.resources                  | Compute Resources required by the enterprise operator container                                                                                                                                                                                   | `{}`                                                                  |
+| enterprise.securityContext            | requests: cpu: 100m memory: 128Mi Security options the enterprise operator container should run with                                                                                                                                              | `{}`                                                                  |
+| cleaner.registry                      | Docker registry used to pull Webhook cleaner image                                                                                                                                                                                                | `appscode`                                                            |
+| cleaner.repository                    | Webhook cleaner container image                                                                                                                                                                                                                   | `kubectl`                                                             |
+| cleaner.tag                           | Webhook cleaner container image tag                                                                                                                                                                                                               | `v1.16`                                                               |
+| imagePullSecrets                      | Specify an array of imagePullSecrets. Secrets must be manually created in the namespace. <br> Example: <br> `helm template charts/stash \` <br> `--set imagePullSecrets[0].name=sec0 \` <br> `--set imagePullSecrets[1].name=sec1`                | `[]`                                                                  |
+| imagePullPolicy                       | Container image pull policy                                                                                                                                                                                                                       | `IfNotPresent`                                                        |
+| criticalAddon                         | If true, installs Stash operator as critical addon                                                                                                                                                                                                | `false`                                                               |
+| logLevel                              | Log level for operator                                                                                                                                                                                                                            | `3`                                                                   |
+| annotations                           | Annotations applied to operator deployment                                                                                                                                                                                                        | `{}`                                                                  |
+| podAnnotations                        | Annotations passed to operator pod(s).                                                                                                                                                                                                            | `{}`                                                                  |
+| nodeSelector                          | Node labels for pod assignment                                                                                                                                                                                                                    | `{"beta.kubernetes.io/arch":"amd64","beta.kubernetes.io/os":"linux"}` |
+| tolerations                           | Tolerations for pod assignment                                                                                                                                                                                                                    | `[]`                                                                  |
+| affinity                              | Affinity rules for pod assignment                                                                                                                                                                                                                 | `{}`                                                                  |
+| podSecurityContext                    | Security options the operator pod should run with.                                                                                                                                                                                                | `{}`                                                                  |
+| serviceAccount.create                 | Specifies whether a service account should be created                                                                                                                                                                                             | `true`                                                                |
+| serviceAccount.annotations            | Annotations to add to the service account                                                                                                                                                                                                         | `{}`                                                                  |
+| serviceAccount.name                   | The name of the service account to use. If not set and create is true, a name is generated using the fullname template                                                                                                                            | ``                                                                    |
+| apiserver.groupPriorityMinimum        | The minimum priority the webhook api group should have at least. Please see https://github.com/kubernetes/kube-aggregator/blob/release-1.9/pkg/apis/apiregistration/v1beta1/types.go#L58-L64 for more information on proper values of this field. | `10000`                                                               |
+| apiserver.versionPriority             | The ordering of the webhook api inside of the group. Please see https://github.com/kubernetes/kube-aggregator/blob/release-1.9/pkg/apis/apiregistration/v1beta1/types.go#L66-L70 for more information on proper values of this field              | `15`                                                                  |
+| apiserver.enableMutatingWebhook       | If true, mutating webhook is configured for Kubernetes workloads                                                                                                                                                                                  | `true`                                                                |
+| apiserver.enableValidatingWebhook     | If true, validating webhook is configured for Stash CRDss                                                                                                                                                                                         | `true`                                                                |
+| apiserver.ca                          | CA certificate used by the Kubernetes api server. This field is automatically assigned by the operator.                                                                                                                                           | `not-ca-cert`                                                         |
+| apiserver.bypassValidatingWebhookXray | If true, bypasses checks that validating webhook is actually enabled in the Kubernetes cluster.                                                                                                                                                   | `false`                                                               |
+| apiserver.useKubeapiserverFqdnForAks  | If true, uses kube-apiserver FQDN for AKS cluster to workaround https://github.com/Azure/AKS/issues/522 (default true)                                                                                                                            | `true`                                                                |
+| apiserver.healthcheck.enabled         | healthcheck configures the readiness and liveliness probes for the operator pod.                                                                                                                                                                  | `false`                                                               |
+| apiserver.port                        | Port used to expose the operator apiserver                                                                                                                                                                                                        | `8443`                                                                |
+| apiserver.servingCerts.generate       | If true, generates on install/upgrade the certs that allow the kube-apiserver (and potentially ServiceMonitor) to authenticate operators pods. Otherwise specify certs in `apiserver.servingCerts.{caCrt, serverCrt, serverKey}`.                 | `true`                                                                |
+| apiserver.servingCerts.caCrt          | CA certficate used by serving certificate of webhook server.                                                                                                                                                                                      | `""`                                                                  |
+| apiserver.servingCerts.serverCrt      | Serving certficate used by webhook server.                                                                                                                                                                                                        | `""`                                                                  |
+| apiserver.servingCerts.serverKey      | Private key for the serving certificate used by webhook server.                                                                                                                                                                                   | `""`                                                                  |
+| enableAnalytics                       | If true, sends usage analytics                                                                                                                                                                                                                    | `true`                                                                |
+| monitoring.enabled                    | If true, enables monitoring KubeDB operator                                                                                                                                                                                                       | `false`                                                               |
+| monitoring.agent                      | Name of monitoring agent (either "prometheus.io/operator" or "prometheus.io/builtin")                                                                                                                                                             | `"none"`                                                              |
+| monitoring.prometheus.namespace       | Specify the namespace where Prometheus server is running or will be deployed.                                                                                                                                                                     | `""`                                                                  |
+| monitoring.serviceMonitor.labels      | Specify the labels for ServiceMonitor. Prometheus crd will select ServiceMonitor using these labels. Only usable when monitoring agent is `prometheus.io/operator`.                                                                               | `{}`                                                                  |
+| additionalPodSecurityPolicies         | Additional psp names passed to operator <br> Example: <br> `helm template ./chart/kubedb \` <br> `--set additionalPodSecurityPolicies[0]=abc \` <br> `--set additionalPodSecurityPolicies[1]=xyz`                                                 | `[]`                                                                  |
+
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
 
 ```console
-$ helm install my-release appscode/kubedb -n kube-system --set image.tag=v0.2.1
+$ helm install kubedb-operator appscode/kubedb -n kube-system --set replicaCount=1
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```console
-$ helm install my-release appscode/kubedb -n kube-system --values values.yaml
+$ helm install kubedb-operator appscode/kubedb -n kube-system --values values.yaml
 ```

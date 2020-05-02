@@ -3,19 +3,28 @@
 ##
 # Declare variables to be passed into your templates.
 
+# Overrides name template
 nameOverride: ""
+# Overrides fullname template
 fullnameOverride: ""
 
+# Number of KubeDB operator replicas to create (only 1 is supported)
 replicaCount: 1
+
 # Docker registry containing KubeDB images
 operator:
+  # Docker registry used to pull KubeDB operator image
   registry: kubedb
+  # KubeDB operator container image
   repository: operator
+  # KubeDB operator container image tag
   tag: v0.13.0-rc.0
+  # Compute Resources required by the operator container
   resources: {}
     # requests:
     #   cpu: 100m
     #   memory: 128Mi
+  # Security options the operator container should run with
   securityContext: {}
     # capabilities:
     #   drop:
@@ -23,16 +32,24 @@ operator:
     # readOnlyRootFilesystem: true
     # runAsNonRoot: true
     # runAsUser: 1000
+
 enterprise:
+  # if true, installs KubeDB enterprise operator sidecar
   enabled: false
+  # Docker registry used to pull KubeDB enterprise operator image
   registry: gcr.io/appscode
+  # KubeDB enterprise operator container image
   repository: kubedb-enterprise-operator
+  # KubeDB enterprise operator container image tag
   tag: 41668265_linux_amd64
+  # Port used to expose the enterprise operator apiserver
   port: 9443
+  # Compute Resources required by the enterprise operator container
   resources: {}
     # requests:
     #   cpu: 100m
     #   memory: 128Mi
+  # Security options the enterprise operator container should run with
   securityContext: {}
     # capabilities:
     #   drop:
@@ -40,55 +57,51 @@ enterprise:
     # readOnlyRootFilesystem: true
     # runAsNonRoot: true
     # runAsUser: 1000
+
 cleaner:
+  # Docker registry used to pull Webhook cleaner image
   registry: appscode
+  # Webhook cleaner container image
   repository: kubectl
+  # Webhook cleaner container image tag
   tag: v1.16
 
-## Optionally specify an array of imagePullSecrets.
-## Secrets must be manually created in the namespace.
-## ref: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
-## example: helm template charts/kubedb \
-##            --set imagePullSecrets[0].name=abc,imagePullSecrets[1].name=xyz
+# Specify an array of imagePullSecrets.
+# Secrets must be manually created in the namespace.
+#
+# Example:
+# helm template charts/stash \
+#   --set imagePullSecrets[0].name=sec0 \
+#   --set imagePullSecrets[1].name=sec1
 imagePullSecrets: []
 
-## Specify a imagePullPolicy
-## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
-##
+# Container image pull policy
 imagePullPolicy: IfNotPresent
 
-## Installs KubeDB operator as critical addon
-## https://kubernetes.io/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/
+# If true, installs Stash operator as critical addon
 criticalAddon: false
 
-## Log level for operator
+# Log level for operator
 logLevel: 3
 
-## Annotations passed to operator deployment.
-##
+# Annotations applied to operator deployment
 annotations: {}
 
-## Annotations passed to operator pod(s).
-##
+# Annotations passed to operator pod(s).
 podAnnotations: {}
 
-## Node labels for pod assignment
-## Ref: https://kubernetes.io/docs/user-guide/node-selection/
-##
-nodeSelector:
+# Node labels for pod assignment
+nodeSelector:  # +doc-gen:break
   beta.kubernetes.io/os: linux
   beta.kubernetes.io/arch: amd64
 
-## Tolerations for pod assignment
-## Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-##
+# Tolerations for pod assignment
 tolerations: []
 
-## Affinity for pod assignment
-## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
-##
+# Affinity rules for pod assignment
 affinity: {}
 
+# Security options the operator pod should run with.
 podSecurityContext: {}
 
 serviceAccount:
@@ -101,53 +114,61 @@ serviceAccount:
   name:
 
 apiserver:
-  # groupPriorityMinimum is the minimum priority the group should have. Please see
+  # The minimum priority the webhook api group should have at least. Please see
   # https://github.com/kubernetes/kube-aggregator/blob/release-1.9/pkg/apis/apiregistration/v1beta1/types.go#L58-L64
   # for more information on proper values of this field.
   groupPriorityMinimum: 10000
-  # versionPriority is the ordering of this API inside of the group. Please see
+  # The ordering of the webhook api inside of the group. Please see
   # https://github.com/kubernetes/kube-aggregator/blob/release-1.9/pkg/apis/apiregistration/v1beta1/types.go#L66-L70
   # for more information on proper values of this field
   versionPriority: 15
-  # enableMutatingWebhook is used to configure mutating webhook for KubeDB CRDs
+  # If true, mutating webhook is configured for Kubernetes workloads
   enableMutatingWebhook: true
-  # enableValidatingWebhook is used to configure validating webhook for KubeDB CRDs
+  # If true, validating webhook is configured for Stash CRDss
   enableValidatingWebhook: true
-  # CA certificate used by main Kubernetes api server
+  # CA certificate used by the Kubernetes api server. This field is automatically assigned by the operator.
   ca: not-ca-cert
-  # If true, bypasses validating webhook xray checks
+  # If true, bypasses checks that validating webhook is actually enabled in the Kubernetes cluster.
   bypassValidatingWebhookXray: false
   # If true, uses kube-apiserver FQDN for AKS cluster to workaround https://github.com/Azure/AKS/issues/522 (default true)
   useKubeapiserverFqdnForAks: true
-  # healthcheck configures the readiness and liveliness probes for the operator pod.
   healthcheck:
+    # healthcheck configures the readiness and liveliness probes for the operator pod.
     enabled: false
-  # port used to run the operator
+  # Port used to expose the operator apiserver
   port: 8443
   servingCerts:
-    # If true, generate on install/upgrade the certs that allow the kube-apiserver (and potentially ServiceMonitor) to authenticate vault-operator pods.
-    # Otherwise specify in `apiserver.servingCerts.{caCrt, serverCrt, serverKey}`.
+    # If true, generates on install/upgrade the certs that allow the kube-apiserver (and potentially ServiceMonitor)
+    # to authenticate operators pods. Otherwise specify certs in `apiserver.servingCerts.{caCrt, serverCrt, serverKey}`.
     generate: true
+    # CA certficate used by serving certificate of webhook server.
     caCrt: ""
+    # Serving certficate used by webhook server.
     serverCrt: ""
+    # Private key for the serving certificate used by webhook server.
     serverKey: ""
 
-# Send usage events to Google Analytics
+# If true, sends usage analytics
 enableAnalytics: true
 
 monitoring:
-  # specify whether to monitor KubeDB operator
+  # If true, enables monitoring KubeDB operator
   enabled: false
-  # specify monitoring agent (either "prometheus.io/builtin" or "prometheus.io/operator")
+  # Name of monitoring agent (either "prometheus.io/operator" or "prometheus.io/builtin")
   agent: "none"
   # specify where ServiceMonitor crd will be created
   prometheus:
+    # Specify the namespace where Prometheus server is running or will be deployed.
     namespace: ""
   serviceMonitor:
+    # Specify the labels for ServiceMonitor.
+    # Prometheus crd will select ServiceMonitor using these labels.
+    # Only usable when monitoring agent is `prometheus.io/operator`.
     labels: {}
 
 # Additional psp names passed to operator
-# example: helm template ./chart/kubedb \
-#            --set additionalPodSecurityPolicies[0]=abc \
-#            --set additionalPodSecurityPolicies[1]=xyz
+# Example:
+# helm template ./chart/kubedb \
+#   --set additionalPodSecurityPolicies[0]=abc \
+#   --set additionalPodSecurityPolicies[1]=xyz
 additionalPodSecurityPolicies: []
