@@ -474,13 +474,34 @@ spec:
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
+  name: "8.0.20"
+  labels:
+  {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  version: "8.0.20"
+  db:
+    image: "{{ .Values.dockerRegistry }}/mysql:8.0.20"
+  exporter:
+    image: "{{ .Values.dockerRegistry }}/mysqld-exporter:v0.11.0"
+  tools:
+    image: "{{ .Values.dockerRegistry }}/mysql-tools:5.7.25"
+  replicationModeDetector:
+    image: "{{ .Values.dockerRegistry }}/mysql-replication-mode-detector:v0.0.1"
+  initContainer:
+    image: "{{ .Values.dockerRegistry }}/busybox"
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
   name: "8.0-v3"
   labels:
   {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
-  version: "8.0.19"
+  version: "8.0.20"
   db:
-    image: "{{ .Values.dockerRegistry }}/mysql:8.0.19"
+    image: "{{ .Values.dockerRegistry }}/mysql:8.0.20"
   exporter:
     image: "{{ .Values.dockerRegistry }}/mysqld-exporter:v0.11.0"
   tools:
