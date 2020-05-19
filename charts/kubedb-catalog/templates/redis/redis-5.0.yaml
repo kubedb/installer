@@ -1,0 +1,38 @@
+{{ if .Values.catalog.redis }}
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: RedisVersion
+metadata:
+  name: "5.0"
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  deprecated: true
+  version: "5.0"
+  db:
+    image: "{{ .Values.image.registry }}/redis:5.0"
+  exporter:
+    image: "{{ .Values.image.registry }}/redis_exporter:v0.21.1"
+  podSecurityPolicies:
+    databasePolicyName: redis-db
+
+---
+# After 0.10.0
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: RedisVersion
+metadata:
+  name: "5.0-v1"
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  version: "5.0"
+  db:
+    image: "{{ .Values.image.registry }}/redis:5.0-v1"
+  exporter:
+    image: "{{ .Values.image.registry }}/redis_exporter:v0.21.1"
+  podSecurityPolicies:
+    databasePolicyName: redis-db
+
+{{ end }}

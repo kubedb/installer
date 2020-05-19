@@ -1,0 +1,19 @@
+{{ if .Values.catalog.memcached }}
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MemcachedVersion
+metadata:
+  name: "1.5.22"
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  version: "1.5.22"
+  db:
+    image: "{{ .Values.dockerRegistry }}/memcached:1.5.22"
+  exporter:
+    image: "{{ .Values.dockerRegistry }}/memcached-exporter:v0.4.1"
+  podSecurityPolicies:
+    databasePolicyName: memcached-db
+
+{{ end }}

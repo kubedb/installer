@@ -1,0 +1,39 @@
+{{ if .Values.catalog.postgres }}
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: "11.2"
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  version: "11.2"
+  db:
+    image: "{{ .Values.image.registry }}/postgres:11.2"
+  exporter:
+    image: "{{ .Values.image.registry }}/postgres_exporter:v0.4.7"
+  tools:
+    image: "{{ .Values.image.registry }}/postgres-tools:11.2"
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: "11.2-v1"
+  labels:
+        {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  version: "11.2"
+  db:
+    image: "{{ .Values.image.registry }}/postgres:11.2-v1"
+  exporter:
+    image: "{{ .Values.image.registry }}/postgres_exporter:v0.4.7"
+  tools:
+    image: "{{ .Values.image.registry }}/postgres-tools:11.2"
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+
+{{ end }}
