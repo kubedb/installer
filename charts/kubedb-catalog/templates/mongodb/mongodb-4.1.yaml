@@ -1,0 +1,44 @@
+{{ if .Values.catalog.mongo }}
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  name: "4.1"
+  labels:
+        {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  deprecated: true
+  version: "4.1.13"
+  db:
+    image: "{{ .Values.image.registry }}/mongo:4.1"
+  exporter:
+    image: "{{ .Values.image.registry }}/percona-mongodb-exporter:v0.8.0"
+  tools:
+    image: "{{ .Values.image.registry }}/mongo-tools:4.1"
+  initContainer:
+    image: "{{ .Values.image.registry }}/busybox"
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  name: "4.1-v1"
+  labels:
+        {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  version: "4.1.13"
+  db:
+    image: "{{ .Values.image.registry }}/mongo:4.1-v1"
+  exporter:
+    image: "{{ .Values.image.registry }}/percona-mongodb-exporter:v0.8.0"
+  tools:
+    image: "{{ .Values.image.registry }}/mongo-tools:4.1"
+  initContainer:
+    image: "{{ .Values.image.registry }}/mongodb-init:0.3.0"
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+
+{{ end }}
