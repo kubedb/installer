@@ -1,5 +1,6 @@
 {{ if .Values.catalog.mysql }}
 
+{{- if not .Values.skipDeprecated }}
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
@@ -22,7 +23,9 @@ spec:
     image: "{{ .Values.image.registry }}/busybox"
   podSecurityPolicies:
     databasePolicyName: mysql-db
+{{- end }}
 
+{{- if not .Values.skipDeprecated }}
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
@@ -45,5 +48,6 @@ spec:
     image: "{{ .Values.image.registry }}/busybox"
   podSecurityPolicies:
     databasePolicyName: mysql-db
+{{- end }}
 
 {{ end }}

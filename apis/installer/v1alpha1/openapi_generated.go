@@ -15770,8 +15770,14 @@ func schema_installer_apis_installer_v1alpha1_KubeDBCatalogSpec(ref common.Refer
 							Ref: ref("kubedb.dev/installer/apis/installer/v1alpha1.Catalog"),
 						},
 					},
+					"skipDeprecated": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
 				},
-				Required: []string{"image", "catalog"},
+				Required: []string{"image", "catalog", "skipDeprecated"},
 			},
 		},
 		Dependencies: []string{
