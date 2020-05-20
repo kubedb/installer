@@ -59,6 +59,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | catalog.postgres      | If true, deploys PostgreSQL version catalog     | `true`   |
 | catalog.proxysql      | If true, deploys ProxySQL version catalog       | `true`   |
 | catalog.redis         | If true, deploys Redis version catalog          | `true`   |
+| skipDeprecated        | Set true to avoid deploying deprecated versions | `false`  |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:

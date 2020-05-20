@@ -49,6 +49,7 @@ type KubeDBCatalogSpec struct {
 	FullnameOverride string      `json:"fullnameOverride"`
 	Image            RegistryRef `json:"image"`
 	Catalog          Catalog     `json:"catalog"`
+	SkipDeprecated   bool        `json:"skipDeprecated"`
 }
 
 type RegistryRef struct {

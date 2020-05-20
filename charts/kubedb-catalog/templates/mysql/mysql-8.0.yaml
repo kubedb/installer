@@ -1,5 +1,6 @@
 {{ if .Values.catalog.mysql }}
 
+{{- if not .Values.skipDeprecated }}
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
@@ -22,7 +23,9 @@ spec:
     image: "{{ .Values.image.registry }}/busybox"
   podSecurityPolicies:
     databasePolicyName: mysql-db
+{{- end }}
 
+{{- if not .Values.skipDeprecated }}
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
@@ -31,6 +34,7 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  deprecated: true
   version: "8.0.3"
   db:
     image: "{{ .Values.image.registry }}/mysql:8.0-v1"
@@ -44,6 +48,7 @@ spec:
     image: "{{ .Values.image.registry }}/busybox"
   podSecurityPolicies:
     databasePolicyName: mysql-db
+{{- end }}
 
 ---
 # After 0.9.0
