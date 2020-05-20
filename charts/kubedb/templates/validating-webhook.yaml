@@ -241,17 +241,17 @@ webhooks:
   sideEffects: None
 {{- end }}
 {{- if (eq .Values.enterprise.repository "kubedb-enterprise-operator") }}
-- name: mysqlmodreqvalidator.dbavalidators.kubedb.com
+- name: mysqlopsrequestvalidator.opsvalidators.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
-      path: /apis/dbavalidators.kubedb.com/v1alpha1/mysqlmodreqvalidators
+      path: /apis/opsvalidators.kubedb.com/v1alpha1/mysqlopsrequestvalidators
     caBundle: {{ b64enc .Values.apiserver.ca }}
   rules:
-    - apiGroups: ["dba.kubedb.com"]
+    - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["mysqlmodificationrequests"]
+      resources: ["mysqlopsrequests"]
       operations: ["CREATE","UPDATE", "DELETE"]
   failurePolicy: Fail
 {{- if and (ge $major 1) (ge $minor 12) }}
