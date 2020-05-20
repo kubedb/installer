@@ -50,6 +50,25 @@ spec:
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
 {{- end }}
+{{- if and (.Values.apiserver.enableValidatingWebhook) (.Values.enterprise.enabled) }}
+---
+apiVersion: apiregistration.k8s.io/v1beta1
+kind: APIService
+metadata:
+  name: v1alpha1.opsvalidators.kubedb.com
+  labels:
+    {{- include "kubedb.labels" . | nindent 4 }}
+spec:
+  group: opsvalidators.kubedb.com
+  version: v1alpha1
+  service:
+    namespace: {{ .Release.Namespace }}
+    name: {{ include "kubedb.fullname" . }}
+    port: {{ .Values.enterprise.port }}
+  caBundle: {{ $caCrt }}
+  groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
+  versionPriority: {{ .Values.apiserver.versionPriority }}
+{{- end }}
 ---
 apiVersion: v1
 kind: Secret
