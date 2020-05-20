@@ -23,6 +23,10 @@ spec:
     image: "{{ .Values.image.registry }}/busybox"
   podSecurityPolicies:
     databasePolicyName: mysql-db
+  upgradeConstraints:
+    whitelist:
+      standalone: ["8.0"]
+      groupReplication: ["8.0"]
 {{- end }}
 
 {{- if not .Values.skipDeprecated }}
@@ -48,8 +52,13 @@ spec:
     image: "{{ .Values.image.registry }}/busybox"
   podSecurityPolicies:
     databasePolicyName: mysql-db
+  upgradeConstraints:
+    whitelist:
+      standalone: ["8.0.3"]
+      groupReplication: ["8.0.3"]
 {{- end }}
 
+{{- if not .Values.skipDeprecated }}
 ---
 # After 0.9.0
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -59,6 +68,7 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  deprecated: true
   version: "8.0.14"
   db:
     image: "{{ .Values.image.registry }}/mysql:8.0-v2"
@@ -72,5 +82,35 @@ spec:
     image: "{{ .Values.image.registry }}/busybox"
   podSecurityPolicies:
     databasePolicyName: mysql-db
+  upgradeConstraints:
+    whitelist:
+      standalone: ["8.0.14"]
+      groupReplication: ["8.0.14"]
+{{- end }}
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  name: "8.0-v3"
+  labels:
+  {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  version: "8.0.20"
+  db:
+    image: "{{ .Values.image.registry }}/mysql:8.0.20"
+  exporter:
+    image: "{{ .Values.image.registry }}/mysqld-exporter:v0.11.0"
+  tools:
+    image: "{{ .Values.image.registry }}/mysql-tools:5.7.25"
+  replicationModeDetector:
+    image: "{{ .Values.image.registry }}/mysql-replication-mode-detector:v0.0.1"
+  initContainer:
+    image: "{{ .Values.image.registry }}/busybox"
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  upgradeConstraints:
+    blacklist:
+      standalone: ["< 8.0.20"]
+      groupReplication: ["< 8.0.20"]
 
 {{ end }}
