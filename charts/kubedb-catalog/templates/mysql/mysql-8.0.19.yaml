@@ -1,0 +1,32 @@
+{{ if .Values.catalog.mysql }}
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  name: "8.0.19"
+  labels:
+  {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  version: "8.0.19"
+  db:
+    image: "{{ .Values.image.registry }}/mysql:8.0.19"
+  exporter:
+    image: "{{ .Values.image.registry }}/mysqld-exporter:v0.11.0"
+  tools:
+    image: "{{ .Values.image.registry }}/mysql-tools:5.7.25"
+  replicationModeDetector:
+    image: "{{ .Values.image.registry }}/mysql-replication-mode-detector:v0.0.1"
+  initContainer:
+    image: "{{ .Values.image.registry }}/busybox"
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  upgradeConstraints:
+    whitelist:
+      standAlone: []
+      groupReplication: []
+    blacklist:
+      standAlone: ["< 8.0.19"]
+      groupReplication: ["< 8.0.19"]
+
+  {{ end }}

@@ -23,6 +23,13 @@ spec:
     image: "{{ .Values.image.registry }}/busybox"
   podSecurityPolicies:
     databasePolicyName: mysql-db
+  upgradeConstraints:
+    whitelist:
+      standAlone: ["5.7"]
+      groupReplication: ["5.7"]
+    blacklist:
+      standAlone: []
+      groupReplication: []
 {{- end }}
 
 {{- if not .Values.skipDeprecated }}
@@ -48,6 +55,13 @@ spec:
     image: "{{ .Values.image.registry }}/busybox"
   podSecurityPolicies:
     databasePolicyName: mysql-db
+  upgradeConstraints:
+    whitelist:
+      standAlone: ["5.7"]
+      groupReplication: ["5.7"]
+    blacklist:
+      standAlone: []
+      groupReplication: []
 {{- end }}
 
 {{- if not .Values.skipDeprecated }}
@@ -74,6 +88,13 @@ spec:
     image: "{{ .Values.image.registry }}/busybox"
   podSecurityPolicies:
     databasePolicyName: mysql-db
+  upgradeConstraints:
+    whitelist:
+      standAlone: ["5.7.25"]
+      groupReplication: ["5.7.25"]
+    blacklist:
+      standAlone: []
+      groupReplication: []
 {{- end }}
 
 ---
@@ -84,6 +105,7 @@ metadata:
   labels:
   {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  deprecated: true
   version: "5.7.25"
   db:
     image: "{{ .Values.image.registry }}/mysql:5.7.25"
@@ -97,5 +119,40 @@ spec:
     image: "{{ .Values.image.registry }}/busybox"
   podSecurityPolicies:
     databasePolicyName: mysql-db
+  upgradeConstraints:
+    whitelist:
+      standAlone: ["5.7.25"]
+      groupReplication: ["5.7.25"]
+    blacklist:
+      standAlone: []
+      groupReplication: []
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  name: "5.7-v4"
+  labels:
+  {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  version: "5.7.29"
+  db:
+    image: "{{ .Values.image.registry }}/mysql:5.7.29"
+  exporter:
+    image: "{{ .Values.image.registry }}/mysqld-exporter:v0.11.0"
+  tools:
+    image: "{{ .Values.image.registry }}/mysql-tools:5.7.25"
+  replicationModeDetector:
+    image: "{{ .Values.image.registry }}/mysql-replication-mode-detector:v0.0.1"
+  initContainer:
+    image: "{{ .Values.image.registry }}/busybox"
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  upgradeConstraints:
+    whitelist:
+      standAlone: []
+      groupReplication: []
+    blacklist:
+      standAlone: ["< 5.7.29"]
+      groupReplication: ["< 5.7.29"]
 
 {{ end }}
