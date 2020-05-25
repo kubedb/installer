@@ -20,7 +20,7 @@ REPO     := $(notdir $(shell pwd))
 BIN      := installer
 
 # Produce CRDs that work back to Kubernetes 1.11 (no version conversion)
-CRD_OPTIONS          ?= "crd:trivialVersions=true,preserveUnknownFields=false"
+CRD_OPTIONS          ?= "crd:trivialVersions=true,preserveUnknownFields=false,crdVersions={v1beta1,v1}"
 # https://github.com/appscodelabs/gengo-builder
 CODE_GENERATOR_IMAGE ?= appscode/gengo:release-1.18
 API_GROUPS           ?= installer:v1alpha1
@@ -205,9 +205,9 @@ gen-bindata:
 
 .PHONY: gen-values-schema
 gen-values-schema:
-	@yq r api/crds/installer.kubedb.com_kubedbcatalogs.yaml spec.validation.openAPIV3Schema.properties.spec > /tmp/kubedb-catalog-values.openapiv3_schema.yaml
+	@yq r api/crds/installer.kubedb.com_kubedbcatalogs.v1.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/kubedb-catalog-values.openapiv3_schema.yaml
 	@yq d /tmp/kubedb-catalog-values.openapiv3_schema.yaml description > charts/kubedb-catalog/values.openapiv3_schema.yaml
-	@yq r api/crds/installer.kubedb.com_kubedboperators.yaml spec.validation.openAPIV3Schema.properties.spec > /tmp/kubedb-values.openapiv3_schema.yaml
+	@yq r api/crds/installer.kubedb.com_kubedboperators.v1.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/kubedb-values.openapiv3_schema.yaml
 	@yq d /tmp/kubedb-values.openapiv3_schema.yaml description > charts/kubedb/values.openapiv3_schema.yaml
 
 .PHONY: gen-chart-doc
