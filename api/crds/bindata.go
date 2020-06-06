@@ -259,10 +259,10 @@ type bintree struct {
 }
 
 var _bintree = &bintree{nil, map[string]*bintree{
-	"installer.kubedb.com_kubedbcatalogs.v1.yaml":  {installerKubedbCom_kubedbcatalogsV1Yaml, map[string]*bintree{}},
-	"installer.kubedb.com_kubedbcatalogs.yaml":     {installerKubedbCom_kubedbcatalogsYaml, map[string]*bintree{}},
-	"installer.kubedb.com_kubedboperators.v1.yaml": {installerKubedbCom_kubedboperatorsV1Yaml, map[string]*bintree{}},
-	"installer.kubedb.com_kubedboperators.yaml":    {installerKubedbCom_kubedboperatorsYaml, map[string]*bintree{}},
+	"installer.kubedb.com_kubedbcatalogs.v1.yaml":  &bintree{installerKubedbCom_kubedbcatalogsV1Yaml, map[string]*bintree{}},
+	"installer.kubedb.com_kubedbcatalogs.yaml":     &bintree{installerKubedbCom_kubedbcatalogsYaml, map[string]*bintree{}},
+	"installer.kubedb.com_kubedboperators.v1.yaml": &bintree{installerKubedbCom_kubedboperatorsV1Yaml, map[string]*bintree{}},
+	"installer.kubedb.com_kubedboperators.yaml":    &bintree{installerKubedbCom_kubedboperatorsYaml, map[string]*bintree{}},
 }}
 
 // RestoreAsset restores an asset under the given directory
