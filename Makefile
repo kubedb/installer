@@ -49,7 +49,8 @@ endif
 ### These variables should not need tweaking.
 ###
 
-SRC_DIRS := api apis hack/gencrd # directories which hold app source (not vendored)
+SRC_PKGS := api apis # directories which hold app source (not vendored)
+SRC_DIRS := $(SRC_PKGS) hack/gencrd
 
 DOCKER_PLATFORMS := linux/amd64 linux/arm linux/arm64
 BIN_PLATFORMS    := $(DOCKER_PLATFORMS)
@@ -299,7 +300,7 @@ unit-tests: $(BUILD_DIRS)
 	        ARCH=$(ARCH)                                        \
 	        OS=$(OS)                                            \
 	        VERSION=$(VERSION)                                  \
-	        ./hack/test.sh $(SRC_DIRS)                          \
+	        ./hack/test.sh $(SRC_PKGS)                          \
 	    "
 
 TEST_CHARTS ?=
