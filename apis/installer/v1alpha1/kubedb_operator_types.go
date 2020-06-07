@@ -58,24 +58,16 @@ type OperatorContainer struct {
 	SecurityContext *core.SecurityContext `json:"securityContext"`
 }
 
-type EnterpriseContainer struct {
-	OperatorContainer `json:",inline"`
-	//+optional
-	Enabled bool `json:"enabled"`
-	Port    int  `json:"port"`
-}
-
 // KubeDBOperatorSpec is the spec for redis version
 type KubeDBOperatorSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
-	FullnameOverride string              `json:"fullnameOverride"`
-	ReplicaCount     int32               `json:"replicaCount"`
-	Operator         OperatorContainer   `json:"operator"`
-	Enterprise       EnterpriseContainer `json:"enterprise"`
-	Cleaner          ImageRef            `json:"cleaner"`
-	ImagePullPolicy  string              `json:"imagePullPolicy"`
+	FullnameOverride string            `json:"fullnameOverride"`
+	ReplicaCount     int32             `json:"replicaCount"`
+	Operator         OperatorContainer `json:"operator"`
+	Cleaner          ImageRef          `json:"cleaner"`
+	ImagePullPolicy  string            `json:"imagePullPolicy"`
 	//+optional
 	ImagePullSecrets []string `json:"imagePullSecrets"`
 	// +optional

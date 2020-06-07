@@ -53,6 +53,11 @@ jobs:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v1
 
+    - name: Generate Test Parameters
+      id: params
+      run: |
+        echo ::set-output name=namespace::kubedb-enterprise-$(head /dev/urandom | tr -dc a-z0-9 | head -c 10 ; echo '')
+
     - name: Configure Docker credential helper
       env:
         GCR_SERVICE_ACCOUNT_JSON_KEY: ${{ secrets.GCR_SERVICE_ACCOUNT_JSON_KEY }}
@@ -72,16 +77,11 @@ jobs:
 
     - name: Create Kubernetes ${{ matrix.k8s }} cluster
       id: kind
-      run: |
-        kind create cluster --image=kindest/node:${{ matrix.k8s }} --config=hack/kubernetes/kind.yaml
-
-    # - name: Create Kubernetes ${{ matrix.k8s }} cluster
-    #   id: kind
-    #   uses: engineerd/setup-kind@v0.3.0
-    #   with:
-    #     version: v0.8.1
-    #     config: hack/kubernetes/kind.yaml
-    #     image: kindest/node:${{ matrix.k8s }}
+      uses: engineerd/setup-kind@v0.3.0
+      with:
+        version: v0.8.1
+        config: hack/kubernetes/kind.yaml
+        image: kindest/node:${{ matrix.k8s }}
 
     - name: Prepare cluster for testing
       id: local-path
@@ -98,10 +98,11 @@ jobs:
         curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
         echo
         echo "create docker-registry secret"
+        kubectl create ns ${{ steps.params.outputs.namespace }} || true
         kubectl create secret docker-registry ${REGISTRY_SECRET} \
-          --namespace=kube-system \
+          --namespace=${{ steps.params.outputs.namespace }} \
           --docker-server=https://gcr.io \
-          --docker-username=${USERNAME} \
+          --docker-username=_json_key \
           --docker-email=${USERNAME}@appscode.com \
           --docker-password="$(echo $GCR_SERVICE_ACCOUNT_JSON_KEY)"
 
@@ -110,7 +111,7 @@ jobs:
         export KUBECONFIG="${HOME}/.kube/config"
         make ct TEST_CHARTS=charts/kubedb
         echo
-        kubectl delete crds -l app.kubernetes.io/name=kubedb
+        kubectl delete crds --all
         sleep 10
         echo
         kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_elasticsearchversions.yaml
@@ -125,3 +126,8 @@ jobs:
         kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_redisversions.yaml
         kubectl wait --for=condition=NamesAccepted crds --all --timeout=5m
         make ct TEST_CHARTS=charts/kubedb-catalog
+        echo
+        kubectl delete crds --all
+        sleep 10
+        echo
+        make ct TEST_CHARTS=charts/kubedb-enterprise TEST_NAMESPACE=${{ steps.params.outputs.namespace }}
