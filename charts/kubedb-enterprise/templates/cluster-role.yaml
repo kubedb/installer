@@ -1,0 +1,71 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "kubedb-enterprise.fullname" . }}
+  labels:
+    {{- include "kubedb-enterprise.labels" . | nindent 4 }}
+rules:
+- apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - customresourcedefinitions
+  verbs: ["*"]
+- apiGroups:
+  - apiregistration.k8s.io
+  resources:
+  - apiservices
+  verbs: ["get", "patch", "delete"]
+- apiGroups:
+  - admissionregistration.k8s.io
+  resources:
+  - mutatingwebhookconfigurations
+  - validatingwebhookconfigurations
+  verbs: ["delete", "get", "list", "watch", "patch"]
+- apiGroups:
+  - appcatalog.appscode.com
+  resources:
+  - "*"
+  verbs: ["*"]
+- apiGroups:
+  - apps
+  resources:
+  - statefulsets
+  verbs: ["create", "delete", "get", "list", "patch", "update", "deletecollection"]
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs: ["create"]
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs: ["list"]
+- apiGroups:
+  - kubedb.com
+  - catalog.kubedb.com
+  - ops.kubedb.com
+  resources:
+  - "*"
+  verbs: ["*"]
+- apiGroups:
+  - cert-manager.io
+  resources:
+  - certificates
+  - issuers
+  - clusterissuers
+  - challenges
+  - orders
+  verbs: ["get", "list", "create", "delete", "patch", "update", "watch"]
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - pods/portforward
+  verbs: ["*"]
+- apiGroups:
+  - ""
+  resources:
+  - services
+  - secrets
+  verbs: ["create", "delete", "get", "patch", "list", "watch"]

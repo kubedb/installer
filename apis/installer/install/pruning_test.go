@@ -33,12 +33,18 @@ func TestPruneTypes(t *testing.T) {
 	if crd := (v1alpha1.KubeDBCatalog{}).CustomResourceDefinition(); crd.V1 != nil {
 		crdfuzz.SchemaFuzzTestForV1CRD(t, clientsetscheme.Scheme, crd.V1, fuzzer.Funcs)
 	}
+	if crd := (v1alpha1.KubeDBEnterprise{}).CustomResourceDefinition(); crd.V1 != nil {
+		crdfuzz.SchemaFuzzTestForV1CRD(t, clientsetscheme.Scheme, crd.V1, fuzzer.Funcs)
+	}
 	if crd := (v1alpha1.KubeDBOperator{}).CustomResourceDefinition(); crd.V1 != nil {
 		crdfuzz.SchemaFuzzTestForV1CRD(t, clientsetscheme.Scheme, crd.V1, fuzzer.Funcs)
 	}
 
 	// CRD v1beta1
 	if crd := (v1alpha1.KubeDBCatalog{}).CustomResourceDefinition(); crd.V1beta1 != nil {
+		crdfuzz.SchemaFuzzTestForV1beta1CRD(t, clientsetscheme.Scheme, crd.V1beta1, fuzzer.Funcs)
+	}
+	if crd := (v1alpha1.KubeDBEnterprise{}).CustomResourceDefinition(); crd.V1beta1 != nil {
 		crdfuzz.SchemaFuzzTestForV1beta1CRD(t, clientsetscheme.Scheme, crd.V1beta1, fuzzer.Funcs)
 	}
 	if crd := (v1alpha1.KubeDBOperator{}).CustomResourceDefinition(); crd.V1beta1 != nil {
