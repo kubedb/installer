@@ -208,11 +208,13 @@ gen-bindata:
 gen-values-schema:
 	@yq r api/crds/installer.kubedb.com_kubedbcatalogs.v1.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/kubedb-catalog-values.openapiv3_schema.yaml
 	@yq d /tmp/kubedb-catalog-values.openapiv3_schema.yaml description > charts/kubedb-catalog/values.openapiv3_schema.yaml
+	@yq r api/crds/installer.kubedb.com_kubedbenterprises.v1.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/kubedb-enterprise-values.openapiv3_schema.yaml
+	@yq d /tmp/kubedb-enterprise-values.openapiv3_schema.yaml description > charts/kubedb-enterprise/values.openapiv3_schema.yaml
 	@yq r api/crds/installer.kubedb.com_kubedboperators.v1.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/kubedb-values.openapiv3_schema.yaml
 	@yq d /tmp/kubedb-values.openapiv3_schema.yaml description > charts/kubedb/values.openapiv3_schema.yaml
 
 .PHONY: gen-chart-doc
-gen-chart-doc: gen-chart-doc-kubedb gen-chart-doc-kubedb-catalog
+gen-chart-doc: gen-chart-doc-kubedb gen-chart-doc-kubedb-catalog gen-chart-doc-kubedb-enterprise
 
 gen-chart-doc-%:
 	@echo "Generate $* chart docs"
@@ -304,11 +306,12 @@ unit-tests: $(BUILD_DIRS)
 	    "
 
 TEST_CHARTS ?=
+TEST_NAMESPACE ?=
 
 ifeq ($(strip $(TEST_CHARTS)),)
-	CT_ARGS = --all
+	CT_ARGS = --all --namespace=$(TEST_NAMESPACE)
 else
-	CT_ARGS = --charts=$(TEST_CHARTS)
+	CT_ARGS = --charts=$(TEST_CHARTS) --namespace=$(TEST_NAMESPACE)
 endif
 
 .PHONY: ct

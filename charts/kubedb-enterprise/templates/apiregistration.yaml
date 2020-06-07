@@ -3,7 +3,7 @@
 {{- $serverKey := "" }}
 {{- if .Values.apiserver.servingCerts.generate }}
 {{- $ca := genCA "ca" 3650 }}
-{{- $cn := include "kubedb.fullname" . -}}
+{{- $cn := include "kubedb-enterprise.fullname" . -}}
 {{- $altName1 := printf "%s.%s" $cn .Release.Namespace }}
 {{- $altName2 := printf "%s.%s.svc" $cn .Release.Namespace }}
 {{- $server := genSignedCert $cn nil (list $altName1 $altName2) 3650 $ca }}
@@ -19,15 +19,15 @@
 apiVersion: apiregistration.k8s.io/v1beta1
 kind: APIService
 metadata:
-  name: v1alpha1.validators.kubedb.com
+  name: v1alpha1.opsvalidators.kubedb.com
   labels:
-    {{- include "kubedb.labels" . | nindent 4 }}
+    {{- include "kubedb-enterprise.labels" . | nindent 4 }}
 spec:
-  group: validators.kubedb.com
+  group: opsvalidators.kubedb.com
   version: v1alpha1
   service:
     namespace: {{ .Release.Namespace }}
-    name: {{ include "kubedb.fullname" . }}
+    name: {{ include "kubedb-enterprise.fullname" . }}
   caBundle: {{ $caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
@@ -37,15 +37,15 @@ spec:
 apiVersion: apiregistration.k8s.io/v1beta1
 kind: APIService
 metadata:
-  name: v1alpha1.mutators.kubedb.com
+  name: v1alpha1.opsmutators.kubedb.com
   labels:
-    {{- include "kubedb.labels" . | nindent 4 }}
+    {{- include "kubedb-enterprise.labels" . | nindent 4 }}
 spec:
-  group: mutators.kubedb.com
+  group: opsmutators.kubedb.com
   version: v1alpha1
   service:
     namespace: {{ .Release.Namespace }}
-    name: {{ include "kubedb.fullname" . }}
+    name: {{ include "kubedb-enterprise.fullname" . }}
   caBundle: {{ $caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
@@ -54,10 +54,10 @@ spec:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ include "kubedb.fullname" . }}-apiserver-cert
+  name: {{ include "kubedb-enterprise.fullname" . }}-apiserver-cert
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "kubedb.labels" . | nindent 4 }}
+    {{- include "kubedb-enterprise.labels" . | nindent 4 }}
 type: Opaque
 data:
   tls.crt: {{ $serverCrt }}
@@ -70,10 +70,10 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ include "kubedb.fullname" . }}-apiserver-cert
+  name: {{ include "kubedb-enterprise.fullname" . }}-apiserver-cert
   namespace: {{ $promNamespace }}
   labels:
-    {{- include "kubedb.labels" . | nindent 4 }}
+    {{- include "kubedb-enterprise.labels" . | nindent 4 }}
 type: kubernetes.io/tls
 data:
   tls.crt: {{ $serverCrt }}
@@ -84,31 +84,31 @@ data:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: {{ include "kubedb.fullname" . }}-apiserver-extension-server-authentication-reader
+  name: {{ include "kubedb-enterprise.fullname" . }}-apiserver-extension-server-authentication-reader
   namespace: kube-system
   labels:
-    {{- include "kubedb.labels" . | nindent 4 }}
+    {{- include "kubedb-enterprise.labels" . | nindent 4 }}
 roleRef:
   kind: Role
   apiGroup: rbac.authorization.k8s.io
   name: extension-apiserver-authentication-reader
 subjects:
 - kind: ServiceAccount
-  name: {{ include "kubedb.serviceAccountName" . }}
+  name: {{ include "kubedb-enterprise.serviceAccountName" . }}
   namespace: {{ .Release.Namespace }}
 ---
 # to delegate authentication and authorization
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ include "kubedb.fullname" . }}-apiserver-auth-delegator
+  name: {{ include "kubedb-enterprise.fullname" . }}-apiserver-auth-delegator
   labels:
-    {{- include "kubedb.labels" . | nindent 4 }}
+    {{- include "kubedb-enterprise.labels" . | nindent 4 }}
 roleRef:
   kind: ClusterRole
   apiGroup: rbac.authorization.k8s.io
   name: system:auth-delegator
 subjects:
 - kind: ServiceAccount
-  name: {{ include "kubedb.serviceAccountName" . }}
+  name: {{ include "kubedb-enterprise.serviceAccountName" . }}
   namespace: {{ .Release.Namespace }}

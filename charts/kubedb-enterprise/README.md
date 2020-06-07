@@ -1,18 +1,18 @@
-# KubeDB
+# KubeDB Enterprise
 
-[KubeDB by AppsCode](https://github.com/kubedb) - Making running production-grade databases easy on Kubernetes
+[KubeDB Enterprise by AppsCode](https://github.com/kubedb) - Enterprise features for KubeDB by AppsCode
 
 ## TL;DR;
 
 ```console
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm install kubedb-operator appscode/kubedb -n kube-system
+$ helm install kubedb-enterprise appscode/kubedb-enterprise -n kube-system
 ```
 
 ## Introduction
 
-This chart deploys a KubeDB operator on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart deploys a KubeDB Enterprise operator on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 ## Prerequisites
 
@@ -20,44 +20,44 @@ This chart deploys a KubeDB operator on a [Kubernetes](http://kubernetes.io) clu
 
 ## Installing the Chart
 
-To install the chart with the release name `kubedb-operator`:
+To install the chart with the release name `kubedb-enterprise`:
 
 ```console
-$ helm install kubedb-operator appscode/kubedb -n kube-system
+$ helm install kubedb-enterprise appscode/kubedb-enterprise -n kube-system
 ```
 
-The command deploys a KubeDB operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
+The command deploys a KubeDB Enterprise operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
 
 > **Tip**: List all releases using `helm list`
 
 ## Uninstalling the Chart
 
-To uninstall/delete the `kubedb-operator`:
+To uninstall/delete the `kubedb-enterprise`:
 
 ```console
-$ helm delete kubedb-operator -n kube-system
+$ helm delete kubedb-enterprise -n kube-system
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
 ## Configuration
 
-The following table lists the configurable parameters of the `kubedb` chart and their default values.
+The following table lists the configurable parameters of the `kubedb-enterprise` chart and their default values.
 
 |               Parameter               |                                                                                                                    Description                                                                                                                    |                                Default                                |
 |---------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
 | nameOverride                          | Overrides name template                                                                                                                                                                                                                           | `""`                                                                  |
 | fullnameOverride                      | Overrides fullname template                                                                                                                                                                                                                       | `""`                                                                  |
 | replicaCount                          | Number of KubeDB operator replicas to create (only 1 is supported)                                                                                                                                                                                | `1`                                                                   |
-| operator.registry                     | Docker registry used to pull KubeDB operator image                                                                                                                                                                                                | `kubedb`                                                              |
-| operator.repository                   | KubeDB operator container image                                                                                                                                                                                                                   | `operator`                                                            |
-| operator.tag                          | KubeDB operator container image tag                                                                                                                                                                                                               | `v0.13.0-rc.0`                                                        |
-| operator.resources                    | Compute Resources required by the operator container                                                                                                                                                                                              | `{}`                                                                  |
-| operator.securityContext              | requests: cpu: 100m memory: 128Mi Security options the operator container should run with                                                                                                                                                         | `{}`                                                                  |
+| operator.registry                     | Docker registry used to pull KubeDB enterprise operator image                                                                                                                                                                                     | `gcr.io/appscode`                                                     |
+| operator.repository                   | KubeDB enterprise operator container image                                                                                                                                                                                                        | `kubedb-enterprise-operator`                                          |
+| operator.tag                          | KubeDB enterprise operator container image tag                                                                                                                                                                                                    | `v0.1.0-alpha.2`                                                      |
+| operator.resources                    | Compute Resources required by the enterprise operator container                                                                                                                                                                                   | `{}`                                                                  |
+| operator.securityContext              | requests: cpu: 100m memory: 128Mi Security options the enterprise operator container should run with                                                                                                                                              | `{}`                                                                  |
 | cleaner.registry                      | Docker registry used to pull Webhook cleaner image                                                                                                                                                                                                | `appscode`                                                            |
 | cleaner.repository                    | Webhook cleaner container image                                                                                                                                                                                                                   | `kubectl`                                                             |
 | cleaner.tag                           | Webhook cleaner container image tag                                                                                                                                                                                                               | `v1.16`                                                               |
-| imagePullSecrets                      | Specify an array of imagePullSecrets. Secrets must be manually created in the namespace. <br> Example: <br> `helm template charts/kubedb \` <br> `--set imagePullSecrets[0].name=sec0 \` <br> `--set imagePullSecrets[1].name=sec1`               | `[]`                                                                  |
+| imagePullSecrets                      | Specify an array of imagePullSecrets. Secrets must be manually created in the namespace. <br> Example: <br> `helm template charts/kubedb-enterprise \` <br> `--set imagePullSecrets[0].name=sec0 \` <br> `--set imagePullSecrets[1].name=sec1`    | `[]`                                                                  |
 | imagePullPolicy                       | Container image pull policy                                                                                                                                                                                                                       | `IfNotPresent`                                                        |
 | criticalAddon                         | If true, installs KubeDB operator as critical addon                                                                                                                                                                                               | `false`                                                               |
 | logLevel                              | Log level for operator                                                                                                                                                                                                                            | `3`                                                                   |
@@ -72,7 +72,7 @@ The following table lists the configurable parameters of the `kubedb` chart and 
 | serviceAccount.name                   | The name of the service account to use. If not set and create is true, a name is generated using the fullname template                                                                                                                            | ``                                                                    |
 | apiserver.groupPriorityMinimum        | The minimum priority the webhook api group should have at least. Please see https://github.com/kubernetes/kube-aggregator/blob/release-1.9/pkg/apis/apiregistration/v1beta1/types.go#L58-L64 for more information on proper values of this field. | `10000`                                                               |
 | apiserver.versionPriority             | The ordering of the webhook api inside of the group. Please see https://github.com/kubernetes/kube-aggregator/blob/release-1.9/pkg/apis/apiregistration/v1beta1/types.go#L66-L70 for more information on proper values of this field              | `15`                                                                  |
-| apiserver.enableMutatingWebhook       | If true, mutating webhook is configured for KubeDB CRDss                                                                                                                                                                                          | `true`                                                                |
+| apiserver.enableMutatingWebhook       | If true, mutating webhook is configured for KubeDB CRDss                                                                                                                                                                                          | `false`                                                               |
 | apiserver.enableValidatingWebhook     | If true, validating webhook is configured for KubeDB CRDss                                                                                                                                                                                        | `true`                                                                |
 | apiserver.ca                          | CA certificate used by the Kubernetes api server. This field is automatically assigned by the operator.                                                                                                                                           | `not-ca-cert`                                                         |
 | apiserver.bypassValidatingWebhookXray | If true, bypasses checks that validating webhook is actually enabled in the Kubernetes cluster.                                                                                                                                                   | `false`                                                               |
@@ -88,18 +88,18 @@ The following table lists the configurable parameters of the `kubedb` chart and 
 | monitoring.agent                      | Name of monitoring agent (either "prometheus.io/operator" or "prometheus.io/builtin")                                                                                                                                                             | `"none"`                                                              |
 | monitoring.prometheus.namespace       | Specify the namespace where Prometheus server is running or will be deployed.                                                                                                                                                                     | `""`                                                                  |
 | monitoring.serviceMonitor.labels      | Specify the labels for ServiceMonitor. Prometheus crd will select ServiceMonitor using these labels. Only usable when monitoring agent is `prometheus.io/operator`.                                                                               | `{}`                                                                  |
-| additionalPodSecurityPolicies         | Additional psp names passed to operator <br> Example: <br> `helm template ./chart/kubedb \` <br> `--set additionalPodSecurityPolicies[0]=abc \` <br> `--set additionalPodSecurityPolicies[1]=xyz`                                                 | `[]`                                                                  |
+| additionalPodSecurityPolicies         | Additional psp names passed to operator <br> Example: <br> `helm template ./chart/kubedb-enterprise \` <br> `--set additionalPodSecurityPolicies[0]=abc \` <br> `--set additionalPodSecurityPolicies[1]=xyz`                                      | `[]`                                                                  |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
 
 ```console
-$ helm install kubedb-operator appscode/kubedb -n kube-system --set replicaCount=1
+$ helm install kubedb-enterprise appscode/kubedb-enterprise -n kube-system --set replicaCount=1
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```console
-$ helm install kubedb-operator appscode/kubedb -n kube-system --values values.yaml
+$ helm install kubedb-enterprise appscode/kubedb-enterprise -n kube-system --values values.yaml
 ```

@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: kubedb:core:admin
+  name: kubedb:enterprise:admin
   labels:
     rbac.authorization.k8s.io/aggregate-to-admin: "true"
   annotations:
@@ -9,8 +9,7 @@ metadata:
     "helm.sh/hook-delete-policy": before-hook-creation
 rules:
 - apiGroups:
-  - kubedb.com
-  - catalog.kubedb.com
+  - ops.kubedb.com
   resources:
   - "*"
   verbs: ["*"]
@@ -18,7 +17,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: kubedb:core:edit
+  name: kubedb:enterprise:edit
   labels:
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
   annotations:
@@ -26,20 +25,15 @@ metadata:
     "helm.sh/hook-delete-policy": before-hook-creation
 rules:
 - apiGroups:
-  - kubedb.com
+  - ops.kubedb.com
   resources:
   - "*"
   verbs: ["create", "get", "list", "watch", "update", "patch"]
-- apiGroups:
-  - catalog.kubedb.com
-  resources:
-  - "*"
-  verbs: ["get", "list", "watch"]
 ---
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: kubedb:core:view
+  name: kubedb:enterprise:view
   labels:
     rbac.authorization.k8s.io/aggregate-to-view: "true"
   annotations:
@@ -47,8 +41,7 @@ metadata:
     "helm.sh/hook-delete-policy": before-hook-creation
 rules:
 - apiGroups:
-  - kubedb.com
-  - catalog.kubedb.com
+  - ops.kubedb.com
   resources:
   - "*"
   verbs: ["get", "list", "watch"]

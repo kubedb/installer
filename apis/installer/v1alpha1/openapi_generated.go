@@ -331,12 +331,14 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"k8s.io/apimachinery/pkg/util/intstr.IntOrString":                   schema_apimachinery_pkg_util_intstr_IntOrString(ref),
 		"k8s.io/apimachinery/pkg/version.Info":                              schema_k8sio_apimachinery_pkg_version_Info(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.Catalog":              schema_installer_apis_installer_v1alpha1_Catalog(ref),
-		"kubedb.dev/installer/apis/installer/v1alpha1.EnterpriseContainer":  schema_installer_apis_installer_v1alpha1_EnterpriseContainer(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.HealthcheckSpec":      schema_installer_apis_installer_v1alpha1_HealthcheckSpec(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.ImageRef":             schema_installer_apis_installer_v1alpha1_ImageRef(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.KubeDBCatalog":        schema_installer_apis_installer_v1alpha1_KubeDBCatalog(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.KubeDBCatalogList":    schema_installer_apis_installer_v1alpha1_KubeDBCatalogList(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.KubeDBCatalogSpec":    schema_installer_apis_installer_v1alpha1_KubeDBCatalogSpec(ref),
+		"kubedb.dev/installer/apis/installer/v1alpha1.KubeDBEnterprise":     schema_installer_apis_installer_v1alpha1_KubeDBEnterprise(ref),
+		"kubedb.dev/installer/apis/installer/v1alpha1.KubeDBEnterpriseList": schema_installer_apis_installer_v1alpha1_KubeDBEnterpriseList(ref),
+		"kubedb.dev/installer/apis/installer/v1alpha1.KubeDBEnterpriseSpec": schema_installer_apis_installer_v1alpha1_KubeDBEnterpriseSpec(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.KubeDBOperator":       schema_installer_apis_installer_v1alpha1_KubeDBOperator(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.KubeDBOperatorList":   schema_installer_apis_installer_v1alpha1_KubeDBOperatorList(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.KubeDBOperatorSpec":   schema_installer_apis_installer_v1alpha1_KubeDBOperatorSpec(ref),
@@ -15607,63 +15609,6 @@ func schema_installer_apis_installer_v1alpha1_Catalog(ref common.ReferenceCallba
 	}
 }
 
-func schema_installer_apis_installer_v1alpha1_EnterpriseContainer(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
-				Properties: map[string]spec.Schema{
-					"registry": {
-						SchemaProps: spec.SchemaProps{
-							Type:   []string{"string"},
-							Format: "",
-						},
-					},
-					"repository": {
-						SchemaProps: spec.SchemaProps{
-							Type:   []string{"string"},
-							Format: "",
-						},
-					},
-					"tag": {
-						SchemaProps: spec.SchemaProps{
-							Type:   []string{"string"},
-							Format: "",
-						},
-					},
-					"resources": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Compute Resources required by the sidecar container.",
-							Ref:         ref("k8s.io/api/core/v1.ResourceRequirements"),
-						},
-					},
-					"securityContext": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Security options the pod should run with.",
-							Ref:         ref("k8s.io/api/core/v1.SecurityContext"),
-						},
-					},
-					"enabled": {
-						SchemaProps: spec.SchemaProps{
-							Type:   []string{"boolean"},
-							Format: "",
-						},
-					},
-					"port": {
-						SchemaProps: spec.SchemaProps{
-							Type:   []string{"integer"},
-							Format: "int32",
-						},
-					},
-				},
-				Required: []string{"registry", "repository", "tag", "port"},
-			},
-		},
-		Dependencies: []string{
-			"k8s.io/api/core/v1.ResourceRequirements", "k8s.io/api/core/v1.SecurityContext"},
-	}
-}
-
 func schema_installer_apis_installer_v1alpha1_HealthcheckSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -15842,7 +15787,7 @@ func schema_installer_apis_installer_v1alpha1_KubeDBCatalogSpec(ref common.Refer
 	}
 }
 
-func schema_installer_apis_installer_v1alpha1_KubeDBOperator(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_installer_apis_installer_v1alpha1_KubeDBEnterprise(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -15869,22 +15814,22 @@ func schema_installer_apis_installer_v1alpha1_KubeDBOperator(ref common.Referenc
 					},
 					"spec": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("kubedb.dev/installer/apis/installer/v1alpha1.KubeDBOperatorSpec"),
+							Ref: ref("kubedb.dev/installer/apis/installer/v1alpha1.KubeDBEnterpriseSpec"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta", "kubedb.dev/installer/apis/installer/v1alpha1.KubeDBOperatorSpec"},
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta", "kubedb.dev/installer/apis/installer/v1alpha1.KubeDBEnterpriseSpec"},
 	}
 }
 
-func schema_installer_apis_installer_v1alpha1_KubeDBOperatorList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_installer_apis_installer_v1alpha1_KubeDBEnterpriseList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "KubeDBOperatorList is a list of KubeDBOperators",
+				Description: "KubeDBEnterpriseList is a list of KubeDBEnterprises",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"kind": {
@@ -15908,12 +15853,12 @@ func schema_installer_apis_installer_v1alpha1_KubeDBOperatorList(ref common.Refe
 					},
 					"items": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Items is a list of KubeDBOperator CRD objects",
+							Description: "Items is a list of KubeDBEnterprise CRD objects",
 							Type:        []string{"array"},
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("kubedb.dev/installer/apis/installer/v1alpha1.KubeDBOperator"),
+										Ref: ref("kubedb.dev/installer/apis/installer/v1alpha1.KubeDBEnterprise"),
 									},
 								},
 							},
@@ -15923,15 +15868,15 @@ func schema_installer_apis_installer_v1alpha1_KubeDBOperatorList(ref common.Refe
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta", "kubedb.dev/installer/apis/installer/v1alpha1.KubeDBOperator"},
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta", "kubedb.dev/installer/apis/installer/v1alpha1.KubeDBEnterprise"},
 	}
 }
 
-func schema_installer_apis_installer_v1alpha1_KubeDBOperatorSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_installer_apis_installer_v1alpha1_KubeDBEnterpriseSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "KubeDBOperatorSpec is the spec for redis version",
+				Description: "KubeDBEnterpriseSpec is the spec for redis version",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"nameOverride": {
@@ -15955,11 +15900,6 @@ func schema_installer_apis_installer_v1alpha1_KubeDBOperatorSpec(ref common.Refe
 					"operator": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("kubedb.dev/installer/apis/installer/v1alpha1.OperatorContainer"),
-						},
-					},
-					"enterprise": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("kubedb.dev/installer/apis/installer/v1alpha1.EnterpriseContainer"),
 						},
 					},
 					"cleaner": {
@@ -16100,11 +16040,272 @@ func schema_installer_apis_installer_v1alpha1_KubeDBOperatorSpec(ref common.Refe
 						},
 					},
 				},
-				Required: []string{"replicaCount", "operator", "enterprise", "cleaner", "imagePullPolicy", "serviceAccount", "apiserver", "monitoring"},
+				Required: []string{"replicaCount", "operator", "cleaner", "imagePullPolicy", "serviceAccount", "apiserver", "monitoring"},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.Affinity", "k8s.io/api/core/v1.PodSecurityContext", "k8s.io/api/core/v1.Toleration", "kubedb.dev/installer/apis/installer/v1alpha1.EnterpriseContainer", "kubedb.dev/installer/apis/installer/v1alpha1.ImageRef", "kubedb.dev/installer/apis/installer/v1alpha1.Monitoring", "kubedb.dev/installer/apis/installer/v1alpha1.OperatorContainer", "kubedb.dev/installer/apis/installer/v1alpha1.ServiceAccountSpec", "kubedb.dev/installer/apis/installer/v1alpha1.WebHookSpec"},
+			"k8s.io/api/core/v1.Affinity", "k8s.io/api/core/v1.PodSecurityContext", "k8s.io/api/core/v1.Toleration", "kubedb.dev/installer/apis/installer/v1alpha1.ImageRef", "kubedb.dev/installer/apis/installer/v1alpha1.Monitoring", "kubedb.dev/installer/apis/installer/v1alpha1.OperatorContainer", "kubedb.dev/installer/apis/installer/v1alpha1.ServiceAccountSpec", "kubedb.dev/installer/apis/installer/v1alpha1.WebHookSpec"},
+	}
+}
+
+func schema_installer_apis_installer_v1alpha1_KubeDBOperator(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubedb.dev/installer/apis/installer/v1alpha1.KubeDBOperatorSpec"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta", "kubedb.dev/installer/apis/installer/v1alpha1.KubeDBOperatorSpec"},
+	}
+}
+
+func schema_installer_apis_installer_v1alpha1_KubeDBOperatorList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "KubeDBOperatorList is a list of KubeDBOperators",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Items is a list of KubeDBOperator CRD objects",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("kubedb.dev/installer/apis/installer/v1alpha1.KubeDBOperator"),
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta", "kubedb.dev/installer/apis/installer/v1alpha1.KubeDBOperator"},
+	}
+}
+
+func schema_installer_apis_installer_v1alpha1_KubeDBOperatorSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "KubeDBOperatorSpec is the spec for redis version",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"nameOverride": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"fullnameOverride": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"replicaCount": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"operator": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubedb.dev/installer/apis/installer/v1alpha1.OperatorContainer"),
+						},
+					},
+					"cleaner": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubedb.dev/installer/apis/installer/v1alpha1.ImageRef"),
+						},
+					},
+					"imagePullPolicy": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"imagePullSecrets": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"criticalAddon": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"logLevel": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"annotations": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"podAnnotations": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"nodeSelector": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"tolerations": {
+						SchemaProps: spec.SchemaProps{
+							Description: "If specified, the pod's tolerations.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("k8s.io/api/core/v1.Toleration"),
+									},
+								},
+							},
+						},
+					},
+					"affinity": {
+						SchemaProps: spec.SchemaProps{
+							Description: "If specified, the pod's scheduling constraints",
+							Ref:         ref("k8s.io/api/core/v1.Affinity"),
+						},
+					},
+					"podSecurityContext": {
+						SchemaProps: spec.SchemaProps{
+							Description: "PodSecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.",
+							Ref:         ref("k8s.io/api/core/v1.PodSecurityContext"),
+						},
+					},
+					"serviceAccount": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubedb.dev/installer/apis/installer/v1alpha1.ServiceAccountSpec"),
+						},
+					},
+					"apiserver": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubedb.dev/installer/apis/installer/v1alpha1.WebHookSpec"),
+						},
+					},
+					"enableAnalytics": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"monitoring": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubedb.dev/installer/apis/installer/v1alpha1.Monitoring"),
+						},
+					},
+					"additionalPodSecurityPolicies": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"replicaCount", "operator", "cleaner", "imagePullPolicy", "serviceAccount", "apiserver", "monitoring"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/api/core/v1.Affinity", "k8s.io/api/core/v1.PodSecurityContext", "k8s.io/api/core/v1.Toleration", "kubedb.dev/installer/apis/installer/v1alpha1.ImageRef", "kubedb.dev/installer/apis/installer/v1alpha1.Monitoring", "kubedb.dev/installer/apis/installer/v1alpha1.OperatorContainer", "kubedb.dev/installer/apis/installer/v1alpha1.ServiceAccountSpec", "kubedb.dev/installer/apis/installer/v1alpha1.WebHookSpec"},
 	}
 }
 
