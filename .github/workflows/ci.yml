@@ -3,43 +3,41 @@ name: CI
 on:
   pull_request:
     branches:
-      - '*'
+      - "*"
   push:
     branches:
       - master
 
 jobs:
-
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
+      - name: Set up Go 1.14
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.14
+        id: go
 
-    - name: Set up Go 1.14
-      uses: actions/setup-go@v1
-      with:
-        go-version: 1.14
-      id: go
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v1
 
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v1
+      - name: Prepare Host
+        run: |
+          sudo apt-get -qq update || true
+          sudo apt-get install -y bzr
+          # install yq
+          curl -fsSL -o yq https://github.com/mikefarah/yq/releases/download/3.3.0/yq_linux_amd64
+          chmod +x yq
+          sudo mv yq /usr/local/bin/yq
+          # install kubectl
+          curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.17.0/bin/linux/amd64/kubectl
+          chmod +x ./kubectl
+          sudo mv ./kubectl /usr/local/bin/kubectl
 
-    - name: Prepare Host
-      run: |
-        sudo apt-get -qq update || true
-        sudo apt-get install -y bzr
-        # install yq
-        curl -fsSL -o yq https://github.com/mikefarah/yq/releases/download/3.3.0/yq_linux_amd64
-        chmod +x yq
-        sudo mv yq /usr/local/bin/yq
-        # install kubectl
-        curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.17.0/bin/linux/amd64/kubectl
-        chmod +x ./kubectl
-        sudo mv ./kubectl /usr/local/bin/kubectl
-
-    - name: Run checks
-      run: |
-        make ci
+      - name: Run checks
+        run: |
+          make ci
 
   kubernetes:
     name: Kubernetes
@@ -47,87 +45,87 @@ jobs:
     needs: build
     strategy:
       matrix:
-        k8s: [v1.12.10, v1.13.12, v1.14.10, v1.15.7, v1.16.4, v1.17.2, v1.18.2]
+        k8s: [v1.12.10, v1.13.12, v1.14.10, v1.15.7, v1.16.9, v1.17.2, v1.18.2]
     steps:
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v1
 
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v1
+      - name: Generate Test Parameters
+        id: params
+        run: |
+          rnd=$(head /dev/urandom | tr -dc a-z0-9 | head -c 10 ; echo '')
+          echo ::set-output name=namespace::kubedb-enterprise-$rnd
 
-    - name: Generate Test Parameters
-      id: params
-      run: |
-        echo ::set-output name=namespace::kubedb-enterprise-$(head /dev/urandom | tr -dc a-z0-9 | head -c 10 ; echo '')
+      - name: Configure Docker credential helper
+        env:
+          GCR_SERVICE_ACCOUNT_JSON_KEY: ${{ secrets.GCR_SERVICE_ACCOUNT_JSON_KEY }}
+        run: |
+          echo "install gcloud cli"
+          echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+          curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+          sudo apt-get -qq update
+          sudo apt-get install -y google-cloud-sdk
+          echo
+          echo "configure gcloud auth"
+          echo "$GCR_SERVICE_ACCOUNT_JSON_KEY" > "$HOME"/gcr.json
+          gcloud auth activate-service-account --key-file=$HOME/gcr.json
+          echo
+          echo "configure docker auth"
+          gcloud auth configure-docker -q
 
-    - name: Configure Docker credential helper
-      env:
-        GCR_SERVICE_ACCOUNT_JSON_KEY: ${{ secrets.GCR_SERVICE_ACCOUNT_JSON_KEY }}
-      run: |
-        echo "install gcloud cli"
-        echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-        curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-        sudo apt-get -qq update
-        sudo apt-get install -y google-cloud-sdk
-        echo
-        echo "configure gcloud auth"
-        echo "$GCR_SERVICE_ACCOUNT_JSON_KEY" > "$HOME"/gcr.json
-        gcloud auth activate-service-account --key-file=$HOME/gcr.json
-        echo
-        echo "configure docker auth"
-        gcloud auth configure-docker -q
+      - name: Create Kubernetes ${{ matrix.k8s }} cluster
+        id: kind
+        uses: engineerd/setup-kind@v0.3.0
+        with:
+          version: v0.8.1
+          config: hack/kubernetes/kind.yaml
+          image: kindest/node:${{ matrix.k8s }}
 
-    - name: Create Kubernetes ${{ matrix.k8s }} cluster
-      id: kind
-      uses: engineerd/setup-kind@v0.3.0
-      with:
-        version: v0.8.1
-        config: hack/kubernetes/kind.yaml
-        image: kindest/node:${{ matrix.k8s }}
+      - name: Prepare cluster for testing
+        id: local-path
+        env:
+          USERNAME: 1gtm
+          REGISTRY_SECRET: regcred
+          GCR_SERVICE_ACCOUNT_JSON_KEY: ${{ secrets.GCR_SERVICE_ACCOUNT_JSON_KEY }}
+        run: |
+          echo "waiting for nodes to be ready ..."
+          kubectl wait --for=condition=Ready nodes --all --timeout=5m
+          kubectl get nodes
+          echo
+          echo "install helm 3"
+          curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+          echo
+          echo "create docker-registry secret"
+          kubectl create ns ${{ steps.params.outputs.namespace }} || true
+          kubectl create secret docker-registry ${REGISTRY_SECRET} \
+            --namespace=${{ steps.params.outputs.namespace }} \
+            --docker-server=https://gcr.io \
+            --docker-username=_json_key \
+            --docker-email=${USERNAME}@appscode.com \
+            --docker-password="$(echo $GCR_SERVICE_ACCOUNT_JSON_KEY)"
 
-    - name: Prepare cluster for testing
-      id: local-path
-      env:
-        USERNAME: 1gtm
-        REGISTRY_SECRET: regcred
-        GCR_SERVICE_ACCOUNT_JSON_KEY: ${{ secrets.GCR_SERVICE_ACCOUNT_JSON_KEY }}
-      run: |
-        echo "waiting for nodes to be ready ..."
-        kubectl wait --for=condition=Ready nodes --all --timeout=5m
-        kubectl get nodes
-        echo
-        echo "install helm 3"
-        curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
-        echo
-        echo "create docker-registry secret"
-        kubectl create ns ${{ steps.params.outputs.namespace }} || true
-        kubectl create secret docker-registry ${REGISTRY_SECRET} \
-          --namespace=${{ steps.params.outputs.namespace }} \
-          --docker-server=https://gcr.io \
-          --docker-username=_json_key \
-          --docker-email=${USERNAME}@appscode.com \
-          --docker-password="$(echo $GCR_SERVICE_ACCOUNT_JSON_KEY)"
-
-    - name: Test charts
-      run: |
-        export KUBECONFIG="${HOME}/.kube/config"
-        make ct TEST_CHARTS=charts/kubedb
-        echo
-        kubectl delete crds --all
-        sleep 10
-        echo
-        kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_elasticsearchversions.yaml
-        kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_etcdversions.yaml
-        kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_memcachedversions.yaml
-        kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_mongodbversions.yaml
-        kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_mysqlversions.yaml
-        kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_perconaxtradbversions.yaml
-        kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_pgbouncerversions.yaml
-        kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_postgresversions.yaml
-        kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_proxysqlversions.yaml
-        kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_redisversions.yaml
-        kubectl wait --for=condition=NamesAccepted crds --all --timeout=5m
-        make ct TEST_CHARTS=charts/kubedb-catalog
-        echo
-        kubectl delete crds --all
-        sleep 10
-        echo
-        make ct TEST_CHARTS=charts/kubedb-enterprise TEST_NAMESPACE=${{ steps.params.outputs.namespace }}
+      - name: Test charts
+        run: |
+          export KUBECONFIG="${HOME}/.kube/config"
+          make ct TEST_CHARTS=charts/kubedb
+          echo
+          kubectl delete crds --all
+          sleep 10
+          echo
+          kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_elasticsearchversions.yaml
+          kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_etcdversions.yaml
+          kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_memcachedversions.yaml
+          kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_mongodbversions.yaml
+          kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_mysqlversions.yaml
+          kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_perconaxtradbversions.yaml
+          kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_pgbouncerversions.yaml
+          kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_postgresversions.yaml
+          kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_proxysqlversions.yaml
+          kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/api/crds/catalog.kubedb.com_redisversions.yaml
+          kubectl wait --for=condition=NamesAccepted crds --all --timeout=5m
+          make ct TEST_CHARTS=charts/kubedb-catalog
+          echo
+          kubectl delete crds --all
+          sleep 10
+          echo
+          make ct TEST_CHARTS=charts/kubedb-enterprise TEST_NAMESPACE=${{ steps.params.outputs.namespace }}
