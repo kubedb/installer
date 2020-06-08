@@ -5,19 +5,19 @@
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: MutatingWebhookConfiguration
 metadata:
-  name: opsmutators.kubedb.com
+  name: mutators.ops.kubedb.com
   labels:
     {{- include "kubedb-enterprise.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": pre-install,pre-upgrade
     "helm.sh/hook-delete-policy": before-hook-creation
 webhooks:
-- name: mysql.opsmutators.kubedb.com
+- name: mysqlopsrequest.mutators.ops.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
-      path: /apis/opsmutators.kubedb.com/v1alpha1/mysqlmutators
+      path: /apis/mutators.ops.kubedb.com/v1alpha1/mysqlopsrequests
     caBundle: {{ b64enc .Values.apiserver.ca }}
   rules:
   - apiGroups: ["ops.kubedb.com"]
