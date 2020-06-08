@@ -5,19 +5,19 @@
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: ValidatingWebhookConfiguration
 metadata:
-  name: opsvalidators.kubedb.com
+  name: validators.ops.kubedb.com
   labels:
     {{- include "kubedb-enterprise.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": pre-install,pre-upgrade
     "helm.sh/hook-delete-policy": before-hook-creation
 webhooks:
-- name: mysql.opsvalidators.kubedb.com
+- name: mysqlopsrequest.validators.ops.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
-      path: /apis/opsvalidators.kubedb.com/v1alpha1/mysqlopsrequestvalidators
+      path: /apis/validators.ops.kubedb.com/v1alpha1/mysqlopsrequests
     caBundle: {{ b64enc .Values.apiserver.ca }}
   rules:
     - apiGroups: ["ops.kubedb.com"]
