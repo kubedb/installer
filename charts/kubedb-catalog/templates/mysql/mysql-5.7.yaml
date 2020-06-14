@@ -1,6 +1,6 @@
 {{ if .Values.catalog.mysql }}
+{{ if not .Values.skipDeprecated }}
 
-{{- if not .Values.skipDeprecated }}
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
@@ -27,9 +27,7 @@ spec:
     whitelist:
       standalone: ["5.7"]
       groupReplication: ["5.7"]
-{{- end }}
 
-{{- if not .Values.skipDeprecated }}
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
@@ -56,9 +54,7 @@ spec:
     whitelist:
       standalone: ["5.7"]
       groupReplication: ["5.7"]
-{{- end }}
 
-{{- if not .Values.skipDeprecated }}
 ---
 # After 0.11.0
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -66,7 +62,7 @@ kind: MySQLVersion
 metadata:
   name: "5.7-v2"
   labels:
-        {{- include "kubedb-catalog.labels" . | nindent 4 }}
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   deprecated: true
   version: "5.7.25"
@@ -86,9 +82,7 @@ spec:
     whitelist:
       standalone: ["5.7.25"]
       groupReplication: ["5.7.25"]
-{{- end }}
 
-{{- if not .Values.skipDeprecated }}
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
@@ -115,7 +109,7 @@ spec:
     whitelist:
       standalone: ["5.7.25"]
       groupReplication: ["5.7.25"]
-{{- end }}
+
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
@@ -124,6 +118,7 @@ metadata:
   labels:
   {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  deprecated: true
   version: "5.7.29"
   db:
     image: "{{ .Values.image.registry }}/mysql:5.7.29"
@@ -142,4 +137,5 @@ spec:
       standalone: ["< 5.7.29"]
       groupReplication: ["< 5.7.29"]
 
+{{ end }}
 {{ end }}

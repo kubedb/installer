@@ -1,5 +1,6 @@
 {{ if .Values.catalog.postgres }}
 
+{{ if not .Values.skipDeprecated }}
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
@@ -18,7 +19,9 @@ spec:
     image: "{{ .Values.image.registry }}/postgres-tools:10.2"
   podSecurityPolicies:
     databasePolicyName: postgres-db
+{{ end }}
 
+{{ if not .Values.skipDeprecated }}
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
@@ -37,6 +40,7 @@ spec:
     image: "{{ .Values.image.registry }}/postgres-tools:10.2-v2"
   podSecurityPolicies:
     databasePolicyName: postgres-db
+{{ end }}
 
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -62,7 +66,7 @@ kind: PostgresVersion
 metadata:
   name: "10.2-v3"
   labels:
-        {{- include "kubedb-catalog.labels" . | nindent 4 }}
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   version: "10.2"
   db:
@@ -98,7 +102,7 @@ kind: PostgresVersion
 metadata:
   name: "10.2-v5"
   labels:
-        {{- include "kubedb-catalog.labels" . | nindent 4 }}
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   version: "10.2"
   db:
