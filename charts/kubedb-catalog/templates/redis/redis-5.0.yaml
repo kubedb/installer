@@ -1,4 +1,5 @@
 {{ if .Values.catalog.redis }}
+{{ if not .Values.skipDeprecated }}
 
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -27,6 +28,7 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  deprecated: true
   version: "5.0"
   db:
     image: "{{ .Values.image.registry }}/redis:5.0-v1"
@@ -35,4 +37,5 @@ spec:
   podSecurityPolicies:
     databasePolicyName: redis-db
 
+{{ end }}
 {{ end }}

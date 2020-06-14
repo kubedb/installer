@@ -1,6 +1,6 @@
 {{ if .Values.catalog.mongo }}
+{{ if not .Values.skipDeprecated }}
 
-{{- if not .Values.skipDeprecated }}
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
@@ -21,9 +21,7 @@ spec:
     image: "{{ .Values.image.registry }}/busybox"
   podSecurityPolicies:
     databasePolicyName: mongodb-db
-{{- end }}
 
-{{- if not .Values.skipDeprecated }}
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
@@ -44,9 +42,7 @@ spec:
     image: "{{ .Values.image.registry }}/busybox"
   podSecurityPolicies:
     databasePolicyName: mongodb-db
-{{- end }}
 
-{{- if not .Values.skipDeprecated }}
 ---
 # After 0.9.0
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -68,9 +64,7 @@ spec:
     image: "{{ .Values.image.registry }}/busybox"
   podSecurityPolicies:
     databasePolicyName: mongodb-db
-{{- end }}
 
-{{- if not .Values.skipDeprecated }}
 ---
 # After 0.11.0
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -78,7 +72,7 @@ kind: MongoDBVersion
 metadata:
   name: "3.4-v3"
   labels:
-        {{- include "kubedb-catalog.labels" . | nindent 4 }}
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   deprecated: true
   version: "3.4"
@@ -92,16 +86,14 @@ spec:
     image: "{{ .Values.image.registry }}/busybox"
   podSecurityPolicies:
     databasePolicyName: mongodb-db
-{{- end }}
 
-{{- if not .Values.skipDeprecated }}
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
   name: "3.4-v4"
   labels:
-        {{- include "kubedb-catalog.labels" . | nindent 4 }}
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   deprecated: true
   version: "3.4.22"
@@ -115,7 +107,6 @@ spec:
     image: "{{ .Values.image.registry }}/busybox"
   podSecurityPolicies:
     databasePolicyName: mongodb-db
-{{- end }}
 
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -123,8 +114,9 @@ kind: MongoDBVersion
 metadata:
   name: "3.4-v5"
   labels:
-        {{- include "kubedb-catalog.labels" . | nindent 4 }}
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  deprecated: true
   version: "3.4.22"
   db:
     image: "{{ .Values.image.registry }}/mongo:3.4-v5"
@@ -137,4 +129,5 @@ spec:
   podSecurityPolicies:
     databasePolicyName: mongodb-db
 
+{{ end }}
 {{ end }}

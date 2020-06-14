@@ -1,4 +1,6 @@
 {{ if .Values.catalog.postgres }}
+{{ if not .Values.skipDeprecated }}
+
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
@@ -46,6 +48,7 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  deprecated: true
   version: "9.6"
   db:
     image: "{{ .Values.image.registry }}/postgres:9.6-v3"
@@ -63,8 +66,9 @@ kind: PostgresVersion
 metadata:
   name: "9.6-v3"
   labels:
-        {{- include "kubedb-catalog.labels" . | nindent 4 }}
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  deprecated: true
   version: "9.6"
   db:
     image: "{{ .Values.image.registry }}/postgres:9.6-v4"
@@ -101,8 +105,9 @@ kind: PostgresVersion
 metadata:
   name: "9.6-v5"
   labels:
-        {{- include "kubedb-catalog.labels" . | nindent 4 }}
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  deprecated: true
   version: "9.6"
   db:
     image: "{{ .Values.image.registry }}/postgres:9.6-v6"
@@ -113,4 +118,5 @@ spec:
   podSecurityPolicies:
     databasePolicyName: postgres-db
 
+{{ end }}
 {{ end }}

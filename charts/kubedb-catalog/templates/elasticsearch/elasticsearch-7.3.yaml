@@ -1,4 +1,5 @@
 {{ if .Values.catalog.elasticsearch }}
+{{ if not .Values.skipDeprecated }}
 
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -6,8 +7,9 @@ kind: ElasticsearchVersion
 metadata:
   name: "7.3"
   labels:
-        {{- include "kubedb-catalog.labels" . | nindent 4 }}
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  deprecated: true
   version: "7.3.2"
   authPlugin: "X-Pack"
   db:
@@ -22,4 +24,5 @@ spec:
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
 
+{{ end }}
 {{ end }}
