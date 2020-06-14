@@ -1,6 +1,6 @@
 {{ if .Values.catalog.memcached }}
+{{ if not .Values.skipDeprecated }}
 
-{{- if not .Values.skipDeprecated }}
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MemcachedVersion
@@ -17,7 +17,6 @@ spec:
     image: "{{ .Values.image.registry }}/operator:0.8.0"
   podSecurityPolicies:
     databasePolicyName: memcached-db
-{{- end }}
 
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -27,6 +26,7 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  deprecated: true
   version: "1.5"
   db:
     image: "{{ .Values.image.registry }}/memcached:1.5-v1"
@@ -35,4 +35,5 @@ spec:
   podSecurityPolicies:
     databasePolicyName: memcached-db
 
+{{ end }}
 {{ end }}

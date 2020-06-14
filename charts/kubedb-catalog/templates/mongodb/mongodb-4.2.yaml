@@ -1,4 +1,5 @@
 {{ if .Values.catalog.mongo }}
+{{ if not .Values.skipDeprecated }}
 
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -6,8 +7,9 @@ kind: MongoDBVersion
 metadata:
   name: "4.2"
   labels:
-        {{- include "kubedb-catalog.labels" . | nindent 4 }}
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  deprecated: true
   version: "4.2.3"
   db:
     image: "{{ .Values.image.registry }}/mongo:4.2"
@@ -20,4 +22,5 @@ spec:
   podSecurityPolicies:
     databasePolicyName: mongodb-db
 
+{{ end }}
 {{ end }}
