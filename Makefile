@@ -214,7 +214,7 @@ gen-values-schema:
 	@yq d /tmp/kubedb-values.openapiv3_schema.yaml description > charts/kubedb/values.openapiv3_schema.yaml
 
 .PHONY: gen-chart-doc
-gen-chart-doc: gen-chart-doc-kubedb gen-chart-doc-kubedb-catalog gen-chart-doc-kubedb-enterprise
+gen-chart-doc: $(shell find $$(pwd)/charts -maxdepth 1 -mindepth 1 -type d -printf 'gen-chart-doc-%f ')
 
 gen-chart-doc-%:
 	@echo "Generate $* chart docs"
@@ -233,6 +233,28 @@ manifests: gen-crds patch-crds label-crds gen-bindata gen-values-schema gen-char
 
 .PHONY: gen
 gen: clientset openapi manifests
+
+CHART_VERSION    ?=
+APP_VERSION      ?= $(CHART_VERSION)
+
+.PHONY: update-charts
+update-charts: $(shell find $$(pwd)/charts -maxdepth 1 -mindepth 1 -type d -printf 'chart-%f ')
+
+chart-%:
+	@$(MAKE) chart-contents-$* gen-chart-doc-$* --no-print-directory
+
+chart-contents-%:
+	@if [ ! -z "$(CHART_VERSION)" ]; then                                \
+		yq w -i ./charts/$*/Chart.yaml version $(CHART_VERSION);         \
+	fi
+	@if [ ! -z "$(APP_VERSION)" ]; then                                  \
+		yq w -i ./charts/$*/Chart.yaml appVersion $(APP_VERSION);        \
+		case "$*" in                                                     \
+		  kubedb | kubedb-enterprise)                                    \
+		    yq w -i ./charts/$*/values.yaml operator.tag $(APP_VERSION); \
+		    ;;                                                           \
+		esac;                                                            \
+	fi
 
 fmt: $(BUILD_DIRS)
 	@docker run                                                 \
