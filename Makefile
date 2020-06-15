@@ -327,13 +327,13 @@ unit-tests: $(BUILD_DIRS)
 	        ./hack/test.sh $(SRC_PKGS)                          \
 	    "
 
-TEST_CHARTS ?=
-TEST_NAMESPACE ?=
+TEST_CHARTS    ?=
+KUBE_NAMESPACE ?=
 
 ifeq ($(strip $(TEST_CHARTS)),)
-	CT_ARGS = --all --namespace=$(TEST_NAMESPACE)
+	CT_ARGS = --all --namespace=$(KUBE_NAMESPACE)
 else
-	CT_ARGS = --charts=$(TEST_CHARTS) --namespace=$(TEST_NAMESPACE)
+	CT_ARGS = --charts=$(TEST_CHARTS) --namespace=$(KUBE_NAMESPACE)
 endif
 
 .PHONY: ct
