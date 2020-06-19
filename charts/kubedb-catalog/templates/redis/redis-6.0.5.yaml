@@ -1,0 +1,19 @@
+{{ if .Values.catalog.redis }}
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: RedisVersion
+metadata:
+  name: "6.0.5"
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  version: "6.0.5"
+  db:
+    image: "kubedbci/redis:6.0.5"
+  exporter:
+    image: "{{ .Values.image.registry }}/redis_exporter:v0.21.1"
+  podSecurityPolicies:
+    databasePolicyName: redis-db
+
+{{ end }}
