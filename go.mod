@@ -38,7 +38,7 @@ require (
 	k8s.io/apimachinery v0.18.3
 	k8s.io/client-go v12.0.0+incompatible
 	k8s.io/kube-openapi v0.0.0-20200410145947-61e04a5be9a6
-	kmodules.xyz/client-go v0.0.0-20200525195850-2fd180961371
+	kmodules.xyz/client-go v0.0.0-20200630053911-20d035822d35
 	kmodules.xyz/crd-schema-fuzz v0.0.0-20200521005638-2433a187de95
 	sigs.k8s.io/yaml v1.2.0
 )
