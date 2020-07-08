@@ -42,4 +42,8 @@ jobs:
           CHART_REPOSITORY: ${{ secrets.CHART_REPOSITORY }}
         run: |
           cd $RUNNER_WORKSPACE/$(basename $CHART_REPOSITORY)
+          GIT_TAG=${GITHUB_REF#"refs/tags/"}
+          if [[ $GIT_TAG =~ "-alpha." ]] || [[ $GIT_TAG =~ "-beta." ]]; then
+            export REPO_DIR=testing
+          fi
           ./hack/scripts/open-pr.sh $GITHUB_WORKSPACE
