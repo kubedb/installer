@@ -233,8 +233,10 @@ manifests: gen-crds patch-crds label-crds gen-bindata gen-values-schema gen-char
 .PHONY: gen
 gen: clientset openapi manifests
 
-CHART_VERSION    ?=
-APP_VERSION      ?= $(CHART_VERSION)
+CHART_REGISTRY     ?= appscode
+CHART_REGISTRY_URL ?= https://charts.appscode.com/stable/
+CHART_VERSION      ?=
+APP_VERSION        ?= $(CHART_VERSION)
 
 .PHONY: update-charts
 update-charts: $(shell find $$(pwd)/charts -maxdepth 1 -mindepth 1 -type d -printf 'chart-%f ')
@@ -243,6 +245,8 @@ chart-%:
 	@$(MAKE) chart-contents-$* gen-chart-doc-$* --no-print-directory
 
 chart-contents-%:
+	@yq w -i ./charts/$*/doc.yaml repository.name --tag '!!str' $(CHART_REGISTRY)
+	@yq w -i ./charts/$*/doc.yaml repository.url --tag '!!str' $(CHART_REGISTRY_URL)
 	@if [ ! -z "$(CHART_VERSION)" ]; then                                              \
 		yq w -i ./charts/$*/Chart.yaml version --tag '!!str' $(CHART_VERSION);         \
 	fi
