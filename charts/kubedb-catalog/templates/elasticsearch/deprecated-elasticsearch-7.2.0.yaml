@@ -1,25 +1,26 @@
 {{ if .Values.catalog.elasticsearch }}
+{{ if not .Values.skipDeprecated }}
 
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  name: "7.3.2"
+  name: "7.2.0"
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
-  version: "7.3.2"
+  deprecated: true
+  version: "7.2.0"
   authPlugin: "X-Pack"
   db:
-    image: "{{ .Values.image.registry }}/elasticsearch:7.3.2"
+    image: "{{ .Values.image.registry }}/elasticsearch:7.2.0"
   exporter:
     image: "{{ .Values.image.registry }}/elasticsearch_exporter:1.0.2"
-  tools:
-    image: "{{ .Values.image.registry }}/elasticsearch-tools:7.3.2"
   initContainer:
     image: "{{ .Values.image.registry }}/busybox"
     yqImage: "{{ .Values.image.registry }}/yq:2.4.0"
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
 
+{{ end }}
 {{ end }}
