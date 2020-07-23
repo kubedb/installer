@@ -1,0 +1,23 @@
+{{ if .Values.catalog.elasticsearch }}
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: "1.3.0-opendistro"
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: "OpenDistro"
+  version: "1.3.0"
+  db:
+    image: "{{ .Values.image.registry }}/elasticsearch:1.3.0-opendistro"
+  exporter:
+    image: "{{ .Values.image.registry }}/elasticsearch_exporter:1.0.2"
+  initContainer:
+    image: "{{ .Values.image.registry }}/busybox:1.32.0"
+    yqImage: "{{ .Values.image.registry }}/elasticsearch-init:1.3-opendistro"
+  podSecurityPolicies:
+    databasePolicyName: "elasticsearch-db"
+
+{{ end }}
