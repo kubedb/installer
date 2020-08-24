@@ -54,26 +54,26 @@ onessl_found() {
 onessl_found || {
   echo "Downloading onessl ..."
   if [[ "$(uname -m)" == "aarch64" ]]; then
-    curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.10.0/onessl-linux-arm64
+    curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/v0.14.0/onessl-linux-arm64
     chmod +x onessl
     export ONESSL=./onessl
   else
     # ref: https://stackoverflow.com/a/27776822/244009
     case "$(uname -s)" in
       Darwin)
-        curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.10.0/onessl-darwin-amd64
+        curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/v0.14.0/onessl-darwin-amd64
         chmod +x onessl
         export ONESSL=./onessl
         ;;
 
       Linux)
-        curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.10.0/onessl-linux-amd64
+        curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/v0.14.0/onessl-linux-amd64
         chmod +x onessl
         export ONESSL=./onessl
         ;;
 
       CYGWIN* | MINGW* | MSYS*)
-        curl -fsSL -o onessl.exe https://github.com/kubepack/onessl/releases/download/0.10.0/onessl-windows-amd64.exe
+        curl -fsSL -o onessl.exe https://github.com/kubepack/onessl/releases/download/v0.14.0/onessl-windows-amd64.exe
         chmod +x onessl.exe
         export ONESSL=./onessl.exe
         ;;
