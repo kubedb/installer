@@ -67,6 +67,8 @@ spec:
         - name: operator
           containerPort: {{ .Values.apiserver.port }}
         volumeMounts:
+        - mountPath: /tmp
+          name: scratchdir
         - mountPath: /var/serving-cert
           name: serving-cert
       {{- if .Values.apiserver.healthcheck.enabled }}
@@ -87,6 +89,9 @@ spec:
         resources:
           {{- toYaml .Values.operator.resources | nindent 10 }}
       volumes:
+      - emptyDir:
+          medium: Memory
+        name: scratchdir
       - name: serving-cert
         secret:
           defaultMode: 420
