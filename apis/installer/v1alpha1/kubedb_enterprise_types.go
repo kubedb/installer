@@ -81,6 +81,8 @@ type KubeDBEnterpriseSpec struct {
 	Monitoring      Monitoring `json:"monitoring"`
 	// +optional
 	AdditionalPodSecurityPolicies []string `json:"additionalPodSecurityPolicies"`
+	// +optional
+	License string `json:"license"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

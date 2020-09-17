@@ -16039,6 +16039,12 @@ func schema_installer_apis_installer_v1alpha1_KubeDBEnterpriseSpec(ref common.Re
 							},
 						},
 					},
+					"license": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 				},
 				Required: []string{"replicaCount", "operator", "cleaner", "imagePullPolicy", "serviceAccount", "apiserver", "monitoring"},
 			},
@@ -16298,6 +16304,12 @@ func schema_installer_apis_installer_v1alpha1_KubeDBOperatorSpec(ref common.Refe
 									},
 								},
 							},
+						},
+					},
+					"license": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 				},

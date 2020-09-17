@@ -54,6 +54,9 @@ spec:
         - --bypass-validating-webhook-xray={{ .Values.apiserver.bypassValidatingWebhookXray }}
         - --use-kubeapiserver-fqdn-for-aks={{ .Values.apiserver.useKubeapiserverFqdnForAks }}
         - --enable-analytics={{ .Values.enableAnalytics }}
+        {{- if .Values.license }}
+        - --license-file=/var/run/secrets/appscode/license/key.txt
+        {{- end }}
         env:
         - name: MY_POD_NAME
           valueFrom:
@@ -71,6 +74,10 @@ spec:
           name: scratchdir
         - mountPath: /var/serving-cert
           name: serving-cert
+        {{- if .Values.license }}
+        - mountPath: /var/run/secrets/appscode/license
+          name: license
+        {{- end }}
       {{- if .Values.apiserver.healthcheck.enabled }}
         readinessProbe:
           httpGet:
@@ -96,6 +103,12 @@ spec:
         secret:
           defaultMode: 420
           secretName: {{ include "kubedb-enterprise.fullname" . }}-apiserver-cert
+      {{- if .Values.license }}
+      - name: license
+        secret:
+          defaultMode: 420
+          secretName: {{ include "kubedb-enterprise.fullname" . }}-license
+      {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
     {{- if or .Values.tolerations $criticalAddon }}
