@@ -97,6 +97,8 @@ type KubeDBOperatorSpec struct {
 	Monitoring      Monitoring `json:"monitoring"`
 	// +optional
 	AdditionalPodSecurityPolicies []string `json:"additionalPodSecurityPolicies"`
+	// +optional
+	License string `json:"license"`
 }
 
 type ServiceAccountSpec struct {
