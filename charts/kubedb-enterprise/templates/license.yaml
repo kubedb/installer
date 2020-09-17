@@ -1,0 +1,13 @@
+# if license file is provided, then create a secret for license
+  {{- if .Values.license }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "kubedb-enterprise.fullname" . }}-license
+  namespace: {{ .Release.Namespace }}
+  labels:
+  {{- include "kubedb-enterprise.labels" . | nindent 4 }}
+type: Opaque
+data:
+  key.txt: {{ .Values.license | b64enc }}
+{{- end }}
