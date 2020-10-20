@@ -344,7 +344,6 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/installer/apis/installer/v1alpha1.KubeDBOperatorSpec":   schema_installer_apis_installer_v1alpha1_KubeDBOperatorSpec(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.Monitoring":           schema_installer_apis_installer_v1alpha1_Monitoring(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.OperatorContainer":    schema_installer_apis_installer_v1alpha1_OperatorContainer(ref),
-		"kubedb.dev/installer/apis/installer/v1alpha1.PrometheusSpec":       schema_installer_apis_installer_v1alpha1_PrometheusSpec(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.RegistryRef":          schema_installer_apis_installer_v1alpha1_RegistryRef(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.ServiceAccountSpec":   schema_installer_apis_installer_v1alpha1_ServiceAccountSpec(ref),
 		"kubedb.dev/installer/apis/installer/v1alpha1.ServiceMonitorLabels": schema_installer_apis_installer_v1alpha1_ServiceMonitorLabels(ref),
@@ -16339,22 +16338,17 @@ func schema_installer_apis_installer_v1alpha1_Monitoring(ref common.ReferenceCal
 							Format: "",
 						},
 					},
-					"prometheus": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("kubedb.dev/installer/apis/installer/v1alpha1.PrometheusSpec"),
-						},
-					},
 					"serviceMonitor": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("kubedb.dev/installer/apis/installer/v1alpha1.ServiceMonitorLabels"),
 						},
 					},
 				},
-				Required: []string{"agent", "prometheus", "serviceMonitor"},
+				Required: []string{"agent", "serviceMonitor"},
 			},
 		},
 		Dependencies: []string{
-			"kubedb.dev/installer/apis/installer/v1alpha1.PrometheusSpec", "kubedb.dev/installer/apis/installer/v1alpha1.ServiceMonitorLabels"},
+			"kubedb.dev/installer/apis/installer/v1alpha1.ServiceMonitorLabels"},
 	}
 }
 
@@ -16400,24 +16394,6 @@ func schema_installer_apis_installer_v1alpha1_OperatorContainer(ref common.Refer
 		},
 		Dependencies: []string{
 			"k8s.io/api/core/v1.ResourceRequirements", "k8s.io/api/core/v1.SecurityContext"},
-	}
-}
-
-func schema_installer_apis_installer_v1alpha1_PrometheusSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
-				Properties: map[string]spec.Schema{
-					"namespace": {
-						SchemaProps: spec.SchemaProps{
-							Type:   []string{"string"},
-							Format: "",
-						},
-					},
-				},
-			},
-		},
 	}
 }
 
