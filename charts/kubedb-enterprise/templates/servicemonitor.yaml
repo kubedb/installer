@@ -3,7 +3,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: {{ include "kubedb-enterprise.fullname" . }}
-  namespace: {{ default .Release.Namespace .Values.monitoring.prometheus.namespace }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- if .Values.monitoring.serviceMonitor.labels }}
     {{- range $key, $val := .Values.monitoring.serviceMonitor.labels }}
@@ -24,6 +24,10 @@ spec:
     bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
     scheme: https
     tlsConfig:
+      ca:
+        secret:
+          name: {{ include "kubedb-enterprise.fullname" . }}-apiserver-cert
+          key: tls.crt
       caFile: /etc/prometheus/secrets/{{ include "kubedb-enterprise.fullname" . }}-apiserver-cert/tls.crt
       serverName: "{{ include "kubedb-enterprise.fullname" . }}.{{ .Release.Namespace }}.svc"
 {{- end }}
