@@ -142,13 +142,7 @@ type Monitoring struct {
 	// +optional
 	Enabled        bool                  `json:"enabled"`
 	Agent          string                `json:"agent"`
-	Prometheus     *PrometheusSpec       `json:"prometheus"`
 	ServiceMonitor *ServiceMonitorLabels `json:"serviceMonitor"`
-}
-
-type PrometheusSpec struct {
-	// +optional
-	Namespace string `json:"namespace"`
 }
 
 type ServiceMonitorLabels struct {

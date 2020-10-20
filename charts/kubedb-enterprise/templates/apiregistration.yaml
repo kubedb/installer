@@ -63,23 +63,6 @@ data:
   tls.crt: {{ $serverCrt }}
   tls.key: {{ $serverKey }}
 ---
-{{ $promNamespace:= default .Release.Namespace .Values.monitoring.prometheus.namespace }}
-{{- if (and (ne $promNamespace .Release.Namespace) .Values.monitoring.enabled) }}
-# if operator monitoring is enabled and prometheus namespace is different than operator
-# create the above secret in prometheus namespace too.
-apiVersion: v1
-kind: Secret
-metadata:
-  name: {{ include "kubedb-enterprise.fullname" . }}-apiserver-cert
-  namespace: {{ $promNamespace }}
-  labels:
-    {{- include "kubedb-enterprise.labels" . | nindent 4 }}
-type: kubernetes.io/tls
-data:
-  tls.crt: {{ $serverCrt }}
-  tls.key: {{ $serverKey }}
----
-{{ end }}
 # to read the config for terminating authentication
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
