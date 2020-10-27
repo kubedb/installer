@@ -9,6 +9,7 @@ require (
 	github.com/NYTimes/gziphandler v1.1.1 // indirect
 	github.com/appscode/go v0.0.0-20201006035845-a0302ac8e3d3
 	github.com/blang/semver v3.5.1+incompatible // indirect
+	github.com/coreos/pkg v0.0.0-20180928190104-399ea9e2e55f // indirect
 	github.com/go-openapi/spec v0.19.8
 	github.com/go-openapi/swag v0.19.9 // indirect
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
@@ -30,6 +31,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/prometheus/client_golang v1.6.0 // indirect
 	github.com/stretchr/testify v1.5.1 // indirect
+	github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5 // indirect
 	github.com/yudai/gojsondiff v1.0.0
 	go.uber.org/atomic v1.6.0 // indirect
 	go.uber.org/zap v1.13.0 // indirect
@@ -47,7 +49,7 @@ require (
 	k8s.io/client-go v0.18.9
 	k8s.io/kube-openapi v0.0.0-20200410145947-61e04a5be9a6
 	k8s.io/utils v0.0.0-20200414100711-2df71ebbae66 // indirect
-	kmodules.xyz/client-go v0.0.0-20201021051118-03dac1aea508
+	kmodules.xyz/client-go v0.0.0-20201027113349-01a6d453d836
 	kmodules.xyz/crd-schema-fuzz v0.0.0-20200922204806-c1426cd7fcf4
 	sigs.k8s.io/yaml v1.2.0
 )
