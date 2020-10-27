@@ -7,7 +7,7 @@
 ```console
 $ helm repo add appscode-testing https://charts.appscode.com/testing/
 $ helm repo update
-$ helm install kubedb-operator appscode-testing/kubedb -n kube-system
+$ helm install kubedb-community appscode-testing/kubedb -n kube-system
 ```
 
 ## Introduction
@@ -20,10 +20,10 @@ This chart deploys a KubeDB operator on a [Kubernetes](http://kubernetes.io) clu
 
 ## Installing the Chart
 
-To install the chart with the release name `kubedb-operator`:
+To install the chart with the release name `kubedb-community`:
 
 ```console
-$ helm install kubedb-operator appscode-testing/kubedb -n kube-system
+$ helm install kubedb-community appscode-testing/kubedb -n kube-system
 ```
 
 The command deploys a KubeDB operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -32,10 +32,10 @@ The command deploys a KubeDB operator on the Kubernetes cluster in the default c
 
 ## Uninstalling the Chart
 
-To uninstall/delete the `kubedb-operator`:
+To uninstall/delete the `kubedb-community`:
 
 ```console
-$ helm delete kubedb-operator -n kube-system
+$ helm delete kubedb-community -n kube-system
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
@@ -94,12 +94,12 @@ The following table lists the configurable parameters of the `kubedb` chart and 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
 
 ```console
-$ helm install kubedb-operator appscode-testing/kubedb -n kube-system --set replicaCount=1
+$ helm install kubedb-community appscode-testing/kubedb -n kube-system --set replicaCount=1
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```console
-$ helm install kubedb-operator appscode-testing/kubedb -n kube-system --values values.yaml
+$ helm install kubedb-community appscode-testing/kubedb -n kube-system --values values.yaml
 ```
