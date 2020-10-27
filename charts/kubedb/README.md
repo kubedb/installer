@@ -5,9 +5,9 @@
 ## TL;DR;
 
 ```console
-$ helm repo add appscode-testing https://charts.appscode.com/testing/
+$ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm install kubedb-community appscode-testing/kubedb -n kube-system
+$ helm install kubedb-community appscode/kubedb -n kube-system
 ```
 
 ## Introduction
@@ -23,7 +23,7 @@ This chart deploys a KubeDB operator on a [Kubernetes](http://kubernetes.io) clu
 To install the chart with the release name `kubedb-community`:
 
 ```console
-$ helm install kubedb-community appscode-testing/kubedb -n kube-system
+$ helm install kubedb-community appscode/kubedb -n kube-system
 ```
 
 The command deploys a KubeDB operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -52,7 +52,7 @@ The following table lists the configurable parameters of the `kubedb` chart and 
 | license                               | License for the product. Get a license by following the steps from [here](https://kubedb.run/docs/latest/setup/install/enterprise#get-a-trial-license). <br> Example: <br> `helm install appscode/kubedb-enterprise \` <br> `--set-file license=/path/to/license/file` <br> `or` <br> `helm install appscode/kubedb-enterprise \` <br> `--set license=<license file content>` | `""`                                                                  |
 | operator.registry                     | Docker registry used to pull KubeDB operator image                                                                                                                                                                                                                                                                                                                            | `kubedb`                                                              |
 | operator.repository                   | KubeDB operator container image                                                                                                                                                                                                                                                                                                                                               | `operator`                                                            |
-| operator.tag                          | KubeDB operator container image tag                                                                                                                                                                                                                                                                                                                                           | `v0.14.0-beta.5`                                                      |
+| operator.tag                          | KubeDB operator container image tag                                                                                                                                                                                                                                                                                                                                           | `v0.14.0-beta.6`                                                      |
 | operator.resources                    | Compute Resources required by the operator container                                                                                                                                                                                                                                                                                                                          | `{}`                                                                  |
 | operator.securityContext              | requests: cpu: 100m memory: 128Mi Security options the operator container should run with                                                                                                                                                                                                                                                                                     | `{}`                                                                  |
 | cleaner.registry                      | Docker registry used to pull Webhook cleaner image                                                                                                                                                                                                                                                                                                                            | `appscode`                                                            |
@@ -94,12 +94,12 @@ The following table lists the configurable parameters of the `kubedb` chart and 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
 
 ```console
-$ helm install kubedb-community appscode-testing/kubedb -n kube-system --set replicaCount=1
+$ helm install kubedb-community appscode/kubedb -n kube-system --set replicaCount=1
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```console
-$ helm install kubedb-community appscode-testing/kubedb -n kube-system --values values.yaml
+$ helm install kubedb-community appscode/kubedb -n kube-system --values values.yaml
 ```
