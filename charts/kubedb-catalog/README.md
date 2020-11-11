@@ -54,6 +54,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | catalog.memcached     | If true, deploys Memcached version catalog      | `true`   |
 | catalog.mongo         | If true, deploys MongoDB version catalog        | `true`   |
 | catalog.mysql         | If true, deploys MySQL version catalog          | `true`   |
+| catalog.mariadb       | If true, deploys MariaDB version catalog        | `true`   |
 | catalog.perconaxtradb | If true, deploys Percona XtraDB version catalog | `true`   |
 | catalog.pgbouncer     | If true, deploys PgBouncer version catalog      | `true`   |
 | catalog.postgres      | If true, deploys PostgreSQL version catalog     | `true`   |
