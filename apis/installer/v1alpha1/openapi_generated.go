@@ -15572,6 +15572,12 @@ func schema_installer_apis_installer_v1alpha1_Catalog(ref common.ReferenceCallba
 							Format: "",
 						},
 					},
+					"mariadb": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
 					"perconaxtradb": {
 						SchemaProps: spec.SchemaProps{
 							Type:   []string{"boolean"},

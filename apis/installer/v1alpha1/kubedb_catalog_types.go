@@ -68,6 +68,8 @@ type Catalog struct {
 	//+optional
 	Mysql bool `json:"mysql"`
 	//+optional
+	MariaDB bool `json:"mariadb"`
+	//+optional
 	Perconaxtradb bool `json:"perconaxtradb"`
 	//+optional
 	Pgbouncer bool `json:"pgbouncer"`
