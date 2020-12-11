@@ -22,12 +22,12 @@ import (
 )
 
 const (
-	ResourceKindKubeDBAutoscaler = "KubeDBAutoscaler"
-	ResourceKubeDBAutoscaler     = "kubedbautoscaler"
-	ResourceKubeDBAutoscalers    = "kubedbautoscalers"
+	ResourceKindKubedbAutoscaler = "KubedbAutoscaler"
+	ResourceKubedbAutoscaler     = "kubedbautoscaler"
+	ResourceKubedbAutoscalers    = "kubedbautoscalers"
 )
 
-// KubeDBAutoscaler defines the schama for KubeDB Enterprise Operator Installer.
+// KubedbAutoscaler defines the schama for KubeDB Enterprise Operator Installer.
 
 // +genclient
 // +genclient:skipVerbs=updateStatus
@@ -36,14 +36,14 @@ const (
 
 // +kubebuilder:object:root=true
 // +kubebuilder:resource:path=kubedbautoscalers,singular=kubedbautoscaler,categories={kubedb,appscode}
-type KubeDBAutoscaler struct {
+type KubedbAutoscaler struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              KubeDBAutoscalerSpec `json:"spec,omitempty"`
+	Spec              KubedbAutoscalerSpec `json:"spec,omitempty"`
 }
 
-// KubeDBAutoscalerSpec is the spec for redis version
-type KubeDBAutoscalerSpec struct {
+// KubedbAutoscalerSpec is the spec for redis version
+type KubedbAutoscalerSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
@@ -83,14 +83,30 @@ type KubeDBAutoscalerSpec struct {
 	AdditionalPodSecurityPolicies []string `json:"additionalPodSecurityPolicies"`
 	// +optional
 	License string `json:"license"`
+	// +optional
+	UpdateInterval string `json:"updateInterval"`
+	// +optional
+	StorageAutoscaler StorageAutoscalerSpec `json:"storageAutoscaler"`
+}
+
+type StorageAutoscalerSpec struct {
+	Prometheus PrometheusSpec `json:"prometheus"`
+}
+
+type PrometheusSpec struct {
+	Address string `json:"address"`
+	// +optional
+	BearerToken string `json:"bearerToken"`
+	// +optional
+	CACert string `json:"caCert"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KubeDBAutoscalerList is a list of KubeDBAutoscalers
-type KubeDBAutoscalerList struct {
+// KubedbAutoscalerList is a list of KubedbAutoscalers
+type KubedbAutoscalerList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of KubeDBAutoscaler CRD objects
-	Items []KubeDBAutoscaler `json:"items,omitempty"`
+	// Items is a list of KubedbAutoscaler CRD objects
+	Items []KubedbAutoscaler `json:"items,omitempty"`
 }

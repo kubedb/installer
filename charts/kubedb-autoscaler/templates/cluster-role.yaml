@@ -27,16 +27,6 @@ rules:
   - "*"
   verbs: ["*"]
 - apiGroups:
-  - apps
-  resources:
-  - statefulsets
-  verbs: ["create", "delete", "get", "list", "patch", "update", "deletecollection"]
-- apiGroups:
-  - ""
-  resources:
-  - events
-  verbs: ["create"]
-- apiGroups:
   - ""
   resources:
   - nodes
@@ -45,6 +35,7 @@ rules:
   - kubedb.com
   - catalog.kubedb.com
   - ops.kubedb.com
+  - autoscaling.kubedb.com
   resources:
   - "*"
   verbs: ["*"]
@@ -77,5 +68,76 @@ rules:
 - apiGroups:
     - ""
   resources:
+    - replicationcontrollers
+  verbs:
+    - get
+    - list
+    - watch
+- apiGroups:
+    - apps
+  resources:
+    - daemonsets
+    - deployments
+    - replicasets
+    - statefulsets
+  verbs:
+    - get
+    - list
+    - watch
+- apiGroups:
+    - "coordination.k8s.io"
+  resources:
+    - leases
+  verbs:
+    - get
+    - list
+    - watch
+- apiGroups:
+    - ""
+  resources:
+    - nodes
+    - limitranges
     - persistentvolumeclaims
-  verbs: ["get", "list", "patch"]
+  verbs:
+    - get
+    - list
+    - watch
+    - patch
+- apiGroups:
+    - ""
+  resources:
+    - events
+  verbs:
+    - get
+    - list
+    - watch
+    - create
+- apiGroups:
+    - "poc.autoscaling.k8s.io"
+  resources:
+    - verticalpodautoscalers
+  verbs:
+    - get
+    - list
+    - watch
+    - patch
+    - create
+- apiGroups:
+    - "autoscaling.k8s.io"
+  resources:
+    - verticalpodautoscalers
+  verbs:
+    - get
+    - list
+    - watch
+    - patch
+    - create
+- apiGroups:
+    - batch
+  resources:
+    - jobs
+    - cronjobs
+  verbs:
+    - get
+    - list
+    - watch

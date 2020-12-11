@@ -631,11 +631,6 @@ properties:
         type: string
       enabled:
         type: boolean
-      prometheus:
-        properties:
-          namespace:
-            type: string
-        type: object
       serviceMonitor:
         properties:
           labels:
@@ -645,7 +640,6 @@ properties:
         type: object
     required:
     - agent
-    - prometheus
     - serviceMonitor
     type: object
   nameOverride:
@@ -933,6 +927,22 @@ properties:
     required:
     - create
     type: object
+  storageAutoscaler:
+    properties:
+      prometheus:
+        properties:
+          address:
+            type: string
+          bearerToken:
+            type: string
+          caCert:
+            type: string
+        required:
+        - address
+        type: object
+    required:
+    - prometheus
+    type: object
   tolerations:
     description: If specified, the pod's tolerations.
     items:
@@ -970,6 +980,8 @@ properties:
           type: string
       type: object
     type: array
+  updateInterval:
+    type: string
 required:
 - apiserver
 - cleaner

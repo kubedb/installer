@@ -44,16 +44,22 @@ spec:
         args:
         - run
         - --v={{ .Values.logLevel }}
-        - --governing-service=kubedb
         - --secure-port={{ .Values.apiserver.port }}
         - --audit-log-path=-
         - --tls-cert-file=/var/serving-cert/tls.crt
         - --tls-private-key-file=/var/serving-cert/tls.key
         - --enable-mutating-webhook={{ .Values.apiserver.enableMutatingWebhook }}
         - --enable-validating-webhook={{ .Values.apiserver.enableValidatingWebhook }}
-        - --bypass-validating-webhook-xray={{ .Values.apiserver.bypassValidatingWebhookXray }}
         - --use-kubeapiserver-fqdn-for-aks={{ .Values.apiserver.useKubeapiserverFqdnForAks }}
         - --enable-analytics={{ .Values.enableAnalytics }}
+        - --update-interval={{ .Values.updateInterval }}
+        - --prometheus-address={{.Values.storageAutoscaler.prometheus.address}}
+        {{- if .Values.storageAutoscaler.prometheus.caCert }}
+        - --prometheus-ca-file=/var/prometheus-data/ca.crt
+        {{- end }}
+        {{- if .Values.storageAutoscaler.prometheus.bearerToken }}
+        - --prometheus-token-file=/var/prometheus-data/token.txt
+        {{- end }}
         {{- if .Values.license }}
         - --license-file=/var/run/secrets/appscode/license/key.txt
         {{- end }}
@@ -74,6 +80,10 @@ spec:
           name: scratchdir
         - mountPath: /var/serving-cert
           name: serving-cert
+        {{- if or (ne .Values.storageAutoscaler.prometheus.bearerToken "") (ne .Values.storageAutoscaler.prometheus.caCert  "") }}
+        - mountPath: /var/prometheus-data
+          name: prometheus-data
+        {{- end }}
         {{- if .Values.license }}
         - mountPath: /var/run/secrets/appscode/license
           name: license
@@ -103,6 +113,12 @@ spec:
         secret:
           defaultMode: 420
           secretName: {{ include "kubedb-autoscaler.fullname" . }}-apiserver-cert
+      {{- if or (ne .Values.storageAutoscaler.prometheus.bearerToken "") (ne .Values.storageAutoscaler.prometheus.caCert  "") }}
+      - name: prometheus-data
+        secret:
+          defaultMode: 420
+          secretName: {{ include "kubedb-autoscaler.fullname" . }}-prometheus-data
+      {{- end }}
       {{- if .Values.license }}
       - name: license
         secret:

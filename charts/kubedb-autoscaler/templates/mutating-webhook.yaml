@@ -5,25 +5,41 @@
 apiVersion: admissionregistration.k8s.io/v1beta1
 kind: MutatingWebhookConfiguration
 metadata:
-  name: mutators.ops.kubedb.com
+  name: mutators.autoscaling.kubedb.com
   labels:
     {{- include "kubedb-autoscaler.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": pre-install,pre-upgrade
     "helm.sh/hook-delete-policy": before-hook-creation
 webhooks:
-- name: mysqlopsrequest.mutators.ops.kubedb.com
+- name: mongodbautoscaler.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
-      path: /apis/mutators.ops.kubedb.com/v1alpha1/mysqlopsrequests
+      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/mongodbautoscalers
     caBundle: {{ b64enc .Values.apiserver.ca }}
   rules:
-  - apiGroups: ["ops.kubedb.com"]
+  - apiGroups: ["autoscaling.kubedb.com"]
     apiVersions: ["*"]
-    resources: ["mysqlopsrequests"]
+    resources: ["mongodbautoscalers"]
     operations: ["CREATE", "UPDATE"]
+  failurePolicy: Fail
+{{- if and (ge $major 1) (ge $minor 12) }}
+  sideEffects: None
+{{- end }}
+- name: elasticsearchautoscaler.mutators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/elasticsearchautoscalers
+    caBundle: {{ b64enc .Values.apiserver.ca }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["elasticsearchautoscalers"]
+      operations: ["CREATE", "UPDATE"]
   failurePolicy: Fail
 {{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
