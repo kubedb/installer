@@ -93,6 +93,8 @@ type KubeDBOperatorSpec struct {
 	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount"`
 	Apiserver          WebHookSpec              `json:"apiserver"`
 	// +optional
+	EnforceTerminationPolicy bool `json:"enforceTerminationPolicy"`
+	// +optional
 	EnableAnalytics bool       `json:"enableAnalytics"`
 	Monitoring      Monitoring `json:"monitoring"`
 	// +optional

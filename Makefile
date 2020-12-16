@@ -19,7 +19,7 @@ REPO     := $(notdir $(shell pwd))
 BIN      := installer
 
 # Produce CRDs that work back to Kubernetes 1.11 (no version conversion)
-CRD_OPTIONS          ?= "crd:trivialVersions=true,preserveUnknownFields=false,crdVersions={v1beta1,v1}"
+CRD_OPTIONS          ?= "crd:trivialVersions=true,preserveUnknownFields=false,crdVersions={v1}"
 # https://github.com/appscodelabs/gengo-builder
 CODE_GENERATOR_IMAGE ?= appscode/gengo:release-1.18
 API_GROUPS           ?= installer:v1alpha1
@@ -48,8 +48,8 @@ endif
 ### These variables should not need tweaking.
 ###
 
-SRC_PKGS := api apis # directories which hold app source (not vendored)
-SRC_DIRS := $(SRC_PKGS) hack/gencrd
+SRC_PKGS := apis # directories which hold app source (not vendored)
+SRC_DIRS := $(SRC_PKGS)
 
 DOCKER_PLATFORMS := linux/amd64 linux/arm linux/arm64
 BIN_PLATFORMS    := $(DOCKER_PLATFORMS)
@@ -170,20 +170,20 @@ gen-crds:
 		controller-gen                      \
 			$(CRD_OPTIONS)                  \
 			paths="./apis/..."              \
-			output:crd:artifacts:config=api/crds
+			output:crd:artifacts:config=crds
 
-crds_to_patch := installer.kubedb.com_kubedboperators.yaml
+crds_to_patch :=
 
 .PHONY: patch-crds
 patch-crds: $(addprefix patch-crd-, $(crds_to_patch))
 patch-crd-%: $(BUILD_DIRS)
 	@echo "patching $*"
-	@kubectl patch -f api/crds/$* -p "$$(cat hack/crd-patch.json)" --type=json --local=true -o yaml > bin/$*
-	@mv bin/$* api/crds/$*
+	@kubectl patch -f crds/$* -p "$$(cat hack/crd-patch.json)" --type=json --local=true -o yaml > bin/$*
+	@mv bin/$* crds/$*
 
 .PHONY: label-crds
 label-crds: $(BUILD_DIRS)
-	@for f in api/crds/*.yaml; do \
+	@for f in crds/*.yaml; do \
 		echo "applying app.kubernetes.io/name=kubedb label to $$f"; \
 		kubectl label --overwrite -f $$f --local=true -o yaml app.kubernetes.io/name=kubedb > bin/crd.yaml; \
 		mv bin/crd.yaml $$f; \
@@ -196,7 +196,7 @@ gen-bindata:
 	    --rm                                                    \
 	    -u $$(id -u):$$(id -g)                                  \
 	    -v $$(pwd):/src                                         \
-	    -w /src/api/crds                                        \
+	    -w /src/crds                                        \
 		-v /tmp:/.cache                                         \
 	    --env HTTP_PROXY=$(HTTP_PROXY)                          \
 	    --env HTTPS_PROXY=$(HTTPS_PROXY)                        \
@@ -205,11 +205,11 @@ gen-bindata:
 
 .PHONY: gen-values-schema
 gen-values-schema:
-	@yq r api/crds/installer.kubedb.com_kubedbcatalogs.v1.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/kubedb-catalog-values.openapiv3_schema.yaml
+	@yq r crds/installer.kubedb.com_kubedbcatalogs.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/kubedb-catalog-values.openapiv3_schema.yaml
 	@yq d /tmp/kubedb-catalog-values.openapiv3_schema.yaml description > charts/kubedb-catalog/values.openapiv3_schema.yaml
-	@yq r api/crds/installer.kubedb.com_kubedbenterprises.v1.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/kubedb-enterprise-values.openapiv3_schema.yaml
+	@yq r crds/installer.kubedb.com_kubedbenterprises.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/kubedb-enterprise-values.openapiv3_schema.yaml
 	@yq d /tmp/kubedb-enterprise-values.openapiv3_schema.yaml description > charts/kubedb-enterprise/values.openapiv3_schema.yaml
-	@yq r api/crds/installer.kubedb.com_kubedboperators.v1.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/kubedb-values.openapiv3_schema.yaml
+	@yq r crds/installer.kubedb.com_kubedboperators.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/kubedb-values.openapiv3_schema.yaml
 	@yq d /tmp/kubedb-values.openapiv3_schema.yaml description > charts/kubedb/values.openapiv3_schema.yaml
 
 .PHONY: gen-chart-doc
@@ -228,10 +228,10 @@ gen-chart-doc-%:
 		chart-doc-gen -d ./charts/$*/doc.yaml -v ./charts/$*/values.yaml > ./charts/$*/README.md
 
 .PHONY: manifests
-manifests: gen-crds patch-crds label-crds gen-bindata gen-values-schema gen-chart-doc
+manifests: gen-crds gen-values-schema gen-chart-doc
 
 .PHONY: gen
-gen: clientset openapi manifests
+gen: clientset manifests
 
 CHART_REGISTRY     ?= appscode
 CHART_REGISTRY_URL ?= https://charts.appscode.com/stable/
