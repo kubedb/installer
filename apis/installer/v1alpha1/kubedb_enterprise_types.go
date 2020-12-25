@@ -22,12 +22,12 @@ import (
 )
 
 const (
-	ResourceKindKubeDBEnterprise = "KubeDBEnterprise"
-	ResourceKubeDBEnterprise     = "kubedbenterprise"
-	ResourceKubeDBEnterprises    = "kubedbenterprises"
+	ResourceKindKubedbEnterprise = "KubedbEnterprise"
+	ResourceKubedbEnterprise     = "kubedbenterprise"
+	ResourceKubedbEnterprises    = "kubedbenterprises"
 )
 
-// KubeDBEnterprise defines the schama for KubeDB Enterprise Operator Installer.
+// KubedbEnterprise defines the schama for KubeDB Enterprise Operator Installer.
 
 // +genclient
 // +genclient:skipVerbs=updateStatus
@@ -36,14 +36,14 @@ const (
 
 // +kubebuilder:object:root=true
 // +kubebuilder:resource:path=kubedbenterprises,singular=kubedbenterprise,categories={kubedb,appscode}
-type KubeDBEnterprise struct {
+type KubedbEnterprise struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              KubeDBEnterpriseSpec `json:"spec,omitempty"`
+	Spec              KubedbEnterpriseSpec `json:"spec,omitempty"`
 }
 
-// KubeDBEnterpriseSpec is the spec for redis version
-type KubeDBEnterpriseSpec struct {
+// KubedbEnterpriseSpec is the spec for redis version
+type KubedbEnterpriseSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
@@ -87,10 +87,10 @@ type KubeDBEnterpriseSpec struct {
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KubeDBEnterpriseList is a list of KubeDBEnterprises
-type KubeDBEnterpriseList struct {
+// KubedbEnterpriseList is a list of KubedbEnterprises
+type KubedbEnterpriseList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of KubeDBEnterprise CRD objects
-	Items []KubeDBEnterprise `json:"items,omitempty"`
+	// Items is a list of KubedbEnterprise CRD objects
+	Items []KubedbEnterprise `json:"items,omitempty"`
 }
