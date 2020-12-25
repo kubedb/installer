@@ -3,27 +3,15 @@ module kubedb.dev/installer
 go 1.12
 
 require (
-	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/golang/protobuf v1.4.3 // indirect
 	github.com/google/go-cmp v0.4.0 // indirect
 	github.com/google/gofuzz v1.1.0
 	github.com/json-iterator/go v1.1.10 // indirect
-	github.com/k0kubun/colorstring v0.0.0-20150214042306-9440f1994b88 // indirect
 	github.com/kr/pretty v0.2.0 // indirect
-	github.com/mattn/go-colorable v0.1.8 // indirect
-	github.com/onsi/gomega v1.8.1 // indirect
-	github.com/sergi/go-diff v1.0.0 // indirect
 	github.com/stretchr/testify v1.5.1 // indirect
-	github.com/yudai/gojsondiff v1.0.0
-	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
-	github.com/yudai/pp v2.0.1+incompatible // indirect
-	golang.org/x/net v0.0.0-20200625001655-4c5254603344 // indirect
-	golang.org/x/sys v0.0.0-20200615200032-f1bc736245b1 // indirect
-	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
-	gopkg.in/yaml.v2 v2.3.0 // indirect
 	k8s.io/api v0.18.9
 	k8s.io/apimachinery v0.18.9
-	sigs.k8s.io/yaml v1.2.0
+	kmodules.xyz/schema-checker v0.1.0
 )
 
 replace bitbucket.org/ww/goautoneg => gomodules.xyz/goautoneg v0.0.0-20120707110453-a547fc61f48d
