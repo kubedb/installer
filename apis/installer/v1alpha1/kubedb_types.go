@@ -22,12 +22,12 @@ import (
 )
 
 const (
-	ResourceKindKubeDBOperator = "KubeDBOperator"
-	ResourceKubeDBOperator     = "kubedboperator"
-	ResourceKubeDBOperators    = "kubedboperators"
+	ResourceKindKubedb = "Kubedb"
+	ResourceKubedb     = "kubedb"
+	ResourceKubedbs    = "kubedbs"
 )
 
-// KubeDBOperator defines the schama for KubeDB Operator Installer.
+// Kubedb defines the schama for KubeDB Operator Installer.
 
 // +genclient
 // +genclient:skipVerbs=updateStatus
@@ -35,11 +35,11 @@ const (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:path=kubedboperators,singular=kubedboperator,categories={kubedb,appscode}
-type KubeDBOperator struct {
+// +kubebuilder:resource:path=kubedbs,singular=kubedb,categories={kubedb,appscode}
+type Kubedb struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              KubeDBOperatorSpec `json:"spec,omitempty"`
+	Spec              KubedbSpec `json:"spec,omitempty"`
 }
 
 type ImageRef struct {
@@ -58,8 +58,8 @@ type OperatorContainer struct {
 	SecurityContext *core.SecurityContext `json:"securityContext"`
 }
 
-// KubeDBOperatorSpec is the spec for redis version
-type KubeDBOperatorSpec struct {
+// KubedbSpec is the spec for redis version
+type KubedbSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
@@ -154,10 +154,10 @@ type ServiceMonitorLabels struct {
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KubeDBOperatorList is a list of KubeDBOperators
-type KubeDBOperatorList struct {
+// KubedbList is a list of Kubedbs
+type KubedbList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of KubeDBOperator CRD objects
-	Items []KubeDBOperator `json:"items,omitempty"`
+	// Items is a list of Kubedb CRD objects
+	Items []Kubedb `json:"items,omitempty"`
 }

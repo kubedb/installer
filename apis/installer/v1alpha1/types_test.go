@@ -14,26 +14,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package fuzzer
+package v1alpha1_test
 
 import (
+	"testing"
+
 	"kubedb.dev/installer/apis/installer/v1alpha1"
 
-	fuzz "github.com/google/gofuzz"
-	runtimeserializer "k8s.io/apimachinery/pkg/runtime/serializer"
+	schemachecker "kmodules.xyz/schema-checker"
 )
 
-// Funcs returns the fuzzer functions for this api group.
-var Funcs = func(codecs runtimeserializer.CodecFactory) []interface{} {
-	return []interface{}{
-		func(s *v1alpha1.KubedbCatalog, c fuzz.Continue) {
-			c.FuzzNoCustom(s) // fuzz self without calling this function again
-		},
-		func(s *v1alpha1.KubedbEnterprise, c fuzz.Continue) {
-			c.FuzzNoCustom(s) // fuzz self without calling this function again
-		},
-		func(s *v1alpha1.Kubedb, c fuzz.Continue) {
-			c.FuzzNoCustom(s) // fuzz self without calling this function again
-		},
-	}
+func TestDefaultValues(t *testing.T) {
+	checker := schemachecker.New("../../..", []interface{}{
+		v1alpha1.KubedbSpec{},
+		v1alpha1.KubedbCatalogSpec{},
+		v1alpha1.KubedbEnterpriseSpec{},
+	})
+	checker.TestAll(t)
 }

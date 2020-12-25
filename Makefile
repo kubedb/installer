@@ -204,13 +204,15 @@ gen-bindata:
 	    go-bindata -ignore=\\.go -ignore=\\.DS_Store -mode=0644 -modtime=1573722179 -o bindata.go -pkg crds ./...
 
 .PHONY: gen-values-schema
-gen-values-schema:
-	@yq r crds/installer.kubedb.com_kubedbcatalogs.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/kubedb-catalog-values.openapiv3_schema.yaml
-	@yq d /tmp/kubedb-catalog-values.openapiv3_schema.yaml description > charts/kubedb-catalog/values.openapiv3_schema.yaml
-	@yq r crds/installer.kubedb.com_kubedbenterprises.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/kubedb-enterprise-values.openapiv3_schema.yaml
-	@yq d /tmp/kubedb-enterprise-values.openapiv3_schema.yaml description > charts/kubedb-enterprise/values.openapiv3_schema.yaml
-	@yq r crds/installer.kubedb.com_kubedboperators.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > /tmp/kubedb-values.openapiv3_schema.yaml
-	@yq d /tmp/kubedb-values.openapiv3_schema.yaml description > charts/kubedb/values.openapiv3_schema.yaml
+gen-values-schema: $(BUILD_DIRS)
+	@for dir in charts/*/; do \
+		dir=$${dir%*/}; \
+		dir=$${dir##*/}; \
+		crd=$$(echo $$dir | tr -d '-'); \
+		yq r crds/installer.kubedb.com_$${crd}s.yaml spec.versions[0].schema.openAPIV3Schema.properties.spec > bin/values.openapiv3_schema.yaml; \
+		yq d bin/values.openapiv3_schema.yaml description > charts/$${dir}/values.openapiv3_schema.yaml; \
+		rm -rf bin/values.openapiv3_schema.yaml; \
+	done
 
 .PHONY: gen-chart-doc
 gen-chart-doc: $(shell find $$(pwd)/charts -maxdepth 1 -mindepth 1 -type d -printf 'gen-chart-doc-%f ')

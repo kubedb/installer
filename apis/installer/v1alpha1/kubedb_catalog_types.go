@@ -21,12 +21,12 @@ import (
 )
 
 const (
-	ResourceKindKubeDBCatalog = "KubeDBCatalog"
-	ResourceKubeDBCatalog     = "kubedbcatalog"
-	ResourceKubeDBCatalogs    = "kubedbcatalogs"
+	ResourceKindKubedbCatalog = "KubedbCatalog"
+	ResourceKubedbCatalog     = "kubedbcatalog"
+	ResourceKubedbCatalogs    = "kubedbcatalogs"
 )
 
-// KubeDBCatalog defines the schama for KubeDB Operator Installer.
+// KubedbCatalog defines the schama for KubeDB Operator Installer.
 
 // +genclient
 // +genclient:skipVerbs=updateStatus
@@ -35,14 +35,14 @@ const (
 
 // +kubebuilder:object:root=true
 // +kubebuilder:resource:path=kubedbcatalogs,singular=kubedbcatalog,categories={kubedb,appscode}
-type KubeDBCatalog struct {
+type KubedbCatalog struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              KubeDBCatalogSpec `json:"spec,omitempty"`
+	Spec              KubedbCatalogSpec `json:"spec,omitempty"`
 }
 
-// KubeDBCatalogSpec is the spec for redis version
-type KubeDBCatalogSpec struct {
+// KubedbCatalogSpec is the spec for redis version
+type KubedbCatalogSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
@@ -83,10 +83,10 @@ type Catalog struct {
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KubeDBCatalogList is a list of KubeDBCatalogs
-type KubeDBCatalogList struct {
+// KubedbCatalogList is a list of KubedbCatalogs
+type KubedbCatalogList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of KubeDBCatalog CRD objects
-	Items []KubeDBCatalog `json:"items,omitempty"`
+	// Items is a list of KubedbCatalog CRD objects
+	Items []KubedbCatalog `json:"items,omitempty"`
 }
