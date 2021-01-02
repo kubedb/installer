@@ -11,10 +11,11 @@ rules:
   - customresourcedefinitions
   verbs: ["*"]
 - apiGroups:
-  - ""
+    - admissionregistration.k8s.io
   resources:
-  - nodes
-  verbs: ["list"]
+    - mutatingwebhookconfigurations
+    - validatingwebhookconfigurations
+  verbs: ["list", "watch", "patch"]
 - apiGroups:
   - kubedb.com
   - catalog.kubedb.com
@@ -39,22 +40,10 @@ rules:
 - apiGroups:
     - apps
   resources:
-    - daemonsets
-    - deployments
-    - replicasets
     - statefulsets
   verbs:
-    - get
-    - list
     - watch
-- apiGroups:
-    - "coordination.k8s.io"
-  resources:
-    - leases
-  verbs:
-    - get
     - list
-    - watch
 - apiGroups:
     - ""
   resources:
