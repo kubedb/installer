@@ -15,26 +15,9 @@
 {{- $serverCrt = required "Required when apiserver.servingCerts.generate is false" .Values.apiserver.servingCerts.serverCrt }}
 {{- $serverKey = required "Required when apiserver.servingCerts.generate is false" .Values.apiserver.servingCerts.serverKey }}
 {{- end }}
-{{- if .Values.apiserver.enableValidatingWebhook }}
-apiVersion: apiregistration.k8s.io/v1beta1
-kind: APIService
-metadata:
-  name: v1alpha1.validators.autoscaling.kubedb.com
-  labels:
-    {{- include "kubedb-autoscaler.labels" . | nindent 4 }}
-spec:
-  group: validators.autoscaling.kubedb.com
-  version: v1alpha1
-  service:
-    namespace: {{ .Release.Namespace }}
-    name: {{ include "kubedb-autoscaler.fullname" . }}
-  caBundle: {{ $caCrt }}
-  groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
-  versionPriority: {{ .Values.apiserver.versionPriority }}
-{{- end }}
 {{- if .Values.apiserver.enableMutatingWebhook }}
 ---
-apiVersion: apiregistration.k8s.io/v1beta1
+apiVersion: apiregistration.k8s.io/v1
 kind: APIService
 metadata:
   name: v1alpha1.mutators.autoscaling.kubedb.com
