@@ -54,12 +54,14 @@ func Resource(resource string) schema.GroupResource {
 // Adds the list of known types to api.Scheme.
 func addKnownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(SchemeGroupVersion,
-		&KubedbCatalog{},
+		&KubedbAutoscalerList{},
+		&KubedbAutoscaler{},
 		&KubedbCatalogList{},
-		&KubedbEnterprise{},
+		&KubedbCatalog{},
 		&KubedbEnterpriseList{},
-		&Kubedb{},
+		&KubedbEnterprise{},
 		&KubedbList{},
+		&Kubedb{},
 	)
 
 	scheme.AddKnownTypes(SchemeGroupVersion,
