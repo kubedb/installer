@@ -48,7 +48,7 @@ type ImageRef struct {
 	Tag        string `json:"tag"`
 }
 
-type OperatorContainer struct {
+type Container struct {
 	ImageRef `json:",inline"`
 	// Compute Resources required by the sidecar container.
 	// +optional
@@ -58,16 +58,21 @@ type OperatorContainer struct {
 	SecurityContext *core.SecurityContext `json:"securityContext"`
 }
 
+type CleanerRef struct {
+	ImageRef `json:",inline"`
+	Skip     bool `json:"skip"`
+}
+
 // KubedbSpec is the spec for redis version
 type KubedbSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
-	FullnameOverride string            `json:"fullnameOverride"`
-	ReplicaCount     int32             `json:"replicaCount"`
-	Operator         OperatorContainer `json:"operator"`
-	Cleaner          ImageRef          `json:"cleaner"`
-	ImagePullPolicy  string            `json:"imagePullPolicy"`
+	FullnameOverride string     `json:"fullnameOverride"`
+	ReplicaCount     int32      `json:"replicaCount"`
+	Operator         Container  `json:"operator"`
+	Cleaner          CleanerRef `json:"cleaner"`
+	ImagePullPolicy  string     `json:"imagePullPolicy"`
 	//+optional
 	ImagePullSecrets []string `json:"imagePullSecrets"`
 	// +optional
