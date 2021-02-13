@@ -26,13 +26,16 @@ import (
 // Funcs returns the fuzzer functions for this api group.
 var Funcs = func(codecs runtimeserializer.CodecFactory) []interface{} {
 	return []interface{}{
+		func(s *v1alpha1.KubedbAutoscaler, c fuzz.Continue) {
+			c.FuzzNoCustom(s) // fuzz self without calling this function again
+		},
 		func(s *v1alpha1.KubedbCatalog, c fuzz.Continue) {
 			c.FuzzNoCustom(s) // fuzz self without calling this function again
 		},
 		func(s *v1alpha1.KubedbEnterprise, c fuzz.Continue) {
 			c.FuzzNoCustom(s) // fuzz self without calling this function again
 		},
-		func(s *v1alpha1.Kubedb, c fuzz.Continue) {
+		func(s *v1alpha1.KubedbCommunity, c fuzz.Continue) {
 			c.FuzzNoCustom(s) // fuzz self without calling this function again
 		},
 	}
