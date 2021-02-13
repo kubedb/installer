@@ -22,12 +22,12 @@ import (
 )
 
 const (
-	ResourceKindKubedb = "Kubedb"
-	ResourceKubedb     = "kubedb"
-	ResourceKubedbs    = "kubedbs"
+	ResourceKindKubedbCommunity = "KubedbCommunity"
+	ResourceKubedbCommunity     = "kubedbcommunity"
+	ResourceKubedbCommunitys    = "kubedbcommunitys"
 )
 
-// Kubedb defines the schama for KubeDB Operator Installer.
+// KubedbCommunity defines the schama for KubeDB Operator Installer.
 
 // +genclient
 // +genclient:skipVerbs=updateStatus
@@ -35,36 +35,15 @@ const (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:path=kubedbs,singular=kubedb,categories={kubedb,appscode}
-type Kubedb struct {
+// +kubebuilder:resource:path=kubedbcommunitys,singular=kubedbcommunity,categories={kubedb,appscode}
+type KubedbCommunity struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              KubedbSpec `json:"spec,omitempty"`
+	Spec              KubedbCommunitySpec `json:"spec,omitempty"`
 }
 
-type ImageRef struct {
-	Registry   string `json:"registry"`
-	Repository string `json:"repository"`
-	Tag        string `json:"tag"`
-}
-
-type Container struct {
-	ImageRef `json:",inline"`
-	// Compute Resources required by the sidecar container.
-	// +optional
-	Resources core.ResourceRequirements `json:"resources"`
-	// Security options the pod should run with.
-	// +optional
-	SecurityContext *core.SecurityContext `json:"securityContext"`
-}
-
-type CleanerRef struct {
-	ImageRef `json:",inline"`
-	Skip     bool `json:"skip"`
-}
-
-// KubedbSpec is the spec for redis version
-type KubedbSpec struct {
+// KubedbCommunitySpec is the spec for redis version
+type KubedbCommunitySpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
@@ -159,10 +138,10 @@ type ServiceMonitorLabels struct {
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KubedbList is a list of Kubedbs
-type KubedbList struct {
+// KubedbCommunityList is a list of KubedbCommunity-s
+type KubedbCommunityList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of Kubedb CRD objects
-	Items []Kubedb `json:"items,omitempty"`
+	// Items is a list of KubedbCommunity CRD objects
+	Items []KubedbCommunity `json:"items,omitempty"`
 }
