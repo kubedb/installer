@@ -39,3 +39,5 @@ $ helm delete kubedb-crds -n kube-system
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
+
+
