@@ -1,0 +1,19 @@
+{{ if .Values.catalog.mariadb }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MariaDBVersion
+metadata:
+  name: "10.5"
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  version: "10.5"
+  db:
+    image: "{{ .Values.image.registry }}/mariadb:10.5"
+  exporter:
+    image: "{{ .Values.image.registry }}/mysqld-exporter:v0.11.0"
+  initContainer:
+    image: "{{ .Values.image.registry }}/busybox"
+  podSecurityPolicies:
+    databasePolicyName: maria-db
+{{ end }}
