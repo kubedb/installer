@@ -5,7 +5,7 @@ metadata:
   name: {{ .Release.Name }}-cleaner
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "kubedb.labels" . | nindent 4 }}
+    {{- include "kubedb-community.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": pre-delete
     "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
@@ -14,7 +14,7 @@ spec:
   activeDeadlineSeconds: 120
   template:
     spec:
-      serviceAccountName: {{ include "kubedb.serviceAccountName" . }}
+      serviceAccountName: {{ include "kubedb-community.serviceAccountName" . }}
       containers:
       - name: busybox
         image: {{ .Values.cleaner.registry }}/{{ .Values.cleaner.repository }}:{{ .Values.cleaner.tag }}

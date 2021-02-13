@@ -14,22 +14,29 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package v1alpha1_test
+package v1alpha1
 
 import (
-	"testing"
-
-	"kubedb.dev/installer/apis/installer/v1alpha1"
-
-	schemachecker "kmodules.xyz/schema-checker"
+	core "k8s.io/api/core/v1"
 )
 
-func TestDefaultValues(t *testing.T) {
-	checker := schemachecker.New("../../..", []interface{}{
-		v1alpha1.KubedbAutoscalerSpec{},
-		v1alpha1.KubedbCatalogSpec{},
-		v1alpha1.KubedbEnterpriseSpec{},
-		v1alpha1.KubedbCommunitySpec{},
-	})
-	checker.TestAll(t)
+type ImageRef struct {
+	Registry   string `json:"registry"`
+	Repository string `json:"repository"`
+	Tag        string `json:"tag"`
+}
+
+type Container struct {
+	ImageRef `json:",inline"`
+	// Compute Resources required by the sidecar container.
+	// +optional
+	Resources core.ResourceRequirements `json:"resources"`
+	// Security options the pod should run with.
+	// +optional
+	SecurityContext *core.SecurityContext `json:"securityContext"`
+}
+
+type CleanerRef struct {
+	ImageRef `json:",inline"`
+	Skip     bool `json:"skip"`
 }

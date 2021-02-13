@@ -4,10 +4,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "kubedb.fullname" . }}
+  name: {{ include "kubedb-community.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "kubedb.labels" . | nindent 4 }}
+    {{- include "kubedb-community.labels" . | nindent 4 }}
   {{- with .Values.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -16,11 +16,11 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "kubedb.selectorLabels" . | nindent 6 }}
+      {{- include "kubedb-community.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "kubedb.selectorLabels" . | nindent 8 }}
+        {{- include "kubedb-community.selectorLabels" . | nindent 8 }}
       annotations:
         checksum/apiregistration.yaml: {{ include (print $.Template.BasePath "/apiregistration.yaml") . | sha256sum }}
       {{- if $criticalAddon }}
@@ -34,7 +34,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-      serviceAccountName: {{ include "kubedb.serviceAccountName" . }}
+      serviceAccountName: {{ include "kubedb-community.serviceAccountName" . }}
       containers:
       - name: operator
         securityContext:
@@ -96,12 +96,12 @@ spec:
       - name: serving-cert
         secret:
           defaultMode: 420
-          secretName: {{ include "kubedb.fullname" . }}-apiserver-cert
+          secretName: {{ include "kubedb-community.fullname" . }}-apiserver-cert
       {{- if .Values.license }}
       - name: license
         secret:
           defaultMode: 420
-          secretName: {{ include "kubedb.fullname" . }}-license
+          secretName: {{ include "kubedb-community.fullname" . }}-license
       {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}

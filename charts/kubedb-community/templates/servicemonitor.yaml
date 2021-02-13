@@ -2,7 +2,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ include "kubedb.fullname" . }}
+  name: {{ include "kubedb-community.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- if .Values.monitoring.serviceMonitor.labels }}
@@ -10,7 +10,7 @@ metadata:
     {{ $key }}: {{ $val }}
     {{- end }}
     {{- else }}
-      {{- include "kubedb.selectorLabels" . | nindent 4 }}
+      {{- include "kubedb-community.selectorLabels" . | nindent 4 }}
     {{- end }}
 spec:
   namespaceSelector:
@@ -18,7 +18,7 @@ spec:
     - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      {{- include "kubedb.selectorLabels" . | nindent 6 }}
+      {{- include "kubedb-community.selectorLabels" . | nindent 6 }}
   endpoints:
   - port: operator
     bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -26,7 +26,7 @@ spec:
     tlsConfig:
       ca:
         secret:
-          name: {{ include "kubedb.fullname" . }}-apiserver-cert
+          name: {{ include "kubedb-community.fullname" . }}-apiserver-cert
           key: tls.crt
-      serverName: "{{ include "kubedb.fullname" . }}.{{ .Release.Namespace }}.svc"
+      serverName: "{{ include "kubedb-community.fullname" . }}.{{ .Release.Namespace }}.svc"
 {{- end }}

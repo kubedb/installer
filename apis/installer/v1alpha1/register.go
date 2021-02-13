@@ -60,8 +60,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&KubedbCatalog{},
 		&KubedbEnterpriseList{},
 		&KubedbEnterprise{},
-		&KubedbList{},
-		&Kubedb{},
+		&KubedbCommunityList{},
+		&KubedbCommunity{},
 	)
 
 	scheme.AddKnownTypes(SchemeGroupVersion,
