@@ -7,6 +7,7 @@ metadata:
   labels:
   {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  deprecated: true
   version: "5.7.29"
   db:
     image: "{{ .Values.image.registry }}/mysql:5.7.29"
@@ -18,6 +19,31 @@ spec:
     image: "{{ .Values.image.registry }}/replication-mode-detector:v0.3.2"
   initContainer:
     image: "{{ .Values.image.registry }}/busybox"
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  upgradeConstraints:
+    denylist:
+      standalone: ["< 5.7.29"]
+      groupReplication: ["< 5.7.29"]
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  name: "5.7.29-v1"
+  labels:
+  {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  version: "5.7.29"
+  db:
+    image: "{{ .Values.image.registry }}/mysql:5.7.29-v1"
+  exporter:
+    image: "{{ .Values.image.registry }}/mysqld-exporter:v0.11.0"
+  tools:
+    image: "{{ .Values.image.registry }}/mysql-tools:5.7.25"
+  replicationModeDetector:
+    image: "{{ .Values.image.registry }}/replication-mode-detector:v0.3.2"
+  initContainer:
+    image: "{{ .Values.image.registry }}/toybox:0.8.4"
   podSecurityPolicies:
     databasePolicyName: mysql-db
   upgradeConstraints:
