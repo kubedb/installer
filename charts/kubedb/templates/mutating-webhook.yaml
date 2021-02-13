@@ -192,4 +192,22 @@ webhooks:
   sideEffects: None
 {{- end }}
 {{- end }}
+{{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "mariadb-operator") }}
+- name: mariadb.mutators.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/mutators.kubedb.com/v1alpha1/mariadbs
+    caBundle: {{ b64enc .Values.apiserver.ca }}
+  rules:
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["mariadbs"]
+      operations: ["CREATE", "UPDATE"]
+  failurePolicy: Fail
+{{- if and (ge $major 1) (ge $minor 12) }}
+  sideEffects: None
+{{- end }}
+{{- end }}
 {{ end }}
