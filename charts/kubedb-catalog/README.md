@@ -16,7 +16,7 @@ This chart deploys KubeDB catalog on a [Kubernetes](http://kubernetes.io) cluste
 
 ## Prerequisites
 
-- Kubernetes 1.11+
+- Kubernetes 1.14+
 
 ## Installing the Chart
 
@@ -39,7 +39,6 @@ $ helm delete kubedb-catalog -n kube-system
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
-
 ## Configuration
 
 The following table lists the configurable parameters of the `kubedb-catalog` chart and their default values.

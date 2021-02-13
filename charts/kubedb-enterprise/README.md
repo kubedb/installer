@@ -16,7 +16,7 @@ This chart deploys a KubeDB Enterprise operator on a [Kubernetes](http://kuberne
 
 ## Prerequisites
 
-- Kubernetes 1.11+
+- Kubernetes 1.14+
 
 ## Installing the Chart
 
@@ -39,7 +39,6 @@ $ helm delete kubedb-enterprise -n kube-system
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
-
 ## Configuration
 
 The following table lists the configurable parameters of the `kubedb-enterprise` chart and their default values.
