@@ -1,6 +1,6 @@
-# KubeDB API
+# KubeDB CRDs
 
-[KubeDB API](https://github.com/kubedb) - KubeDB Custom Resource Definitions
+[KubeDB CRDs](https://github.com/kubedb) - KubeDB Custom Resource Definitions
 
 ## TL;DR;
 
