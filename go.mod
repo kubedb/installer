@@ -3,15 +3,10 @@ module kubedb.dev/installer
 go 1.12
 
 require (
-	github.com/golang/protobuf v1.4.3 // indirect
-	github.com/google/go-cmp v0.4.0 // indirect
 	github.com/google/gofuzz v1.1.0
-	github.com/json-iterator/go v1.1.10 // indirect
-	github.com/kr/pretty v0.2.0 // indirect
-	github.com/stretchr/testify v1.5.1 // indirect
 	k8s.io/api v0.18.9
 	k8s.io/apimachinery v0.18.9
-	kmodules.xyz/schema-checker v0.1.0
+	kmodules.xyz/schema-checker v0.1.2
 )
 
 replace bitbucket.org/ww/goautoneg => gomodules.xyz/goautoneg v0.0.0-20120707110453-a547fc61f48d
