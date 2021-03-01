@@ -19,7 +19,15 @@ spec:
     yqImage: "{{ .Values.image.registry }}/elasticsearch-init:7.0.1-searchguard"
   podSecurityPolicies:
     databasePolicyName: "elasticsearch-db"
-
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.2.0-v6
+        params:
+        - name: args
+          value: --match=^(?!searchguard)([a-zA-Z0-9_-]+)$
+      restoreTask:
+        name: elasticsearch-restore-7.2.0-v6
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
@@ -39,5 +47,13 @@ spec:
     yqImage: "{{ .Values.image.registry }}/elasticsearch-init:7.0.1-searchguard-v1"
   podSecurityPolicies:
     databasePolicyName: "elasticsearch-db"
-
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.2.0-v6
+        params:
+        - name: args
+          value: --match=^(?!searchguard)([a-zA-Z0-9_-]+)$
+      restoreTask:
+        name: elasticsearch-restore-7.2.0-v6
 {{ end }}
