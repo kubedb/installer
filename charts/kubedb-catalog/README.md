@@ -52,7 +52,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | catalog.elasticsearch | If true, deploys Elasticsearch version catalog  | `true`   |
 | catalog.etcd          | If true, deploys Etcd version catalog           | `true`   |
 | catalog.memcached     | If true, deploys Memcached version catalog      | `true`   |
-| catalog.mongo         | If true, deploys MongoDB version catalog        | `true`   |
+| catalog.mongodb       | If true, deploys MongoDB version catalog        | `true`   |
 | catalog.mysql         | If true, deploys MySQL version catalog          | `true`   |
 | catalog.mariadb       | If true, deploys MariaDB version catalog        | `true`   |
 | catalog.perconaxtradb | If true, deploys Percona XtraDB version catalog | `true`   |
