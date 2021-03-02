@@ -19,5 +19,13 @@ spec:
     yqImage: "{{ .Values.image.registry }}/elasticsearch-init:7.9.3-searchguard"
   podSecurityPolicies:
     databasePolicyName: "elasticsearch-db"
-
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.3.2-v6
+        params:
+        - name: args
+          value: --match=^(?!searchguard)([a-zA-Z0-9_-]+)$
+      restoreTask:
+        name: elasticsearch-restore-7.3.2-v6
 {{ end }}
