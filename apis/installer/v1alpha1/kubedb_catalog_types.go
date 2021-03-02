@@ -64,7 +64,7 @@ type Catalog struct {
 	//+optional
 	Memcached bool `json:"memcached"`
 	//+optional
-	Mongo bool `json:"mongo"`
+	MongoDB bool `json:"mongodb"`
 	//+optional
 	Mysql bool `json:"mysql"`
 	//+optional
