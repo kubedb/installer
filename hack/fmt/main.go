@@ -21,6 +21,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"kubedb.dev/installer/hack/fmt/templates"
 	"os"
 	"path/filepath"
 	"sort"
@@ -33,13 +34,10 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
-	"kmodules.xyz/catalog-checker/semvers"
 	"kmodules.xyz/client-go/tools/parser"
-	"kmodules.xyz/resource-metadata/hub"
+	"kubedb.dev/installer/hack/fmt/semvers"
 	"sigs.k8s.io/yaml"
 )
-
-var reg = hub.NewRegistryOfKnownResources()
 
 type DB struct {
 	Group string
@@ -93,8 +91,13 @@ func CompareFullVersions(vi FullVersion, vj FullVersion) bool {
 }
 
 func main() {
+	dir, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+
 	sh := shell.NewSession()
-	sh.SetDir(os.ExpandEnv("$HOME/go/src/kubedb.dev/installer"))
+	sh.SetDir(dir)
 	sh.ShowCMD = true
 
 	out, err := sh.Command("helm", "template", "charts/kubedb-catalog", "--set", "skipDeprecated=false").Output()
@@ -102,18 +105,6 @@ func main() {
 		panic(err)
 	}
 	resources, err := parser.ListResources(out)
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Println(len(resources))
-
-	dir := filepath.Join(".", "catalog")
-	err = os.RemoveAll(dir)
-	if err != nil {
-		panic(err)
-	}
-	err = os.MkdirAll(dir, 0755)
 	if err != nil {
 		panic(err)
 	}
@@ -239,7 +230,7 @@ func main() {
 			panic(err)
 		}
 
-		filename := filepath.Join(dir, "active_dbs.json")
+		filename := filepath.Join(dir, "catalog", "active_versions.json")
 		err = os.MkdirAll(filepath.Dir(filename), 0755)
 		if err != nil {
 			panic(err)
@@ -268,7 +259,7 @@ func main() {
 			panic(err)
 		}
 
-		filename := filepath.Join(dir, "backup_tasks.json")
+		filename := filepath.Join(dir, "catalog", "backup_tasks.json")
 		err = os.MkdirAll(filepath.Dir(filename), 0755)
 		if err != nil {
 			panic(err)
@@ -297,7 +288,7 @@ func main() {
 			panic(err)
 		}
 
-		filename := filepath.Join(dir, "restore_tasks.json")
+		filename := filepath.Join(dir, "catalog", "restore_tasks.json")
 		err = os.MkdirAll(filepath.Dir(filename), 0755)
 		if err != nil {
 			panic(err)
@@ -352,7 +343,7 @@ func main() {
 		if k.Distro != "" {
 			filenameparts = append(filenameparts, strings.ToLower(k.Distro))
 		}
-		filename := filepath.Join(dir, "raw", strings.ToLower(dbKind), fmt.Sprintf("%s.yaml", strings.Join(filenameparts, "-")))
+		filename := filepath.Join(dir, "catalog", "raw", strings.ToLower(dbKind), fmt.Sprintf("%s.yaml", strings.Join(filenameparts, "-")))
 		err = os.MkdirAll(filepath.Dir(filename), 0755)
 		if err != nil {
 			panic(err)
@@ -382,7 +373,7 @@ func main() {
 		}
 
 		dbKind := strings.TrimSuffix(k.Kind, "Version")
-		filename := filepath.Join(dir, "raw", strings.ToLower(dbKind), fmt.Sprintf("%s-psp.yaml", strings.ToLower(dbKind)))
+		filename := filepath.Join(dir, "catalog", "raw", strings.ToLower(dbKind), fmt.Sprintf("%s-psp.yaml", strings.ToLower(dbKind)))
 		err = os.MkdirAll(filepath.Dir(filename), 0755)
 		if err != nil {
 			panic(err)
@@ -430,11 +421,10 @@ func main() {
 						"key":    strings.ToLower(dbKind),
 						"object": obj.Object,
 					}
-					localTplFile := "/home/tamal/go/src/kmodules.xyz/catalog-checker/gen-chart/template-dbver.yaml"
 					funcMap := sprig.TxtFuncMap()
 					funcMap["toYaml"] = toYAML
 					funcMap["toJson"] = toJSON
-					tpl := template.Must(template.New(filepath.Base(localTplFile)).Funcs(funcMap).ParseFiles(localTplFile))
+					tpl := template.Must(template.New("").Funcs(funcMap).Parse(templates.DBVersion))
 					err = tpl.Execute(&buf, &data)
 					if err != nil {
 						panic(err)
@@ -483,11 +473,10 @@ func main() {
 					"key":    strings.ToLower(dbKind),
 					"object": pspStore[pspName].Object,
 				}
-				localTplFile := "/home/tamal/go/src/kmodules.xyz/catalog-checker/gen-chart/template-psp.yaml"
 				funcMap := sprig.TxtFuncMap()
 				funcMap["toYaml"] = toYAML
 				funcMap["toJson"] = toJSON
-				tpl := template.Must(template.New(filepath.Base(localTplFile)).Funcs(funcMap).ParseFiles(localTplFile))
+				tpl := template.Must(template.New("").Funcs(funcMap).Parse(templates.PSP))
 				err = tpl.Execute(&buf, &data)
 				if err != nil {
 					panic(err)
