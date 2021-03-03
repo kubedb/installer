@@ -1,20 +1,15 @@
-{{ if .Values.catalog.pgbouncer }}
-{{ if not .Values.skipDeprecated }}
-
----
+{{ if and .Values.catalog.pgbouncer (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PgBouncerVersion
 metadata:
-  name: "1.7"
+  name: '1.7'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   deprecated: true
-  version: "1.7"
-  server:
-    image: "{{ .Values.image.registry }}/pgbouncer:1.7"
   exporter:
-    image: "{{ .Values.image.registry }}/pgbouncer_exporter:v0.1.1"
-
-{{ end }}
+    image: '{{ .Values.image.registry }}/pgbouncer_exporter:v0.1.1'
+  server:
+    image: '{{ .Values.image.registry }}/pgbouncer:1.7'
+  version: "1.7"
 {{ end }}

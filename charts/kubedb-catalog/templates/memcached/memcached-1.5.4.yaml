@@ -1,38 +1,35 @@
 {{ if .Values.catalog.memcached }}
-
-{{- if not .Values.skipDeprecated }}
----
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MemcachedVersion
 metadata:
-  name: "1.5.4"
+  name: '1.5.4-v1'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  db:
+    image: '{{ .Values.image.registry }}/memcached:1.5.4-v1'
+  exporter:
+    image: '{{ .Values.image.registry }}/memcached-exporter:v0.4.1'
+  podSecurityPolicies:
+    databasePolicyName: memcached-db
+  version: 1.5.4
+{{ end }}
+
+---
+{{ if and .Values.catalog.memcached (not .Values.skipDeprecated) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MemcachedVersion
+metadata:
+  name: '1.5.4'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ .Values.image.registry }}/memcached:1.5.4'
   deprecated: true
-  version: "1.5.4"
-  db:
-    image: "{{ .Values.image.registry }}/memcached:1.5.4"
   exporter:
-    image: "{{ .Values.image.registry }}/operator:0.8.0"
+    image: '{{ .Values.image.registry }}/operator:0.8.0'
   podSecurityPolicies:
     databasePolicyName: memcached-db
-{{- end }}
-
----
-apiVersion: catalog.kubedb.com/v1alpha1
-kind: MemcachedVersion
-metadata:
-  name: "1.5.4-v1"
-  labels:
-    {{- include "kubedb-catalog.labels" . | nindent 4 }}
-spec:
-  version: "1.5.4"
-  db:
-    image: "{{ .Values.image.registry }}/memcached:1.5.4-v1"
-  exporter:
-    image: "{{ .Values.image.registry }}/memcached-exporter:v0.4.1"
-  podSecurityPolicies:
-    databasePolicyName: memcached-db
-
+  version: 1.5.4
 {{ end }}

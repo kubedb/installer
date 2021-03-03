@@ -1,0 +1,28 @@
+{{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  name: '8.0'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ .Values.image.registry }}/mysql:8.0'
+  deprecated: true
+  distribution: Oracle
+  exporter:
+    image: '{{ .Values.image.registry }}/operator:0.8.0'
+  initContainer:
+    image: '{{ .Values.image.registry }}/busybox'
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  replicationModeDetector:
+    image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
+  upgradeConstraints:
+    allowlist:
+      groupReplication:
+      - "8.0"
+      standalone:
+      - "8.0"
+  version: "8.0"
+{{ end }}

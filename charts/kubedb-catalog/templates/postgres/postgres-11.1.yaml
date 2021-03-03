@@ -1,18 +1,39 @@
 {{ if .Values.catalog.postgres }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: '11.1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ .Values.image.registry }}/postgres:11.1'
+  exporter:
+    image: '{{ .Values.image.registry }}/postgres_exporter:v0.4.7'
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-11.9.0-v4
+      restoreTask:
+        name: postgres-restore-11.9.0-v4
+  version: "11.1"
+{{ end }}
 
 ---
+{{ if .Values.catalog.postgres }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: "11.1"
+  name: '11.1-v1'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
-  version: "11.1"
   db:
-    image: "{{ .Values.image.registry }}/postgres:11.1"
+    image: '{{ .Values.image.registry }}/postgres:11.1-v1'
   exporter:
-    image: "{{ .Values.image.registry }}/postgres_exporter:v0.4.7"
+    image: '{{ .Values.image.registry }}/postgres_exporter:v0.4.7'
   podSecurityPolicies:
     databasePolicyName: postgres-db
   stash:
@@ -21,19 +42,22 @@ spec:
         name: postgres-backup-11.9.0-v4
       restoreTask:
         name: postgres-restore-11.9.0-v4
+  version: "11.1"
+{{ end }}
+
 ---
+{{ if .Values.catalog.postgres }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: "11.1-v1"
+  name: '11.1-v2'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
-  version: "11.1"
   db:
-    image: "{{ .Values.image.registry }}/postgres:11.1-v1"
+    image: '{{ .Values.image.registry }}/postgres:11.1-v2'
   exporter:
-    image: "{{ .Values.image.registry }}/postgres_exporter:v0.4.7"
+    image: '{{ .Values.image.registry }}/postgres_exporter:v0.4.7'
   podSecurityPolicies:
     databasePolicyName: postgres-db
   stash:
@@ -42,19 +66,22 @@ spec:
         name: postgres-backup-11.9.0-v4
       restoreTask:
         name: postgres-restore-11.9.0-v4
+  version: "11.1"
+{{ end }}
+
 ---
+{{ if .Values.catalog.postgres }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: "11.1-v2"
+  name: '11.1-v3'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
-  version: "11.1"
   db:
-    image: "{{ .Values.image.registry }}/postgres:11.1-v2"
+    image: '{{ .Values.image.registry }}/postgres:11.1-v3'
   exporter:
-    image: "{{ .Values.image.registry }}/postgres_exporter:v0.4.7"
+    image: '{{ .Values.image.registry }}/postgres_exporter:v0.4.7'
   podSecurityPolicies:
     databasePolicyName: postgres-db
   stash:
@@ -63,25 +90,5 @@ spec:
         name: postgres-backup-11.9.0-v4
       restoreTask:
         name: postgres-restore-11.9.0-v4
----
-apiVersion: catalog.kubedb.com/v1alpha1
-kind: PostgresVersion
-metadata:
-  name: "11.1-v3"
-  labels:
-    {{- include "kubedb-catalog.labels" . | nindent 4 }}
-spec:
   version: "11.1"
-  db:
-    image: "{{ .Values.image.registry }}/postgres:11.1-v3"
-  exporter:
-    image: "{{ .Values.image.registry }}/postgres_exporter:v0.4.7"
-  podSecurityPolicies:
-    databasePolicyName: postgres-db
-  stash:
-    addon:
-      backupTask:
-        name: postgres-backup-11.9.0-v4
-      restoreTask:
-        name: postgres-restore-11.9.0-v4
 {{ end }}
