@@ -1,11 +1,11 @@
 /*
-Copyright AppsCode Inc. and Contributors
+Copyright AppsCode Inc.
 
-Licensed under the AppsCode Community License 1.0.0 (the "License");
+Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    https://github.com/appscode/licenses/raw/1.0.0/AppsCode-Community-1.0.0.md
+    http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package semvers
+package smvers
 
 import (
 	"fmt"
@@ -79,11 +79,31 @@ func SortVersions(versions []string) ([]string, error) {
 		}
 		vs[i] = v
 	}
-	sort.Sort(sort.Reverse(SemverCollection(vs)))
+	sort.Sort(SemverCollection(vs))
 
 	result := make([]string, len(vs))
 	for i, v := range vs {
 		result[i] = v.Original()
 	}
 	return result, nil
+}
+
+func VersionToRune(v *semver.Version) rune {
+	if v.Prerelease() != "" {
+		return []rune(v.Prerelease())[0]
+	}
+	return 'v' // Handle 9.6, 9.6-v1
+}
+
+func AtLeastAsImp(base *semver.Version, x *semver.Version) bool {
+	return VersionToRune(x) >= VersionToRune(base)
+}
+
+func IsPrerelease(v string) bool {
+	return semver.MustParse(v).Prerelease() != ""
+}
+
+func IsPublicRelease(v string) bool {
+	prerelease := semver.MustParse(v).Prerelease()
+	return prerelease == "" || strings.Contains(prerelease, "rc.")
 }

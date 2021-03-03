@@ -21,6 +21,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	core "k8s.io/api/core/v1"
 	"kubedb.dev/installer/hack/fmt/templates"
 	"os"
 	"path/filepath"
@@ -35,7 +36,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"kmodules.xyz/client-go/tools/parser"
-	"kubedb.dev/installer/hack/fmt/semvers"
+	"gomodules.xyz/semvers"
 	"sigs.k8s.io/yaml"
 )
 
@@ -96,15 +97,7 @@ func main() {
 		panic(err)
 	}
 
-	sh := shell.NewSession()
-	sh.SetDir(dir)
-	sh.ShowCMD = true
-
-	out, err := sh.Command("helm", "template", "charts/kubedb-catalog", "--set", "skipDeprecated=false").Output()
-	if err != nil {
-		panic(err)
-	}
-	resources, err := parser.ListResources(out)
+	resources, err := ListResources(filepath.Join(dir, "catalog", "raw"))
 	if err != nil {
 		panic(err)
 	}
@@ -398,8 +391,11 @@ func main() {
 					templatizeRegistry := func(field string) {
 						img, ok, _ := unstructured.NestedString(obj.Object, "spec", prop, field)
 						if ok {
-							newimg := `{{ .Values.image.registry }}/` + strings.Split(img, "/")[1]
-							unstructured.SetNestedField(obj.Object, newimg, "spec", prop, field)
+							parts := strings.Split(img, "/")
+							if parts[0] == "kubedb" {
+								newimg := `{{ .Values.image.registry }}/` + parts[1]
+								unstructured.SetNestedField(obj.Object, newimg, "spec", prop, field)
+							}
 						}
 					}
 
@@ -495,6 +491,45 @@ func main() {
 			}
 		}
 	}
+
+	{
+		// Verify
+		sh := shell.NewSession()
+		sh.SetDir(dir)
+		sh.ShowCMD = true
+
+		out, err := sh.Command("helm", "template", "charts/kubedb-catalog", "--set", "skipDeprecated=false").Output()
+		if err != nil {
+			panic(err)
+		}
+
+		helmout, err := parser.ListResources(out)
+		if err != nil {
+			panic(err)
+		}
+
+		for i := range helmout {
+			helmout[i].SetLabels(nil)
+			helmout[i].SetAnnotations(nil)
+		}
+	}
+}
+
+func ListResources(dir string) ([]*unstructured.Unstructured, error) {
+	var resources []*unstructured.Unstructured
+
+	err := parser.ProcessDir(dir, func(obj *unstructured.Unstructured) error {
+		if obj.GetNamespace() == "" {
+			obj.SetNamespace(core.NamespaceDefault)
+		}
+		resources = append(resources, obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return resources, nil
 }
 
 func allDeprecated(objs []*unstructured.Unstructured) bool {
