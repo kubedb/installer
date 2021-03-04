@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package smvers
+package semvers
 
 import (
 	"fmt"
@@ -70,7 +70,9 @@ func (c SemverCollection) Swap(i, j int) {
 	c[i], c[j] = c[j], c[i]
 }
 
-func SortVersions(versions []string) ([]string, error) {
+type SortFunc func(data sort.Interface)
+
+func SortVersions(versions []string, fn ...SortFunc) ([]string, error) {
 	vs := make([]*semver.Version, len(versions))
 	for i, v := range versions {
 		v, err := semver.NewVersion(v)
@@ -79,7 +81,11 @@ func SortVersions(versions []string) ([]string, error) {
 		}
 		vs[i] = v
 	}
-	sort.Sort(SemverCollection(vs))
+	if len(fn) == 0 {
+		sort.Sort(SemverCollection(vs))
+	} else {
+		fn[0](SemverCollection(vs))
+	}
 
 	result := make([]string, len(vs))
 	for i, v := range vs {

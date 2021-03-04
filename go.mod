@@ -10,7 +10,8 @@ require (
 	github.com/google/gofuzz v1.1.0
 	github.com/huandu/xstrings v1.3.2 // indirect
 	github.com/mitchellh/copystructure v1.1.1 // indirect
-	gomodules.xyz/semvers v0.0.0-20210303213057-d73fbe1cd0e4
+	github.com/yudai/gojsondiff v1.0.0
+	gomodules.xyz/semvers v0.0.0-20210304001136-2d8cbb06f26b
 	k8s.io/api v0.18.9
 	k8s.io/apimachinery v0.18.9
 	kmodules.xyz/client-go v0.0.0-20210220080427-fd7308e30bb4

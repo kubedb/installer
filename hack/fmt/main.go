@@ -21,22 +21,25 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	core "k8s.io/api/core/v1"
-	"kubedb.dev/installer/hack/fmt/templates"
 	"os"
 	"path/filepath"
 	"sort"
 	"strings"
 	"text/template"
 
+	"kubedb.dev/installer/hack/fmt/templates"
+
 	"github.com/Masterminds/semver"
 	"github.com/Masterminds/sprig"
 	shell "github.com/codeskyblue/go-sh"
+	diff "github.com/yudai/gojsondiff"
+	"github.com/yudai/gojsondiff/formatter"
+	"gomodules.xyz/semvers"
+	core "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"kmodules.xyz/client-go/tools/parser"
-	"gomodules.xyz/semvers"
 	"sigs.k8s.io/yaml"
 )
 
@@ -114,6 +117,10 @@ func main() {
 	restoreTaskStore := map[string][]string{}
 
 	for _, obj := range resources {
+		// remove labels
+		obj.SetLabels(nil)
+		obj.SetAnnotations(nil)
+
 		gv, err := schema.ParseGroupVersion(obj.GetAPIVersion())
 		if err != nil {
 			panic(err)
@@ -121,10 +128,6 @@ func main() {
 		if gv.Group == "catalog.kubedb.com" {
 			dbKind := strings.TrimSuffix(obj.GetKind(), "Version")
 			deprecated, _, _ := unstructured.NestedBool(obj.Object, "spec", "deprecated")
-
-			// remove labels
-			obj.SetLabels(nil)
-			obj.SetAnnotations(nil)
 
 			distro, _, _ := unstructured.NestedString(obj.Object, "spec", "distribution")
 			if dbKind == "Elasticsearch" {
@@ -236,15 +239,14 @@ func main() {
 	}
 
 	{
-		//ds := map[string]string{}
-
 		for k, v := range backupTaskStore {
-			versions, err := semvers.SortVersions(v)
+			versions, err := semvers.SortVersions(v, func(data sort.Interface) {
+				sort.Sort(sort.Reverse(data))
+			})
 			if err != nil {
 				panic(err)
 			}
 			backupTaskStore[k] = versions
-			//ds[k] = versions[0]
 		}
 
 		data, err := json.MarshalIndent(backupTaskStore, "", "  ")
@@ -265,15 +267,14 @@ func main() {
 	}
 
 	{
-		//ds := map[string]string{}
-
 		for k, v := range restoreTaskStore {
-			versions, err := semvers.SortVersions(v)
+			versions, err := semvers.SortVersions(v, func(data sort.Interface) {
+				sort.Sort(sort.Reverse(data))
+			})
 			if err != nil {
 				panic(err)
 			}
 			restoreTaskStore[k] = versions
-			//ds[k] = versions[0]
 		}
 
 		data, err := json.MarshalIndent(restoreTaskStore, "", "  ")
@@ -381,20 +382,27 @@ func main() {
 	// GENERATE CHART
 	{
 		for k, v := range dbStore {
-			for _, obj := range v {
+			dbKind := strings.TrimSuffix(k.Kind, "Version")
+			var buf bytes.Buffer
+
+			for i, obj := range v {
+				obj := obj.DeepCopy()
+
 				spec, _, err := unstructured.NestedMap(obj.Object, "spec")
 				if err != nil {
 					panic(err)
 				}
 				for prop := range spec {
-
 					templatizeRegistry := func(field string) {
 						img, ok, _ := unstructured.NestedString(obj.Object, "spec", prop, field)
 						if ok {
 							parts := strings.Split(img, "/")
 							if parts[0] == "kubedb" {
 								newimg := `{{ .Values.image.registry }}/` + parts[1]
-								unstructured.SetNestedField(obj.Object, newimg, "spec", prop, field)
+								err = unstructured.SetNestedField(obj.Object, newimg, "spec", prop, field)
+								if err != nil {
+									panic(err)
+								}
 							}
 						}
 					}
@@ -402,49 +410,42 @@ func main() {
 					templatizeRegistry("image")
 					templatizeRegistry("yqImage")
 				}
+
+				if i > 0 {
+					buf.WriteString("\n---\n")
+				}
+
+				data := map[string]interface{}{
+					"key":    strings.ToLower(dbKind),
+					"object": obj.Object,
+				}
+				funcMap := sprig.TxtFuncMap()
+				funcMap["toYaml"] = toYAML
+				funcMap["toJson"] = toJSON
+				tpl := template.Must(template.New("").Funcs(funcMap).Parse(templates.DBVersion))
+				err = tpl.Execute(&buf, &data)
+				if err != nil {
+					panic(err)
+				}
 			}
 
-			{
-				dbKind := strings.TrimSuffix(k.Kind, "Version")
+			var filenameparts []string
+			if allDeprecated(v) {
+				filenameparts = append(filenameparts, "deprecated")
+			}
+			filenameparts = append(filenameparts, strings.ToLower(dbKind), k.Version)
+			if k.Distro != "" {
+				filenameparts = append(filenameparts, strings.ToLower(k.Distro))
+			}
+			filename := filepath.Join(dir, "charts", "kubedb-catalog", "templates", strings.ToLower(dbKind), fmt.Sprintf("%s.yaml", strings.Join(filenameparts, "-")))
+			err = os.MkdirAll(filepath.Dir(filename), 0755)
+			if err != nil {
+				panic(err)
+			}
 
-				var buf bytes.Buffer
-				for i, obj := range v {
-					if i > 0 {
-						buf.WriteString("\n---\n")
-					}
-
-					data := map[string]interface{}{
-						"key":    strings.ToLower(dbKind),
-						"object": obj.Object,
-					}
-					funcMap := sprig.TxtFuncMap()
-					funcMap["toYaml"] = toYAML
-					funcMap["toJson"] = toJSON
-					tpl := template.Must(template.New("").Funcs(funcMap).Parse(templates.DBVersion))
-					err = tpl.Execute(&buf, &data)
-					if err != nil {
-						panic(err)
-					}
-				}
-
-				var filenameparts []string
-				if allDeprecated(v) {
-					filenameparts = append(filenameparts, "deprecated")
-				}
-				filenameparts = append(filenameparts, strings.ToLower(dbKind), k.Version)
-				if k.Distro != "" {
-					filenameparts = append(filenameparts, strings.ToLower(k.Distro))
-				}
-				filename := filepath.Join(dir, "charts", "kubedb-catalog", "templates", strings.ToLower(dbKind), fmt.Sprintf("%s.yaml", strings.Join(filenameparts, "-")))
-				err = os.MkdirAll(filepath.Dir(filename), 0755)
-				if err != nil {
-					panic(err)
-				}
-
-				err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
-				if err != nil {
-					panic(err)
-				}
+			err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
+			if err != nil {
+				panic(err)
 			}
 		}
 
@@ -494,6 +495,30 @@ func main() {
 
 	{
 		// Verify
+		type ObjectKey struct {
+			APIVersion string
+			Kind       string
+			Name       string
+		}
+		type DiffData struct {
+			A *unstructured.Unstructured
+			B *unstructured.Unstructured
+		}
+
+		dm := map[ObjectKey]*DiffData{}
+		for _, obj := range resources {
+			dm[ObjectKey{
+				APIVersion: obj.GetAPIVersion(),
+				Kind:       obj.GetKind(),
+				Name:       obj.GetName(),
+			}] = &DiffData{
+				A: obj,
+			}
+		}
+
+		failed := false
+		differ := diff.New()
+
 		sh := shell.NewSession()
 		sh.SetDir(dir)
 		sh.ShowCMD = true
@@ -508,9 +533,66 @@ func main() {
 			panic(err)
 		}
 
-		for i := range helmout {
-			helmout[i].SetLabels(nil)
-			helmout[i].SetAnnotations(nil)
+		for _, obj := range helmout {
+			obj.SetLabels(nil)
+			obj.SetAnnotations(nil)
+
+			key := ObjectKey{
+				APIVersion: obj.GetAPIVersion(),
+				Kind:       obj.GetKind(),
+				Name:       obj.GetName(),
+			}
+			if _, ok := dm[key]; !ok {
+				failed = true
+				_, _ = fmt.Fprintf(os.Stderr, "missing object is raw apiVersion=%s kind=%s name=%s", key.APIVersion, key.Kind, key.Name)
+			} else {
+				dm[key].B = obj
+			}
+		}
+
+		for key, data := range dm {
+			if data.B == nil {
+				failed = true
+				_, _ = fmt.Fprintf(os.Stderr, "missing object is catalog chart apiVersion=%s kind=%s name=%s", key.APIVersion, key.Kind, key.Name)
+				continue
+			}
+
+			a, err := json.Marshal(data.A)
+			if err != nil {
+				panic(err)
+			}
+			b, err := json.Marshal(data.B)
+			if err != nil {
+				panic(err)
+			}
+
+			// Then, Check them
+			d, err := differ.Compare(a, b)
+			if err != nil {
+				fmt.Printf("Failed to unmarshal file: %s\n", err.Error())
+				os.Exit(3)
+			}
+
+			if d.Modified() {
+				failed = true
+
+				config := formatter.AsciiFormatterConfig{
+					ShowArrayIndex: true,
+					Coloring:       true,
+				}
+
+				f := formatter.NewAsciiFormatter(data.A.Object, config)
+				result, err := f.Format(d)
+				if err != nil {
+					panic(err)
+				}
+				_, _ = fmt.Fprintf(os.Stderr, "mismatched apiVersion=%s kind=%s name=%s \ndiff=%s", key.APIVersion, key.Kind, key.Name, result)
+				continue
+			}
+		}
+
+		if failed {
+			os.Exit(1)
 		}
 	}
 }
