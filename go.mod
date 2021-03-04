@@ -10,6 +10,7 @@ require (
 	github.com/google/gofuzz v1.1.0
 	github.com/huandu/xstrings v1.3.2 // indirect
 	github.com/mitchellh/copystructure v1.1.1 // indirect
+	github.com/spf13/pflag v1.0.5
 	github.com/yudai/gojsondiff v1.0.0
 	gomodules.xyz/semvers v0.0.0-20210304001136-2d8cbb06f26b
 	gomodules.xyz/version v0.1.0
