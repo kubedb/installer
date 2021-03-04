@@ -49,7 +49,7 @@ endif
 ###
 
 SRC_PKGS := apis # directories which hold app source (not vendored)
-SRC_DIRS := $(SRC_PKGS)
+SRC_DIRS := $(SRC_PKGS) hack/fmt
 
 DOCKER_PLATFORMS := linux/amd64 linux/arm linux/arm64
 BIN_PLATFORMS    := $(DOCKER_PLATFORMS)

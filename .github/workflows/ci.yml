@@ -38,6 +38,7 @@ jobs:
       - name: Run checks
         run: |
           make ci
+          go run ./hack/fmt/main.go
 
   kubernetes:
     name: Kubernetes
@@ -75,29 +76,4 @@ jobs:
       - name: Test charts
         run: |
           export KUBECONFIG="${HOME}/.kube/config"
-          make ct TEST_CHARTS=charts/kubedb-community
-          echo
-          kubectl delete crds --all
-          sleep 10
-          echo
-          kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/crds/catalog.kubedb.com_elasticsearchversions.yaml
-          kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/crds/catalog.kubedb.com_etcdversions.yaml
-          kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/crds/catalog.kubedb.com_memcachedversions.yaml
-          kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/crds/catalog.kubedb.com_mongodbversions.yaml
-          kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/crds/catalog.kubedb.com_mysqlversions.yaml
-          kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/crds/catalog.kubedb.com_mariadbversions.yaml
-          kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/crds/catalog.kubedb.com_perconaxtradbversions.yaml
-          kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/crds/catalog.kubedb.com_pgbouncerversions.yaml
-          kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/crds/catalog.kubedb.com_postgresversions.yaml
-          kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/crds/catalog.kubedb.com_proxysqlversions.yaml
-          kubectl create --validate=false -f https://github.com/kubedb/apimachinery/raw/master/crds/catalog.kubedb.com_redisversions.yaml
-          kubectl wait --for=condition=NamesAccepted crds --all --timeout=5m
-          make ct TEST_CHARTS=charts/kubedb-catalog
-          echo
-          kubectl delete crds --all
-          sleep 10
-          echo
-          make ct TEST_CHARTS=charts/kubedb-enterprise
-          sleep 10
-          echo
-          make ct TEST_CHARTS=charts/kubedb-autoscaler
+          ./hack/scripts/ct.sh

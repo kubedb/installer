@@ -2,23 +2,23 @@
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: memcached-db
+  name: 'memcached-db'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
-  privileged: false
   allowPrivilegeEscalation: false
-  volumes:
-  - "*"
-  hostNetwork: false
+  fsGroup:
+    rule: RunAsAny
   hostIPC: false
+  hostNetwork: false
   hostPID: false
+  privileged: false
   runAsUser:
     rule: RunAsAny
   seLinux:
     rule: RunAsAny
   supplementalGroups:
     rule: RunAsAny
-  fsGroup:
-    rule: RunAsAny
+  volumes:
+  - '*'
 {{ end }}

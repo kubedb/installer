@@ -1,0 +1,22 @@
+{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: '6.4.0'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: SearchGuard
+  db:
+    image: '{{ .Values.image.registry }}/elasticsearch:6.4.0'
+  deprecated: true
+  distribution: SearchGuard
+  exporter:
+    image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.0.2'
+  initContainer:
+    image: '{{ .Values.image.registry }}/busybox'
+    yqImage: '{{ .Values.image.registry }}/yq:2.4.0'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  version: 6.4.0
+{{ end }}

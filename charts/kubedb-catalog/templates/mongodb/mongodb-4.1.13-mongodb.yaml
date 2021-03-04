@@ -1,0 +1,99 @@
+{{ if .Values.catalog.mongodb }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  name: '4.1.13-v1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ .Values.image.registry }}/mongo:4.1.13-v1'
+  distribution: MongoDB
+  exporter:
+    image: '{{ .Values.image.registry }}/percona-mongodb-exporter:v0.8.0'
+  initContainer:
+    image: '{{ .Values.image.registry }}/mongodb-init:4.2'
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+  replicationModeDetector:
+    image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
+  stash:
+    addon:
+      backupTask:
+        name: mongodb-backup-4.1.13-v5
+      restoreTask:
+        name: mongodb-restore-4.1.13-v5
+  version: 4.1.13
+{{ end }}
+
+---
+{{ if and .Values.catalog.mongodb (not .Values.skipDeprecated) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  name: '4.1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ .Values.image.registry }}/mongo:4.1'
+  deprecated: true
+  distribution: MongoDB
+  exporter:
+    image: '{{ .Values.image.registry }}/percona-mongodb-exporter:v0.8.0'
+  initContainer:
+    image: '{{ .Values.image.registry }}/busybox'
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+  replicationModeDetector:
+    image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
+  version: 4.1.13
+{{ end }}
+
+---
+{{ if and .Values.catalog.mongodb (not .Values.skipDeprecated) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  name: '4.1-v1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ .Values.image.registry }}/mongo:4.1-v1'
+  deprecated: true
+  distribution: MongoDB
+  exporter:
+    image: '{{ .Values.image.registry }}/percona-mongodb-exporter:v0.8.0'
+  initContainer:
+    image: '{{ .Values.image.registry }}/mongodb-init:0.3.0'
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+  replicationModeDetector:
+    image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
+  version: 4.1.13
+{{ end }}
+
+---
+{{ if and .Values.catalog.mongodb (not .Values.skipDeprecated) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  name: '4.1.13'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ .Values.image.registry }}/mongo:4.1.13'
+  deprecated: true
+  distribution: MongoDB
+  exporter:
+    image: '{{ .Values.image.registry }}/percona-mongodb-exporter:v0.8.0'
+  initContainer:
+    image: '{{ .Values.image.registry }}/busybox'
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+  replicationModeDetector:
+    image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
+  version: 4.1.13
+{{ end }}

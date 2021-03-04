@@ -1,0 +1,56 @@
+{{ if .Values.catalog.elasticsearch }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: '1.4.0-opendistro'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: OpenDistro
+  db:
+    image: '{{ .Values.image.registry }}/elasticsearch:1.4.0-opendistro'
+  distribution: OpenDistro
+  exporter:
+    image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
+  initContainer:
+    image: '{{ .Values.image.registry }}/busybox:1.32.0'
+    yqImage: '{{ .Values.image.registry }}/elasticsearch-init:1.4.0-opendistro'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.3.2-v6
+      restoreTask:
+        name: elasticsearch-restore-7.3.2-v6
+  version: 7.4.2
+{{ end }}
+
+---
+{{ if .Values.catalog.elasticsearch }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: '1.4.0-opendistro-v1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: OpenDistro
+  db:
+    image: '{{ .Values.image.registry }}/elasticsearch:1.4.0-opendistro'
+  distribution: OpenDistro
+  exporter:
+    image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
+  initContainer:
+    image: '{{ .Values.image.registry }}/toybox:0.8.4'
+    yqImage: '{{ .Values.image.registry }}/elasticsearch-init:1.4.0-opendistro-v1'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.3.2-v6
+      restoreTask:
+        name: elasticsearch-restore-7.3.2-v6
+  version: 7.4.2
+{{ end }}

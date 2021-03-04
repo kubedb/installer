@@ -1,0 +1,62 @@
+{{ if .Values.catalog.elasticsearch }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: '6.8.1-searchguard'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: SearchGuard
+  db:
+    image: '{{ .Values.image.registry }}/elasticsearch:6.8.1-searchguard'
+  distribution: SearchGuard
+  exporter:
+    image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
+  initContainer:
+    image: '{{ .Values.image.registry }}/busybox:1.32.0'
+    yqImage: '{{ .Values.image.registry }}/elasticsearch-init:6.8.1-searchguard'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-6.8.0-v6
+        params:
+        - name: args
+          value: --match=^(?!searchguard)([a-zA-Z0-9_-]+)$
+      restoreTask:
+        name: elasticsearch-restore-6.8.0-v6
+  version: 6.8.1
+{{ end }}
+
+---
+{{ if .Values.catalog.elasticsearch }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: '6.8.1-searchguard-v1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: SearchGuard
+  db:
+    image: '{{ .Values.image.registry }}/elasticsearch:6.8.1-searchguard'
+  distribution: SearchGuard
+  exporter:
+    image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
+  initContainer:
+    image: '{{ .Values.image.registry }}/toybox:0.8.4'
+    yqImage: '{{ .Values.image.registry }}/elasticsearch-init:6.8.1-searchguard-v1'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-6.8.0-v6
+        params:
+        - name: args
+          value: --match=^(?!searchguard)([a-zA-Z0-9_-]+)$
+      restoreTask:
+        name: elasticsearch-restore-6.8.0-v6
+  version: 6.8.1
+{{ end }}
