@@ -1,57 +1,54 @@
 {{ if .Values.catalog.redis }}
-
-{{ if not .Values.skipDeprecated }}
----
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: RedisVersion
 metadata:
-  name: "4.0.6"
+  name: '4.0.6-v2'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
-  deprecated: true
-  version: "4.0.6"
   db:
-    image: "{{ .Values.image.registry }}/redis:4.0.6"
+    image: '{{ .Values.image.registry }}/redis:4.0.6-v2'
   exporter:
-    image: "{{ .Values.image.registry }}/operator:0.8.0"
+    image: '{{ .Values.image.registry }}/redis_exporter:v0.21.1'
   podSecurityPolicies:
     databasePolicyName: redis-db
-{{ end }}
-
-{{ if not .Values.skipDeprecated }}
----
-apiVersion: catalog.kubedb.com/v1alpha1
-kind: RedisVersion
-metadata:
-  name: "4.0.6-v1"
-  labels:
-    {{- include "kubedb-catalog.labels" . | nindent 4 }}
-spec:
-  deprecated: true
-  version: "4.0.6"
-  db:
-    image: "{{ .Values.image.registry }}/redis:4.0.6-v1"
-  exporter:
-    image: "{{ .Values.image.registry }}/redis_exporter:v0.21.1"
-  podSecurityPolicies:
-    databasePolicyName: redis-db
+  version: 4.0.6
 {{ end }}
 
 ---
+{{ if and .Values.catalog.redis (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: RedisVersion
 metadata:
-  name: "4.0.6-v2"
+  name: '4.0.6'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
-  version: "4.0.6"
   db:
-    image: "{{ .Values.image.registry }}/redis:4.0.6-v2"
+    image: '{{ .Values.image.registry }}/redis:4.0.6'
+  deprecated: true
   exporter:
-    image: "{{ .Values.image.registry }}/redis_exporter:v0.21.1"
+    image: '{{ .Values.image.registry }}/operator:0.8.0'
   podSecurityPolicies:
     databasePolicyName: redis-db
+  version: 4.0.6
+{{ end }}
 
+---
+{{ if and .Values.catalog.redis (not .Values.skipDeprecated) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: RedisVersion
+metadata:
+  name: '4.0.6-v1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ .Values.image.registry }}/redis:4.0.6-v1'
+  deprecated: true
+  exporter:
+    image: '{{ .Values.image.registry }}/redis_exporter:v0.21.1'
+  podSecurityPolicies:
+    databasePolicyName: redis-db
+  version: 4.0.6
 {{ end }}

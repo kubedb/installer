@@ -1,0 +1,58 @@
+{{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  name: '8'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ .Values.image.registry }}/mysql:8'
+  deprecated: true
+  distribution: Oracle
+  exporter:
+    image: '{{ .Values.image.registry }}/operator:0.8.0'
+  initContainer:
+    image: '{{ .Values.image.registry }}/busybox'
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  replicationModeDetector:
+    image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
+  upgradeConstraints:
+    allowlist:
+      groupReplication:
+      - "8"
+      standalone:
+      - "8"
+  version: "8"
+{{ end }}
+
+---
+{{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  name: '8-v1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ .Values.image.registry }}/mysql:8-v1'
+  deprecated: true
+  distribution: Oracle
+  exporter:
+    image: '{{ .Values.image.registry }}/mysqld-exporter:v0.11.0'
+  initContainer:
+    image: '{{ .Values.image.registry }}/busybox'
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  replicationModeDetector:
+    image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
+  upgradeConstraints:
+    allowlist:
+      groupReplication:
+      - "8"
+      standalone:
+      - "8"
+  version: "8"
+{{ end }}

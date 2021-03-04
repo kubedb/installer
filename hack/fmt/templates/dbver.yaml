@@ -1,0 +1,14 @@
+{{ if .object.spec.deprecated }}
+{{- "{{ if and .Values.catalog."}}{{ .key }}{{" (not .Values.skipDeprecated) }}" -}}
+{{ else }}
+{{- "{{ if .Values.catalog."}}{{ .key }}{{" }}" -}}
+{{ end }}
+apiVersion: {{ .object.apiVersion }}
+kind: {{ .object.kind }}
+metadata:
+  name: '{{ .object.metadata.name }}'
+  labels:
+    {{"{{- include \"kubedb-catalog.labels\" . | nindent 4 }}"}}
+spec:
+  {{- .object.spec | toYaml | nindent 2 }}
+{{"{{ end }}"}}

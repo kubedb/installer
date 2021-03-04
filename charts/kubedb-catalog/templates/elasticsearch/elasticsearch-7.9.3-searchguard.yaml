@@ -1,0 +1,30 @@
+{{ if .Values.catalog.elasticsearch }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: '7.9.3-searchguard'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: SearchGuard
+  db:
+    image: '{{ .Values.image.registry }}/elasticsearch:7.9.3-searchguard'
+  distribution: SearchGuard
+  exporter:
+    image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
+  initContainer:
+    image: '{{ .Values.image.registry }}/toybox:0.8.4'
+    yqImage: '{{ .Values.image.registry }}/elasticsearch-init:7.9.3-searchguard'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.3.2-v6
+        params:
+        - name: args
+          value: --match=^(?!searchguard)([a-zA-Z0-9_-]+)$
+      restoreTask:
+        name: elasticsearch-restore-7.3.2-v6
+  version: 7.9.3
+{{ end }}

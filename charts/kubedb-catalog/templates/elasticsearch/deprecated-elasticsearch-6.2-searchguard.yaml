@@ -1,0 +1,46 @@
+{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: '6.2'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: SearchGuard
+  db:
+    image: '{{ .Values.image.registry }}/elasticsearch:6.2'
+  deprecated: true
+  distribution: SearchGuard
+  exporter:
+    image: '{{ .Values.image.registry }}/operator:0.8.0'
+  initContainer:
+    image: '{{ .Values.image.registry }}/busybox'
+    yqImage: '{{ .Values.image.registry }}/yq:2.4.0'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  version: "6.2"
+{{ end }}
+
+---
+{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: '6.2-v1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: SearchGuard
+  db:
+    image: '{{ .Values.image.registry }}/elasticsearch:6.2-v1'
+  deprecated: true
+  distribution: SearchGuard
+  exporter:
+    image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.0.2'
+  initContainer:
+    image: '{{ .Values.image.registry }}/busybox'
+    yqImage: '{{ .Values.image.registry }}/yq:2.4.0'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  version: "6.2"
+{{ end }}
