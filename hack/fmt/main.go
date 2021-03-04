@@ -19,6 +19,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	goflag "flag"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -32,6 +33,7 @@ import (
 	"github.com/Masterminds/semver"
 	"github.com/Masterminds/sprig"
 	shell "github.com/codeskyblue/go-sh"
+	flag "github.com/spf13/pflag"
 	diff "github.com/yudai/gojsondiff"
 	"github.com/yudai/gojsondiff/formatter"
 	"gomodules.xyz/semvers"
@@ -107,6 +109,21 @@ func main() {
 		panic(err)
 	}
 
+	/*
+		Key/Value map used to update pg-coordinator and replication mode detector image
+		// MySQL, MongoDB
+		--update-spec=spec.replicationModeDetector.image=_new_image
+		//Postgres
+		--update-spec=spec.coordinator.image=_new_image
+	*/
+	specUpdates := map[string]string{}
+
+	flag.StringVar(&dir, "dir", dir, "Path to directory where the kubedb/installer project resides (default is set o current directory)")
+	flag.StringToStringVar(&specUpdates, "update-spec", specUpdates, "Key/Value map used to update pg-coordinator and replication mode detector image")
+
+	flag.CommandLine.AddGoFlagSet(goflag.CommandLine)
+	flag.Parse()
+
 	resources, err := ListResources(filepath.Join(dir, "catalog", "raw"))
 	if err != nil {
 		panic(err)
@@ -141,6 +158,15 @@ func main() {
 		// remove labels
 		obj.SetLabels(nil)
 		obj.SetAnnotations(nil)
+
+		for jp, val := range specUpdates {
+			if _, ok, _ := unstructured.NestedFieldNoCopy(obj.Object, strings.Split(jp, ".")...); ok {
+				err = unstructured.SetNestedField(obj.Object, val, strings.Split(jp, ".")...)
+				if err != nil {
+					panic(fmt.Sprintf("failed to set %s to %s in group=%s,kind=%s,name=%s", jp, val, obj.GetAPIVersion(), obj.GetKind(), obj.GetName()))
+				}
+			}
+		}
 
 		gv, err := schema.ParseGroupVersion(obj.GetAPIVersion())
 		if err != nil {
