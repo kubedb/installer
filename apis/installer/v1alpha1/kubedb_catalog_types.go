@@ -28,9 +28,6 @@ const (
 
 // KubedbCatalog defines the schama for KubeDB Operator Installer.
 
-// +genclient
-// +genclient:skipVerbs=updateStatus
-// +k8s:openapi-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
@@ -41,7 +38,7 @@ type KubedbCatalog struct {
 	Spec              KubedbCatalogSpec `json:"spec,omitempty"`
 }
 
-// KubedbCatalogSpec is the spec for redis version
+// KubedbCatalogSpec is the schema for kubedb-catalog chart values file
 type KubedbCatalogSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
