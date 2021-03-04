@@ -401,7 +401,7 @@ func main() {
 		if k.Distro != "" {
 			filenameparts = append(filenameparts, strings.ToLower(k.Distro))
 		}
-		filename := filepath.Join(dir, "catalog", "raw", strings.ToLower(dbKind), fmt.Sprintf("%s.yaml", strings.Join(filenameparts, "-")))
+		filename := filepath.Join(dir, "catalog", "new_raw", strings.ToLower(dbKind), fmt.Sprintf("%s.yaml", strings.Join(filenameparts, "-")))
 		err = os.MkdirAll(filepath.Dir(filename), 0755)
 		if err != nil {
 			panic(err)
@@ -431,13 +431,25 @@ func main() {
 		}
 
 		dbKind := strings.TrimSuffix(k.Kind, "Version")
-		filename := filepath.Join(dir, "catalog", "raw", strings.ToLower(dbKind), fmt.Sprintf("%s-psp.yaml", strings.ToLower(dbKind)))
+		filename := filepath.Join(dir, "catalog", "new_raw", strings.ToLower(dbKind), fmt.Sprintf("%s-psp.yaml", strings.ToLower(dbKind)))
 		err = os.MkdirAll(filepath.Dir(filename), 0755)
 		if err != nil {
 			panic(err)
 		}
 
 		err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
+		if err != nil {
+			panic(err)
+		}
+	}
+
+	{
+		// move new_raw to raw
+		err = os.RemoveAll(filepath.Join(dir, "catalog", "raw"))
+		if err != nil {
+			panic(err)
+		}
+		err = os.Rename(filepath.Join(dir, "catalog", "new_raw"), filepath.Join(dir, "catalog", "raw"))
 		if err != nil {
 			panic(err)
 		}
@@ -501,7 +513,7 @@ func main() {
 			if k.Distro != "" {
 				filenameparts = append(filenameparts, strings.ToLower(k.Distro))
 			}
-			filename := filepath.Join(dir, "charts", "kubedb-catalog", "templates", strings.ToLower(dbKind), fmt.Sprintf("%s.yaml", strings.Join(filenameparts, "-")))
+			filename := filepath.Join(dir, "charts", "kubedb-catalog", "new_templates", strings.ToLower(dbKind), fmt.Sprintf("%s.yaml", strings.Join(filenameparts, "-")))
 			err = os.MkdirAll(filepath.Dir(filename), 0755)
 			if err != nil {
 				panic(err)
@@ -544,13 +556,29 @@ func main() {
 				}
 			}
 
-			filename := filepath.Join(dir, "charts", "kubedb-catalog", "templates", strings.ToLower(dbKind), fmt.Sprintf("%s-psp.yaml", strings.ToLower(dbKind)))
+			filename := filepath.Join(dir, "charts", "kubedb-catalog", "new_templates", strings.ToLower(dbKind), fmt.Sprintf("%s-psp.yaml", strings.ToLower(dbKind)))
 			err = os.MkdirAll(filepath.Dir(filename), 0755)
 			if err != nil {
 				panic(err)
 			}
 
 			err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
+			if err != nil {
+				panic(err)
+			}
+		}
+
+		{
+			// move new_templates to templates
+			err = os.Rename(filepath.Join(dir, "charts", "kubedb-catalog", "templates", "_helpers.tpl"), filepath.Join(dir, "charts", "kubedb-catalog", "new_templates", "_helpers.tpl"))
+			if err != nil {
+				panic(err)
+			}
+			err = os.RemoveAll(filepath.Join(dir, "charts", "kubedb-catalog", "templates"))
+			if err != nil {
+				panic(err)
+			}
+			err = os.Rename(filepath.Join(dir, "charts", "kubedb-catalog", "new_templates"), filepath.Join(dir, "charts", "kubedb-catalog", "templates"))
 			if err != nil {
 				panic(err)
 			}
