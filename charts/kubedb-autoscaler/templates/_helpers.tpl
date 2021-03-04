@@ -61,3 +61,8 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+
+{{- define "kubedb-autoscaler.license" -}}
+{{- .Values.license }}
+{{- end }}

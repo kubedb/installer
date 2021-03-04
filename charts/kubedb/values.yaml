@@ -8,14 +8,66 @@
 # - KubeDB enterprise sub-chart parameters
 # - KubeDB autoscaler sub-chart parameters
 
-kubedb-community:
-  enabled: true
-  license: ""
-kubedb-catalog:
-  enabled: false
-kubedb-enterprise:
-  enabled: true
-  license: ""
-kubedb-autoscaler:
-  enabled: true
-  license: ""
+features:
+  community:
+    enabled: true
+  catalog:
+    enabled: false
+  enterprise:
+    enabled: false
+  autoscaler:
+    enabled: false
+
+global:
+  appscode:
+    # License for the product.
+    # Get a license by following the steps from [here](https://kubedb.run/docs/latest/setup/install/enterprise#get-a-trial-license).
+    # Example:
+    # helm install appscode/kubedb-enterprise \
+    #   --set-file license=/path/to/license/file
+    # or
+    # helm install appscode/kubedb-enterprise \
+    #   --set license=<license file content>
+    license: ""
+
+  kubedb:
+    # Docker registry used to pull KubeDB operator image
+    registry: kubedb
+
+    # Specify an array of imagePullSecrets.
+    # Secrets must be manually created in the namespace.
+    #
+    # Example:
+    # helm template charts/kubedb-community \
+    #   --set imagePullSecrets[0].name=sec0 \
+    #   --set imagePullSecrets[1].name=sec1
+    imagePullSecrets: []
+
+    catalog:
+      # If true, deploys Elasticsearch version catalog
+      elasticsearch: true
+      # If true, deploys Etcd version catalog
+      etcd: true
+      # If true, deploys Memcached version catalog
+      memcached: true
+      # If true, deploys MongoDB version catalog
+      mongodb: true
+      # If true, deploys MySQL version catalog
+      mysql: true
+      # If true, deploys MariaDB version catalog
+      mariadb: true
+      # If true, deploys Percona XtraDB version catalog
+      perconaxtradb: true
+      # If true, deploys PgBouncer version catalog
+      pgbouncer: true
+      # If true, deploys PostgreSQL version catalog
+      postgres: true
+      # If true, deploys ProxySQL version catalog
+      proxysql: true
+      # If true, deploys Redis version catalog
+      redis: true
+
+kubedb-community: {} # +doc-gen:ignore
+kubedb-catalog: {} # +doc-gen:ignore
+kubedb-enterprise: {} # +doc-gen:ignore
+kubedb-autoscaler: {} # +doc-gen:ignore
