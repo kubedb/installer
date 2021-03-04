@@ -35,13 +35,20 @@ import (
 	diff "github.com/yudai/gojsondiff"
 	"github.com/yudai/gojsondiff/formatter"
 	"gomodules.xyz/semvers"
+	"gomodules.xyz/version"
 	core "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"kmodules.xyz/client-go/tools/parser"
 	"sigs.k8s.io/yaml"
+	stash "stash.appscode.dev/catalog"
 )
+
+type StashAddon struct {
+	DBType    string
+	DBVersion string
+}
 
 type DB struct {
 	Group string
@@ -116,6 +123,20 @@ func main() {
 	// recoveryTask -> db version
 	restoreTaskStore := map[string][]string{}
 
+	stashCatalog := map[StashAddon]string{}
+	for _, addon := range stash.Load().Addons {
+		for _, v := range addon.Versions {
+			vv, err := version.NewVersion(v)
+			if err != nil {
+				panic(err)
+			}
+			stashCatalog[StashAddon{
+				DBType:    addon.Name,
+				DBVersion: vv.ToMutator().ResetMetadata().ResetPrerelease().Done().String(),
+			}] = v
+		}
+	}
+
 	for _, obj := range resources {
 		// remove labels
 		obj.SetLabels(nil)
@@ -142,31 +163,46 @@ func main() {
 						panic(err)
 					}
 				}
+			} else if dbKind == "Postgres" {
+				if distro == "" {
+					distro = "PostgreSQL"
+					err = unstructured.SetNestedField(obj.Object, distro, "spec", "distribution")
+					if err != nil {
+						panic(err)
+					}
+				}
 			} else if dbKind == "MySQL" {
-				distro = "Oracle"
-				err = unstructured.SetNestedField(obj.Object, distro, "spec", "distribution")
-				if err != nil {
-					panic(err)
+				if distro == "" {
+					distro = "Oracle"
+					if strings.Contains(strings.ToLower(obj.GetName()), "percona") {
+						distro = "Percona"
+					}
+					err = unstructured.SetNestedField(obj.Object, distro, "spec", "distribution")
+					if err != nil {
+						panic(err)
+					}
 				}
 			} else if dbKind == "MongoDB" {
-				distro = "MongoDB"
-				if strings.Contains(strings.ToLower(obj.GetName()), "percona") {
-					distro = "Percona"
-				}
-				err = unstructured.SetNestedField(obj.Object, distro, "spec", "distribution")
-				if err != nil {
-					panic(err)
+				if distro == "" {
+					distro = "MongoDB"
+					if strings.Contains(strings.ToLower(obj.GetName()), "percona") {
+						distro = "Percona"
+					}
+					err = unstructured.SetNestedField(obj.Object, distro, "spec", "distribution")
+					if err != nil {
+						panic(err)
+					}
 				}
 			}
 
-			version, _, err := unstructured.NestedString(obj.Object, "spec", "version")
+			dbVersion, _, err := unstructured.NestedString(obj.Object, "spec", "version")
 			if err != nil {
 				panic(err)
 			}
 			dbverKey := DbVersion{
 				Group:   gv.Group,
 				Kind:    obj.GetKind(),
-				Version: version,
+				Version: dbVersion,
 				Distro:  distro,
 			}
 			dbStore[dbverKey] = append(dbStore[dbverKey], obj)
@@ -188,16 +224,44 @@ func main() {
 
 			if !deprecated {
 				activeDBVersions[dbKind] = append(activeDBVersions[dbKind], FullVersion{
-					Version:     version,
+					Version:     dbVersion,
 					CatalogName: obj.GetName(),
 				})
 
 				backupTask, _, _ := unstructured.NestedString(obj.Object, "spec", "stash", "addon", "backupTask", "name")
 				if backupTask != "" {
+					// update based on stash catalog
+					addonKey := StashAddon{
+						DBType:    StashAddonDBType(dbKind),
+						DBVersion: VersionForStashTask(backupTask),
+					}
+					addVer, ok := stashCatalog[addonKey]
+					if !ok {
+						panic(fmt.Sprintf("no backup addon found for %#v", addonKey))
+					}
+					backupTask = fmt.Sprintf("%s-backup-%s", addonKey.DBType, addVer)
+					err = unstructured.SetNestedField(obj.Object, backupTask, "spec", "stash", "addon", "backupTask", "name")
+					if err != nil {
+						panic(err)
+					}
 					backupTaskStore[backupTask] = append(backupTaskStore[backupTask], obj.GetName())
 				}
 				restoreTask, _, _ := unstructured.NestedString(obj.Object, "spec", "stash", "addon", "restoreTask", "name")
 				if restoreTask != "" {
+					// update based on stash catalog
+					addonKey := StashAddon{
+						DBType:    StashAddonDBType(dbKind),
+						DBVersion: VersionForStashTask(restoreTask),
+					}
+					addVer, ok := stashCatalog[addonKey]
+					if !ok {
+						panic(fmt.Sprintf("no restore addon found for %#v", addonKey))
+					}
+					restoreTask = fmt.Sprintf("%s-restore-%s", addonKey.DBType, addVer)
+					err = unstructured.SetNestedField(obj.Object, restoreTask, "spec", "stash", "addon", "restoreTask", "name")
+					if err != nil {
+						panic(err)
+					}
 					restoreTaskStore[restoreTask] = append(restoreTaskStore[restoreTask], obj.GetName())
 				}
 			}
@@ -648,4 +712,29 @@ func toJSON(v interface{}) string {
 		return ""
 	}
 	return string(data)
+}
+
+func StashAddonDBType(dbKind string) string {
+	switch dbKind {
+	case "PerconaXtraDB":
+		return "percona-xtradb"
+	default:
+		return strings.ToLower(dbKind)
+	}
+}
+
+func VersionForStashTask(taskName string) string {
+	var v string
+	if idx := strings.Index(taskName, "-backup-"); idx > -1 {
+		v = taskName[idx:]
+		v = strings.TrimPrefix(v, "-backup-")
+	} else if idx := strings.Index(taskName, "-restore-"); idx > -1 {
+		v = taskName[idx:]
+		v = strings.TrimPrefix(v, "-restore-")
+	}
+	vv, err := version.NewVersion(v)
+	if err != nil {
+		panic(fmt.Sprintf("failed to extract versoin %s for task name %s: %v", v, taskName, err))
+	}
+	return vv.ToMutator().ResetPrerelease().ResetMetadata().Done().String()
 }
