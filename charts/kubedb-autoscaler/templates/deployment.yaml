@@ -30,16 +30,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
     spec:
-    {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
+      {{- include "appscode.imagePullSecrets" . | nindent 6 }}
       serviceAccountName: {{ include "kubedb-autoscaler.serviceAccountName" . }}
       containers:
       - name: operator
         securityContext:
           {{- toYaml .Values.operator.securityContext | nindent 10 }}
-        image: {{ .Values.operator.registry }}/{{ .Values.operator.repository }}:{{ .Values.operator.tag }}
+        image: {{ include "operator.registry" . }}/{{ .Values.operator.repository }}:{{ .Values.operator.tag }}
         imagePullPolicy: {{ .Values.imagePullPolicy  }}
         args:
         - run
@@ -60,7 +57,7 @@ spec:
         {{- if .Values.storageAutoscaler.prometheus.bearerToken }}
         - --prometheus-token-file=/var/prometheus-data/token.txt
         {{- end }}
-        {{- if .Values.license }}
+        {{- if include "appscode.license" . }}
         - --license-file=/var/run/secrets/appscode/license/key.txt
         {{- end }}
         env:
@@ -84,7 +81,7 @@ spec:
         - mountPath: /var/prometheus-data
           name: prometheus-data
         {{- end }}
-        {{- if .Values.license }}
+        {{- if include "appscode.license" . }}
         - mountPath: /var/run/secrets/appscode/license
           name: license
         {{- end }}
@@ -119,7 +116,7 @@ spec:
           defaultMode: 420
           secretName: {{ include "kubedb-autoscaler.fullname" . }}-prometheus-data
       {{- end }}
-      {{- if .Values.license }}
+      {{- if include "appscode.license" . }}
       - name: license
         secret:
           defaultMode: 420

@@ -29,9 +29,6 @@ const (
 
 // KubedbEnterprise defines the schama for KubeDB Enterprise Operator Installer.
 
-// +genclient
-// +genclient:skipVerbs=updateStatus
-// +k8s:openapi-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
@@ -42,7 +39,7 @@ type KubedbEnterprise struct {
 	Spec              KubedbEnterpriseSpec `json:"spec,omitempty"`
 }
 
-// KubedbEnterpriseSpec is the spec for redis version
+// KubedbEnterpriseSpec is the schema for kubedb-enterprise chart values file
 type KubedbEnterpriseSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
@@ -53,7 +50,7 @@ type KubedbEnterpriseSpec struct {
 	Cleaner          CleanerRef `json:"cleaner"`
 	ImagePullPolicy  string     `json:"imagePullPolicy"`
 	//+optional
-	ImagePullSecrets []string `json:"imagePullSecrets"`
+	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
 	// +optional
 	CriticalAddon bool `json:"criticalAddon"`
 	// +optional

@@ -1,5 +1,5 @@
 # if license file is provided, then create a secret for license
-  {{- if .Values.license }}
+{{- if include "appscode.license" . }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -9,5 +9,5 @@ metadata:
   {{- include "kubedb-community.labels" . | nindent 4 }}
 type: Opaque
 data:
-  key.txt: {{ .Values.license | b64enc }}
+  key.txt: {{ include "appscode.license" . | b64enc }}
 {{- end }}

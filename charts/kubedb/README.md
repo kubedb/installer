@@ -44,21 +44,21 @@ The command removes all the Kubernetes components associated with the chart and 
 
 The following table lists the configurable parameters of the `kubedb` chart and their default values.
 
-|         Parameter         | Description | Default |
-|---------------------------|-------------|---------|
-| kubedb-community.enabled  |             | `true`  |
-| kubedb-community.license  |             | `""`    |
-| kubedb-catalog.enabled    |             | `false` |
-| kubedb-enterprise.enabled |             | `true`  |
-| kubedb-enterprise.license |             | `""`    |
-| kubedb-autoscaler.enabled |             | `true`  |
-| kubedb-autoscaler.license |             | `""`    |
+|         Parameter         |                                                                                                                                                                                  Description                                                                                                                                                                                  | Default  |
+|---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
+| global.license            | License for the product. Get a license by following the steps from [here](https://kubedb.run/docs/latest/setup/install/enterprise#get-a-trial-license). <br> Example: <br> `helm install appscode/kubedb-enterprise \` <br> `--set-file license=/path/to/license/file` <br> `or` <br> `helm install appscode/kubedb-enterprise \` <br> `--set license=<license file content>` | `""`     |
+| global.registry           | Docker registry used to pull KubeDB operator image                                                                                                                                                                                                                                                                                                                            | `kubedb` |
+| global.imagePullSecrets   | Specify an array of imagePullSecrets. Secrets must be manually created in the namespace. <br> Example: <br> `helm template charts/kubedb-community \` <br> `--set imagePullSecrets[0].name=sec0 \` <br> `--set imagePullSecrets[1].name=sec1`                                                                                                                                 | `[]`     |
+| kubedb-community.enabled  | If enabled, installs the kubedb-community chart                                                                                                                                                                                                                                                                                                                               | `true`   |
+| kubedb-catalog.enabled    | If enabled, installs the kubedb-catalog chart                                                                                                                                                                                                                                                                                                                                 | `true`   |
+| kubedb-enterprise.enabled | If enabled, installs the kubedb-enterprise chart                                                                                                                                                                                                                                                                                                                              | `false`  |
+| kubedb-autoscaler.enabled | If enabled, installs the kubedb-autoscaler chart                                                                                                                                                                                                                                                                                                                              | `false`  |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
 
 ```console
-$ helm install kubedb appscode/kubedb -n kube-system --set -- generate from values file --
+$ helm install kubedb appscode/kubedb -n kube-system --set global.registry=kubedb
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while

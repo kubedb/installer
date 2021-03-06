@@ -60,3 +60,37 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Returns the appscode license
+*/}}
+{{- define "appscode.license" -}}
+{{- default .Values.global.license .Values.license }}
+{{- end }}
+
+{{/*
+Returns the registry used for operator docker image
+*/}}
+{{- define "operator.registry" -}}
+{{- default .Values.operator.registry .Values.global.registry }}
+{{- end }}
+
+{{/*
+Returns the registry used for cleaner docker image
+*/}}
+{{- define "cleaner.registry" -}}
+{{- default .Values.cleaner.registry .Values.global.registry }}
+{{- end }}
+
+{{/*
+Returns the appscode image pull secrets
+*/}}
+{{- define "appscode.imagePullSecrets" -}}
+{{- with .Values.global.imagePullSecrets -}}
+imagePullSecrets:
+{{- toYaml . | nindent 2 }}
+{{- else -}}
+imagePullSecrets:
+{{- toYaml $.Values.imagePullSecrets | nindent 2 }}
+{{- end }}
+{{- end }}
