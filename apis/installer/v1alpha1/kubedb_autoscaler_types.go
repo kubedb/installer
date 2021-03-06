@@ -29,9 +29,6 @@ const (
 
 // KubedbAutoscaler defines the schama for KubeDB Enterprise Operator Installer.
 
-// +genclient
-// +genclient:skipVerbs=updateStatus
-// +k8s:openapi-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
@@ -42,7 +39,7 @@ type KubedbAutoscaler struct {
 	Spec              KubedbAutoscalerSpec `json:"spec,omitempty"`
 }
 
-// KubedbAutoscalerSpec is the spec for redis version
+// KubedbAutoscalerSpec is the schema for kubedb-autoscaler chart values file
 type KubedbAutoscalerSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
@@ -53,7 +50,7 @@ type KubedbAutoscalerSpec struct {
 	Cleaner          CleanerRef `json:"cleaner"`
 	ImagePullPolicy  string     `json:"imagePullPolicy"`
 	//+optional
-	ImagePullSecrets []string `json:"imagePullSecrets"`
+	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
 	// +optional
 	CriticalAddon bool `json:"criticalAddon"`
 	// +optional

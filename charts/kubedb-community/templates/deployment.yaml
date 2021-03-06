@@ -30,16 +30,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
     spec:
-    {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
+      {{- include "appscode.imagePullSecrets" . | nindent 6 }}
       serviceAccountName: {{ include "kubedb-community.serviceAccountName" . }}
       containers:
       - name: operator
         securityContext:
           {{- toYaml .Values.operator.securityContext | nindent 10 }}
-        image: {{ .Values.operator.registry }}/{{ .Values.operator.repository }}:{{ .Values.operator.tag }}
+        image: {{ include "operator.registry" . }}/{{ .Values.operator.repository }}:{{ .Values.operator.tag }}
         imagePullPolicy: {{ .Values.imagePullPolicy  }}
         args:
         - run
@@ -53,7 +50,7 @@ spec:
         - --bypass-validating-webhook-xray={{ .Values.apiserver.bypassValidatingWebhookXray }}
         - --use-kubeapiserver-fqdn-for-aks={{ .Values.apiserver.useKubeapiserverFqdnForAks }}
         - --enable-analytics={{ .Values.enableAnalytics }}
-        {{- if .Values.license }}
+        {{- if include "appscode.license" . }}
         - --license-file=/var/run/secrets/appscode/license/key.txt
         {{- end }}
         env:
@@ -71,7 +68,7 @@ spec:
         volumeMounts:
         - mountPath: /var/serving-cert
           name: serving-cert
-        {{- if .Values.license }}
+        {{- if include "appscode.license" . }}
         - mountPath: /var/run/secrets/appscode/license
           name: license
         {{- end }}
@@ -97,7 +94,7 @@ spec:
         secret:
           defaultMode: 420
           secretName: {{ include "kubedb-community.fullname" . }}-apiserver-cert
-      {{- if .Values.license }}
+      {{- if include "appscode.license" . }}
       - name: license
         secret:
           defaultMode: 420

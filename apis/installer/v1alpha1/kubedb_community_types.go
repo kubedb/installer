@@ -29,9 +29,6 @@ const (
 
 // KubedbCommunity defines the schama for KubeDB Operator Installer.
 
-// +genclient
-// +genclient:skipVerbs=updateStatus
-// +k8s:openapi-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
@@ -42,7 +39,7 @@ type KubedbCommunity struct {
 	Spec              KubedbCommunitySpec `json:"spec,omitempty"`
 }
 
-// KubedbCommunitySpec is the spec for redis version
+// KubedbCommunitySpec is the schema for kubedb-community chart values file
 type KubedbCommunitySpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
@@ -53,7 +50,7 @@ type KubedbCommunitySpec struct {
 	Cleaner          CleanerRef `json:"cleaner"`
 	ImagePullPolicy  string     `json:"imagePullPolicy"`
 	//+optional
-	ImagePullSecrets []string `json:"imagePullSecrets"`
+	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
 	// +optional
 	CriticalAddon bool `json:"criticalAddon"`
 	// +optional
