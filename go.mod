@@ -18,6 +18,7 @@ require (
 	k8s.io/apimachinery v0.18.9
 	kmodules.xyz/client-go v0.0.0-20210220080427-fd7308e30bb4
 	kmodules.xyz/schema-checker v0.1.2
+	kubedb.dev/apimachinery v0.16.3-0.20210304211208-74561e0d5933 // indirect
 	sigs.k8s.io/yaml v1.2.0
 	stash.appscode.dev/catalog v0.0.0-20210303214218-1306ba59af95
 )
