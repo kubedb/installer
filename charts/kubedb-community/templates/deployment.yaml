@@ -66,6 +66,8 @@ spec:
         - name: operator
           containerPort: {{ .Values.apiserver.port }}
         volumeMounts:
+        - mountPath: /tmp
+          name: tmpdir
         - mountPath: /var/serving-cert
           name: serving-cert
         {{- if include "appscode.license" . }}
@@ -90,6 +92,8 @@ spec:
         resources:
           {{- toYaml .Values.operator.resources | nindent 10 }}
       volumes:
+      - name: tmpdir
+        emptyDir: {}
       - name: serving-cert
         secret:
           defaultMode: 420
