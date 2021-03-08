@@ -9,6 +9,8 @@ require (
 	github.com/codeskyblue/go-sh v0.0.0-20200712050446-30169cf553fe
 	github.com/google/gofuzz v1.1.0
 	github.com/huandu/xstrings v1.3.2 // indirect
+	github.com/imdario/mergo v0.3.6 // indirect
+	github.com/kr/pretty v0.2.0 // indirect
 	github.com/mitchellh/copystructure v1.1.1 // indirect
 	github.com/spf13/pflag v1.0.5
 	github.com/yudai/gojsondiff v1.0.0
