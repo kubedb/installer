@@ -1,0 +1,27 @@
+{{ if .Values.catalog.postgres }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: '10.16'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  coordinator:
+    image: '{{ .Values.image.registry }}/pg-coordinator:v0.0.2'
+  db:
+    image: '{{ .Values.image.registry }}/postgres:10.16'
+  distribution: PostgreSQL
+  exporter:
+    image: prometheuscommunity/postgres-exporter:v0.9.0
+  initContainer:
+    image: '{{ .Values.image.registry }}/postgres-init:0.1.0'
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-10.14.0-v4
+      restoreTask:
+        name: postgres-restore-10.14.0-v4
+  version: "10.16"
+{{ end }}
