@@ -368,7 +368,11 @@ ct: $(BUILD_DIRS)
 	    --env HTTPS_PROXY=$(HTTPS_PROXY)                        \
 	    --env KUBECONFIG=$(subst $(HOME),,$(KUBECONFIG))        \
 	    $(CHART_TEST_IMAGE)                                     \
-	    ct $(CT_COMMAND) --debug $(CT_ARGS)
+	    /bin/sh -c "                                            \
+	        helm repo add appscode https://charts.appscode.com/stable; \
+	        helm dependency update charts/kubedb;                      \
+	        ct $(CT_COMMAND) --debug $(CT_ARGS)                        \
+	    "
 
 ADDTL_LINTERS   := goconst,gofmt,goimports,unparam
 
