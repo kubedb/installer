@@ -19,7 +19,7 @@ require (
 	kmodules.xyz/client-go v0.0.0-20210220080427-fd7308e30bb4
 	kmodules.xyz/schema-checker v0.1.2
 	sigs.k8s.io/yaml v1.2.0
-	stash.appscode.dev/catalog v0.0.0-20210303214218-1306ba59af95
+	stash.appscode.dev/catalog v0.0.0-20210309065235-d4246cf6c51b
 )
 
 replace bitbucket.org/ww/goautoneg => gomodules.xyz/goautoneg v0.0.0-20120707110453-a547fc61f48d
