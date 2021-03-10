@@ -17,30 +17,12 @@ limitations under the License.
 package semvers
 
 import (
-	"fmt"
 	"sort"
 	"strconv"
 	"strings"
 
 	"github.com/Masterminds/semver"
 )
-
-// SemverCollection is a collection of Version instances and implements the sort
-// interface. See the sort package for more details.
-// https://golang.org/pkg/sort/
-type SemverCollection []*semver.Version
-
-// Len returns the length of a collection. The number of Version instances
-// on the slice.
-func (c SemverCollection) Len() int {
-	return len(c)
-}
-
-// Less is needed for the sort interface to compare two Version objects on the
-// slice. If checks if one is less than the other.
-func (c SemverCollection) Less(i, j int) bool {
-	return CompareVersions(c[i], c[j])
-}
 
 func CompareVersions(vi *semver.Version, vj *semver.Version) bool {
 	mi, _ := vi.SetPrerelease("")
@@ -64,34 +46,20 @@ func CompareVersions(vi *semver.Version, vj *semver.Version) bool {
 	return vi.LessThan(vj)
 }
 
-// Swap is needed for the sort interface to replace the Version objects
-// at two different positions in the slice.
-func (c SemverCollection) Swap(i, j int) {
-	c[i], c[j] = c[j], c[i]
+func Compare(i, j string) bool {
+	vi, ei := semver.NewVersion(i)
+	vj, ej := semver.NewVersion(j)
+	if ei == nil && ej == nil {
+		return CompareVersions(vi, vj)
+	}
+	return strings.Compare(i, j) < 0
 }
 
-type SortFunc func(data sort.Interface)
-
-func SortVersions(versions []string, fn ...SortFunc) ([]string, error) {
-	vs := make([]*semver.Version, len(versions))
-	for i, v := range versions {
-		v, err := semver.NewVersion(v)
-		if err != nil {
-			return nil, fmt.Errorf("error parsing version: %s", err)
-		}
-		vs[i] = v
-	}
-	if len(fn) == 0 {
-		sort.Sort(SemverCollection(vs))
-	} else {
-		fn[0](SemverCollection(vs))
-	}
-
-	result := make([]string, len(vs))
-	for i, v := range vs {
-		result[i] = v.Original()
-	}
-	return result, nil
+func SortVersions(versions []string, compare func(vi, vj string) bool) []string {
+	sort.Slice(versions, func(i, j int) bool {
+		return compare(versions[i], versions[j])
+	})
+	return versions
 }
 
 func VersionToRune(v *semver.Version) rune {

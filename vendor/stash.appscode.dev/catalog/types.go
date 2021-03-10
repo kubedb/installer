@@ -40,12 +40,8 @@ type StashCatalog struct {
 
 func (c *StashCatalog) Sort() {
 	sort.Slice(c.Addons, func(i, j int) bool { return c.Addons[i].Name < c.Addons[j].Name })
-	var err error
 	for i, project := range c.Addons {
-		c.Addons[i].Versions, err = semvers.SortVersions(project.Versions)
-		if err != nil {
-			panic(err)
-		}
+		c.Addons[i].Versions = semvers.SortVersions(project.Versions, semvers.Compare)
 	}
 }
 
