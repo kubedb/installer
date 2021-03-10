@@ -98,9 +98,12 @@ func CompareFullVersions(vi FullVersion, vj FullVersion) bool {
 		return result < 0
 	}
 
-	vci, _ := semver.NewVersion(vi.CatalogName)
-	vcj, _ := semver.NewVersion(vj.CatalogName)
-	return semvers.CompareVersions(vci, vcj)
+	vci, e1 := semver.NewVersion(vi.CatalogName)
+	vcj, e2 := semver.NewVersion(vj.CatalogName)
+	if e1 == nil && e2 == nil {
+		return semvers.CompareVersions(vci, vcj)
+	}
+	return strings.Compare(vi.CatalogName, vj.CatalogName) < 0
 }
 
 func main() {
@@ -191,7 +194,11 @@ func main() {
 				}
 			} else if dbKind == "Postgres" {
 				if distro == "" {
+
 					distro = "PostgreSQL"
+					if strings.Contains(strings.ToLower(obj.GetName()), "timescale") {
+						distro = "TimescaleDB"
+					}
 					err = unstructured.SetNestedField(obj.Object, distro, "spec", "distribution")
 					if err != nil {
 						panic(err)
@@ -330,12 +337,9 @@ func main() {
 
 	{
 		for k, v := range backupTaskStore {
-			versions, err := semvers.SortVersions(v, func(data sort.Interface) {
-				sort.Sort(sort.Reverse(data))
+			versions := semvers.SortVersions(v, func(vi, vj string) bool {
+				return !semvers.Compare(vi, vj)
 			})
-			if err != nil {
-				panic(err)
-			}
 			backupTaskStore[k] = versions
 		}
 
@@ -358,12 +362,9 @@ func main() {
 
 	{
 		for k, v := range restoreTaskStore {
-			versions, err := semvers.SortVersions(v, func(data sort.Interface) {
-				sort.Sort(sort.Reverse(data))
+			versions := semvers.SortVersions(v, func(vi, vj string) bool {
+				return !semvers.Compare(vi, vj)
 			})
-			if err != nil {
-				panic(err)
-			}
 			restoreTaskStore[k] = versions
 		}
 
