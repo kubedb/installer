@@ -97,7 +97,7 @@ func CompareFullVersions(vi FullVersion, vj FullVersion) bool {
 	if result := vvi.Compare(vvj); result != 0 {
 		return result < 0
 	}
-	return semvers.Compare(vi.CatalogName, vj.CatalogName)
+	return Compare(vi.CatalogName, vj.CatalogName)
 }
 
 func main() {
@@ -332,7 +332,7 @@ func main() {
 	{
 		for k, v := range backupTaskStore {
 			versions := semvers.SortVersions(v, func(vi, vj string) bool {
-				return !semvers.Compare(vi, vj)
+				return !Compare(vi, vj)
 			})
 			backupTaskStore[k] = versions
 		}
@@ -357,7 +357,7 @@ func main() {
 	{
 		for k, v := range restoreTaskStore {
 			versions := semvers.SortVersions(v, func(vi, vj string) bool {
-				return !semvers.Compare(vi, vj)
+				return !Compare(vi, vj)
 			})
 			restoreTaskStore[k] = versions
 		}
@@ -386,7 +386,7 @@ func main() {
 
 			if (di && dj) || (!di && !dj) {
 				// company version
-				return semvers.Compare(v[i].GetName(), v[j].GetName())
+				return Compare(v[i].GetName(), v[j].GetName())
 			}
 			return dj // or !di
 		})
@@ -778,4 +778,27 @@ func VersionForStashTask(taskName string) string {
 		panic(fmt.Sprintf("failed to extract versoin %s for task name %s: %v", v, taskName, err))
 	}
 	return vv.ToMutator().ResetPrerelease().ResetMetadata().Done().String()
+}
+
+func Compare(i, j string) bool {
+	vi, ei := semver.NewVersion(i)
+	vj, ej := semver.NewVersion(j)
+	if ei == nil && ej == nil {
+		return semvers.CompareVersions(vi, vj)
+	}
+
+	idx_i := strings.IndexRune(i, '-')
+	var distro_i, ver_i string
+	if idx_i != -1 {
+		distro_i, ver_i = i[:idx_i], i[idx_i+1:]
+	}
+	idx_j := strings.IndexRune(j, '-')
+	var distro_j, ver_j string
+	if idx_j != -1 {
+		distro_j, ver_j = j[:idx_j], j[idx_j+1:]
+	}
+	if distro_i == distro_j && distro_i != "" {
+		return semvers.Compare(ver_i, ver_j)
+	}
+	return strings.Compare(i, j) < 0
 }
