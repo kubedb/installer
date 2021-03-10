@@ -97,13 +97,7 @@ func CompareFullVersions(vi FullVersion, vj FullVersion) bool {
 	if result := vvi.Compare(vvj); result != 0 {
 		return result < 0
 	}
-
-	vci, e1 := semver.NewVersion(vi.CatalogName)
-	vcj, e2 := semver.NewVersion(vj.CatalogName)
-	if e1 == nil && e2 == nil {
-		return semvers.CompareVersions(vci, vcj)
-	}
-	return strings.Compare(vi.CatalogName, vj.CatalogName) < 0
+	return semvers.Compare(vi.CatalogName, vj.CatalogName)
 }
 
 func main() {
@@ -392,15 +386,7 @@ func main() {
 
 			if (di && dj) || (!di && !dj) {
 				// company version
-				vi, err := semver.NewVersion(v[i].GetName())
-				if err != nil {
-					panic(fmt.Errorf("%s reason: %v", v[i].GetName(), err))
-				}
-				vj, err := semver.NewVersion(v[j].GetName())
-				if err != nil {
-					panic(fmt.Errorf("%s reason: %v", v[j].GetName(), err))
-				}
-				return semvers.CompareVersions(vi, vj)
+				return semvers.Compare(v[i].GetName(), v[j].GetName())
 			}
 			return dj // or !di
 		})
