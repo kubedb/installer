@@ -153,6 +153,7 @@ func main() {
 
 	for _, obj := range resources {
 		// remove labels
+		obj.SetNamespace("")
 		obj.SetLabels(nil)
 		obj.SetAnnotations(nil)
 
@@ -639,6 +640,7 @@ func main() {
 		}
 
 		for _, obj := range helmout {
+			obj.SetNamespace("")
 			obj.SetLabels(nil)
 			obj.SetAnnotations(nil)
 
