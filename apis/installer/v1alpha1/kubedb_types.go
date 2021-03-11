@@ -61,6 +61,7 @@ type GlobalValues struct {
 	Registry string `json:"registry"`
 	//+optional
 	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
+	SkipCleaner      bool                        `json:"skipCleaner"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -83,6 +83,13 @@ Returns the registry used for cleaner docker image
 {{- .Values.cleaner.registry }}
 {{- end }}
 
+{{/*
+Returns whether the cleaner job YAML will be generated or not
+*/}}
+{{- define "cleaner.generate" -}}
+{{- ternary "false" "true" .Values.cleaner.skip -}}
+{{- end }}
+
 {{- define "appscode.imagePullSecrets" -}}
 {{- with .Values.imagePullSecrets -}}
 imagePullSecrets:
