@@ -356,6 +356,7 @@ ct: $(BUILD_DIRS)
 	@docker run                                                 \
 	    -i                                                      \
 	    --rm                                                    \
+	    -u $$(id -u):$$(id -g)                                  \
 	    -v $$(pwd):/src                                         \
 	    -w /src                                                 \
 	    --net=host                                              \
@@ -370,9 +371,9 @@ ct: $(BUILD_DIRS)
 	    --env KUBECONFIG=$(subst $(HOME),,$(KUBECONFIG))        \
 	    $(CHART_TEST_IMAGE)                                     \
 	    /bin/sh -c "                                            \
-	        helm repo add appscode https://charts.appscode.com/stable; \
-	        helm dependency update charts/kubedb;                      \
-	        ct $(CT_COMMAND) --debug $(CT_ARGS)                        \
+	        kubectl delete crds --selector=app.kubernetes.io/name=kubedb; \
+	        helm dependency update charts/kubedb;                         \
+	        ct $(CT_COMMAND) --debug $(CT_ARGS)                           \
 	    "
 
 ADDTL_LINTERS   := goconst,gofmt,goimports,unparam
