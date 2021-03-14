@@ -3,23 +3,19 @@ module kubedb.dev/installer
 go 1.16
 
 require (
-	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver v1.5.0
 	github.com/Masterminds/sprig v2.22.0+incompatible
 	github.com/codeskyblue/go-sh v0.0.0-20200712050446-30169cf553fe
 	github.com/google/gofuzz v1.1.0
-	github.com/huandu/xstrings v1.3.2 // indirect
-	github.com/mitchellh/copystructure v1.1.1 // indirect
 	github.com/spf13/pflag v1.0.5
 	github.com/yudai/gojsondiff v1.0.0
 	gomodules.xyz/semvers v0.0.0-20210310134147-b22f1a8bc683
-	gomodules.xyz/version v0.1.0
 	k8s.io/api v0.18.9
 	k8s.io/apimachinery v0.18.9
 	kmodules.xyz/client-go v0.0.0-20210220080427-fd7308e30bb4
 	kmodules.xyz/schema-checker v0.1.2
 	sigs.k8s.io/yaml v1.2.0
-	stash.appscode.dev/catalog v0.0.0-20210310134336-3544e1b89c80
+	stash.appscode.dev/installer v0.11.12-0.20210314033443-416b680d3837
 )
 
 replace bitbucket.org/ww/goautoneg => gomodules.xyz/goautoneg v0.0.0-20120707110453-a547fc61f48d
