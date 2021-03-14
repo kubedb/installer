@@ -37,14 +37,13 @@ import (
 	diff "github.com/yudai/gojsondiff"
 	"github.com/yudai/gojsondiff/formatter"
 	"gomodules.xyz/semvers"
-	"gomodules.xyz/version"
 	core "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"kmodules.xyz/client-go/tools/parser"
 	"sigs.k8s.io/yaml"
-	stash "stash.appscode.dev/catalog"
+	stash "stash.appscode.dev/installer/catalog"
 )
 
 type StashAddon struct {
@@ -140,13 +139,9 @@ func main() {
 	stashCatalog := map[StashAddon]string{}
 	for _, addon := range stash.Load().Addons {
 		for _, v := range addon.Versions {
-			vv, err := version.NewVersion(v)
-			if err != nil {
-				panic(err)
-			}
 			stashCatalog[StashAddon{
 				DBType:    addon.Name,
-				DBVersion: vv.ToMutator().ResetMetadata().ResetPrerelease().Done().String(),
+				DBVersion: toVersion(v),
 			}] = v
 		}
 	}
@@ -775,11 +770,15 @@ func VersionForStashTask(taskName string) string {
 		v = taskName[idx:]
 		v = strings.TrimPrefix(v, "-restore-")
 	}
-	vv, err := version.NewVersion(v)
-	if err != nil {
-		panic(fmt.Sprintf("failed to extract versoin %s for task name %s: %v", v, taskName, err))
+	return toVersion(v)
+}
+
+func toVersion(v string) string {
+	idx := strings.IndexRune(v, '-')
+	if idx == -1 {
+		return v
 	}
-	return vv.ToMutator().ResetPrerelease().ResetMetadata().Done().String()
+	return v[:idx]
 }
 
 func Compare(i, j string) bool {
