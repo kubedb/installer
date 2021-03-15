@@ -142,7 +142,7 @@ func main() {
 			stashCatalog[StashAddon{
 				DBType:    addon.Name,
 				DBVersion: toVersion(v),
-			}] = v
+			}] = toVersion(v) // remove -vN suffix from backup/restore task
 		}
 	}
 
@@ -778,7 +778,26 @@ func toVersion(v string) string {
 	if idx == -1 {
 		return v
 	}
-	return v[:idx]
+	v2 := v[:idx]
+
+	switch v2 {
+	case "10.14.0":
+		return "10.14"
+	case "10.2.0":
+		return "10.2"
+	case "11.1.0":
+		return "11.1"
+	case "11.2.0":
+		return "11.2"
+	case "11.9.0":
+		return "11.9"
+	case "12.4.0":
+		return "12.4"
+	case "13.1.0":
+		return "13.1"
+	default:
+		return v2
+	}
 }
 
 func Compare(i, j string) bool {
