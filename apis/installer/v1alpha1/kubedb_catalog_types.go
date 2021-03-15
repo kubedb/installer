@@ -50,7 +50,8 @@ type KubedbCatalogSpec struct {
 }
 
 type RegistryRef struct {
-	Registry string `json:"registry"`
+	Registry                 string `json:"registry"`
+	OverrideOfficialRegistry bool   `json:"overrideOfficialRegistry"`
 }
 
 type Catalog struct {
