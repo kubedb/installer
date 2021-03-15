@@ -483,7 +483,7 @@ func main() {
 						if ok {
 							parts := strings.Split(img, "/")
 							if parts[0] == "kubedb" {
-								newimg := `{{ .Values.image.registry }}/` + parts[1]
+								newimg := `{{ include "catalog.registry" . }}/` + parts[1]
 								err = unstructured.SetNestedField(obj.Object, newimg, "spec", prop, field)
 								if err != nil {
 									panic(err)

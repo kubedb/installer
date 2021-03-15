@@ -61,3 +61,10 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Returns the registry used for catalog docker images
+*/}}
+{{- define "catalog.registry" -}}
+{{- .Values.image.registry }}
+{{- end }}
