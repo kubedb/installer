@@ -76,6 +76,13 @@ Returns the registry used for operator docker image
 {{- end }}
 
 {{/*
+Returns the registry used for catalog docker images
+*/}}
+{{- define "catalog.registry" -}}
+{{- default .Values.image.registry .Values.global.registry }}
+{{- end }}
+
+{{/*
 Returns the registry used for cleaner docker image
 */}}
 {{- define "cleaner.registry" -}}
