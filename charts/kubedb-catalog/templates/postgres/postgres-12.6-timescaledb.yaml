@@ -9,10 +9,10 @@ spec:
   coordinator:
     image: '{{ include "catalog.registry" . }}/pg-coordinator:v0.1.0'
   db:
-    image: timescale/timescaledb:2.1.0-pg12-oss
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "timescale" "timescaledb")) }}:2.1.0-pg12-oss'
   distribution: TimescaleDB
   exporter:
-    image: prometheuscommunity/postgres-exporter:v0.9.0
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "postgres-exporter")) }}:v0.9.0'
   initContainer:
     image: '{{ include "catalog.registry" . }}/postgres-init:0.1.0'
   podSecurityPolicies:

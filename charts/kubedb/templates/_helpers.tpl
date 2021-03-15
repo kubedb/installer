@@ -108,3 +108,15 @@ imagePullSecrets:
 {{- toYaml $.Values.imagePullSecrets | nindent 2 }}
 {{- end }}
 {{- end }}
+
+{{/*
+Returns the registry used for official docker images
+*/}}
+{{- define "official.registry" -}}
+{{- if .image.overrideOfficialRegistry -}}
+{{- $reg := default .image.registry .global.registry -}}
+{{- list $reg (last .officialRegistry) | join "/" }}
+{{- else -}}
+{{- .officialRegistry | join "/" }}
+{{- end }}
+{{- end }}

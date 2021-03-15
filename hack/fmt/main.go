@@ -46,6 +46,8 @@ import (
 	stash "stash.appscode.dev/installer/catalog"
 )
 
+const registryKubeDB = "kubedb"
+
 type StashAddon struct {
 	DBType    string
 	DBVersion string
@@ -481,17 +483,28 @@ func main() {
 					templatizeRegistry := func(field string) {
 						img, ok, _ := unstructured.NestedString(obj.Object, "spec", prop, field)
 						if ok {
-							parts := strings.Split(img, "/")
-							if parts[0] == "kubedb" {
-								newimg := `{{ include "catalog.registry" . }}/` + parts[1]
-								err = unstructured.SetNestedField(obj.Object, newimg, "spec", prop, field)
-								if err != nil {
-									panic(err)
-								}
+							reg, bin, tag := ParseImage(img)
+							var newimg string
+							switch {
+							case tag == "" && reg == "":
+								newimg = fmt.Sprintf(`{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list %q)) }}`, bin)
+							case tag == "" && reg == registryKubeDB:
+								newimg = fmt.Sprintf(`{{ include "catalog.registry" . }}/%s`, bin)
+							case tag == "" && reg != registryKubeDB:
+								newimg = fmt.Sprintf(`{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list %q %q)) }}`, reg, bin)
+							case tag != "" && reg == "":
+								newimg = fmt.Sprintf(`{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list %q)) }}:%s`, bin, tag)
+							case reg == registryKubeDB:
+								newimg = fmt.Sprintf(`{{ include "catalog.registry" . }}/%s:%s`, bin, tag)
+							default:
+								newimg = fmt.Sprintf(`{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list %q %q)) }}:%s`, reg, bin, tag)
+							}
+							err = unstructured.SetNestedField(obj.Object, newimg, "spec", prop, field)
+							if err != nil {
+								panic(err)
 							}
 						}
 					}
-
 					templatizeRegistry("image")
 					templatizeRegistry("yqImage")
 				}
@@ -697,6 +710,21 @@ func main() {
 			os.Exit(1)
 		}
 	}
+}
+
+func ParseImage(s string) (reg, bin, tag string) {
+	idx := strings.IndexRune(s, ':')
+	if idx != -1 {
+		tag = s[idx+1:]
+		s = s[:idx]
+	}
+	idx = strings.IndexRune(s, '/')
+	if idx == -1 {
+		bin = s
+	} else {
+		reg, bin = s[:idx], s[idx+1:]
+	}
+	return
 }
 
 func ListResources(dir string) ([]*unstructured.Unstructured, error) {
