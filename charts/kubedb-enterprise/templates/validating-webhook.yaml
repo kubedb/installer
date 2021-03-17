@@ -38,6 +38,32 @@ webhooks:
       resources: ["mongodbopsrequests"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   failurePolicy: Fail
+- name: elasticsearchopsrequest.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.ops.kubedb.com/v1alpha1/elasticsearchopsrequests
+    caBundle: {{ b64enc .Values.apiserver.ca }}
+  rules:
+    - apiGroups: ["ops.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["elasticsearchopsrequests"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  failurePolicy: Fail
+- name: redisopsrequest.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.ops.kubedb.com/v1alpha1/redisopsrequests
+    caBundle: {{ b64enc .Values.apiserver.ca }}
+  rules:
+    - apiGroups: ["ops.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["redisopsrequests"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  failurePolicy: Fail
 {{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
 {{- end }}
