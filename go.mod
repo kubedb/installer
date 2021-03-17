@@ -12,10 +12,10 @@ require (
 	gomodules.xyz/semvers v0.0.0-20210310134147-b22f1a8bc683
 	k8s.io/api v0.18.9
 	k8s.io/apimachinery v0.18.9
-	kmodules.xyz/client-go v0.0.0-20210220080427-fd7308e30bb4
+	kmodules.xyz/client-go v0.0.0-20210315112949-a05d2cc96f28
 	kmodules.xyz/schema-checker v0.1.2
 	sigs.k8s.io/yaml v1.2.0
-	stash.appscode.dev/installer v0.11.12-0.20210314033443-416b680d3837
+	stash.appscode.dev/installer v0.12.0
 )
 
 replace bitbucket.org/ww/goautoneg => gomodules.xyz/goautoneg v0.0.0-20120707110453-a547fc61f48d
