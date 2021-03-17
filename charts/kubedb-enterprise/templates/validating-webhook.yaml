@@ -25,6 +25,19 @@ webhooks:
       resources: ["mysqlopsrequests"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   failurePolicy: Fail
+- name: mongodbopsrequest.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.ops.kubedb.com/v1alpha1/mongodbopsrequests
+    caBundle: {{ b64enc .Values.apiserver.ca }}
+  rules:
+    - apiGroups: ["ops.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["mongodbopsrequests"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  failurePolicy: Fail
 {{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
 {{- end }}
