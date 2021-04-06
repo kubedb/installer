@@ -2,21 +2,56 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
+  name: '10.16-debian'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  coordinator:
+    image: '{{ include "catalog.registry" . }}/pg-coordinator:custom-uid_linux_amd64'
+  db:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "postgres")) }}:10.16'
+  distribution: PostgreSQL
+  exporter:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "postgres-exporter")) }}:v0.9.0'
+  initContainer:
+    image: '{{ include "catalog.registry" . }}/postgres-init:0.2.0'
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-10.14
+      restoreTask:
+        name: postgres-restore-10.14
+  version: "10.16"
+{{ end }}
+
+---
+{{ if .Values.catalog.postgres }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
   name: '10.16'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "catalog.registry" . }}/pg-coordinator:v0.1.1'
+    image: '{{ include "catalog.registry" . }}/pg-coordinator:custom-uid_linux_amd64'
   db:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "postgres")) }}:10.16-alpine'
   distribution: PostgreSQL
   exporter:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "postgres-exporter")) }}:v0.9.0'
   initContainer:
-    image: '{{ include "catalog.registry" . }}/postgres-init:0.1.0'
+    image: '{{ include "catalog.registry" . }}/postgres-init:0.2.0'
   podSecurityPolicies:
     databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: false
+    runAsUser: 70
   stash:
     addon:
       backupTask:
