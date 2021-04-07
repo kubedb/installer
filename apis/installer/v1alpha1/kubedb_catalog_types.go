@@ -44,6 +44,7 @@ type KubedbCatalogSpec struct {
 	NameOverride string `json:"nameOverride"`
 	//+optional
 	FullnameOverride string      `json:"fullnameOverride"`
+	RegistryFQDN     string      `json:"registryFQDN"`
 	Image            RegistryRef `json:"image"`
 	Catalog          Catalog     `json:"catalog"`
 	SkipDeprecated   bool        `json:"skipDeprecated"`

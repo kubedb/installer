@@ -57,8 +57,9 @@ type KubedbSpec struct {
 }
 
 type GlobalValues struct {
-	License  string `json:"license"`
-	Registry string `json:"registry"`
+	License      string `json:"license"`
+	Registry     string `json:"registry"`
+	RegistryFQDN string `json:"registryFQDN"`
 	//+optional
 	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
 	SkipCleaner      bool                        `json:"skipCleaner"`

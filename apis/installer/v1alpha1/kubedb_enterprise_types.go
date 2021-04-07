@@ -46,6 +46,7 @@ type KubedbEnterpriseSpec struct {
 	//+optional
 	FullnameOverride string     `json:"fullnameOverride"`
 	ReplicaCount     int32      `json:"replicaCount"`
+	RegistryFQDN     string     `json:"registryFQDN"`
 	Operator         Container  `json:"operator"`
 	Cleaner          CleanerRef `json:"cleaner"`
 	ImagePullPolicy  string     `json:"imagePullPolicy"`
