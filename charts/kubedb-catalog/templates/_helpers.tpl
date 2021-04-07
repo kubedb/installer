@@ -66,7 +66,7 @@ Create the name of the service account to use
 Returns the registry used for catalog docker images
 */}}
 {{- define "catalog.registry" -}}
-{{- .Values.image.registry }}
+{{- list .Values.registryFQDN .Values.image.registry | compact | join "/" }}
 {{- end }}
 
 {{/*
@@ -74,8 +74,8 @@ Returns the registry used for official docker images
 */}}
 {{- define "official.registry" -}}
 {{- if .image.overrideOfficialRegistry -}}
-{{- list .image.registry (last .officialRegistry) | join "/" }}
+{{- list .registryFQDN .image.registry (last .officialRegistry) | compact | join "/" }}
 {{- else -}}
-{{- .officialRegistry | join "/" }}
+{{- prepend .officialRegistry .registryFQDN | compact | join "/" }}
 {{- end }}
 {{- end }}
