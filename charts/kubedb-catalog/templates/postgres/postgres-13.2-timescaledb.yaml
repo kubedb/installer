@@ -7,16 +7,19 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "catalog.registry" . }}/pg-coordinator:v0.1.1'
+    image: '{{ include "catalog.registry" . }}/pg-coordinator:custom-uid_linux_amd64'
   db:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "timescale" "timescaledb")) }}:2.1.0-pg13-oss'
   distribution: TimescaleDB
   exporter:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "postgres-exporter")) }}:v0.9.0'
   initContainer:
-    image: '{{ include "catalog.registry" . }}/postgres-init:0.1.0'
+    image: '{{ include "catalog.registry" . }}/postgres-init:0.2.0'
   podSecurityPolicies:
     databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: false
+    runAsUser: 70
   stash:
     addon:
       backupTask:

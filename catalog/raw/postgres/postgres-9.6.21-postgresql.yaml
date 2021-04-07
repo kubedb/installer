@@ -1,19 +1,50 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
+  name: 9.6.21-debian
+spec:
+  coordinator:
+    image: kubedb/pg-coordinator:custom-uid_linux_amd64
+  db:
+    image: postgres:9.6.21
+  distribution: PostgreSQL
+  exporter:
+    image: prometheuscommunity/postgres-exporter:v0.9.0
+  initContainer:
+    image: kubedb/postgres-init:0.2.0
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-9.6.19
+      restoreTask:
+        name: postgres-restore-9.6.19
+  version: 9.6.21
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
   name: 9.6.21
 spec:
   coordinator:
-    image: kubedb/pg-coordinator:v0.1.1
+    image: kubedb/pg-coordinator:custom-uid_linux_amd64
   db:
     image: postgres:9.6.21-alpine
   distribution: PostgreSQL
   exporter:
     image: prometheuscommunity/postgres-exporter:v0.9.0
   initContainer:
-    image: kubedb/postgres-init:0.1.0
+    image: kubedb/postgres-init:0.2.0
   podSecurityPolicies:
     databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: false
+    runAsUser: 70
   stash:
     addon:
       backupTask:
