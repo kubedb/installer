@@ -1,26 +1,26 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  name: searchguard-7.3.2
+  name: xpack-7.12.0
 spec:
-  authPlugin: SearchGuard
+  authPlugin: X-Pack
   db:
-    image: floragunncom/sg-elasticsearch:7.3.2-oss-37.0.0
-  distribution: SearchGuard
+    image: elasticsearch:7.12.0
+  distribution: ElasticStack
   exporter:
     image: justwatch/elasticsearch_exporter:1.1.0
   initContainer:
     image: tianon/toybox:0.8.4
-    yqImage: kubedb/elasticsearch-init:7.3.2-searchguard
+    yqImage: kubedb/elasticsearch-init:7.12.0-xpack
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 1000
   stash:
     addon:
       backupTask:
         name: elasticsearch-backup-7.3.2
-        params:
-        - name: args
-          value: --match=^(?![.])(?!searchguard).+
       restoreTask:
         name: elasticsearch-restore-7.3.2
-  version: 7.3.2
+  version: 7.12.0
