@@ -8,15 +8,18 @@ metadata:
 spec:
   authPlugin: SearchGuard
   db:
-    image: '{{ include "catalog.registry" . }}/elasticsearch:7.9.3-searchguard'
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "floragunncom" "sg-elasticsearch")) }}:7.9.3-oss-47.1.0'
   distribution: SearchGuard
   exporter:
-    image: '{{ include "catalog.registry" . }}/elasticsearch_exporter:1.1.0'
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "justwatch" "elasticsearch_exporter")) }}:1.1.0'
   initContainer:
-    image: '{{ include "catalog.registry" . }}/toybox:0.8.4'
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "tianon" "toybox")) }}:0.8.4'
     yqImage: '{{ include "catalog.registry" . }}/elasticsearch-init:7.9.3-searchguard'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 1000
   stash:
     addon:
       backupTask:
