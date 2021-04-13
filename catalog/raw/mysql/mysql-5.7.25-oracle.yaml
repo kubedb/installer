@@ -1,15 +1,15 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
-  name: 5.7.25-v2
+  name: 5.7.25-v3
 spec:
   db:
-    image: kubedb/mysql:5.7.25-v2
+    image: mysql:5.7.25
   distribution: Oracle
   exporter:
     image: kubedb/mysqld-exporter:v0.11.0
   initContainer:
-    image: kubedb/toybox:0.8.4
+    image: kubedb/mysql-init:5.7
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
@@ -126,6 +126,40 @@ spec:
     databasePolicyName: mysql-db
   replicationModeDetector:
     image: kubedb/replication-mode-detector:v0.4.1
+  upgradeConstraints:
+    denylist:
+      groupReplication:
+      - < 5.7.25
+      - 8.0.20
+      - 8.0.19
+      standalone:
+      - < 5.7.25
+  version: 5.7.25
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  name: 5.7.25-v2
+spec:
+  db:
+    image: kubedb/mysql:5.7.25-v2
+  deprecated: true
+  distribution: Oracle
+  exporter:
+    image: kubedb/mysqld-exporter:v0.11.0
+  initContainer:
+    image: kubedb/toybox:0.8.4
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  replicationModeDetector:
+    image: kubedb/replication-mode-detector:v0.4.0
+  stash:
+    addon:
+      backupTask:
+        name: mysql-backup-5.7.25
+      restoreTask:
+        name: mysql-restore-5.7.25
   upgradeConstraints:
     denylist:
       groupReplication:

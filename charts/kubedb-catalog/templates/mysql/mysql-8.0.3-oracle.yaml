@@ -2,17 +2,17 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
-  name: '8.0.3-v2'
+  name: '8.0.3-v3'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
-    image: '{{ include "catalog.registry" . }}/mysql:8.0.3-v2'
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "mysql")) }}:8.0.3'
   distribution: Oracle
   exporter:
     image: '{{ include "catalog.registry" . }}/mysqld-exporter:v0.11.0'
   initContainer:
-    image: '{{ include "catalog.registry" . }}/toybox:0.8.4'
+    image: '{{ include "catalog.registry" . }}/mysql-init:8.0.3'
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
@@ -113,6 +113,42 @@ spec:
     databasePolicyName: mysql-db
   replicationModeDetector:
     image: '{{ include "catalog.registry" . }}/replication-mode-detector:v0.4.1'
+  upgradeConstraints:
+    allowlist:
+      groupReplication:
+      - 8.0.3
+      standalone:
+      - 8.0.3
+  version: 8.0.3
+{{ end }}
+
+---
+{{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  name: '8.0.3-v2'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ include "catalog.registry" . }}/mysql:8.0.3-v2'
+  deprecated: true
+  distribution: Oracle
+  exporter:
+    image: '{{ include "catalog.registry" . }}/mysqld-exporter:v0.11.0'
+  initContainer:
+    image: '{{ include "catalog.registry" . }}/toybox:0.8.4'
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  replicationModeDetector:
+    image: '{{ include "catalog.registry" . }}/replication-mode-detector:v0.4.0'
+  stash:
+    addon:
+      backupTask:
+        name: mysql-backup-8.0.3
+      restoreTask:
+        name: mysql-restore-8.0.3
   upgradeConstraints:
     allowlist:
       groupReplication:
