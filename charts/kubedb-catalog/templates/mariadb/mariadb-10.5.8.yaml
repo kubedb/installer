@@ -7,11 +7,11 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
-    image: '{{ include "catalog.registry" . }}/mariadb:10.5.8'
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "mariadb")) }}:10.5.8'
   exporter:
     image: '{{ include "catalog.registry" . }}/mysqld-exporter:v0.11.0'
   initContainer:
-    image: '{{ include "catalog.registry" . }}/busybox'
+    image: '{{ include "catalog.registry" . }}/mariadb-init:0.1.0'
   podSecurityPolicies:
     databasePolicyName: maria-db
   stash:
