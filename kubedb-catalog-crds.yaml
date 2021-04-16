@@ -4,92 +4,14 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/name: kubedb
-  name: pgbouncerversions.catalog.kubedb.com
-spec:
-  additionalPrinterColumns:
-  - JSONPath: .spec.version
-    name: Version
-    type: string
-  - JSONPath: .spec.server.image
-    name: SERVER_IMAGE
-    type: string
-  - JSONPath: .spec.deprecated
-    name: Deprecated
-    type: boolean
-  - JSONPath: .metadata.creationTimestamp
-    name: Age
-    type: date
-  group: catalog.kubedb.com
-  names:
-    categories:
-    - datastore
-    - kubedb
-    - appscode
-    kind: PgBouncerVersion
-    listKind: PgBouncerVersionList
-    plural: pgbouncerversions
-    shortNames:
-    - pbversion
-    singular: pgbouncerversion
-  preserveUnknownFields: false
-  scope: Cluster
-  subresources: {}
-  validation:
-    openAPIV3Schema:
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-        metadata:
-          type: object
-        spec:
-          properties:
-            deprecated:
-              type: boolean
-            exporter:
-              properties:
-                image:
-                  type: string
-              required:
-              - image
-              type: object
-            server:
-              properties:
-                image:
-                  type: string
-              required:
-              - image
-              type: object
-            version:
-              type: string
-          required:
-          - exporter
-          - server
-          - version
-          type: object
-      type: object
-  version: v1alpha1
-  versions:
-  - name: v1alpha1
-    served: true
-    storage: true
-
----
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  creationTimestamp: null
-  labels:
-    app.kubernetes.io/name: kubedb
-  name: perconaxtradbversions.catalog.kubedb.com
+  name: proxysqlversions.catalog.kubedb.com
 spec:
   additionalPrinterColumns:
   - JSONPath: .spec.version
     name: Version
     type: string
   - JSONPath: .spec.db.image
-    name: DB_IMAGE
+    name: ProxySQL_IMAGE
     type: string
   - JSONPath: .spec.deprecated
     name: Deprecated
@@ -103,12 +25,10 @@ spec:
     - datastore
     - kubedb
     - appscode
-    kind: PerconaXtraDBVersion
-    listKind: PerconaXtraDBVersionList
-    plural: perconaxtradbversions
-    shortNames:
-    - pxversion
-    singular: perconaxtradbversion
+    kind: ProxySQLVersion
+    listKind: ProxySQLVersionList
+    plural: proxysqlversions
+    singular: proxysqlversion
   preserveUnknownFields: false
   scope: Cluster
   subresources: {}
@@ -123,23 +43,9 @@ spec:
           type: object
         spec:
           properties:
-            db:
-              properties:
-                image:
-                  type: string
-              required:
-              - image
-              type: object
             deprecated:
               type: boolean
             exporter:
-              properties:
-                image:
-                  type: string
-              required:
-              - image
-              type: object
-            initContainer:
               properties:
                 image:
                   type: string
@@ -153,60 +59,19 @@ spec:
               required:
               - databasePolicyName
               type: object
-            stash:
+            proxysql:
               properties:
-                addon:
-                  properties:
-                    backupTask:
-                      properties:
-                        name:
-                          type: string
-                        params:
-                          items:
-                            properties:
-                              name:
-                                type: string
-                              value:
-                                type: string
-                            required:
-                            - name
-                            - value
-                            type: object
-                          type: array
-                      required:
-                      - name
-                      type: object
-                    restoreTask:
-                      properties:
-                        name:
-                          type: string
-                        params:
-                          items:
-                            properties:
-                              name:
-                                type: string
-                              value:
-                                type: string
-                            required:
-                            - name
-                            - value
-                            type: object
-                          type: array
-                      required:
-                      - name
-                      type: object
-                  required:
-                  - backupTask
-                  - restoreTask
-                  type: object
+                image:
+                  type: string
+              required:
+              - image
               type: object
             version:
               type: string
           required:
-          - db
           - exporter
-          - initContainer
           - podSecurityPolicies
+          - proxysql
           - version
           type: object
       type: object
@@ -308,6 +173,14 @@ spec:
                   type: string
               required:
               - databasePolicyName
+              type: object
+            securityContext:
+              properties:
+                runAsAnyNonRoot:
+                  type: boolean
+                runAsUser:
+                  format: int64
+                  type: integer
               type: object
             stash:
               properties:
@@ -535,6 +408,174 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/name: kubedb
+  name: elasticsearchversions.catalog.kubedb.com
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.version
+    name: Version
+    type: string
+  - JSONPath: .spec.distribution
+    name: Distribution
+    type: string
+  - JSONPath: .spec.db.image
+    name: DB_IMAGE
+    type: string
+  - JSONPath: .spec.deprecated
+    name: Deprecated
+    type: boolean
+  - JSONPath: .metadata.creationTimestamp
+    name: Age
+    type: date
+  group: catalog.kubedb.com
+  names:
+    categories:
+    - datastore
+    - kubedb
+    - appscode
+    kind: ElasticsearchVersion
+    listKind: ElasticsearchVersionList
+    plural: elasticsearchversions
+    shortNames:
+    - esversion
+    singular: elasticsearchversion
+  preserveUnknownFields: false
+  scope: Cluster
+  subresources: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        metadata:
+          type: object
+        spec:
+          properties:
+            authPlugin:
+              enum:
+              - OpenDistro
+              - SearchGuard
+              - X-Pack
+              type: string
+            db:
+              properties:
+                image:
+                  type: string
+              required:
+              - image
+              type: object
+            deprecated:
+              type: boolean
+            distribution:
+              enum:
+              - ElasticStack
+              - OpenDistro
+              - SearchGuard
+              type: string
+            exporter:
+              properties:
+                image:
+                  type: string
+              required:
+              - image
+              type: object
+            initContainer:
+              properties:
+                image:
+                  type: string
+                yqImage:
+                  type: string
+              required:
+              - image
+              - yqImage
+              type: object
+            podSecurityPolicies:
+              properties:
+                databasePolicyName:
+                  type: string
+              required:
+              - databasePolicyName
+              type: object
+            securityContext:
+              properties:
+                runAsAnyNonRoot:
+                  type: boolean
+                runAsUser:
+                  format: int64
+                  type: integer
+              type: object
+            stash:
+              properties:
+                addon:
+                  properties:
+                    backupTask:
+                      properties:
+                        name:
+                          type: string
+                        params:
+                          items:
+                            properties:
+                              name:
+                                type: string
+                              value:
+                                type: string
+                            required:
+                            - name
+                            - value
+                            type: object
+                          type: array
+                      required:
+                      - name
+                      type: object
+                    restoreTask:
+                      properties:
+                        name:
+                          type: string
+                        params:
+                          items:
+                            properties:
+                              name:
+                                type: string
+                              value:
+                                type: string
+                            required:
+                            - name
+                            - value
+                            type: object
+                          type: array
+                      required:
+                      - name
+                      type: object
+                  required:
+                  - backupTask
+                  - restoreTask
+                  type: object
+              type: object
+            version:
+              type: string
+          required:
+          - authPlugin
+          - db
+          - exporter
+          - initContainer
+          - podSecurityPolicies
+          - version
+          type: object
+      type: object
+  version: v1alpha1
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/name: kubedb
   name: etcdversions.catalog.kubedb.com
 spec:
   additionalPrinterColumns:
@@ -746,524 +787,6 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/name: kubedb
-  name: mariadbversions.catalog.kubedb.com
-spec:
-  additionalPrinterColumns:
-  - JSONPath: .spec.version
-    name: Version
-    type: string
-  - JSONPath: .spec.db.image
-    name: DB_IMAGE
-    type: string
-  - JSONPath: .spec.deprecated
-    name: Deprecated
-    type: boolean
-  - JSONPath: .metadata.creationTimestamp
-    name: Age
-    type: date
-  group: catalog.kubedb.com
-  names:
-    categories:
-    - datastore
-    - kubedb
-    - appscode
-    kind: MariaDBVersion
-    listKind: MariaDBVersionList
-    plural: mariadbversions
-    shortNames:
-    - mariaversion
-    singular: mariadbversion
-  preserveUnknownFields: false
-  scope: Cluster
-  subresources: {}
-  validation:
-    openAPIV3Schema:
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-        metadata:
-          type: object
-        spec:
-          properties:
-            db:
-              properties:
-                image:
-                  type: string
-              required:
-              - image
-              type: object
-            deprecated:
-              type: boolean
-            exporter:
-              properties:
-                image:
-                  type: string
-              required:
-              - image
-              type: object
-            initContainer:
-              properties:
-                image:
-                  type: string
-              required:
-              - image
-              type: object
-            podSecurityPolicies:
-              properties:
-                databasePolicyName:
-                  type: string
-              required:
-              - databasePolicyName
-              type: object
-            stash:
-              properties:
-                addon:
-                  properties:
-                    backupTask:
-                      properties:
-                        name:
-                          type: string
-                        params:
-                          items:
-                            properties:
-                              name:
-                                type: string
-                              value:
-                                type: string
-                            required:
-                            - name
-                            - value
-                            type: object
-                          type: array
-                      required:
-                      - name
-                      type: object
-                    restoreTask:
-                      properties:
-                        name:
-                          type: string
-                        params:
-                          items:
-                            properties:
-                              name:
-                                type: string
-                              value:
-                                type: string
-                            required:
-                            - name
-                            - value
-                            type: object
-                          type: array
-                      required:
-                      - name
-                      type: object
-                  required:
-                  - backupTask
-                  - restoreTask
-                  type: object
-              type: object
-            version:
-              type: string
-          required:
-          - db
-          - exporter
-          - initContainer
-          - podSecurityPolicies
-          - version
-          type: object
-      type: object
-  version: v1alpha1
-  versions:
-  - name: v1alpha1
-    served: true
-    storage: true
-
----
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  creationTimestamp: null
-  labels:
-    app.kubernetes.io/name: kubedb
-  name: redisversions.catalog.kubedb.com
-spec:
-  additionalPrinterColumns:
-  - JSONPath: .spec.version
-    name: Version
-    type: string
-  - JSONPath: .spec.db.image
-    name: DB_IMAGE
-    type: string
-  - JSONPath: .spec.deprecated
-    name: Deprecated
-    type: boolean
-  - JSONPath: .metadata.creationTimestamp
-    name: Age
-    type: date
-  group: catalog.kubedb.com
-  names:
-    categories:
-    - datastore
-    - kubedb
-    - appscode
-    kind: RedisVersion
-    listKind: RedisVersionList
-    plural: redisversions
-    shortNames:
-    - rdversion
-    singular: redisversion
-  preserveUnknownFields: false
-  scope: Cluster
-  subresources: {}
-  validation:
-    openAPIV3Schema:
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-        metadata:
-          type: object
-        spec:
-          properties:
-            db:
-              properties:
-                image:
-                  type: string
-              required:
-              - image
-              type: object
-            deprecated:
-              type: boolean
-            exporter:
-              properties:
-                image:
-                  type: string
-              required:
-              - image
-              type: object
-            podSecurityPolicies:
-              properties:
-                databasePolicyName:
-                  type: string
-              required:
-              - databasePolicyName
-              type: object
-            stash:
-              properties:
-                addon:
-                  properties:
-                    backupTask:
-                      properties:
-                        name:
-                          type: string
-                        params:
-                          items:
-                            properties:
-                              name:
-                                type: string
-                              value:
-                                type: string
-                            required:
-                            - name
-                            - value
-                            type: object
-                          type: array
-                      required:
-                      - name
-                      type: object
-                    restoreTask:
-                      properties:
-                        name:
-                          type: string
-                        params:
-                          items:
-                            properties:
-                              name:
-                                type: string
-                              value:
-                                type: string
-                            required:
-                            - name
-                            - value
-                            type: object
-                          type: array
-                      required:
-                      - name
-                      type: object
-                  required:
-                  - backupTask
-                  - restoreTask
-                  type: object
-              type: object
-            version:
-              type: string
-          required:
-          - db
-          - exporter
-          - podSecurityPolicies
-          - version
-          type: object
-      type: object
-  version: v1alpha1
-  versions:
-  - name: v1alpha1
-    served: true
-    storage: true
-
----
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  creationTimestamp: null
-  labels:
-    app.kubernetes.io/name: kubedb
-  name: proxysqlversions.catalog.kubedb.com
-spec:
-  additionalPrinterColumns:
-  - JSONPath: .spec.version
-    name: Version
-    type: string
-  - JSONPath: .spec.db.image
-    name: ProxySQL_IMAGE
-    type: string
-  - JSONPath: .spec.deprecated
-    name: Deprecated
-    type: boolean
-  - JSONPath: .metadata.creationTimestamp
-    name: Age
-    type: date
-  group: catalog.kubedb.com
-  names:
-    categories:
-    - datastore
-    - kubedb
-    - appscode
-    kind: ProxySQLVersion
-    listKind: ProxySQLVersionList
-    plural: proxysqlversions
-    singular: proxysqlversion
-  preserveUnknownFields: false
-  scope: Cluster
-  subresources: {}
-  validation:
-    openAPIV3Schema:
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-        metadata:
-          type: object
-        spec:
-          properties:
-            deprecated:
-              type: boolean
-            exporter:
-              properties:
-                image:
-                  type: string
-              required:
-              - image
-              type: object
-            podSecurityPolicies:
-              properties:
-                databasePolicyName:
-                  type: string
-              required:
-              - databasePolicyName
-              type: object
-            proxysql:
-              properties:
-                image:
-                  type: string
-              required:
-              - image
-              type: object
-            version:
-              type: string
-          required:
-          - exporter
-          - podSecurityPolicies
-          - proxysql
-          - version
-          type: object
-      type: object
-  version: v1alpha1
-  versions:
-  - name: v1alpha1
-    served: true
-    storage: true
-
----
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  creationTimestamp: null
-  labels:
-    app.kubernetes.io/name: kubedb
-  name: elasticsearchversions.catalog.kubedb.com
-spec:
-  additionalPrinterColumns:
-  - JSONPath: .spec.version
-    name: Version
-    type: string
-  - JSONPath: .spec.distribution
-    name: Distribution
-    type: string
-  - JSONPath: .spec.db.image
-    name: DB_IMAGE
-    type: string
-  - JSONPath: .spec.deprecated
-    name: Deprecated
-    type: boolean
-  - JSONPath: .metadata.creationTimestamp
-    name: Age
-    type: date
-  group: catalog.kubedb.com
-  names:
-    categories:
-    - datastore
-    - kubedb
-    - appscode
-    kind: ElasticsearchVersion
-    listKind: ElasticsearchVersionList
-    plural: elasticsearchversions
-    shortNames:
-    - esversion
-    singular: elasticsearchversion
-  preserveUnknownFields: false
-  scope: Cluster
-  subresources: {}
-  validation:
-    openAPIV3Schema:
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-        metadata:
-          type: object
-        spec:
-          properties:
-            authPlugin:
-              enum:
-              - OpenDistro
-              - SearchGuard
-              - X-Pack
-              type: string
-            db:
-              properties:
-                image:
-                  type: string
-              required:
-              - image
-              type: object
-            deprecated:
-              type: boolean
-            distribution:
-              enum:
-              - ElasticStack
-              - OpenDistro
-              - SearchGuard
-              type: string
-            exporter:
-              properties:
-                image:
-                  type: string
-              required:
-              - image
-              type: object
-            initContainer:
-              properties:
-                image:
-                  type: string
-                yqImage:
-                  type: string
-              required:
-              - image
-              - yqImage
-              type: object
-            podSecurityPolicies:
-              properties:
-                databasePolicyName:
-                  type: string
-              required:
-              - databasePolicyName
-              type: object
-            stash:
-              properties:
-                addon:
-                  properties:
-                    backupTask:
-                      properties:
-                        name:
-                          type: string
-                        params:
-                          items:
-                            properties:
-                              name:
-                                type: string
-                              value:
-                                type: string
-                            required:
-                            - name
-                            - value
-                            type: object
-                          type: array
-                      required:
-                      - name
-                      type: object
-                    restoreTask:
-                      properties:
-                        name:
-                          type: string
-                        params:
-                          items:
-                            properties:
-                              name:
-                                type: string
-                              value:
-                                type: string
-                            required:
-                            - name
-                            - value
-                            type: object
-                          type: array
-                      required:
-                      - name
-                      type: object
-                  required:
-                  - backupTask
-                  - restoreTask
-                  type: object
-              type: object
-            version:
-              type: string
-          required:
-          - authPlugin
-          - db
-          - exporter
-          - initContainer
-          - podSecurityPolicies
-          - version
-          type: object
-      type: object
-  version: v1alpha1
-  versions:
-  - name: v1alpha1
-    served: true
-    storage: true
-
----
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  creationTimestamp: null
-  labels:
-    app.kubernetes.io/name: kubedb
   name: mysqlversions.catalog.kubedb.com
 spec:
   additionalPrinterColumns:
@@ -1431,6 +954,499 @@ spec:
           - podSecurityPolicies
           - replicationModeDetector
           - upgradeConstraints
+          - version
+          type: object
+      type: object
+  version: v1alpha1
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/name: kubedb
+  name: pgbouncerversions.catalog.kubedb.com
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.version
+    name: Version
+    type: string
+  - JSONPath: .spec.server.image
+    name: SERVER_IMAGE
+    type: string
+  - JSONPath: .spec.deprecated
+    name: Deprecated
+    type: boolean
+  - JSONPath: .metadata.creationTimestamp
+    name: Age
+    type: date
+  group: catalog.kubedb.com
+  names:
+    categories:
+    - datastore
+    - kubedb
+    - appscode
+    kind: PgBouncerVersion
+    listKind: PgBouncerVersionList
+    plural: pgbouncerversions
+    shortNames:
+    - pbversion
+    singular: pgbouncerversion
+  preserveUnknownFields: false
+  scope: Cluster
+  subresources: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        metadata:
+          type: object
+        spec:
+          properties:
+            deprecated:
+              type: boolean
+            exporter:
+              properties:
+                image:
+                  type: string
+              required:
+              - image
+              type: object
+            server:
+              properties:
+                image:
+                  type: string
+              required:
+              - image
+              type: object
+            version:
+              type: string
+          required:
+          - exporter
+          - server
+          - version
+          type: object
+      type: object
+  version: v1alpha1
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/name: kubedb
+  name: redisversions.catalog.kubedb.com
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.version
+    name: Version
+    type: string
+  - JSONPath: .spec.db.image
+    name: DB_IMAGE
+    type: string
+  - JSONPath: .spec.deprecated
+    name: Deprecated
+    type: boolean
+  - JSONPath: .metadata.creationTimestamp
+    name: Age
+    type: date
+  group: catalog.kubedb.com
+  names:
+    categories:
+    - datastore
+    - kubedb
+    - appscode
+    kind: RedisVersion
+    listKind: RedisVersionList
+    plural: redisversions
+    shortNames:
+    - rdversion
+    singular: redisversion
+  preserveUnknownFields: false
+  scope: Cluster
+  subresources: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        metadata:
+          type: object
+        spec:
+          properties:
+            db:
+              properties:
+                image:
+                  type: string
+              required:
+              - image
+              type: object
+            deprecated:
+              type: boolean
+            exporter:
+              properties:
+                image:
+                  type: string
+              required:
+              - image
+              type: object
+            podSecurityPolicies:
+              properties:
+                databasePolicyName:
+                  type: string
+              required:
+              - databasePolicyName
+              type: object
+            stash:
+              properties:
+                addon:
+                  properties:
+                    backupTask:
+                      properties:
+                        name:
+                          type: string
+                        params:
+                          items:
+                            properties:
+                              name:
+                                type: string
+                              value:
+                                type: string
+                            required:
+                            - name
+                            - value
+                            type: object
+                          type: array
+                      required:
+                      - name
+                      type: object
+                    restoreTask:
+                      properties:
+                        name:
+                          type: string
+                        params:
+                          items:
+                            properties:
+                              name:
+                                type: string
+                              value:
+                                type: string
+                            required:
+                            - name
+                            - value
+                            type: object
+                          type: array
+                      required:
+                      - name
+                      type: object
+                  required:
+                  - backupTask
+                  - restoreTask
+                  type: object
+              type: object
+            version:
+              type: string
+          required:
+          - db
+          - exporter
+          - podSecurityPolicies
+          - version
+          type: object
+      type: object
+  version: v1alpha1
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/name: kubedb
+  name: mariadbversions.catalog.kubedb.com
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.version
+    name: Version
+    type: string
+  - JSONPath: .spec.db.image
+    name: DB_IMAGE
+    type: string
+  - JSONPath: .spec.deprecated
+    name: Deprecated
+    type: boolean
+  - JSONPath: .metadata.creationTimestamp
+    name: Age
+    type: date
+  group: catalog.kubedb.com
+  names:
+    categories:
+    - datastore
+    - kubedb
+    - appscode
+    kind: MariaDBVersion
+    listKind: MariaDBVersionList
+    plural: mariadbversions
+    shortNames:
+    - mariaversion
+    singular: mariadbversion
+  preserveUnknownFields: false
+  scope: Cluster
+  subresources: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        metadata:
+          type: object
+        spec:
+          properties:
+            db:
+              properties:
+                image:
+                  type: string
+              required:
+              - image
+              type: object
+            deprecated:
+              type: boolean
+            exporter:
+              properties:
+                image:
+                  type: string
+              required:
+              - image
+              type: object
+            initContainer:
+              properties:
+                image:
+                  type: string
+              required:
+              - image
+              type: object
+            podSecurityPolicies:
+              properties:
+                databasePolicyName:
+                  type: string
+              required:
+              - databasePolicyName
+              type: object
+            stash:
+              properties:
+                addon:
+                  properties:
+                    backupTask:
+                      properties:
+                        name:
+                          type: string
+                        params:
+                          items:
+                            properties:
+                              name:
+                                type: string
+                              value:
+                                type: string
+                            required:
+                            - name
+                            - value
+                            type: object
+                          type: array
+                      required:
+                      - name
+                      type: object
+                    restoreTask:
+                      properties:
+                        name:
+                          type: string
+                        params:
+                          items:
+                            properties:
+                              name:
+                                type: string
+                              value:
+                                type: string
+                            required:
+                            - name
+                            - value
+                            type: object
+                          type: array
+                      required:
+                      - name
+                      type: object
+                  required:
+                  - backupTask
+                  - restoreTask
+                  type: object
+              type: object
+            version:
+              type: string
+          required:
+          - db
+          - exporter
+          - initContainer
+          - podSecurityPolicies
+          - version
+          type: object
+      type: object
+  version: v1alpha1
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/name: kubedb
+  name: perconaxtradbversions.catalog.kubedb.com
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.version
+    name: Version
+    type: string
+  - JSONPath: .spec.db.image
+    name: DB_IMAGE
+    type: string
+  - JSONPath: .spec.deprecated
+    name: Deprecated
+    type: boolean
+  - JSONPath: .metadata.creationTimestamp
+    name: Age
+    type: date
+  group: catalog.kubedb.com
+  names:
+    categories:
+    - datastore
+    - kubedb
+    - appscode
+    kind: PerconaXtraDBVersion
+    listKind: PerconaXtraDBVersionList
+    plural: perconaxtradbversions
+    shortNames:
+    - pxversion
+    singular: perconaxtradbversion
+  preserveUnknownFields: false
+  scope: Cluster
+  subresources: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        metadata:
+          type: object
+        spec:
+          properties:
+            db:
+              properties:
+                image:
+                  type: string
+              required:
+              - image
+              type: object
+            deprecated:
+              type: boolean
+            exporter:
+              properties:
+                image:
+                  type: string
+              required:
+              - image
+              type: object
+            initContainer:
+              properties:
+                image:
+                  type: string
+              required:
+              - image
+              type: object
+            podSecurityPolicies:
+              properties:
+                databasePolicyName:
+                  type: string
+              required:
+              - databasePolicyName
+              type: object
+            stash:
+              properties:
+                addon:
+                  properties:
+                    backupTask:
+                      properties:
+                        name:
+                          type: string
+                        params:
+                          items:
+                            properties:
+                              name:
+                                type: string
+                              value:
+                                type: string
+                            required:
+                            - name
+                            - value
+                            type: object
+                          type: array
+                      required:
+                      - name
+                      type: object
+                    restoreTask:
+                      properties:
+                        name:
+                          type: string
+                        params:
+                          items:
+                            properties:
+                              name:
+                                type: string
+                              value:
+                                type: string
+                            required:
+                            - name
+                            - value
+                            type: object
+                          type: array
+                      required:
+                      - name
+                      type: object
+                  required:
+                  - backupTask
+                  - restoreTask
+                  type: object
+              type: object
+            version:
+              type: string
+          required:
+          - db
+          - exporter
+          - initContainer
+          - podSecurityPolicies
           - version
           type: object
       type: object
