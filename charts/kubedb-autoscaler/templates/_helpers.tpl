@@ -96,3 +96,28 @@ imagePullSecrets:
 {{- toYaml . | nindent 2 }}
 {{- end }}
 {{- end }}
+
+{{/*
+Returns the enabled monitoring agent name
+*/}}
+{{- define "monitoring.agent" -}}
+{{- if .Values.monitoring.enabled -}}
+{{- .Values.monitoring.agent }}
+{{- end }}
+{{- end }}
+
+{{/*
+Returns whether the ServiceMonitor will be labeled with custom label
+*/}}
+{{- define "monitoring.apply-servicemonitor-label" -}}
+{{- ternary "false" "true" ( empty .Values.monitoring.serviceMonitor.labels ) -}}
+{{- end }}
+
+{{/*
+Returns the ServiceMonitor labels
+*/}}
+{{- define "monitoring.servicemonitor-label" -}}
+{{- range $key, $val := .Values.monitoring.serviceMonitor.labels }}
+{{ $key }}: {{ $val }}
+{{- end }}
+{{- end }}

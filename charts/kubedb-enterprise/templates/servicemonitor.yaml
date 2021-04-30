@@ -1,17 +1,15 @@
-{{- if and (eq .Values.monitoring.agent "prometheus.io/operator") .Values.monitoring.enabled }}
+{{- if eq "prometheus.io/operator" ( include "monitoring.agent" . ) }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: {{ include "kubedb-enterprise.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- if .Values.monitoring.serviceMonitor.labels }}
-    {{- range $key, $val := .Values.monitoring.serviceMonitor.labels }}
-    {{ $key }}: {{ $val }}
-    {{- end }}
-    {{- else }}
-      {{- include "kubedb-enterprise.selectorLabels" . | nindent 4 }}
-    {{- end }}
+  {{- if eq "true" ( include "monitoring.apply-servicemonitor-label" . ) }}
+    {{- include "monitoring.servicemonitor-label" . | nindent 4 }}
+  {{- else }}
+    {{- include "kubedb-enterprise.selectorLabels" . | nindent 4 }}
+  {{- end }}
 spec:
   namespaceSelector:
     matchNames:
