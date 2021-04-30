@@ -89,6 +89,7 @@ func (in *GlobalValues) DeepCopyInto(out *GlobalValues) {
 		*out = make([]v1.LocalObjectReference, len(*in))
 		copy(*out, *in)
 	}
+	in.Monitoring.DeepCopyInto(&out.Monitoring)
 	return
 }
 

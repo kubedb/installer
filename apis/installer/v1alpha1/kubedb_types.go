@@ -63,6 +63,7 @@ type GlobalValues struct {
 	//+optional
 	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
 	SkipCleaner      bool                        `json:"skipCleaner"`
+	Monitoring       Monitoring                  `json:"monitoring"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

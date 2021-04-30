@@ -119,3 +119,32 @@ Returns the registry used for official docker images
 {{- prepend .officialRegistry (default .registryFQDN .global.registryFQDN) | compact | join "/" }}
 {{- end }}
 {{- end }}
+
+{{/*
+Returns the enabled monitoring agent name
+*/}}
+{{- define "monitoring.agent" -}}
+{{- if (default .Values.global.monitoring.enabled .Values.monitoring.enabled) -}}
+{{- default .Values.global.monitoring.agent .Values.monitoring.agent }}
+{{- end }}
+{{- end }}
+
+{{/*
+Returns whether the ServiceMonitor will be labeled with custom label
+*/}}
+{{- define "monitoring.apply-servicemonitor-label" -}}
+{{- ternary "false" "true" (and (empty .Values.global.monitoring.serviceMonitor.labels) (empty .Values.monitoring.serviceMonitor.labels) ) -}}
+{{- end }}
+
+{{/*
+Returns the ServiceMonitor labels
+*/}}
+{{- define "monitoring.servicemonitor-label" -}}
+{{- range $key, $val := .Values.monitoring.serviceMonitor.labels }}
+{{ $key }}: {{ $val }}
+{{- else }}
+{{- range $key, $val := .Values.global.monitoring.serviceMonitor.labels }}
+{{ $key }}: {{ $val }}
+{{- end }}
+{{- end }}
+{{- end }}
