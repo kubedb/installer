@@ -31,7 +31,7 @@ import (
 	"kubedb.dev/installer/hack/fmt/templates"
 
 	"github.com/Masterminds/semver"
-	"github.com/Masterminds/sprig"
+	"github.com/Masterminds/sprig/v3"
 	shell "github.com/codeskyblue/go-sh"
 	flag "github.com/spf13/pflag"
 	diff "github.com/yudai/gojsondiff"
