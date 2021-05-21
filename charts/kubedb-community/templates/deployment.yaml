@@ -53,6 +53,9 @@ spec:
         {{- if include "appscode.license" . }}
         - --license-file=/var/run/secrets/appscode/license/key.txt
         {{- end }}
+        {{- if and (ge $major 1) (lt $minor 20) }}
+        - --feature-gates=APIPriorityAndFairness=false
+        {{- end }}
         env:
         - name: MY_POD_NAME
           valueFrom:
