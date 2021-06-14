@@ -6,6 +6,8 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  coordinator:
+    image: '{{ include "catalog.registry" . }}/mariadb-coordinator:md-sidecar_linux_amd64'
   db:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "mariadb")) }}:10.4.17'
   exporter:
