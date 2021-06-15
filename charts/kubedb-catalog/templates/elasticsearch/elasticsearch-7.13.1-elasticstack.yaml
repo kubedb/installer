@@ -1,0 +1,30 @@
+{{ if .Values.catalog.elasticsearch }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: 'xpack-7.13.1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: X-Pack
+  db:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "elasticsearch")) }}:7.13.1'
+  distribution: ElasticStack
+  exporter:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "justwatch" "elasticsearch_exporter")) }}:1.1.0'
+  initContainer:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "tianon" "toybox")) }}:0.8.4'
+    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-init:7.13.1'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 1000
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.3.2
+      restoreTask:
+        name: elasticsearch-restore-7.3.2
+  version: 7.13.1
+{{ end }}
