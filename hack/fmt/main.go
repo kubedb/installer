@@ -30,12 +30,12 @@ import (
 
 	"kubedb.dev/installer/hack/fmt/templates"
 
-	"github.com/Masterminds/semver"
+	"github.com/Masterminds/semver/v3"
 	"github.com/Masterminds/sprig/v3"
-	shell "github.com/codeskyblue/go-sh"
 	flag "github.com/spf13/pflag"
 	diff "github.com/yudai/gojsondiff"
 	"github.com/yudai/gojsondiff/formatter"
+	shell "gomodules.xyz/go-sh"
 	"gomodules.xyz/semvers"
 	core "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"

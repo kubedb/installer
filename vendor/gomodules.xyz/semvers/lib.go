@@ -21,7 +21,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Masterminds/semver"
+	"github.com/Masterminds/semver/v3"
 )
 
 // SemverCollection is a collection of Version instances and implements the sort
