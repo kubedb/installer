@@ -3,19 +3,19 @@ module kubedb.dev/installer
 go 1.16
 
 require (
-	github.com/Masterminds/semver v1.5.0
+	github.com/Masterminds/semver/v3 v3.1.1
 	github.com/Masterminds/sprig/v3 v3.2.2
-	github.com/codeskyblue/go-sh v0.0.0-20200712050446-30169cf553fe
 	github.com/google/gofuzz v1.1.0
 	github.com/spf13/pflag v1.0.5
 	github.com/yudai/gojsondiff v1.0.0
-	gomodules.xyz/semvers v0.0.0-20210317131320-984e32dd89ca
+	gomodules.xyz/go-sh v0.1.0
+	gomodules.xyz/semvers v0.0.0-20210603205601-45dfbb5326a4
 	k8s.io/api v0.21.0
 	k8s.io/apimachinery v0.21.0
-	kmodules.xyz/client-go v0.0.0-20210504024435-1eb80721e9b8
+	kmodules.xyz/client-go v0.0.0-20210614094429-affdb80e35c8
 	kmodules.xyz/schema-checker v0.1.3-0.20210503065149-b96cce04f400
 	sigs.k8s.io/yaml v1.2.0
-	stash.appscode.dev/installer v0.12.2-0.20210505115806-3334ea0ece5d
+	stash.appscode.dev/installer v0.12.2-0.20210616105710-2082d2d110e3
 )
 
 replace gopkg.in/yaml.v2 => gopkg.in/yaml.v2 v2.3.0
