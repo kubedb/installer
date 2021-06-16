@@ -1,31 +1,6 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  name: xpack-7.8.0
-spec:
-  authPlugin: X-Pack
-  db:
-    image: elasticsearch:7.8.0
-  distribution: ElasticStack
-  exporter:
-    image: justwatch/elasticsearch_exporter:1.1.0
-  initContainer:
-    image: busybox:1.32.0
-    yqImage: kubedb/elasticsearch-init:7.8.0-xpack
-  podSecurityPolicies:
-    databasePolicyName: elasticsearch-db
-  stash:
-    addon:
-      backupTask:
-        name: elasticsearch-backup-7.3.2
-      restoreTask:
-        name: elasticsearch-restore-7.3.2
-  version: 7.8.0
-
----
-apiVersion: catalog.kubedb.com/v1alpha1
-kind: ElasticsearchVersion
-metadata:
   name: xpack-7.8.0-v1
 spec:
   authPlugin: X-Pack
@@ -42,6 +17,32 @@ spec:
   securityContext:
     runAsAnyNonRoot: true
     runAsUser: 1000
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.3.2
+      restoreTask:
+        name: elasticsearch-restore-7.3.2
+  version: 7.8.0
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: xpack-7.8.0
+spec:
+  authPlugin: X-Pack
+  db:
+    image: elasticsearch:7.8.0
+  deprecated: true
+  distribution: ElasticStack
+  exporter:
+    image: justwatch/elasticsearch_exporter:1.1.0
+  initContainer:
+    image: busybox:1.32.0
+    yqImage: kubedb/elasticsearch-init:7.8.0-xpack
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
   stash:
     addon:
       backupTask:

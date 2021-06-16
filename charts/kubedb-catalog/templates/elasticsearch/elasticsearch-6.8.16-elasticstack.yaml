@@ -1,0 +1,27 @@
+{{ if .Values.catalog.elasticsearch }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: 'xpack-6.8.16'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: X-Pack
+  db:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "elasticsearch")) }}:6.8.16'
+  distribution: ElasticStack
+  exporter:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "justwatch" "elasticsearch_exporter")) }}:1.1.0'
+  initContainer:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "tianon" "toybox")) }}:0.8.4'
+    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-init:6.8.16-xpack'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-6.8.0
+      restoreTask:
+        name: elasticsearch-restore-6.8.0
+  version: 6.8.16
+{{ end }}

@@ -2,35 +2,6 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  name: 'xpack-7.7.1'
-  labels:
-    {{- include "kubedb-catalog.labels" . | nindent 4 }}
-spec:
-  authPlugin: X-Pack
-  db:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "elasticsearch")) }}:7.7.1'
-  distribution: ElasticStack
-  exporter:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "justwatch" "elasticsearch_exporter")) }}:1.1.0'
-  initContainer:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "busybox")) }}:1.32.0'
-    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-init:7.7.1-xpack'
-  podSecurityPolicies:
-    databasePolicyName: elasticsearch-db
-  stash:
-    addon:
-      backupTask:
-        name: elasticsearch-backup-7.3.2
-      restoreTask:
-        name: elasticsearch-restore-7.3.2
-  version: 7.7.1
-{{ end }}
-
----
-{{ if .Values.catalog.elasticsearch }}
-apiVersion: catalog.kubedb.com/v1alpha1
-kind: ElasticsearchVersion
-metadata:
   name: 'xpack-7.7.1-v1'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
@@ -49,6 +20,36 @@ spec:
   securityContext:
     runAsAnyNonRoot: true
     runAsUser: 1000
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.3.2
+      restoreTask:
+        name: elasticsearch-restore-7.3.2
+  version: 7.7.1
+{{ end }}
+
+---
+{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: 'xpack-7.7.1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: X-Pack
+  db:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "elasticsearch")) }}:7.7.1'
+  deprecated: true
+  distribution: ElasticStack
+  exporter:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "justwatch" "elasticsearch_exporter")) }}:1.1.0'
+  initContainer:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "busybox")) }}:1.32.0'
+    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-init:7.7.1-xpack'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
   stash:
     addon:
       backupTask:
