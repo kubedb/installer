@@ -1,31 +1,6 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  name: xpack-7.9.1
-spec:
-  authPlugin: X-Pack
-  db:
-    image: elasticsearch:7.9.1
-  distribution: ElasticStack
-  exporter:
-    image: justwatch/elasticsearch_exporter:1.1.0
-  initContainer:
-    image: busybox:1.32.0
-    yqImage: kubedb/elasticsearch-init:7.9.1-xpack
-  podSecurityPolicies:
-    databasePolicyName: elasticsearch-db
-  stash:
-    addon:
-      backupTask:
-        name: elasticsearch-backup-7.3.2
-      restoreTask:
-        name: elasticsearch-restore-7.3.2
-  version: 7.9.1
-
----
-apiVersion: catalog.kubedb.com/v1alpha1
-kind: ElasticsearchVersion
-metadata:
   name: xpack-7.9.1-v1
 spec:
   authPlugin: X-Pack
@@ -42,6 +17,60 @@ spec:
   securityContext:
     runAsAnyNonRoot: true
     runAsUser: 1000
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.3.2
+      restoreTask:
+        name: elasticsearch-restore-7.3.2
+  version: 7.9.1
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: xpack-7.9.1-v2
+spec:
+  authPlugin: X-Pack
+  db:
+    image: elasticsearch:7.9.1
+  distribution: ElasticStack
+  exporter:
+    image: justwatch/elasticsearch_exporter:1.1.0
+  initContainer:
+    image: tianon/toybox:0.8.4
+    yqImage: kubedb/elasticsearch-init:7.9.1-xpack-v2
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 1000
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.3.2
+      restoreTask:
+        name: elasticsearch-restore-7.3.2
+  version: 7.9.1
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: xpack-7.9.1
+spec:
+  authPlugin: X-Pack
+  db:
+    image: elasticsearch:7.9.1
+  deprecated: true
+  distribution: ElasticStack
+  exporter:
+    image: justwatch/elasticsearch_exporter:1.1.0
+  initContainer:
+    image: busybox:1.32.0
+    yqImage: kubedb/elasticsearch-init:7.9.1-xpack
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
   stash:
     addon:
       backupTask:
