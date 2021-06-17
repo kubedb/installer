@@ -2,19 +2,19 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  name: 'xpack-7.13.1'
+  name: 'xpack-7.13.2'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   authPlugin: X-Pack
   db:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "elasticsearch")) }}:7.13.1'
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "elasticsearch")) }}:7.13.2'
   distribution: ElasticStack
   exporter:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "justwatch" "elasticsearch_exporter")) }}:1.1.0'
   initContainer:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "tianon" "toybox")) }}:0.8.4'
-    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-init:7.13.1-xpack'
+    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-init:7.13.2-xpack'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   securityContext:
@@ -26,5 +26,5 @@ spec:
         name: elasticsearch-backup-7.3.2
       restoreTask:
         name: elasticsearch-restore-7.3.2
-  version: 7.13.1
+  version: 7.13.2
 {{ end }}
