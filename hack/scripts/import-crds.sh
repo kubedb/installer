@@ -62,3 +62,7 @@ crd-importer --v=v1beta1 \
     --input=${crd_dir} \
     --out=. --output-yaml=kubedb-catalog-crds.yaml \
     --group=catalog.kubedb.com
+
+crd-importer \
+    --input=https://github.com/kmodules/custom-resources/raw/kubernetes-1.21.1/crds/metrics.appscode.com_metricsconfigurations.v1.yaml \
+    --out=./charts/kubedb-metrics/crds
