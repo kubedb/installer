@@ -1,0 +1,86 @@
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: mongodb-metrics-config
+spec:
+  targetRef:
+    apiVersion: kubedb.com/v1alpha2
+    kind: MongoDB
+  metrics:
+    - name: kubedb_mongodb_created
+      help: "Unix creation timestamp"
+      type: gauge
+      field:
+        path: .metadata.creationTimestamp
+        type: DateTime
+      metricValue:
+        valueFromPath: .metadata.creationTimestamp
+
+    - name: kubedb_mongodb_spec_replicas
+      help: "Number of desired pod of a mongodb instance"
+      type: gauge
+      field:
+        path: .spec.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.replicas
+
+    - name: kubedb_mongodb_status_phase
+      help: "MongoDB instance current phase"
+      type: gauge
+      field:
+        path: .status.phase
+        type: String
+      params:
+        - key: phase
+          valuePath: .status.phase
+      states:
+        labelKey: phase
+        values:
+          - labelValue: Ready
+            metricValue:
+              valueFromExpression: "toInt(phase == 'Ready')"
+          - labelValue: Halted
+            metricValue:
+              valueFromExpression: "toInt(phase == 'Halted')"
+          - labelValue: Provisioning
+            metricValue:
+              valueFromExpression: "toInt(phase == 'Provisioning')"
+          - labelValue: Critical
+            metricValue:
+              valueFromExpression: "toInt(phase == 'Critical')"
+          - labelValue: NotReady
+            metricValue:
+              valueFromExpression: "toInt(phase == 'NotReady')"
+          - labelValue: DataRestoring
+            metricValue:
+              valueFromExpression: "toInt(phase == 'DataRestoring')"
+
+    - name: kubedb_mongodb_info
+      help: "MongoDB instance information"
+      type: gauge
+      labels:
+        - key: sslMode
+          valuePath: .spec.sslMode
+        - key: storageType
+          valuePath: .spec.storageType
+        - key: terminationPolicy
+          valuePath: .spec.terminationPolicy
+        - key: version
+          valuePath: .spec.version
+      metricValue:
+        value: 1
+
+    - name: kubedb_mongodb_status_conditions
+      help: "MongoDB instance status condition"
+      type: gauge
+      field:
+        path: .status.conditions
+        type: Array
+      labels:
+        - key: type
+          valuePath: .status.conditions[*].type
+        - key: status
+          valuePath: .status.conditions[*].status
+      metricValue:
+        value: 1
