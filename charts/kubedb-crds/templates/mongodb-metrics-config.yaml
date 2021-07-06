@@ -16,14 +16,38 @@ spec:
       metricValue:
         valueFromPath: .metadata.creationTimestamp
 
-    - name: kubedb_mongodb_spec_replicas
-      help: "Number of desired pod of a mongodb instance"
+    - name: kubedb_mongodb_replicaset_info
+      help: "Kubedb mongodb replicaset information"
       type: gauge
-      field:
-        path: .spec.replicas
-        type: Integer
+      labels:
+        - key: replicas
+          valuePath: .spec.replicas
+        - key: cpu_request
+          valuePath: .spec.podTemplate.spec.resources.requests.cpu
+        - key: cpu_limit
+          valuePath: .spec.podTemplate.spec.resources.limits.cpu
+        - key: memory_request
+          valuePath: .spec.podTemplate.spec.resources.requests.memory
+        - key: memory_limit
+          valuePath: .spec.podTemplate.spec.resources.limits.memory
       metricValue:
         valueFromPath: .spec.replicas
+
+    - name: kubedb_mongodb_storage_bytes
+      help: "Kubedb mongodb available storage size in bytes"
+      type: gauge
+      labels:
+        - key: unit
+          value: bytes
+      params:
+        - key: storage
+          valuePath: .spec.storage.resources.requests.storage
+      metricValue:
+        valueFromExpression: "calculateMemory(storage)"
+
+    # - name: kubedb_mongodb_shard_enabled
+    #   help: "Kubedb mongodb shard enabled info"
+    #   type: gauge
 
     - name: kubedb_mongodb_status_phase
       help: "MongoDB instance current phase"
@@ -60,6 +84,8 @@ spec:
       help: "MongoDB instance information"
       type: gauge
       labels:
+        - key: clusterAuthMode
+          valuePath: .spec.clusterAuthMode
         - key: sslMode
           valuePath: .spec.sslMode
         - key: storageType
