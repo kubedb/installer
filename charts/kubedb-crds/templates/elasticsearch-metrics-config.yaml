@@ -99,10 +99,18 @@ spec:
             metricValue:
               valueFromExpression: "toInt(phase == 'DataRestoring')"
     
+    - name: kubedb_elasticsearch_monitoring_info  
+      help: "Elastic monitoring agent info"
+      type: gauge
+      labels:
+        - key: agent
+          valuePath: .spec.monitor.agent
+      metricValue:
+        value: 1
 
     ##### Metrics for Master topology #####
 
-    - name: kubedb_elasticsearch_master_replicas
+    - name: kubedb_elasticsearch_master_node_replicas
       help: "Number of replicas for elasticsearch master node"
       type: gauge
       field:
@@ -111,7 +119,7 @@ spec:
       metricValue:
         valueFromPath: .spec.topology.master.replicas
     
-    - name: kubedb_elasticsearch_master_storage_bytes
+    - name: kubedb_elasticsearch_master_node_storage_bytes
       help: "Available storage for elastic search master node"
       type: gauge
       params:
@@ -120,8 +128,518 @@ spec:
       metricValue:
         valueFromExpression: calculateMemory(storage)
       
-    
-    
+    - name: kubedb_elasticsearch_master_node_info
+      help: "Elasticsearch master node information"
+      type: gauge
+      labels:
+        - key: cpu_request
+          valuePath: .spec.topology.master.resources.requests.cpu
+        - key: cpu_limit
+          valuePath: .spec.topology.master.resources.limits.cpu
+        - key: memory_request
+          valuePath: .spec.topology.master.resources.requests.memory
+        - key: memory_limit
+          valuePath: .spec.topology.master.resources.limits.memory
+        - key: storage_className
+          valuePath: .spec.topology.master.storage.storageClassName
+      metricValue:
+        value: 1
 
-
+    - name: kubedb_elasticsearch_master_node_max_unavailable
+      help: "Maximum number of pods unavailable after an eviction"
+      type: gauge
+      field:
+        path: .spec.topology.master.maxUnavailable
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.master.maxUnavailable
     
+    ##### Metrics for Data topology #####
+
+    - name: kubedb_elasticsearch_data_node_replicas
+      help: "Number of replicas for elasticsearch data node"
+      type: gauge
+      field:
+        path: .spec.topology.data.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.data.replicas
+    
+    - name: kubedb_elasticsearch_data_node_storage_bytes
+      help: "Available storage for elastic search data node"
+      type: gauge
+      labels:
+        - key: unit
+          value: bytes
+      params:
+        - key: storage
+          valuePath: .spec.topology.data.storage.resources.requests.storage
+      metricValue:
+        valueFromExpression: calculateMemory(storage)
+      
+    - name: kubedb_elasticsearch_data_node_info
+      help: "Elasticsearch data node information"
+      type: gauge
+      labels:
+        - key: cpu_request
+          valuePath: .spec.topology.data.resources.requests.cpu
+        - key: cpu_limit
+          valuePath: .spec.topology.data.resources.limits.cpu
+        - key: memory_request
+          valuePath: .spec.topology.data.resources.requests.memory
+        - key: memory_limit
+          valuePath: .spec.topology.data.resources.limits.memory
+        - key: storage_className
+          valuePath: .spec.topology.data.storage.storageClassName
+      metricValue:
+        value: 1
+
+    - name: kubedb_elasticsearch_data_node_max_unavailable
+      help: "Maximum number of pods unavailable after an eviction"
+      type: gauge
+      field:
+        path: .spec.topology.data.maxUnavailable
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.data.maxUnavailable
+    
+      ##### Metrics for DataContent topology #####
+
+    - name: kubedb_elasticsearch_datacontent_node_replicas
+      help: "Number of replicas for elasticsearch dataContent node"
+      type: gauge
+      field:
+        path: .spec.topology.dataContent.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.dataContent.replicas
+    
+    - name: kubedb_elasticsearch_datacontent_node_storage_bytes
+      help: "Available storage for elastic search dataContent node"
+      type: gauge
+      labels:
+        - key: unit
+          value: bytes
+      params:
+        - key: storage
+          valuePath: .spec.topology.dataContent.storage.resources.requests.storage
+      metricValue:
+        valueFromExpression: calculateMemory(storage)
+      
+    - name: kubedb_elasticsearch_datacontent_node_info
+      help: "Elasticsearch dataContent node information"
+      type: gauge
+      labels:
+        - key: cpu_request
+          valuePath: .spec.topology.dataContent.resources.requests.cpu
+        - key: cpu_limit
+          valuePath: .spec.topology.dataContent.resources.limits.cpu
+        - key: memory_request
+          valuePath: .spec.topology.dataContent.resources.requests.memory
+        - key: memory_limit
+          valuePath: .spec.topology.dataContent.resources.limits.memory
+        - key: storage_className
+          valuePath: .spec.topology.dataContent.storage.storageClassName
+      metricValue:
+        value: 1
+    
+    - name: kubedb_elasticsearch_datacontent_node_max_unavailable
+      help: "Maximum number of pods unavailable after an eviction"
+      type: gauge
+      field:
+        path: .spec.topology.dataContent.maxUnavailable
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.dataContent.maxUnavailable
+
+    ##### Metrics for DataHot topology #####
+
+    - name: kubedb_elasticsearch_datahot_node_replicas
+      help: "Number of replicas for elasticsearch dataHot node"
+      type: gauge
+      field:
+        path: .spec.topology.dataHot.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.dataHot.replicas
+    
+    - name: kubedb_elasticsearch_datahot_node_storage_bytes
+      help: "Available storage for elastic search dataHot node"
+      type: gauge
+      labels:
+        - key: unit
+          value: bytes
+      params:
+        - key: storage
+          valuePath: .spec.topology.dataHot.storage.resources.requests.storage
+      metricValue:
+        valueFromExpression: calculateMemory(storage)
+      
+    - name: kubedb_elasticsearch_datahot_node_info
+      help: "Elasticsearch dataHot node information"
+      type: gauge
+      labels:
+        - key: cpu_request
+          valuePath: .spec.topology.dataHot.resources.requests.cpu
+        - key: cpu_limit
+          valuePath: .spec.topology.dataHot.resources.limits.cpu
+        - key: memory_request
+          valuePath: .spec.topology.dataHot.resources.requests.memory
+        - key: memory_limit
+          valuePath: .spec.topology.dataHot.resources.limits.memory
+        - key: storage_className
+          valuePath: .spec.topology.dataHot.storage.storageClassName
+      metricValue:
+        value: 1
+    
+    - name: kubedb_elasticsearch_datahot_node_max_unavailable
+      help: "Maximum number of pods unavailable after an eviction"
+      type: gauge
+      field:
+        path: .spec.topology.dataHot.maxUnavailable
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.dataHot.maxUnavailable
+  
+    ##### Metrics for DataWarm topology #####
+    
+    - name: kubedb_elasticsearch_datawarm_node_replicas
+      help: "Number of replicas for elasticsearch dataWarm node"
+      type: gauge
+      field:
+        path: .spec.topology.dataWarm.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.dataWarm.replicas
+    
+    - name: kubedb_elasticsearch_datawarm_node_storage_bytes
+      help: "Available storage for elastic search dataWarm node"
+      type: gauge
+      labels:
+        - key: unit
+          value: bytes
+      params:
+        - key: storage
+          valuePath: .spec.topology.dataWarm.storage.resources.requests.storage
+      metricValue:
+        valueFromExpression: calculateMemory(storage)
+      
+    - name: kubedb_elasticsearch_datawarm_node_info
+      help: "Elasticsearch dataWarm node information"
+      type: gauge
+      labels:
+        - key: cpu_request
+          valuePath: .spec.topology.dataWarm.resources.requests.cpu
+        - key: cpu_limit
+          valuePath: .spec.topology.dataWarm.resources.limits.cpu
+        - key: memory_request
+          valuePath: .spec.topology.dataWarm.resources.requests.memory
+        - key: memory_limit
+          valuePath: .spec.topology.dataWarm.resources.limits.memory
+        - key: storage_className
+          valuePath: .spec.topology.dataWarm.storage.storageClassName
+      metricValue:
+        value: 1
+    
+    - name: kubedb_elasticsearch_datawarm_node_max_unavailable
+      help: "Maximum number of pods unavailable after an eviction"
+      type: gauge
+      field:
+        path: .spec.topology.dataWarm.maxUnavailable
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.dataWarm.maxUnavailable
+
+    ##### Metrics for DataCold topology #####
+    
+    - name: kubedb_elasticsearch_datacold_node_replicas
+      help: "Number of replicas for elasticsearch dataCold node"
+      type: gauge
+      field:
+        path: .spec.topology.dataCold.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.dataCold.replicas
+    
+    - name: kubedb_elasticsearch_datacold_node_storage_bytes
+      help: "Available storage for elastic search dataCold node"
+      type: gauge
+      labels:
+        - key: unit
+          value: bytes
+      params:
+        - key: storage
+          valuePath: .spec.topology.dataCold.storage.resources.requests.storage
+      metricValue:
+        valueFromExpression: calculateMemory(storage)
+      
+    - name: kubedb_elasticsearch_datacold_node_info
+      help: "Elasticsearch dataCold node information"
+      type: gauge
+      labels:
+        - key: cpu_request
+          valuePath: .spec.topology.dataCold.resources.requests.cpu
+        - key: cpu_limit
+          valuePath: .spec.topology.dataCold.resources.limits.cpu
+        - key: memory_request
+          valuePath: .spec.topology.dataCold.resources.requests.memory
+        - key: memory_limit
+          valuePath: .spec.topology.dataCold.resources.limits.memory
+        - key: storage_className
+          valuePath: .spec.topology.dataCold.storage.storageClassName
+      metricValue:
+        value: 1
+
+    - name: kubedb_elasticsearch_datacold_node_max_unavailable
+      help: "Maximum number of pods unavailable after an eviction"
+      type: gauge
+      field:
+        path: .spec.topology.dataCold.maxUnavailable
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.dataCold.maxUnavailable
+
+    ##### Metrics for DataFrozen topology #####
+    
+    - name: kubedb_elasticsearch_datafrozen_node_replicas
+      help: "Number of replicas for elasticsearch dataFrozen node"
+      type: gauge
+      field:
+        path: .spec.topology.dataFrozen.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.dataFrozen.replicas
+    
+    - name: kubedb_elasticsearch_datafrozen_node_storage_bytes
+      help: "Available storage for elastic search dataFrozen node"
+      type: gauge
+      labels:
+        - key: unit
+          value: bytes
+      params:
+        - key: storage
+          valuePath: .spec.topology.dataFrozen.storage.resources.requests.storage
+      metricValue:
+        valueFromExpression: calculateMemory(storage)
+      
+    - name: kubedb_elasticsearch_datafrozen_node_info
+      help: "Elasticsearch dataFrozen node information"
+      type: gauge
+      labels:
+        - key: cpu_request
+          valuePath: .spec.topology.dataFrozen.resources.requests.cpu
+        - key: cpu_limit
+          valuePath: .spec.topology.dataFrozen.resources.limits.cpu
+        - key: memory_request
+          valuePath: .spec.topology.dataFrozen.resources.requests.memory
+        - key: memory_limit
+          valuePath: .spec.topology.dataFrozen.resources.limits.memory
+        - key: storage_className
+          valuePath: .spec.topology.dataFrozen.storage.storageClassName
+      metricValue:
+        value: 1
+    
+    - name: kubedb_elasticsearch_datafrozen_node_max_unavailable
+      help: "Maximum number of pods unavailable after an eviction"
+      type: gauge
+      field:
+        path: .spec.topology.dataFrozen.maxUnavailable
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.dataFrozen.maxUnavailable
+
+    ##### Metrics for Ingest topology #####
+    
+    - name: kubedb_elasticsearch_ingest_node_replicas
+      help: "Number of replicas for elasticsearch ingest node"
+      type: gauge
+      field:
+        path: .spec.topology.ingest.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.ingest.replicas
+    
+    - name: kubedb_elasticsearch_ingest_node_storage_bytes
+      help: "Available storage for elastic search ingest node"
+      type: gauge
+      labels:
+        - key: unit
+          value: bytes
+      params:
+        - key: storage
+          valuePath: .spec.topology.ingest.storage.resources.requests.storage
+      metricValue:
+        valueFromExpression: calculateMemory(storage)
+      
+    - name: kubedb_elasticsearch_ingest_node_info
+      help: "Elasticsearch ingest node information"
+      type: gauge
+      labels:
+        - key: cpu_request
+          valuePath: .spec.topology.ingest.resources.requests.cpu
+        - key: cpu_limit
+          valuePath: .spec.topology.ingest.resources.limits.cpu
+        - key: memory_request
+          valuePath: .spec.topology.ingest.resources.requests.memory
+        - key: memory_limit
+          valuePath: .spec.topology.ingest.resources.limits.memory
+        - key: storage_className
+          valuePath: .spec.topology.ingest.storage.storageClassName
+      metricValue:
+        value: 1
+
+    - name: kubedb_elasticsearch_ingest_node_max_unavailable
+      help: "Maximum number of pods unavailable after an eviction"
+      type: gauge
+      field:
+        path: .spec.topology.ingest.maxUnavailable
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.ingest.maxUnavailable
+
+    ##### Metrics for ML topology #####
+    
+    - name: kubedb_elasticsearch_ml_node_replicas
+      help: "Number of replicas for elasticsearch ml node"
+      type: gauge
+      field:
+        path: .spec.topology.ml.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.ml.replicas
+    
+    - name: kubedb_elasticsearch_ml_node_storage_bytes
+      help: "Available storage for elastic search ml node"
+      type: gauge
+      labels:
+        - key: unit
+          value: bytes
+      params:
+        - key: storage
+          valuePath: .spec.topology.ml.storage.resources.requests.storage
+      metricValue:
+        valueFromExpression: calculateMemory(storage)
+      
+    - name: kubedb_elasticsearch_ml_node_info
+      help: "Elasticsearch ml node information"
+      type: gauge
+      labels:
+        - key: cpu_request
+          valuePath: .spec.topology.ml.resources.requests.cpu
+        - key: cpu_limit
+          valuePath: .spec.topology.ml.resources.limits.cpu
+        - key: memory_request
+          valuePath: .spec.topology.ml.resources.requests.memory
+        - key: memory_limit
+          valuePath: .spec.topology.ml.resources.limits.memory
+        - key: storage_className
+          valuePath: .spec.topology.ml.storage.storageClassName
+      metricValue:
+        value: 1
+      
+    - name: kubedb_elasticsearch_ml_node_max_unavailable
+      help: "Maximum number of pods unavailable after an eviction"
+      type: gauge
+      field:
+        path: .spec.topology.ml.maxUnavailable
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.ml.maxUnavailable
+
+    ##### Metrics for transform topology #####
+    
+    - name: kubedb_elasticsearch_transform_node_replicas
+      help: "Number of replicas for elasticsearch transform node"
+      type: gauge
+      field:
+        path: .spec.topology.transform.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.transform.replicas
+    
+    - name: kubedb_elasticsearch_transform_node_storage_bytes
+      help: "Available storage for elastic search transform node"
+      type: gauge
+      labels:
+        - key: unit
+          value: bytes
+      params:
+        - key: storage
+          valuePath: .spec.topology.transform.storage.resources.requests.storage
+      metricValue:
+        valueFromExpression: calculateMemory(storage)
+      
+    - name: kubedb_elasticsearch_transform_node_info
+      help: "Elasticsearch transform node information"
+      type: gauge
+      labels:
+        - key: cpu_request
+          valuePath: .spec.topology.transform.resources.requests.cpu
+        - key: cpu_limit
+          valuePath: .spec.topology.transform.resources.limits.cpu
+        - key: memory_request
+          valuePath: .spec.topology.transform.resources.requests.memory
+        - key: memory_limit
+          valuePath: .spec.topology.transform.resources.limits.memory
+        - key: storage_className
+          valuePath: .spec.topology.transform.storage.storageClassName
+      metricValue:
+        value: 1
+    
+    - name: kubedb_elasticsearch_transform_node_max_unavailable
+      help: "Maximum number of pods unavailable after an eviction"
+      type: gauge
+      field:
+        path: .spec.topology.transform.maxUnavailable
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.transform.maxUnavailable
+
+    ##### Metrics for coordinating topology #####
+    
+    - name: kubedb_elasticsearch_coordinating_node_replicas
+      help: "Number of replicas for elasticsearch coordinating node"
+      type: gauge
+      field:
+        path: .spec.topology.coordinating.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.coordinating.replicas
+    
+    - name: kubedb_elasticsearch_coordinating_node_storage_bytes
+      help: "Available storage for elastic search coordinating node"
+      type: gauge
+      labels:
+        - key: unit
+          value: bytes
+      params:
+        - key: storage
+          valuePath: .spec.topology.coordinating.storage.resources.requests.storage
+      metricValue:
+        valueFromExpression: calculateMemory(storage)
+      
+    - name: kubedb_elasticsearch_coordinating_node_info
+      help: "Elasticsearch coordinating node information"
+      type: gauge
+      labels:
+        - key: cpu_request
+          valuePath: .spec.topology.coordinating.resources.requests.cpu
+        - key: cpu_limit
+          valuePath: .spec.topology.coordinating.resources.limits.cpu
+        - key: memory_request
+          valuePath: .spec.topology.coordinating.resources.requests.memory
+        - key: memory_limit
+          valuePath: .spec.topology.coordinating.resources.limits.memory
+        - key: storage_className
+          valuePath: .spec.topology.coordinating.storage.storageClassName
+      metricValue:
+        value: 1
+    
+    - name: kubedb_elasticsearch_coordinating_node_max_unavailable
+      help: "Maximum number of pods unavailable after an eviction"
+      type: gauge
+      field:
+        path: .spec.topology.coordinating.maxUnavailable
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.coordinating.maxUnavailable
