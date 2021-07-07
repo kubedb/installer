@@ -53,5 +53,75 @@ spec:
           valuePath: .spec.tls.issuerRef.name
       metricValue:
         value: 1
+    
+    - name: kubedb_elasticsearch_status_conditions
+      help: "Elasticsearch instance status condition"
+      type: gauge
+      field:
+        path: .status.conditions
+        type: Array
+      labels:
+        - key: type
+          valuePath: .status.conditions[*].type
+        - key: status
+          valuePath: .status.conditions[*].status
+      metricValue:
+        value: 1
+    
+    - name: kubedb_elasticsearch_status_phase
+      help: "Elasticsearch instance current phase"
+      type: gauge
+      field:
+        path: .status.phase
+        type: String
+      params:
+        - key: phase
+          valuePath: .status.phase
+      states:
+        labelKey: phase
+        values:
+          - labelValue: Ready
+            metricValue:
+              valueFromExpression: "toInt(phase == 'Ready')"
+          - labelValue: Halted
+            metricValue:
+              valueFromExpression: "toInt(phase == 'Halted')"
+          - labelValue: Provisioning
+            metricValue:
+              valueFromExpression: "toInt(phase == 'Provisioning')"
+          - labelValue: Critical
+            metricValue:
+              valueFromExpression: "toInt(phase == 'Critical')"
+          - labelValue: NotReady
+            metricValue:
+              valueFromExpression: "toInt(phase == 'NotReady')"
+          - labelValue: DataRestoring
+            metricValue:
+              valueFromExpression: "toInt(phase == 'DataRestoring')"
+    
+
+    ##### Metrics for Master topology #####
+
+    - name: kubedb_elasticsearch_master_replicas
+      help: "Number of replicas for elasticsearch master node"
+      type: gauge
+      field:
+        path: .spec.topology.master.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.master.replicas
+    
+    - name: kubedb_elasticsearch_master_storage_bytes
+      help: "Available storage for elastic search master node"
+      type: gauge
+      params:
+        - key: storage
+          valuePath: .spec.topology.master.storage.resources.requests.storage
+      metricValue:
+        valueFromExpression: calculateMemory(storage)
+      
+    
+    
+
 
     
