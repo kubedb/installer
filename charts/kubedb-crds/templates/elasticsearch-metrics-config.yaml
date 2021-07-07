@@ -1,0 +1,57 @@
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: es-metrics-config
+spec:
+  targetRef:
+    apiVersion: kubedb.com/v1alpha2
+    kind: Elasticsearch
+  metrics:
+    - name: kubedb_elasticsearch_info
+      help: "Kubedb elasticsearch information"
+      type: gauge
+      labels:
+        - key: version
+          valuePath: .spec.version
+        - key: storageType
+          valuePath: .spec.storageType
+        - key: enableSSL
+          valuePath: .spec.enableSSL
+        - key: terminationPolicy
+          valuePath: .spec.terminationPolicy
+        - key: storageClassName
+          valuePath: .spec.storage.storageClassName
+      metricValue:
+        value: 1
+    
+    - name: kubedb_elasticsearch_replicas
+      help: "Number of elasticsearch replicas in general mode"
+      type: gauge
+      field:
+        path: .spec.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.replicas
+
+    - name: kubedb_elasticsearch_storage_bytes
+      help: "Available storage size in bytes"
+      type: gauge
+      labels:
+        - key: unit
+          value: bytes
+      params:
+        - key: storage
+          valuePath: .spec.storage.resources.requests.storage
+      metricValue:
+        valueFromExpression: calculateMemory(storage)
+    
+    - name: kubedb_elasticsearch_tls_info
+      help: "Elasticsearch database tls info"
+      type: gauge
+      labels:
+        - key: issuers_name
+          valuePath: .spec.tls.issuerRef.name
+      metricValue:
+        value: 1
+
+    
