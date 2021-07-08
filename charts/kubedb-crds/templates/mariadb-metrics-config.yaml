@@ -1,0 +1,164 @@
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: mariadb-metrics-config
+spec:
+  targetRef:
+    apiVersion: kubedb.com/v1alpha2
+    kind: MariaDB
+  metrics:
+    - name: kubedb_mariadb_created
+      help: "Unix creation time stamp"
+      type: gauge
+      field:
+        path: .metadata.creationTimestamp
+        type: DateTime
+      metricValue:
+        valueFromPath: .metadata.creationTimestamp
+
+    - name: kubedb_mariadb_replicas
+      help: "Number of replicas of mariadb instance"
+      type: gauge
+      field:
+        path: .spec.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.replicas
+
+    - name: kubedb_mariadb_storage_bytes
+      help: "Kubedb mariadb available storage size in bytes"
+      type: gauge
+      labels:
+        - key: unit
+          value: bytes
+      params:
+        - key: storage
+          valuePath: .spec.storage.resources.requests.storage
+      metricValue:
+        valueFromExpression: "calculateMemory(storage)"
+
+    - name: kubedb_mariadb_status_phase
+      help: "MariaDB instance current phase"
+      type: gauge
+      field:
+        path: .status.phase
+        type: String
+      params:
+        - key: phase
+          valuePath: .status.phase
+      states:
+        labelKey: phase
+        values:
+          - labelValue: Ready
+            metricValue:
+              valueFromExpression: "toInt(phase == 'Ready')"
+          - labelValue: Halted
+            metricValue:
+              valueFromExpression: "toInt(phase == 'Halted')"
+          - labelValue: Provisioning
+            metricValue:
+              valueFromExpression: "toInt(phase == 'Provisioning')"
+          - labelValue: Critical
+            metricValue:
+              valueFromExpression: "toInt(phase == 'Critical')"
+          - labelValue: NotReady
+            metricValue:
+              valueFromExpression: "toInt(phase == 'NotReady')"
+          - labelValue: DataRestoring
+            metricValue:
+              valueFromExpression: "toInt(phase == 'DataRestoring')"
+
+    - name: kubedb_mariadb_info
+      help: "MariaDB instance information"
+      type: gauge
+      labels:
+        - key: sslMode
+          valuePath: .spec.sslMode
+        - key: storageType
+          valuePath: .spec.storageType
+        - key: terminationPolicy
+          valuePath: .spec.terminationPolicy
+        - key: version
+          valuePath: .spec.version
+      metricValue:
+        value: 1
+
+    - name: kubedb_mariadb_status_conditions
+      help: "MariaDB instance status condition"
+      type: gauge
+      field:
+        path: .status.conditions
+        type: Array
+      labels:
+        - key: type
+          valuePath: .status.conditions[*].type
+        - key: status
+          valuePath: .status.conditions[*].status
+      metricValue:
+        value: 1
+
+    - name: kubedb_mariadb_monitoring_info  
+      help: "MariaDB monitoring agent info"
+      type: gauge
+      labels:
+        - key: agent
+          valuePath: .spec.monitor.agent
+      metricValue:
+        value: 1
+
+    - name: kubedb_mariadb_tls_info
+      help: "MariaDB database tls info"
+      type: gauge
+      labels:
+        - key: issuers_name
+          valuePath: .spec.tls.issuerRef.name
+      metricValue:
+        value: 1
+    
+    - name: kubedb_mariadb_cpu_request
+      help: "Requested CPU by mariadb instance"
+      type: gauge
+      labels:
+        - key: unit
+          value: core
+      params:
+        - key: cpu
+          valuePath: .spec.podTemplate.spec.resources.requests.cpu
+      metricValue:
+        valueFromExpression: calculateCPU(cpu)
+    
+    - name: kubedb_mariadb_cpu_limit
+      help: "CPU limit for mariadb instance"
+      type: gauge
+      labels:
+        - key: unit
+          value: core
+      params:
+        - key: cpu
+          valuePath: .spec.podTemplate.spec.resources.limits.cpu
+      metricValue:
+        valueFromExpression: calculateCPU(cpu)
+    
+    - name: kubedb_mariadb_memory_request
+      help: "Requested memory by mariadb instance"
+      type: gauge
+      labels:
+        - key: unit
+          value: bytes
+      params:
+        - key: memory
+          valuePath: .spec.podTemplate.spec.resources.requests.memory
+      metricValue:
+        valueFromExpression: calculateMemory(memory)
+    
+    - name: kubedb_mariadb_memory_limit
+      help: "Memory limit for mariadb instance"
+      type: gauge
+      labels:
+        - key: unit
+          value: bytes
+      params:
+        - key: memory
+          valuePath: .spec.podTemplate.spec.resources.limits.memory
+      metricValue:
+        valueFromExpression: calculateMemory(memory)
