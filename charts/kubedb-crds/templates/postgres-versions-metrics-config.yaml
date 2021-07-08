@@ -1,0 +1,36 @@
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: ps-version-metrics-config
+spec:
+  targetRef:
+    apiVersion: catalog.kubedb.com/v1alpha1
+    kind: PostgresVersion
+  metrics:
+    - name: kubedb_postgres_version_created
+      help: "Unix creation timestamp"
+      type: gauge
+      field: 
+        path: .metadata.creationTimestamp
+        type: DateTime
+      metricValue:
+        valueFromPath: .metadata.creationTimestamp
+
+    - name: kubedb_postgres_version_info
+      help: "Postgres versions info"
+      type: gauge
+      labels:
+        - key: coordinator_image
+          valuePath: .spec.coordinator.image
+        - key: db_image
+          valuePath: .spec.db.image
+        - key: distribution
+          valuePath: .spec.distribution
+        - key: exporter_image
+          valuePath: .spec.exporter.image
+        - key: stash_addon_backup_task
+          valuePath: .spec.stash.addon.backupTask.name
+        - key: stash_addon_restore_task
+          valuePath: .spec.stash.addon.restoreTask.name
+      metricValue: 
+        value: 1
