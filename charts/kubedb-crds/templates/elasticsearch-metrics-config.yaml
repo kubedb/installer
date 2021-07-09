@@ -45,14 +45,6 @@ spec:
       metricValue:
         valueFromExpression: calculateMemory(storage)
     
-    - name: kubedb_elasticsearch_tls_info
-      help: "Elasticsearch database tls info"
-      type: gauge
-      labels:
-        - key: issuers_name
-          valuePath: .spec.tls.issuerRef.name
-      metricValue:
-        value: 1
     
     - name: kubedb_elasticsearch_status_conditions
       help: "Elasticsearch instance status condition"
@@ -98,15 +90,15 @@ spec:
           - labelValue: DataRestoring
             metricValue:
               valueFromExpression: "toInt(phase == 'DataRestoring')"
-    
-    - name: kubedb_elasticsearch_monitoring_info  
-      help: "Elastic monitoring agent info"
+
+    - name: kubedb_elasticsearch_security_http_ssl_enabled
+      help: "Elasticsearch ssl information"
       type: gauge
-      labels:
-        - key: agent
-          valuePath: .spec.monitor.agent
+      params:
+        - key: ssl
+          valuePath: .spec.enableSSL
       metricValue:
-        value: 1
+        valueFromExpression: toInt(ssl == 'true')
 
     ##### Metrics for Master topology #####
 
