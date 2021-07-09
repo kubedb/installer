@@ -1,0 +1,30 @@
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: redis-version-metrics-config
+spec:
+  targetRef:
+    apiVersion: catalog.kubedb.com/v1alpha1
+    kind: RedisVersion
+  metrics:
+    - name: kubedb_redis_version_created
+      help: "Unix creation timestamp"
+      type: gauge
+      field: 
+        path: .metadata.creationTimestamp
+        type: DateTime
+      metricValue:
+        valueFromPath: .metadata.creationTimestamp
+
+    - name: kubedb_redis_version_info
+      help: "Redis versions info"
+      type: gauge
+      labels:
+        - key: deprecated
+          valuePath: .spec.deprecated
+        - key: db_image
+          valuePath: .spec.db.image
+        - key: exporter_image
+          valuePath: .spec.exporter.image
+      metricValue: 
+        value: 1
