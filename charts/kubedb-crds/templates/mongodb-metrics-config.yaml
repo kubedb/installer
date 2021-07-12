@@ -107,14 +107,14 @@ spec:
       metricValue:
         value: 1
     
-    - name: kubedb_mongodb_tls_info
-      help: "MongoDB database tls info"
+    - name: kubedb_mongodb_shard_enabled
+      help: "MongoDB sharded topology enable info"
       type: gauge
-      labels:
-        - key: issuer_name
-          valuePath: .spec.tls.issuerRef.name
+      params:
+        - key: topology
+          valuePath: .spec.shardTopology
       metricValue:
-        value: 1
+        valueFromExpression: "toInt(topology != 'nil')"
 
     ##### Metrics config for mongodb sharded database #####
     
