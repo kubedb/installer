@@ -19,6 +19,8 @@ spec:
     image: '{{ include "catalog.registry" . }}/replication-mode-detector:v0.5.0'
   router:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "mysql" "mysql-router")) }}:8.0.24'
+  routerInitContainer:
+    image: '{{ include "catalog.registry" . }}/mysql-router-init:innodb_linux_amd64'
   stash:
     addon:
       backupTask:
