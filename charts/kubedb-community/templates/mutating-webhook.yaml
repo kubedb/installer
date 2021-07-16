@@ -1,8 +1,5 @@
-# GKE returns Major:"1", Minor:"10+"
-{{- $major := default "0" .Capabilities.KubeVersion.Major | trimSuffix "+" | int64 }}
-{{- $minor := default "0" .Capabilities.KubeVersion.Minor | trimSuffix "+" | int64 }}
 {{- if .Values.apiserver.enableMutatingWebhook }}
-apiVersion: admissionregistration.k8s.io/v1beta1
+apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
   name: mutators.kubedb.com
@@ -25,10 +22,9 @@ webhooks:
     apiVersions: ["*"]
     resources: ["elasticsearches"]
     operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 {{- end }}
 {{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "pg-operator") }}
 - name: postgres.mutators.kubedb.com
@@ -43,10 +39,9 @@ webhooks:
     apiVersions: ["*"]
     resources: ["postgreses"]
     operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 {{- end }}
 {{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "my-operator") }}
 - name: mysql.mutators.kubedb.com
@@ -61,10 +56,9 @@ webhooks:
     apiVersions: ["*"]
     resources: ["mysqls"]
     operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 {{- end }}
 {{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "percona-xtradb-operator") }}
 - name: perconaxtradb.mutators.kubedb.com
@@ -79,10 +73,9 @@ webhooks:
     apiVersions: ["*"]
     resources: ["perconaxtradbs"]
     operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 {{- end }}
 {{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "mg-operator") }}
 - name: mongodb.mutators.kubedb.com
@@ -97,10 +90,9 @@ webhooks:
     apiVersions: ["*"]
     resources: ["mongodbs"]
     operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 {{- end }}
 {{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "rd-operator") }}
 - name: redis.mutators.kubedb.com
@@ -115,10 +107,9 @@ webhooks:
     apiVersions: ["*"]
     resources: ["redises"]
     operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 {{- end }}
 {{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "mc-operator") }}
 - name: memcached.mutators.kubedb.com
@@ -133,10 +124,9 @@ webhooks:
     apiVersions: ["*"]
     resources: ["memcacheds"]
     operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 {{- end }}
 {{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "etcd-operator") }}
 - name: etcd.mutators.kubedb.com
@@ -151,10 +141,9 @@ webhooks:
     apiVersions: ["*"]
     resources: ["etcds"]
     operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 {{- end }}
 {{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "pgbouncer-operator") }}
 - name: pgbouncer.mutators.kubedb.com
@@ -169,10 +158,9 @@ webhooks:
     apiVersions: ["*"]
     resources: ["pgbouncers"]
     operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 {{- end }}
 {{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "proxysql-operator") }}
 - name: proxysql.mutators.kubedb.com
@@ -187,10 +175,9 @@ webhooks:
     apiVersions: ["*"]
     resources: ["proxysqls"]
     operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 {{- end }}
 {{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "mariadb-operator") }}
 - name: mariadb.mutators.kubedb.com
@@ -205,9 +192,8 @@ webhooks:
       apiVersions: ["*"]
       resources: ["mariadbs"]
       operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 {{- end }}
 {{ end }}

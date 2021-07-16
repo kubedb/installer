@@ -52,14 +52,14 @@ crd-importer \
 
 crd-importer \
     --input=${crd_dir} \
-    --out=. --output-yaml=kubedb-crds.yaml
+    --out=. --output-yaml=crds/kubedb-crds.yaml
 
-crd-importer --v=v1beta1 \
+crd-importer --v=v1 \
     --input=${crd_dir} \
     --out=./charts/kubedb-catalog/crds \
     --group=catalog.kubedb.com
 
-crd-importer --v=v1beta1 \
+crd-importer --v=v1 \
     --input=${crd_dir} \
-    --out=. --output-yaml=kubedb-catalog-crds.yaml \
+    --out=. --output-yaml=crds/kubedb-catalog-crds.yaml \
     --group=catalog.kubedb.com

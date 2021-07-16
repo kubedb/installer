@@ -45,7 +45,7 @@ jobs:
     needs: build
     strategy:
       matrix:
-        k8s: [v1.14.10, v1.15.12, v1.16.15, v1.17.17, v1.18.15, v1.19.7, v1.20.2]
+        k8s: [v1.16.15, v1.17.17, v1.18.15, v1.19.7, v1.20.2, v1.21.1]
     steps:
       - name: Check out code into the Go module directory
         uses: actions/checkout@v1
@@ -54,8 +54,7 @@ jobs:
         id: kind
         uses: engineerd/setup-kind@v0.5.0
         with:
-          version: v0.10.0
-          config: hack/kubernetes/kind.yaml
+          version: v0.11.1
           image: kindest/node:${{ matrix.k8s }}
 
       - name: Prepare cluster for testing
@@ -74,5 +73,6 @@ jobs:
 
       - name: Test charts
         run: |
+          ./hack/scripts/update-chart-dependencies.sh
           export KUBECONFIG="${HOME}/.kube/config"
           ./hack/scripts/ct.sh

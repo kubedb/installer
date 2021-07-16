@@ -1,8 +1,5 @@
-# GKE returns Major:"1", Minor:"10+"
-{{- $major := default "0" .Capabilities.KubeVersion.Major | trimSuffix "+" | int64 }}
-{{- $minor := default "0" .Capabilities.KubeVersion.Minor | trimSuffix "+" | int64 }}
 {{- if .Values.apiserver.enableValidatingWebhook }}
-apiVersion: admissionregistration.k8s.io/v1beta1
+apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 metadata:
   name: validators.ops.kubedb.com
@@ -24,7 +21,9 @@ webhooks:
       apiVersions: ["*"]
       resources: ["mysqlopsrequests"]
       operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
+  sideEffects: None
 - name: mongodbopsrequest.validators.ops.kubedb.com
   clientConfig:
     service:
@@ -37,7 +36,9 @@ webhooks:
       apiVersions: ["*"]
       resources: ["mongodbopsrequests"]
       operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
+  sideEffects: None
 - name: elasticsearchopsrequest.validators.ops.kubedb.com
   clientConfig:
     service:
@@ -50,7 +51,9 @@ webhooks:
       apiVersions: ["*"]
       resources: ["elasticsearchopsrequests"]
       operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
+  sideEffects: None
 - name: redisopsrequest.validators.ops.kubedb.com
   clientConfig:
     service:
@@ -63,8 +66,7 @@ webhooks:
       apiVersions: ["*"]
       resources: ["redisopsrequests"]
       operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
-{{- if and (ge $major 1) (ge $minor 12) }}
   sideEffects: None
-{{- end }}
 {{ end }}
