@@ -170,7 +170,7 @@ gen-crds:
 		controller-gen                      \
 			$(CRD_OPTIONS)                  \
 			paths="./apis/..."              \
-			output:crd:artifacts:config=crds
+			output:crd:artifacts:config=.crds
 
 crds_to_patch :=
 
@@ -178,12 +178,12 @@ crds_to_patch :=
 patch-crds: $(addprefix patch-crd-, $(crds_to_patch))
 patch-crd-%: $(BUILD_DIRS)
 	@echo "patching $*"
-	@kubectl patch -f crds/$* -p "$$(cat hack/crd-patch.json)" --type=json --local=true -o yaml > bin/$*
-	@mv bin/$* crds/$*
+	@kubectl patch -f .crds/$* -p "$$(cat hack/crd-patch.json)" --type=json --local=true -o yaml > bin/$*
+	@mv bin/$* .crds/$*
 
 .PHONY: label-crds
 label-crds: $(BUILD_DIRS)
-	@for f in crds/*.yaml; do \
+	@for f in .crds/*.yaml; do \
 		echo "applying app.kubernetes.io/name=kubedb label to $$f"; \
 		kubectl label --overwrite -f $$f --local=true -o yaml app.kubernetes.io/name=kubedb > bin/crd.yaml; \
 		mv bin/crd.yaml $$f; \
@@ -196,19 +196,19 @@ gen-bindata:
 	    --rm                                                    \
 	    -u $$(id -u):$$(id -g)                                  \
 	    -v $$(pwd):/src                                         \
-	    -w /src/crds                                        \
+	    -w /src/.crds                                        \
 		-v /tmp:/.cache                                         \
 	    --env HTTP_PROXY=$(HTTP_PROXY)                          \
 	    --env HTTPS_PROXY=$(HTTPS_PROXY)                        \
 	    $(BUILD_IMAGE)                                          \
-	    go-bindata -ignore=\\.go -ignore=\\.DS_Store -mode=0644 -modtime=1573722179 -o bindata.go -pkg crds ./...
+	    go-bindata -ignore=\\.go -ignore=\\.DS_Store -mode=0644 -modtime=1573722179 -o bindata.go -pkg .crds ./...
 
 .PHONY: gen-values-schema
 gen-values-schema: $(BUILD_DIRS)
 	@for dir in charts/*/; do \
 		dir=$${dir%*/}; \
 		dir=$${dir##*/}; \
-		crd_file=crds/installer.kubedb.com_$$(echo $$dir | tr -d '-')s.yaml; \
+		crd_file=.crds/installer.kubedb.com_$$(echo $$dir | tr -d '-')s.yaml; \
 		if [ ! -f $${crd_file} ]; then \
 			continue; \
 		fi; \
@@ -371,9 +371,8 @@ ct: $(BUILD_DIRS)
 	    --env KUBECONFIG=$(subst $(HOME),,$(KUBECONFIG))        \
 	    $(CHART_TEST_IMAGE)                                     \
 	    /bin/sh -c "                                            \
-	        kubectl delete crds --selector=app.kubernetes.io/name=kubedb; \
-	        helm dependency update charts/kubedb;                         \
-	        ct $(CT_COMMAND) --debug $(CT_ARGS)                           \
+	        kubectl delete crds --selector=app.kubernetes.io/name=kubevault; \
+	        ct $(CT_COMMAND) --debug --validate-maintainers=false $(CT_ARGS) \
 	    "
 
 ADDTL_LINTERS   := goconst,gofmt,goimports,unparam

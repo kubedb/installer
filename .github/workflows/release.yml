@@ -41,7 +41,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.LGTM_GITHUB_TOKEN }}
           CHART_REPOSITORY: ${{ secrets.CHART_REPOSITORY }}
         run: |
-          helm dependency update charts/kubedb
+          ./hack/scripts/update-chart-dependencies.sh
           cd $RUNNER_WORKSPACE/$(basename $CHART_REPOSITORY)
           GIT_TAG=${GITHUB_REF#"refs/tags/"}
           if [[ $GIT_TAG =~ "-alpha." ]] || [[ $GIT_TAG =~ "-beta." ]]; then
