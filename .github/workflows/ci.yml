@@ -27,11 +27,12 @@ jobs:
           sudo apt-get -qq update || true
           sudo apt-get install -y bzr
           # install yq
-          curl -fsSL -o yq https://github.com/mikefarah/yq/releases/download/3.3.0/yq_linux_amd64
-          chmod +x yq
-          sudo mv yq /usr/local/bin/yq
+          curl -fsSL -o yqq https://github.com/mikefarah/yq/releases/download/3.3.0/yq_linux_amd64
+          chmod +x yqq
+          sudo mv yqq /usr/local/bin/yqq
+          pip3 install yq
           # install kubectl
-          curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.17.0/bin/linux/amd64/kubectl
+          curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.21.1/bin/linux/amd64/kubectl
           chmod +x ./kubectl
           sudo mv ./kubectl /usr/local/bin/kubectl
 
@@ -47,8 +48,13 @@ jobs:
       matrix:
         k8s: [v1.16.15, v1.17.17, v1.18.15, v1.19.7, v1.20.2, v1.21.1]
     steps:
-      - name: Check out code into the Go module directory
-        uses: actions/checkout@v1
+      - uses: actions/checkout@v1
+
+      - name: Install yq
+        run: |
+          curl -fsSL -o yqq https://github.com/mikefarah/yq/releases/download/3.3.0/yq_linux_amd64
+          chmod +x yqq
+          sudo mv yqq /usr/local/bin/yqq
 
       - name: Create Kubernetes ${{ matrix.k8s }} cluster
         id: kind
@@ -62,7 +68,6 @@ jobs:
         env:
           USERNAME: 1gtm
           REGISTRY_SECRET: regcred
-          GCR_SERVICE_ACCOUNT_JSON_KEY: ${{ secrets.GCR_SERVICE_ACCOUNT_JSON_KEY }}
         run: |
           echo "waiting for nodes to be ready ..."
           kubectl wait --for=condition=Ready nodes --all --timeout=5m
@@ -71,8 +76,20 @@ jobs:
           echo "install helm 3"
           curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
+      - name: Issue License
+        env:
+          BYTEBUILDERS_LICENSE_TOKEN: ${{ secrets.BYTEBUILDERS_LICENSE_TOKEN }}
+        run: |
+          export KUBECONFIG="${HOME}/.kube/config"
+          CLUSTER_UID=$(kubectl get ns kube-system -o=jsonpath='{.metadata.uid}')
+          LICENSE_KEY=$(curl -X POST -d "name=1gtm&email=1gtm@appscode.com&product=kubedb-enterprise&cluster=${CLUSTER_UID}&tos=true&token=${BYTEBUILDERS_LICENSE_TOKEN}" https://license-issuer.appscode.com/issue-license)
+          # ref: https://github.com/mikefarah/yq/issues/230#issuecomment-487458629
+          yqq w -i ./charts/kubedb-community/ci/ci-values.yaml license --tag '!!str' -- "${LICENSE_KEY}"
+          yqq w -i ./charts/kubedb-enterprise/ci/ci-values.yaml license --tag '!!str' -- "${LICENSE_KEY}"
+          yqq w -i ./charts/kubedb-autoscaler/ci/ci-values.yaml license --tag '!!str' -- "${LICENSE_KEY}"
+
       - name: Test charts
         run: |
-          ./hack/scripts/update-chart-dependencies.sh
           export KUBECONFIG="${HOME}/.kube/config"
+          ./hack/scripts/update-chart-dependencies.sh
           ./hack/scripts/ct.sh
