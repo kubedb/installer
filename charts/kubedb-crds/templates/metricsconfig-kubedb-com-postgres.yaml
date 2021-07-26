@@ -24,7 +24,7 @@ spec:
         type: Integer
       metricValue:
         valueFromPath: .spec.replicas
-    
+
     - name: kubedb_postgres_storage_bytes
       help: "Kubedb postgres available storage size in bytes"
       type: gauge
@@ -35,7 +35,7 @@ spec:
         - key: storage
           valuePath: .spec.storage.resources.requests.storage
       metricValue:
-        valueFromExpression: "calculateMemory(storage)"
+        valueFromExpression: "bytes(storage)"
 
     - name: kubedb_postgres_status_phase
       help: "Postgres instance current phase"
@@ -51,22 +51,22 @@ spec:
         values:
           - labelValue: Ready
             metricValue:
-              valueFromExpression: "toInt(phase == 'Ready')"
+              valueFromExpression: "int(phase == 'Ready')"
           - labelValue: Halted
             metricValue:
-              valueFromExpression: "toInt(phase == 'Halted')"
+              valueFromExpression: "int(phase == 'Halted')"
           - labelValue: Provisioning
             metricValue:
-              valueFromExpression: "toInt(phase == 'Provisioning')"
+              valueFromExpression: "int(phase == 'Provisioning')"
           - labelValue: Critical
             metricValue:
-              valueFromExpression: "toInt(phase == 'Critical')"
+              valueFromExpression: "int(phase == 'Critical')"
           - labelValue: NotReady
             metricValue:
-              valueFromExpression: "toInt(phase == 'NotReady')"
+              valueFromExpression: "int(phase == 'NotReady')"
           - labelValue: DataRestoring
             metricValue:
-              valueFromExpression: "toInt(phase == 'DataRestoring')"
+              valueFromExpression: "int(phase == 'DataRestoring')"
 
     - name: kubedb_postgres_info
       help: "Postgres instance information"
@@ -102,7 +102,7 @@ spec:
           valuePath: .status.conditions[*].status
       metricValue:
         value: 1
-    
+
     - name: kubedb_postgres_leader_election_info
       help: "Postgres leader election config info"
       type: gauge
@@ -118,7 +118,7 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_postgres_monitoring_info  
+    - name: kubedb_postgres_monitoring_info
       help: "Postgres monitoring agent info"
       type: gauge
       labels:
@@ -126,7 +126,7 @@ spec:
           valuePath: .spec.monitor.agent
       metricValue:
         value: 1
-    
+
     - name: kubedb_postgres_tls_info
       help: "Postgres database tls info"
       type: gauge
