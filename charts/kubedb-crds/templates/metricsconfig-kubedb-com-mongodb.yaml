@@ -43,7 +43,7 @@ spec:
         - key: storage
           valuePath: .spec.storage.resources.requests.storage
       metricValue:
-        valueFromExpression: "calculateMemory(storage)"
+        valueFromExpression: "bytes(storage)"
 
     - name: kubedb_mongodb_status_phase
       help: "MongoDB instance current phase"
@@ -59,22 +59,22 @@ spec:
         values:
           - labelValue: Ready
             metricValue:
-              valueFromExpression: "toInt(phase == 'Ready')"
+              valueFromExpression: "int(phase == 'Ready')"
           - labelValue: Halted
             metricValue:
-              valueFromExpression: "toInt(phase == 'Halted')"
+              valueFromExpression: "int(phase == 'Halted')"
           - labelValue: Provisioning
             metricValue:
-              valueFromExpression: "toInt(phase == 'Provisioning')"
+              valueFromExpression: "int(phase == 'Provisioning')"
           - labelValue: Critical
             metricValue:
-              valueFromExpression: "toInt(phase == 'Critical')"
+              valueFromExpression: "int(phase == 'Critical')"
           - labelValue: NotReady
             metricValue:
-              valueFromExpression: "toInt(phase == 'NotReady')"
+              valueFromExpression: "int(phase == 'NotReady')"
           - labelValue: DataRestoring
             metricValue:
-              valueFromExpression: "toInt(phase == 'DataRestoring')"
+              valueFromExpression: "int(phase == 'DataRestoring')"
 
     - name: kubedb_mongodb_info
       help: "MongoDB instance information"
@@ -106,7 +106,7 @@ spec:
           valuePath: .status.conditions[*].status
       metricValue:
         value: 1
-    
+
     - name: kubedb_mongodb_shard_enabled
       help: "MongoDB sharded topology enable info"
       type: gauge
@@ -114,10 +114,10 @@ spec:
         - key: topology
           valuePath: .spec.shardTopology
       metricValue:
-        valueFromExpression: "toInt(topology != 'nil')"
+        valueFromExpression: "int(topology != 'nil')"
 
     ##### Metrics config for mongodb sharded database #####
-    
+
     - name: kubedb_mongodb_shard_shards
       help: "Number of shards of the MongoDB database"
       type: gauge
@@ -126,7 +126,7 @@ spec:
         type: Integer
       metricValue:
         valueFromPath: .spec.shardTopology.shard.shards
-    
+
     - name: kubedb_mongodb_shard_replicas
       help: "Number of replicas in the MongoDB shards"
       type: gauge
@@ -135,7 +135,7 @@ spec:
         type: Integer
       metricValue:
         valueFromPath: .spec.shardTopology.shard.replicas
-    
+
     - name: kubedb_mongodb_shard_info
       help: "MongoDB sharded database information"
       type: gauge
@@ -152,7 +152,7 @@ spec:
           valuePath: .spec.shardTopology.shard.storage.storageClassName
       metricValue:
         value: 1
-      
+
     - name: kubedb_mongodb_shard_storage_bytes
       help: "Available storage for MongoDB shards"
       type: gauge
@@ -160,8 +160,8 @@ spec:
         - key: storage
           valuePath: .spec.shardTopology.shard.storage.resources.requests.storage
       metricValue:
-        valueFromExpression: calculateMemory(storage)
-    
+        valueFromExpression: bytes(storage)
+
     - name: kubedb_mongodb_configsvr_info
       help: "MongoDB sharded database config server information"
       type: gauge
@@ -176,13 +176,13 @@ spec:
           valuePath: .spec.shardTopology.configServer.podTemplate.spec.resources.limits.memory
         - key: storage_classname
           valuePath: .spec.shardTopology.configServer.storage.storageClassName
-      metricValue: 
+      metricValue:
         value: 1
 
     - name: kubedb_mongodb_configsvr_replicas
       help: "Number of replicas in MongoDB config server in sharded database"
       type: gauge
-      field: 
+      field:
         path: .spec.shardTopology.configServer.replicas
         type: Integer
       metricValue:
@@ -195,8 +195,8 @@ spec:
         - key: storage
           valuePath: .spec.shardTopology.configServer.storage.resources.requests.storage
       metricValue:
-        valueFromExpression: calculateMemory(storage)
-    
+        valueFromExpression: bytes(storage)
+
     - name: kubedb_mongodb_mongos_info
       help: "MongoDB sharded database mongos info"
       type: gauge
@@ -209,9 +209,9 @@ spec:
           valuePath: .spec.shardTopology.mongos.podTemplate.spec.resources.requests.memory
         - key: memory_limit
           valuePath: .spec.shardTopology.mongos.podTemplate.spec.resources.limits.memory
-      metricValue: 
+      metricValue:
         value: 1
-    
+
     - name: kubedb_mongodb_mongos_replicas
       help: "Number of replicas in mongodb sharded mongos"
       type: gauge
@@ -220,9 +220,3 @@ spec:
         type: Integer
       metricValue:
         valueFromPath: .spec.shardTopology.mongos.replicas
-    
-
-      
-
-
-
