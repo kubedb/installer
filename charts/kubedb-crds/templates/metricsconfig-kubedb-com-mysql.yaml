@@ -35,7 +35,7 @@ spec:
         - key: storage
           valuePath: .spec.storage.resources.requests.storage
       metricValue:
-        valueFromExpression: "calculateMemory(storage)"
+        valueFromExpression: "bytes(storage)"
 
     - name: kubedb_mysql_status_phase
       help: "MySQL instance current phase"
@@ -51,22 +51,22 @@ spec:
         values:
           - labelValue: Ready
             metricValue:
-              valueFromExpression: "toInt(phase == 'Ready')"
+              valueFromExpression: "int(phase == 'Ready')"
           - labelValue: Halted
             metricValue:
-              valueFromExpression: "toInt(phase == 'Halted')"
+              valueFromExpression: "int(phase == 'Halted')"
           - labelValue: Provisioning
             metricValue:
-              valueFromExpression: "toInt(phase == 'Provisioning')"
+              valueFromExpression: "int(phase == 'Provisioning')"
           - labelValue: Critical
             metricValue:
-              valueFromExpression: "toInt(phase == 'Critical')"
+              valueFromExpression: "int(phase == 'Critical')"
           - labelValue: NotReady
             metricValue:
-              valueFromExpression: "toInt(phase == 'NotReady')"
+              valueFromExpression: "int(phase == 'NotReady')"
           - labelValue: DataRestoring
             metricValue:
-              valueFromExpression: "toInt(phase == 'DataRestoring')"
+              valueFromExpression: "int(phase == 'DataRestoring')"
 
     - name: kubedb_mysql_info
       help: "MySQL instance information"
@@ -107,7 +107,7 @@ spec:
         - key: cpu
           valuePath: .spec.podTemplate.spec.resources.requests.cpu
       metricValue:
-        valueFromExpression: calculateCPU(cpu)
+        valueFromExpression: cpuCores(cpu)
 
     - name: kubedb_mysql_cpu_limit
       help: "CPU limit for mysql instance"
@@ -119,7 +119,7 @@ spec:
         - key: cpu
           valuePath: .spec.podTemplate.spec.resources.limits.cpu
       metricValue:
-        valueFromExpression: calculateCPU(cpu)
+        valueFromExpression: cpuCores(cpu)
 
     - name: kubedb_mysql_memory_request
       help: "Requested memory by mysql instance"
@@ -131,7 +131,7 @@ spec:
         - key: memory
           valuePath: .spec.podTemplate.spec.resources.requests.memory
       metricValue:
-        valueFromExpression: calculateMemory(memory)
+        valueFromExpression: bytes(memory)
 
     - name: kubedb_mysql_memory_limit
       help: "Memory limit for mysql instance"
@@ -143,5 +143,5 @@ spec:
         - key: memory
           valuePath: .spec.podTemplate.spec.resources.limits.memory
       metricValue:
-        valueFromExpression: calculateMemory(memory)
+        valueFromExpression: bytes(memory)
 
