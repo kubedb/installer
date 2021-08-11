@@ -16,35 +16,6 @@ spec:
       metricValue:
         valueFromPath: .metadata.creationTimestamp
 
-    - name: kubedb_mongodb_replicaset_info
-      help: "Kubedb mongodb replicaset information"
-      type: gauge
-      labels:
-        - key: replicas
-          valuePath: .spec.replicas
-        - key: cpu_request
-          valuePath: .spec.podTemplate.spec.resources.requests.cpu
-        - key: cpu_limit
-          valuePath: .spec.podTemplate.spec.resources.limits.cpu
-        - key: memory_request
-          valuePath: .spec.podTemplate.spec.resources.requests.memory
-        - key: memory_limit
-          valuePath: .spec.podTemplate.spec.resources.limits.memory
-      metricValue:
-        valueFromPath: .spec.replicas
-
-    - name: kubedb_mongodb_replicaset_storage_bytes
-      help: "Kubedb mongodb available storage size in bytes"
-      type: gauge
-      labels:
-        - key: unit
-          value: bytes
-      params:
-        - key: storage
-          valuePath: .spec.storage.resources.requests.storage
-      metricValue:
-        valueFromExpression: "bytes(storage)"
-
     - name: kubedb_mongodb_status_phase
       help: "MongoDB instance current phase"
       type: gauge
@@ -116,6 +87,76 @@ spec:
       metricValue:
         valueFromExpression: "int(topology != 'nil')"
 
+    - name: kubedb_mongodb_resource_request_cpu
+      help: "Requested CPU by MongoDB in core"
+      type: gauge
+      labels:
+        - key: unit
+          value: core
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: cpu
+      metricValue:
+        valueFromExpression: totalResourceRequests(obj, resourceType)
+
+    - name: kubedb_mongodb_resource_request_memory
+      help: "Requested memory by MongoDB in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: memory
+      metricValue:
+        valueFromExpression: totalResourceRequests(obj, resourceType)
+
+    - name: kubedb_mongodb_resource_request_storage
+      help: "Requested storage by MongoDB in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: storage
+      metricValue:
+        valueFromExpression: totalResourceRequests(obj, resourceType)
+
+    - name: kubedb_mongodb_resource_limit_cpu
+      help: "CPU limit for MongoDB in core"
+      type: gauge
+      labels:
+        - key: unit
+          value: core
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: cpu
+      metricValue:
+        valueFromExpression: totalResourceLimits(obj, resourceType)
+
+    - name: kubedb_mongodb_resource_limit_memory
+      help: "Memory limit for MongoDB in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: memory
+      metricValue:
+        valueFromExpression: totalResourceLimits(obj, resourceType)
+
     ##### Metrics config for mongodb sharded database #####
 
     - name: kubedb_mongodb_shard_shards
@@ -136,49 +177,6 @@ spec:
       metricValue:
         valueFromPath: .spec.shardTopology.shard.replicas
 
-    - name: kubedb_mongodb_shard_info
-      help: "MongoDB sharded database information"
-      type: gauge
-      labels:
-        - key: cpu_request
-          valuePath: .spec.shardTopology.shard.podTemplate.spec.resources.requests.cpu
-        - key: cpu_limit
-          valuePath: .spec.shardTopology.shard.podTemplate.spec.resources.limits.cpu
-        - key: memory_request
-          valuePath: .spec.shardTopology.shard.podTemplate.spec.resources.requests.memory
-        - key: memory_limit
-          valuePath: .spec.shardTopology.shard.podTemplate.spec.resources.limits.memory
-        - key: storage_classname
-          valuePath: .spec.shardTopology.shard.storage.storageClassName
-      metricValue:
-        value: 1
-
-    - name: kubedb_mongodb_shard_storage_bytes
-      help: "Available storage for MongoDB shards"
-      type: gauge
-      params:
-        - key: storage
-          valuePath: .spec.shardTopology.shard.storage.resources.requests.storage
-      metricValue:
-        valueFromExpression: bytes(storage)
-
-    - name: kubedb_mongodb_configsvr_info
-      help: "MongoDB sharded database config server information"
-      type: gauge
-      labels:
-        - key: cpu_request
-          valuePath: .spec.shardTopology.configServer.podTemplate.spec.resources.requests.cpu
-        - key: cpu_limit
-          valuePath: .spec.shardTopology.configServer.podTemplate.spec.resources.limits.cpu
-        - key: memory_request
-          valuePath: .spec.shardTopology.configServer.podTemplate.spec.resources.requests.memory
-        - key: memory_limit
-          valuePath: .spec.shardTopology.configServer.podTemplate.spec.resources.limits.memory
-        - key: storage_classname
-          valuePath: .spec.shardTopology.configServer.storage.storageClassName
-      metricValue:
-        value: 1
-
     - name: kubedb_mongodb_configsvr_replicas
       help: "Number of replicas in MongoDB config server in sharded database"
       type: gauge
@@ -187,30 +185,6 @@ spec:
         type: Integer
       metricValue:
         valueFromPath: .spec.shardTopology.configServer.replicas
-
-    - name: kubedb_mongodb_configsvr_storage_bytes
-      help: "Available storage for MongoDB config server"
-      type: gauge
-      params:
-        - key: storage
-          valuePath: .spec.shardTopology.configServer.storage.resources.requests.storage
-      metricValue:
-        valueFromExpression: bytes(storage)
-
-    - name: kubedb_mongodb_mongos_info
-      help: "MongoDB sharded database mongos info"
-      type: gauge
-      labels:
-        - key: cpu_request
-          valuePath: .spec.shardTopology.mongos.podTemplate.spec.resources.requests.cpu
-        - key: cpu_limit
-          valuePath: .spec.shardTopology.mongos.podTemplate.spec.resources.limits.cpu
-        - key: memory_request
-          valuePath: .spec.shardTopology.mongos.podTemplate.spec.resources.requests.memory
-        - key: memory_limit
-          valuePath: .spec.shardTopology.mongos.podTemplate.spec.resources.limits.memory
-      metricValue:
-        value: 1
 
     - name: kubedb_mongodb_mongos_replicas
       help: "Number of replicas in mongodb sharded mongos"
