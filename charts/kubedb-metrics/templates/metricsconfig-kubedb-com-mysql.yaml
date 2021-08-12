@@ -19,23 +19,11 @@ spec:
     - name: kubedb_mysql_replicas
       help: "Number of replicas of mysql instance"
       type: gauge
-      field:
-        path: .spec.replicas
-        type: Integer
-      metricValue:
-        valueFromPath: .spec.replicas
-
-    - name: kubedb_mysql_storage_bytes
-      help: "Kubedb mysql available storage size in bytes"
-      type: gauge
-      labels:
-        - key: unit
-          value: bytes
       params:
-        - key: storage
-          valuePath: .spec.storage.resources.requests.storage
+        - key: obj
+          valuePath: .
       metricValue:
-        valueFromExpression: "bytes(storage)"
+        valueFromExpression: resource_replicas(obj)
 
     - name: kubedb_mysql_status_phase
       help: "MySQL instance current phase"
@@ -97,51 +85,87 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_mysql_cpu_request
-      help: "Requested CPU by mysql instance"
+    - name: kubedb_mysql_resource_request_cpu
+      help: "Requested CPU by MySQL in core"
       type: gauge
       labels:
         - key: unit
           value: core
       params:
-        - key: cpu
-          valuePath: .spec.podTemplate.spec.resources.requests.cpu
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: cpu
       metricValue:
-        valueFromExpression: cpuCores(cpu)
+        valueFromExpression: total_resource_requests(obj, resourceType)
 
-    - name: kubedb_mysql_cpu_limit
-      help: "CPU limit for mysql instance"
+    - name: kubedb_mysql_resource_request_memory
+      help: "Requested memory by MySQL in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: memory
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: kubedb_mysql_resource_request_storage
+      help: "Requested storage by MySQL in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: storage
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: kubedb_mysql_resource_limit_cpu
+      help: "CPU limit for MySQL in core"
       type: gauge
       labels:
         - key: unit
           value: core
       params:
-        - key: cpu
-          valuePath: .spec.podTemplate.spec.resources.limits.cpu
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: cpu
       metricValue:
-        valueFromExpression: cpuCores(cpu)
+        valueFromExpression: total_resource_limits(obj, resourceType)
 
-    - name: kubedb_mysql_memory_request
-      help: "Requested memory by mysql instance"
+    - name: kubedb_mysql_resource_limit_memory
+      help: "Memory limit for MySQL in byte"
       type: gauge
       labels:
         - key: unit
-          value: bytes
+          value: byte
       params:
-        - key: memory
-          valuePath: .spec.podTemplate.spec.resources.requests.memory
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: memory
       metricValue:
-        valueFromExpression: bytes(memory)
+        valueFromExpression: total_resource_limits(obj, resourceType)
 
-    - name: kubedb_mysql_memory_limit
-      help: "Memory limit for mysql instance"
+    - name: kubedb_mysql_resource_limit_storage
+      help: "Storage limit for MySQL in byte"
       type: gauge
       labels:
         - key: unit
-          value: bytes
+          value: byte
       params:
-        - key: memory
-          valuePath: .spec.podTemplate.spec.resources.limits.memory
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: storage
       metricValue:
-        valueFromExpression: bytes(memory)
-
+        valueFromExpression: total_resource_limits(obj, resourceType)
+        
