@@ -19,23 +19,11 @@ spec:
     - name: kubedb_postgres_replicas
       help: "Number of replicas of postgres instance"
       type: gauge
-      field:
-        path: .spec.replicas
-        type: Integer
-      metricValue:
-        valueFromPath: .spec.replicas
-
-    - name: kubedb_postgres_storage_bytes
-      help: "Kubedb postgres available storage size in bytes"
-      type: gauge
-      labels:
-        - key: unit
-          value: bytes
       params:
-        - key: storage
-          valuePath: .spec.storage.resources.requests.storage
+        - key: obj
+          valuePath: .
       metricValue:
-        valueFromExpression: "bytes(storage)"
+        valueFromExpression: resource_replicas(obj)
 
     - name: kubedb_postgres_status_phase
       help: "Postgres instance current phase"
@@ -135,3 +123,87 @@ spec:
           valuePath: .spec.tls.issuerRef.name
       metricValue:
         value: 1
+
+    - name: kubedb_postgres_resource_request_cpu
+      help: "Requested CPU by Postgres in core"
+      type: gauge
+      labels:
+        - key: unit
+          value: core
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: cpu
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: kubedb_postgres_resource_request_memory
+      help: "Requested memory by Postgres in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: memory
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: kubedb_postgres_resource_request_storage
+      help: "Requested storage by Postgres in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: storage
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: kubedb_postgres_resource_limit_cpu
+      help: "CPU limit for Postgres in core"
+      type: gauge
+      labels:
+        - key: unit
+          value: core
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: cpu
+      metricValue:
+        valueFromExpression: total_resource_limits(obj, resourceType)
+
+    - name: kubedb_postgres_resource_limit_memory
+      help: "Memory limit for Postgres in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: memory
+      metricValue:
+        valueFromExpression: total_resource_limits(obj, resourceType)
+
+    - name: kubedb_postgres_resource_limit_storage
+      help: "Storage limit for Postgres in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: storage
+      metricValue:
+        valueFromExpression: total_resource_limits(obj, resourceType)
