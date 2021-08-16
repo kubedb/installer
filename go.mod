@@ -5,14 +5,18 @@ go 1.16
 require (
 	github.com/Masterminds/semver/v3 v3.1.1
 	github.com/Masterminds/sprig/v3 v3.2.2
+	github.com/gobuffalo/flect v0.2.3 // indirect
+	github.com/google/go-cmp v0.5.5 // indirect
 	github.com/google/gofuzz v1.2.0
+	github.com/json-iterator/go v1.1.11 // indirect
 	github.com/spf13/pflag v1.0.5
 	github.com/yudai/gojsondiff v1.0.0
+	golang.org/x/crypto v0.0.0-20210314154223-e6e6c4f2bb5b // indirect
 	gomodules.xyz/go-sh v0.1.0
 	gomodules.xyz/semvers v0.0.0-20210603205601-45dfbb5326a4
 	k8s.io/api v0.21.1
 	k8s.io/apimachinery v0.21.1
-	kmodules.xyz/client-go v0.0.0-20210719120358-dd0503cf99cf
+	kmodules.xyz/client-go v0.0.0-20210816181051-625868881acd
 	kmodules.xyz/schema-checker v0.1.3
 	sigs.k8s.io/yaml v1.2.0
 	stash.appscode.dev/installer v0.12.2-0.20210618212117-3667d8a7aa25
