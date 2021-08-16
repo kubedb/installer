@@ -16,7 +16,7 @@ require (
 	gomodules.xyz/semvers v0.0.0-20210603205601-45dfbb5326a4
 	k8s.io/api v0.21.1
 	k8s.io/apimachinery v0.21.1
-	kmodules.xyz/client-go v0.0.0-20210816181051-625868881acd
+	kmodules.xyz/client-go v0.0.0-20210816193105-1158390a19cd
 	kmodules.xyz/schema-checker v0.1.3
 	sigs.k8s.io/yaml v1.2.0
 	stash.appscode.dev/installer v0.12.2-0.20210618212117-3667d8a7aa25
