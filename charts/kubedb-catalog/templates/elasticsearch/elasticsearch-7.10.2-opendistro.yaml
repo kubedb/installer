@@ -2,29 +2,29 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  name: 'xpack-7.13.2'
+  name: 'opendistro-1.13.2'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
-  authPlugin: X-Pack
+  authPlugin: OpenDistro
   db:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "elasticsearch")) }}:7.13.2'
-  distribution: ElasticStack
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "amazon" "opendistro-for-elasticsearch")) }}:1.13.2'
+  distribution: OpenDistro
   exporter:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "elasticsearch-exporter")) }}:v1.2.1'
   initContainer:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "tianon" "toybox")) }}:0.8.4'
-    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-init:7.13.2-xpack-v2021.08.23'
+    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-init:1.13.2-opendistro-v2021.08.23'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
-  securityContext:
-    runAsAnyNonRoot: true
-    runAsUser: 1000
   stash:
     addon:
       backupTask:
         name: elasticsearch-backup-7.3.2
+        params:
+        - name: args
+          value: --match=^(?![.])(?!security-auditlog).+
       restoreTask:
         name: elasticsearch-restore-7.3.2
-  version: 7.13.2
+  version: 7.10.2
 {{ end }}
