@@ -40,6 +40,15 @@ jobs:
         run: |
           make ci
 
+      - name: Check metrics configuration
+        run: |
+          # install metrics-configuration-checker
+          curl -fsSL -o metrics-configuration-checker https://github.com/kmodules/metrics-configuration-checker/releases/download/v0.0.1/metrics-configuration-checker-linux-amd64
+          chmod +x metrics-configuration-checker
+          sudo mv metrics-configuration-checker /usr/local/bin/metrics-configuration-checker
+          # check kubedb-metrics chart
+          metrics-configuration-checker --content=./charts/kubedb-metrics/templates/
+
   kubernetes:
     name: Kubernetes
     runs-on: ubuntu-latest
