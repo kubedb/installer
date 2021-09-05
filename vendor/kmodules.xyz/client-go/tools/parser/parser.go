@@ -19,6 +19,7 @@ package parser
 import (
 	"bytes"
 	"io"
+	"io/fs"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -42,6 +43,8 @@ func ProcessResources(data []byte, fn ResourceFn) error {
 		if err == io.EOF {
 			break
 		} else if IsYAMLSyntaxError(err) {
+			continue
+		} else if runtime.IsMissingKind(err) {
 			continue
 		} else if err != nil {
 			return err
@@ -83,10 +86,80 @@ func ProcessDir(dir string, fn ResourceFn) error {
 	})
 }
 
+func ProcessFS(fsys fs.FS, fn ResourceFn) error {
+	return fs.WalkDir(fsys, ".", func(path string, d fs.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		if d.IsDir() {
+			return nil
+		}
+		ext := filepath.Ext(d.Name())
+		if ext != ".yaml" && ext != ".yml" && ext != ".json" {
+			return nil
+		}
+
+		data, err := ioutil.ReadFile(path)
+		if err != nil {
+			return err
+		}
+
+		return ProcessResources(data, fn)
+	})
+}
+
 func ListResources(data []byte) ([]*unstructured.Unstructured, error) {
 	var resources []*unstructured.Unstructured
 
 	err := ProcessResources(data, func(obj *unstructured.Unstructured) error {
+		if obj.GetNamespace() == "" {
+			obj.SetNamespace(core.NamespaceDefault)
+		}
+		resources = append(resources, obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	sort.Slice(resources, func(i, j int) bool {
+		if resources[i].GetAPIVersion() == resources[j].GetAPIVersion() {
+			return resources[i].GetKind() < resources[j].GetKind()
+		}
+		return resources[i].GetAPIVersion() < resources[j].GetAPIVersion()
+	})
+
+	return resources, nil
+}
+
+func ListDirResources(dir string) ([]*unstructured.Unstructured, error) {
+	var resources []*unstructured.Unstructured
+
+	err := ProcessDir(dir, func(obj *unstructured.Unstructured) error {
+		if obj.GetNamespace() == "" {
+			obj.SetNamespace(core.NamespaceDefault)
+		}
+		resources = append(resources, obj)
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	sort.Slice(resources, func(i, j int) bool {
+		if resources[i].GetAPIVersion() == resources[j].GetAPIVersion() {
+			return resources[i].GetKind() < resources[j].GetKind()
+		}
+		return resources[i].GetAPIVersion() < resources[j].GetAPIVersion()
+	})
+
+	return resources, nil
+}
+
+func ListFSResources(fsys fs.FS) ([]*unstructured.Unstructured, error) {
+	var resources []*unstructured.Unstructured
+
+	err := ProcessFS(fsys, func(obj *unstructured.Unstructured) error {
 		if obj.GetNamespace() == "" {
 			obj.SetNamespace(core.NamespaceDefault)
 		}
