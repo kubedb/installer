@@ -37,7 +37,6 @@ import (
 	"github.com/yudai/gojsondiff/formatter"
 	shell "gomodules.xyz/go-sh"
 	"gomodules.xyz/semvers"
-	core "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
@@ -122,7 +121,7 @@ func main() {
 	flag.CommandLine.AddGoFlagSet(goflag.CommandLine)
 	flag.Parse()
 
-	resources, err := ListResources(filepath.Join(dir, "catalog", "raw"))
+	resources, err := parser.ListDirResources(filepath.Join(dir, "catalog", "raw"))
 	if err != nil {
 		panic(err)
 	}
@@ -725,23 +724,6 @@ func ParseImage(s string) (reg, bin, tag string) {
 		reg, bin = s[:idx], s[idx+1:]
 	}
 	return
-}
-
-func ListResources(dir string) ([]*unstructured.Unstructured, error) {
-	var resources []*unstructured.Unstructured
-
-	err := parser.ProcessDir(dir, func(obj *unstructured.Unstructured) error {
-		if obj.GetNamespace() == "" {
-			obj.SetNamespace(core.NamespaceDefault)
-		}
-		resources = append(resources, obj)
-		return nil
-	})
-	if err != nil {
-		return nil, err
-	}
-
-	return resources, nil
 }
 
 func allDeprecated(objs []*unstructured.Unstructured) bool {
