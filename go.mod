@@ -8,7 +8,6 @@ require (
 	github.com/gobuffalo/flect v0.2.3 // indirect
 	github.com/google/go-cmp v0.5.5 // indirect
 	github.com/google/gofuzz v1.2.0
-	github.com/json-iterator/go v1.1.11 // indirect
 	github.com/spf13/pflag v1.0.5
 	github.com/yudai/gojsondiff v1.0.0
 	golang.org/x/crypto v0.0.0-20210314154223-e6e6c4f2bb5b // indirect
@@ -19,7 +18,7 @@ require (
 	kmodules.xyz/client-go v0.0.0-20210905064145-d01f17c83649
 	kmodules.xyz/schema-checker v0.1.3
 	sigs.k8s.io/yaml v1.2.0
-	stash.appscode.dev/installer v0.12.2-0.20210618212117-3667d8a7aa25
+	stash.appscode.dev/installer v0.12.2-0.20210909044138-01ecae580c8c
 )
 
 replace gopkg.in/yaml.v2 => gopkg.in/yaml.v2 v2.3.0
