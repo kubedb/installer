@@ -6,12 +6,14 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  coordinator:
+    image: '{{ include "catalog.registry" . }}/mariadb-coordinator:v0.0.1'
   db:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "mariadb")) }}:10.5.8'
   exporter:
     image: '{{ include "catalog.registry" . }}/mysqld-exporter:v0.11.0'
   initContainer:
-    image: '{{ include "catalog.registry" . }}/mariadb-init:0.2.0'
+    image: '{{ include "catalog.registry" . }}/mariadb-init:0.3.0'
   podSecurityPolicies:
     databasePolicyName: maria-db
   stash:
