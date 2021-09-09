@@ -99,7 +99,7 @@ func ProcessFS(fsys fs.FS, fn ResourceFn) error {
 			return nil
 		}
 
-		data, err := ioutil.ReadFile(path)
+		data, err := fs.ReadFile(fsys, path)
 		if err != nil {
 			return err
 		}
