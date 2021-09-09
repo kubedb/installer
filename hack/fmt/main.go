@@ -114,8 +114,10 @@ func main() {
 		--update-spec=spec.coordinator.image=_new_image
 	*/
 	specUpdates := map[string]string{}
+	var apiKind string
 
 	flag.StringVar(&dir, "dir", dir, "Path to directory where the kubedb/installer project resides (default is set o current directory)")
+	flag.StringVar(&apiKind, "kind", apiKind, "Kind of the CRD")
 	flag.StringToStringVar(&specUpdates, "update-spec", specUpdates, "Key/Value map used to update pg-coordinator and replication mode detector image")
 
 	flag.CommandLine.AddGoFlagSet(goflag.CommandLine)
@@ -154,10 +156,12 @@ func main() {
 		obj.SetAnnotations(nil)
 
 		for jp, val := range specUpdates {
-			if _, ok, _ := unstructured.NestedFieldNoCopy(obj.Object, strings.Split(jp, ".")...); ok {
-				err = unstructured.SetNestedField(obj.Object, val, strings.Split(jp, ".")...)
-				if err != nil {
-					panic(fmt.Sprintf("failed to set %s to %s in group=%s,kind=%s,name=%s", jp, val, obj.GetAPIVersion(), obj.GetKind(), obj.GetName()))
+			if apiKind == "" || apiKind == obj.GetKind() {
+				if _, ok, _ := unstructured.NestedFieldNoCopy(obj.Object, strings.Split(jp, ".")...); ok {
+					err = unstructured.SetNestedField(obj.Object, val, strings.Split(jp, ".")...)
+					if err != nil {
+						panic(fmt.Sprintf("failed to set %s to %s in group=%s,kind=%s,name=%s", jp, val, obj.GetAPIVersion(), obj.GetKind(), obj.GetName()))
+					}
 				}
 			}
 		}
