@@ -3,10 +3,20 @@ kind: RedisVersion
 metadata:
   name: 6.0.6
 spec:
+  coordinator:
+    image: kubedb/redis-coordinator:fix-redis-dbg_linux_amd64
   db:
     image: kubedb/redis:6.0.6
   exporter:
     image: kubedb/redis_exporter:1.9.0
+  initContainer:
+    image: kubedb/redis-init:0.1.0_linux_amd64
   podSecurityPolicies:
     databasePolicyName: redis-db
+  stash:
+    addon:
+      backupTask:
+        name: redis-backup-6.2.5
+      restoreTask:
+        name: redis-restore-6.2.5
   version: 6.0.6

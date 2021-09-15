@@ -3,13 +3,23 @@ kind: RedisVersion
 metadata:
   name: "5.0"
 spec:
+  coordinator:
+    image: kubedb/redis-coordinator:fix-redis-dbg_linux_amd64
   db:
     image: kubedb/redis:5.0
   deprecated: true
   exporter:
     image: kubedb/redis_exporter:v0.21.1
+  initContainer:
+    image: kubedb/redis-init:0.1.0_linux_amd64
   podSecurityPolicies:
     databasePolicyName: redis-db
+  stash:
+    addon:
+      backupTask:
+        name: redis-backup-5.0.13
+      restoreTask:
+        name: redis-restore-5.0.13
   version: "5.0"
 
 ---
@@ -18,11 +28,21 @@ kind: RedisVersion
 metadata:
   name: 5.0-v1
 spec:
+  coordinator:
+    image: kubedb/redis-coordinator:fix-redis-dbg_linux_amd64
   db:
     image: kubedb/redis:5.0-v1
   deprecated: true
   exporter:
     image: kubedb/redis_exporter:v0.21.1
+  initContainer:
+    image: kubedb/redis-init:0.1.0_linux_amd64
   podSecurityPolicies:
     databasePolicyName: redis-db
+  stash:
+    addon:
+      backupTask:
+        name: redis-backup-5.0.13
+      restoreTask:
+        name: redis-restore-5.0.13
   version: "5.0"
