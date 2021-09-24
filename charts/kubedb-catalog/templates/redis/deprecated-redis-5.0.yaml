@@ -6,13 +6,23 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  coordinator:
+    image: '{{ include "catalog.registry" . }}/redis-coordinator:fix-redis-dbg'
   db:
     image: '{{ include "catalog.registry" . }}/redis:5.0'
   deprecated: true
   exporter:
     image: '{{ include "catalog.registry" . }}/redis_exporter:v0.21.1'
+  initContainer:
+    image: '{{ include "catalog.registry" . }}/redis-init:0.1.0'
   podSecurityPolicies:
     databasePolicyName: redis-db
+  stash:
+    addon:
+      backupTask:
+        name: redis-backup-5.0.13
+      restoreTask:
+        name: redis-restore-5.0.13
   version: "5.0"
 {{ end }}
 
@@ -25,12 +35,22 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  coordinator:
+    image: '{{ include "catalog.registry" . }}/redis-coordinator:fix-redis-dbg'
   db:
     image: '{{ include "catalog.registry" . }}/redis:5.0-v1'
   deprecated: true
   exporter:
     image: '{{ include "catalog.registry" . }}/redis_exporter:v0.21.1'
+  initContainer:
+    image: '{{ include "catalog.registry" . }}/redis-init:0.1.0'
   podSecurityPolicies:
     databasePolicyName: redis-db
+  stash:
+    addon:
+      backupTask:
+        name: redis-backup-5.0.13
+      restoreTask:
+        name: redis-restore-5.0.13
   version: "5.0"
 {{ end }}

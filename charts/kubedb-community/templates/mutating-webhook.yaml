@@ -111,6 +111,23 @@ webhooks:
   failurePolicy: Fail
   sideEffects: None
 {{- end }}
+{{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "rd-operator") }}
+- name: redissentinel.mutators.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/mutators.kubedb.com/v1alpha1/redissentinels
+    caBundle: {{ b64enc .Values.apiserver.ca }}
+  rules:
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["redissentinels"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Fail
+  sideEffects: None
+{{- end }}
 {{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "mc-operator") }}
 - name: memcached.mutators.kubedb.com
   clientConfig:

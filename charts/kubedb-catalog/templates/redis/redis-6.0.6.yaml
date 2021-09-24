@@ -6,11 +6,21 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  coordinator:
+    image: '{{ include "catalog.registry" . }}/redis-coordinator:fix-redis-dbg'
   db:
     image: '{{ include "catalog.registry" . }}/redis:6.0.6'
   exporter:
     image: '{{ include "catalog.registry" . }}/redis_exporter:1.9.0'
+  initContainer:
+    image: '{{ include "catalog.registry" . }}/redis-init:0.1.0'
   podSecurityPolicies:
     databasePolicyName: redis-db
+  stash:
+    addon:
+      backupTask:
+        name: redis-backup-6.2.5
+      restoreTask:
+        name: redis-restore-6.2.5
   version: 6.0.6
 {{ end }}
