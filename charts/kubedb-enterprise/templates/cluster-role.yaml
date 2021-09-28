@@ -108,3 +108,13 @@ rules:
     - backupconfigurations
     - restoresessions
   verbs: ["get", "list", "watch", "update", "patch"]
+- apiGroups:
+  - policy
+  resources:
+  - podsecuritypolicies
+  verbs: ["use"]
+  resourceNames:
+  - {{ include "kubedb-enterprise.fullname" . }}
+  {{- range $x := .Values.additionalPodSecurityPolicies }}
+  - {{ $x }}
+  {{- end }}
