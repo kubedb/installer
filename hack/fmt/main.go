@@ -123,7 +123,7 @@ func main() {
 	flag.CommandLine.AddGoFlagSet(goflag.CommandLine)
 	flag.Parse()
 
-	resources, err := parser.ListDirResources(filepath.Join(dir, "catalog", "raw"))
+	resources, err := parser.ListPathResources(filepath.Join(dir, "catalog", "raw"))
 	if err != nil {
 		panic(err)
 	}
@@ -149,40 +149,40 @@ func main() {
 		}
 	}
 
-	for _, obj := range resources {
+	for _, ri := range resources {
 		// remove labels
-		obj.SetNamespace("")
-		obj.SetLabels(nil)
-		obj.SetAnnotations(nil)
+		ri.Object.SetNamespace("")
+		ri.Object.SetLabels(nil)
+		ri.Object.SetAnnotations(nil)
 
 		for jp, val := range specUpdates {
-			if apiKind == "" || apiKind == obj.GetKind() {
-				if _, ok, _ := unstructured.NestedFieldNoCopy(obj.Object, strings.Split(jp, ".")...); ok {
-					err = unstructured.SetNestedField(obj.Object, val, strings.Split(jp, ".")...)
+			if apiKind == "" || apiKind == ri.Object.GetKind() {
+				if _, ok, _ := unstructured.NestedFieldNoCopy(ri.Object.Object, strings.Split(jp, ".")...); ok {
+					err = unstructured.SetNestedField(ri.Object.Object, val, strings.Split(jp, ".")...)
 					if err != nil {
-						panic(fmt.Sprintf("failed to set %s to %s in group=%s,kind=%s,name=%s", jp, val, obj.GetAPIVersion(), obj.GetKind(), obj.GetName()))
+						panic(fmt.Sprintf("failed to set %s to %s in group=%s,kind=%s,name=%s", jp, val, ri.Object.GetAPIVersion(), ri.Object.GetKind(), ri.Object.GetName()))
 					}
 				}
 			}
 		}
 
-		gv, err := schema.ParseGroupVersion(obj.GetAPIVersion())
+		gv, err := schema.ParseGroupVersion(ri.Object.GetAPIVersion())
 		if err != nil {
 			panic(err)
 		}
 		if gv.Group == "catalog.kubedb.com" {
-			dbKind := strings.TrimSuffix(obj.GetKind(), "Version")
-			deprecated, _, _ := unstructured.NestedBool(obj.Object, "spec", "deprecated")
+			dbKind := strings.TrimSuffix(ri.Object.GetKind(), "Version")
+			deprecated, _, _ := unstructured.NestedBool(ri.Object.Object, "spec", "deprecated")
 
-			distro, _, _ := unstructured.NestedString(obj.Object, "spec", "distribution")
+			distro, _, _ := unstructured.NestedString(ri.Object.Object, "spec", "distribution")
 			if dbKind == "Elasticsearch" {
-				authPlugin, _, _ := unstructured.NestedString(obj.Object, "spec", "authPlugin")
+				authPlugin, _, _ := unstructured.NestedString(ri.Object.Object, "spec", "authPlugin")
 				if distro == "" {
 					distro = authPlugin
 					if authPlugin == "X-Pack" {
 						distro = "ElasticStack"
 					}
-					err = unstructured.SetNestedField(obj.Object, distro, "spec", "distribution")
+					err = unstructured.SetNestedField(ri.Object.Object, distro, "spec", "distribution")
 					if err != nil {
 						panic(err)
 					}
@@ -191,10 +191,10 @@ func main() {
 				if distro == "" {
 
 					distro = "PostgreSQL"
-					if strings.Contains(strings.ToLower(obj.GetName()), "timescale") {
+					if strings.Contains(strings.ToLower(ri.Object.GetName()), "timescale") {
 						distro = "TimescaleDB"
 					}
-					err = unstructured.SetNestedField(obj.Object, distro, "spec", "distribution")
+					err = unstructured.SetNestedField(ri.Object.Object, distro, "spec", "distribution")
 					if err != nil {
 						panic(err)
 					}
@@ -202,10 +202,10 @@ func main() {
 			} else if dbKind == "MySQL" {
 				if distro == "" {
 					distro = "Oracle"
-					if strings.Contains(strings.ToLower(obj.GetName()), "percona") {
+					if strings.Contains(strings.ToLower(ri.Object.GetName()), "percona") {
 						distro = "Percona"
 					}
-					err = unstructured.SetNestedField(obj.Object, distro, "spec", "distribution")
+					err = unstructured.SetNestedField(ri.Object.Object, distro, "spec", "distribution")
 					if err != nil {
 						panic(err)
 					}
@@ -213,36 +213,36 @@ func main() {
 			} else if dbKind == "MongoDB" {
 				if distro == "" {
 					distro = "MongoDB"
-					if strings.Contains(strings.ToLower(obj.GetName()), "percona") {
+					if strings.Contains(strings.ToLower(ri.Object.GetName()), "percona") {
 						distro = "Percona"
 					}
-					err = unstructured.SetNestedField(obj.Object, distro, "spec", "distribution")
+					err = unstructured.SetNestedField(ri.Object.Object, distro, "spec", "distribution")
 					if err != nil {
 						panic(err)
 					}
 				}
 			}
 
-			dbVersion, _, err := unstructured.NestedString(obj.Object, "spec", "version")
+			dbVersion, _, err := unstructured.NestedString(ri.Object.Object, "spec", "version")
 			if err != nil {
 				panic(err)
 			}
 			dbverKey := DbVersion{
 				Group:   gv.Group,
-				Kind:    obj.GetKind(),
+				Kind:    ri.Object.GetKind(),
 				Version: dbVersion,
 				Distro:  distro,
 			}
-			dbStore[dbverKey] = append(dbStore[dbverKey], obj)
+			dbStore[dbverKey] = append(dbStore[dbverKey], ri.Object)
 
-			pspName, _, err := unstructured.NestedString(obj.Object, "spec", "podSecurityPolicies", "databasePolicyName")
+			pspName, _, err := unstructured.NestedString(ri.Object.Object, "spec", "podSecurityPolicies", "databasePolicyName")
 			if err != nil {
 				panic(err)
 			}
 			if pspName != "" {
 				dbKey := DB{
 					Group: gv.Group,
-					Kind:  obj.GetKind(),
+					Kind:  ri.Object.GetKind(),
 				}
 				if _, ok := pspForDBs[dbKey]; !ok {
 					pspForDBs[dbKey] = sets.NewString()
@@ -253,10 +253,10 @@ func main() {
 			if !deprecated {
 				activeDBVersions[dbKind] = append(activeDBVersions[dbKind], FullVersion{
 					Version:     dbVersion,
-					CatalogName: obj.GetName(),
+					CatalogName: ri.Object.GetName(),
 				})
 
-				backupTask, _, _ := unstructured.NestedString(obj.Object, "spec", "stash", "addon", "backupTask", "name")
+				backupTask, _, _ := unstructured.NestedString(ri.Object.Object, "spec", "stash", "addon", "backupTask", "name")
 				if backupTask != "" {
 					// update based on stash catalog
 					addonKey := StashAddon{
@@ -268,13 +268,13 @@ func main() {
 						panic(fmt.Sprintf("no backup addon found for %#v", addonKey))
 					}
 					backupTask = fmt.Sprintf("%s-backup-%s", addonKey.DBType, addVer)
-					err = unstructured.SetNestedField(obj.Object, backupTask, "spec", "stash", "addon", "backupTask", "name")
+					err = unstructured.SetNestedField(ri.Object.Object, backupTask, "spec", "stash", "addon", "backupTask", "name")
 					if err != nil {
 						panic(err)
 					}
-					backupTaskStore[backupTask] = append(backupTaskStore[backupTask], obj.GetName())
+					backupTaskStore[backupTask] = append(backupTaskStore[backupTask], ri.Object.GetName())
 				}
-				restoreTask, _, _ := unstructured.NestedString(obj.Object, "spec", "stash", "addon", "restoreTask", "name")
+				restoreTask, _, _ := unstructured.NestedString(ri.Object.Object, "spec", "stash", "addon", "restoreTask", "name")
 				if restoreTask != "" {
 					// update based on stash catalog
 					addonKey := StashAddon{
@@ -286,18 +286,18 @@ func main() {
 						panic(fmt.Sprintf("no restore addon found for %#v", addonKey))
 					}
 					restoreTask = fmt.Sprintf("%s-restore-%s", addonKey.DBType, addVer)
-					err = unstructured.SetNestedField(obj.Object, restoreTask, "spec", "stash", "addon", "restoreTask", "name")
+					err = unstructured.SetNestedField(ri.Object.Object, restoreTask, "spec", "stash", "addon", "restoreTask", "name")
 					if err != nil {
 						panic(err)
 					}
-					restoreTaskStore[restoreTask] = append(restoreTaskStore[restoreTask], obj.GetName())
+					restoreTaskStore[restoreTask] = append(restoreTaskStore[restoreTask], ri.Object.GetName())
 				}
 			}
 		} else if gv.Group == "policy" {
-			if _, ok := pspStore[obj.GetName()]; ok {
-				panic("duplicate PSP name " + obj.GetName())
+			if _, ok := pspStore[ri.Object.GetName()]; ok {
+				panic("duplicate PSP name " + ri.Object.GetName())
 			}
-			pspStore[obj.GetName()] = obj
+			pspStore[ri.Object.GetName()] = ri.Object
 		}
 	}
 
@@ -623,13 +623,13 @@ func main() {
 		}
 
 		dm := map[ObjectKey]*DiffData{}
-		for _, obj := range resources {
+		for _, ri := range resources {
 			dm[ObjectKey{
-				APIVersion: obj.GetAPIVersion(),
-				Kind:       obj.GetKind(),
-				Name:       obj.GetName(),
+				APIVersion: ri.Object.GetAPIVersion(),
+				Kind:       ri.Object.GetKind(),
+				Name:       ri.Object.GetName(),
 			}] = &DiffData{
-				A: obj,
+				A: ri.Object,
 			}
 		}
 
@@ -650,21 +650,21 @@ func main() {
 			panic(err)
 		}
 
-		for _, obj := range helmout {
-			obj.SetNamespace("")
-			obj.SetLabels(nil)
-			obj.SetAnnotations(nil)
+		for _, ri := range helmout {
+			ri.Object.SetNamespace("")
+			ri.Object.SetLabels(nil)
+			ri.Object.SetAnnotations(nil)
 
 			key := ObjectKey{
-				APIVersion: obj.GetAPIVersion(),
-				Kind:       obj.GetKind(),
-				Name:       obj.GetName(),
+				APIVersion: ri.Object.GetAPIVersion(),
+				Kind:       ri.Object.GetKind(),
+				Name:       ri.Object.GetName(),
 			}
 			if _, ok := dm[key]; !ok {
 				failed = true
 				_, _ = fmt.Fprintf(os.Stderr, "missing object is raw apiVersion=%s kind=%s name=%s", key.APIVersion, key.Kind, key.Name)
 			} else {
-				dm[key].B = obj
+				dm[key].B = ri.Object
 			}
 		}
 
