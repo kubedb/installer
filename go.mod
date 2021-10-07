@@ -18,7 +18,7 @@ require (
 	kmodules.xyz/client-go v0.0.0-20210921150324-f005c6dfcb32
 	kmodules.xyz/schema-checker v0.1.3
 	sigs.k8s.io/yaml v1.2.0
-	stash.appscode.dev/installer v0.12.2-0.20210909044138-01ecae580c8c
+	stash.appscode.dev/installer v0.12.2-0.20211007063844-5e8dc3cd6620
 )
 
 replace gopkg.in/yaml.v2 => gopkg.in/yaml.v2 v2.3.0
