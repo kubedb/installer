@@ -45,7 +45,10 @@ import (
 	stash "stash.appscode.dev/installer/catalog"
 )
 
-const registryKubeDB = "kubedb"
+const (
+	registryKubeDB = "kubedb"
+	distroOfficial = "Official"
+)
 
 type StashAddon struct {
 	DBType    string
@@ -190,7 +193,7 @@ func main() {
 			} else if dbKind == "Postgres" {
 				if distro == "" {
 
-					distro = "Official"
+					distro = distroOfficial
 					if strings.Contains(strings.ToLower(ri.Object.GetName()), "timescale") {
 						distro = "TimescaleDB"
 					}
@@ -201,7 +204,7 @@ func main() {
 				}
 			} else if dbKind == "MySQL" {
 				if distro == "" {
-					distro = "Official"
+					distro = distroOfficial
 					if strings.Contains(strings.ToLower(ri.Object.GetName()), "percona") {
 						distro = "Percona"
 					}
@@ -218,7 +221,7 @@ func main() {
 				}
 			} else if dbKind == "MongoDB" {
 				if distro == "" {
-					distro = "Official"
+					distro = distroOfficial
 					if strings.Contains(strings.ToLower(ri.Object.GetName()), "percona") {
 						distro = "Percona"
 					}
