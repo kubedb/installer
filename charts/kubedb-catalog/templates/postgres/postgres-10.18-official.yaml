@@ -2,14 +2,14 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: '14.0-bullseye'
+  name: '10.18-bullseye'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "catalog.registry" . }}/pg-coordinator:panic-issue_linux_amd64'
+    image: '{{ include "catalog.registry" . }}/pg-coordinator:v0.6.0'
   db:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "postgres")) }}:14.0-bullseye'
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "postgres")) }}:10.18-bullseye'
   distribution: Official
   exporter:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "postgres-exporter")) }}:v0.9.0'
@@ -23,10 +23,10 @@ spec:
   stash:
     addon:
       backupTask:
-        name: postgres-backup-14.0
+        name: postgres-backup-10.14
       restoreTask:
-        name: postgres-restore-14.0
-  version: "14.0"
+        name: postgres-restore-10.14
+  version: "10.18"
 {{ end }}
 
 ---
@@ -34,14 +34,14 @@ spec:
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: '14.0'
+  name: '10.18'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "catalog.registry" . }}/pg-coordinator:panic-issue_linux_amd64'
+    image: '{{ include "catalog.registry" . }}/pg-coordinator:v0.6.0'
   db:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "postgres")) }}:14.0-alpine'
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "postgres")) }}:10.18-bullseye'
   distribution: Official
   exporter:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "postgres-exporter")) }}:v0.9.0'
@@ -55,8 +55,8 @@ spec:
   stash:
     addon:
       backupTask:
-        name: postgres-backup-14.0
+        name: postgres-backup-10.14
       restoreTask:
-        name: postgres-restore-14.0
-  version: "14.0"
+        name: postgres-restore-10.14
+  version: "10.18"
 {{ end }}
