@@ -190,7 +190,7 @@ func main() {
 			} else if dbKind == "Postgres" {
 				if distro == "" {
 
-					distro = "PostgreSQL"
+					distro = "Official"
 					if strings.Contains(strings.ToLower(ri.Object.GetName()), "timescale") {
 						distro = "TimescaleDB"
 					}
@@ -201,9 +201,15 @@ func main() {
 				}
 			} else if dbKind == "MySQL" {
 				if distro == "" {
-					distro = "Oracle"
+					distro = "Official"
 					if strings.Contains(strings.ToLower(ri.Object.GetName()), "percona") {
 						distro = "Percona"
+					}
+					if img, ok, _ := unstructured.NestedString(ri.Object.UnstructuredContent(), "spec", "db", "image"); ok {
+						reg, _, _ := ParseImage(img)
+						if reg == "mysql" {
+							distro = "MySQL"
+						}
 					}
 					err = unstructured.SetNestedField(ri.Object.Object, distro, "spec", "distribution")
 					if err != nil {
@@ -212,7 +218,7 @@ func main() {
 				}
 			} else if dbKind == "MongoDB" {
 				if distro == "" {
-					distro = "MongoDB"
+					distro = "Official"
 					if strings.Contains(strings.ToLower(ri.Object.GetName()), "percona") {
 						distro = "Percona"
 					}
