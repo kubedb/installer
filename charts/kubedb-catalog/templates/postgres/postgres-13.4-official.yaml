@@ -2,15 +2,15 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: '11.13-bullseye'
+  name: '13.4-bullseye'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
     image: '{{ include "catalog.registry" . }}/pg-coordinator:v0.6.0'
   db:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "postgres")) }}:11.13-bullseye'
-  distribution: PostgreSQL
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "postgres")) }}:13.4-bullseye'
+  distribution: Official
   exporter:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "postgres-exporter")) }}:v0.9.0'
   initContainer:
@@ -23,10 +23,10 @@ spec:
   stash:
     addon:
       backupTask:
-        name: postgres-backup-11.9
+        name: postgres-backup-13.1
       restoreTask:
-        name: postgres-restore-11.9
-  version: "11.13"
+        name: postgres-restore-13.1
+  version: "13.4"
 {{ end }}
 
 ---
@@ -34,15 +34,15 @@ spec:
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: '11.13'
+  name: '13.4'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
     image: '{{ include "catalog.registry" . }}/pg-coordinator:v0.6.0'
   db:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "postgres")) }}:11.13-alpine'
-  distribution: PostgreSQL
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "postgres")) }}:13.4-alpine'
+  distribution: Official
   exporter:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "postgres-exporter")) }}:v0.9.0'
   initContainer:
@@ -55,8 +55,8 @@ spec:
   stash:
     addon:
       backupTask:
-        name: postgres-backup-11.9
+        name: postgres-backup-13.1
       restoreTask:
-        name: postgres-restore-11.9
-  version: "11.13"
+        name: postgres-restore-13.1
+  version: "13.4"
 {{ end }}
