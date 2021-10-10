@@ -1,58 +1,20 @@
-{{ if .Values.catalog.mysql }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
-  name: '8.0.23-v1'
-  labels:
-    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+  name: 8.0.23
 spec:
   db:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "mysql")) }}:8.0.23'
-  distribution: Official
-  exporter:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prom" "mysqld-exporter")) }}:v0.13.0'
-  initContainer:
-    image: '{{ include "catalog.registry" . }}/mysql-init:8.0.21'
-  podSecurityPolicies:
-    databasePolicyName: mysql-db
-  replicationModeDetector:
-    image: '{{ include "catalog.registry" . }}/replication-mode-detector:v0.9.0'
-  stash:
-    addon:
-      backupTask:
-        name: mysql-backup-8.0.21
-      restoreTask:
-        name: mysql-restore-8.0.21
-  upgradeConstraints:
-    denylist:
-      groupReplication:
-      - < 8.0.23
-      standalone:
-      - < 8.0.23
-  version: 8.0.23
-{{ end }}
-
----
-{{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
-apiVersion: catalog.kubedb.com/v1alpha1
-kind: MySQLVersion
-metadata:
-  name: '8.0.23'
-  labels:
-    {{- include "kubedb-catalog.labels" . | nindent 4 }}
-spec:
-  db:
-    image: '{{ include "catalog.registry" . }}/mysql:8.0.23'
+    image: kubedb/mysql:8.0.23
   deprecated: true
   distribution: Official
   exporter:
-    image: '{{ include "catalog.registry" . }}/mysqld-exporter:v0.11.0'
+    image: kubedb/mysqld-exporter:v0.11.0
   initContainer:
-    image: '{{ include "catalog.registry" . }}/toybox:0.8.4'
+    image: kubedb/toybox:0.8.4
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
-    image: '{{ include "catalog.registry" . }}/replication-mode-detector:v0.9.0'
+    image: kubedb/replication-mode-detector:v0.9.0
   stash:
     addon:
       backupTask:
@@ -66,4 +28,35 @@ spec:
       standalone:
       - < 8.0.23
   version: 8.0.23
-{{ end }}
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  name: 8.0.23-v1
+spec:
+  db:
+    image: mysql:8.0.23
+  deprecated: true
+  distribution: Official
+  exporter:
+    image: prom/mysqld-exporter:v0.13.0
+  initContainer:
+    image: kubedb/mysql-init:8.0.21
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  replicationModeDetector:
+    image: kubedb/replication-mode-detector:v0.9.0
+  stash:
+    addon:
+      backupTask:
+        name: mysql-backup-8.0.21
+      restoreTask:
+        name: mysql-restore-8.0.21
+  upgradeConstraints:
+    denylist:
+      groupReplication:
+      - < 8.0.23
+      standalone:
+      - < 8.0.23
+  version: 8.0.23
