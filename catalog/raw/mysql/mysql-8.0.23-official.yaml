@@ -1,6 +1,39 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
+  name: 8.0.23-v2
+spec:
+  coordinator:
+    image: kubedb/mysql-coordinator:v0.0.1
+  db:
+    image: mysql:8.0.23
+  distribution: Official
+  exporter:
+    image: prom/mysqld-exporter:v0.13.0
+  initContainer:
+    image: kubedb/mysql-init:8.0.26
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  replicationModeDetector:
+    image: kubedb/replication-mode-detector:v0.9.0
+  stash:
+    addon:
+      backupTask:
+        name: mysql-backup-8.0.21
+      restoreTask:
+        name: mysql-restore-8.0.21
+  upgradeConstraints:
+    denylist:
+      groupReplication:
+      - < 8.0.23
+      standalone:
+      - < 8.0.23
+  version: 8.0.23
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
   name: 8.0.23
 spec:
   db:
