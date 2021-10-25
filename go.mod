@@ -13,7 +13,7 @@ require (
 	gomodules.xyz/semvers v0.0.0-20210603205601-45dfbb5326a4
 	k8s.io/api v0.21.1
 	k8s.io/apimachinery v0.21.1
-	kmodules.xyz/client-go v0.0.0-20210928133955-8df5bb467db6
+	kmodules.xyz/client-go v0.0.0-20211023080224-88313b8deed7
 	kmodules.xyz/schema-checker v0.1.3
 	sigs.k8s.io/yaml v1.2.0
 	stash.appscode.dev/installer v0.12.2-0.20211007220922-a088dcdf1983
@@ -125,7 +125,7 @@ replace k8s.io/utils => k8s.io/utils v0.0.0-20201110183641-67b214c5f920
 
 replace sigs.k8s.io/application => github.com/kmodules/application v0.8.4-0.20210427030912-90eeee3bc4ad
 
-replace github.com/satori/go.uuid => github.com/gofrs/uuid v4.0.0+incompatible
+replace github.com/satori/go.uuid => github.com/gomodules/uuid v4.0.0+incompatible
 
 replace github.com/dgrijalva/jwt-go => github.com/gomodules/jwt v3.2.2+incompatible
 
