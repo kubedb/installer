@@ -6499,6 +6499,7 @@ spec:
                 - OpenDistro
                 - SearchGuard
                 - X-Pack
+                - OpenSearch
                 type: string
               db:
                 properties:
@@ -6514,6 +6515,7 @@ spec:
                 - ElasticStack
                 - OpenDistro
                 - SearchGuard
+                - OpenSearch
                 - KubeDB
                 type: string
               exporter:
@@ -7027,6 +7029,7 @@ spec:
                 enum:
                 - Official
                 - Percona
+                - KubeDB
                 - MongoDB
                 type: string
               exporter:
@@ -7189,9 +7192,10 @@ spec:
               distribution:
                 enum:
                 - Official
-                - MySQL
-                - Percona
                 - Oracle
+                - Percona
+                - KubeDB
+                - MySQL
                 type: string
               exporter:
                 properties:
@@ -7608,6 +7612,8 @@ spec:
                 enum:
                 - Official
                 - TimescaleDB
+                - PostGIS
+                - KubeDB
                 - PostgreSQL
                 type: string
               exporter:
@@ -45161,6 +45167,25 @@ spec:
           spec:
             properties:
               configuration:
+                properties:
+                  applyConfig:
+                    additionalProperties:
+                      type: string
+                    type: object
+                  configSecret:
+                    properties:
+                      name:
+                        type: string
+                    type: object
+                  removeCustomConfig:
+                    type: boolean
+                  removeSecureCustomConfig:
+                    type: boolean
+                  secureConfigSecret:
+                    properties:
+                      name:
+                        type: string
+                    type: object
                 type: object
               databaseRef:
                 properties:
@@ -46526,6 +46551,10 @@ spec:
                 properties:
                   configServer:
                     properties:
+                      applyConfig:
+                        additionalProperties:
+                          type: string
+                        type: object
                       configSecret:
                         properties:
                           name:
@@ -46538,6 +46567,10 @@ spec:
                     type: object
                   mongos:
                     properties:
+                      applyConfig:
+                        additionalProperties:
+                          type: string
+                        type: object
                       configSecret:
                         properties:
                           name:
@@ -46550,6 +46583,10 @@ spec:
                     type: object
                   replicaSet:
                     properties:
+                      applyConfig:
+                        additionalProperties:
+                          type: string
+                        type: object
                       configSecret:
                         properties:
                           name:
@@ -46562,6 +46599,10 @@ spec:
                     type: object
                   shard:
                     properties:
+                      applyConfig:
+                        additionalProperties:
+                          type: string
+                        type: object
                       configSecret:
                         properties:
                           name:
@@ -46574,6 +46615,10 @@ spec:
                     type: object
                   standalone:
                     properties:
+                      applyConfig:
+                        additionalProperties:
+                          type: string
+                        type: object
                       configSecret:
                         properties:
                           name:
@@ -47022,9 +47067,6 @@ spec:
                 type: object
               restart:
                 type: object
-              statefulSetOrdinal:
-                format: int32
-                type: integer
               tls:
                 properties:
                   certificates:
