@@ -7,7 +7,7 @@
 ```console
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm install kubedb-catalog appscode/kubedb-catalog -n kube-system
+$ helm install kubedb-catalog appscode/kubedb-catalog -n kubedb
 ```
 
 ## Introduction
@@ -23,7 +23,7 @@ This chart deploys KubeDB catalog on a [Kubernetes](http://kubernetes.io) cluste
 To install the chart with the release name `kubedb-catalog`:
 
 ```console
-$ helm install kubedb-catalog appscode/kubedb-catalog -n kube-system
+$ helm install kubedb-catalog appscode/kubedb-catalog -n kubedb
 ```
 
 The command deploys KubeDB catalog on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -35,7 +35,7 @@ The command deploys KubeDB catalog on the Kubernetes cluster in the default conf
 To uninstall/delete the `kubedb-catalog`:
 
 ```console
-$ helm delete kubedb-catalog -n kube-system
+$ helm delete kubedb-catalog -n kubedb
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
@@ -68,12 +68,12 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
 
 ```console
-$ helm install kubedb-catalog appscode/kubedb-catalog -n kube-system --set image.registry=kubedb
+$ helm install kubedb-catalog appscode/kubedb-catalog -n kubedb --set image.registry=kubedb
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```console
-$ helm install kubedb-catalog appscode/kubedb-catalog -n kube-system --values values.yaml
+$ helm install kubedb-catalog appscode/kubedb-catalog -n kubedb --values values.yaml
 ```

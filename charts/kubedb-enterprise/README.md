@@ -7,7 +7,7 @@
 ```console
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm install kubedb-enterprise appscode/kubedb-enterprise -n kube-system
+$ helm install kubedb-enterprise appscode/kubedb-enterprise -n kubedb
 ```
 
 ## Introduction
@@ -23,7 +23,7 @@ This chart deploys a KubeDB Enterprise operator on a [Kubernetes](http://kuberne
 To install the chart with the release name `kubedb-enterprise`:
 
 ```console
-$ helm install kubedb-enterprise appscode/kubedb-enterprise -n kube-system
+$ helm install kubedb-enterprise appscode/kubedb-enterprise -n kubedb
 ```
 
 The command deploys a KubeDB Enterprise operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -35,7 +35,7 @@ The command deploys a KubeDB Enterprise operator on the Kubernetes cluster in th
 To uninstall/delete the `kubedb-enterprise`:
 
 ```console
-$ helm delete kubedb-enterprise -n kube-system
+$ helm delete kubedb-enterprise -n kubedb
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
@@ -96,12 +96,12 @@ The following table lists the configurable parameters of the `kubedb-enterprise`
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
 
 ```console
-$ helm install kubedb-enterprise appscode/kubedb-enterprise -n kube-system --set replicaCount=1
+$ helm install kubedb-enterprise appscode/kubedb-enterprise -n kubedb --set replicaCount=1
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```console
-$ helm install kubedb-enterprise appscode/kubedb-enterprise -n kube-system --values values.yaml
+$ helm install kubedb-enterprise appscode/kubedb-enterprise -n kubedb --values values.yaml
 ```
