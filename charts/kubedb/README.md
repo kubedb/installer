@@ -7,7 +7,7 @@
 ```console
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm install kubedb appscode/kubedb -n kube-system
+$ helm install kubedb appscode/kubedb -n kubedb
 ```
 
 ## Introduction
@@ -23,7 +23,7 @@ This chart deploys a KubeDB operator on a [Kubernetes](http://kubernetes.io) clu
 To install the chart with the release name `kubedb`:
 
 ```console
-$ helm install kubedb appscode/kubedb -n kube-system
+$ helm install kubedb appscode/kubedb -n kubedb
 ```
 
 The command deploys a KubeDB operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -35,7 +35,7 @@ The command deploys a KubeDB operator on the Kubernetes cluster in the default c
 To uninstall/delete the `kubedb`:
 
 ```console
-$ helm delete kubedb -n kube-system
+$ helm delete kubedb -n kubedb
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
@@ -64,12 +64,12 @@ The following table lists the configurable parameters of the `kubedb` chart and 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
 
 ```console
-$ helm install kubedb appscode/kubedb -n kube-system --set global.registry=kubedb
+$ helm install kubedb appscode/kubedb -n kubedb --set global.registry=kubedb
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```console
-$ helm install kubedb appscode/kubedb -n kube-system --values values.yaml
+$ helm install kubedb appscode/kubedb -n kubedb --values values.yaml
 ```
