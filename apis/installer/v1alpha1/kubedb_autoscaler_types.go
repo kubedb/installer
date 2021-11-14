@@ -74,9 +74,7 @@ type KubedbAutoscalerSpec struct {
 	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext"`
 	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount"`
 	Apiserver          WebHookSpec              `json:"apiserver"`
-	// +optional
-	EnableAnalytics bool       `json:"enableAnalytics"`
-	Monitoring      Monitoring `json:"monitoring"`
+	Monitoring         Monitoring               `json:"monitoring"`
 	// +optional
 	AdditionalPodSecurityPolicies []string `json:"additionalPodSecurityPolicies"`
 	// +optional
