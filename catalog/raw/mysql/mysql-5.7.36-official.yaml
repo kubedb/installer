@@ -1,0 +1,31 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  name: 5.7.36
+spec:
+  coordinator:
+    image: kubedb/mysql-coordinator:v0.0.1
+  db:
+    image: mysql:5.7.36
+  distribution: Official
+  exporter:
+    image: prom/mysqld-exporter:v0.13.0
+  initContainer:
+    image: kubedb/mysql-init:5.7-v1
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  replicationModeDetector:
+    image: kubedb/replication-mode-detector:v0.9.0
+  stash:
+    addon:
+      backupTask:
+        name: mysql-backup-5.7.25
+      restoreTask:
+        name: mysql-restore-5.7.25
+  upgradeConstraints:
+    denylist:
+      groupReplication:
+      - < 5.7.36
+      standalone:
+      - < 5.7.36
+  version: 5.7.36

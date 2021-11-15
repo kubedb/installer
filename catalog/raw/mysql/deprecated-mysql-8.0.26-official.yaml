@@ -1,25 +1,20 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
-  name: 8.0.26-innodb
+  name: 8.0.26
 spec:
-  coordinator:
-    image: kubedb/mysql-coordinator:v0.0.1
   db:
-    image: mysql/mysql-server:8.0.26
-  distribution: MySQL
+    image: kubedb/mysql:8.0.26
+  deprecated: true
+  distribution: Official
   exporter:
-    image: kubedb/mysqld-exporter:v0.11.0
+    image: prom/mysqld-exporter:v0.13.0
   initContainer:
-    image: kubedb/mysql-init:8.0.26
+    image: kubedb/mysql-init:8.0.21
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
-    image: kubedb/replication-mode-detector:v0.5.0
-  router:
-    image: mysql/mysql-router:8.0.26
-  routerInitContainer:
-    image: kubedb/mysql-router-init:v0.0.1
+    image: kubedb/replication-mode-detector:v0.9.0
   stash:
     addon:
       backupTask:
@@ -29,7 +24,7 @@ spec:
   upgradeConstraints:
     denylist:
       groupReplication:
-      - < 8.0.23
+      - < 8.0.26
       standalone:
-      - < 8.0.23
+      - < 8.0.26
   version: 8.0.26
