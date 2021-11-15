@@ -2,14 +2,14 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
-  name: '8.0.26-innodb'
+  name: '8.0.27-innodb'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
     image: '{{ include "catalog.registry" . }}/mysql-coordinator:v0.0.1'
   db:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "mysql" "mysql-server")) }}:8.0.26'
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "mysql" "mysql-server")) }}:8.0.27'
   distribution: MySQL
   exporter:
     image: '{{ include "catalog.registry" . }}/mysqld-exporter:v0.11.0'
@@ -20,7 +20,7 @@ spec:
   replicationModeDetector:
     image: '{{ include "catalog.registry" . }}/replication-mode-detector:v0.5.0'
   router:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "mysql" "mysql-router")) }}:8.0.26'
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "mysql" "mysql-router")) }}:8.0.27'
   routerInitContainer:
     image: '{{ include "catalog.registry" . }}/mysql-router-init:v0.0.1'
   stash:
@@ -32,8 +32,8 @@ spec:
   upgradeConstraints:
     denylist:
       groupReplication:
-      - < 8.0.26
+      - < 8.0.27
       standalone:
-      - < 8.0.26
-  version: 8.0.26
+      - < 8.0.27
+  version: 8.0.27
 {{ end }}
