@@ -1,0 +1,39 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "kubedb-ui-server.fullname" . }}
+  labels:
+    {{- include "kubedb-ui-server.labels" . | nindent 4 }}
+rules:
+- apiGroups:
+  - ui.kubedb.com
+  resources:
+  - "*"
+  verbs: ["*"]
+- apiGroups:
+  - kubedb.com
+  - catalog.kubedb.com
+  resources:
+  - "*"
+  verbs: ["get", "list", "watch"]
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs: ["list"]
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs: ["get", "list"]
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs: ["create"]
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  - secrets
+  verbs: ["get", "list", "watch"]
