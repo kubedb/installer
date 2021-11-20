@@ -30,6 +30,7 @@ func TestDefaultValues(t *testing.T) {
 		v1alpha1.KubedbCatalogSpec{},
 		v1alpha1.KubedbCommunitySpec{},
 		v1alpha1.KubedbEnterpriseSpec{},
+		v1alpha1.KubedbUiServerSpec{},
 		v1alpha1.KubedbSpec{},
 	})
 	checker.TestAll(t)
