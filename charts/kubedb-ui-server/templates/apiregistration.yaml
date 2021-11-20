@@ -1,0 +1,78 @@
+{{- $caCrt := "" }}
+{{- $serverCrt := "" }}
+{{- $serverKey := "" }}
+{{- if .Values.apiserver.servingCerts.generate }}
+{{- $ca := genCA "ca" 3650 }}
+{{- $cn := include "kubedb-ui-server.fullname" . -}}
+{{- $altName1 := printf "%s.%s" $cn .Release.Namespace }}
+{{- $altName2 := printf "%s.%s.svc" $cn .Release.Namespace }}
+{{- $server := genSignedCert $cn nil (list $altName1 $altName2) 3650 $ca }}
+{{- $caCrt =  b64enc $ca.Cert }}
+{{- $serverCrt = b64enc $server.Cert }}
+{{- $serverKey = b64enc $server.Key }}
+{{- else }}
+{{- $caCrt = required "Required when apiserver.servingCerts.generate is false" .Values.apiserver.servingCerts.caCrt }}
+{{- $serverCrt = required "Required when apiserver.servingCerts.generate is false" .Values.apiserver.servingCerts.serverCrt }}
+{{- $serverKey = required "Required when apiserver.servingCerts.generate is false" .Values.apiserver.servingCerts.serverKey }}
+{{- end }}
+# register as aggregated apiserver
+apiVersion: apiregistration.k8s.io/v1
+kind: APIService
+metadata:
+  name: v1alpha1.ui.kubedb.com
+  labels:
+    {{- include "kubedb-ui-server.labels" . | nindent 4 }}
+spec:
+  group: ui.kubedb.com
+  version: v1alpha1
+  service:
+    namespace: {{ .Release.Namespace }}
+    name: {{ include "kubedb-ui-server.fullname" . }}
+  caBundle: {{ $caCrt }}
+  groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
+  versionPriority: {{ .Values.apiserver.versionPriority }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "kubedb-ui-server.fullname" . }}-apiserver-cert
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubedb-ui-server.labels" . | nindent 4 }}
+type: kubernetes.io/tls
+data:
+  tls.crt: {{ $serverCrt }}
+  tls.key: {{ $serverKey }}
+---
+# to read the config for terminating authentication
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "kubedb-ui-server.fullname" . }}-apiserver-extension-server-authentication-reader
+  namespace: kube-system
+  labels:
+    {{- include "kubedb-ui-server.labels" . | nindent 4 }}
+roleRef:
+  kind: Role
+  apiGroup: rbac.authorization.k8s.io
+  name: extension-apiserver-authentication-reader
+subjects:
+- kind: ServiceAccount
+  name: {{ include "kubedb-ui-server.serviceAccountName" . }}
+  namespace: {{ .Release.Namespace }}
+---
+# to delegate authentication and authorization
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "kubedb-ui-server.fullname" . }}-apiserver-auth-delegator
+  labels:
+    {{- include "kubedb-ui-server.labels" . | nindent 4 }}
+roleRef:
+  kind: ClusterRole
+  apiGroup: rbac.authorization.k8s.io
+  name: system:auth-delegator
+subjects:
+- kind: ServiceAccount
+  name: {{ include "kubedb-ui-server.serviceAccountName" . }}
+  namespace: {{ .Release.Namespace }}

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "kubedb-ui-server.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubedb-ui-server.labels" . | nindent 4 }}
+{{- if and (eq .Values.monitoring.agent "prometheus.io/builtin") .Values.monitoring.server }}
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/metrics"
+    prometheus.io/port: "8443"
+    prometheus.io/scheme: "https"
+{{- end }}
+spec:
+  ports:
+  # Port used to expose admission webhook apiserver
+  - name: api
+    port: 443
+    targetPort: 8443
+  selector:
+    {{- include "kubedb-ui-server.selectorLabels" . | nindent 4 }}
