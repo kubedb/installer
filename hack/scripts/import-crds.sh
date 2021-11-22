@@ -47,11 +47,21 @@ fi
 
 crd-importer \
     --input=${crd_dir} \
-    --out=./charts/kubedb-crds/crds
+    --out=./charts/kubedb-crds/crds \
+    --group=kubedb.com \
+    --group=catalog.kubedb.com \
+    --group=config.kubedb.com \
+    --group=ops.kubedb.com \
+    --group=autoscaling.kubedb.com
 
 crd-importer \
     --input=${crd_dir} \
-    --out=. --output-yaml=crds/kubedb-crds.yaml
+    --out=. --output-yaml=crds/kubedb-crds.yaml \
+    --group=kubedb.com \
+    --group=catalog.kubedb.com \
+    --group=config.kubedb.com \
+    --group=ops.kubedb.com \
+    --group=autoscaling.kubedb.com
 
 crd-importer \
     --input=${crd_dir} \
@@ -66,3 +76,8 @@ crd-importer \
 crd-importer \
     --input=https://github.com/kmodules/custom-resources/raw/kubernetes-1.21.1/crds/metrics.appscode.com_metricsconfigurations.yaml \
     --out=./charts/kubedb-metrics/crds
+
+crd-importer \
+    --input=${crd_dir} \
+    --out=./charts/kubedb-ui-server/crds \
+    --group=kubedb.com
