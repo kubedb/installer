@@ -17,3 +17,4 @@
 set -e
 
 helm dependency update charts/kubedb
+helm dependency update charts/kubedb-opscenter
