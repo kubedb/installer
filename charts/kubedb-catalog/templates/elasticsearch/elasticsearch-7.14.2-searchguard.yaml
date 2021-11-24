@@ -1,0 +1,33 @@
+{{ if .Values.catalog.elasticsearch }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: 'searchguard-7.14.2'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: SearchGuard
+  db:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "floragunncom" "sg-elasticsearch")) }}:7.14.2-52.3.0'
+  distribution: SearchGuard
+  exporter:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "elasticsearch-exporter")) }}:v1.3.0'
+  initContainer:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "tianon" "toybox")) }}:0.8.4'
+    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-init:7.14.2-searchguard-v2021.11.10'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 1000
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.3.2
+        params:
+        - name: args
+          value: --match=^(?![.])(?!searchguard).+
+      restoreTask:
+        name: elasticsearch-restore-7.3.2
+  version: 7.14.2
+{{ end }}
