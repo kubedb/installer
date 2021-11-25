@@ -44,13 +44,13 @@ type KubedbSpec struct {
 	Global GlobalValues `json:"global"`
 
 	//+optional
-	Community KubedbCommunitySpec `json:"kubedb-community"`
+	Provisioner KubedbProvisionerSpec `json:"kubedb-provisioner"`
 
 	//+optional
 	Catalog KubedbCatalogSpec `json:"kubedb-catalog"`
 
 	//+optional
-	Enterprise KubedbEnterpriseSpec `json:"kubedb-enterprise"`
+	OpsManager KubedbOpsManagerSpec `json:"kubedb-ops-manager"`
 
 	//+optional
 	Autoscaler KubedbAutoscalerSpec `json:"kubedb-autoscaler"`

@@ -28,8 +28,8 @@ func TestDefaultValues(t *testing.T) {
 	checker := schemachecker.New("../../..", []interface{}{
 		v1alpha1.KubedbAutoscalerSpec{},
 		v1alpha1.KubedbCatalogSpec{},
-		v1alpha1.KubedbCommunitySpec{},
-		v1alpha1.KubedbEnterpriseSpec{},
+		v1alpha1.KubedbProvisionerSpec{},
+		v1alpha1.KubedbOpsManagerSpec{},
 		v1alpha1.KubedbUiServerSpec{},
 		v1alpha1.KubedbSpec{},
 	})

@@ -257,7 +257,7 @@ chart-contents-%:
 	@if [ ! -z "$(APP_VERSION)" ]; then                                               \
 		yq -y --indentless -i '.appVersion="$(APP_VERSION)"' ./charts/$*/Chart.yaml;    \
 		case "$*" in                                                                    \
-		  kubedb-community | kubedb-enterprise | kubedb-autoscaler)                     \
+		  kubedb-provisioner | kubedb-ops-manager | kubedb-autoscaler)                     \
 		    yqq w -i ./charts/$*/values.yaml operator.tag --tag '!!str' $(APP_VERSION); \
 		    ;;                                                                          \
 		esac;                                                                           \
