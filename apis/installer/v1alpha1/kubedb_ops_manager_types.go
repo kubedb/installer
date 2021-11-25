@@ -22,25 +22,25 @@ import (
 )
 
 const (
-	ResourceKindKubedbAutoscaler = "KubedbAutoscaler"
-	ResourceKubedbAutoscaler     = "kubedbautoscaler"
-	ResourceKubedbAutoscalers    = "kubedbautoscalers"
+	ResourceKindKubedbOpsManager = "KubedbOpsManager"
+	ResourceKubedbOpsManager     = "kubedbopsmanager"
+	ResourceKubedbOpsManagers    = "kubedbopsmanagers"
 )
 
-// KubedbAutoscaler defines the schama for KubeDB Ops Manager Operator Installer.
+// KubedbOpsManager defines the schama for KubeDB Ops Manager Operator Installer.
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:path=kubedbautoscalers,singular=kubedbautoscaler,categories={kubedb,appscode}
-type KubedbAutoscaler struct {
+// +kubebuilder:resource:path=kubedbopsmanagers,singular=kubedbopsmanager,categories={kubedb,appscode}
+type KubedbOpsManager struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              KubedbAutoscalerSpec `json:"spec,omitempty"`
+	Spec              KubedbOpsManagerSpec `json:"spec,omitempty"`
 }
 
-// KubedbAutoscalerSpec is the schema for kubedb-autoscaler chart values file
-type KubedbAutoscalerSpec struct {
+// KubedbOpsManagerSpec is the schema for kubedb-ops-manager chart values file
+type KubedbOpsManagerSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
@@ -79,30 +79,14 @@ type KubedbAutoscalerSpec struct {
 	AdditionalPodSecurityPolicies []string `json:"additionalPodSecurityPolicies"`
 	// +optional
 	License string `json:"license"`
-	// +optional
-	UpdateInterval string `json:"updateInterval"`
-	// +optional
-	StorageAutoscaler StorageAutoscalerSpec `json:"storageAutoscaler"`
-}
-
-type StorageAutoscalerSpec struct {
-	Prometheus PrometheusSpec `json:"prometheus"`
-}
-
-type PrometheusSpec struct {
-	Address string `json:"address"`
-	// +optional
-	BearerToken string `json:"bearerToken"`
-	// +optional
-	CACert string `json:"caCert"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KubedbAutoscalerList is a list of KubedbAutoscalers
-type KubedbAutoscalerList struct {
+// KubedbOpsManagerList is a list of KubedbOpsManagers
+type KubedbOpsManagerList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of KubedbAutoscaler CRD objects
-	Items []KubedbAutoscaler `json:"items,omitempty"`
+	// Items is a list of KubedbOpsManager CRD objects
+	Items []KubedbOpsManager `json:"items,omitempty"`
 }
