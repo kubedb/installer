@@ -22,25 +22,25 @@ import (
 )
 
 const (
-	ResourceKindKubedbAutoscaler = "KubedbAutoscaler"
-	ResourceKubedbAutoscaler     = "kubedbautoscaler"
-	ResourceKubedbAutoscalers    = "kubedbautoscalers"
+	ResourceKindKubedbProvisioner = "KubedbProvisioner"
+	ResourceKubedbProvisioner     = "kubedbprovisioner"
+	ResourceKubedbProvisioners    = "kubedbprovisioners"
 )
 
-// KubedbAutoscaler defines the schama for KubeDB Ops Manager Operator Installer.
+// KubedbProvisioner defines the schama for KubeDB Operator Installer.
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:path=kubedbautoscalers,singular=kubedbautoscaler,categories={kubedb,appscode}
-type KubedbAutoscaler struct {
+// +kubebuilder:resource:path=kubedbprovisioners,singular=kubedbprovisioner,categories={kubedb,appscode}
+type KubedbProvisioner struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              KubedbAutoscalerSpec `json:"spec,omitempty"`
+	Spec              KubedbProvisionerSpec `json:"spec,omitempty"`
 }
 
-// KubedbAutoscalerSpec is the schema for kubedb-autoscaler chart values file
-type KubedbAutoscalerSpec struct {
+// KubedbProvisionerSpec is the schema for kubedb-provisioner chart values file
+type KubedbProvisionerSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
@@ -74,35 +74,70 @@ type KubedbAutoscalerSpec struct {
 	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext"`
 	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount"`
 	Apiserver          WebHookSpec              `json:"apiserver"`
-	Monitoring         Monitoring               `json:"monitoring"`
+	// +optional
+	EnforceTerminationPolicy bool       `json:"enforceTerminationPolicy"`
+	Monitoring               Monitoring `json:"monitoring"`
 	// +optional
 	AdditionalPodSecurityPolicies []string `json:"additionalPodSecurityPolicies"`
 	// +optional
 	License string `json:"license"`
-	// +optional
-	UpdateInterval string `json:"updateInterval"`
-	// +optional
-	StorageAutoscaler StorageAutoscalerSpec `json:"storageAutoscaler"`
 }
 
-type StorageAutoscalerSpec struct {
-	Prometheus PrometheusSpec `json:"prometheus"`
+type ServiceAccountSpec struct {
+	Create bool `json:"create"`
+	//+optional
+	Name *string `json:"name"`
+	//+optional
+	Annotations map[string]string `json:"annotations"`
 }
 
-type PrometheusSpec struct {
-	Address string `json:"address"`
+type WebHookSpec struct {
+	GroupPriorityMinimum    int32  `json:"groupPriorityMinimum"`
+	VersionPriority         int32  `json:"versionPriority"`
+	EnableMutatingWebhook   bool   `json:"enableMutatingWebhook"`
+	EnableValidatingWebhook bool   `json:"enableValidatingWebhook"`
+	CA                      string `json:"ca"`
 	// +optional
-	BearerToken string `json:"bearerToken"`
+	BypassValidatingWebhookXray bool            `json:"bypassValidatingWebhookXray"`
+	UseKubeapiserverFqdnForAks  bool            `json:"useKubeapiserverFqdnForAks"`
+	Healthcheck                 HealthcheckSpec `json:"healthcheck"`
+	Port                        int32           `json:"port"`
+	ServingCerts                ServingCerts    `json:"servingCerts"`
+}
+
+type ServingCerts struct {
+	Generate bool `json:"generate"`
 	// +optional
-	CACert string `json:"caCert"`
+	CaCrt string `json:"caCrt"`
+	// +optional
+	ServerCrt string `json:"serverCrt"`
+	// +optional
+	ServerKey string `json:"serverKey"`
+}
+
+type HealthcheckSpec struct {
+	// +optional
+	Enabled bool `json:"enabled"`
+}
+
+type Monitoring struct {
+	// +optional
+	Enabled        bool                  `json:"enabled"`
+	Agent          string                `json:"agent"`
+	ServiceMonitor *ServiceMonitorLabels `json:"serviceMonitor"`
+}
+
+type ServiceMonitorLabels struct {
+	// +optional
+	Labels map[string]string `json:"labels"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KubedbAutoscalerList is a list of KubedbAutoscalers
-type KubedbAutoscalerList struct {
+// KubedbProvisionerList is a list of KubedbProvisioner-s
+type KubedbProvisionerList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of KubedbAutoscaler CRD objects
-	Items []KubedbAutoscaler `json:"items,omitempty"`
+	// Items is a list of KubedbProvisioner CRD objects
+	Items []KubedbProvisioner `json:"items,omitempty"`
 }
