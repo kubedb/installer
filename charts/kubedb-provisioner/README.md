@@ -16,7 +16,7 @@ This chart deploys a KubeDB Provisioner operator on a [Kubernetes](http://kubern
 
 ## Prerequisites
 
-- Kubernetes 1.14+
+- Kubernetes 1.16+
 
 ## Installing the Chart
 
