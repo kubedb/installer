@@ -81,3 +81,7 @@ crd-importer \
     --input=${crd_dir} \
     --out=./charts/kubedb-ui-server/crds \
     --group=kubedb.com
+
+crd-importer \
+    --input=https://github.com/open-viz/grafana-tools/raw/v0.0.1/crds/openviz.dev_grafanadashboards.yaml \
+    --out=./charts/kubedb-grafana-dashboards/crds
