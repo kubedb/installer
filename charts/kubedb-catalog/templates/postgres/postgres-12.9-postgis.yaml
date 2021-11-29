@@ -1,0 +1,30 @@
+{{ if .Values.catalog.postgres }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: '12.9-bullseye-postgis'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  coordinator:
+    image: '{{ include "catalog.registry" . }}/pg-coordinator:v0.8.0'
+  db:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "postgis" "postgis")) }}:12-3.1'
+  distribution: PostGIS
+  exporter:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "postgres-exporter")) }}:v0.9.0'
+  initContainer:
+    image: '{{ include "catalog.registry" . }}/postgres-init:0.4.0'
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-12.4
+      restoreTask:
+        name: postgres-restore-12.4
+  version: "12.9"
+{{ end }}

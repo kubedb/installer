@@ -1,0 +1,30 @@
+{{ if .Values.catalog.postgres }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: 'timescaledb-2.5.0-pg14.1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  coordinator:
+    image: '{{ include "catalog.registry" . }}/pg-coordinator:v0.8.0'
+  db:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "timescale" "timescaledb")) }}:2.5.0-pg14-oss'
+  distribution: TimescaleDB
+  exporter:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "postgres-exporter")) }}:v0.9.0'
+  initContainer:
+    image: '{{ include "catalog.registry" . }}/postgres-init:0.4.0'
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: false
+    runAsUser: 70
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-14.0
+      restoreTask:
+        name: postgres-restore-14.0
+  version: "14.1"
+{{ end }}
