@@ -1,0 +1,26 @@
+{{ range .Values.resources }}
+{{ range $path, $_ :=  $.Files.Glob (printf "dashboards/%s/**.json" .) }}
+apiVersion: openviz.dev/v1alpha1
+kind: GrafanaDashboard
+metadata:
+  name: {{ printf "%s-%s" $.Values.grafana.name ((get ($.Files.Get $path | mustFromJson) "title") | lower | nospace | replace "/" "-" ) | trunc 63 | trimSuffix "-" }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    {{- include "kubedb-grafana-dashboards.labels" $ | nindent 4 }}
+spec:
+  grafana:
+    apiGroup: appcatalog.appscode.com
+    kind: AppBinding
+    name: {{ required "A valid .Values.grafana.name entry required!"  $.Values.grafana.name }}
+  model:
+    {{- omit ($.Files.Get $path | mustFromJson) "id" "uid" | toYaml | nindent 4 }}
+{{- with $.Values.dashboard.folderID }}
+  folderID: {{ . }}
+{{- end }}
+  overwrite: {{ $.Values.dashboard.overwrite }}
+  templatize:
+    title: {{ $.Values.dashboard.templatize.title }}
+    datasource: {{ $.Values.dashboard.templatize.datasource }}
+---
+{{ end }}
+{{ end }}

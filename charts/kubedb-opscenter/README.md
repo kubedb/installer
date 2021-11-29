@@ -44,10 +44,11 @@ The command removes all the Kubernetes components associated with the chart and 
 
 The following table lists the configurable parameters of the `kubedb-opscenter` chart and their default values.
 
-|        Parameter         |                   Description                   | Default |
-|--------------------------|-------------------------------------------------|---------|
-| kubedb-metrics.enabled   | If enabled, installs the kubedb-metrics chart   | `true`  |
-| kubedb-ui-server.enabled | If enabled, installs the kubedb-ui-server chart | `true`  |
+|             Parameter             |                       Description                        | Default |
+|-----------------------------------|----------------------------------------------------------|---------|
+| kubedb-metrics.enabled            | If enabled, installs the kubedb-metrics chart            | `true`  |
+| kubedb-ui-server.enabled          | If enabled, installs the kubedb-ui-server chart          | `true`  |
+| kubedb-grafana-dashboards.enabled | If enabled, installs the kubedb-grafana-dashboards chart | `true`  |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
