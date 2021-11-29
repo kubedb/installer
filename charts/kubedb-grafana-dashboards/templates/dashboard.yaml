@@ -1,7 +1,7 @@
 {{ range .Values.resources }}
 {{ range $path, $_ :=  $.Files.Glob (printf "dashboards/%s/**.json" .) }}
 apiVersion: openviz.dev/v1alpha1
-kind: Dashboard
+kind: GrafanaDashboard
 metadata:
   name: {{ printf "%s-%s" $.Values.grafana.name ((get ($.Files.Get $path | mustFromJson) "title") | lower | nospace | replace "/" "-" ) | trunc 63 | trimSuffix "-" }}
   namespace: {{ $.Release.Namespace }}
