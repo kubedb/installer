@@ -1,0 +1,30 @@
+{{ if .Values.catalog.elasticsearch }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: 'opensearch-1.2.2'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: OpenSearch
+  db:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "opensearchproject" "opensearch")) }}:1.2.2'
+  distribution: OpenSearch
+  exporter:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "elasticsearch-exporter")) }}:v1.3.0'
+  initContainer:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "tianon" "toybox")) }}:0.8.4'
+    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-init:1.2.2-opensearch-v2021.12.17'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.14.0
+        params:
+        - name: args
+          value: --match=^(?![.])(?!security-auditlog).+
+      restoreTask:
+        name: elasticsearch-restore-7.14.0
+  version: 1.2.2
+{{ end }}
