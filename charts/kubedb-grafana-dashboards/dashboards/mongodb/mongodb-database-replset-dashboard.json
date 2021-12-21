@@ -22,15 +22,28 @@
     ]
   },
   "editable": true,
+  "fiscalYearStartMonth": 0,
   "gnetId": null,
   "graphTooltip": 1,
-  "id": 33,
-  "iteration": 1631525452304,
+  "iteration": 1639487976334,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 89,
+      "title": "Overview",
+      "type": "row"
+    },
+    {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "description": "Shows the role of the selected member instance (PRIMARY or SECONDARY)",
       "fieldConfig": {
         "defaults": {
@@ -92,6 +105,12 @@
         },
         "overrides": []
       },
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 0,
+        "y": 1
+      },
       "hideTimeOverride": true,
       "id": 49,
       "interval": null,
@@ -112,12 +131,12 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "repeat": null,
       "targets": [
         {
-          "exemplar": true,
-          "expr": "mongodb_mongod_replset_my_state{instance=~\"$host\"}",
+          "exemplar": false,
+          "expr": "mongodb_mongod_replset_my_state{pod=~\"$pod\"}",
           "interval": "5m",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -132,7 +151,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "description": "Shows the number of members in the replica set",
       "fieldConfig": {
         "defaults": {
@@ -162,7 +181,7 @@
         "h": 3,
         "w": 4,
         "x": 6,
-        "y": 0
+        "y": 1
       },
       "hideTimeOverride": false,
       "id": 59,
@@ -184,10 +203,10 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "targets": [
         {
-          "exemplar": true,
+          "exemplar": false,
           "expr": "count by (set) (mongodb_mongod_replset_number_of_members{set=~\"$replset\"} or mongodb_mongod_replset_my_state{set=~\"$replset\"})",
           "interval": "5m",
           "intervalFactor": 1,
@@ -203,7 +222,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "description": "Shows how long ago the last election occurred",
       "fieldConfig": {
         "defaults": {
@@ -233,7 +252,7 @@
         "h": 3,
         "w": 4,
         "x": 10,
-        "y": 0
+        "y": 1
       },
       "hideTimeOverride": true,
       "id": 65,
@@ -255,10 +274,10 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "targets": [
         {
-          "expr": "time() - mongodb_mongod_replset_member_election_date{instance=~\"$host\"}",
+          "expr": "time() - mongodb_mongod_replset_member_election_date{pod=~\"$pod\"}",
           "format": "time_series",
           "interval": "5m",
           "intervalFactor": 1,
@@ -274,7 +293,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "description": "Shows the current replication lag for the selected member",
       "fieldConfig": {
         "defaults": {
@@ -304,7 +323,7 @@
         "h": 3,
         "w": 4,
         "x": 14,
-        "y": 0
+        "y": 1
       },
       "hideTimeOverride": true,
       "id": 77,
@@ -326,10 +345,10 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "targets": [
         {
-          "expr": "(max(mongodb_mongod_replset_member_optime_date{state=\"PRIMARY\", set=\"$replset\"}) - min(mongodb_mongod_replset_member_optime_date{state=\"SECONDARY\"} * on (name) group_left mongodb_mongod_replset_my_name{instance=~\"$host\"})) or vector(0)",
+          "expr": "(max(mongodb_mongod_replset_member_optime_date{state=\"PRIMARY\", set=\"$replset\"}) - min(mongodb_mongod_replset_member_optime_date{state=\"SECONDARY\"} * on (name) group_left mongodb_mongod_replset_my_name{pod=~\"$pod\"})) or vector(0)",
           "interval": "5m",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -344,7 +363,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "description": "Shows the storage engine used on the instance",
       "fieldConfig": {
         "defaults": {
@@ -374,7 +393,7 @@
         "h": 3,
         "w": 6,
         "x": 18,
-        "y": 0
+        "y": 1
       },
       "hideTimeOverride": true,
       "id": 78,
@@ -396,10 +415,10 @@
         "text": {},
         "textMode": "name"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "targets": [
         {
-          "expr": "mongodb_mongod_storage_engine{instance=~\"$host\"}",
+          "expr": "mongodb_mongod_storage_engine{pod=~\"$pod\"}",
           "interval": "5m",
           "intervalFactor": 1,
           "legendFormat": "{{ engine }}",
@@ -413,11 +432,25 @@
       "type": "stat"
     },
     {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 4
+      },
+      "id": 87,
+      "panels": [],
+      "title": "Replication Info",
+      "type": "row"
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "decimals": null,
       "editable": true,
       "error": false,
@@ -435,7 +468,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 3
+        "y": 5
       },
       "hiddenSeries": false,
       "id": 63,
@@ -457,7 +490,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -467,7 +500,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_mongod_op_counters_repl_total{instance=~\"$host\", type!~\"(command|getmore|query)\"}[$interval]) or irate(mongodb_mongod_op_counters_repl_total{instance=~\"$host\", type!~\"(command|getmore|query)\"}[5m])",
+          "expr": "rate(mongodb_mongod_op_counters_repl_total{pod=~\"$pod\", type!~\"(command|getmore|query)\"}[$interval]) or irate(mongodb_mongod_op_counters_repl_total{pod=~\"$pod\", type!~\"(command|getmore|query)\"}[5m])",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "{{type}}",
@@ -527,8 +560,9 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "decimals": null,
+      "description": "Shows the delay between an operation occurring on the primary and that same operation getting applied on the selected member",
       "editable": true,
       "error": false,
       "fill": 2,
@@ -545,7 +579,132 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 3
+        "y": 5
+      },
+      "hiddenSeries": false,
+      "id": 14,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.2.3",
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "(max(mongodb_mongod_replset_member_optime_date{state=\"PRIMARY\", set=\"$replset\"}) - min(mongodb_mongod_replset_member_optime_date{state=\"SECONDARY\"} * on (name) group_left mongodb_mongod_replset_my_name{pod=~\"$pod\"})) or vector(0)",
+          "interval": "$interval",
+          "intervalFactor": 1,
+          "legendFormat": "Lag",
+          "refId": "A",
+          "step": 300
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Replication Lag",
+      "tooltip": {
+        "msResolution": false,
+        "shared": true,
+        "sort": 0,
+        "value_type": "cumulative"
+      },
+      "type": "graph",
+      "x-axis": true,
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "y-axis": true,
+      "y_formats": [
+        "s",
+        "short"
+      ],
+      "yaxes": [
+        {
+          "format": "s",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": 0,
+          "show": true
+        },
+        {
+          "format": "short",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "id": 91,
+      "panels": [],
+      "title": "Oplog Info",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${datasource}",
+      "decimals": null,
+      "editable": true,
+      "error": false,
+      "fill": 2,
+      "fillGradient": 0,
+      "grid": {
+        "leftLogBase": 1,
+        "leftMax": null,
+        "leftMin": 0,
+        "rightLogBase": 1,
+        "rightMax": null,
+        "rightMin": null
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 13
       },
       "hiddenSeries": false,
       "id": 79,
@@ -569,7 +728,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -579,7 +738,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_mongod_metrics_repl_network_getmores_total_milliseconds{instance=~\"$host\"}[$interval]) or irate(mongodb_mongod_metrics_repl_network_getmores_total_milliseconds{instance=~\"$host\"}[5m])",
+          "expr": "rate(mongodb_mongod_metrics_repl_network_getmores_total_milliseconds{pod=~\"$pod\"}[$interval]) or irate(mongodb_mongod_metrics_repl_network_getmores_total_milliseconds{pod=~\"$pod\"}[5m])",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "{{instance}}",
@@ -639,119 +798,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
-      "decimals": null,
-      "description": "Shows the delay between an operation occurring on the primary and that same operation getting applied on the selected member",
-      "editable": true,
-      "error": false,
-      "fill": 2,
-      "fillGradient": 0,
-      "grid": {
-        "leftLogBase": 1,
-        "leftMax": null,
-        "leftMin": 0,
-        "rightLogBase": 1,
-        "rightMax": null,
-        "rightMin": null
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 0,
-        "y": 10
-      },
-      "hiddenSeries": false,
-      "id": 14,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": false,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.1.0",
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "(max(mongodb_mongod_replset_member_optime_date{state=\"PRIMARY\", set=\"$replset\"}) - min(mongodb_mongod_replset_member_optime_date{state=\"SECONDARY\"} * on (name) group_left mongodb_mongod_replset_my_name{instance=~\"$host\"})) or vector(0)",
-          "interval": "$interval",
-          "intervalFactor": 1,
-          "legendFormat": "Lag",
-          "refId": "A",
-          "step": 300
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Replication Lag",
-      "tooltip": {
-        "msResolution": false,
-        "shared": true,
-        "sort": 0,
-        "value_type": "cumulative"
-      },
-      "type": "graph",
-      "x-axis": true,
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "y-axis": true,
-      "y_formats": [
-        "s",
-        "short"
-      ],
-      "yaxes": [
-        {
-          "format": "s",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": 0,
-          "show": true
-        },
-        {
-          "format": "short",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "decimals": null,
       "editable": true,
       "error": false,
@@ -769,7 +816,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 10
+        "y": 13
       },
       "hiddenSeries": false,
       "id": 80,
@@ -793,7 +840,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -803,7 +850,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mongodb_mongod_metrics_repl_buffer_size_bytes{instance=~\"$host\"}",
+          "expr": "mongodb_mongod_metrics_repl_buffer_size_bytes{pod=~\"$pod\"}",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Used",
@@ -811,7 +858,7 @@
           "step": 300
         },
         {
-          "expr": "mongodb_mongod_metrics_repl_buffer_max_size_bytes{instance=~\"$host\"}",
+          "expr": "mongodb_mongod_metrics_repl_buffer_max_size_bytes{pod=~\"$pod\"}",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Max",
@@ -871,7 +918,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "decimals": null,
       "editable": true,
       "error": false,
@@ -889,7 +936,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 17
+        "y": 20
       },
       "hiddenSeries": false,
       "id": 81,
@@ -913,7 +960,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -923,7 +970,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_mongod_metrics_repl_preload_docs_num_total{instance=~\"$host\"}[$interval]) or irate(mongodb_mongod_metrics_repl_preload_docs_num_total{instance=~\"$host\"}[5m])",
+          "expr": "rate(mongodb_mongod_metrics_repl_preload_docs_num_total{pod=~\"$pod\"}[$interval]) or irate(mongodb_mongod_metrics_repl_preload_docs_num_total{pod=~\"$pod\"}[5m])",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Document Preload",
@@ -932,7 +979,7 @@
           "step": 300
         },
         {
-          "expr": "rate(mongodb_mongod_metrics_repl_preload_indexes_num_total{instance=~\"$host\"}[$interval]) or irate(mongodb_mongod_metrics_repl_preload_indexes_num_total{instance=~\"$host\"}[5m])",
+          "expr": "rate(mongodb_mongod_metrics_repl_preload_indexes_num_total{pod=~\"$pod\"}[$interval]) or irate(mongodb_mongod_metrics_repl_preload_indexes_num_total{pod=~\"$pod\"}[5m])",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Index Preload",
@@ -941,7 +988,7 @@
           "step": 300
         },
         {
-          "expr": "rate(mongodb_mongod_metrics_repl_apply_ops_total{instance=~\"$host\"}[$interval]) or irate(mongodb_mongod_metrics_repl_apply_ops_total{instance=~\"$host\"}[5m])",
+          "expr": "rate(mongodb_mongod_metrics_repl_apply_ops_total{pod=~\"$pod\"}[$interval]) or irate(mongodb_mongod_metrics_repl_apply_ops_total{pod=~\"$pod\"}[5m])",
           "intervalFactor": 2,
           "legendFormat": "Batch Apply",
           "refId": "C",
@@ -1000,7 +1047,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "decimals": null,
       "editable": true,
       "error": false,
@@ -1018,7 +1065,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 17
+        "y": 20
       },
       "hiddenSeries": false,
       "id": 85,
@@ -1042,7 +1089,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1052,7 +1099,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mongodb_mongod_metrics_repl_buffer_count{instance=~\"$host\"}",
+          "expr": "mongodb_mongod_metrics_repl_buffer_count{pod=~\"$pod\"}",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Current",
@@ -1109,7 +1156,7 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 30,
+  "schemaVersion": 31,
   "style": "dark",
   "tags": [
     "MongoDB"
@@ -1126,7 +1173,7 @@
           "text": "auto",
           "value": "$__auto_interval_interval"
         },
-        "datasource": "Prometheus",
+        "datasource": "${datasource}",
         "description": null,
         "error": null,
         "hide": 0,
@@ -1183,6 +1230,58 @@
         "type": "interval"
       },
       {
+        "current": {
+          "selected": true,
+          "text": "Prometheus",
+          "value": "Prometheus"
+        },
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Datasource",
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "queryValue": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "demo",
+          "value": "demo"
+        },
+        "datasource": "${datasource}",
+        "definition": "label_values(namespace)",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Namespace",
+        "multi": false,
+        "name": "namespace",
+        "options": [],
+        "query": {
+          "query": "label_values(namespace)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
         "allFormat": "glob",
         "allValue": null,
         "current": {
@@ -1190,7 +1289,7 @@
           "text": "replicaset",
           "value": "replicaset"
         },
-        "datasource": "Prometheus",
+        "datasource": "${datasource}",
         "definition": "",
         "description": null,
         "error": null,
@@ -1202,7 +1301,7 @@
         "name": "replset",
         "options": [],
         "query": {
-          "query": "label_values(mongodb_mongod_replset_my_state, set)",
+          "query": "label_values(mongodb_mongod_replset_my_state{namespace=~\"$namespace\"}, set)",
           "refId": "Prometheus-replset-Variable-Query"
         },
         "refresh": 2,
@@ -1219,23 +1318,23 @@
         "allValue": null,
         "current": {
           "selected": true,
-          "text": "10.2.118.12:56790",
-          "value": "10.2.118.12:56790"
+          "text": "mg-rs-0",
+          "value": "mg-rs-0"
         },
-        "datasource": "Prometheus",
+        "datasource": "${datasource}",
         "definition": "",
         "description": null,
         "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": "Instance",
+        "label": "Pod",
         "multi": false,
         "multiFormat": "glob",
-        "name": "host",
+        "name": "pod",
         "options": [],
         "query": {
-          "query": "label_values(mongodb_mongod_replset_my_state{set=\"$replset\"}, instance)",
-          "refId": "Prometheus-host-Variable-Query"
+          "query": "label_values(mongodb_mongod_replset_my_state{set=\"$replset\"}, pod)",
+          "refId": "Prometheus-pod-Variable-Query"
         },
         "refresh": 2,
         "regex": "",
@@ -1280,7 +1379,6 @@
     ]
   },
   "timezone": "browser",
-  "title": "MongoDB ReplSet",
-  "uid": "jH7B6vInz",
-  "version": 9
+  "title": "KubeDB / MongoDB / Database (ReplicaSet)",
+  "version": 2
 }

@@ -22,18 +22,276 @@
     ]
   },
   "editable": true,
+  "fiscalYearStartMonth": 0,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 32,
-  "iteration": 1631526033067,
+  "iteration": 1639484683174,
   "links": [],
+  "liveNow": false,
   "panels": [
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 68,
+      "panels": [],
+      "title": "Overview",
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "${datasource}",
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 0,
+        "y": 1
+      },
+      "id": 1003,
+      "links": [],
+      "options": {
+        "content": "<h3 style='color:#e68a00;font-weight:bold;text-align:center'>$pod</h3>",
+        "mode": "html"
+      },
+      "pluginVersion": "8.2.3",
+      "targets": [
+        {
+          "exemplar": false,
+          "expr": "$pod",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Pod",
+      "type": "text"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "${datasource}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 360086400
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 6,
+        "y": 1
+      },
+      "id": 1001,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "8.2.3",
+      "targets": [
+        {
+          "exemplar": false,
+          "expr": "mongodb_instance_uptime_seconds{pod=~\"$pod\"}",
+          "interval": "$interval",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Uptime",
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "${datasource}",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 12,
+        "y": 1
+      },
+      "id": 1005,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.2.3",
+      "targets": [
+        {
+          "exemplar": false,
+          "expr": "sum(rate(mongodb_mongod_op_counters_total{pod=~\"$pod\",type!=\"command\"}[$interval]) or irate(mongodb_mongod_op_counters_total{pod=~\"$pod\",type!=\"command\"}[5m]) or rate(mongodb_op_counters_total{pod=~\"$pod\",type!=\"command\"}[$interval]) or irate(mongodb_op_counters_total{pod=~\"$pod\",type!=\"command\"}[5m]))",
+          "interval": "$interval",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "QPS",
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "${datasource}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "µs"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 18,
+        "y": 1
+      },
+      "id": 1007,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.2.3",
+      "targets": [
+        {
+          "exemplar": false,
+          "expr": "avg by (service_name) (rate(mongodb_mongod_op_latencies_latency_total{pod=~\"$pod\",type=\"command\"}[$interval]) / (rate(mongodb_mongod_op_latencies_ops_total{pod=~\"$pod\",type=\"command\"}[$interval]) > 0) or\nirate(mongodb_mongod_op_latencies_latency_total{pod=~\"$pod\",type=\"command\"}[5m]) / (irate(mongodb_mongod_op_latencies_ops_total{pod=~\"$pod\",type=\"command\"}[5m]) > 0))",
+          "interval": "$interval",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Latency",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 4
+      },
+      "id": 66,
+      "panels": [],
+      "title": "System",
+      "type": "row"
+    },
     {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "decimals": 1,
       "description": "Shows how many times a command is executed per second on average during the selected interval.",
       "editable": true,
@@ -49,10 +307,10 @@
         "rightMin": null
       },
       "gridPos": {
-        "h": 7,
+        "h": 8,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 5
       },
       "hiddenSeries": false,
       "id": 15,
@@ -78,7 +336,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -88,7 +346,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_mongod_op_counters_total{instance=~\"$host\", type!=\"command\"}[$interval]) or \nirate(mongodb_mongod_op_counters_total{instance=~\"$host\", type!=\"command\"}[5m]) or \nrate(mongodb_mongos_op_counters_total{instance=~\"$host\", type!=\"command\"}[$interval]) or \nirate(mongodb_mongos_op_counters_total{instance=~\"$host\", type!=\"command\"}[5m])",
+          "expr": "rate(mongodb_mongod_op_counters_total{pod=~\"$pod\", type!=\"command\"}[$interval]) or \nirate(mongodb_mongod_op_counters_total{pod=~\"$pod\", type!=\"command\"}[5m]) or \nrate(mongodb_mongos_op_counters_total{pod=~\"$pod\", type!=\"command\"}[$interval]) or \nirate(mongodb_mongos_op_counters_total{pod=~\"$pod\", type!=\"command\"}[5m])",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
@@ -98,7 +356,7 @@
           "step": 300
         },
         {
-          "expr": "rate(mongodb_mongod_op_counters_repl_total{instance=~\"$host\", type!~\"(command|query|getmore)\"}[$interval]) or \nirate(mongodb_mongod_op_counters_repl_total{instance=~\"$host\", type!~\"(command|query|getmore)\"}[5m]) or\nrate(mongodb_mongos_op_counters_repl_total{instance=~\"$host\", type!~\"(command|query|getmore)\"}[$interval]) or \nirate(mongodb_mongos_op_counters_repl_total{instance=~\"$host\", type!~\"(command|query|getmore)\"}[5m])",
+          "expr": "rate(mongodb_mongod_op_counters_repl_total{pod=~\"$pod\", type!~\"(command|query|getmore)\"}[$interval]) or \nirate(mongodb_mongod_op_counters_repl_total{pod=~\"$pod\", type!~\"(command|query|getmore)\"}[5m]) or\nrate(mongodb_mongos_op_counters_repl_total{pod=~\"$pod\", type!~\"(command|query|getmore)\"}[$interval]) or \nirate(mongodb_mongos_op_counters_repl_total{pod=~\"$pod\", type!~\"(command|query|getmore)\"}[5m])",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
@@ -108,7 +366,7 @@
           "step": 300
         },
         {
-          "expr": "rate(mongodb_mongod_metrics_ttl_deleted_documents_total{instance=~\"$host\"}[$interval]) or \nirate(mongodb_mongod_metrics_ttl_deleted_documents_total{instance=~\"$host\"}[5m]) or\nrate(mongodb_mongos_metrics_ttl_deleted_documents_total{instance=~\"$host\"}[$interval]) or \nirate(mongodb_mongos_metrics_ttl_deleted_documents_total{instance=~\"$host\"}[5m])",
+          "expr": "rate(mongodb_mongod_metrics_ttl_deleted_documents_total{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_mongod_metrics_ttl_deleted_documents_total{pod=~\"$pod\"}[5m]) or\nrate(mongodb_mongos_metrics_ttl_deleted_documents_total{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_mongos_metrics_ttl_deleted_documents_total{pod=~\"$pod\"}[5m])",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
@@ -170,7 +428,110 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
+      "decimals": 2,
+      "description": "Average latency of operations (classified by read, write, or (other) command)",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 2,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 13
+      },
+      "hiddenSeries": false,
+      "id": 69,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": true,
+        "min": true,
+        "rightSide": true,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.2.3",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": false,
+          "expr": "avg by (pod,type) (rate(mongodb_mongod_op_latencies_latency_total{pod=~\"$pod\"}[$interval]) / (rate(mongodb_mongod_op_latencies_ops_total{pod=~\"$pod\"}[$interval]) > 0) or irate(mongodb_mongod_op_latencies_latency_total{pod=~\"$pod\"}[5m]) / (irate(mongodb_mongod_op_latencies_ops_total{pod=~\"$pod\"}[5m]) > 0))",
+          "interval": "$interval",
+          "legendFormat": "{{type}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Latency Detail",
+      "tooltip": {
+        "shared": true,
+        "sort": 5,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 2,
+          "format": "µs",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${datasource}",
       "decimals": null,
       "description": "Keep in mind the hard limit on the maximum number of connections set by your distribution.",
       "editable": true,
@@ -189,7 +550,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 7
+        "y": 21
       },
       "height": "250px",
       "hiddenSeries": false,
@@ -215,7 +576,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -225,8 +586,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "exemplar": true,
-          "expr": "mongodb_connections{instance=~\"$host\", state=\"current\"}",
+          "exemplar": false,
+          "expr": "mongodb_connections{pod=~\"$pod\", state=\"current\"}",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
@@ -288,7 +649,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "decimals": null,
       "description": "Helps identify why connections are increasing. Shows active cursors compared to cursors being automatically killed after 10 minutes due to an application not closing the connection.",
       "editable": true,
@@ -307,7 +668,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 7
+        "y": 21
       },
       "height": "250px",
       "hiddenSeries": false,
@@ -334,7 +695,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -344,7 +705,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mongodb_mongod_metrics_cursor_open{instance=~\"$host\"} or\nmongodb_mongod_cursors{instance=~\"$host\"} or\nmongodb_mongos_metrics_cursor_open{instance=~\"$host\"} or \nmongodb_mongos_cursors{instance=~\"$host\"}",
+          "expr": "mongodb_mongod_metrics_cursor_open{pod=~\"$pod\"} or\nmongodb_mongod_cursors{pod=~\"$pod\"} or\nmongodb_mongos_metrics_cursor_open{pod=~\"$pod\"} or \nmongodb_mongos_cursors{pod=~\"$pod\"}",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
@@ -406,7 +767,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "decimals": null,
       "description": "When used in combination with 'Command Operations', this graph can help identify write amplification. For example, when one insert or update command actually inserts or updates hundreds, thousands, or even millions of documents.",
       "editable": true,
@@ -425,7 +786,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 14
+        "y": 28
       },
       "height": "250px",
       "hiddenSeries": false,
@@ -451,7 +812,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -461,7 +822,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_mongod_metrics_document_total{instance=~\"$host\"}[$interval]) or \nirate(mongodb_mongod_metrics_document_total{instance=~\"$host\"}[5m])",
+          "expr": "rate(mongodb_mongod_metrics_document_total{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_mongod_metrics_document_total{pod=~\"$pod\"}[5m])",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
@@ -523,7 +884,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "decimals": null,
       "description": "Any number of queued operations for long periods of time is an indication of possible issues. Find the cause and fix it before requests get stuck in the queue.",
       "editable": true,
@@ -542,7 +903,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 14
+        "y": 28
       },
       "height": "250px",
       "hiddenSeries": false,
@@ -568,7 +929,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -578,8 +939,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "exemplar": true,
-          "expr": "mongodb_mongod_global_lock_current_queue{instance=~\"$host\"}",
+          "exemplar": false,
+          "expr": "mongodb_mongod_global_lock_current_queue{pod=~\"$pod\"}",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
@@ -641,7 +1002,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "decimals": 2,
       "editable": true,
       "error": false,
@@ -659,7 +1020,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 21
+        "y": 35
       },
       "height": "250px",
       "hiddenSeries": false,
@@ -684,7 +1045,7 @@
         "alertThreshold": true
       },
       "percentage": true,
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -694,7 +1055,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(mongodb_mongod_metrics_document_total{instance=~\"$host\", state=\"returned\"}[$interval]))/\nsum(rate(mongodb_mongod_metrics_query_executor_total{instance=~\"$host\", state=\"scanned_objects\"}[$interval])) \nor\nsum(irate(mongodb_mongod_metrics_document_total{instance=~\"$host\", state=\"returned\"}[5m]))/\nsum(irate(mongodb_mongod_metrics_query_executor_total{instance=~\"$host\", state=\"scanned_objects\"}[5m]))",
+          "expr": "sum(rate(mongodb_mongod_metrics_document_total{pod=~\"$pod\", state=\"returned\"}[$interval]))/\nsum(rate(mongodb_mongod_metrics_query_executor_total{pod=~\"$pod\", state=\"scanned_objects\"}[$interval])) \nor\nsum(irate(mongodb_mongod_metrics_document_total{pod=~\"$pod\", state=\"returned\"}[5m]))/\nsum(irate(mongodb_mongod_metrics_query_executor_total{pod=~\"$pod\", state=\"scanned_objects\"}[5m]))",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
@@ -704,7 +1065,7 @@
           "step": 300
         },
         {
-          "expr": "(sum(rate(mongodb_mongod_metrics_query_executor_total{instance=~\"$host\", state=\"scanned\"}[$interval]))/\nsum(rate(mongodb_mongod_metrics_query_executor_total{instance=~\"$host\", state=\"scanned_objects\"}[$interval])) \nor\nsum(irate(mongodb_mongod_metrics_query_executor_total{instance=~\"$host\", state=\"scanned\"}[5m]))/\nsum(irate(mongodb_mongod_metrics_query_executor_total{instance=~\"$host\", state=\"scanned_objects\"}[5m])))",
+          "expr": "(sum(rate(mongodb_mongod_metrics_query_executor_total{pod=~\"$pod\", state=\"scanned\"}[$interval]))/\nsum(rate(mongodb_mongod_metrics_query_executor_total{pod=~\"$pod\", state=\"scanned_objects\"}[$interval])) \nor\nsum(irate(mongodb_mongod_metrics_query_executor_total{pod=~\"$pod\", state=\"scanned\"}[5m]))/\nsum(irate(mongodb_mongod_metrics_query_executor_total{pod=~\"$pod\", state=\"scanned_objects\"}[5m])))",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
@@ -766,7 +1127,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "decimals": null,
       "editable": true,
       "error": false,
@@ -777,7 +1138,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 21
+        "y": 35
       },
       "hiddenSeries": false,
       "id": 64,
@@ -803,7 +1164,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -813,7 +1174,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_mongod_metrics_query_executor_total{instance=~\"$host\"}[$interval]) or irate(mongodb_mongod_metrics_query_executor_total{instance=~\"$host\"}[5m])",
+          "expr": "rate(mongodb_mongod_metrics_query_executor_total{pod=~\"$pod\"}[$interval]) or irate(mongodb_mongod_metrics_query_executor_total{pod=~\"$pod\"}[5m])",
           "format": "time_series",
           "interval": "$interval",
           "intervalFactor": 1,
@@ -823,7 +1184,7 @@
           "step": 300
         },
         {
-          "expr": "rate(mongodb_mongod_metrics_record_moves_total{instance=~\"$host\"}[$interval]) or irate(mongodb_mongod_metrics_record_moves_total{instance=~\"$host\"}[5m])",
+          "expr": "rate(mongodb_mongod_metrics_record_moves_total{pod=~\"$pod\"}[$interval]) or irate(mongodb_mongod_metrics_record_moves_total{pod=~\"$pod\"}[5m])",
           "format": "time_series",
           "interval": "$interval",
           "intervalFactor": 1,
@@ -878,7 +1239,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "decimals": null,
       "description": "This is useful for write-heavy workloads to understand how long it takes to verify writes and how many concurrent writes are occurring.",
       "editable": true,
@@ -897,7 +1258,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 28
+        "y": 42
       },
       "hiddenSeries": false,
       "id": 41,
@@ -921,7 +1282,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -931,7 +1292,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_mongod_metrics_get_last_error_wtime_total_milliseconds{instance=~\"$host\"}[$interval]) or \nirate(mongodb_mongod_metrics_get_last_error_wtime_total_milliseconds{instance=~\"$host\"}[5m]) or\nrate(mongodb_mongos_metrics_get_last_error_wtime_total_milliseconds{instance=~\"$host\"}[$interval]) or \nirate(mongodb_mongos_metrics_get_last_error_wtime_total_milliseconds{instance=~\"$host\"}[5m])",
+          "expr": "rate(mongodb_mongod_metrics_get_last_error_wtime_total_milliseconds{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_mongod_metrics_get_last_error_wtime_total_milliseconds{pod=~\"$pod\"}[5m]) or\nrate(mongodb_mongos_metrics_get_last_error_wtime_total_milliseconds{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_mongos_metrics_get_last_error_wtime_total_milliseconds{pod=~\"$pod\"}[5m])",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
@@ -993,7 +1354,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "decimals": null,
       "description": "This is useful for write-heavy workloads to understand how long it takes to verify writes and how many concurrent writes are occurring.",
       "editable": true,
@@ -1012,7 +1373,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 28
+        "y": 42
       },
       "height": "250px",
       "hiddenSeries": false,
@@ -1038,7 +1399,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1048,7 +1409,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_mongod_metrics_get_last_error_wtime_num_total{instance=~\"$host\"}[$interval]) or \nirate(mongodb_mongod_metrics_get_last_error_wtime_num_total{instance=~\"$host\"}[5m]) or\nrate(mongodb_mongos_metrics_get_last_error_wtime_num_total{instance=~\"$host\"}[$interval]) or \nirate(mongodb_mongos_metrics_get_last_error_wtime_num_total{instance=~\"$host\"}[5m])",
+          "expr": "rate(mongodb_mongod_metrics_get_last_error_wtime_num_total{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_mongod_metrics_get_last_error_wtime_num_total{pod=~\"$pod\"}[5m]) or\nrate(mongodb_mongos_metrics_get_last_error_wtime_num_total{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_mongos_metrics_get_last_error_wtime_num_total{pod=~\"$pod\"}[5m])",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
@@ -1058,7 +1419,7 @@
           "step": 300
         },
         {
-          "expr": "rate(mongodb_mongod_metrics_get_last_error_wtimeouts_total{instance=~\"$host\"}[$interval]) or\nirate(mongodb_mongod_metrics_get_last_error_wtimeouts_total{instance=~\"$host\"}[5m]) or\nrate(mongodb_mongos_metrics_get_last_error_wtimeouts_total{instance=~\"$host\"}[$interval]) or\nirate(mongodb_mongos_metrics_get_last_error_wtimeouts_total{instance=~\"$host\"}[5m])",
+          "expr": "rate(mongodb_mongod_metrics_get_last_error_wtimeouts_total{pod=~\"$pod\"}[$interval]) or\nirate(mongodb_mongod_metrics_get_last_error_wtimeouts_total{pod=~\"$pod\"}[5m]) or\nrate(mongodb_mongos_metrics_get_last_error_wtimeouts_total{pod=~\"$pod\"}[$interval]) or\nirate(mongodb_mongos_metrics_get_last_error_wtimeouts_total{pod=~\"$pod\"}[5m])",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
@@ -1120,7 +1481,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "decimals": null,
       "description": "Asserts are not important by themselves, but you can correlate spikes with other graphs.",
       "editable": true,
@@ -1139,7 +1500,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 35
+        "y": 49
       },
       "height": "250px",
       "hiddenSeries": false,
@@ -1166,7 +1527,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1176,8 +1537,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "exemplar": true,
-          "expr": "rate(mongodb_asserts_total{instance=~\"$host\"}[$interval]) or \nirate(mongodb_asserts_total{instance=~\"$host\"}[5m])",
+          "exemplar": false,
+          "expr": "rate(mongodb_asserts_total{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_asserts_total{pod=~\"$pod\"}[5m])",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
@@ -1239,7 +1600,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "decimals": null,
       "description": "Page faults indicate that requests are processed from disk either because an index is missing or there is not enough memory for the data set. Consider increasing memory or sharding out.",
       "editable": true,
@@ -1258,7 +1619,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 35
+        "y": 49
       },
       "height": "250px",
       "hiddenSeries": false,
@@ -1283,7 +1644,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.2.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1293,8 +1654,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "exemplar": true,
-          "expr": "rate(mongodb_extra_info_page_faults_total{instance=~\"$host\"}[$interval]) or \nirate(mongodb_extra_info_page_faults_total{instance=~\"$host\"}[5m])",
+          "exemplar": false,
+          "expr": "rate(mongodb_extra_info_page_faults_total{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_extra_info_page_faults_total{pod=~\"$pod\"}[5m])",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
@@ -1353,7 +1714,7 @@
     }
   ],
   "refresh": "1m",
-  "schemaVersion": 30,
+  "schemaVersion": 31,
   "style": "dark",
   "tags": [
     "MongoDB"
@@ -1367,10 +1728,10 @@
         "auto_min": "1s",
         "current": {
           "selected": false,
-          "text": "auto",
-          "value": "$__auto_interval_interval"
+          "text": "1m",
+          "value": "1m"
         },
-        "datasource": "Prometheus",
+        "datasource": "${datasource}",
         "description": null,
         "error": null,
         "hide": 0,
@@ -1381,7 +1742,7 @@
         "name": "interval",
         "options": [
           {
-            "selected": true,
+            "selected": false,
             "text": "auto",
             "value": "$__auto_interval_interval"
           },
@@ -1396,7 +1757,7 @@
             "value": "5s"
           },
           {
-            "selected": false,
+            "selected": true,
             "text": "1m",
             "value": "1m"
           },
@@ -1428,26 +1789,108 @@
         "type": "interval"
       },
       {
-        "allFormat": "glob",
+        "current": {
+          "selected": false,
+          "text": "default",
+          "value": "default"
+        },
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Datasource",
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "queryValue": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "demo",
+          "value": "demo"
+        },
+        "datasource": "${datasource}",
+        "definition": "label_values(namespace)",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Namespace",
+        "multi": false,
+        "name": "namespace",
+        "options": [],
+        "query": {
+          "query": "label_values(namespace)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "10.2.240.82:56790",
-          "value": "10.2.240.82:56790"
+          "text": "mg-rs",
+          "value": "mg-rs"
         },
-        "datasource": "Prometheus",
+        "datasource": "${datasource}",
+        "definition": "label_values(kubedb_mongodb_status_phase{namespace=~\"$namespace\"},mongodb)",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "MongoDB",
+        "multi": false,
+        "name": "mongodb",
+        "options": [],
+        "query": {
+          "query": "label_values(kubedb_mongodb_status_phase{namespace=~\"$namespace\"},mongodb)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allFormat": "glob",
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "mg-rs-0",
+          "value": "mg-rs-0"
+        },
+        "datasource": "${datasource}",
         "definition": "",
         "description": null,
         "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": "Instance",
+        "label": "Pod",
         "multi": false,
         "multiFormat": "glob",
-        "name": "host",
+        "name": "pod",
         "options": [],
         "query": {
-          "query": "label_values({__name__=~\"mongodb_mongod_connections|mongodb_up\"}, instance)",
+          "query": "label_values(mongodb_up{namespace=~\"$namespace\",service=\"${mongodb}-stats\"}, pod)",
           "refId": "Prometheus-host-Variable-Query"
         },
         "refresh": 2,
@@ -1462,7 +1905,7 @@
     ]
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {
@@ -1493,7 +1936,6 @@
     ]
   },
   "timezone": "browser",
-  "title": "MongoDB Instance Overview",
-  "uid": "-wwO3DS7z",
-  "version": 8
+  "title": "KubeDB / MongoDB / Pod",
+  "version": 12
 }
