@@ -2,19 +2,19 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  name: 'xpack-6.8.21'
+  name: 'xpack-6.8.22'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   authPlugin: X-Pack
   db:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "elasticsearch")) }}:6.8.21'
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "elasticsearch")) }}:6.8.22'
   distribution: ElasticStack
   exporter:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "elasticsearch-exporter")) }}:v1.3.0'
   initContainer:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "tianon" "toybox")) }}:0.8.4'
-    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-init:6.8.21-xpack-v2021.12.17'
+    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-init:6.8.22-xpack-v2021.12.24'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   stash:
@@ -23,5 +23,5 @@ spec:
         name: elasticsearch-backup-6.8.0
       restoreTask:
         name: elasticsearch-restore-6.8.0
-  version: 6.8.21
+  version: 6.8.22
 {{ end }}
