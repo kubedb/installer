@@ -1,0 +1,23 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: xpack-6.8.22
+spec:
+  authPlugin: X-Pack
+  db:
+    image: elasticsearch:6.8.22
+  distribution: ElasticStack
+  exporter:
+    image: prometheuscommunity/elasticsearch-exporter:v1.3.0
+  initContainer:
+    image: tianon/toybox:0.8.4
+    yqImage: kubedb/elasticsearch-init:6.8.22-xpack-v2021.12.24
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-6.8.0
+      restoreTask:
+        name: elasticsearch-restore-6.8.0
+  version: 6.8.22
