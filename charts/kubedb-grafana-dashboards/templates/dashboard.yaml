@@ -12,10 +12,15 @@ metadata:
     k8s.io/resource: {{ get (get $gkr $r) "resource" }}
     {{- include "kubedb-grafana-dashboards.labels" $ | nindent 4 }}
 spec:
-  grafana:
-    apiGroup: appcatalog.appscode.com
-    kind: AppBinding
-    name: {{ required "A valid .Values.grafana.name entry required!"  $.Values.grafana.name }}
+{{- if or $.Values.grafana.name $.Values.grafana.namespace }}
+  grafanaRef:
+  {{- with $.Values.grafana.name }}
+    name: {{ . }}
+  {{- end }}
+  {{- with $.Values.grafana.namespace }}
+    namespace: {{ . }}
+  {{- end }}
+{{- end }}
   model:
     {{- omit ($.Files.Get $path | mustFromJson) "id" "uid" | toYaml | nindent 4 }}
 {{- with $.Values.dashboard.folderID }}
