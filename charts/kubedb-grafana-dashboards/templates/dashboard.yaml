@@ -4,7 +4,7 @@
 apiVersion: openviz.dev/v1alpha1
 kind: GrafanaDashboard
 metadata:
-  name: {{ printf "%s-%s" $.Values.grafana.name ((get ($.Files.Get $path | mustFromJson) "title") | lower | nospace | replace "/" "-" ) | trunc 63 | trimSuffix "-" }}
+  name: {{ prepend ((get ($.Files.Get $path | mustFromJson) "title") | lower | nospace | splitList "/" ) $.Values.grafana.name | compact | join "-" | trunc 63 | trimSuffix "-" }}
   namespace: {{ $.Release.Namespace }}
   labels:
     k8s.io/group: kubedb.com
