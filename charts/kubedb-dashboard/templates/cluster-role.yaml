@@ -1,0 +1,43 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ template "kubedb-dashboard.fullname" . }}
+  labels:
+    {{- include "kubedb-dashboard.labels" . | nindent 4 }}
+rules:
+- apiGroups:
+  - dashboard.kubedb.com
+  resources:
+  - "*"
+  verbs: ["*"]
+- apiGroups:
+  - dashboard.kubedb.com
+  resources:
+  - elasticsearchdashboards/finalizers
+  verbs: ["update"]
+- apiGroups:
+  - kubedb.com
+  - catalog.kubedb.com
+  resources:
+  - "*"
+  verbs: ["get", "list", "watch"]
+- apiGroups:
+  - apps
+  resources:
+  - statefulsets
+  verbs: ["*"]
+- apiGroups:
+  - apps
+  resources:
+  - statefulsets/finalizers
+  verbs: ["update"]
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs: ["create"]
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs: ["get", "list", "watch"]
