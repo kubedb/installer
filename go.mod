@@ -5,16 +5,20 @@ go 1.16
 require (
 	github.com/Masterminds/semver/v3 v3.1.1
 	github.com/Masterminds/sprig/v3 v3.2.2
-	github.com/gobuffalo/flect v0.2.3 // indirect
+	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/google/gofuzz v1.2.0
+	github.com/google/uuid v1.3.0 // indirect
+	github.com/mattn/go-colorable v0.1.9 // indirect
+	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/spf13/pflag v1.0.5
 	github.com/yudai/gojsondiff v1.0.0
 	gomodules.xyz/go-sh v0.1.0
 	gomodules.xyz/semvers v0.0.0-20210603205601-45dfbb5326a4
 	k8s.io/api v0.21.1
 	k8s.io/apimachinery v0.21.1
-	kmodules.xyz/client-go v0.0.0-20211127071251-7e4808453833
-	kmodules.xyz/schema-checker v0.1.3
+	k8s.io/klog/v2 v2.9.0 // indirect
+	kmodules.xyz/client-go v0.0.0-20220203031013-1de48437aaf3
+	kmodules.xyz/schema-checker v0.2.0
 	sigs.k8s.io/yaml v1.2.0
 	stash.appscode.dev/installer v0.12.2-0.20211124131337-4dd855322b77
 )
@@ -109,7 +113,7 @@ replace k8s.io/api => k8s.io/api v0.21.1
 
 replace k8s.io/apimachinery => github.com/kmodules/apimachinery v0.21.2-rc.0.0.20210617231004-332981b97d2d
 
-replace k8s.io/apiserver => github.com/kmodules/apiserver v0.21.2-0.20210716212718-83e5493ac170
+replace k8s.io/apiserver => github.com/kmodules/apiserver v0.21.2-0.20220112070009-e3f6e88991d9
 
 replace k8s.io/cli-runtime => k8s.io/cli-runtime v0.21.1
 
