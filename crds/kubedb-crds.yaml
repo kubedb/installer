@@ -189,6 +189,11 @@ spec:
                 properties:
                   node:
                     properties:
+                      expansionMode:
+                        enum:
+                        - Offline
+                        - Online
+                        type: string
                       scalingThreshold:
                         format: int32
                         type: integer
@@ -202,6 +207,11 @@ spec:
                     properties:
                       data:
                         properties:
+                          expansionMode:
+                            enum:
+                            - Offline
+                            - Online
+                            type: string
                           scalingThreshold:
                             format: int32
                             type: integer
@@ -213,6 +223,11 @@ spec:
                         type: object
                       ingest:
                         properties:
+                          expansionMode:
+                            enum:
+                            - Offline
+                            - Online
+                            type: string
                           scalingThreshold:
                             format: int32
                             type: integer
@@ -224,6 +239,11 @@ spec:
                         type: object
                       master:
                         properties:
+                          expansionMode:
+                            enum:
+                            - Offline
+                            - Online
+                            type: string
                           scalingThreshold:
                             format: int32
                             type: integer
@@ -945,7 +965,7 @@ spec:
     listKind: MariaDBAutoscalerList
     plural: mariadbautoscalers
     shortNames:
-    - mariascaler
+    - mdautoscaler
     singular: mariadbautoscaler
   scope: Namespaced
   versions:
@@ -961,332 +981,72 @@ spec:
             type: object
           spec:
             properties:
-              behavior:
+              compute:
                 properties:
-                  scaleDown:
+                  disableScaleDown:
+                    type: boolean
+                  mariadb:
                     properties:
-                      policies:
-                        items:
-                          properties:
-                            periodSeconds:
-                              format: int32
-                              type: integer
-                            type:
-                              type: string
-                            value:
-                              format: int32
-                              type: integer
-                          required:
-                          - periodSeconds
-                          - type
-                          - value
-                          type: object
-                        type: array
-                      selectPolicy:
+                      containerControlledValues:
                         type: string
-                      stabilizationWindowSeconds:
+                      controlledResources:
+                        items:
+                          type: string
+                        type: array
+                      inMemoryScalingThreshold:
                         format: int32
                         type: integer
-                    type: object
-                  scaleUp:
-                    properties:
-                      policies:
-                        items:
-                          properties:
-                            periodSeconds:
-                              format: int32
-                              type: integer
-                            type:
-                              type: string
-                            value:
-                              format: int32
-                              type: integer
-                          required:
-                          - periodSeconds
-                          - type
-                          - value
-                          type: object
-                        type: array
-                      selectPolicy:
+                      maxAllowed:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                          x-kubernetes-int-or-string: true
+                        type: object
+                      minAllowed:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                          x-kubernetes-int-or-string: true
+                        type: object
+                      podLifeTimeThreshold:
                         type: string
-                      stabilizationWindowSeconds:
+                      resourceDiffPercentage:
                         format: int32
                         type: integer
+                      trigger:
+                        type: string
                     type: object
                 type: object
-              maxReplicas:
-                format: int32
-                type: integer
-              metrics:
-                items:
-                  properties:
-                    containerResource:
-                      properties:
-                        container:
-                          type: string
-                        name:
-                          type: string
-                        target:
-                          properties:
-                            averageUtilization:
-                              format: int32
-                              type: integer
-                            averageValue:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                            type:
-                              type: string
-                            value:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                          required:
-                          - type
-                          type: object
-                      required:
-                      - container
-                      - name
-                      - target
-                      type: object
-                    external:
-                      properties:
-                        metric:
-                          properties:
-                            name:
-                              type: string
-                            selector:
-                              properties:
-                                matchExpressions:
-                                  items:
-                                    properties:
-                                      key:
-                                        type: string
-                                      operator:
-                                        type: string
-                                      values:
-                                        items:
-                                          type: string
-                                        type: array
-                                    required:
-                                    - key
-                                    - operator
-                                    type: object
-                                  type: array
-                                matchLabels:
-                                  additionalProperties:
-                                    type: string
-                                  type: object
-                              type: object
-                          required:
-                          - name
-                          type: object
-                        target:
-                          properties:
-                            averageUtilization:
-                              format: int32
-                              type: integer
-                            averageValue:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                            type:
-                              type: string
-                            value:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                          required:
-                          - type
-                          type: object
-                      required:
-                      - metric
-                      - target
-                      type: object
-                    object:
-                      properties:
-                        describedObject:
-                          properties:
-                            apiVersion:
-                              type: string
-                            kind:
-                              type: string
-                            name:
-                              type: string
-                          required:
-                          - kind
-                          - name
-                          type: object
-                        metric:
-                          properties:
-                            name:
-                              type: string
-                            selector:
-                              properties:
-                                matchExpressions:
-                                  items:
-                                    properties:
-                                      key:
-                                        type: string
-                                      operator:
-                                        type: string
-                                      values:
-                                        items:
-                                          type: string
-                                        type: array
-                                    required:
-                                    - key
-                                    - operator
-                                    type: object
-                                  type: array
-                                matchLabels:
-                                  additionalProperties:
-                                    type: string
-                                  type: object
-                              type: object
-                          required:
-                          - name
-                          type: object
-                        target:
-                          properties:
-                            averageUtilization:
-                              format: int32
-                              type: integer
-                            averageValue:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                            type:
-                              type: string
-                            value:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                          required:
-                          - type
-                          type: object
-                      required:
-                      - describedObject
-                      - metric
-                      - target
-                      type: object
-                    pods:
-                      properties:
-                        metric:
-                          properties:
-                            name:
-                              type: string
-                            selector:
-                              properties:
-                                matchExpressions:
-                                  items:
-                                    properties:
-                                      key:
-                                        type: string
-                                      operator:
-                                        type: string
-                                      values:
-                                        items:
-                                          type: string
-                                        type: array
-                                    required:
-                                    - key
-                                    - operator
-                                    type: object
-                                  type: array
-                                matchLabels:
-                                  additionalProperties:
-                                    type: string
-                                  type: object
-                              type: object
-                          required:
-                          - name
-                          type: object
-                        target:
-                          properties:
-                            averageUtilization:
-                              format: int32
-                              type: integer
-                            averageValue:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                            type:
-                              type: string
-                            value:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                          required:
-                          - type
-                          type: object
-                      required:
-                      - metric
-                      - target
-                      type: object
-                    resource:
-                      properties:
-                        name:
-                          type: string
-                        target:
-                          properties:
-                            averageUtilization:
-                              format: int32
-                              type: integer
-                            averageValue:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                            type:
-                              type: string
-                            value:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                          required:
-                          - type
-                          type: object
-                      required:
-                      - name
-                      - target
-                      type: object
-                    type:
-                      type: string
-                  required:
-                  - type
-                  type: object
-                type: array
-              minReplicas:
-                format: int32
-                type: integer
-              scaleTargetRef:
+              databaseRef:
                 properties:
                   name:
                     type: string
                 type: object
+              storage:
+                properties:
+                  mariadb:
+                    properties:
+                      expansionMode:
+                        enum:
+                        - Offline
+                        - Online
+                        type: string
+                      scalingThreshold:
+                        format: int32
+                        type: integer
+                      trigger:
+                        type: string
+                      usageThreshold:
+                        format: int32
+                        type: integer
+                    type: object
+                type: object
             required:
-            - maxReplicas
-            - scaleTargetRef
+            - databaseRef
             type: object
           status:
             properties:
@@ -1315,262 +1075,12 @@ spec:
                   - type
                   type: object
                 type: array
-              currentMetrics:
-                items:
-                  properties:
-                    containerResource:
-                      properties:
-                        container:
-                          type: string
-                        current:
-                          properties:
-                            averageUtilization:
-                              format: int32
-                              type: integer
-                            averageValue:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                            value:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                          type: object
-                        name:
-                          type: string
-                      required:
-                      - container
-                      - current
-                      - name
-                      type: object
-                    external:
-                      properties:
-                        current:
-                          properties:
-                            averageUtilization:
-                              format: int32
-                              type: integer
-                            averageValue:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                            value:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                          type: object
-                        metric:
-                          properties:
-                            name:
-                              type: string
-                            selector:
-                              properties:
-                                matchExpressions:
-                                  items:
-                                    properties:
-                                      key:
-                                        type: string
-                                      operator:
-                                        type: string
-                                      values:
-                                        items:
-                                          type: string
-                                        type: array
-                                    required:
-                                    - key
-                                    - operator
-                                    type: object
-                                  type: array
-                                matchLabels:
-                                  additionalProperties:
-                                    type: string
-                                  type: object
-                              type: object
-                          required:
-                          - name
-                          type: object
-                      required:
-                      - current
-                      - metric
-                      type: object
-                    object:
-                      properties:
-                        current:
-                          properties:
-                            averageUtilization:
-                              format: int32
-                              type: integer
-                            averageValue:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                            value:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                          type: object
-                        describedObject:
-                          properties:
-                            apiVersion:
-                              type: string
-                            kind:
-                              type: string
-                            name:
-                              type: string
-                          required:
-                          - kind
-                          - name
-                          type: object
-                        metric:
-                          properties:
-                            name:
-                              type: string
-                            selector:
-                              properties:
-                                matchExpressions:
-                                  items:
-                                    properties:
-                                      key:
-                                        type: string
-                                      operator:
-                                        type: string
-                                      values:
-                                        items:
-                                          type: string
-                                        type: array
-                                    required:
-                                    - key
-                                    - operator
-                                    type: object
-                                  type: array
-                                matchLabels:
-                                  additionalProperties:
-                                    type: string
-                                  type: object
-                              type: object
-                          required:
-                          - name
-                          type: object
-                      required:
-                      - current
-                      - describedObject
-                      - metric
-                      type: object
-                    pods:
-                      properties:
-                        current:
-                          properties:
-                            averageUtilization:
-                              format: int32
-                              type: integer
-                            averageValue:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                            value:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                          type: object
-                        metric:
-                          properties:
-                            name:
-                              type: string
-                            selector:
-                              properties:
-                                matchExpressions:
-                                  items:
-                                    properties:
-                                      key:
-                                        type: string
-                                      operator:
-                                        type: string
-                                      values:
-                                        items:
-                                          type: string
-                                        type: array
-                                    required:
-                                    - key
-                                    - operator
-                                    type: object
-                                  type: array
-                                matchLabels:
-                                  additionalProperties:
-                                    type: string
-                                  type: object
-                              type: object
-                          required:
-                          - name
-                          type: object
-                      required:
-                      - current
-                      - metric
-                      type: object
-                    resource:
-                      properties:
-                        current:
-                          properties:
-                            averageUtilization:
-                              format: int32
-                              type: integer
-                            averageValue:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                            value:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                          type: object
-                        name:
-                          type: string
-                      required:
-                      - current
-                      - name
-                      type: object
-                    type:
-                      type: string
-                  required:
-                  - type
-                  type: object
-                type: array
-              currentReplicas:
-                format: int32
-                type: integer
-              desiredReplicas:
-                format: int32
-                type: integer
-              lastScaleTime:
-                format: date-time
-                type: string
               observedGeneration:
                 format: int64
                 type: integer
-            required:
-            - conditions
-            - currentReplicas
-            - desiredReplicas
             type: object
+        required:
+        - spec
         type: object
     served: true
     storage: true
@@ -2452,6 +1962,11 @@ spec:
                 properties:
                   configServer:
                     properties:
+                      expansionMode:
+                        enum:
+                        - Offline
+                        - Online
+                        type: string
                       scalingThreshold:
                         format: int32
                         type: integer
@@ -2463,6 +1978,11 @@ spec:
                     type: object
                   replicaSet:
                     properties:
+                      expansionMode:
+                        enum:
+                        - Offline
+                        - Online
+                        type: string
                       scalingThreshold:
                         format: int32
                         type: integer
@@ -2474,6 +1994,11 @@ spec:
                     type: object
                   shard:
                     properties:
+                      expansionMode:
+                        enum:
+                        - Offline
+                        - Online
+                        type: string
                       scalingThreshold:
                         format: int32
                         type: integer
@@ -2485,6 +2010,11 @@ spec:
                     type: object
                   standalone:
                     properties:
+                      expansionMode:
+                        enum:
+                        - Offline
+                        - Online
+                        type: string
                       scalingThreshold:
                         format: int32
                         type: integer
@@ -6501,6 +6031,20 @@ spec:
                 - X-Pack
                 - OpenSearch
                 type: string
+              dashboard:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              dashboardInitContainer:
+                properties:
+                  yqImage:
+                    type: string
+                required:
+                - yqImage
+                type: object
               db:
                 properties:
                   image:
@@ -7999,6 +7543,10 @@ spec:
                 type: boolean
               halted:
                 type: boolean
+              heapSizePercentage:
+                default: 50
+                format: int32
+                type: integer
               init:
                 properties:
                   initialized:
@@ -10635,6 +10183,9 @@ spec:
                 properties:
                   coordinating:
                     properties:
+                      heapSizePercentage:
+                        format: int32
+                        type: integer
                       maxUnavailable:
                         anyOf:
                         - type: integer
@@ -10734,6 +10285,9 @@ spec:
                     type: object
                   data:
                     properties:
+                      heapSizePercentage:
+                        format: int32
+                        type: integer
                       maxUnavailable:
                         anyOf:
                         - type: integer
@@ -10833,6 +10387,9 @@ spec:
                     type: object
                   dataCold:
                     properties:
+                      heapSizePercentage:
+                        format: int32
+                        type: integer
                       maxUnavailable:
                         anyOf:
                         - type: integer
@@ -10932,6 +10489,9 @@ spec:
                     type: object
                   dataContent:
                     properties:
+                      heapSizePercentage:
+                        format: int32
+                        type: integer
                       maxUnavailable:
                         anyOf:
                         - type: integer
@@ -11031,6 +10591,9 @@ spec:
                     type: object
                   dataFrozen:
                     properties:
+                      heapSizePercentage:
+                        format: int32
+                        type: integer
                       maxUnavailable:
                         anyOf:
                         - type: integer
@@ -11130,6 +10693,9 @@ spec:
                     type: object
                   dataHot:
                     properties:
+                      heapSizePercentage:
+                        format: int32
+                        type: integer
                       maxUnavailable:
                         anyOf:
                         - type: integer
@@ -11229,6 +10795,9 @@ spec:
                     type: object
                   dataWarm:
                     properties:
+                      heapSizePercentage:
+                        format: int32
+                        type: integer
                       maxUnavailable:
                         anyOf:
                         - type: integer
@@ -11328,6 +10897,9 @@ spec:
                     type: object
                   ingest:
                     properties:
+                      heapSizePercentage:
+                        format: int32
+                        type: integer
                       maxUnavailable:
                         anyOf:
                         - type: integer
@@ -11427,6 +10999,9 @@ spec:
                     type: object
                   master:
                     properties:
+                      heapSizePercentage:
+                        format: int32
+                        type: integer
                       maxUnavailable:
                         anyOf:
                         - type: integer
@@ -11526,6 +11101,9 @@ spec:
                     type: object
                   ml:
                     properties:
+                      heapSizePercentage:
+                        format: int32
+                        type: integer
                       maxUnavailable:
                         anyOf:
                         - type: integer
@@ -11625,6 +11203,9 @@ spec:
                     type: object
                   transform:
                     properties:
+                      heapSizePercentage:
+                        format: int32
+                        type: integer
                       maxUnavailable:
                         anyOf:
                         - type: integer
@@ -14401,6 +13982,70 @@ spec:
             type: object
           spec:
             properties:
+              allowedSchemas:
+                default:
+                  namespaces:
+                    from: Same
+                properties:
+                  namespaces:
+                    default:
+                      from: Same
+                    properties:
+                      from:
+                        default: Same
+                        enum:
+                        - All
+                        - Selector
+                        - Same
+                        type: string
+                      selector:
+                        properties:
+                          matchExpressions:
+                            items:
+                              properties:
+                                key:
+                                  type: string
+                                operator:
+                                  type: string
+                                values:
+                                  items:
+                                    type: string
+                                  type: array
+                              required:
+                              - key
+                              - operator
+                              type: object
+                            type: array
+                          matchLabels:
+                            additionalProperties:
+                              type: string
+                            type: object
+                        type: object
+                    type: object
+                  selector:
+                    properties:
+                      matchExpressions:
+                        items:
+                          properties:
+                            key:
+                              type: string
+                            operator:
+                              type: string
+                            values:
+                              items:
+                                type: string
+                              type: array
+                          required:
+                          - key
+                          - operator
+                          type: object
+                        type: array
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        type: object
+                    type: object
+                type: object
               authSecret:
                 properties:
                   name:
@@ -19728,6 +19373,70 @@ spec:
             type: object
           spec:
             properties:
+              allowedSchemas:
+                default:
+                  namespaces:
+                    from: Same
+                properties:
+                  namespaces:
+                    default:
+                      from: Same
+                    properties:
+                      from:
+                        default: Same
+                        enum:
+                        - All
+                        - Selector
+                        - Same
+                        type: string
+                      selector:
+                        properties:
+                          matchExpressions:
+                            items:
+                              properties:
+                                key:
+                                  type: string
+                                operator:
+                                  type: string
+                                values:
+                                  items:
+                                    type: string
+                                  type: array
+                              required:
+                              - key
+                              - operator
+                              type: object
+                            type: array
+                          matchLabels:
+                            additionalProperties:
+                              type: string
+                            type: object
+                        type: object
+                    type: object
+                  selector:
+                    properties:
+                      matchExpressions:
+                        items:
+                          properties:
+                            key:
+                              type: string
+                            operator:
+                              type: string
+                            values:
+                              items:
+                                type: string
+                              type: array
+                          required:
+                          - key
+                          - operator
+                          type: object
+                        type: array
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        type: object
+                    type: object
+                type: object
               authSecret:
                 properties:
                   name:
@@ -27063,6 +26772,134 @@ spec:
             type: object
           spec:
             properties:
+              allowedReadReplicas:
+                default:
+                  namespaces:
+                    from: Same
+                properties:
+                  namespaces:
+                    default:
+                      from: Same
+                    properties:
+                      from:
+                        default: Same
+                        enum:
+                        - All
+                        - Selector
+                        - Same
+                        type: string
+                      selector:
+                        properties:
+                          matchExpressions:
+                            items:
+                              properties:
+                                key:
+                                  type: string
+                                operator:
+                                  type: string
+                                values:
+                                  items:
+                                    type: string
+                                  type: array
+                              required:
+                              - key
+                              - operator
+                              type: object
+                            type: array
+                          matchLabels:
+                            additionalProperties:
+                              type: string
+                            type: object
+                        type: object
+                    type: object
+                  selector:
+                    properties:
+                      matchExpressions:
+                        items:
+                          properties:
+                            key:
+                              type: string
+                            operator:
+                              type: string
+                            values:
+                              items:
+                                type: string
+                              type: array
+                          required:
+                          - key
+                          - operator
+                          type: object
+                        type: array
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        type: object
+                    type: object
+                type: object
+              allowedSchemas:
+                default:
+                  namespaces:
+                    from: Same
+                properties:
+                  namespaces:
+                    default:
+                      from: Same
+                    properties:
+                      from:
+                        default: Same
+                        enum:
+                        - All
+                        - Selector
+                        - Same
+                        type: string
+                      selector:
+                        properties:
+                          matchExpressions:
+                            items:
+                              properties:
+                                key:
+                                  type: string
+                                operator:
+                                  type: string
+                                values:
+                                  items:
+                                    type: string
+                                  type: array
+                              required:
+                              - key
+                              - operator
+                              type: object
+                            type: array
+                          matchLabels:
+                            additionalProperties:
+                              type: string
+                            type: object
+                        type: object
+                    type: object
+                  selector:
+                    properties:
+                      matchExpressions:
+                        items:
+                          properties:
+                            key:
+                              type: string
+                            operator:
+                              type: string
+                            values:
+                              items:
+                                type: string
+                              type: array
+                          required:
+                          - key
+                          - operator
+                          type: object
+                        type: array
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        type: object
+                    type: object
+                type: object
               authSecret:
                 properties:
                   name:
@@ -31187,7 +31024,30 @@ spec:
                     enum:
                     - GroupReplication
                     - InnoDBCluster
+                    - ReadReplica
                     type: string
+                  readReplica:
+                    properties:
+                      sourceRef:
+                        properties:
+                          apiVersion:
+                            type: string
+                          fieldPath:
+                            type: string
+                          kind:
+                            type: string
+                          name:
+                            type: string
+                          namespace:
+                            type: string
+                          resourceVersion:
+                            type: string
+                          uid:
+                            type: string
+                        type: object
+                    required:
+                    - sourceRef
+                    type: object
                 type: object
               useAddressType:
                 default: DNS
@@ -35929,6 +35789,70 @@ spec:
             type: object
           spec:
             properties:
+              allowedSchemas:
+                default:
+                  namespaces:
+                    from: Same
+                properties:
+                  namespaces:
+                    default:
+                      from: Same
+                    properties:
+                      from:
+                        default: Same
+                        enum:
+                        - All
+                        - Selector
+                        - Same
+                        type: string
+                      selector:
+                        properties:
+                          matchExpressions:
+                            items:
+                              properties:
+                                key:
+                                  type: string
+                                operator:
+                                  type: string
+                                values:
+                                  items:
+                                    type: string
+                                  type: array
+                              required:
+                              - key
+                              - operator
+                              type: object
+                            type: array
+                          matchLabels:
+                            additionalProperties:
+                              type: string
+                            type: object
+                        type: object
+                    type: object
+                  selector:
+                    properties:
+                      matchExpressions:
+                        items:
+                          properties:
+                            key:
+                              type: string
+                            operator:
+                              type: string
+                            values:
+                              items:
+                                type: string
+                              type: array
+                          required:
+                          - key
+                          - operator
+                          type: object
+                        type: array
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        type: object
+                    type: object
+                type: object
               authSecret:
                 properties:
                   name:
@@ -36026,6 +35950,8 @@ spec:
                         type: object
                     type: object
                 type: object
+              enforceFsGroup:
+                type: boolean
               halted:
                 type: boolean
               init:
@@ -40646,6 +40572,70 @@ spec:
             type: object
           spec:
             properties:
+              allowedSchemas:
+                default:
+                  namespaces:
+                    from: Same
+                properties:
+                  namespaces:
+                    default:
+                      from: Same
+                    properties:
+                      from:
+                        default: Same
+                        enum:
+                        - All
+                        - Selector
+                        - Same
+                        type: string
+                      selector:
+                        properties:
+                          matchExpressions:
+                            items:
+                              properties:
+                                key:
+                                  type: string
+                                operator:
+                                  type: string
+                                values:
+                                  items:
+                                    type: string
+                                  type: array
+                              required:
+                              - key
+                              - operator
+                              type: object
+                            type: array
+                          matchLabels:
+                            additionalProperties:
+                              type: string
+                            type: object
+                        type: object
+                    type: object
+                  selector:
+                    properties:
+                      matchExpressions:
+                        items:
+                          properties:
+                            key:
+                              type: string
+                            operator:
+                              type: string
+                            values:
+                              items:
+                                type: string
+                              type: array
+                          required:
+                          - key
+                          - operator
+                          type: object
+                        type: array
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        type: object
+                    type: object
+                type: object
               authSecret:
                 properties:
                   name:
@@ -40746,6 +40736,8 @@ spec:
                         type: object
                     type: object
                 type: object
+              disableAuth:
+                type: boolean
               halted:
                 type: boolean
               init:
@@ -43414,6 +43406,8 @@ spec:
                   name:
                     type: string
                 type: object
+              disableAuth:
+                type: boolean
               halted:
                 type: boolean
               monitor:
@@ -45553,6 +45547,7 @@ spec:
               type:
                 enum:
                 - Upgrade
+                - UpdateVersion
                 - HorizontalScaling
                 - VerticalScaling
                 - VolumeExpansion
@@ -46116,6 +46111,7 @@ spec:
               type:
                 enum:
                 - Upgrade
+                - UpdateVersion
                 - HorizontalScaling
                 - VerticalScaling
                 - VolumeExpansion
@@ -46236,6 +46232,10 @@ spec:
             properties:
               configuration:
                 properties:
+                  applyConfig:
+                    additionalProperties:
+                      type: string
+                    type: object
                   configSecret:
                     properties:
                       name:
@@ -46372,6 +46372,7 @@ spec:
               type:
                 enum:
                 - Upgrade
+                - UpdateVersion
                 - HorizontalScaling
                 - VerticalScaling
                 - VolumeExpansion
@@ -46453,6 +46454,11 @@ spec:
                     - type: string
                     pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
                     x-kubernetes-int-or-string: true
+                  mode:
+                    enum:
+                    - Offline
+                    - Online
+                    type: string
                 type: object
             required:
             - databaseRef
@@ -46667,6 +46673,7 @@ spec:
               type:
                 enum:
                 - Upgrade
+                - UpdateVersion
                 - HorizontalScaling
                 - VerticalScaling
                 - VolumeExpansion
@@ -47024,6 +47031,7 @@ spec:
               type:
                 enum:
                 - Upgrade
+                - UpdateVersion
                 - HorizontalScaling
                 - VerticalScaling
                 - VolumeExpansion
@@ -47327,6 +47335,8 @@ spec:
                 type: object
               restart:
                 type: object
+              timeout:
+                type: string
               tls:
                 properties:
                   certificates:
@@ -47435,6 +47445,7 @@ spec:
               type:
                 enum:
                 - Upgrade
+                - UpdateVersion
                 - HorizontalScaling
                 - VerticalScaling
                 - VolumeExpansion
@@ -47732,6 +47743,7 @@ spec:
               type:
                 enum:
                 - Upgrade
+                - UpdateVersion
                 - HorizontalScaling
                 - VerticalScaling
                 - VolumeExpansion
@@ -47967,6 +47979,7 @@ spec:
               type:
                 enum:
                 - Upgrade
+                - UpdateVersion
                 - HorizontalScaling
                 - VerticalScaling
                 - VolumeExpansion
@@ -48233,6 +48246,7 @@ spec:
               type:
                 enum:
                 - Upgrade
+                - UpdateVersion
                 - HorizontalScaling
                 - VerticalScaling
                 - VolumeExpansion
@@ -48308,6 +48322,11 @@ spec:
                 type: object
               volumeExpansion:
                 properties:
+                  mode:
+                    enum:
+                    - Offline
+                    - Online
+                    type: string
                   postgres:
                     anyOf:
                     - type: integer
@@ -48528,6 +48547,7 @@ spec:
               type:
                 enum:
                 - Upgrade
+                - UpdateVersion
                 - HorizontalScaling
                 - VerticalScaling
                 - VolumeExpansion
@@ -50226,6 +50246,7 @@ spec:
               type:
                 enum:
                 - Upgrade
+                - UpdateVersion
                 - HorizontalScaling
                 - VerticalScaling
                 - VolumeExpansion
