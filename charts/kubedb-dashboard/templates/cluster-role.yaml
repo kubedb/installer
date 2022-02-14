@@ -1,0 +1,67 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ template "kubedb-dashboard.fullname" . }}
+  labels:
+    {{- include "kubedb-dashboard.labels" . | nindent 4 }}
+rules:
+- apiGroups:
+  - dashboard.kubedb.com
+  resources:
+  - elasticsearchdashboards
+  verbs: ["create", "delete", "get", "list" , "patch", "update", "watch"]
+- apiGroups:
+  - dashboard.kubedb.com
+  resources:
+  - elasticsearchdashboards/status
+  verbs: ["get"]
+- apiGroups:
+  - dashboard.kubedb.com
+  resources:
+  - elasticsearchdashboards/finalizers
+  verbs: ["update"]
+- apiGroups:
+  - appcatalog.appscode.com
+  resources:
+  - appbindings
+  verbs: ["get", "list" ,"watch"]
+- apiGroups:
+  - catalog.kubedb.com
+  resources:
+  - elasticsearchversions
+  verbs: ["get", "list" ,"watch"]
+- apiGroups:
+  - kubedb.com
+  resources:
+  - elasticsearches
+  verbs: ["get", "list" ,"watch"]
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs: [ "create", "delete", "get", "list" , "patch", "update", "watch"]
+- apiGroups:
+  - ""
+  resources:
+  - services
+  verbs: [ "create", "delete", "get", "list" , "patch", "update", "watch"]
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs: [ "create", "delete", "get", "list" , "patch", "update", "watch"]
+- apiGroups:
+  - dashboard.kubedb.com
+  resources:
+  - elasticsearchdashboards/status
+  verbs: ["get" , "patch" , "update"]
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs: ["create"]
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs: ["get", "list", "watch"]
