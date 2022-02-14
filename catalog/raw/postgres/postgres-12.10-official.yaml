@@ -1,0 +1,54 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: 12.10-bullseye
+spec:
+  coordinator:
+    image: kubedb/pg-coordinator:v0.8.0
+  db:
+    image: postgres:12.10-bullseye
+  distribution: Official
+  exporter:
+    image: prometheuscommunity/postgres-exporter:v0.9.0
+  initContainer:
+    image: kubedb/postgres-init:0.4.0
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-12.4
+      restoreTask:
+        name: postgres-restore-12.4
+  version: "12.10"
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: "12.10"
+spec:
+  coordinator:
+    image: kubedb/pg-coordinator:v0.8.0
+  db:
+    image: postgres:12.10-alpine
+  distribution: Official
+  exporter:
+    image: prometheuscommunity/postgres-exporter:v0.9.0
+  initContainer:
+    image: kubedb/postgres-init:0.4.0
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: false
+    runAsUser: 70
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-12.4
+      restoreTask:
+        name: postgres-restore-12.4
+  version: "12.10"
