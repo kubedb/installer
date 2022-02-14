@@ -10,8 +10,10 @@ require (
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/mattn/go-colorable v0.1.9 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
+	github.com/onsi/gomega v1.16.0 // indirect
 	github.com/spf13/pflag v1.0.5
 	github.com/yudai/gojsondiff v1.0.0
+	golang.org/x/crypto v0.0.0-20210616213533-5ff15b29337e // indirect
 	gomodules.xyz/go-sh v0.1.0
 	gomodules.xyz/semvers v0.0.0-20210603205601-45dfbb5326a4
 	k8s.io/api v0.21.1
