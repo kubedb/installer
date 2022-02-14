@@ -4,10 +4,8 @@ kind: ValidatingWebhookConfiguration
 metadata:
   name: validators.ops.kubedb.com
   labels:
-    {{- include "kubedb-ops-manager.labels" . | nindent 4 }}
-  annotations:
-    "helm.sh/hook": pre-install,pre-upgrade
-    "helm.sh/hook-delete-policy": before-hook-creation
+    app.kubernetes.io/component: kubedb-ops-manager
+    {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
 webhooks:
 - name: mysqlopsrequest.validators.ops.kubedb.com
   clientConfig:
@@ -15,7 +13,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/validators.ops.kubedb.com/v1alpha1/mysqlopsrequests
-    caBundle: {{ b64enc .Values.apiserver.ca }}
+    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
@@ -30,7 +28,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/validators.ops.kubedb.com/v1alpha1/mongodbopsrequests
-    caBundle: {{ b64enc .Values.apiserver.ca }}
+    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
@@ -45,7 +43,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/validators.ops.kubedb.com/v1alpha1/elasticsearchopsrequests
-    caBundle: {{ b64enc .Values.apiserver.ca }}
+    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
@@ -60,7 +58,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/validators.ops.kubedb.com/v1alpha1/redisopsrequests
-    caBundle: {{ b64enc .Values.apiserver.ca }}
+    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
@@ -69,4 +67,4 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None
-{{ end }}
+{{- end }}

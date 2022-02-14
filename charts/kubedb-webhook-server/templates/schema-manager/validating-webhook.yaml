@@ -1,0 +1,72 @@
+{{- if .Values.apiserver.enableValidatingWebhook }}
+{{ $caCrt := dig "data" "ca.crt" (b64enc "unknown") (lookup "v1" "Secret" (printf "%s" .Release.Namespace) (printf "%s-apiserver-cert" (include "kubedb-webhook-server.fullname" .))) }}
+
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: validators.schema.kubedb.com
+  labels:
+    app.kubernetes.io/component: kubedb-schema-manager
+    {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
+webhooks:
+- name: mysqlopsrequest.validators.schema.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /apis/validators.schema.kubedb.com/v1alpha1/mysqldatabases
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["schema.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["mysqldatabases"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Fail
+  sideEffects: None
+- name: mongodbopsrequest.validators.schema.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /apis/validators.schema.kubedb.com/v1alpha1/mongodbdatabases
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["schema.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["mongodbdatabases"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Fail
+  sideEffects: None
+- name: elasticsearchopsrequest.validators.schema.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.schema.kubedb.com/v1alpha1/elasticsearchdatabases
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["schema.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["elasticsearchdatabases"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Fail
+  sideEffects: None
+- name: redisopsrequest.validators.schema.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /apis/validators.schema.kubedb.com/v1alpha1/redisdatabases
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["schema.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["redisdatabases"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Fail
+  sideEffects: None
+{{- end }}

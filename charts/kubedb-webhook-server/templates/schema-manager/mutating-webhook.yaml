@@ -1,0 +1,27 @@
+{{- if .Values.apiserver.enableMutatingWebhook }}
+{{ $caCrt := dig "data" "ca.crt" (b64enc "unknown") (lookup "v1" "Secret" (printf "%s" .Release.Namespace) (printf "%s-apiserver-cert" (include "kubedb-webhook-server.fullname" .))) }}
+
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: mutators.schema.kubedb.com
+  labels:
+    app.kubernetes.io/component: kubedb-schema-manager
+    {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
+webhooks:
+- name: mysqlopsrequest.mutators.schema.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /apis/mutators.schema.kubedb.com/v1alpha1/mysqldatabases
+    caBundle: {{ $caCrt }}
+  rules:
+  - apiGroups: ["schema.kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["mysqldatabases"]
+    operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Fail
+  sideEffects: None
+{{- end }}

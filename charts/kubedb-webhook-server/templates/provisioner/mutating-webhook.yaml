@@ -4,19 +4,16 @@ kind: MutatingWebhookConfiguration
 metadata:
   name: mutators.kubedb.com
   labels:
-    {{- include "kubedb-provisioner.labels" . | nindent 4 }}
-  annotations:
-    "helm.sh/hook": pre-install,pre-upgrade
-    "helm.sh/hook-delete-policy": before-hook-creation
+    app.kubernetes.io/component: kubedb-provisioner
+    {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
 webhooks:
-{{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "es-operator") }}
 - name: elasticsearch.mutators.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/elasticsearches
-    caBundle: {{ b64enc .Values.apiserver.ca }}
+    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["*"]
@@ -25,15 +22,13 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None
-{{- end }}
-{{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "pg-operator") }}
 - name: postgres.mutators.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/postgreses
-    caBundle: {{ b64enc .Values.apiserver.ca }}
+    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["*"]
@@ -42,15 +37,13 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None
-{{- end }}
-{{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "my-operator") }}
 - name: mysql.mutators.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/mysqls
-    caBundle: {{ b64enc .Values.apiserver.ca }}
+    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["*"]
@@ -59,15 +52,13 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None
-{{- end }}
-{{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "percona-xtradb-operator") }}
 - name: perconaxtradb.mutators.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/perconaxtradbs
-    caBundle: {{ b64enc .Values.apiserver.ca }}
+    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["*"]
@@ -76,15 +67,13 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None
-{{- end }}
-{{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "mg-operator") }}
 - name: mongodb.mutators.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/mongodbs
-    caBundle: {{ b64enc .Values.apiserver.ca }}
+    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["*"]
@@ -93,15 +82,13 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None
-{{- end }}
-{{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "rd-operator") }}
 - name: redis.mutators.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/redises
-    caBundle: {{ b64enc .Values.apiserver.ca }}
+    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["*"]
@@ -110,15 +97,13 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None
-{{- end }}
-{{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "rd-operator") }}
 - name: redissentinel.mutators.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/redissentinels
-    caBundle: {{ b64enc .Values.apiserver.ca }}
+    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -127,15 +112,13 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None
-{{- end }}
-{{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "mc-operator") }}
 - name: memcached.mutators.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/memcacheds
-    caBundle: {{ b64enc .Values.apiserver.ca }}
+    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["*"]
@@ -144,15 +127,13 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None
-{{- end }}
-{{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "etcd-operator") }}
 - name: etcd.mutators.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/etcds
-    caBundle: {{ b64enc .Values.apiserver.ca }}
+    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["*"]
@@ -161,15 +142,13 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None
-{{- end }}
-{{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "pgbouncer-operator") }}
 - name: pgbouncer.mutators.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/pgbouncers
-    caBundle: {{ b64enc .Values.apiserver.ca }}
+    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["*"]
@@ -178,15 +157,13 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None
-{{- end }}
-{{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "proxysql-operator") }}
 - name: proxysql.mutators.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/proxysqls
-    caBundle: {{ b64enc .Values.apiserver.ca }}
+    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["*"]
@@ -195,15 +172,13 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None
-{{- end }}
-{{- if or (eq .Values.operator.repository "operator") (eq .Values.operator.repository "kubedb-operator") (eq .Values.operator.repository "mariadb-operator") }}
 - name: mariadb.mutators.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/mariadbs
-    caBundle: {{ b64enc .Values.apiserver.ca }}
+    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -213,4 +188,3 @@ webhooks:
   failurePolicy: Fail
   sideEffects: None
 {{- end }}
-{{ end }}

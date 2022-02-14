@@ -39,15 +39,12 @@ spec:
         image: {{ include "operator.registry" . }}/{{ .Values.operator.repository }}:{{ .Values.operator.tag }}
         imagePullPolicy: {{ .Values.imagePullPolicy  }}
         args:
-        - run
+        - operator
         - --v={{ .Values.logLevel }}
-        - --secure-port={{ .Values.apiserver.port }}
-        - --audit-log-path=-
-        - --tls-cert-file=/var/serving-cert/tls.crt
-        - --tls-private-key-file=/var/serving-cert/tls.key
-        - --enable-mutating-webhook={{ .Values.apiserver.enableMutatingWebhook }}
-        - --enable-validating-webhook={{ .Values.apiserver.enableValidatingWebhook }}
-        - --bypass-validating-webhook-xray={{ .Values.apiserver.bypassValidatingWebhookXray }}
+        # - --secure-port={{ .Values.apiserver.port }}
+        # - --audit-log-path=-
+        # - --tls-cert-file=/var/serving-cert/tls.crt
+        # - --tls-private-key-file=/var/serving-cert/tls.key
         - --use-kubeapiserver-fqdn-for-aks={{ .Values.apiserver.useKubeapiserverFqdnForAks }}
         {{- if include "appscode.license" . }}
         - --license-file=/var/run/secrets/appscode/license/key.txt

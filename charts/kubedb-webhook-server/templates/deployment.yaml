@@ -4,10 +4,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "kubedb-autoscaler.fullname" . }}
+  name: {{ include "kubedb-webhook-server.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "kubedb-autoscaler.labels" . | nindent 4 }}
+    {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
   {{- with .Values.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -16,11 +16,11 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "kubedb-autoscaler.selectorLabels" . | nindent 6 }}
+      {{- include "kubedb-webhook-server.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "kubedb-autoscaler.selectorLabels" . | nindent 8 }}
+        {{- include "kubedb-webhook-server.selectorLabels" . | nindent 8 }}
       annotations:
         checksum/apiregistration.yaml: {{ include (print $.Template.BasePath "/apiregistration.yaml") . | sha256sum }}
       {{- if $criticalAddon }}
@@ -31,29 +31,23 @@ spec:
       {{- end }}
     spec:
       {{- include "appscode.imagePullSecrets" . | nindent 6 }}
-      serviceAccountName: {{ include "kubedb-autoscaler.serviceAccountName" . }}
+      serviceAccountName: {{ include "kubedb-webhook-server.serviceAccountName" . }}
       containers:
       - name: operator
         securityContext:
-          {{- toYaml .Values.operator.securityContext | nindent 10 }}
-        image: {{ include "operator.registry" . }}/{{ .Values.operator.repository }}:{{ .Values.operator.tag }}
+          {{- toYaml .Values.server.securityContext | nindent 10 }}
+        image: {{ include "server.registry" . }}/{{ .Values.server.repository }}:{{ .Values.server.tag }}
         imagePullPolicy: {{ .Values.imagePullPolicy  }}
         args:
-        - operator
+        - run
         - --v={{ .Values.logLevel }}
-        # - --secure-port={{ .Values.apiserver.port }}
-        # - --audit-log-path=-
-        # - --tls-cert-file=/var/serving-cert/tls.crt
-        # - --tls-private-key-file=/var/serving-cert/tls.key
+        - --secure-port={{ .Values.apiserver.port }}
+        - --audit-log-path=-
+        - --tls-cert-file=/var/serving-cert/tls.crt
+        - --tls-private-key-file=/var/serving-cert/tls.key
+        - --enable-mutating-webhook={{ .Values.apiserver.enableMutatingWebhook }}
+        - --enable-validating-webhook={{ .Values.apiserver.enableValidatingWebhook }}
         - --use-kubeapiserver-fqdn-for-aks={{ .Values.apiserver.useKubeapiserverFqdnForAks }}
-        - --update-interval={{ .Values.updateInterval }}
-        - --prometheus-address={{.Values.storageAutoscaler.prometheus.address}}
-        {{- if .Values.storageAutoscaler.prometheus.caCert }}
-        - --prometheus-ca-file=/var/prometheus-data/ca.crt
-        {{- end }}
-        {{- if .Values.storageAutoscaler.prometheus.bearerToken }}
-        - --prometheus-token-file=/var/prometheus-data/token.txt
-        {{- end }}
         {{- if include "appscode.license" . }}
         - --license-file=/var/run/secrets/appscode/license/key.txt
         {{- end }}
@@ -74,10 +68,6 @@ spec:
           name: tmpdir
         - mountPath: /var/serving-cert
           name: serving-cert
-        {{- if or (ne .Values.storageAutoscaler.prometheus.bearerToken "") (ne .Values.storageAutoscaler.prometheus.caCert  "") }}
-        - mountPath: /var/prometheus-data
-          name: prometheus-data
-        {{- end }}
         {{- if include "appscode.license" . }}
         - mountPath: /var/run/secrets/appscode/license
           name: license
@@ -98,25 +88,19 @@ spec:
           timeoutSeconds: 15
       {{- end }}
         resources:
-          {{- toYaml .Values.operator.resources | nindent 10 }}
+          {{- toYaml .Values.server.resources | nindent 10 }}
       volumes:
       - name: tmpdir
         emptyDir: {}
       - name: serving-cert
         secret:
           defaultMode: 420
-          secretName: {{ include "kubedb-autoscaler.fullname" . }}-apiserver-cert
-      {{- if or (ne .Values.storageAutoscaler.prometheus.bearerToken "") (ne .Values.storageAutoscaler.prometheus.caCert  "") }}
-      - name: prometheus-data
-        secret:
-          defaultMode: 420
-          secretName: {{ include "kubedb-autoscaler.fullname" . }}-prometheus-data
-      {{- end }}
+          secretName: {{ include "kubedb-webhook-server.fullname" . }}-apiserver-cert
       {{- if include "appscode.license" . }}
       - name: license
         secret:
           defaultMode: 420
-          secretName: {{ include "kubedb-autoscaler.fullname" . }}-license
+          secretName: {{ include "kubedb-webhook-server.fullname" . }}-license
       {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}

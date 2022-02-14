@@ -22,7 +22,6 @@ spec:
       labels:
         {{- include "kubedb-provisioner.selectorLabels" . | nindent 8 }}
       annotations:
-        checksum/apiregistration.yaml: {{ include (print $.Template.BasePath "/apiregistration.yaml") . | sha256sum }}
       {{- if $criticalAddon }}
         scheduler.alpha.kubernetes.io/critical-pod: ''
       {{- end }}
@@ -39,15 +38,12 @@ spec:
         image: {{ include "operator.registry" . }}/{{ .Values.operator.repository }}:{{ .Values.operator.tag }}
         imagePullPolicy: {{ .Values.imagePullPolicy  }}
         args:
-        - run
+        - operator
         - --v={{ .Values.logLevel }}
-        - --secure-port={{ .Values.apiserver.port }}
-        - --audit-log-path=-
-        - --tls-cert-file=/var/serving-cert/tls.crt
-        - --tls-private-key-file=/var/serving-cert/tls.key
-        - --enable-mutating-webhook={{ .Values.apiserver.enableMutatingWebhook }}
-        - --enable-validating-webhook={{ .Values.apiserver.enableValidatingWebhook }}
-        - --bypass-validating-webhook-xray={{ .Values.apiserver.bypassValidatingWebhookXray }}
+        # - --secure-port={{ .Values.apiserver.port }}
+        # - --audit-log-path=-
+        # - --tls-cert-file=/var/serving-cert/tls.crt
+        # - --tls-private-key-file=/var/serving-cert/tls.key
         - --use-kubeapiserver-fqdn-for-aks={{ .Values.apiserver.useKubeapiserverFqdnForAks }}
         {{- if include "appscode.license" . }}
         - --license-file=/var/run/secrets/appscode/license/key.txt
@@ -67,8 +63,6 @@ spec:
         volumeMounts:
         - mountPath: /tmp
           name: tmpdir
-        - mountPath: /var/serving-cert
-          name: serving-cert
         {{- if include "appscode.license" . }}
         - mountPath: /var/run/secrets/appscode/license
           name: license
@@ -93,10 +87,6 @@ spec:
       volumes:
       - name: tmpdir
         emptyDir: {}
-      - name: serving-cert
-        secret:
-          defaultMode: 420
-          secretName: {{ include "kubedb-provisioner.fullname" . }}-apiserver-cert
       {{- if include "appscode.license" . }}
       - name: license
         secret:
