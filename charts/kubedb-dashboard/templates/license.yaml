@@ -1,0 +1,13 @@
+# if license file is provided, then create a secret for license
+{{- if include "appscode.license" . }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "kubedb-dashboard.fullname" . }}-license
+  namespace: {{ .Release.Namespace }}
+  labels:
+  {{- include "kubedb-dashboard.labels" . | nindent 4 }}
+type: Opaque
+data:
+  key.txt: {{ include "appscode.license" . | b64enc }}
+{{- end }}

@@ -1,0 +1,107 @@
+# Default values for kubedb-schema-manager.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Overrides name template
+nameOverride: ""
+# Overrides fullname template
+fullnameOverride: ""
+# Number of Kubeform operator replicas to create (only 1 is supported)
+replicaCount: 1
+# License for the product.
+# Get a license by following the steps from [here](https://kubedb.com/docs/latest/setup/install/overview/#get-a-license).
+# Example:
+# helm install appscode/kubedb-schema-manager-enterprise \
+#   --set-file license=/path/to/license/file
+# or
+# helm install appscode/kubedb-schema-manager-enterprise \
+#   --set license=<license file content>
+license: ""
+# Docker registry fqdn used to pull Kubeform related images.
+# Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image}
+registryFQDN: ""
+# Docker registry containing Kubeform Provider (kfc) image
+operator:
+  # Docker registry used to pull operator image
+  registry: kubedb
+  # Operator container docker image
+  repository: kubedb-schema-manager
+  # Operator container image tag
+  tag: v0.0.1
+  # Compute Resources required by the operator container
+  resources: {}
+  # Security options the operator container should run with
+  securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+cleaner:
+  # Docker registry used to pull Webhook cleaner image
+  registry: appscode
+  # Webhook cleaner container image
+  repository: kubectl
+  # Webhook cleaner container image tag
+  tag: v1.22
+  # Skip generating cleaner YAML
+  skip: false
+# Specify an array of imagePullSecrets.
+# Secrets must be manually created in the namespace.
+#
+# Example:
+# helm template charts/kubedb-schema-manager \
+#   --set imagePullSecrets[0].name=sec0 \
+#   --set imagePullSecrets[1].name=sec1
+imagePullSecrets: []
+# Container image pull policy
+imagePullPolicy: IfNotPresent
+# If true, installs kubedb-schema-manager operator as critical addon
+criticalAddon: false
+# Log level for operator
+logLevel: 3
+# Annotations applied to operator deployment
+annotations: {}
+# Annotations passed to operator pod(s).
+podAnnotations: {}
+# Node labels for pod assignment
+nodeSelector:
+# Tolerations for pod assignment
+tolerations: []
+# Affinity rules for pod assignment
+affinity: {}
+# Security options the operator pod should run with.
+podSecurityContext: {}
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+# Specifies a base64-encoded key, of length 32 bytes when decoded. It is used to encrypt the state file.
+secretKey:
+# If true, sends usage analytics
+enableAnalytics: true
+# Configure proxy environment variables.
+# ref: https://golang.org/pkg/net/http/#ProxyFromEnvironment
+proxy:
+  # To configure HTTPS_PROXY environment variable specify <ip_address>:<port>
+  https: ''
+  # To configure HTTP_PROXY environment variable specify <ip_address>:<port>
+  http: ''
+  # To configure NO_PROXY environment variable specify <ip_address>:<port>
+  # By default exclude Kubernetes apiserver internal IP.
+  'no': '10.43.0.1'
+webhook:
+  servingCerts:
+    # If true, generates on install/upgrade the certs that is required for the webhook server.
+    generate: true
+    # CA certificate used by serving certificate of webhook server.
+    caCrt: ""
+    # Serving certificate used by webhook server.
+    serverCrt: ""
+    # Private key for the serving certificate used by webhook server.
+    serverKey: ""
