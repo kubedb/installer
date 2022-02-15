@@ -18,10 +18,7 @@ spec:
     matchLabels:
       {{- include "kubedb-autoscaler.selectorLabels" . | nindent 6 }}
   endpoints:
-  - port: operator
-    bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
-    scheme: https
-    tlsConfig:
-      caFile: /etc/prometheus/secrets/{{ include "kubedb-autoscaler.fullname" . }}-apiserver-cert/tls.crt
-      serverName: "{{ include "kubedb-autoscaler.fullname" . }}.{{ .Release.Namespace }}.svc"
+  - path: /metrics
+    port: metrics
+    scheme: http
 {{- end }}

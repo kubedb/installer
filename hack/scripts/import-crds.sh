@@ -78,16 +78,6 @@ crd-importer \
     --group=catalog.kubedb.com
 
 crd-importer \
-    --input=${crd_dir} \
-    --out=./charts/kubedb-dashboard/crds \
-    --group=dashboard.kubedb.com
-
-crd-importer \
-    --input=${crd_dir} \
-    --out=./charts/kubedb-schema-manager/crds \
-    --group=schema.kubedb.com
-
-crd-importer \
     --input=https://github.com/kmodules/custom-resources/raw/kubernetes-1.21.1/crds/metrics.appscode.com_metricsconfigurations.yaml \
     --out=./charts/kubedb-metrics/crds
 

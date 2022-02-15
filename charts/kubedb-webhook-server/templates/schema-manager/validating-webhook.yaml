@@ -1,0 +1,42 @@
+{{- if .Values.apiserver.enableValidatingWebhook }}
+{{- $caCrt := dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
+
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: validators.schema.kubedb.com
+  labels:
+    app.kubernetes.io/component: kubedb-schema-manager
+    {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
+webhooks:
+- name: mysqldatabase.validators.schema.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.schema.kubedb.com/v1alpha1/mysqldatabases
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["schema.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["mysqldatabases"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Fail
+  sideEffects: None
+- name: mongodbdatabase.validators.schema.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.schema.kubedb.com/v1alpha1/mongodbdatabases
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["schema.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["mongodbdatabases"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Fail
+  sideEffects: None
+{{- end }}

@@ -1,35 +1,39 @@
-# Default values for kubedb-dashboard.
-# This is a YAML-formatted file.
+##
+## KubeDB chart configuration
+##
 # Declare variables to be passed into your templates.
 
 # Overrides name template
 nameOverride: ""
 # Overrides fullname template
 fullnameOverride: ""
-# Number of Kubeform operator replicas to create (only 1 is supported)
+# Number of KubeDB dashboard operator replicas to create (only 1 is supported)
 replicaCount: 1
 # License for the product.
-# Get a license by following the steps from [here](https://kubedb.com/docs/latest/setup/install/overview/#get-a-license).
+# Get a license by following the steps from [here](https://kubedb.run/docs/latest/setup/install/enterprise#get-a-trial-license).
 # Example:
-# helm install appscode/kubedb-dashboard-enterprise \
+# helm install appscode/kubedb-dashboard \
 #   --set-file license=/path/to/license/file
 # or
-# helm install appscode/kubedb-dashboard-enterprise \
+# helm install appscode/kubedb-dashboard \
 #   --set license=<license file content>
 license: ""
-# Docker registry fqdn used to pull Kubeform related images.
+# Docker registry fqdn used to pull KubeDB related images
 # Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image}
 registryFQDN: ""
-# Docker registry containing Kubeform Provider (kfc) image
+# Docker registry containing KubeDB images
 operator:
-  # Docker registry used to pull operator image
+  # Docker registry used to pull KubeDB dashboard operator image
   registry: kubedb
-  # Operator container docker image
+  # KubeDB dashboard operator container image
   repository: kubedb-dashboard
-  # Operator container image tag
+  # KubeDB dashboard operator container image tag
   tag: v0.0.1
   # Compute Resources required by the operator container
   resources: {}
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
   # Security options the operator container should run with
   securityContext: {}
   # capabilities:
@@ -38,15 +42,6 @@ operator:
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
-cleaner:
-  # Docker registry used to pull Webhook cleaner image
-  registry: appscode
-  # Webhook cleaner container image
-  repository: kubectl
-  # Webhook cleaner container image tag
-  tag: v1.22
-  # Skip generating cleaner YAML
-  skip: false
 # Specify an array of imagePullSecrets.
 # Secrets must be manually created in the namespace.
 #
@@ -57,7 +52,7 @@ cleaner:
 imagePullSecrets: []
 # Container image pull policy
 imagePullPolicy: IfNotPresent
-# If true, installs kubedb-dashboard operator as critical addon
+# If true, installs KubeDB dashboard operator as critical addon
 criticalAddon: false
 # Log level for operator
 logLevel: 3
@@ -66,7 +61,8 @@ annotations: {}
 # Annotations passed to operator pod(s).
 podAnnotations: {}
 # Node labels for pod assignment
-nodeSelector:
+nodeSelector: # +doc-gen:break
+  kubernetes.io/os: linux
 # Tolerations for pod assignment
 tolerations: []
 # Affinity rules for pod assignment
@@ -81,29 +77,25 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name:
-# Specifies a base64-encoded key, of length 32 bytes when decoded. It is used to encrypt the state file.
-secretKey:
-# If true, sends usage analytics
-enableAnalytics: true
-# Configure proxy environment variables.
-# ref: https://golang.org/pkg/net/http/#ProxyFromEnvironment
-proxy:
-  # To configure HTTPS_PROXY environment variable specify <ip_address>:<port>
-  https: ''
-  # To configure HTTP_PROXY environment variable specify <ip_address>:<port>
-  http: ''
-  # To configure NO_PROXY environment variable specify <ip_address>:<port>
-  # By default exclude Kubernetes apiserver internal IP.
-  'no': '10.43.0.1'
-webhook:
-  # If true, validating webhook is configured for KubeDB CRDss
-  enableValidatingWebhook: true
-  servingCerts:
-    # If true, generates on install/upgrade the certs that is required for the webhook server.
-    generate: true
-    # CA certificate used by serving certificate of webhook server.
-    caCrt: ""
-    # Serving certificate used by webhook server.
-    serverCrt: ""
-    # Private key for the serving certificate used by webhook server.
-    serverKey: ""
+apiserver:
+  # If true, uses kube-apiserver FQDN for AKS cluster to workaround https://github.com/Azure/AKS/issues/522 (default true)
+  useKubeapiserverFqdnForAks: true
+  healthcheck:
+    # healthcheck configures the readiness and liveliness probes for the operator pod.
+    enabled: true
+    # The port the probe endpoint binds to
+    probePort: 8081
+# If true, namespace deletion will fail if it has a KubeDB resource with terminationPolicy DoNotTerminate
+enforceTerminationPolicy: true
+monitoring:
+  # If true, enables monitoring KubeDB dashboard operator
+  enabled: false
+  # The port the metric endpoint binds to
+  bindPort: 8080
+  # Name of monitoring agent ("prometheus.io" or "prometheus.io/operator" or "prometheus.io/builtin")
+  agent: ""
+  serviceMonitor:
+    # Specify the labels for ServiceMonitor.
+    # Prometheus crd will select ServiceMonitor using these labels.
+    # Only usable when monitoring agent is `prometheus.io/operator`.
+    labels: {}
