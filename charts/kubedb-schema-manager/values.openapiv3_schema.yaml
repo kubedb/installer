@@ -1,4 +1,8 @@
 properties:
+  additionalPodSecurityPolicies:
+    items:
+      type: string
+    type: array
   affinity:
     description: If specified, the pod's scheduling constraints
     properties:
@@ -749,6 +753,56 @@ properties:
     additionalProperties:
       type: string
     type: object
+  apiserver:
+    properties:
+      bypassValidatingWebhookXray:
+        type: boolean
+      ca:
+        type: string
+      enableMutatingWebhook:
+        type: boolean
+      enableValidatingWebhook:
+        type: boolean
+      groupPriorityMinimum:
+        format: int32
+        type: integer
+      healthcheck:
+        properties:
+          enabled:
+            type: boolean
+        type: object
+      port:
+        format: int32
+        type: integer
+      servingCerts:
+        properties:
+          caCrt:
+            type: string
+          generate:
+            type: boolean
+          serverCrt:
+            type: string
+          serverKey:
+            type: string
+        required:
+        - generate
+        type: object
+      useKubeapiserverFqdnForAks:
+        type: boolean
+      versionPriority:
+        format: int32
+        type: integer
+    required:
+    - ca
+    - enableMutatingWebhook
+    - enableValidatingWebhook
+    - groupPriorityMinimum
+    - healthcheck
+    - port
+    - servingCerts
+    - useKubeapiserverFqdnForAks
+    - versionPriority
+    type: object
   cleaner:
     properties:
       registry:
@@ -767,7 +821,7 @@ properties:
     type: object
   criticalAddon:
     type: boolean
-  enableAnalytics:
+  enforceTerminationPolicy:
     type: boolean
   fullnameOverride:
     type: string
@@ -775,13 +829,37 @@ properties:
     type: string
   imagePullSecrets:
     items:
-      type: string
+      description: LocalObjectReference contains enough information to let you locate
+        the referenced object inside the same namespace.
+      properties:
+        name:
+          description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+            TODO: Add other useful fields. apiVersion, kind, uid?'
+          type: string
+      type: object
     type: array
   license:
     type: string
   logLevel:
     format: int32
     type: integer
+  monitoring:
+    properties:
+      agent:
+        type: string
+      enabled:
+        type: boolean
+      serviceMonitor:
+        properties:
+          labels:
+            additionalProperties:
+              type: string
+            type: object
+        type: object
+    required:
+    - agent
+    - serviceMonitor
+    type: object
   nameOverride:
     type: string
   nodeSelector:
@@ -791,6 +869,8 @@ properties:
   operator:
     properties:
       registry:
+        type: string
+      repository:
         type: string
       resources:
         description: Compute Resources required by the sidecar container.
@@ -952,6 +1032,7 @@ properties:
         type: string
     required:
     - registry
+    - repository
     - tag
     type: object
   podAnnotations:
@@ -1089,29 +1170,11 @@ properties:
             type: string
         type: object
     type: object
-  provider:
-    properties:
-      name:
-        type: string
-    required:
-    - name
-    type: object
-  proxy:
-    properties:
-      http:
-        type: string
-      https:
-        type: string
-      'no':
-        type: string
-    type: object
   registryFQDN:
     type: string
   replicaCount:
     format: int32
     type: integer
-  secretKey:
-    type: string
   serviceAccount:
     properties:
       annotations:
@@ -1163,11 +1226,11 @@ properties:
       type: object
     type: array
 required:
+- apiserver
 - cleaner
 - imagePullPolicy
+- monitoring
 - operator
-- provider
-- proxy
 - registryFQDN
 - replicaCount
 - serviceAccount

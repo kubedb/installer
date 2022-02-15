@@ -1,0 +1,24 @@
+{{- if eq "prometheus.io/operator" ( include "monitoring.agent" . ) }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "kubedb-schema-manager.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+  {{- if eq "true" ( include "monitoring.apply-servicemonitor-label" . ) }}
+    {{- include "monitoring.servicemonitor-label" . | nindent 4 }}
+  {{- else }}
+    {{- include "kubedb-schema-manager.selectorLabels" . | nindent 4 }}
+  {{- end }}
+spec:
+  namespaceSelector:
+    matchNames:
+    - {{ .Release.Namespace }}
+  selector:
+    matchLabels:
+      {{- include "kubedb-schema-manager.selectorLabels" . | nindent 6 }}
+  endpoints:
+  - path: /metrics
+    port: metrics
+    scheme: http
+{{- end }}
