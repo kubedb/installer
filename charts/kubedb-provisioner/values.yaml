@@ -82,24 +82,16 @@ apiserver:
   useKubeapiserverFqdnForAks: true
   healthcheck:
     # healthcheck configures the readiness and liveliness probes for the operator pod.
-    enabled: false
-  # Port used to expose the operator apiserver
-  port: 8443
-  servingCerts:
-    # If true, generates on install/upgrade the certs that allow the kube-apiserver (and potentially ServiceMonitor)
-    # to authenticate operators pods. Otherwise specify certs in `apiserver.servingCerts.{caCrt, serverCrt, serverKey}`.
-    generate: true
-    # CA certficate used by serving certificate of webhook server.
-    caCrt: ""
-    # Serving certficate used by webhook server.
-    serverCrt: ""
-    # Private key for the serving certificate used by webhook server.
-    serverKey: ""
+    enabled: true
+    # The port the probe endpoint binds to
+    probePort: 8081
 # If true, namespace deletion will fail if it has a KubeDB resource with terminationPolicy DoNotTerminate
 enforceTerminationPolicy: true
 monitoring:
   # If true, enables monitoring KubeDB operator
   enabled: false
+  # The port the metric endpoint binds to
+  bindPort: 8080
   # Name of monitoring agent ("prometheus.io" or "prometheus.io/operator" or "prometheus.io/builtin")
   agent: ""
   serviceMonitor:
