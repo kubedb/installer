@@ -1,4 +1,6 @@
 {{- if .Values.apiserver.enableMutatingWebhook }}
+{{- $caCrt := dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
+
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
@@ -13,7 +15,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/elasticsearches
-    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
+    caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["*"]
@@ -28,7 +30,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/postgreses
-    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
+    caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["*"]
@@ -43,7 +45,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/mysqls
-    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
+    caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["*"]
@@ -58,7 +60,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/perconaxtradbs
-    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
+    caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["*"]
@@ -73,7 +75,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/mongodbs
-    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
+    caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["*"]
@@ -88,7 +90,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/redises
-    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
+    caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["*"]
@@ -103,7 +105,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/redissentinels
-    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
+    caBundle: {{ $caCrt }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -118,7 +120,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/memcacheds
-    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
+    caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["*"]
@@ -133,7 +135,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/etcds
-    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
+    caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["*"]
@@ -148,7 +150,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/pgbouncers
-    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
+    caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["*"]
@@ -163,7 +165,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/proxysqls
-    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
+    caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["*"]
@@ -178,7 +180,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/mutators.kubedb.com/v1alpha1/mariadbs
-    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
+    caBundle: {{ $caCrt }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]

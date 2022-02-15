@@ -116,4 +116,71 @@ spec:
   caBundle: {{ $caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
-
+---
+apiVersion: apiregistration.k8s.io/v1
+kind: APIService
+metadata:
+  name: v1alpha1.validators.dashboard.kubedb.com
+  labels:
+    app.kubernetes.io/component: kubedb-ops-manager
+    {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
+spec:
+  group: validators.dashboard.kubedb.com
+  version: v1alpha1
+  service:
+    namespace: {{ .Release.Namespace }}
+    name: {{ include "kubedb-webhook-server.fullname" . }}
+  caBundle: {{ $caCrt }}
+  groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
+  versionPriority: {{ .Values.apiserver.versionPriority }}
+---
+apiVersion: apiregistration.k8s.io/v1
+kind: APIService
+metadata:
+  name: v1alpha1.mutators.dashboard.kubedb.com
+  labels:
+    app.kubernetes.io/component: kubedb-ops-manager
+    {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
+spec:
+  group: mutators.dashboard.kubedb.com
+  version: v1alpha1
+  service:
+    namespace: {{ .Release.Namespace }}
+    name: {{ include "kubedb-webhook-server.fullname" . }}
+  caBundle: {{ $caCrt }}
+  groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
+  versionPriority: {{ .Values.apiserver.versionPriority }}
+---
+apiVersion: apiregistration.k8s.io/v1
+kind: APIService
+metadata:
+  name: v1alpha1.validators.schema.kubedb.com
+  labels:
+    app.kubernetes.io/component: kubedb-ops-manager
+    {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
+spec:
+  group: validators.schema.kubedb.com
+  version: v1alpha1
+  service:
+    namespace: {{ .Release.Namespace }}
+    name: {{ include "kubedb-webhook-server.fullname" . }}
+  caBundle: {{ $caCrt }}
+  groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
+  versionPriority: {{ .Values.apiserver.versionPriority }}
+---
+apiVersion: apiregistration.k8s.io/v1
+kind: APIService
+metadata:
+  name: v1alpha1.mutators.schema.kubedb.com
+  labels:
+    app.kubernetes.io/component: kubedb-ops-manager
+    {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
+spec:
+  group: mutators.schema.kubedb.com
+  version: v1alpha1
+  service:
+    namespace: {{ .Release.Namespace }}
+    name: {{ include "kubedb-webhook-server.fullname" . }}
+  caBundle: {{ $caCrt }}
+  groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
+  versionPriority: {{ .Values.apiserver.versionPriority }}

@@ -1,4 +1,6 @@
 {{- if .Values.apiserver.enableMutatingWebhook }}
+{{- $caCrt := dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
+
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
@@ -13,7 +15,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/mongodbautoscalers
-    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
+    caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["autoscaling.kubedb.com"]
     apiVersions: ["*"]
@@ -28,7 +30,7 @@ webhooks:
       namespace: default
       name: kubernetes
       path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/elasticsearchautoscalers
-    caBundle: {{ dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
+    caBundle: {{ $caCrt }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
