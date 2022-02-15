@@ -18,13 +18,7 @@ spec:
     matchLabels:
       {{- include "kubedb-ops-manager.selectorLabels" . | nindent 6 }}
   endpoints:
-  - port: operator
-    bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
-    scheme: https
-    tlsConfig:
-      ca:
-        secret:
-          name: {{ include "kubedb-ops-manager.fullname" . }}-apiserver-cert
-          key: tls.crt
-      serverName: "{{ include "kubedb-ops-manager.fullname" . }}.{{ .Release.Namespace }}.svc"
+  - path: /metrics
+    port: metrics
+    scheme: http
 {{- end }}

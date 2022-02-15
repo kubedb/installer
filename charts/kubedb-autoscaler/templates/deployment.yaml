@@ -22,7 +22,7 @@ spec:
       labels:
         {{- include "kubedb-autoscaler.selectorLabels" . | nindent 8 }}
       annotations:
-        checksum/apiregistration.yaml: {{ include (print $.Template.BasePath "/apiregistration.yaml") . | sha256sum }}
+        reload: {{ randAlpha 8 }}
       {{- if $criticalAddon }}
         scheduler.alpha.kubernetes.io/critical-pod: ''
       {{- end }}
@@ -39,15 +39,11 @@ spec:
         image: {{ include "operator.registry" . }}/{{ .Values.operator.repository }}:{{ .Values.operator.tag }}
         imagePullPolicy: {{ .Values.imagePullPolicy  }}
         args:
-        - run
+        - operator
         - --v={{ .Values.logLevel }}
-        - --secure-port={{ .Values.apiserver.port }}
-        - --audit-log-path=-
-        - --tls-cert-file=/var/serving-cert/tls.crt
-        - --tls-private-key-file=/var/serving-cert/tls.key
-        - --enable-mutating-webhook={{ .Values.apiserver.enableMutatingWebhook }}
-        - --enable-validating-webhook={{ .Values.apiserver.enableValidatingWebhook }}
         - --use-kubeapiserver-fqdn-for-aks={{ .Values.apiserver.useKubeapiserverFqdnForAks }}
+        - --metrics-bind-address=:{{ .Values.monitoring.bindPort }}
+        - --health-probe-bind-address=:{{ .Values.apiserver.healthcheck.probePort }}
         - --update-interval={{ .Values.updateInterval }}
         - --prometheus-address={{.Values.storageAutoscaler.prometheus.address}}
         {{- if .Values.storageAutoscaler.prometheus.caCert }}
@@ -69,13 +65,13 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         ports:
-        - name: operator
-          containerPort: {{ .Values.apiserver.port }}
+        - name: metrics
+          containerPort: {{ .Values.monitoring.bindPort }}
+        - name: probes
+          containerPort: {{ .Values.apiserver.healthcheck.probePort }}
         volumeMounts:
         - mountPath: /tmp
           name: tmpdir
-        - mountPath: /var/serving-cert
-          name: serving-cert
         {{- if or (ne .Values.storageAutoscaler.prometheus.bearerToken "") (ne .Values.storageAutoscaler.prometheus.caCert  "") }}
         - mountPath: /var/prometheus-data
           name: prometheus-data
@@ -87,27 +83,22 @@ spec:
       {{- if .Values.apiserver.healthcheck.enabled }}
         readinessProbe:
           httpGet:
-            path: /healthz
-            port: operator
-            scheme: HTTPS
+            path: /readyz
+            port: probes
           initialDelaySeconds: 5
+          periodSeconds: 10
         livenessProbe:
           httpGet:
             path: /healthz
-            port: operator
-            scheme: HTTPS
+            port: probes
           initialDelaySeconds: 15
-          timeoutSeconds: 15
+          periodSeconds: 20
       {{- end }}
         resources:
           {{- toYaml .Values.operator.resources | nindent 10 }}
       volumes:
       - name: tmpdir
         emptyDir: {}
-      - name: serving-cert
-        secret:
-          defaultMode: 420
-          secretName: {{ include "kubedb-autoscaler.fullname" . }}-apiserver-cert
       {{- if or (ne .Values.storageAutoscaler.prometheus.bearerToken "") (ne .Values.storageAutoscaler.prometheus.caCert  "") }}
       - name: prometheus-data
         secret:

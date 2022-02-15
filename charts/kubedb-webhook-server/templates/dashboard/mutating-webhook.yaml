@@ -1,0 +1,27 @@
+{{- if .Values.apiserver.enableMutatingWebhook }}
+{{- $caCrt := dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
+
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: mutators.dashboard.kubedb.com
+  labels:
+    app.kubernetes.io/component: kubedb-dashboard
+    {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
+webhooks:
+- name: elasticsearchdashboard.mutators.dashboard.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/mutators.dashboard.kubedb.com/v1alpha1/elasticsearchdashboards
+    caBundle: {{ $caCrt }}
+  rules:
+  - apiGroups: ["dashboard.kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["elasticsearchdashboards"]
+    operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Fail
+  sideEffects: None
+{{- end }}

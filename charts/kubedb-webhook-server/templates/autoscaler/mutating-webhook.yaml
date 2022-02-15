@@ -1,0 +1,42 @@
+{{- if .Values.apiserver.enableMutatingWebhook }}
+{{- $caCrt := dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
+
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: mutators.autoscaling.kubedb.com
+  labels:
+    app.kubernetes.io/component: kubedb-autoscaler
+    {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
+webhooks:
+- name: mongodbautoscaler.mutators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/mongodbautoscalers
+    caBundle: {{ $caCrt }}
+  rules:
+  - apiGroups: ["autoscaling.kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["mongodbautoscalers"]
+    operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Fail
+  sideEffects: None
+- name: elasticsearchautoscaler.mutators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/elasticsearchautoscalers
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["elasticsearchautoscalers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Fail
+  sideEffects: None
+{{- end }}
