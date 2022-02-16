@@ -11,7 +11,7 @@ metadata:
     app.kubernetes.io/component: kubedb-schema-manager
     {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
 webhooks:
-- name: mysqlopsrequest.mutators.schema.kubedb.com
+- name: mysqldatabase.mutators.schema.kubedb.com
   clientConfig:
     service:
       namespace: default
@@ -34,10 +34,10 @@ webhooks:
       path: /apis/mutators.schema.kubedb.com/v1alpha1/mongodbdatabases
     caBundle: {{ $caCrt }}
   rules:
-    - apiGroups: ["schema.kubedb.com"]
-      apiVersions: ["*"]
-      resources: ["mongodbdatabases"]
-      operations: ["CREATE", "UPDATE"]
+  - apiGroups: ["schema.kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["mongodbdatabases"]
+    operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None
