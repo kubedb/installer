@@ -11,12 +11,12 @@ metadata:
     app.kubernetes.io/component: kubedb-autoscaler
     {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
 webhooks:
-- name: mongodbautoscaler.mutators.autoscaling.kubedb.com
+- name: mongodbautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
-      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/mongodbautoscalers
+      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/mongodbautoscalerwebhooks
     caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["autoscaling.kubedb.com"]
@@ -26,18 +26,18 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None
-- name: elasticsearchautoscaler.mutators.autoscaling.kubedb.com
+- name: elasticsearchautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
-      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/elasticsearchautoscalers
+      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/elasticsearchautoscalerwebhooks
     caBundle: {{ $caCrt }}
   rules:
-    - apiGroups: ["autoscaling.kubedb.com"]
-      apiVersions: ["*"]
-      resources: ["elasticsearchautoscalers"]
-      operations: ["CREATE", "UPDATE"]
+  - apiGroups: ["autoscaling.kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["elasticsearchautoscalers"]
+    operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None
