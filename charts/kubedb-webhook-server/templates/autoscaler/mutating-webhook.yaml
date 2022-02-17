@@ -41,6 +41,21 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None
+- name: mariadbautoscalerwebhook.mutators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/mariadbautoscalerwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["mariadbautoscalers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Fail
+  sideEffects: None
 {{- end }}
 {{- end }}
 
