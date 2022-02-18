@@ -45,17 +45,17 @@ The command removes all the Kubernetes components associated with the chart and 
 
 The following table lists the configurable parameters of the `kubedb-grafana-dashboards` chart and their default values.
 
-|            Parameter            |                            Description                             |                                    Default                                    |
-|---------------------------------|--------------------------------------------------------------------|-------------------------------------------------------------------------------|
-| nameOverride                    | Overrides name template                                            | <code>""</code>                                                               |
-| fullnameOverride                | Overrides fullname template                                        | <code>""</code>                                                               |
-| resources                       | List of resources for which dashboards will be applied             | <code>["elasticsearch","mariadb","mongodb","mysql","postgres","redis"]</code> |
-| dashboard.folderID              | ID of Grafana folder where these dashboards will be applied        | <code>0</code>                                                                |
-| dashboard.overwrite             | If true, dashboard with matching uid will be overwritten           | <code>true</code>                                                             |
-| dashboard.templatize.title      | If true, datasource will be prefixed to dashboard name             | <code>false</code>                                                            |
-| dashboard.templatize.datasource | If true, datasource will be hardcoded in the dashboard             | <code>true</code>                                                             |
-| grafana.name                    | Name of Grafana Appbinding where these dashboards are applied      | <code>""</code>                                                               |
-| grafana.namespace               | Namespace of Grafana Appbinding where these dashboards are applied | <code>""</code>                                                               |
+|            Parameter            |                            Description                             |                              Default                               |
+|---------------------------------|--------------------------------------------------------------------|--------------------------------------------------------------------|
+| nameOverride                    | Overrides name template                                            | `""`                                                               |
+| fullnameOverride                | Overrides fullname template                                        | `""`                                                               |
+| resources                       | List of resources for which dashboards will be applied             | `["elasticsearch","mariadb","mongodb","mysql","postgres","redis"]` |
+| dashboard.folderID              | ID of Grafana folder where these dashboards will be applied        | `0`                                                                |
+| dashboard.overwrite             | If true, dashboard with matching uid will be overwritten           | `true`                                                             |
+| dashboard.templatize.title      | If true, datasource will be prefixed to dashboard name             | `false`                                                            |
+| dashboard.templatize.datasource | If true, datasource will be hardcoded in the dashboard             | `true`                                                             |
+| grafana.name                    | Name of Grafana Appbinding where these dashboards are applied      | `""`                                                               |
+| grafana.namespace               | Namespace of Grafana Appbinding where these dashboards are applied | `""`                                                               |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
