@@ -6,7 +6,8 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
-  allowPrivilegeEscalation: false
+  allowPrivilegeEscalation: {{ .Values.psp.proxysql.allowPrivilegeEscalation }}
+  privileged: {{ .Values.psp.proxysql.privileged }}
   allowedCapabilities:
   - IPC_LOCK
   - SYS_RESOURCE
@@ -15,7 +16,6 @@ spec:
   hostIPC: false
   hostNetwork: false
   hostPID: false
-  privileged: false
   runAsUser:
     rule: RunAsAny
   seLinux:

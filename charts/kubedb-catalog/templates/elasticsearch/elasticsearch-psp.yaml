@@ -6,7 +6,8 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
-  allowPrivilegeEscalation: true
+  allowPrivilegeEscalation: {{ .Values.psp.elasticsearch.allowPrivilegeEscalation }}
+  privileged: {{ .Values.psp.elasticsearch.privileged }}
   allowedCapabilities:
   - IPC_LOCK
   - SYS_RESOURCE
@@ -15,7 +16,6 @@ spec:
   hostIPC: false
   hostNetwork: false
   hostPID: false
-  privileged: true
   runAsUser:
     rule: RunAsAny
   seLinux:

@@ -576,9 +576,12 @@ func main() {
 					panic("missing psp " + pspName + " for db " + dbKind)
 				}
 
+				content := pspStore[pspName].DeepCopy().UnstructuredContent()
+				unstructured.RemoveNestedField(content, "spec", "allowPrivilegeEscalation")
+				unstructured.RemoveNestedField(content, "spec", "privileged")
 				data := map[string]interface{}{
 					"key":    strings.ToLower(dbKind),
-					"object": pspStore[pspName].Object,
+					"object": content,
 				}
 				funcMap := sprig.TxtFuncMap()
 				funcMap["toYaml"] = toYAML
