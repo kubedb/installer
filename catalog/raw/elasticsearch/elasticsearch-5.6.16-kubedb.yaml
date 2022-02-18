@@ -1,0 +1,29 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: kubedb-searchguard-5.6.16
+spec:
+  authPlugin: SearchGuard
+  db:
+    image: kubedb/elasticsearch:5.6.16-searchguard-v2022.02.22
+  distribution: KubeDB
+  exporter:
+    image: prometheuscommunity/elasticsearch-exporter:v1.3.0
+  initContainer:
+    image: tianon/toybox:0.8.4
+    yqImage: kubedb/elasticsearch:5.6.16-searchguard-v2022.02.22
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 1000
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-5.6.4
+        params:
+        - name: args
+          value: --match=^(?!searchguard)([a-zA-Z0-9_-]+)$
+      restoreTask:
+        name: elasticsearch-restore-5.6.4
+  version: 5.6.16
