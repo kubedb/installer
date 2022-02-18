@@ -1,0 +1,27 @@
+{{ if .Values.catalog.mongodb }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  name: 'percona-4.4.10'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "percona" "percona-server-mongodb")) }}:4.4.10'
+  distribution: Percona
+  exporter:
+    image: '{{ include "catalog.registry" . }}/mongodb_exporter:v0.20.4'
+  initContainer:
+    image: '{{ include "catalog.registry" . }}/mongodb-init:4.2-v4'
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+  replicationModeDetector:
+    image: '{{ include "catalog.registry" . }}/replication-mode-detector:v0.11.0'
+  stash:
+    addon:
+      backupTask:
+        name: mongodb-backup-4.4.6
+      restoreTask:
+        name: mongodb-restore-4.4.6
+  version: 4.4.10
+{{ end }}
