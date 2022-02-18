@@ -1,0 +1,62 @@
+{{ if .Values.catalog.postgres }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: '13.6-bullseye'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  coordinator:
+    image: '{{ include "catalog.registry" . }}/pg-coordinator:v0.8.0'
+  db:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "postgres")) }}:13.6-bullseye'
+  distribution: Official
+  exporter:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "postgres-exporter")) }}:v0.9.0'
+  initContainer:
+    image: '{{ include "catalog.registry" . }}/postgres-init:0.4.0'
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-13.1
+      restoreTask:
+        name: postgres-restore-13.1
+  version: "13.6"
+{{ end }}
+
+---
+{{ if .Values.catalog.postgres }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: '13.6'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  coordinator:
+    image: '{{ include "catalog.registry" . }}/pg-coordinator:v0.8.0'
+  db:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "postgres")) }}:13.6-alpine'
+  distribution: Official
+  exporter:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "postgres-exporter")) }}:v0.9.0'
+  initContainer:
+    image: '{{ include "catalog.registry" . }}/postgres-init:0.4.0'
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: false
+    runAsUser: 70
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-13.1
+      restoreTask:
+        name: postgres-restore-13.1
+  version: "13.6"
+{{ end }}
