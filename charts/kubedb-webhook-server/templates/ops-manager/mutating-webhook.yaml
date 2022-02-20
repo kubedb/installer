@@ -1,7 +1,7 @@
 {{- if .Values.apiserver.enableMutatingWebhook }}
 {{- if list "kubedb-webhook-server" "kubedb-enterprise" | has .Values.server.repository }}
 
-{{- $caCrt := dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" (printf "%s" .Release.Namespace) "kube-root-ca.crt") | b64enc }}
+{{- $caCrt := dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" .Release.Namespace "kube-root-ca.crt") | b64enc }}
 
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
