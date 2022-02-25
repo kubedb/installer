@@ -83,6 +83,13 @@ Returns the registry used for catalog docker images
 {{- end }}
 
 {{/*
+Returns the registry used for webhook server docker image
+*/}}
+{{- define "server.registry" -}}
+{{- list (default .Values.registryFQDN .Values.global.registryFQDN) (default .Values.server.registry .Values.global.registry) | compact | join "/" }}
+{{- end }}
+
+{{/*
 Returns the registry used for cleaner docker image
 */}}
 {{- define "cleaner.registry" -}}
