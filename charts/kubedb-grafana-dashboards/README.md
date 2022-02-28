@@ -4,10 +4,11 @@
 
 ## TL;DR;
 
-```console
+```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm install kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops
+$ helm search repo appscode/kubedb-grafana-dashboards --version=v2022.02.22
+$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2022.02.22
 ```
 
 ## Introduction
@@ -20,10 +21,10 @@ This chart deploys a KubeDB Grafana Dashboards on a [Kubernetes](http://kubernet
 
 ## Installing the Chart
 
-To install the chart with the release name `kubedb-grafana-dashboards`:
+To install/upgrade the chart with the release name `kubedb-grafana-dashboards`:
 
-```console
-$ helm install kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops
+```bash
+$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2022.02.22
 ```
 
 The command deploys a KubeDB Grafana Dashboards on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -32,10 +33,10 @@ The command deploys a KubeDB Grafana Dashboards on the Kubernetes cluster in the
 
 ## Uninstalling the Chart
 
-To uninstall/delete the `kubedb-grafana-dashboards`:
+To uninstall the `kubedb-grafana-dashboards`:
 
-```console
-$ helm delete kubedb-grafana-dashboards -n kubeops
+```bash
+$ helm uninstall kubedb-grafana-dashboards -n kubeops
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
@@ -57,15 +58,15 @@ The following table lists the configurable parameters of the `kubedb-grafana-das
 | grafana.namespace               | Namespace of Grafana Appbinding where these dashboards are applied | <code>""</code>                                                               |
 
 
-Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
+Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
-```console
-$ helm install kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --set resources=["elasticsearch","mariadb","mongodb","mysql","postgres","redis"]
+```bash
+$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2022.02.22 --set resources=["elasticsearch","mariadb","mongodb","mysql","postgres","redis"]
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
-```console
-$ helm install kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --values values.yaml
+```bash
+$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2022.02.22 --values values.yaml
 ```

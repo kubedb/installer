@@ -4,10 +4,11 @@
 
 ## TL;DR;
 
-```console
+```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm install kubedb-dashboard appscode/kubedb-dashboard -n kubedb
+$ helm search repo appscode/kubedb-dashboard --version=v0.1.0
+$ helm upgrade -i kubedb-dashboard appscode/kubedb-dashboard -n kubedb --create-namespace --version=v0.1.0
 ```
 
 ## Introduction
@@ -20,10 +21,10 @@ This chart deploys a KubeDB Dashboard operator on a [Kubernetes](http://kubernet
 
 ## Installing the Chart
 
-To install the chart with the release name `kubedb-dashboard`:
+To install/upgrade the chart with the release name `kubedb-dashboard`:
 
-```console
-$ helm install kubedb-dashboard appscode/kubedb-dashboard -n kubedb
+```bash
+$ helm upgrade -i kubedb-dashboard appscode/kubedb-dashboard -n kubedb --create-namespace --version=v0.1.0
 ```
 
 The command deploys a KubeDB Dashboard operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -32,10 +33,10 @@ The command deploys a KubeDB Dashboard operator on the Kubernetes cluster in the
 
 ## Uninstalling the Chart
 
-To uninstall/delete the `kubedb-dashboard`:
+To uninstall the `kubedb-dashboard`:
 
-```console
-$ helm delete kubedb-dashboard -n kubedb
+```bash
+$ helm uninstall kubedb-dashboard -n kubedb
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
@@ -79,15 +80,15 @@ The following table lists the configurable parameters of the `kubedb-dashboard` 
 | monitoring.serviceMonitor.labels     | Specify the labels for ServiceMonitor. Prometheus crd will select ServiceMonitor using these labels. Only usable when monitoring agent is `prometheus.io/operator`.                                                                                                                                                                                                         | <code>{}</code>                           |
 
 
-Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
+Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
-```console
-$ helm install kubedb-dashboard appscode/kubedb-dashboard -n kubedb --set replicaCount=1
+```bash
+$ helm upgrade -i kubedb-dashboard appscode/kubedb-dashboard -n kubedb --create-namespace --version=v0.1.0 --set replicaCount=1
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
-```console
-$ helm install kubedb-dashboard appscode/kubedb-dashboard -n kubedb --values values.yaml
+```bash
+$ helm upgrade -i kubedb-dashboard appscode/kubedb-dashboard -n kubedb --create-namespace --version=v0.1.0 --values values.yaml
 ```
