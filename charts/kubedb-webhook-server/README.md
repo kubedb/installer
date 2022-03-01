@@ -4,10 +4,11 @@
 
 ## TL;DR;
 
-```console
+```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm install kubedb-webhook-server appscode/kubedb-webhook-server -n kubedb
+$ helm search repo appscode/kubedb-webhook-server --version=v0.1.0
+$ helm upgrade -i kubedb-webhook-server appscode/kubedb-webhook-server -n kubedb --create-namespace --version=v0.1.0
 ```
 
 ## Introduction
@@ -20,10 +21,10 @@ This chart deploys a KubeDB Provisioner operator on a [Kubernetes](http://kubern
 
 ## Installing the Chart
 
-To install the chart with the release name `kubedb-webhook-server`:
+To install/upgrade the chart with the release name `kubedb-webhook-server`:
 
-```console
-$ helm install kubedb-webhook-server appscode/kubedb-webhook-server -n kubedb
+```bash
+$ helm upgrade -i kubedb-webhook-server appscode/kubedb-webhook-server -n kubedb --create-namespace --version=v0.1.0
 ```
 
 The command deploys a KubeDB Provisioner operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -32,10 +33,10 @@ The command deploys a KubeDB Provisioner operator on the Kubernetes cluster in t
 
 ## Uninstalling the Chart
 
-To uninstall/delete the `kubedb-webhook-server`:
+To uninstall the `kubedb-webhook-server`:
 
-```console
-$ helm delete kubedb-webhook-server -n kubedb
+```bash
+$ helm uninstall kubedb-webhook-server -n kubedb
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
@@ -92,15 +93,15 @@ The following table lists the configurable parameters of the `kubedb-webhook-ser
 | additionalPodSecurityPolicies        | Additional psp names passed to webhook server <br> Example: <br> `helm template ./chart/kubedb \` <br> `--set additionalPodSecurityPolicies[0]=abc \` <br> `--set additionalPodSecurityPolicies[1]=xyz`                                                                                                                                                                         | <code>[]</code>                           |
 
 
-Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
+Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
-```console
-$ helm install kubedb-webhook-server appscode/kubedb-webhook-server -n kubedb --set replicaCount=1
+```bash
+$ helm upgrade -i kubedb-webhook-server appscode/kubedb-webhook-server -n kubedb --create-namespace --version=v0.1.0 --set replicaCount=1
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
-```console
-$ helm install kubedb-webhook-server appscode/kubedb-webhook-server -n kubedb --values values.yaml
+```bash
+$ helm upgrade -i kubedb-webhook-server appscode/kubedb-webhook-server -n kubedb --create-namespace --version=v0.1.0 --values values.yaml
 ```
