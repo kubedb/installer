@@ -4,10 +4,11 @@
 
 ## TL;DR;
 
-```console
+```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm install kubedb-schema-manager appscode/kubedb-schema-manager -n kubedb
+$ helm search repo appscode/kubedb-schema-manager --version=v0.1.0
+$ helm upgrade -i kubedb-schema-manager appscode/kubedb-schema-manager -n kubedb --create-namespace --version=v0.1.0
 ```
 
 ## Introduction
@@ -20,10 +21,10 @@ This chart deploys a KubeDB schema manager operator on a [Kubernetes](http://kub
 
 ## Installing the Chart
 
-To install the chart with the release name `kubedb-schema-manager`:
+To install/upgrade the chart with the release name `kubedb-schema-manager`:
 
-```console
-$ helm install kubedb-schema-manager appscode/kubedb-schema-manager -n kubedb
+```bash
+$ helm upgrade -i kubedb-schema-manager appscode/kubedb-schema-manager -n kubedb --create-namespace --version=v0.1.0
 ```
 
 The command deploys a KubeDB schema manager operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -32,10 +33,10 @@ The command deploys a KubeDB schema manager operator on the Kubernetes cluster i
 
 ## Uninstalling the Chart
 
-To uninstall/delete the `kubedb-schema-manager`:
+To uninstall the `kubedb-schema-manager`:
 
-```console
-$ helm delete kubedb-schema-manager -n kubedb
+```bash
+$ helm uninstall kubedb-schema-manager -n kubedb
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
@@ -79,15 +80,15 @@ The following table lists the configurable parameters of the `kubedb-schema-mana
 | monitoring.serviceMonitor.labels     | Specify the labels for ServiceMonitor. Prometheus crd will select ServiceMonitor using these labels. Only usable when monitoring agent is `prometheus.io/operator`.                                                                                                                                                                                                                   | <code>{}</code>                           |
 
 
-Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
+Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
-```console
-$ helm install kubedb-schema-manager appscode/kubedb-schema-manager -n kubedb --set replicaCount=1
+```bash
+$ helm upgrade -i kubedb-schema-manager appscode/kubedb-schema-manager -n kubedb --create-namespace --version=v0.1.0 --set replicaCount=1
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
-```console
-$ helm install kubedb-schema-manager appscode/kubedb-schema-manager -n kubedb --values values.yaml
+```bash
+$ helm upgrade -i kubedb-schema-manager appscode/kubedb-schema-manager -n kubedb --create-namespace --version=v0.1.0 --values values.yaml
 ```
