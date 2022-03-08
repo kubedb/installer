@@ -38,8 +38,7 @@ type TypeMapper interface {
 	ToChartName(k string) string
 }
 
-type DefaultTypeMapper struct {
-}
+type DefaultTypeMapper struct{}
 
 var _ TypeMapper = &DefaultTypeMapper{}
 
@@ -68,12 +67,6 @@ type SchemaChecker struct {
 
 func kind(v interface{}) string {
 	return reflect.Indirect(reflect.ValueOf(v)).Type().Name()
-}
-
-func (checker *SchemaChecker) makeInstance(name string) interface{} {
-	v := reflect.New(checker.registry[name]).Elem()
-	// Maybe fill in fields here if necessary
-	return v.Interface()
 }
 
 // https://stackoverflow.com/a/23031445
@@ -143,12 +136,12 @@ func (checker *SchemaChecker) Check(schemaKind string, file string) (string, err
 		return "", errors.Wrap(err, file)
 	}
 
-	spec := checker.makeInstance(schemaKind)
-	err = yaml.Unmarshal(data, &spec)
+	newObj := reflect.New(checker.registry[schemaKind])
+	err = yaml.Unmarshal(data, newObj.Interface())
 	if err != nil {
 		return "", errors.Wrap(err, file)
 	}
-	parsed, err := json.Marshal(spec)
+	parsed, err := json.Marshal(newObj.Interface())
 	if err != nil {
 		return "", errors.Wrap(err, file)
 	}

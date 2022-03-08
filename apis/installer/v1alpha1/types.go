@@ -40,3 +40,45 @@ type CleanerRef struct {
 	ImageRef `json:",inline"`
 	Skip     bool `json:"skip"`
 }
+
+type ServiceAccountSpec struct {
+	Create bool `json:"create"`
+	//+optional
+	Name *string `json:"name"`
+	//+optional
+	Annotations map[string]string `json:"annotations"`
+}
+
+type WebHookSpec struct {
+	UseKubeapiserverFqdnForAks bool            `json:"useKubeapiserverFqdnForAks"`
+	Healthcheck                HealthcheckSpec `json:"healthcheck"`
+}
+
+type ServingCerts struct {
+	Generate bool `json:"generate"`
+	// +optional
+	CaCrt string `json:"caCrt"`
+	// +optional
+	ServerCrt string `json:"serverCrt"`
+	// +optional
+	ServerKey string `json:"serverKey"`
+}
+
+type HealthcheckSpec struct {
+	// +optional
+	Enabled   bool `json:"enabled"`
+	ProbePort int  `json:"probePort"`
+}
+
+type Monitoring struct {
+	// +optional
+	Enabled        bool                  `json:"enabled"`
+	Agent          string                `json:"agent"`
+	BindPort       int                   `json:"bindPort"`
+	ServiceMonitor *ServiceMonitorLabels `json:"serviceMonitor"`
+}
+
+type ServiceMonitorLabels struct {
+	// +optional
+	Labels map[string]string `json:"labels"`
+}

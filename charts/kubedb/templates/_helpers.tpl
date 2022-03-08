@@ -97,13 +97,6 @@ Returns the registry used for cleaner docker image
 {{- end }}
 
 {{/*
-Returns whether the cleaner job YAML will be generated or not
-*/}}
-{{- define "cleaner.generate" -}}
-{{- ternary "false" "true" (or .Values.global.skipCleaner .Values.cleaner.skip) -}}
-{{- end }}
-
-{{/*
 Returns the appscode image pull secrets
 */}}
 {{- define "appscode.imagePullSecrets" -}}

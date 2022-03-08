@@ -1,8 +1,4 @@
 properties:
-  additionalPodSecurityPolicies:
-    items:
-      type: string
-    type: array
   affinity:
     description: If specified, the pod's scheduling constraints
     properties:
@@ -755,69 +751,20 @@ properties:
     type: object
   apiserver:
     properties:
-      bypassValidatingWebhookXray:
-        type: boolean
-      ca:
-        type: string
-      enableMutatingWebhook:
-        type: boolean
-      enableValidatingWebhook:
-        type: boolean
-      groupPriorityMinimum:
-        format: int32
-        type: integer
       healthcheck:
         properties:
           enabled:
             type: boolean
-        type: object
-      port:
-        format: int32
-        type: integer
-      servingCerts:
-        properties:
-          caCrt:
-            type: string
-          generate:
-            type: boolean
-          serverCrt:
-            type: string
-          serverKey:
-            type: string
+          probePort:
+            type: integer
         required:
-        - generate
+        - probePort
         type: object
       useKubeapiserverFqdnForAks:
         type: boolean
-      versionPriority:
-        format: int32
-        type: integer
     required:
-    - ca
-    - enableMutatingWebhook
-    - enableValidatingWebhook
-    - groupPriorityMinimum
     - healthcheck
-    - port
-    - servingCerts
     - useKubeapiserverFqdnForAks
-    - versionPriority
-    type: object
-  cleaner:
-    properties:
-      registry:
-        type: string
-      repository:
-        type: string
-      skip:
-        type: boolean
-      tag:
-        type: string
-    required:
-    - registry
-    - repository
-    - skip
-    - tag
     type: object
   criticalAddon:
     type: boolean
@@ -847,6 +794,8 @@ properties:
     properties:
       agent:
         type: string
+      bindPort:
+        type: integer
       enabled:
         type: boolean
       serviceMonitor:
@@ -858,6 +807,7 @@ properties:
         type: object
     required:
     - agent
+    - bindPort
     - serviceMonitor
     type: object
   nameOverride:
@@ -1227,7 +1177,6 @@ properties:
     type: array
 required:
 - apiserver
-- cleaner
 - imagePullPolicy
 - monitoring
 - operator
