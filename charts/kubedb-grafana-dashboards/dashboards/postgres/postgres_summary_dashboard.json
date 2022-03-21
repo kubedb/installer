@@ -94,7 +94,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "kubedb_postgres_info{namespace=\"$namespace\", postgres=\"$postgres\"}",
+          "expr": "kubedb_postgres_info{namespace=\"$namespace\", postgres=\"$db\"}",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -155,7 +155,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "time() - kubedb_postgres_created{namespace=\"$namespace\", postgres=\"$postgres\"}",
+          "expr": "time() - kubedb_postgres_created{namespace=\"$namespace\", postgres=\"$db\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -217,7 +217,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "kubedb_postgres_replicas{namespace=\"$namespace\",postgres=\"$postgres\"}",
+          "expr": "kubedb_postgres_replicas{namespace=\"$namespace\",postgres=\"$db\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -304,7 +304,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "kubedb_postgres_status_phase{namespace=\"$namespace\", postgres=\"$postgres\"} == 1\n",
+          "expr": "kubedb_postgres_status_phase{namespace=\"$namespace\", postgres=\"$db\"} == 1\n",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -372,7 +372,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "kubedb_postgres_info{namespace=\"$namespace\", postgres=\"$postgres\"}",
+          "expr": "kubedb_postgres_info{namespace=\"$namespace\", postgres=\"$db\"}",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -452,7 +452,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "kubedb_postgres_info{namespace=\"$namespace\", postgres=\"$postgres\"}",
+          "expr": "kubedb_postgres_info{namespace=\"$namespace\", postgres=\"$db\"}",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -512,7 +512,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "kubedb_postgres_resource_request_cpu{namespace=\"$namespace\", postgres=\"$postgres\"}",
+          "expr": "kubedb_postgres_resource_request_cpu{namespace=\"$namespace\", postgres=\"$db\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -570,7 +570,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "kubedb_postgres_resource_limit_cpu{namespace=\"$namespace\", postgres=\"$postgres\"}",
+          "expr": "kubedb_postgres_resource_limit_cpu{namespace=\"$namespace\", postgres=\"$db\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -630,7 +630,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "kubedb_postgres_resource_request_memory{namespace=\"$namespace\", postgres=\"$postgres\"}",
+          "expr": "kubedb_postgres_resource_request_memory{namespace=\"$namespace\", postgres=\"$db\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -689,7 +689,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "kubedb_postgres_resource_limit_memory{namespace=\"$namespace\", postgres=\"$postgres\"}",
+          "expr": "kubedb_postgres_resource_limit_memory{namespace=\"$namespace\", postgres=\"$db\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -749,7 +749,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "kubedb_postgres_resource_request_storage{namespace=\"$namespace\", postgres=\"$postgres\"}",
+          "expr": "kubedb_postgres_resource_request_storage{namespace=\"$namespace\", postgres=\"$db\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -807,7 +807,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "avg(pg_settings_max_connections{namespace=\"$namespace\", pod=~\"$postgres.*\"})",
+          "expr": "avg(pg_settings_max_connections{namespace=\"$namespace\", pod=~\"$db.*\"})",
           "hide": false,
           "instant": true,
           "interval": "",
@@ -889,7 +889,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "AVG(rate(pg_stat_replication_reply_time{namespace=\"$namespace\", pod=~\"$postgres-.*\"}[5m])) by (pod)",
+          "expr": "AVG(rate(pg_stat_replication_reply_time{namespace=\"$namespace\", pod=~\"$db-.*\"}[5m])) by (pod)",
           "instant": false,
           "interval": "",
           "legendFormat": "{{pod}}",
@@ -969,7 +969,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(pg_stat_activity_count{namespace=\"$namespace\",pod=~\"$postgres.*\"}) by (state)",
+          "expr": "sum(pg_stat_activity_count{namespace=\"$namespace\",pod=~\"$db.*\"}) by (state)",
           "instant": false,
           "interval": "",
           "legendFormat": "{{state}}",
@@ -1063,7 +1063,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$postgres-.*\"}) by (pod)",
+          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$db-.*\"}) by (pod)",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -1291,7 +1291,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$postgres.*\"}) by (pod)",
+          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$db.*\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1302,7 +1302,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$postgres.*\"}) by (pod)",
+          "expr": "sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$db.*\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1313,7 +1313,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$postgres.*\"}) by (pod) / sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$postgres.*\"}) by (pod)",
+          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$db.*\"}) by (pod) / sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$db.*\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1324,7 +1324,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$postgres.*\"}) by (pod)",
+          "expr": "sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$db.*\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1335,7 +1335,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$postgres.*\"}) by (pod) / sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$postgres.*\"}) by (pod)",
+          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$db.*\"}) by (pod) / sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$db.*\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1443,7 +1443,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(node_namespace_pod_container:container_memory_working_set_bytes{namespace=\"$namespace\", pod=~\"$postgres-.*\",container!=\"\"}) by (pod)",
+          "expr": "sum(node_namespace_pod_container:container_memory_working_set_bytes{namespace=\"$namespace\", pod=~\"$db-.*\",container!=\"\"}) by (pod)",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -1742,7 +1742,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$postgres.*\",container!=\"\", image!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$db.*\",container!=\"\", image!=\"\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1753,7 +1753,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$postgres.*\"}) by (pod)",
+          "expr": "sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$db.*\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1764,7 +1764,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$postgres.*\",container!=\"\", image!=\"\"}) by (pod) / sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$postgres.*\"}) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$db.*\",container!=\"\", image!=\"\"}) by (pod) / sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$db.*\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1775,7 +1775,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{namespace=\"$namespace\",pod=~\"$postgres.*\"}) by (pod)",
+          "expr": "sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{namespace=\"$namespace\",pod=~\"$db.*\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1786,7 +1786,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$postgres.*\",container!=\"\", image!=\"\"}) by (pod) / sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$postgres.*\"}) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$db.*\",container!=\"\", image!=\"\"}) by (pod) / sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$db.*\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1797,7 +1797,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(container_memory_rss{namespace=\"$namespace\",pod=~\"$postgres.*\",container!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_rss{namespace=\"$namespace\",pod=~\"$db.*\",container!=\"\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1808,7 +1808,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(container_memory_cache{namespace=\"$namespace\",pod=~\"$postgres.*\",container!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_cache{namespace=\"$namespace\",pod=~\"$db.*\",container!=\"\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1819,7 +1819,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(container_memory_swap{namespace=\"$namespace\",pod=~\"$postgres.*\",container!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_swap{namespace=\"$namespace\",pod=~\"$db.*\",container!=\"\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1927,7 +1927,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "avg(container_blkio_device_usage_total{namespace=\"$namespace\", pod=~\"$postgres-.*\"}) by (pod)",
+          "expr": "avg(container_blkio_device_usage_total{namespace=\"$namespace\", pod=~\"$db-.*\"}) by (pod)",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -2051,7 +2051,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(rate(container_fs_writes_total{namespace=\"$namespace\", pod=~\"$postgres-.*\"}[5m]))by(pod)",
+          "expr": "sum(rate(container_fs_writes_total{namespace=\"$namespace\", pod=~\"$db-.*\"}[5m]))by(pod)",
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
@@ -2060,7 +2060,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(rate(container_fs_reads_total{namespace=\"$namespace\", pod=~\"$postgres-.*\"}[5m]))by(pod)",
+          "expr": "sum(rate(container_fs_reads_total{namespace=\"$namespace\", pod=~\"$db-.*\"}[5m]))by(pod)",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -2144,7 +2144,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "ceil(sum by(pod) (rate(container_fs_reads_total{container!=\"\", namespace=~\"$namespace\", pod=~\"$postgres.*\"}[5m]) + rate(container_fs_writes_total{container!=\"\" ,namespace=~\"$namespace\", pod=~\"$postgres.*\"}[5m])))",
+          "expr": "ceil(sum by(pod) (rate(container_fs_reads_total{container!=\"\", namespace=~\"$namespace\", pod=~\"$db.*\"}[5m]) + rate(container_fs_writes_total{container!=\"\" ,namespace=~\"$namespace\", pod=~\"$db.*\"}[5m])))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -2232,7 +2232,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", namespace=~\"$namespace\", pod=~\"$postgres.*\"}[5m]) + rate(container_fs_writes_bytes_total{container!=\"\" ,namespace=~\"$namespace\", pod=~\"$postgres.*\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", namespace=~\"$namespace\", pod=~\"$db.*\"}[5m]) + rate(container_fs_writes_bytes_total{container!=\"\" ,namespace=~\"$namespace\", pod=~\"$db.*\"}[5m]))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -2489,7 +2489,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum by(pod) (rate(container_fs_reads_total{container!=\"\", pod=~\"$postgres.*\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_total{container!=\"\", pod=~\"$db.*\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2500,7 +2500,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum by(pod) (rate(container_fs_writes_total{container!=\"\", pod=~\"$postgres.*\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_writes_total{container!=\"\", pod=~\"$db.*\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2511,7 +2511,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum by(pod) (rate(container_fs_reads_total{container!=\"\", pod=~\"$postgres.*\",namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_total{container!=\"\",pod=~\"$postgres.*\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_total{container!=\"\", pod=~\"$db.*\",namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_total{container!=\"\",pod=~\"$db.*\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2522,7 +2522,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", pod=~\"$postgres.*\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", pod=~\"$db.*\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2533,7 +2533,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum by(pod) (rate(container_fs_writes_bytes_total{container!=\"\", pod=~\"$postgres.*\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_writes_bytes_total{container!=\"\", pod=~\"$db.*\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2544,7 +2544,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", pod=~\"$postgres.*\",namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_bytes_total{container!=\"\",pod=~\"$postgres.*\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", pod=~\"$db.*\",namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_bytes_total{container!=\"\",pod=~\"$db.*\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2654,7 +2654,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(irate(container_network_receive_bytes_total{namespace=~\"$namespace\", pod=~\"$postgres.*\"}[$__rate_interval])) by (pod)",
+          "expr": "sum(irate(container_network_receive_bytes_total{namespace=~\"$namespace\", pod=~\"$db.*\"}[$__rate_interval])) by (pod)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -2742,7 +2742,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(irate(container_network_transmit_bytes_total{namespace=~\"$namespace\", pod=~\"$postgres.*\"}[$__rate_interval])) by (pod)",
+          "expr": "sum(irate(container_network_transmit_bytes_total{namespace=~\"$namespace\", pod=~\"$db.*\"}[$__rate_interval])) by (pod)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -2835,7 +2835,7 @@
         "includeAll": false,
         "label": "postgres",
         "multi": false,
-        "name": "postgres",
+        "name": "db",
         "options": [],
         "query": {
           "query": "query_result(kubedb_postgres_created{namespace=\"$namespace\"})",
