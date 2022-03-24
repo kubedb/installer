@@ -1,0 +1,44 @@
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: catalog-kubedb-com-mariadb-opsrequest
+spec:
+  targetRef:
+    apiVersion: ops.kubedb.com/v1alpha1
+    kind: MariaDBOpsRequest
+  metrics:
+    - name: kubedb_mariadb_opsreq_type
+      help: "MariaDB Opsrequest type"
+      type: gauge
+      labels:
+        - key: type
+          valuePath: .spec.type
+      metricValue:
+        value: 1
+    - name: kubedb_mariadb_opsrequest_status_phase
+      help: "The opsrequest current phase."
+      type: gauge
+      field:
+        path: .status.phase
+        type: String
+      labels:
+        - key: databaseRef
+          valuePath: .spec.databaseRef.name
+      params:
+        - key: phase
+          valuePath: .status.phase
+      states:
+        labelKey: phase
+        values:
+          - labelValue: Progressing
+            metricValue:
+              valueFromExpression: "int(phase == 'Progressing')"
+          - labelValue: Failed
+            metricValue:
+              valueFromExpression: "int(phase == 'Failed')"
+          - labelValue: Pending
+            metricValue:
+              valueFromExpression: "int(phase == 'Pending')"
+          - labelValue: Successful
+            metricValue:
+              valueFromExpression: "int(phase == 'Successful')"
