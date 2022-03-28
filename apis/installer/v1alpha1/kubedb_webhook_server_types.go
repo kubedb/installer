@@ -22,12 +22,12 @@ import (
 )
 
 const (
-	ResourceKindKubedbUiServer = "KubedbUiServer"
-	ResourceKubedbUiServer     = "kubedbuiserver"
-	ResourceKubedbUiServers    = "kubedbuiservers"
+	ResourceKindKubedbWebhookServer = "KubedbWebhookServer"
+	ResourceKubedbWebhookServer     = "kubedbwebhookserver"
+	ResourceKubedbWebhookServers    = "kubedbwebhookservers"
 )
 
-// KubedbUiServer defines the schama for ui server installer.
+// KubedbWebhookServer defines the schama for ui server installer.
 
 // +genclient
 // +genclient:skipVerbs=updateStatus
@@ -35,22 +35,26 @@ const (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:path=kubedbuiservers,singular=kubedbuiserver,categories={kubedb,appscode}
-type KubedbUiServer struct {
+// +kubebuilder:resource:path=kubedbwebhookservers,singular=kubedbwebhookserver,categories={kubedb,appscode}
+type KubedbWebhookServer struct {
 	metav1.TypeMeta   `json:",inline,omitempty"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              KubedbUiServerSpec `json:"spec,omitempty"`
+	Spec              KubedbWebhookServerSpec `json:"spec,omitempty"`
 }
 
-// KubedbUiServerSpec is the schema for Identity Server values file
-type KubedbUiServerSpec struct {
+// KubedbWebhookServerSpec is the schema for Identity Server values file
+type KubedbWebhookServerSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
-	FullnameOverride string    `json:"fullnameOverride"`
-	ReplicaCount     int32     `json:"replicaCount"`
-	Image            Container `json:"image"`
-	ImagePullPolicy  string    `json:"imagePullPolicy"`
+	FullnameOverride string `json:"fullnameOverride"`
+	ReplicaCount     int32  `json:"replicaCount"`
+	RegistryFQDN     string `json:"registryFQDN"`
+	// +optional
+	License         string     `json:"license"`
+	Server          Container  `json:"server"`
+	Cleaner         CleanerRef `json:"cleaner"`
+	ImagePullPolicy string     `json:"imagePullPolicy"`
 	//+optional
 	ImagePullSecrets []string `json:"imagePullSecrets"`
 	//+optional
@@ -74,36 +78,27 @@ type KubedbUiServerSpec struct {
 	// +optional
 	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext"`
 	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount"`
-	Apiserver          UIServerSpec             `json:"apiserver"`
+	Apiserver          WebhookAPIServerSpec     `json:"apiserver"`
 	Monitoring         UIServerMonitoring       `json:"monitoring"`
 }
-
-type UIServerSpec struct {
+type WebhookAPIServerSpec struct {
 	GroupPriorityMinimum       int32                   `json:"groupPriorityMinimum"`
 	VersionPriority            int32                   `json:"versionPriority"`
+	EnableMutatingWebhook      bool                    `json:"enableMutatingWebhook"`
+	EnableValidatingWebhook    bool                    `json:"enableValidatingWebhook"`
+	CA                         string                  `json:"ca"`
 	UseKubeapiserverFqdnForAks bool                    `json:"useKubeapiserverFqdnForAks"`
 	Healthcheck                UIServerHealthcheckSpec `json:"healthcheck"`
+	Port                       int32                   `json:"port"`
 	ServingCerts               ServingCerts            `json:"servingCerts"`
-}
-
-type UIServerHealthcheckSpec struct {
-	// +optional
-	Enabled bool `json:"enabled"`
-}
-
-type UIServerMonitoring struct {
-	// +optional
-	Enabled        bool                  `json:"enabled"`
-	Agent          string                `json:"agent"`
-	ServiceMonitor *ServiceMonitorLabels `json:"serviceMonitor"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KubedbUiServerList is a list of KubedbUiServers
-type KubedbUiServerList struct {
+// KubedbWebhookServerList is a list of KubedbWebhookServers
+type KubedbWebhookServerList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of KubedbUiServer CRD objects
-	Items []KubedbUiServer `json:"items,omitempty"`
+	// Items is a list of KubedbWebhookServer CRD objects
+	Items []KubedbWebhookServer `json:"items,omitempty"`
 }

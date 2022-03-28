@@ -44,16 +44,67 @@ type KubedbSpec struct {
 	Global GlobalValues `json:"global"`
 
 	//+optional
-	Provisioner KubedbProvisionerSpec `json:"kubedb-provisioner"`
+	KubedbProvisioner KubedbProvisionerValues `json:"kubedb-provisioner"`
 
 	//+optional
-	Catalog KubedbCatalogSpec `json:"kubedb-catalog"`
+	KubedbCatalog KubedbCatalogValues `json:"kubedb-catalog"`
 
 	//+optional
-	OpsManager KubedbOpsManagerSpec `json:"kubedb-ops-manager"`
+	KubedbWebhookServer KubedbWebhookServerValues `json:"kubedb-webhook-server"`
 
 	//+optional
-	Autoscaler KubedbAutoscalerSpec `json:"kubedb-autoscaler"`
+	KubedbOpsManager KubedbOpsManagerValues `json:"kubedb-ops-manager"`
+
+	//+optional
+	KubedbAutoscaler KubedbAutoscalerValues `json:"kubedb-autoscaler"`
+
+	//+optional
+	KubedbDashboard KubedbDashboardValues `json:"kubedb-dashboard"`
+
+	//+optional
+	KubedbSchemaManager KubedbSchemaManagerValues `json:"kubedb-schema-manager"`
+
+	//+optional
+	KubedbMetrics KubedbMetricsValues `json:"kubedb-metrics"`
+}
+
+type KubedbProvisionerValues struct {
+	Enabled                *bool `json:"enabled"`
+	*KubedbProvisionerSpec `json:",inline,omitempty"`
+}
+
+type KubedbCatalogValues struct {
+	Enabled            *bool `json:"enabled"`
+	*KubedbCatalogSpec `json:",inline,omitempty"`
+}
+
+type KubedbWebhookServerValues struct {
+	Enabled                  bool `json:"enabled"`
+	*KubedbWebhookServerSpec `json:",inline,omitempty"`
+}
+
+type KubedbOpsManagerValues struct {
+	Enabled               *bool `json:"enabled"`
+	*KubedbOpsManagerSpec `json:",inline,omitempty"`
+}
+
+type KubedbAutoscalerValues struct {
+	Enabled               *bool `json:"enabled"`
+	*KubedbAutoscalerSpec `json:",inline,omitempty"`
+}
+
+type KubedbDashboardValues struct {
+	Enabled              bool `json:"enabled"`
+	*KubedbDashboardSpec `json:",inline,omitempty"`
+}
+
+type KubedbSchemaManagerValues struct {
+	Enabled                  bool `json:"enabled"`
+	*KubedbSchemaManagerSpec `json:",inline,omitempty"`
+}
+
+type KubedbMetricsValues struct {
+	Enabled bool `json:"enabled"`
 }
 
 type GlobalValues struct {
@@ -62,8 +113,7 @@ type GlobalValues struct {
 	RegistryFQDN string `json:"registryFQDN"`
 	//+optional
 	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
-	SkipCleaner      bool                        `json:"skipCleaner"`
-	Monitoring       Monitoring                  `json:"monitoring"`
+	Monitoring       UIServerMonitoring          `json:"monitoring"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
