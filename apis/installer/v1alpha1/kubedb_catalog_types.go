@@ -47,6 +47,7 @@ type KubedbCatalogSpec struct {
 	RegistryFQDN     string      `json:"registryFQDN"`
 	Image            RegistryRef `json:"image"`
 	Catalog          Catalog     `json:"catalog"`
+	Psp              PSP         `json:"psp"`
 	SkipDeprecated   bool        `json:"skipDeprecated"`
 }
 
@@ -78,6 +79,72 @@ type Catalog struct {
 	Proxysql bool `json:"proxysql"`
 	//+optional
 	Redis bool `json:"redis"`
+}
+
+type PSP struct {
+	//+optional
+	Elasticsearch PSPElasticsearch `json:"elasticsearch"`
+	//+optional
+	Mariadb PSPMariadb `json:"mariadb"`
+	//+optional
+	Memcached PSPMemcached `json:"memcached"`
+	//+optional
+	Mongodb PSPMongodb `json:"mongodb"`
+	//+optional
+	Mysql PSPMysql `json:"mysql"`
+	//+optional
+	Perconaxtradb PSPPerconaxtradb `json:"perconaxtradb"`
+	//+optional
+	Postgres PSPPostgres `json:"postgres"`
+	//+optional
+	Proxysql PSPProxysql `json:"proxysql"`
+	//+optional
+	Redis PSPRedis `json:"redis"`
+}
+
+type PSPElasticsearch struct {
+	AllowPrivilegeEscalation bool `json:"allowPrivilegeEscalation"`
+	Privileged               bool `json:"privileged"`
+}
+
+type PSPMariadb struct {
+	AllowPrivilegeEscalation bool `json:"allowPrivilegeEscalation"`
+	Privileged               bool `json:"privileged"`
+}
+
+type PSPMemcached struct {
+	AllowPrivilegeEscalation bool `json:"allowPrivilegeEscalation"`
+	Privileged               bool `json:"privileged"`
+}
+
+type PSPMongodb struct {
+	AllowPrivilegeEscalation bool `json:"allowPrivilegeEscalation"`
+	Privileged               bool `json:"privileged"`
+}
+
+type PSPMysql struct {
+	AllowPrivilegeEscalation bool `json:"allowPrivilegeEscalation"`
+	Privileged               bool `json:"privileged"`
+}
+
+type PSPPerconaxtradb struct {
+	AllowPrivilegeEscalation bool `json:"allowPrivilegeEscalation"`
+	Privileged               bool `json:"privileged"`
+}
+
+type PSPPostgres struct {
+	AllowPrivilegeEscalation bool `json:"allowPrivilegeEscalation"`
+	Privileged               bool `json:"privileged"`
+}
+
+type PSPProxysql struct {
+	AllowPrivilegeEscalation bool `json:"allowPrivilegeEscalation"`
+	Privileged               bool `json:"privileged"`
+}
+
+type PSPRedis struct {
+	AllowPrivilegeEscalation bool `json:"allowPrivilegeEscalation"`
+	Privileged               bool `json:"privileged"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

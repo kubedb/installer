@@ -22,25 +22,25 @@ import (
 )
 
 const (
-	ResourceKindKubedbOpsManager = "KubedbOpsManager"
-	ResourceKubedbOpsManager     = "kubedbopsmanager"
-	ResourceKubedbOpsManagers    = "kubedbopsmanagers"
+	ResourceKindKubedbSchemaManager = "KubedbSchemaManager"
+	ResourceKubedbSchemaManager     = "kubedbschemamanager"
+	ResourceKubedbSchemaManagers    = "kubedbschemamanagers"
 )
 
-// KubedbOpsManager defines the schama for KubeDB Ops Manager Operator Installer.
+// KubedbSchemaManager defines the schama for KubeDB Operator Installer.
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:path=kubedbopsmanagers,singular=kubedbopsmanager,categories={kubedb,appscode}
-type KubedbOpsManager struct {
+// +kubebuilder:resource:path=kubedbschemamanagers,singular=kubedbschemamanager,categories={kubedb,appscode}
+type KubedbSchemaManager struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              KubedbOpsManagerSpec `json:"spec,omitempty"`
+	Spec              KubedbSchemaManagerSpec `json:"spec,omitempty"`
 }
 
-// KubedbOpsManagerSpec is the schema for kubedb-ops-manager chart values file
-type KubedbOpsManagerSpec struct {
+// KubedbSchemaManagerSpec is the schema for kubedb-provisioner chart values file
+type KubedbSchemaManagerSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
@@ -73,17 +73,19 @@ type KubedbOpsManagerSpec struct {
 	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext"`
 	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount"`
 	Apiserver          WebHookSpec              `json:"apiserver"`
-	Monitoring         Monitoring               `json:"monitoring"`
+	// +optional
+	EnforceTerminationPolicy bool       `json:"enforceTerminationPolicy"`
+	Monitoring               Monitoring `json:"monitoring"`
 	// +optional
 	License string `json:"license"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KubedbOpsManagerList is a list of KubedbOpsManagers
-type KubedbOpsManagerList struct {
+// KubedbSchemaManagerList is a list of KubedbSchemaManager-s
+type KubedbSchemaManagerList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of KubedbOpsManager CRD objects
-	Items []KubedbOpsManager `json:"items,omitempty"`
+	// Items is a list of KubedbSchemaManager CRD objects
+	Items []KubedbSchemaManager `json:"items,omitempty"`
 }

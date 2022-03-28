@@ -44,12 +44,11 @@ type KubedbProvisionerSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
-	FullnameOverride string     `json:"fullnameOverride"`
-	ReplicaCount     int32      `json:"replicaCount"`
-	RegistryFQDN     string     `json:"registryFQDN"`
-	Operator         Container  `json:"operator"`
-	Cleaner          CleanerRef `json:"cleaner"`
-	ImagePullPolicy  string     `json:"imagePullPolicy"`
+	FullnameOverride string    `json:"fullnameOverride"`
+	ReplicaCount     int32     `json:"replicaCount"`
+	RegistryFQDN     string    `json:"registryFQDN"`
+	Operator         Container `json:"operator"`
+	ImagePullPolicy  string    `json:"imagePullPolicy"`
 	//+optional
 	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
 	// +optional
@@ -81,55 +80,6 @@ type KubedbProvisionerSpec struct {
 	AdditionalPodSecurityPolicies []string `json:"additionalPodSecurityPolicies"`
 	// +optional
 	License string `json:"license"`
-}
-
-type ServiceAccountSpec struct {
-	Create bool `json:"create"`
-	//+optional
-	Name *string `json:"name"`
-	//+optional
-	Annotations map[string]string `json:"annotations"`
-}
-
-type WebHookSpec struct {
-	GroupPriorityMinimum    int32  `json:"groupPriorityMinimum"`
-	VersionPriority         int32  `json:"versionPriority"`
-	EnableMutatingWebhook   bool   `json:"enableMutatingWebhook"`
-	EnableValidatingWebhook bool   `json:"enableValidatingWebhook"`
-	CA                      string `json:"ca"`
-	// +optional
-	BypassValidatingWebhookXray bool            `json:"bypassValidatingWebhookXray"`
-	UseKubeapiserverFqdnForAks  bool            `json:"useKubeapiserverFqdnForAks"`
-	Healthcheck                 HealthcheckSpec `json:"healthcheck"`
-	Port                        int32           `json:"port"`
-	ServingCerts                ServingCerts    `json:"servingCerts"`
-}
-
-type ServingCerts struct {
-	Generate bool `json:"generate"`
-	// +optional
-	CaCrt string `json:"caCrt"`
-	// +optional
-	ServerCrt string `json:"serverCrt"`
-	// +optional
-	ServerKey string `json:"serverKey"`
-}
-
-type HealthcheckSpec struct {
-	// +optional
-	Enabled bool `json:"enabled"`
-}
-
-type Monitoring struct {
-	// +optional
-	Enabled        bool                  `json:"enabled"`
-	Agent          string                `json:"agent"`
-	ServiceMonitor *ServiceMonitorLabels `json:"serviceMonitor"`
-}
-
-type ServiceMonitorLabels struct {
-	// +optional
-	Labels map[string]string `json:"labels"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

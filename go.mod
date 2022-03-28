@@ -13,7 +13,7 @@ require (
 	k8s.io/api v0.21.1
 	k8s.io/apimachinery v0.21.1
 	kmodules.xyz/client-go v0.0.0-20220203031013-1de48437aaf3
-	kmodules.xyz/schema-checker v0.2.0
+	kmodules.xyz/schema-checker v0.2.1
 	sigs.k8s.io/yaml v1.2.0
 	stash.appscode.dev/installer v0.12.2-0.20220211115919-29686b4e636c
 )
