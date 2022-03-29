@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb-provisioner --version=v0.25.0
-$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.25.0
+$ helm search repo appscode/kubedb-provisioner --version=v0.26.0
+$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.26.0
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeDB Provisioner operator on a [Kubernetes](http://kubern
 To install/upgrade the chart with the release name `kubedb-provisioner`:
 
 ```bash
-$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.25.0
+$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.26.0
 ```
 
 The command deploys a KubeDB Provisioner operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -54,7 +54,7 @@ The following table lists the configurable parameters of the `kubedb-provisioner
 | registryFQDN                         | Docker registry fqdn used to pull KubeDB related images Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image}                                                                                                                                                                                                                                          | <code>""</code>                           |
 | operator.registry                    | Docker registry used to pull KubeDB operator image                                                                                                                                                                                                                                                                                                                              | <code>kubedb</code>                       |
 | operator.repository                  | KubeDB operator container image                                                                                                                                                                                                                                                                                                                                                 | <code>operator</code>                     |
-| operator.tag                         | KubeDB operator container image tag                                                                                                                                                                                                                                                                                                                                             | <code>v0.25.0</code>                      |
+| operator.tag                         | KubeDB operator container image tag                                                                                                                                                                                                                                                                                                                                             | <code>v0.26.0</code>                      |
 | operator.resources                   | Compute Resources required by the operator container                                                                                                                                                                                                                                                                                                                            | <code>{}</code>                           |
 | operator.securityContext             | requests: cpu: 100m memory: 128Mi Security options the operator container should run with                                                                                                                                                                                                                                                                                       | <code>{}</code>                           |
 | imagePullSecrets                     | Specify an array of imagePullSecrets. Secrets must be manually created in the namespace. <br> Example: <br> `helm template charts/kubedb-provisioner \` <br> `--set imagePullSecrets[0].name=sec0 \` <br> `--set imagePullSecrets[1].name=sec1`                                                                                                                                 | <code>[]</code>                           |
@@ -84,12 +84,12 @@ The following table lists the configurable parameters of the `kubedb-provisioner
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.25.0 --set replicaCount=1
+$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.26.0 --set replicaCount=1
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.25.0 --values values.yaml
+$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.26.0 --values values.yaml
 ```
