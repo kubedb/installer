@@ -36,11 +36,6 @@ type Container struct {
 	SecurityContext *core.SecurityContext `json:"securityContext"`
 }
 
-type CleanerRef struct {
-	ImageRef `json:",inline"`
-	Skip     bool `json:"skip"`
-}
-
 type ServiceAccountSpec struct {
 	Create bool `json:"create"`
 	//+optional
