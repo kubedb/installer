@@ -27,13 +27,13 @@ import (
 
 func TestDefaultValues(t *testing.T) {
 	checker := schemachecker.New(os.DirFS("../../.."),
-		// v1alpha1.KubedbAutoscalerSpec{},
-		// v1alpha1.KubedbCatalogSpec{},
-		// v1alpha1.KubedbDashboardSpec{},
-		// v1alpha1.KubedbSpec{},
-		// v1alpha1.KubedbOpsManagerSpec{},
-		// v1alpha1.KubedbProvisionerSpec{},
-		// v1alpha1.KubedbSchemaManagerSpec{},
+		v1alpha1.KubedbAutoscalerSpec{},
+		v1alpha1.KubedbCatalogSpec{},
+		v1alpha1.KubedbDashboardSpec{},
+		v1alpha1.KubedbSpec{},
+		v1alpha1.KubedbOpsManagerSpec{},
+		v1alpha1.KubedbProvisionerSpec{},
+		v1alpha1.KubedbSchemaManagerSpec{},
 		v1alpha1.KubedbWebhookServerSpec{},
 	)
 	checker.TestAll(t)
