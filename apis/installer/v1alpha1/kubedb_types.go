@@ -113,7 +113,7 @@ type GlobalValues struct {
 	RegistryFQDN string `json:"registryFQDN"`
 	//+optional
 	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
-	Monitoring       UIServerMonitoring          `json:"monitoring"`
+	Monitoring       EASMonitoring               `json:"monitoring"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

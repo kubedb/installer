@@ -74,28 +74,8 @@ type KubedbUiServerSpec struct {
 	// +optional
 	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext"`
 	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount"`
-	Apiserver          UIServerSpec             `json:"apiserver"`
-	Monitoring         UIServerMonitoring       `json:"monitoring"`
-}
-
-type UIServerSpec struct {
-	GroupPriorityMinimum       int32                   `json:"groupPriorityMinimum"`
-	VersionPriority            int32                   `json:"versionPriority"`
-	UseKubeapiserverFqdnForAks bool                    `json:"useKubeapiserverFqdnForAks"`
-	Healthcheck                UIServerHealthcheckSpec `json:"healthcheck"`
-	ServingCerts               ServingCerts            `json:"servingCerts"`
-}
-
-type UIServerHealthcheckSpec struct {
-	// +optional
-	Enabled bool `json:"enabled"`
-}
-
-type UIServerMonitoring struct {
-	// +optional
-	Enabled        bool                  `json:"enabled"`
-	Agent          string                `json:"agent"`
-	ServiceMonitor *ServiceMonitorLabels `json:"serviceMonitor"`
+	Apiserver          EASSpec                  `json:"apiserver"`
+	Monitoring         EASMonitoring            `json:"monitoring"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

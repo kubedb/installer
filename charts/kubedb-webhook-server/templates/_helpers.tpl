@@ -87,9 +87,7 @@ imagePullSecrets:
 Returns the enabled monitoring agent name
 */}}
 {{- define "monitoring.agent" -}}
-{{- if .Values.monitoring.enabled -}}
 {{- .Values.monitoring.agent }}
-{{- end }}
 {{- end }}
 
 {{/*
