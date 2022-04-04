@@ -7,6 +7,10 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   authPlugin: X-Pack
+  dashboard:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "kibana")) }}:7.16.2'
+  dashboardInitContainer:
+    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-dashboard-init:7.16.2-xpack-v2022.03.31'
   db:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "elasticsearch")) }}:7.16.2'
   distribution: ElasticStack

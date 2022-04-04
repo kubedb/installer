@@ -7,6 +7,10 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   authPlugin: OpenSearch
+  dashboard:
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "opensearchproject" "opensearch-dashboards")) }}:1.1.0'
+  dashboardInitContainer:
+    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-dashboard-init:1.1.0-opensearch-v2022.03.31'
   db:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "opensearchproject" "opensearch")) }}:1.1.0'
   distribution: OpenSearch
