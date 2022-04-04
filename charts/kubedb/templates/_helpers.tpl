@@ -90,13 +90,6 @@ Returns the registry used for webhook server docker image
 {{- end }}
 
 {{/*
-Returns the registry used for cleaner docker image
-*/}}
-{{- define "cleaner.registry" -}}
-{{- list (default .Values.registryFQDN .Values.global.registryFQDN) (default .Values.cleaner.registry .Values.global.registry) | compact | join "/" }}
-{{- end }}
-
-{{/*
 Returns the appscode image pull secrets
 */}}
 {{- define "appscode.imagePullSecrets" -}}
@@ -124,9 +117,7 @@ Returns the registry used for official docker images
 Returns the enabled monitoring agent name
 */}}
 {{- define "monitoring.agent" -}}
-{{- if (default .Values.global.monitoring.enabled .Values.monitoring.enabled) -}}
 {{- default .Values.global.monitoring.agent .Values.monitoring.agent }}
-{{- end }}
 {{- end }}
 
 {{/*

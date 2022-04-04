@@ -78,18 +78,18 @@ type KubedbWebhookServerSpec struct {
 	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext"`
 	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount"`
 	Apiserver          WebhookAPIServerSpec     `json:"apiserver"`
-	Monitoring         UIServerMonitoring       `json:"monitoring"`
+	Monitoring         EASMonitoring            `json:"monitoring"`
 }
 type WebhookAPIServerSpec struct {
-	GroupPriorityMinimum       int32                   `json:"groupPriorityMinimum"`
-	VersionPriority            int32                   `json:"versionPriority"`
-	EnableMutatingWebhook      bool                    `json:"enableMutatingWebhook"`
-	EnableValidatingWebhook    bool                    `json:"enableValidatingWebhook"`
-	CA                         string                  `json:"ca"`
-	UseKubeapiserverFqdnForAks bool                    `json:"useKubeapiserverFqdnForAks"`
-	Healthcheck                UIServerHealthcheckSpec `json:"healthcheck"`
-	Port                       int32                   `json:"port"`
-	ServingCerts               ServingCerts            `json:"servingCerts"`
+	GroupPriorityMinimum       int32              `json:"groupPriorityMinimum"`
+	VersionPriority            int32              `json:"versionPriority"`
+	EnableMutatingWebhook      bool               `json:"enableMutatingWebhook"`
+	EnableValidatingWebhook    bool               `json:"enableValidatingWebhook"`
+	CA                         string             `json:"ca"`
+	UseKubeapiserverFqdnForAks bool               `json:"useKubeapiserverFqdnForAks"`
+	Healthcheck                EASHealthcheckSpec `json:"healthcheck"`
+	Port                       int32              `json:"port"`
+	ServingCerts               ServingCerts       `json:"servingCerts"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

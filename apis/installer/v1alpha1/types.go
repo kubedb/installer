@@ -65,10 +65,11 @@ type HealthcheckSpec struct {
 	ProbePort int  `json:"probePort"`
 }
 
+// +kubebuilder:validation:Enum=prometheus.io;prometheus.io/operator;prometheus.io/builtin
+type MonitoringAgent string
+
 type Monitoring struct {
-	// +optional
-	Enabled        bool                  `json:"enabled"`
-	Agent          string                `json:"agent"`
+	Agent          MonitoringAgent       `json:"agent"`
 	BindPort       int                   `json:"bindPort"`
 	ServiceMonitor *ServiceMonitorLabels `json:"serviceMonitor"`
 }
@@ -76,4 +77,22 @@ type Monitoring struct {
 type ServiceMonitorLabels struct {
 	// +optional
 	Labels map[string]string `json:"labels"`
+}
+
+type EASSpec struct {
+	GroupPriorityMinimum       int32              `json:"groupPriorityMinimum"`
+	VersionPriority            int32              `json:"versionPriority"`
+	UseKubeapiserverFqdnForAks bool               `json:"useKubeapiserverFqdnForAks"`
+	Healthcheck                EASHealthcheckSpec `json:"healthcheck"`
+	ServingCerts               ServingCerts       `json:"servingCerts"`
+}
+
+type EASHealthcheckSpec struct {
+	// +optional
+	Enabled bool `json:"enabled"`
+}
+
+type EASMonitoring struct {
+	Agent          MonitoringAgent       `json:"agent"`
+	ServiceMonitor *ServiceMonitorLabels `json:"serviceMonitor"`
 }
