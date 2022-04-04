@@ -34,6 +34,7 @@ func TestDefaultValues(t *testing.T) {
 		v1alpha1.KubedbOpsManagerSpec{},
 		v1alpha1.KubedbProvisionerSpec{},
 		v1alpha1.KubedbSchemaManagerSpec{},
+		v1alpha1.KubedbUiServerSpec{},
 		v1alpha1.KubedbWebhookServerSpec{},
 	)
 	checker.TestAll(t)
