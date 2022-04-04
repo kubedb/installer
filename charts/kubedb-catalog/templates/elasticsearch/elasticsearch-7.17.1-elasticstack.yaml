@@ -2,23 +2,23 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  name: 'xpack-7.13.2'
+  name: 'xpack-7.17.1'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   authPlugin: X-Pack
   dashboard:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "kibana")) }}:7.13.2'
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "kibana")) }}:7.17.1'
   dashboardInitContainer:
-    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-dashboard-init:7.13.2-xpack-v2022.03.31'
+    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-dashboard-init:7.17.1-xpack-v2022.03.31'
   db:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "elasticsearch")) }}:7.13.2'
+    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "elasticsearch")) }}:7.17.1'
   distribution: ElasticStack
   exporter:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "elasticsearch-exporter")) }}:v1.3.0'
   initContainer:
     image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "tianon" "toybox")) }}:0.8.4'
-    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-init:7.13.2-xpack-v2021.08.23'
+    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-init:7.17.1-xpack-v2022.03.31'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   securityContext:
@@ -27,8 +27,8 @@ spec:
   stash:
     addon:
       backupTask:
-        name: elasticsearch-backup-7.3.2
+        name: elasticsearch-backup-7.14.0
       restoreTask:
-        name: elasticsearch-restore-7.3.2
-  version: 7.13.2
+        name: elasticsearch-restore-7.14.0
+  version: 7.17.1
 {{ end }}
