@@ -5,13 +5,11 @@ metadata:
   name: {{ include "kubedb-ui-server.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- if .Values.monitoring.serviceMonitor.labels }}
-    {{- range $key, $val := .Values.monitoring.serviceMonitor.labels }}
-    {{ $key }}: {{ $val }}
-    {{- end }}
-    {{- else }}
-      {{- include "kubedb-ui-server.selectorLabels" . | nindent 4 }}
-    {{- end }}
+  {{- if eq "true" ( include "monitoring.apply-servicemonitor-label" . ) }}
+    {{- include "monitoring.servicemonitor-label" . | nindent 4 }}
+  {{- else }}
+    {{- include "kubedb-ui-server.selectorLabels" . | nindent 4 }}
+  {{- end }}
 spec:
   namespaceSelector:
     matchNames:
