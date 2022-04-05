@@ -117,7 +117,7 @@ Returns the registry used for official docker images
 Returns the enabled monitoring agent name
 */}}
 {{- define "monitoring.agent" -}}
-{{- default .Values.global.monitoring.agent .Values.monitoring.agent }}
+{{- default .Values.monitoring.agent .Values.global.monitoring.agent }}
 {{- end }}
 
 {{/*
