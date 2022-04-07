@@ -7,12 +7,14 @@ spec:
     apiVersion: ops.kubedb.com/v1alpha1
     kind: MySQLOpsRequest
   metrics:
-    - name: kubedb_mysql_opsreq_type
+    - name: kubedb_mysql_opsrequest_type
       help: "MySQL Opsrequest type"
       type: gauge
       labels:
         - key: type
           valuePath: .spec.type
+        - key: database_ref
+          valuePath: .spec.databaseRef.name
       metricValue:
         value: 1
     - name: kubedb_mysql_opsrequest_status_phase
@@ -22,7 +24,9 @@ spec:
         path: .status.phase
         type: String
       labels:
-        - key: databaseRef
+        - key: type
+          valuePath: .spec.type
+        - key: database_ref
           valuePath: .spec.databaseRef.name
       params:
         - key: phase
