@@ -60,3 +60,57 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Returns the appscode license
+*/}}
+{{- define "appscode.license" -}}
+{{- default .Values.global.license .Values.license }}
+{{- end }}
+
+{{/*
+Returns the registry used for image docker image
+*/}}
+{{- define "image.registry" -}}
+{{- list (default .Values.registryFQDN .Values.global.registryFQDN) (default .Values.image.registry .Values.global.registry) | compact | join "/" }}
+{{- end }}
+
+{{/*
+Returns the appscode image pull secrets
+*/}}
+{{- define "appscode.imagePullSecrets" -}}
+{{- with .Values.global.imagePullSecrets -}}
+imagePullSecrets:
+{{- toYaml . | nindent 2 }}
+{{- else -}}
+imagePullSecrets:
+{{- toYaml $.Values.imagePullSecrets | nindent 2 }}
+{{- end }}
+{{- end }}
+
+{{/*
+Returns the enabled monitoring agent name
+*/}}
+{{- define "monitoring.agent" -}}
+{{- default .Values.monitoring.agent .Values.global.monitoring.agent }}
+{{- end }}
+
+{{/*
+Returns whether the ServiceMonitor will be labeled with custom label
+*/}}
+{{- define "monitoring.apply-servicemonitor-label" -}}
+{{- ternary "false" "true" (and (empty .Values.global.monitoring.serviceMonitor.labels) (empty .Values.monitoring.serviceMonitor.labels) ) -}}
+{{- end }}
+
+{{/*
+Returns the ServiceMonitor labels
+*/}}
+{{- define "monitoring.servicemonitor-label" -}}
+{{- range $key, $val := .Values.monitoring.serviceMonitor.labels }}
+{{ $key }}: {{ $val }}
+{{- else }}
+{{- range $key, $val := .Values.global.monitoring.serviceMonitor.labels }}
+{{ $key }}: {{ $val }}
+{{- end }}
+{{- end }}
+{{- end }}
