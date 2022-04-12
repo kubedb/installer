@@ -7,11 +7,12 @@ on:
   push:
     branches:
       - master
-
   workflow_dispatch:
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
   cancel-in-progress: true
+
 jobs:
   build:
     name: Build
@@ -59,7 +60,7 @@ jobs:
     needs: build
     strategy:
       matrix:
-        k8s: [v1.16.15, v1.18.19, v1.19.11, v1.20.7, v1.21.2, v1.22.4, v1.23.3]
+        k8s: [v1.18.19, v1.19.11, v1.20.7, v1.21.2, v1.22.4, v1.23.3]
     steps:
       - uses: actions/checkout@v1
 
@@ -96,6 +97,7 @@ jobs:
           export KUBECONFIG="${HOME}/.kube/config"
           CLUSTER_UID=$(kubectl get ns kube-system -o=jsonpath='{.metadata.uid}')
           LICENSE_KEY=$(curl -X POST -d "name=1gtm&email=1gtm@appscode.com&product=kubedb-enterprise&cluster=${CLUSTER_UID}&tos=true&token=${BYTEBUILDERS_LICENSE_TOKEN}" https://license-issuer.appscode.com/issue-license)
+          echo "${LICENSE_KEY}" > /tmp/license.txt
           # ref: https://github.com/mikefarah/yq/issues/230#issuecomment-487458629
           yqq w -i ./charts/kubedb-provisioner/ci/ci-values.yaml license --tag '!!str' -- "${LICENSE_KEY}"
           yqq w -i ./charts/kubedb-ops-manager/ci/ci-values.yaml license --tag '!!str' -- "${LICENSE_KEY}"
@@ -110,3 +112,42 @@ jobs:
           export KUBECONFIG="${HOME}/.kube/config"
           ./hack/scripts/update-chart-dependencies.sh
           ./hack/scripts/ct.sh
+
+      - name: Test Monitoring
+        run: |
+          export LICENSE_FILE=/tmp/license.txt
+          helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+          helm repo update
+          helm upgrade -i kube-prometheus-stack prometheus-community/kube-prometheus-stack --wait \
+            --namespace monitoring --create-namespace \
+            --set grafana.defaultDashboardsEnabled=false
+          helm upgrade -i kubedb charts/kubedb --wait \
+            --namespace kubedb --create-namespace \
+            --set kubedb-provisioner.enabled=true \
+            --set kubedb-ops-manager.enabled=true \
+            --set kubedb-autoscaler.enabled=true \
+            --set kubedb-dashboard.enabled=true \
+            --set kubedb-schema-manager.enabled=true \
+            --set-file global.license=$LICENSE_FILE \
+            --set global.monitoring.agent=prometheus.io/operator \
+            --set global.monitoring.serviceMonitor.labels.release=kube-prometheus-stack
+          helm delete kubedb --namespace kubedb
+          helm upgrade -i kubedb charts/kubedb --wait \
+            --namespace kubedb --create-namespace \
+            --set kubedb-provisioner.enabled=true \
+            --set kubedb-ops-manager.enabled=true \
+            --set kubedb-autoscaler.enabled=true \
+            --set kubedb-dashboard.enabled=true \
+            --set kubedb-schema-manager.enabled=true \
+            --set-file global.license=$LICENSE_FILE \
+            --set global.monitoring.agent=prometheus.io/builtin
+          helm delete kubedb --namespace kubedb
+          helm upgrade -i kubedb-opscenter charts/kubedb-opscenter --wait \
+            --namespace kubedb --create-namespace \
+            --set global.monitoring.agent=prometheus.io/operator \
+            --set global.monitoring.serviceMonitor.labels.release=kube-prometheus-stack
+          helm delete kubedb-opscenter --namespace kubedb
+          helm upgrade -i kubedb-opscenter charts/kubedb-opscenter --wait \
+            --namespace kubedb --create-namespace \
+            --set global.monitoring.agent=prometheus.io/builtin
+          helm delete kubedb-opscenter --namespace kubedb
