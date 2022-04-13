@@ -1,0 +1,52 @@
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: kubedb-com-mariadb-schema
+spec:
+  targetRef:
+    apiVersion: schema.kubedb.com/v1alpha1
+    kind: MariaDBDatabase
+  metrics:
+    - name: kubedb_mariadb_schema_created
+      help: "Unix creation timestamp"
+      type: gauge
+      field:
+        path: .metadata.creationTimestamp
+        type: DateTime
+      metricValue:
+        valueFromPath: .metadata.creationTimestamp
+    - name: kubedb_mariadb_schema_status_phase
+      help: "MariaDB schema current phase."
+      type: gauge
+      field:
+        path: .status.phase
+        type: String
+      labels:
+        - key: server_ref_name
+          valuePath: .spec.database.serverRef.name
+        - key: server_ref_namespace
+          valuePath: .spec.database.serverRef.namespace
+      params:
+        - key: phase
+          valuePath: .status.phase
+      states:
+        labelKey: phase
+        values:
+          - labelValue: InProgress
+            metricValue:
+              valueFromExpression: "int(phase == 'InProgress')"
+          - labelValue: Failed
+            metricValue:
+              valueFromExpression: "int(phase == 'Failed')"
+          - labelValue: Pending
+            metricValue:
+              valueFromExpression: "int(phase == 'Pending')"
+          - labelValue: Current
+            metricValue:
+              valueFromExpression: "int(phase == 'Current')"
+          - labelValue: Expired
+            metricValue:
+              valueFromExpression: "int(phase == 'Expired')"
+          - labelValue: Terminating
+            metricValue:
+              valueFromExpression: "int(phase == 'Terminating')"
