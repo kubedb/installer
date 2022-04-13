@@ -1,0 +1,48 @@
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: kubedb-com-postgres-opsrequest
+spec:
+  targetRef:
+    apiVersion: ops.kubedb.com/v1alpha1
+    kind: PostgresOpsRequest
+  metrics:
+    - name: kubedb_postgres_opsrequest_type
+      help: "Postgres OpsRequest Type"
+      type: gauge
+      labels:
+        - key: type
+          valuePath: .spec.type
+        - key: database_ref
+          valuePath: .spec.databaseRef.name
+      metricValue:
+        value: 1
+    - name: kubedb_postgres_opsrequest_status_phase
+      help: "The current phase of Postgres OpsRequest."
+      type: gauge
+      field:
+        path: .status.phase
+        type: String
+      labels:
+        - key: type
+          valuePath: .spec.type
+        - key: database_ref
+          valuePath: .spec.databaseRef.name
+      params:
+        - key: phase
+          valuePath: .status.phase
+      states:
+        labelKey: phase
+        values:
+          - labelValue: Progressing
+            metricValue:
+              valueFromExpression: "int(phase == 'Progressing')"
+          - labelValue: Failed
+            metricValue:
+              valueFromExpression: "int(phase == 'Failed')"
+          - labelValue: Pending
+            metricValue:
+              valueFromExpression: "int(phase == 'Pending')"
+          - labelValue: Successful
+            metricValue:
+              valueFromExpression: "int(phase == 'Successful')"
