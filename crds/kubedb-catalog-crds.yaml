@@ -1060,8 +1060,8 @@ spec:
     - jsonPath: .spec.version
       name: Version
       type: string
-    - jsonPath: .spec.server.image
-      name: SERVER_IMAGE
+    - jsonPath: .spec.db.image
+      name: DB_IMAGE
       type: string
     - jsonPath: .spec.deprecated
       name: Deprecated
@@ -1081,6 +1081,13 @@ spec:
             type: object
           spec:
             properties:
+              db:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
               deprecated:
                 type: boolean
               exporter:
@@ -1090,7 +1097,7 @@ spec:
                 required:
                 - image
                 type: object
-              server:
+              initContainer:
                 properties:
                   image:
                     type: string
@@ -1100,8 +1107,8 @@ spec:
               version:
                 type: string
             required:
+            - db
             - exporter
-            - server
             - version
             type: object
         type: object
