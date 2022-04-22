@@ -121,6 +121,7 @@ jobs:
           helm upgrade -i kube-prometheus-stack prometheus-community/kube-prometheus-stack --wait \
             --namespace monitoring --create-namespace \
             --set grafana.defaultDashboardsEnabled=false
+          kubectl apply -f crds/kubedb-catalog-crds.yaml
           helm upgrade -i kubedb charts/kubedb --wait \
             --namespace kubedb --create-namespace \
             --set kubedb-provisioner.enabled=true \
@@ -132,6 +133,7 @@ jobs:
             --set global.monitoring.agent=prometheus.io/operator \
             --set global.monitoring.serviceMonitor.labels.release=kube-prometheus-stack
           helm delete kubedb --namespace kubedb
+          kubectl apply -f crds/kubedb-catalog-crds.yaml
           helm upgrade -i kubedb charts/kubedb --wait \
             --namespace kubedb --create-namespace \
             --set kubedb-provisioner.enabled=true \
