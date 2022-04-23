@@ -1,13 +1,13 @@
 apiVersion: metrics.appscode.com/v1alpha1
 kind: MetricsConfiguration
 metadata:
-  name: kubedb-com-mariadb
+  name: kubedb-com-redissentinel
 spec:
   targetRef:
     apiVersion: kubedb.com/v1alpha2
-    kind: MariaDB
+    kind: RedisSentinel
   metrics:
-    - name: kubedb_mariadb_created
+    - name: created
       help: "Unix creation time stamp"
       type: gauge
       field:
@@ -16,8 +16,8 @@ spec:
       metricValue:
         valueFromPath: .metadata.creationTimestamp
 
-    - name: kubedb_mariadb_replicas
-      help: "Number of replicas of mariadb instance"
+    - name: replicas
+      help: "Number of replicas of redis sentinel instance"
       type: gauge
       params:
         - key: obj
@@ -25,8 +25,17 @@ spec:
       metricValue:
         valueFromExpression: resource_replicas(obj)
 
-    - name: kubedb_mariadb_status_phase
-      help: "MariaDB instance current phase"
+    - name: tls_enabled
+      help: "Redis sentinel tls info"
+      type: gauge
+      params:
+        - key: tls
+          valuePath: .spec.tls
+      metricValue:
+        valueFromExpression: int(tls != 'nil')
+
+    - name: status_phase
+      help: "Redis sentinel instance current phase"
       type: gauge
       field:
         path: .status.phase
@@ -56,14 +65,12 @@ spec:
             metricValue:
               valueFromExpression: "int(phase == 'DataRestoring')"
 
-    - name: kubedb_mariadb_info
-      help: "MariaDB instance information"
+    - name: info
+      help: "Redis senitel instance information"
       type: gauge
       labels:
         - key: version
           valuePath: .spec.version
-        - key: requireSSL
-          valuePath: .spec.requireSSL
         - key: storageType
           valuePath: .spec.storageType
         - key: terminationPolicy
@@ -71,8 +78,8 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_mariadb_status_conditions
-      help: "MariaDB instance status condition"
+    - name: status_conditions
+      help: "Redis sentinel instance status condition"
       type: gauge
       field:
         path: .status.conditions
@@ -85,8 +92,8 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_mariadb_resource_request_cpu
-      help: "Requested CPU by MariaDB in core"
+    - name: resource_request_cpu
+      help: "Requested CPU by Redis sentinel in core"
       type: gauge
       labels:
         - key: unit
@@ -99,8 +106,8 @@ spec:
       metricValue:
         valueFromExpression: total_resource_requests(obj, resourceType)
 
-    - name: kubedb_mariadb_resource_request_memory
-      help: "Requested memory by MariaDB in byte"
+    - name: resource_request_memory
+      help: "Requested memory by Redis sentinel in byte"
       type: gauge
       labels:
         - key: unit
@@ -113,8 +120,8 @@ spec:
       metricValue:
         valueFromExpression: total_resource_requests(obj, resourceType)
 
-    - name: kubedb_mariadb_resource_request_storage
-      help: "Requested storage by MariaDB in byte"
+    - name: resource_request_storage
+      help: "Requested storage by Redis sentinel in byte"
       type: gauge
       labels:
         - key: unit
@@ -127,8 +134,8 @@ spec:
       metricValue:
         valueFromExpression: total_resource_requests(obj, resourceType)
 
-    - name: kubedb_mariadb_resource_limit_cpu
-      help: "CPU limit for MariaDB in core"
+    - name: resource_limit_cpu
+      help: "CPU limit for Redis sentinel in core"
       type: gauge
       labels:
         - key: unit
@@ -141,8 +148,8 @@ spec:
       metricValue:
         valueFromExpression: total_resource_limits(obj, resourceType)
 
-    - name: kubedb_mariadb_resource_limit_memory
-      help: "Memory limit for MariaDB in byte"
+    - name: resource_limit_memory
+      help: "Memory limit for Redis sentinel in byte"
       type: gauge
       labels:
         - key: unit
@@ -155,8 +162,8 @@ spec:
       metricValue:
         valueFromExpression: total_resource_limits(obj, resourceType)
 
-    - name: kubedb_mariadb_resource_limit_storage
-      help: "Storage limit for MariaDB in byte"
+    - name: resource_limit_storage
+      help: "Storage limit for Redis sentinel in byte"
       type: gauge
       labels:
         - key: unit
@@ -168,4 +175,5 @@ spec:
           value: storage
       metricValue:
         valueFromExpression: total_resource_limits(obj, resourceType)
-    
+
+

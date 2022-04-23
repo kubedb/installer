@@ -1,13 +1,13 @@
 apiVersion: metrics.appscode.com/v1alpha1
 kind: MetricsConfiguration
 metadata:
-  name: catalog-kubedb-com-elasticsearch-version
+  name: catalog-kubedb-com-postgresversion
 spec:
   targetRef:
     apiVersion: catalog.kubedb.com/v1alpha1
-    kind: ElasticsearchVersion
+    kind: PostgresVersion
   metrics:
-    - name: kubedb_elasticsearch_version_created
+    - name: version_created
       help: "Unix creation timestamp"
       type: gauge
       field:
@@ -16,12 +16,12 @@ spec:
       metricValue:
         valueFromPath: .metadata.creationTimestamp
 
-    - name: kubedb_elasticsearch_version_info
-      help: "Elastic search versions info"
+    - name: version_info
+      help: "Postgres versions info"
       type: gauge
       labels:
-        - key: auth_plugin
-          valuePath: .spec.authPlugin
+        - key: coordinator_image
+          valuePath: .spec.coordinator.image
         - key: db_image
           valuePath: .spec.db.image
         - key: deprecated
