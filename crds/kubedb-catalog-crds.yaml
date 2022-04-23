@@ -1060,8 +1060,8 @@ spec:
     - jsonPath: .spec.version
       name: Version
       type: string
-    - jsonPath: .spec.server.image
-      name: SERVER_IMAGE
+    - jsonPath: .spec.pgBouncer.image
+      name: PGBOUNCER_IMAGE
       type: string
     - jsonPath: .spec.deprecated
       name: Deprecated
@@ -1090,7 +1090,14 @@ spec:
                 required:
                 - image
                 type: object
-              server:
+              initContainer:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              pgBouncer:
                 properties:
                   image:
                     type: string
@@ -1101,7 +1108,7 @@ spec:
                 type: string
             required:
             - exporter
-            - server
+            - pgBouncer
             - version
             type: object
         type: object
