@@ -1,13 +1,18 @@
 apiVersion: metrics.appscode.com/v1alpha1
 kind: MetricsConfiguration
 metadata:
-  name: kubedb-com-mysql-schema
+  name: schema-kubedb-com-mongodbdatabase
 spec:
   targetRef:
     apiVersion: schema.kubedb.com/v1alpha1
-    kind: MySQLDatabase
+    kind: MongoDBDatabase
+  commonLabels:
+    - key: app
+      valuePath: .spec.database.serverRef.name
+    - key: app_namespace
+      valuePath: .spec.database.serverRef.namespace
   metrics:
-    - name: kubedb_mysql_schema_created
+    - name: created
       help: "Unix creation timestamp"
       type: gauge
       field:
@@ -15,17 +20,12 @@ spec:
         type: DateTime
       metricValue:
         valueFromPath: .metadata.creationTimestamp
-    - name: kubedb_mysql_schema_status_phase
-      help: "MySQL schema current phase."
+    - name: status_phase
+      help: "MongoDB schema current phase."
       type: gauge
       field:
         path: .status.phase
         type: String
-      labels:
-        - key: server_ref_name
-          valuePath: .spec.database.serverRef.name
-        - key: server_ref_namespace
-          valuePath: .spec.database.serverRef.namespace
       params:
         - key: phase
           valuePath: .status.phase

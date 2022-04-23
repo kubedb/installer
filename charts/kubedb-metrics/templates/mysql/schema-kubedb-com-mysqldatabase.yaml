@@ -1,0 +1,52 @@
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: schema-kubedb-com-mysqldatabase
+spec:
+  targetRef:
+    apiVersion: schema.kubedb.com/v1alpha1
+    kind: MySQLDatabase
+  commonLabels:
+    - key: app
+      valuePath: .spec.database.serverRef.name
+    - key: app_namespace
+      valuePath: .spec.database.serverRef.namespace
+  metrics:
+    - name: created
+      help: "Unix creation timestamp"
+      type: gauge
+      field:
+        path: .metadata.creationTimestamp
+        type: DateTime
+      metricValue:
+        valueFromPath: .metadata.creationTimestamp
+    - name: status_phase
+      help: "MySQL schema current phase."
+      type: gauge
+      field:
+        path: .status.phase
+        type: String
+      params:
+        - key: phase
+          valuePath: .status.phase
+      states:
+        labelKey: phase
+        values:
+          - labelValue: InProgress
+            metricValue:
+              valueFromExpression: "int(phase == 'InProgress')"
+          - labelValue: Failed
+            metricValue:
+              valueFromExpression: "int(phase == 'Failed')"
+          - labelValue: Pending
+            metricValue:
+              valueFromExpression: "int(phase == 'Pending')"
+          - labelValue: Current
+            metricValue:
+              valueFromExpression: "int(phase == 'Current')"
+          - labelValue: Expired
+            metricValue:
+              valueFromExpression: "int(phase == 'Expired')"
+          - labelValue: Terminating
+            metricValue:
+              valueFromExpression: "int(phase == 'Terminating')"

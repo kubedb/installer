@@ -6,8 +6,13 @@ spec:
   targetRef:
     apiVersion: kubedb.com/v1alpha2
     kind: MongoDB
+  commonLabels:
+    - key: app
+      valuePath: .metadata.name
+    - key: app_namespace
+      valuePath: .metadata.name
   metrics:
-    - name: kubedb_mongodb_created
+    - name: created
       help: "Unix creation timestamp"
       type: gauge
       field:
@@ -16,7 +21,7 @@ spec:
       metricValue:
         valueFromPath: .metadata.creationTimestamp
 
-    - name: kubedb_mongodb_status_phase
+    - name: status_phase
       help: "MongoDB instance current phase"
       type: gauge
       field:
@@ -47,7 +52,7 @@ spec:
             metricValue:
               valueFromExpression: "int(phase == 'DataRestoring')"
 
-    - name: kubedb_mongodb_info
+    - name: info
       help: "MongoDB instance information"
       type: gauge
       labels:
@@ -64,7 +69,7 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_mongodb_status_conditions
+    - name: status_conditions
       help: "MongoDB instance status condition"
       type: gauge
       field:
@@ -78,7 +83,7 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_mongodb_shard_enabled
+    - name: shard_enabled
       help: "MongoDB sharded topology enable info"
       type: gauge
       params:
@@ -87,7 +92,7 @@ spec:
       metricValue:
         valueFromExpression: "int(topology != 'nil')"
 
-    - name: kubedb_mongodb_resource_request_cpu
+    - name: resource_request_cpu
       help: "Requested CPU by MongoDB in core"
       type: gauge
       labels:
@@ -101,7 +106,7 @@ spec:
       metricValue:
         valueFromExpression: total_resource_requests(obj, resourceType)
 
-    - name: kubedb_mongodb_resource_request_memory
+    - name: resource_request_memory
       help: "Requested memory by MongoDB in byte"
       type: gauge
       labels:
@@ -115,7 +120,7 @@ spec:
       metricValue:
         valueFromExpression: total_resource_requests(obj, resourceType)
 
-    - name: kubedb_mongodb_resource_request_storage
+    - name: resource_request_storage
       help: "Requested storage by MongoDB in byte"
       type: gauge
       labels:
@@ -129,7 +134,7 @@ spec:
       metricValue:
         valueFromExpression: total_resource_requests(obj, resourceType)
 
-    - name: kubedb_mongodb_resource_limit_cpu
+    - name: resource_limit_cpu
       help: "CPU limit for MongoDB in core"
       type: gauge
       labels:
@@ -143,7 +148,7 @@ spec:
       metricValue:
         valueFromExpression: total_resource_limits(obj, resourceType)
 
-    - name: kubedb_mongodb_resource_limit_memory
+    - name: resource_limit_memory
       help: "Memory limit for MongoDB in byte"
       type: gauge
       labels:
@@ -157,7 +162,7 @@ spec:
       metricValue:
         valueFromExpression: total_resource_limits(obj, resourceType)
 
-    - name: kubedb_mongodb_resource_limit_storage
+    - name: resource_limit_storage
       help: "Storage limit for MongoDB in byte"
       type: gauge
       labels:
@@ -173,7 +178,7 @@ spec:
 
     ##### Metrics config for mongodb sharded database #####
 
-    - name: kubedb_mongodb_shard_shards
+    - name: shard_shards
       help: "Number of shards of the MongoDB database"
       type: gauge
       field:
@@ -182,7 +187,7 @@ spec:
       metricValue:
         valueFromPath: .spec.shardTopology.shard.shards
 
-    - name: kubedb_mongodb_shard_replicas
+    - name: shard_replicas
       help: "Number of replicas in the MongoDB shards"
       type: gauge
       field:
@@ -191,7 +196,7 @@ spec:
       metricValue:
         valueFromPath: .spec.shardTopology.shard.replicas
 
-    - name: kubedb_mongodb_configsvr_replicas
+    - name: configsvr_replicas
       help: "Number of replicas in MongoDB config server in sharded database"
       type: gauge
       field:
@@ -200,7 +205,7 @@ spec:
       metricValue:
         valueFromPath: .spec.shardTopology.configServer.replicas
 
-    - name: kubedb_mongodb_mongos_replicas
+    - name: mongos_replicas
       help: "Number of replicas in mongodb sharded mongos"
       type: gauge
       field:

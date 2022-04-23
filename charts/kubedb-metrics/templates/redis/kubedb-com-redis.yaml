@@ -6,8 +6,13 @@ spec:
   targetRef:
     apiVersion: kubedb.com/v1alpha2
     kind: Redis
+  commonLabels:
+    - key: app
+      valuePath: .metadata.name
+    - key: app_namespace
+      valuePath: .metadata.name
   metrics:
-    - name: kubedb_redis_created
+    - name: created
       help: "Unix creation time stamp"
       type: gauge
       field:
@@ -16,7 +21,7 @@ spec:
       metricValue:
         valueFromPath: .metadata.creationTimestamp
 
-    - name: kubedb_redis_mode
+    - name: mode
       help: "Redis database instance mode"
       type: gauge
       labels:
@@ -25,7 +30,7 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_redis_cluster_master_nodes
+    - name: cluster_master_nodes
       help: "Number of master nodes in redis cluster"
       type: gauge
       field:
@@ -34,7 +39,7 @@ spec:
       metricValue:
         valueFromPath: .spec.cluster.master
 
-    - name: kubedb_redis_cluster_replicas
+    - name: cluster_replicas
       help: "Number of replicas in redis cluster"
       type: gauge
       field:
@@ -43,7 +48,7 @@ spec:
       metricValue:
         valueFromPath: .spec.cluster.replicas
 
-    - name: kubedb_redis_replicas
+    - name: replicas
       help: "Number of replicas of redis instance"
       type: gauge
       params:
@@ -52,7 +57,7 @@ spec:
       metricValue:
         valueFromExpression: resource_replicas(obj)
 
-    - name: kubedb_redis_status_phase
+    - name: status_phase
       help: "Redis instance current phase"
       type: gauge
       field:
@@ -83,7 +88,7 @@ spec:
             metricValue:
               valueFromExpression: "int(phase == 'DataRestoring')"
 
-    - name: kubedb_redis_info
+    - name: info
       help: "Redis instance information"
       type: gauge
       labels:
@@ -98,7 +103,7 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_redis_status_conditions
+    - name: status_conditions
       help: "Redis instance status condition"
       type: gauge
       field:
@@ -112,7 +117,7 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_redis_resource_request_cpu
+    - name: resource_request_cpu
       help: "Requested CPU by Redis in core"
       type: gauge
       labels:
@@ -126,7 +131,7 @@ spec:
       metricValue:
         valueFromExpression: total_resource_requests(obj, resourceType)
 
-    - name: kubedb_redis_resource_request_memory
+    - name: resource_request_memory
       help: "Requested memory by Redis in byte"
       type: gauge
       labels:
@@ -140,7 +145,7 @@ spec:
       metricValue:
         valueFromExpression: total_resource_requests(obj, resourceType)
 
-    - name: kubedb_redis_resource_request_storage
+    - name: resource_request_storage
       help: "Requested storage by Redis in byte"
       type: gauge
       labels:
@@ -154,7 +159,7 @@ spec:
       metricValue:
         valueFromExpression: total_resource_requests(obj, resourceType)
 
-    - name: kubedb_redis_resource_limit_cpu
+    - name: resource_limit_cpu
       help: "CPU limit for Redis in core"
       type: gauge
       labels:
@@ -168,7 +173,7 @@ spec:
       metricValue:
         valueFromExpression: total_resource_limits(obj, resourceType)
 
-    - name: kubedb_redis_resource_limit_memory
+    - name: resource_limit_memory
       help: "Memory limit for Redis in byte"
       type: gauge
       labels:
@@ -182,7 +187,7 @@ spec:
       metricValue:
         valueFromExpression: total_resource_limits(obj, resourceType)
 
-    - name: kubedb_redis_resource_limit_storage
+    - name: resource_limit_storage
       help: "Storage limit for Redis in byte"
       type: gauge
       labels:
