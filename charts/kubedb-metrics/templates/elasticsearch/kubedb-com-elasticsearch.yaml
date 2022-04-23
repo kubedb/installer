@@ -6,8 +6,13 @@ spec:
   targetRef:
     apiVersion: kubedb.com/v1alpha2
     kind: Elasticsearch
+  commonLabels:
+    - key: app
+      valuePath: .metadata.name
+    - key: app_namespace
+      valuePath: .metadata.name
   metrics:
-    - name: kubedb_elasticsearch_created
+    - name: created
       help: "Unix creation time stamp"
       type: gauge
       field:
@@ -15,8 +20,8 @@ spec:
         type: DateTime
       metricValue:
         valueFromPath: .metadata.creationTimestamp
-    
-    - name: kubedb_elasticsearch_info
+
+    - name: info
       help: "Kubedb elasticsearch information"
       type: gauge
       labels:
@@ -33,7 +38,7 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_elasticsearch_replicas
+    - name: replicas
       help: "Number of elasticsearch replicas in general mode"
       type: gauge
       params:
@@ -42,7 +47,7 @@ spec:
       metricValue:
         valueFromExpression: resource_replicas(obj)
 
-    - name: kubedb_elasticsearch_status_conditions
+    - name: status_conditions
       help: "Elasticsearch instance status condition"
       type: gauge
       field:
@@ -56,7 +61,7 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_elasticsearch_status_phase
+    - name: status_phase
       help: "Elasticsearch instance current phase"
       type: gauge
       field:
@@ -87,7 +92,7 @@ spec:
             metricValue:
               valueFromExpression: "int(phase == 'DataRestoring')"
 
-    - name: kubedb_elasticsearch_security_http_ssl_enabled
+    - name: security_http_ssl_enabled
       help: "Elasticsearch ssl information"
       type: gauge
       params:
@@ -96,7 +101,7 @@ spec:
       metricValue:
         valueFromExpression: int(ssl == 'true')
 
-    - name: kubedb_elasticsearch_certmanager_managed_tls_enabled
+    - name: certmanager_managed_tls_enabled
       help: "Elasticsearch cert manager managed tls info"
       type: gauge
       params:
@@ -105,7 +110,7 @@ spec:
       metricValue:
         valueFromExpression: int(tls_issuerRef != 'nil')
 
-    - name: kubedb_elasticsearch_resource_request_cpu
+    - name: resource_request_cpu
       help: "Requested CPU by Elasticsearch in core"
       type: gauge
       labels:
@@ -119,7 +124,7 @@ spec:
       metricValue:
         valueFromExpression: total_resource_requests(obj, resourceType)
 
-    - name: kubedb_elasticsearch_resource_request_memory
+    - name: resource_request_memory
       help: "Requested memory by Elasticsearch in byte"
       type: gauge
       labels:
@@ -133,7 +138,7 @@ spec:
       metricValue:
         valueFromExpression: total_resource_requests(obj, resourceType)
 
-    - name: kubedb_elasticsearch_resource_request_storage
+    - name: resource_request_storage
       help: "Requested storage by Elasticsearch in byte"
       type: gauge
       labels:
@@ -147,7 +152,7 @@ spec:
       metricValue:
         valueFromExpression: total_resource_requests(obj, resourceType)
 
-    - name: kubedb_elasticsearch_resource_limit_cpu
+    - name: resource_limit_cpu
       help: "CPU limit for Elasticsearch in core"
       type: gauge
       labels:
@@ -161,7 +166,7 @@ spec:
       metricValue:
         valueFromExpression: total_resource_limits(obj, resourceType)
 
-    - name: kubedb_elasticsearch_resource_limit_memory
+    - name: resource_limit_memory
       help: "Memory limit for Elasticsearch in byte"
       type: gauge
       labels:
@@ -175,7 +180,7 @@ spec:
       metricValue:
         valueFromExpression: total_resource_limits(obj, resourceType)
 
-    - name: kubedb_elasticsearch_resource_limit_storage
+    - name: resource_limit_storage
       help: "Storage limit for Elasticsearch in byte"
       type: gauge
       labels:
@@ -191,7 +196,7 @@ spec:
 
     ##### Metrics for Master topology #####
 
-    - name: kubedb_elasticsearch_master_node_replicas
+    - name: master_node_replicas
       help: "Number of replicas for elasticsearch master node"
       type: gauge
       field:
@@ -200,7 +205,7 @@ spec:
       metricValue:
         valueFromPath: .spec.topology.master.replicas
 
-    - name: kubedb_elasticsearch_master_node_storage_class_info
+    - name: master_node_storage_class_info
       help: "Elasticsearch master node storage class information"
       type: gauge
       labels:
@@ -209,7 +214,7 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_elasticsearch_master_node_max_unavailable
+    - name: master_node_max_unavailable
       help: "Maximum number of pods unavailable after an eviction"
       type: gauge
       field:
@@ -220,7 +225,7 @@ spec:
 
     ##### Metrics for Data topology #####
 
-    - name: kubedb_elasticsearch_data_node_replicas
+    - name: data_node_replicas
       help: "Number of replicas for elasticsearch data node"
       type: gauge
       field:
@@ -229,7 +234,7 @@ spec:
       metricValue:
         valueFromPath: .spec.topology.data.replicas
 
-    - name: kubedb_elasticsearch_data_node_storage_class_info
+    - name: data_node_storage_class_info
       help: "Elasticsearch data node storage class information"
       type: gauge
       labels:
@@ -238,7 +243,7 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_elasticsearch_data_node_max_unavailable
+    - name: data_node_max_unavailable
       help: "Maximum number of pods unavailable after an eviction"
       type: gauge
       field:
@@ -249,7 +254,7 @@ spec:
 
       ##### Metrics for DataContent topology #####
 
-    - name: kubedb_elasticsearch_datacontent_node_replicas
+    - name: datacontent_node_replicas
       help: "Number of replicas for elasticsearch dataContent node"
       type: gauge
       field:
@@ -258,7 +263,7 @@ spec:
       metricValue:
         valueFromPath: .spec.topology.dataContent.replicas
 
-    - name: kubedb_elasticsearch_datacontent_node_storage_class_info
+    - name: datacontent_node_storage_class_info
       help: "Elasticsearch dataContent node storage class information"
       type: gauge
       labels:
@@ -267,7 +272,7 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_elasticsearch_datacontent_node_max_unavailable
+    - name: datacontent_node_max_unavailable
       help: "Maximum number of pods unavailable after an eviction"
       type: gauge
       field:
@@ -278,7 +283,7 @@ spec:
 
     ##### Metrics for DataHot topology #####
 
-    - name: kubedb_elasticsearch_datahot_node_replicas
+    - name: datahot_node_replicas
       help: "Number of replicas for elasticsearch dataHot node"
       type: gauge
       field:
@@ -287,7 +292,7 @@ spec:
       metricValue:
         valueFromPath: .spec.topology.dataHot.replicas
 
-    - name: kubedb_elasticsearch_datahot_node_storage_class_info
+    - name: datahot_node_storage_class_info
       help: "Elasticsearch dataHot node information"
       type: gauge
       labels:
@@ -296,7 +301,7 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_elasticsearch_datahot_node_max_unavailable
+    - name: datahot_node_max_unavailable
       help: "Maximum number of pods unavailable after an eviction"
       type: gauge
       field:
@@ -307,7 +312,7 @@ spec:
 
     ##### Metrics for DataWarm topology #####
 
-    - name: kubedb_elasticsearch_datawarm_node_replicas
+    - name: datawarm_node_replicas
       help: "Number of replicas for elasticsearch dataWarm node"
       type: gauge
       field:
@@ -316,7 +321,7 @@ spec:
       metricValue:
         valueFromPath: .spec.topology.dataWarm.replicas
 
-    - name: kubedb_elasticsearch_datawarm_node_storage_class_info
+    - name: datawarm_node_storage_class_info
       help: "Elasticsearch dataWarm node storage class information"
       type: gauge
       labels:
@@ -325,7 +330,7 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_elasticsearch_datawarm_node_max_unavailable
+    - name: datawarm_node_max_unavailable
       help: "Maximum number of pods unavailable after an eviction"
       type: gauge
       field:
@@ -336,7 +341,7 @@ spec:
 
     ##### Metrics for DataCold topology #####
 
-    - name: kubedb_elasticsearch_datacold_node_replicas
+    - name: datacold_node_replicas
       help: "Number of replicas for elasticsearch dataCold node"
       type: gauge
       field:
@@ -345,7 +350,7 @@ spec:
       metricValue:
         valueFromPath: .spec.topology.dataCold.replicas
 
-    - name: kubedb_elasticsearch_datacold_node_storage_class_info
+    - name: datacold_node_storage_class_info
       help: "Elasticsearch dataCold node storage information"
       type: gauge
       labels:
@@ -354,7 +359,7 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_elasticsearch_datacold_node_max_unavailable
+    - name: datacold_node_max_unavailable
       help: "Maximum number of pods unavailable after an eviction"
       type: gauge
       field:
@@ -365,7 +370,7 @@ spec:
 
     ##### Metrics for DataFrozen topology #####
 
-    - name: kubedb_elasticsearch_datafrozen_node_replicas
+    - name: datafrozen_node_replicas
       help: "Number of replicas for elasticsearch dataFrozen node"
       type: gauge
       field:
@@ -374,7 +379,7 @@ spec:
       metricValue:
         valueFromPath: .spec.topology.dataFrozen.replicas
 
-    - name: kubedb_elasticsearch_datafrozen_node_storage_class_info
+    - name: datafrozen_node_storage_class_info
       help: "Elasticsearch dataFrozen node storage class information"
       type: gauge
       labels:
@@ -383,7 +388,7 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_elasticsearch_datafrozen_node_max_unavailable
+    - name: datafrozen_node_max_unavailable
       help: "Maximum number of pods unavailable after an eviction"
       type: gauge
       field:
@@ -394,7 +399,7 @@ spec:
 
     ##### Metrics for Ingest topology #####
 
-    - name: kubedb_elasticsearch_ingest_node_replicas
+    - name: ingest_node_replicas
       help: "Number of replicas for elasticsearch ingest node"
       type: gauge
       field:
@@ -403,7 +408,7 @@ spec:
       metricValue:
         valueFromPath: .spec.topology.ingest.replicas
 
-    - name: kubedb_elasticsearch_ingest_node_storage_class_info
+    - name: ingest_node_storage_class_info
       help: "Elasticsearch ingest node storage class information"
       type: gauge
       labels:
@@ -412,7 +417,7 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_elasticsearch_ingest_node_max_unavailable
+    - name: ingest_node_max_unavailable
       help: "Maximum number of pods unavailable after an eviction"
       type: gauge
       field:
@@ -423,7 +428,7 @@ spec:
 
     ##### Metrics for ML topology #####
 
-    - name: kubedb_elasticsearch_ml_node_replicas
+    - name: ml_node_replicas
       help: "Number of replicas for elasticsearch ml node"
       type: gauge
       field:
@@ -433,7 +438,7 @@ spec:
         valueFromPath: .spec.topology.ml.replicas
 
 
-    - name: kubedb_elasticsearch_ml_node_storage_class_info
+    - name: ml_node_storage_class_info
       help: "Elasticsearch ml node storage class information"
       type: gauge
       labels:
@@ -442,7 +447,7 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_elasticsearch_ml_node_max_unavailable
+    - name: ml_node_max_unavailable
       help: "Maximum number of pods unavailable after an eviction"
       type: gauge
       field:
@@ -453,7 +458,7 @@ spec:
 
     ##### Metrics for transform topology #####
 
-    - name: kubedb_elasticsearch_transform_node_replicas
+    - name: transform_node_replicas
       help: "Number of replicas for elasticsearch transform node"
       type: gauge
       field:
@@ -462,7 +467,7 @@ spec:
       metricValue:
         valueFromPath: .spec.topology.transform.replicas
 
-    - name: kubedb_elasticsearch_transform_node_storage_class_info
+    - name: transform_node_storage_class_info
       help: "Elasticsearch transform node storage class information"
       type: gauge
       labels:
@@ -471,7 +476,7 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_elasticsearch_transform_node_max_unavailable
+    - name: transform_node_max_unavailable
       help: "Maximum number of pods unavailable after an eviction"
       type: gauge
       field:
@@ -482,7 +487,7 @@ spec:
 
     ##### Metrics for coordinating topology #####
 
-    - name: kubedb_elasticsearch_coordinating_node_replicas
+    - name: coordinating_node_replicas
       help: "Number of replicas for elasticsearch coordinating node"
       type: gauge
       field:
@@ -491,7 +496,7 @@ spec:
       metricValue:
         valueFromPath: .spec.topology.coordinating.replicas
 
-    - name: kubedb_elasticsearch_coordinating_node_storage_class_info
+    - name: coordinating_node_storage_class_info
       help: "Elasticsearch coordinating node storage class information"
       type: gauge
       labels:
@@ -500,7 +505,7 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_elasticsearch_coordinating_node_max_unavailable
+    - name: coordinating_node_max_unavailable
       help: "Maximum number of pods unavailable after an eviction"
       type: gauge
       field:

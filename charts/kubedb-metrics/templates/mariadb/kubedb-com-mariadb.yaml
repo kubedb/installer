@@ -1,13 +1,18 @@
 apiVersion: metrics.appscode.com/v1alpha1
 kind: MetricsConfiguration
 metadata:
-  name: kubedb-com-mysql
+  name: kubedb-com-mariadb
 spec:
   targetRef:
     apiVersion: kubedb.com/v1alpha2
-    kind: MySQL
+    kind: MariaDB
+  commonLabels:
+    - key: app
+      valuePath: .metadata.name
+    - key: app_namespace
+      valuePath: .metadata.name
   metrics:
-    - name: kubedb_mysql_created
+    - name: created
       help: "Unix creation time stamp"
       type: gauge
       field:
@@ -16,8 +21,8 @@ spec:
       metricValue:
         valueFromPath: .metadata.creationTimestamp
 
-    - name: kubedb_mysql_replicas
-      help: "Number of replicas of mysql instance"
+    - name: replicas
+      help: "Number of replicas of mariadb instance"
       type: gauge
       params:
         - key: obj
@@ -25,8 +30,8 @@ spec:
       metricValue:
         valueFromExpression: resource_replicas(obj)
 
-    - name: kubedb_mysql_status_phase
-      help: "MySQL instance current phase"
+    - name: status_phase
+      help: "MariaDB instance current phase"
       type: gauge
       field:
         path: .status.phase
@@ -56,25 +61,23 @@ spec:
             metricValue:
               valueFromExpression: "int(phase == 'DataRestoring')"
 
-    - name: kubedb_mysql_info
-      help: "MySQL instance information"
+    - name: info
+      help: "MariaDB instance information"
       type: gauge
       labels:
         - key: version
           valuePath: .spec.version
-        - key: useAddressType
-          valuePath: .spec.useAddressType
+        - key: requireSSL
+          valuePath: .spec.requireSSL
         - key: storageType
           valuePath: .spec.storageType
         - key: terminationPolicy
           valuePath: .spec.terminationPolicy
-        - key: requireSSL
-          valuePath: .spec.requireSSL
       metricValue:
         value: 1
 
-    - name: kubedb_mysql_status_conditions
-      help: "MySQL instance status condition"
+    - name: status_conditions
+      help: "MariaDB instance status condition"
       type: gauge
       field:
         path: .status.conditions
@@ -87,8 +90,8 @@ spec:
       metricValue:
         value: 1
 
-    - name: kubedb_mysql_resource_request_cpu
-      help: "Requested CPU by MySQL in core"
+    - name: resource_request_cpu
+      help: "Requested CPU by MariaDB in core"
       type: gauge
       labels:
         - key: unit
@@ -101,8 +104,8 @@ spec:
       metricValue:
         valueFromExpression: total_resource_requests(obj, resourceType)
 
-    - name: kubedb_mysql_resource_request_memory
-      help: "Requested memory by MySQL in byte"
+    - name: resource_request_memory
+      help: "Requested memory by MariaDB in byte"
       type: gauge
       labels:
         - key: unit
@@ -115,8 +118,8 @@ spec:
       metricValue:
         valueFromExpression: total_resource_requests(obj, resourceType)
 
-    - name: kubedb_mysql_resource_request_storage
-      help: "Requested storage by MySQL in byte"
+    - name: resource_request_storage
+      help: "Requested storage by MariaDB in byte"
       type: gauge
       labels:
         - key: unit
@@ -129,8 +132,8 @@ spec:
       metricValue:
         valueFromExpression: total_resource_requests(obj, resourceType)
 
-    - name: kubedb_mysql_resource_limit_cpu
-      help: "CPU limit for MySQL in core"
+    - name: resource_limit_cpu
+      help: "CPU limit for MariaDB in core"
       type: gauge
       labels:
         - key: unit
@@ -143,8 +146,8 @@ spec:
       metricValue:
         valueFromExpression: total_resource_limits(obj, resourceType)
 
-    - name: kubedb_mysql_resource_limit_memory
-      help: "Memory limit for MySQL in byte"
+    - name: resource_limit_memory
+      help: "Memory limit for MariaDB in byte"
       type: gauge
       labels:
         - key: unit
@@ -157,8 +160,8 @@ spec:
       metricValue:
         valueFromExpression: total_resource_limits(obj, resourceType)
 
-    - name: kubedb_mysql_resource_limit_storage
-      help: "Storage limit for MySQL in byte"
+    - name: resource_limit_storage
+      help: "Storage limit for MariaDB in byte"
       type: gauge
       labels:
         - key: unit
@@ -170,4 +173,4 @@ spec:
           value: storage
       metricValue:
         valueFromExpression: total_resource_limits(obj, resourceType)
-        
+    

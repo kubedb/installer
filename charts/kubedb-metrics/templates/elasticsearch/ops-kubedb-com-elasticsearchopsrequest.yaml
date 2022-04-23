@@ -1,33 +1,30 @@
 apiVersion: metrics.appscode.com/v1alpha1
 kind: MetricsConfiguration
 metadata:
-  name: kubedb-com-postgres-opsrequest
+  name: ops-kubedb-com-elasticsearchopsrequest
 spec:
   targetRef:
     apiVersion: ops.kubedb.com/v1alpha1
-    kind: PostgresOpsRequest
+    kind: ElasticsearchOpsRequest
+  commonLabels:
+    - key: app
+      valuePath: .spec.databaseRef.name
+    - key: app_namespace
+      valuePath: .metadata.name
+    - key: type
+      valuePath: .spec.type
   metrics:
-    - name: kubedb_postgres_opsrequest_type
-      help: "Postgres OpsRequest Type"
+    - name: type
+      help: "Elasticsearch OpsRequest Type"
       type: gauge
-      labels:
-        - key: type
-          valuePath: .spec.type
-        - key: database_ref
-          valuePath: .spec.databaseRef.name
       metricValue:
         value: 1
-    - name: kubedb_postgres_opsrequest_status_phase
-      help: "The current phase of Postgres OpsRequest."
+    - name: status_phase
+      help: "The current phase of Elasticsearch OpsRequest."
       type: gauge
       field:
         path: .status.phase
         type: String
-      labels:
-        - key: type
-          valuePath: .spec.type
-        - key: database_ref
-          valuePath: .spec.databaseRef.name
       params:
         - key: phase
           valuePath: .status.phase

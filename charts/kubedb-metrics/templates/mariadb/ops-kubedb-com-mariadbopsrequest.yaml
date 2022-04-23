@@ -1,33 +1,30 @@
 apiVersion: metrics.appscode.com/v1alpha1
 kind: MetricsConfiguration
 metadata:
-  name: kubedb-com-mysql-opsrequest
+  name: ops-kubedb-com-mariadbopsrequest
 spec:
   targetRef:
     apiVersion: ops.kubedb.com/v1alpha1
-    kind: MySQLOpsRequest
+    kind: MariaDBOpsRequest
+  commonLabels:
+    - key: app
+      valuePath: .spec.databaseRef.name
+    - key: app_namespace
+      valuePath: .metadata.name
+    - key: type
+      valuePath: .spec.type
   metrics:
-    - name: kubedb_mysql_opsrequest_type
-      help: "MySQL Opsrequest type"
+    - name: opsrequest_type
+      help: "MariaDB OpsRequest type"
       type: gauge
-      labels:
-        - key: type
-          valuePath: .spec.type
-        - key: database_ref
-          valuePath: .spec.databaseRef.name
       metricValue:
         value: 1
-    - name: kubedb_mysql_opsrequest_status_phase
-      help: "The opsrequest current phase."
+    - name: opsrequest_status_phase
+      help: "MariaDB OpsRequest current phase."
       type: gauge
       field:
         path: .status.phase
         type: String
-      labels:
-        - key: type
-          valuePath: .spec.type
-        - key: database_ref
-          valuePath: .spec.databaseRef.name
       params:
         - key: phase
           valuePath: .status.phase
