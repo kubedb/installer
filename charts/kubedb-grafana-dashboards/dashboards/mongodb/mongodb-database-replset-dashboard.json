@@ -207,7 +207,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "count by (set) (mongodb_mongod_replset_number_of_members{set=~\"$db\"} or mongodb_mongod_replset_my_state{set=~\"$db\"})",
+          "expr": "count by (set) (mongodb_mongod_replset_number_of_members{set=~\"$app\"} or mongodb_mongod_replset_my_state{set=~\"$app\"})",
           "interval": "5m",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -348,7 +348,7 @@
       "pluginVersion": "8.2.3",
       "targets": [
         {
-          "expr": "(max(mongodb_mongod_replset_member_optime_date{state=\"PRIMARY\", set=\"$db\"}) - min(mongodb_mongod_replset_member_optime_date{state=\"SECONDARY\"} * on (name) group_left mongodb_mongod_replset_my_name{pod=~\"$pod\"})) or vector(0)",
+          "expr": "(max(mongodb_mongod_replset_member_optime_date{state=\"PRIMARY\", set=\"$app\"}) - min(mongodb_mongod_replset_member_optime_date{state=\"SECONDARY\"} * on (name) group_left mongodb_mongod_replset_my_name{pod=~\"$pod\"})) or vector(0)",
           "interval": "5m",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -612,7 +612,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(max(mongodb_mongod_replset_member_optime_date{state=\"PRIMARY\", set=\"$db\"}) - min(mongodb_mongod_replset_member_optime_date{state=\"SECONDARY\"} * on (name) group_left mongodb_mongod_replset_my_name{pod=~\"$pod\"})) or vector(0)",
+          "expr": "(max(mongodb_mongod_replset_member_optime_date{state=\"PRIMARY\", set=\"$app\"}) - min(mongodb_mongod_replset_member_optime_date{state=\"SECONDARY\"} * on (name) group_left mongodb_mongod_replset_my_name{pod=~\"$pod\"})) or vector(0)",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Lag",
@@ -1295,7 +1295,7 @@
         "label": "Replica Set",
         "multi": false,
         "multiFormat": "glob",
-        "name": "db",
+        "name": "app",
         "options": [],
         "query": "label_values(mongodb_mongod_replset_my_state{namespace=~\"$namespace\"}, set)",
         "refresh": 2,
@@ -1326,7 +1326,7 @@
         "multiFormat": "glob",
         "name": "pod",
         "options": [],
-        "query": "label_values(mongodb_mongod_replset_my_state{set=\"$db\"}, pod)",
+        "query": "label_values(mongodb_mongod_replset_my_state{set=\"$app\"}, pod)",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
