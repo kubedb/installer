@@ -22,7 +22,7 @@ spec:
       labels:
         {{- include "kubedb-ui-server.selectorLabels" . | nindent 8 }}
       annotations:
-        reload: {{ randAlpha 8 }}
+        checksum/apiregistration.yaml: {{ include (print $.Template.BasePath "/apiregistration.yaml") . | sha256sum }}
       {{- if $criticalAddon }}
         scheduler.alpha.kubernetes.io/critical-pod: ''
       {{- end }}
