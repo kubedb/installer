@@ -15,7 +15,7 @@ require (
 	kmodules.xyz/client-go v0.0.0-20220427165208-36281a681909
 	kmodules.xyz/schema-checker v0.2.1
 	sigs.k8s.io/yaml v1.3.0
-	stash.appscode.dev/installer v0.12.2-0.20220211115919-29686b4e636c
+	stash.appscode.dev/installer v0.12.2-0.20220509090828-5cbe698c927c
 )
 
 require (
@@ -35,8 +35,6 @@ require (
 	github.com/mitchellh/reflectwalk v1.0.0 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
-	github.com/onsi/ginkgo v1.16.5 // indirect
-	github.com/onsi/gomega v1.17.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/sergi/go-diff v1.2.0 // indirect
 	github.com/shopspring/decimal v1.2.0 // indirect
