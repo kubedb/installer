@@ -8,13 +8,13 @@ metadata:
 spec:
   authPlugin: X-Pack
   db:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "elasticsearch")) }}:7.1.1'
+    image: '{{ include "official.registry" (merge (dict "_bin" "elasticsearch") .Values) }}:7.1.1'
   distribution: ElasticStack
   exporter:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "elasticsearch-exporter")) }}:v1.3.0'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prometheuscommunity") .Values) }}/elasticsearch-exporter:v1.3.0'
   initContainer:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "tianon" "toybox")) }}:0.8.4'
-    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-init:7.1.1-xpack-v1'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "tianon") .Values) }}/toybox:0.8.4'
+    yqImage: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/elasticsearch-init:7.1.1-xpack-v1'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   stash:
@@ -37,14 +37,14 @@ metadata:
 spec:
   authPlugin: X-Pack
   db:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "elasticsearch")) }}:7.1.1'
+    image: '{{ include "official.registry" (merge (dict "_bin" "elasticsearch") .Values) }}:7.1.1'
   deprecated: true
   distribution: ElasticStack
   exporter:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "elasticsearch-exporter")) }}:v1.3.0'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prometheuscommunity") .Values) }}/elasticsearch-exporter:v1.3.0'
   initContainer:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "busybox")) }}:1.32.0'
-    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-init:7.1.1-xpack'
+    image: '{{ include "official.registry" (merge (dict "_bin" "busybox") .Values) }}:1.32.0'
+    yqImage: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/elasticsearch-init:7.1.1-xpack'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   stash:
