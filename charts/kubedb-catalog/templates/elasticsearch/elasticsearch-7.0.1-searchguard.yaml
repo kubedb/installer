@@ -8,13 +8,13 @@ metadata:
 spec:
   authPlugin: SearchGuard
   db:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "floragunncom" "sg-elasticsearch")) }}:7.0.1-oss-35.0.0'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "floragunncom") .Values) }}/sg-elasticsearch:7.0.1-oss-35.0.0'
   distribution: SearchGuard
   exporter:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "elasticsearch-exporter")) }}:v1.3.0'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prometheuscommunity") .Values) }}/elasticsearch-exporter:v1.3.0'
   initContainer:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "busybox")) }}:1.32.0'
-    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-init:7.0.1-searchguard'
+    image: '{{ include "official.registry" (merge (dict "_bin" "busybox") .Values) }}:1.32.0'
+    yqImage: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/elasticsearch-init:7.0.1-searchguard'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   stash:
@@ -40,13 +40,13 @@ metadata:
 spec:
   authPlugin: SearchGuard
   db:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "floragunncom" "sg-elasticsearch")) }}:7.0.1-oss-35.0.0'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "floragunncom") .Values) }}/sg-elasticsearch:7.0.1-oss-35.0.0'
   distribution: SearchGuard
   exporter:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "elasticsearch-exporter")) }}:v1.3.0'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prometheuscommunity") .Values) }}/elasticsearch-exporter:v1.3.0'
   initContainer:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "tianon" "toybox")) }}:0.8.4'
-    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-init:7.0.1-searchguard-v1'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "tianon") .Values) }}/toybox:0.8.4'
+    yqImage: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/elasticsearch-init:7.0.1-searchguard-v1'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   stash:

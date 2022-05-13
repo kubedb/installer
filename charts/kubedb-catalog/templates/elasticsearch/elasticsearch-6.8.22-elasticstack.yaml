@@ -8,17 +8,17 @@ metadata:
 spec:
   authPlugin: X-Pack
   dashboard:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "kibana")) }}:6.8.22'
+    image: '{{ include "official.registry" (merge (dict "_bin" "kibana") .Values) }}:6.8.22'
   dashboardInitContainer:
-    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-dashboard-init:6.8.22-xpack-v2022.03.31'
+    yqImage: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/elasticsearch-dashboard-init:6.8.22-xpack-v2022.03.31'
   db:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "elasticsearch")) }}:6.8.22'
+    image: '{{ include "official.registry" (merge (dict "_bin" "elasticsearch") .Values) }}:6.8.22'
   distribution: ElasticStack
   exporter:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "elasticsearch-exporter")) }}:v1.3.0'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prometheuscommunity") .Values) }}/elasticsearch-exporter:v1.3.0'
   initContainer:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "tianon" "toybox")) }}:0.8.4'
-    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-init:6.8.22-xpack-v2021.12.24'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "tianon") .Values) }}/toybox:0.8.4'
+    yqImage: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/elasticsearch-init:6.8.22-xpack-v2021.12.24'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   stash:
