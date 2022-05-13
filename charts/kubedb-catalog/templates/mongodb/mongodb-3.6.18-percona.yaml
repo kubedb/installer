@@ -7,16 +7,16 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "percona" "percona-server-mongodb")) }}:3.6.18'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "percona") .Values) }}/percona-server-mongodb:3.6.18'
   distribution: Percona
   exporter:
-    image: '{{ include "catalog.registry" . }}/mongodb_exporter:v0.20.4'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/mongodb_exporter:v0.20.4'
   initContainer:
-    image: '{{ include "catalog.registry" . }}/mongodb-init:4.1-v3'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/mongodb-init:4.1-v3'
   podSecurityPolicies:
     databasePolicyName: mongodb-db
   replicationModeDetector:
-    image: '{{ include "catalog.registry" . }}/replication-mode-detector:v0.13.0'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/replication-mode-detector:v0.13.0'
   stash:
     addon:
       backupTask:

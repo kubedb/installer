@@ -20,39 +20,62 @@ import "testing"
 
 func TestParseImage(t *testing.T) {
 	tests := []struct {
-		name    string
-		arg     string
-		wantReg string
-		wantBin string
-		wantTag string
+		name     string
+		arg      string
+		wantReg  string
+		wantRepo string
+		wantBin  string
+		wantTag  string
 	}{
 		{
-			name:    "kubedb/postgres:v1.2.3",
-			arg:     "kubedb/postgres:v1.2.3",
-			wantReg: "kubedb",
-			wantBin: "postgres",
-			wantTag: "v1.2.3",
+			name:     "kubedb/postgres:v1.2.3",
+			arg:      "kubedb/postgres:v1.2.3",
+			wantReg:  "",
+			wantRepo: "kubedb",
+			wantBin:  "postgres",
+			wantTag:  "v1.2.3",
 		},
 		{
-			name:    "postgres:v1.2.3",
-			arg:     "postgres:v1.2.3",
-			wantReg: "",
-			wantBin: "postgres",
-			wantTag: "v1.2.3",
+			name:     "postgres:v1.2.3",
+			arg:      "postgres:v1.2.3",
+			wantReg:  "",
+			wantRepo: "",
+			wantBin:  "postgres",
+			wantTag:  "v1.2.3",
 		},
 		{
-			name:    "kubedb/postgres",
-			arg:     "kubedb/postgres",
-			wantReg: "kubedb",
-			wantBin: "postgres",
-			wantTag: "",
+			name:     "ghcr.io/myorg/postgres:v1.2.3",
+			arg:      "ghcr.io/myorg/postgres:v1.2.3",
+			wantReg:  "ghcr.io",
+			wantRepo: "myorg",
+			wantBin:  "postgres",
+			wantTag:  "v1.2.3",
+		},
+		{
+			name:     "ghcr.io/sub/myorg/postgres:v1.2.3",
+			arg:      "ghcr.io/sub/myorg/postgres:v1.2.3",
+			wantReg:  "ghcr.io/sub",
+			wantRepo: "myorg",
+			wantBin:  "postgres",
+			wantTag:  "v1.2.3",
+		},
+		{
+			name:     "ghcr.io/sub/myorg/postgres",
+			arg:      "ghcr.io/sub/myorg/postgres",
+			wantReg:  "ghcr.io/sub",
+			wantRepo: "myorg",
+			wantBin:  "postgres",
+			wantTag:  "",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotReg, gotBin, gotTag := ParseImage(tt.arg)
+			gotReg, gotRepo, gotBin, gotTag := ParseImage(tt.arg)
 			if gotReg != tt.wantReg {
 				t.Errorf("ParseImage() gotReg = %v, want %v", gotReg, tt.wantReg)
+			}
+			if gotRepo != tt.wantRepo {
+				t.Errorf("ParseImage() gotRepo = %v, want %v", gotRepo, tt.wantRepo)
 			}
 			if gotBin != tt.wantBin {
 				t.Errorf("ParseImage() gotBin = %v, want %v", gotBin, tt.wantBin)

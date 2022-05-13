@@ -8,13 +8,13 @@ metadata:
 spec:
   authPlugin: OpenDistro
   db:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "amazon" "opendistro-for-elasticsearch")) }}:1.0.2'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "amazon") .Values) }}/opendistro-for-elasticsearch:1.0.2'
   distribution: OpenDistro
   exporter:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "elasticsearch-exporter")) }}:v1.3.0'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prometheuscommunity") .Values) }}/elasticsearch-exporter:v1.3.0'
   initContainer:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "busybox")) }}:1.32.0'
-    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-init:1.0.2-opendistro'
+    image: '{{ include "official.registry" (merge (dict "_bin" "busybox") .Values) }}:1.32.0'
+    yqImage: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/elasticsearch-init:1.0.2-opendistro'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   stash:
@@ -40,13 +40,13 @@ metadata:
 spec:
   authPlugin: OpenDistro
   db:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "amazon" "opendistro-for-elasticsearch")) }}:1.0.2'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "amazon") .Values) }}/opendistro-for-elasticsearch:1.0.2'
   distribution: OpenDistro
   exporter:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prometheuscommunity" "elasticsearch-exporter")) }}:v1.3.0'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prometheuscommunity") .Values) }}/elasticsearch-exporter:v1.3.0'
   initContainer:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "tianon" "toybox")) }}:0.8.4'
-    yqImage: '{{ include "catalog.registry" . }}/elasticsearch-init:1.0.2-opendistro-v1'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "tianon") .Values) }}/toybox:0.8.4'
+    yqImage: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/elasticsearch-init:1.0.2-opendistro-v1'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   stash:

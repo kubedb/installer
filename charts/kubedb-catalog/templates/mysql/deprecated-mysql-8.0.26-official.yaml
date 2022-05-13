@@ -7,17 +7,17 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
-    image: '{{ include "catalog.registry" . }}/mysql:8.0.26'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/mysql:8.0.26'
   deprecated: true
   distribution: Official
   exporter:
-    image: '{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list "prom" "mysqld-exporter")) }}:v0.13.0'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prom") .Values) }}/mysqld-exporter:v0.13.0'
   initContainer:
-    image: '{{ include "catalog.registry" . }}/mysql-init:8.0.21'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/mysql-init:8.0.21'
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
-    image: '{{ include "catalog.registry" . }}/replication-mode-detector:v0.13.0'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/replication-mode-detector:v0.13.0'
   stash:
     addon:
       backupTask:
