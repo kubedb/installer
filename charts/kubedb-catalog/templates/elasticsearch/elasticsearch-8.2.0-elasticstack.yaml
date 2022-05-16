@@ -1,0 +1,34 @@
+{{ if .Values.catalog.elasticsearch }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: 'xpack-8.2.0'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: X-Pack
+  dashboard:
+    image: '{{ include "official.registry" (merge (dict "_bin" "kibana") .Values) }}:8.2.0'
+  dashboardInitContainer:
+    yqImage: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "raihankhanraka") .Values) }}/elasticsearch-dashboard-init:8.2.0_linux_amd64'
+  db:
+    image: '{{ include "official.registry" (merge (dict "_bin" "elasticsearch") .Values) }}:8.2.0'
+  distribution: ElasticStack
+  exporter:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prometheuscommunity") .Values) }}/elasticsearch-exporter:v1.3.0'
+  initContainer:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "tianon") .Values) }}/toybox:0.8.4'
+    yqImage: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "raihankhanraka") .Values) }}/elasticsearch-init:_linux_amd64'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 1000
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.14.0
+      restoreTask:
+        name: elasticsearch-restore-7.14.0
+  version: 8.2.0
+{{ end }}
