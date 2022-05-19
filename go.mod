@@ -12,7 +12,7 @@ require (
 	gomodules.xyz/semvers v0.0.0-20210603205601-45dfbb5326a4
 	k8s.io/api v0.21.1
 	k8s.io/apimachinery v0.21.1
-	kmodules.xyz/client-go v0.0.0-20220427165208-36281a681909
+	kmodules.xyz/client-go v0.0.0-20220512223652-dc247aa7f6df
 	kmodules.xyz/schema-checker v0.2.1
 	sigs.k8s.io/yaml v1.3.0
 	stash.appscode.dev/installer v0.12.2-0.20220518054717-3b45a21b5419
@@ -23,7 +23,7 @@ require (
 	github.com/codegangsta/inject v0.0.0-20150114235600-33e0aa1cb7c0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/go-logr/logr v0.4.0 // indirect
-	github.com/gobuffalo/flect v0.2.3 // indirect
+	github.com/gobuffalo/flect v0.2.5 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/go-cmp v0.5.6 // indirect
