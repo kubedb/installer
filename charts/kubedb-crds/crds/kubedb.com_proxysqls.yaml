@@ -1809,6 +1809,85 @@ spec:
                   - alias
                   type: object
                 type: array
+              storage:
+                properties:
+                  accessModes:
+                    items:
+                      type: string
+                    type: array
+                  dataSource:
+                    properties:
+                      apiGroup:
+                        type: string
+                      kind:
+                        type: string
+                      name:
+                        type: string
+                    required:
+                    - kind
+                    - name
+                    type: object
+                  resources:
+                    properties:
+                      limits:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                          x-kubernetes-int-or-string: true
+                        type: object
+                      requests:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                          x-kubernetes-int-or-string: true
+                        type: object
+                    type: object
+                  selector:
+                    properties:
+                      matchExpressions:
+                        items:
+                          properties:
+                            key:
+                              type: string
+                            operator:
+                              type: string
+                            values:
+                              items:
+                                type: string
+                              type: array
+                          required:
+                          - key
+                          - operator
+                          type: object
+                        type: array
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        type: object
+                    type: object
+                  storageClassName:
+                    type: string
+                  volumeMode:
+                    type: string
+                  volumeName:
+                    type: string
+                type: object
+              storageType:
+                enum:
+                - Durable
+                - Ephemeral
+                type: string
+              terminationPolicy:
+                enum:
+                - Halt
+                - Delete
+                - WipeOut
+                - DoNotTerminate
+                type: string
               tls:
                 properties:
                   certificates:
@@ -1951,6 +2030,7 @@ spec:
                 - Critical
                 - NotReady
                 - Halted
+                - Unknown
                 type: string
             type: object
         type: object

@@ -10032,14 +10032,26 @@ spec:
                       type: array
                     description:
                       type: string
+                    email:
+                      type: string
+                    full_name:
+                      type: string
                     hidden:
                       type: boolean
+                    metadata:
+                      additionalProperties:
+                        type: string
+                      type: object
                     opendistroSecurityRoles:
                       items:
                         type: string
                       type: array
                     reserved:
                       type: boolean
+                    roles:
+                      items:
+                        type: string
+                      type: array
                     searchGuardRoles:
                       items:
                         type: string
@@ -13177,6 +13189,7 @@ spec:
                 - Critical
                 - NotReady
                 - Halted
+                - Unknown
                 type: string
             type: object
         type: object
@@ -15793,6 +15806,7 @@ spec:
                 - Critical
                 - NotReady
                 - Halted
+                - Unknown
                 type: string
             type: object
         type: object
@@ -18648,6 +18662,7 @@ spec:
                 - Critical
                 - NotReady
                 - Halted
+                - Unknown
                 type: string
             type: object
         type: object
@@ -21270,6 +21285,7 @@ spec:
                 - Critical
                 - NotReady
                 - Halted
+                - Unknown
                 type: string
             type: object
         type: object
@@ -30339,6 +30355,7 @@ spec:
                 - Critical
                 - NotReady
                 - Halted
+                - Unknown
                 type: string
             type: object
         type: object
@@ -34737,6 +34754,7 @@ spec:
                     - GroupReplication
                     - InnoDBCluster
                     - ReadReplica
+                    - SemiSync
                     type: string
                   readReplica:
                     properties:
@@ -34759,6 +34777,24 @@ spec:
                         type: object
                     required:
                     - sourceRef
+                    type: object
+                  semiSync:
+                    properties:
+                      errantTransactionRecoveryPolicy:
+                        default: PseudoTransaction
+                        enum:
+                        - Clone
+                        - PseudoTransaction
+                        type: string
+                      sourceTimeout:
+                        default: 24h
+                        type: string
+                      sourceWaitForReplicaCount:
+                        default: 1
+                        minimum: 1
+                        type: integer
+                    required:
+                    - errantTransactionRecoveryPolicy
                     type: object
                 type: object
               useAddressType:
@@ -34812,6 +34848,7 @@ spec:
                 - Critical
                 - NotReady
                 - Halted
+                - Unknown
                 type: string
             type: object
         type: object
@@ -37520,6 +37557,7 @@ spec:
                 - Critical
                 - NotReady
                 - Halted
+                - Unknown
                 type: string
             type: object
         type: object
@@ -39552,6 +39590,7 @@ spec:
                 - Critical
                 - NotReady
                 - Halted
+                - Unknown
                 type: string
             type: object
         type: object
@@ -42459,6 +42498,7 @@ spec:
                 - Critical
                 - NotReady
                 - Halted
+                - Unknown
                 type: string
             type: object
         type: object
@@ -44279,6 +44319,85 @@ spec:
                   - alias
                   type: object
                 type: array
+              storage:
+                properties:
+                  accessModes:
+                    items:
+                      type: string
+                    type: array
+                  dataSource:
+                    properties:
+                      apiGroup:
+                        type: string
+                      kind:
+                        type: string
+                      name:
+                        type: string
+                    required:
+                    - kind
+                    - name
+                    type: object
+                  resources:
+                    properties:
+                      limits:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                          x-kubernetes-int-or-string: true
+                        type: object
+                      requests:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                          x-kubernetes-int-or-string: true
+                        type: object
+                    type: object
+                  selector:
+                    properties:
+                      matchExpressions:
+                        items:
+                          properties:
+                            key:
+                              type: string
+                            operator:
+                              type: string
+                            values:
+                              items:
+                                type: string
+                              type: array
+                          required:
+                          - key
+                          - operator
+                          type: object
+                        type: array
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        type: object
+                    type: object
+                  storageClassName:
+                    type: string
+                  volumeMode:
+                    type: string
+                  volumeName:
+                    type: string
+                type: object
+              storageType:
+                enum:
+                - Durable
+                - Ephemeral
+                type: string
+              terminationPolicy:
+                enum:
+                - Halt
+                - Delete
+                - WipeOut
+                - DoNotTerminate
+                type: string
               tls:
                 properties:
                   certificates:
@@ -44421,6 +44540,7 @@ spec:
                 - Critical
                 - NotReady
                 - Halted
+                - Unknown
                 type: string
             type: object
         type: object
@@ -47298,6 +47418,7 @@ spec:
                 - Critical
                 - NotReady
                 - Halted
+                - Unknown
                 type: string
             type: object
         type: object
@@ -49310,6 +49431,7 @@ spec:
                 - Critical
                 - NotReady
                 - Halted
+                - Unknown
                 type: string
             type: object
         type: object
@@ -54465,9 +54587,16 @@ metadata:
 spec:
   group: schema.kubedb.com
   names:
+    categories:
+    - datastore
+    - kubedb
+    - appscode
+    - all
     kind: MariaDBDatabase
     listKind: MariaDBDatabaseList
     plural: mariadbdatabases
+    shortNames:
+    - mdschema
     singular: mariadbdatabase
   scope: Namespaced
   versions:
@@ -58292,9 +58421,16 @@ metadata:
 spec:
   group: schema.kubedb.com
   names:
+    categories:
+    - datastore
+    - kubedb
+    - appscode
+    - all
     kind: MongoDBDatabase
     listKind: MongoDBDatabaseList
     plural: mongodbdatabases
+    shortNames:
+    - mgschema
     singular: mongodbdatabase
   scope: Namespaced
   versions:
@@ -62113,9 +62249,16 @@ metadata:
 spec:
   group: schema.kubedb.com
   names:
+    categories:
+    - datastore
+    - kubedb
+    - appscode
+    - all
     kind: MySQLDatabase
     listKind: MySQLDatabaseList
     plural: mysqldatabases
+    shortNames:
+    - myschema
     singular: mysqldatabase
   scope: Namespaced
   versions:
@@ -65943,9 +66086,16 @@ metadata:
 spec:
   group: schema.kubedb.com
   names:
+    categories:
+    - datastore
+    - kubedb
+    - appscode
+    - all
     kind: PostgresDatabase
     listKind: PostgresDatabaseList
     plural: postgresdatabases
+    shortNames:
+    - pgschema
     singular: postgresdatabase
   scope: Namespaced
   versions:
