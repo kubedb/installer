@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb-ui-server --version=v0.2.0
-$ helm upgrade -i kubedb-ui-server appscode/kubedb-ui-server -n kubeops --create-namespace --version=v0.2.0
+$ helm search repo appscode/kubedb-ui-server --version=v0.3.0
+$ helm upgrade -i kubedb-ui-server appscode/kubedb-ui-server -n kubeops --create-namespace --version=v0.3.0
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeDB UI Server on a [Kubernetes](http://kubernetes.io) cl
 To install/upgrade the chart with the release name `kubedb-ui-server`:
 
 ```bash
-$ helm upgrade -i kubedb-ui-server appscode/kubedb-ui-server -n kubeops --create-namespace --version=v0.2.0
+$ helm upgrade -i kubedb-ui-server appscode/kubedb-ui-server -n kubeops --create-namespace --version=v0.3.0
 ```
 
 The command deploys a KubeDB UI Server on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -53,7 +53,7 @@ The following table lists the configurable parameters of the `kubedb-ui-server` 
 | registryFQDN                         | Docker registry fqdn used to pull KubeDB related images Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image}                                                                                                                                                                                                                         | <code>""</code>                |
 | image.registry                       | Docker registry used to pull operator image                                                                                                                                                                                                                                                                                                                    | <code>kubedb</code>            |
 | image.repository                     | Name of operator container image                                                                                                                                                                                                                                                                                                                               | <code>kubedb-ui-server</code>  |
-| image.tag                            | Operator container image tag                                                                                                                                                                                                                                                                                                                                   | <code>v0.2.0</code>            |
+| image.tag                            | Operator container image tag                                                                                                                                                                                                                                                                                                                                   | <code>v0.3.0</code>            |
 | image.resources                      | Compute Resources required by the operator container                                                                                                                                                                                                                                                                                                           | <code>{}</code>                |
 | image.securityContext                | Security options the operator container should run with                                                                                                                                                                                                                                                                                                        | <code>{}</code>                |
 | imagePullSecrets                     | Specify an array of imagePullSecrets. Secrets must be manually created in the namespace. <br> Example: <br> `helm template charts/stash \` <br> `--set imagePullSecrets[0].name=sec0 \` <br> `--set imagePullSecrets[1].name=sec1`                                                                                                                             | <code>[]</code>                |
@@ -84,12 +84,12 @@ The following table lists the configurable parameters of the `kubedb-ui-server` 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-ui-server appscode/kubedb-ui-server -n kubeops --create-namespace --version=v0.2.0 --set replicaCount=1
+$ helm upgrade -i kubedb-ui-server appscode/kubedb-ui-server -n kubeops --create-namespace --version=v0.3.0 --set replicaCount=1
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-ui-server appscode/kubedb-ui-server -n kubeops --create-namespace --version=v0.2.0 --values values.yaml
+$ helm upgrade -i kubedb-ui-server appscode/kubedb-ui-server -n kubeops --create-namespace --version=v0.3.0 --values values.yaml
 ```
