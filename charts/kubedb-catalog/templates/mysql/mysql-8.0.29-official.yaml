@@ -2,19 +2,19 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
-  name: '8.0.27'
+  name: '8.0.29'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
     image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/mysql-coordinator:v0.5.0'
   db:
-    image: '{{ include "official.registry" (merge (dict "_bin" "mysql") .Values) }}:8.0.27'
+    image: '{{ include "official.registry" (merge (dict "_bin" "mysql") .Values) }}:8.0.29'
   distribution: Official
   exporter:
     image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/mysqld-exporter:v0.13.1'
   initContainer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/mysql-init:8.0.26-v1'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/mysql-init:8.0.29'
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
@@ -28,8 +28,8 @@ spec:
   upgradeConstraints:
     denylist:
       groupReplication:
-      - < 8.0.27
+      - < 8.0.29
       standalone:
-      - < 8.0.27
-  version: 8.0.27
+      - < 8.0.29
+  version: 8.0.29
 {{ end }}
