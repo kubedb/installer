@@ -1,0 +1,16 @@
+{{ if .Values.catalog.proxysql }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ProxySQLVersion
+metadata:
+  name: '2.3.2-centos'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  exporter:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/proxysql-exporter:v1.1.0'
+  podSecurityPolicies:
+    databasePolicyName: proxysql-db
+  proxysql:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/proxysql:v2.3.2-centos'
+  version: 2.3.2-centos
+{{ end }}
