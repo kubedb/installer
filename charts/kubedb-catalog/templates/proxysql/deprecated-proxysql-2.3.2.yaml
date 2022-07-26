@@ -1,4 +1,4 @@
-{{ if .Values.catalog.proxysql }}
+{{ if and .Values.catalog.proxysql (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ProxySQLVersion
 metadata:
@@ -6,6 +6,7 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  deprecated: true
   exporter:
     image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/proxysql-exporter:v1.1.0'
   podSecurityPolicies:
