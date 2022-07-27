@@ -807,7 +807,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "avg(pg_settings_max_connections{namespace=\"$namespace\", pod=~\"$app.*\"})",
+          "expr": "avg(pg_settings_max_connections{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"})",
           "hide": false,
           "instant": true,
           "interval": "",
@@ -889,7 +889,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "AVG(rate(pg_stat_replication_reply_time{namespace=\"$namespace\", pod=~\"$app-.*\"}[5m])) by (pod)",
+          "expr": "AVG(rate(pg_stat_replication_reply_time{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])) by (pod)",
           "instant": false,
           "interval": "",
           "legendFormat": "{{pod}}",
@@ -969,7 +969,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(pg_stat_activity_count{namespace=\"$namespace\",pod=~\"$app.*\"}) by (state)",
+          "expr": "sum(pg_stat_activity_count{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"}) by (state)",
           "instant": false,
           "interval": "",
           "legendFormat": "{{state}}",
@@ -978,6 +978,86 @@
       ],
       "title": "Connnections",
       "type": "graph"
+    },
+    {
+      "datasource": "${datasource}",
+      "description": "Track the current Primary for Raft",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "graph": false,
+              "legend": false,
+              "tooltip": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "id": 147,
+      "options": {
+        "graph": {},
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltipOptions": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "7.5.11",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "pg_coordinator_raft_primary{namespace=\"$namespace\", pod=~\"$app-.\"}",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Raft Primary Tracker",
+      "type": "timeseries"
     },
     {
       "collapsed": false,
@@ -1063,7 +1143,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-.*\"}) by (pod)",
+          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -1291,7 +1371,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app.*\"}) by (pod)",
+          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1302,7 +1382,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$app.*\"}) by (pod)",
+          "expr": "sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1313,7 +1393,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app.*\"}) by (pod) / sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$app.*\"}) by (pod)",
+          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod) / sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1324,7 +1404,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app.*\"}) by (pod)",
+          "expr": "sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1335,7 +1415,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app.*\"}) by (pod) / sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app.*\"}) by (pod)",
+          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod) / sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1443,7 +1523,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(node_namespace_pod_container:container_memory_working_set_bytes{namespace=\"$namespace\", pod=~\"$app-.*\",container!=\"\"}) by (pod)",
+          "expr": "sum(node_namespace_pod_container:container_memory_working_set_bytes{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\",container!=\"\"}) by (pod)",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -1742,7 +1822,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app.*\",container!=\"\", image!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1753,7 +1833,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$app.*\"}) by (pod)",
+          "expr": "sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1764,7 +1844,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app.*\",container!=\"\", image!=\"\"}) by (pod) / sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$app.*\"}) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1775,7 +1855,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{namespace=\"$namespace\",pod=~\"$app.*\"}) by (pod)",
+          "expr": "sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1786,7 +1866,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app.*\",container!=\"\", image!=\"\"}) by (pod) / sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app.*\"}) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1797,7 +1877,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(container_memory_rss{namespace=\"$namespace\",pod=~\"$app.*\",container!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_rss{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1808,7 +1888,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(container_memory_cache{namespace=\"$namespace\",pod=~\"$app.*\",container!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_cache{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1819,7 +1899,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(container_memory_swap{namespace=\"$namespace\",pod=~\"$app.*\",container!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_swap{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1927,7 +2007,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "avg(container_blkio_device_usage_total{namespace=\"$namespace\", pod=~\"$app-.*\"}) by (pod)",
+          "expr": "avg(container_blkio_device_usage_total{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -2051,7 +2131,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(rate(container_fs_writes_total{namespace=\"$namespace\", pod=~\"$app-.*\"}[5m]))by(pod)",
+          "expr": "sum(rate(container_fs_writes_total{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m]))by(pod)",
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
@@ -2060,7 +2140,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(rate(container_fs_reads_total{namespace=\"$namespace\", pod=~\"$app-.*\"}[5m]))by(pod)",
+          "expr": "sum(rate(container_fs_reads_total{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m]))by(pod)",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -2144,7 +2224,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "ceil(sum by(pod) (rate(container_fs_reads_total{container!=\"\", namespace=~\"$namespace\", pod=~\"$app.*\"}[5m]) + rate(container_fs_writes_total{container!=\"\" ,namespace=~\"$namespace\", pod=~\"$app.*\"}[5m])))",
+          "expr": "ceil(sum by(pod) (rate(container_fs_reads_total{container!=\"\", namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m]) + rate(container_fs_writes_total{container!=\"\" ,namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -2232,7 +2312,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", namespace=~\"$namespace\", pod=~\"$app.*\"}[5m]) + rate(container_fs_writes_bytes_total{container!=\"\" ,namespace=~\"$namespace\", pod=~\"$app.*\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m]) + rate(container_fs_writes_bytes_total{container!=\"\" ,namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m]))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -2489,7 +2569,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum by(pod) (rate(container_fs_reads_total{container!=\"\", pod=~\"$app.*\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2500,7 +2580,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum by(pod) (rate(container_fs_writes_total{container!=\"\", pod=~\"$app.*\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_writes_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2511,7 +2591,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum by(pod) (rate(container_fs_reads_total{container!=\"\", pod=~\"$app.*\",namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_total{container!=\"\",pod=~\"$app.*\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_total{container!=\"\",pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2522,7 +2602,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", pod=~\"$app.*\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2533,7 +2613,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum by(pod) (rate(container_fs_writes_bytes_total{container!=\"\", pod=~\"$app.*\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_writes_bytes_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2544,7 +2624,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", pod=~\"$app.*\",namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_bytes_total{container!=\"\",pod=~\"$app.*\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_bytes_total{container!=\"\",pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2654,7 +2734,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(irate(container_network_receive_bytes_total{namespace=~\"$namespace\", pod=~\"$app.*\"}[$__rate_interval])) by (pod)",
+          "expr": "sum(irate(container_network_receive_bytes_total{namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[$__rate_interval])) by (pod)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -2742,7 +2822,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(irate(container_network_transmit_bytes_total{namespace=~\"$namespace\", pod=~\"$app.*\"}[$__rate_interval])) by (pod)",
+          "expr": "sum(irate(container_network_transmit_bytes_total{namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[$__rate_interval])) by (pod)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
