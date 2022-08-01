@@ -2,19 +2,25 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: RedisVersion
 metadata:
-  name: '4.0.11'
+  name: '6.2.7'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
     image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/redis-coordinator:v0.6.0'
   db:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/redis:4.0.11'
+    image: '{{ include "official.registry" (merge (dict "_bin" "redis") .Values) }}:6.2.7'
   exporter:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/redis_exporter:v0.21.1'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/redis_exporter:1.9.0'
   initContainer:
     image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/redis-init:0.5.0'
   podSecurityPolicies:
     databasePolicyName: redis-db
-  version: 4.0.11
+  stash:
+    addon:
+      backupTask:
+        name: redis-backup-6.2.5
+      restoreTask:
+        name: redis-restore-6.2.5
+  version: 6.2.7
 {{ end }}
