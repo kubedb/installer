@@ -76,6 +76,8 @@ type KubedbOpsManagerSpec struct {
 	Monitoring         Monitoring               `json:"monitoring"`
 	// +optional
 	License string `json:"license"`
+	// +optional
+	RecommendationEngine RecommendationEngineConfig `json:"recommendationEngine"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
@@ -86,4 +88,10 @@ type KubedbOpsManagerList struct {
 	metav1.ListMeta `json:"metadata,omitempty"`
 	// Items is a list of KubedbOpsManager CRD objects
 	Items []KubedbOpsManager `json:"items,omitempty"`
+}
+
+type RecommendationEngineConfig struct {
+	GenRotateTLSRecommendationBeforeExpiryYear  int `json:"genRotateTLSRecommendationBeforeExpiryYear"`
+	GenRotateTLSRecommendationBeforeExpiryMonth int `json:"genRotateTLSRecommendationBeforeExpiryMonth"`
+	GenRotateTLSRecommendationBeforeExpiryDay   int `json:"genRotateTLSRecommendationBeforeExpiryDay"`
 }

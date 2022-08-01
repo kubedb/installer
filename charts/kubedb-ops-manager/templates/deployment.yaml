@@ -44,6 +44,11 @@ spec:
         - --use-kubeapiserver-fqdn-for-aks={{ .Values.apiserver.useKubeapiserverFqdnForAks }}
         - --metrics-bind-address=:{{ .Values.monitoring.bindPort }}
         - --health-probe-bind-address=:{{ .Values.apiserver.healthcheck.probePort }}
+        {{- with .Values.recommendationEngine }}
+        - --gen-rotate-tls-recommendation-before-expiry-year={{ .genRotateTLSRecommendationBeforeExpiryYear }}
+        - --gen-rotate-tls-recommendation-before-expiry-month={{ .genRotateTLSRecommendationBeforeExpiryMonth }}
+        - --gen-rotate-tls-recommendation-before-expiry-day={{ .genRotateTLSRecommendationBeforeExpiryDay }}
+        {{- end }}
         {{- if include "appscode.license" . }}
         - --license-file=/var/run/secrets/appscode/license/key.txt
         {{- end }}
