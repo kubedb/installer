@@ -9,6 +9,7 @@ spec:
   coordinator:
     image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/pg-coordinator:v0.11.0'
   db:
+    baseOS: bullseye
     image: '{{ include "official.registry" (merge (dict "_bin" "postgres") .Values) }}:10.16'
   distribution: Official
   exporter:
@@ -26,6 +27,10 @@ spec:
         name: postgres-backup-10.14
       restoreTask:
         name: postgres-restore-10.14
+  upgradeConstraints:
+    allowlist:
+    - "10.19"
+    - "11.11"
   version: "10.16"
 {{ end }}
 
@@ -41,6 +46,7 @@ spec:
   coordinator:
     image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/pg-coordinator:v0.11.0'
   db:
+    baseOS: alpine
     image: '{{ include "official.registry" (merge (dict "_bin" "postgres") .Values) }}:10.16-alpine'
   distribution: Official
   exporter:
@@ -58,5 +64,8 @@ spec:
         name: postgres-backup-10.14
       restoreTask:
         name: postgres-restore-10.14
+  upgradeConstraints:
+    allowlist:
+    - '>= 10.19, =< 13.2'
   version: "10.16"
 {{ end }}
