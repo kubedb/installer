@@ -787,7 +787,7 @@ func toJSON(v interface{}) string {
 func StashAddonDBType(dbKind string) string {
 	switch dbKind {
 	case "PerconaXtraDB":
-		return "percona-xtradb"
+		return "perconaxtradb"
 	default:
 		return strings.ToLower(dbKind)
 	}
