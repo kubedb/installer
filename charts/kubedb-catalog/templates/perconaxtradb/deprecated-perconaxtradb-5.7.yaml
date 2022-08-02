@@ -1,4 +1,4 @@
-{{ if .Values.catalog.perconaxtradb }}
+{{ if and .Values.catalog.perconaxtradb (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PerconaXtraDBVersion
 metadata:
@@ -8,6 +8,7 @@ metadata:
 spec:
   db:
     image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/percona-xtradb-cluster:5.7'
+  deprecated: true
   exporter:
     image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/mysqld-exporter:v0.11.0'
   initContainer:
@@ -24,7 +25,7 @@ spec:
 {{ end }}
 
 ---
-{{ if .Values.catalog.perconaxtradb }}
+{{ if and .Values.catalog.perconaxtradb (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PerconaXtraDBVersion
 metadata:
@@ -34,6 +35,7 @@ metadata:
 spec:
   db:
     image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/percona:5.7'
+  deprecated: true
   exporter:
     image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/mysqld-exporter:v0.11.0'
   initContainer:
