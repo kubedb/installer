@@ -89,3 +89,7 @@ crd-importer \
 crd-importer \
     --input=https://github.com/open-viz/grafana-tools/raw/v0.0.1/crds/openviz.dev_grafanadashboards.yaml \
     --out=./charts/kubedb-grafana-dashboards/crds
+
+crd-importer \
+    --input=https://github.com/kubeops/supervisor/raw/v0.0.1/crds/supervisor.appscode.com_recommendations.yaml \
+    --out=./charts/kubedb-ops-manager/crds
