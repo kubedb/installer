@@ -17,8 +17,6 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"time"
-
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -93,8 +91,8 @@ type KubedbOpsManagerList struct {
 }
 
 type RecommendationEngineConfig struct {
-	RecommendationResyncPeriod                  time.Duration `json:"recommendationResyncPeriod"`
-	GenRotateTLSRecommendationBeforeExpiryYear  int           `json:"genRotateTLSRecommendationBeforeExpiryYear"`
-	GenRotateTLSRecommendationBeforeExpiryMonth int           `json:"genRotateTLSRecommendationBeforeExpiryMonth"`
-	GenRotateTLSRecommendationBeforeExpiryDay   int           `json:"genRotateTLSRecommendationBeforeExpiryDay"`
+	RecommendationResyncPeriod                  metav1.Duration `json:"recommendationResyncPeriod"`
+	GenRotateTLSRecommendationBeforeExpiryYear  int             `json:"genRotateTLSRecommendationBeforeExpiryYear"`
+	GenRotateTLSRecommendationBeforeExpiryMonth int             `json:"genRotateTLSRecommendationBeforeExpiryMonth"`
+	GenRotateTLSRecommendationBeforeExpiryDay   int             `json:"genRotateTLSRecommendationBeforeExpiryDay"`
 }
