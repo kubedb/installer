@@ -1,0 +1,26 @@
+{{ if .Values.catalog.perconaxtradb }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PerconaXtraDBVersion
+metadata:
+  name: '8.0.28'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  coordinator:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/percona-xtradb-coordinator:v0.1.0'
+  db:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "percona") .Values) }}/percona-xtradb-cluster:8.0.28'
+  exporter:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prom") .Values) }}/mysqld-exporter:v0.13.0'
+  initContainer:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/percona-xtradb-init:0.1.0'
+  podSecurityPolicies:
+    databasePolicyName: percona-xtradb-db
+  stash:
+    addon:
+      backupTask:
+        name: perconaxtradb-backup-5.7
+      restoreTask:
+        name: perconaxtradb-restore-5.7
+  version: 8.0.28
+{{ end }}
