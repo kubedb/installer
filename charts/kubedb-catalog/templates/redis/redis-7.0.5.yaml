@@ -1,0 +1,26 @@
+{{ if .Values.catalog.redis }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: RedisVersion
+metadata:
+  name: '7.0.5'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  coordinator:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/redis-coordinator:redis-sentinel-ops-requests_linux_amd64'
+  db:
+    image: '{{ include "official.registry" (merge (dict "_bin" "redis") .Values) }}:7.0.5'
+  exporter:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/redis_exporter:1.9.0'
+  initContainer:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/redis-init:_linux_amd64'
+  podSecurityPolicies:
+    databasePolicyName: redis-db
+  stash:
+    addon:
+      backupTask:
+        name: redis-backup-7.0.4
+      restoreTask:
+        name: redis-restore-7.0.4
+  version: 7.0.5
+{{ end }}
