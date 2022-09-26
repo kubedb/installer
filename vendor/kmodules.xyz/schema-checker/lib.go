@@ -17,14 +17,17 @@ limitations under the License.
 package schemachecker
 
 import (
+	"bytes"
 	"encoding/json"
+	"io"
 	"io/fs"
+	"net/http"
 	"path/filepath"
 	"reflect"
 	"strings"
 	"testing"
 
-	"github.com/gobuffalo/flect"
+	"github.com/gobeam/stringy"
 	"github.com/pkg/errors"
 	diff "github.com/yudai/gojsondiff"
 	"github.com/yudai/gojsondiff/formatter"
@@ -43,11 +46,11 @@ type DefaultTypeMapper struct{}
 var _ TypeMapper = &DefaultTypeMapper{}
 
 func (d DefaultTypeMapper) ChartNameToSchemaKind(chartName string) string {
-	return flect.Pascalize(chartName) + "Spec"
+	return stringy.New(chartName).CamelCase() + "Spec"
 }
 
 func (d DefaultTypeMapper) KindToSchemaKind(kind string) string {
-	return flect.Pascalize(kind + "Spec")
+	return stringy.New(kind + "Spec").CamelCase()
 }
 
 func (d DefaultTypeMapper) ToKind(schemaKind string) string {
@@ -55,14 +58,24 @@ func (d DefaultTypeMapper) ToKind(schemaKind string) string {
 }
 
 func (d DefaultTypeMapper) ToChartName(k string) string {
-	return flect.Dasherize(d.ToKind(k))
+	return stringy.New(d.ToKind(k)).KebabCase().ToLower()
+}
+
+type TestCase struct {
+	Obj  interface{}
+	File string
+}
+
+type TestData struct {
+	typ  reflect.Type
+	file string
 }
 
 type SchemaChecker struct {
 	// project root directory
 	fsys     fs.FS
 	mapper   TypeMapper
-	registry map[string]reflect.Type
+	registry map[string]TestData
 }
 
 func kind(v interface{}) string {
@@ -71,10 +84,13 @@ func kind(v interface{}) string {
 
 // https://stackoverflow.com/a/23031445
 
-func New(fsys fs.FS, objs ...interface{}) *SchemaChecker {
-	reg := map[string]reflect.Type{}
-	for _, v := range objs {
-		reg[kind(v)] = reflect.TypeOf(v)
+func New(fsys fs.FS, cases ...TestCase) *SchemaChecker {
+	reg := map[string]TestData{}
+	for _, c := range cases {
+		reg[kind(c.Obj)] = TestData{
+			typ:  reflect.TypeOf(c.Obj),
+			file: c.File,
+		}
 	}
 	return &SchemaChecker{
 		fsys:     fsys,
@@ -86,6 +102,9 @@ func New(fsys fs.FS, objs ...interface{}) *SchemaChecker {
 func (checker *SchemaChecker) CheckChart(chartName string) (string, error) {
 	schemaKind := checker.mapper.ChartNameToSchemaKind(chartName)
 	file := filepath.Join("charts", chartName, "values.yaml")
+	if td, ok := checker.registry[schemaKind]; ok && td.file != "" {
+		file = td.file
+	}
 	return checker.Check(schemaKind, file)
 }
 
@@ -97,6 +116,9 @@ func (checker *SchemaChecker) TestChart(t *testing.T, chartName string) {
 func (checker *SchemaChecker) CheckKind(kind string) (string, error) {
 	schemaKind := checker.mapper.KindToSchemaKind(kind)
 	file := filepath.Join("charts", checker.mapper.ToChartName(kind), "values.yaml")
+	if td, ok := checker.registry[schemaKind]; ok && td.file != "" {
+		file = td.file
+	}
 	return checker.Check(schemaKind, file)
 }
 
@@ -106,12 +128,18 @@ func (checker *SchemaChecker) TestKind(t *testing.T, kind string) {
 }
 
 func (checker *SchemaChecker) CheckObject(v interface{}, file string) (string, error) {
-	checker.registry[kind(v)] = reflect.TypeOf(v)
+	checker.registry[kind(v)] = TestData{
+		typ:  reflect.TypeOf(v),
+		file: file,
+	}
 	return checker.Check(kind(v), file)
 }
 
 func (checker *SchemaChecker) TestObject(t *testing.T, v interface{}, file string) {
-	checker.registry[kind(v)] = reflect.TypeOf(v)
+	checker.registry[kind(v)] = TestData{
+		typ:  reflect.TypeOf(v),
+		file: file,
+	}
 	checker.Test(t, kind(v), file)
 }
 
@@ -121,9 +149,25 @@ func (checker *SchemaChecker) Test(t *testing.T, schemaKind string, file string)
 }
 
 func (checker *SchemaChecker) Check(schemaKind string, file string) (string, error) {
-	data, err := fs.ReadFile(checker.fsys, file)
-	if err != nil {
-		return "", errors.Wrap(err, file)
+	var data []byte
+	var err error
+	if strings.HasPrefix(file, "http://") || strings.HasPrefix(file, "https://") {
+		resp, err := http.Get(file)
+		if err != nil {
+			return "", errors.Wrap(err, file)
+		}
+		defer resp.Body.Close()
+		var buf bytes.Buffer
+		_, err = io.Copy(&buf, resp.Body)
+		if err != nil {
+			return "", errors.Wrap(err, file)
+		}
+		data = buf.Bytes()
+	} else {
+		data, err = fs.ReadFile(checker.fsys, file)
+		if err != nil {
+			return "", errors.Wrap(err, file)
+		}
 	}
 
 	var original map[string]interface{}
@@ -136,7 +180,7 @@ func (checker *SchemaChecker) Check(schemaKind string, file string) (string, err
 		return "", errors.Wrap(err, file)
 	}
 
-	newObj := reflect.New(checker.registry[schemaKind])
+	newObj := reflect.New(checker.registry[schemaKind].typ)
 	err = yaml.Unmarshal(data, newObj.Interface())
 	if err != nil {
 		return "", errors.Wrap(err, file)

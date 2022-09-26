@@ -1,0 +1,12 @@
+language: go
+sudo: false
+go_import_path: github.com/gobeam/stringy
+go:
+  - 1.13
+
+before_install:
+  - go get github.com/mattn/goveralls
+
+script:
+  - go test -cover -coverprofile=.coverprofile $(go list .)
+  - $GOPATH/bin/goveralls -service=travis-ci -coverprofile=.coverprofile -repotoken=$REPO_TOKEN
