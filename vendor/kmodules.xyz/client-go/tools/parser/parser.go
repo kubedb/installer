@@ -20,7 +20,6 @@ import (
 	"bytes"
 	"io"
 	"io/fs"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"sort"
@@ -82,7 +81,7 @@ func processResources(filename string, data []byte, fn ResourceFn) error {
 
 func ProcessPath(root string, fn ResourceFn) error {
 	return filepath.WalkDir(root, func(path string, info os.DirEntry, err error) error {
-		if info.IsDir() || err != nil {
+		if err != nil || info.IsDir() {
 			return err
 		}
 
@@ -91,7 +90,7 @@ func ProcessPath(root string, fn ResourceFn) error {
 			return nil
 		}
 
-		data, err := ioutil.ReadFile(path)
+		data, err := os.ReadFile(path)
 		if err != nil {
 			return errors.Wrap(err, path)
 		}
