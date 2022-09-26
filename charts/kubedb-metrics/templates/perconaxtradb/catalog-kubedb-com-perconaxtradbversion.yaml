@@ -1,0 +1,34 @@
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: catalog-kubedb-com-perconaxtradbversion
+spec:
+  targetRef:
+    apiVersion: catalog.kubedb.com/v1alpha1
+    kind: PerconaXtraDBVersion
+  metrics:
+    - name: created
+      help: "Unix creation timestamp"
+      type: gauge
+      field:
+        path: .metadata.creationTimestamp
+        type: DateTime
+      metricValue:
+        valueFromPath: .metadata.creationTimestamp
+
+    - name: info
+      help: "PerconaXtraDB versions info"
+      type: gauge
+      labels:
+        - key: deprecated
+          valuePath: .spec.deprecated
+        - key: db_image
+          valuePath: .spec.db.image
+        - key: exporter_image
+          valuePath: .spec.exporter.image
+        - key: stash_addon_backup_task
+          valuePath: .spec.stash.addon.backupTask.name
+        - key: stash_addon_restore_task
+          valuePath: .spec.stash.addon.restoreTask.name
+      metricValue:
+        value: 1
