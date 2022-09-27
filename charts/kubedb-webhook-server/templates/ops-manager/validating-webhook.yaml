@@ -86,5 +86,20 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None
+- name: subscriberwebhook.validators.postgres.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.postgres.kubedb.com/v1alpha1/subscriberwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+  - apiGroups: ["postgres.kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["subscribers"]
+    operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Fail
+  sideEffects: None
 {{- end }}
 {{- end }}
