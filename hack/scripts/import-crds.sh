@@ -54,6 +54,8 @@ crd-importer \
     --group=ops.kubedb.com \
     --group=autoscaling.kubedb.com \
     --group=dashboard.kubedb.com \
+    --group=postgres.kubedb.com \
+    --group=archiver.kubedb.com \
     --group=schema.kubedb.com
 
 crd-importer \
@@ -65,6 +67,8 @@ crd-importer \
     --group=ops.kubedb.com \
     --group=autoscaling.kubedb.com \
     --group=dashboard.kubedb.com \
+    --group=postgres.kubedb.com \
+    --group=archiver.kubedb.com \
     --group=schema.kubedb.com
 
 crd-importer \
