@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb-opscenter --version=v2022.08.08
-$ helm upgrade -i kubedb-opscenter appscode/kubedb-opscenter -n kubedb --create-namespace --version=v2022.08.08
+$ helm search repo appscode/kubedb-opscenter --version=v2022.10.12-rc.0
+$ helm upgrade -i kubedb-opscenter appscode/kubedb-opscenter -n kubedb --create-namespace --version=v2022.10.12-rc.0
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeDB Opscenter on a [Kubernetes](http://kubernetes.io) cl
 To install/upgrade the chart with the release name `kubedb-opscenter`:
 
 ```bash
-$ helm upgrade -i kubedb-opscenter appscode/kubedb-opscenter -n kubedb --create-namespace --version=v2022.08.08
+$ helm upgrade -i kubedb-opscenter appscode/kubedb-opscenter -n kubedb --create-namespace --version=v2022.10.12-rc.0
 ```
 
 The command deploys a KubeDB Opscenter on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -61,12 +61,12 @@ The following table lists the configurable parameters of the `kubedb-opscenter` 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-opscenter appscode/kubedb-opscenter -n kubedb --create-namespace --version=v2022.08.08 --set -- generate from values file --
+$ helm upgrade -i kubedb-opscenter appscode/kubedb-opscenter -n kubedb --create-namespace --version=v2022.10.12-rc.0 --set -- generate from values file --
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-opscenter appscode/kubedb-opscenter -n kubedb --create-namespace --version=v2022.08.08 --values values.yaml
+$ helm upgrade -i kubedb-opscenter appscode/kubedb-opscenter -n kubedb --create-namespace --version=v2022.10.12-rc.0 --values values.yaml
 ```
