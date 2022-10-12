@@ -82,7 +82,7 @@ crd-importer \
     --group=catalog.kubedb.com
 
 crd-importer \
-    --input=https://github.com/kmodules/custom-resources/raw/kubernetes-1.21.1/crds/metrics.appscode.com_metricsconfigurations.yaml \
+    --input=https://github.com/kmodules/custom-resources/raw/release-1.25/crds/metrics.appscode.com_metricsconfigurations.yaml \
     --out=./charts/kubedb-metrics/crds
 
 crd-importer \
