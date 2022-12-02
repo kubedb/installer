@@ -15,87 +15,57 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 26,
-  "iteration": 1637571075821,
+  "id": 28,
+  "iteration": 1669712581592,
   "links": [],
   "panels": [
     {
+      "collapsed": false,
       "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [
-            {
-              "from": "",
-              "id": 1,
-              "text": "ONLINE",
-              "to": "",
-              "type": 1,
-              "value": "1"
-            },
-            {
-              "from": "",
-              "id": 2,
-              "text": "RECOVERING",
-              "to": "",
-              "type": 1,
-              "value": "2"
-            },
-            {
-              "from": "",
-              "id": 3,
-              "text": "OFFLINE",
-              "to": "",
-              "type": 1,
-              "value": "3"
-            },
-            {
-              "from": "",
-              "id": 4,
-              "text": "ERROR",
-              "to": "",
-              "type": 1,
-              "value": "4"
-            },
-            {
-              "from": "",
-              "id": 5,
-              "text": "UNREACHABLE",
-              "to": "",
-              "type": 1,
-              "value": "5"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 2
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
       "gridPos": {
-        "h": 7,
+        "h": 1,
         "w": 24,
         "x": 0,
         "y": 0
       },
-      "id": 65,
+      "id": 2,
+      "panels": [],
+      "title": "MySQL Pod Summary",
+      "type": "row"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "semi-dark-blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 0,
+        "y": 1
+      },
+      "id": 4,
       "options": {
-        "colorMode": "background",
+        "colorMode": "value",
         "graphMode": "none",
         "justifyMode": "auto",
-        "orientation": "horizontal",
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -104,19 +74,19 @@
           "values": false
         },
         "text": {},
-        "textMode": "value_and_name"
+        "textMode": "name"
       },
       "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
-          "expr": "avg by(member_host)(mysql_perf_schema_replication_group_member_info{namespace=~\"$namespace\",service=~\"$app\"})",
+          "expr": "proxysql_uptime_seconds_total{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
           "interval": "",
-          "legendFormat": "{{member_host}}",
+          "legendFormat": "{{pod}} ",
           "refId": "A"
         }
       ],
-      "title": "Group Replication Node Title",
+      "title": "Pod Name",
       "type": "stat"
     },
     {
@@ -126,44 +96,49 @@
           "color": {
             "mode": "thresholds"
           },
-          "mappings": [
-            {
-              "from": "",
-              "id": 1,
-              "text": "PRIMARY",
-              "to": "",
-              "type": 1,
-              "value": "1"
-            }
-          ],
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue",
+                "color": "semi-dark-red",
                 "value": null
               },
               {
-                "color": "red",
-                "value": 80
+                "color": "green",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byType",
+              "options": "number"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
               }
             ]
           }
-        },
-        "overrides": []
+        ]
       },
       "gridPos": {
-        "h": 3,
-        "w": 24,
-        "x": 0,
-        "y": 7
+        "h": 5,
+        "w": 12,
+        "x": 12,
+        "y": 1
       },
-      "id": 64,
+      "id": 5,
       "options": {
-        "colorMode": "background",
+        "colorMode": "value",
         "graphMode": "none",
         "justifyMode": "auto",
-        "orientation": "horizontal",
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -178,15 +153,15 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "avg by(member_host)(mysql_perf_schema_replication_group_member_info{namespace=~\"$namespace\",service=~\"$app\", member_role=\"PRIMARY\"})",
+          "expr": "proxysql_uptime_seconds_total{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
+          "format": "time_series",
+          "instant": false,
           "interval": "",
-          "legendFormat": "{{member_host}}",
+          "legendFormat": "{{pod}}",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Primary Node",
+      "title": "ProxySQL Uptime",
       "type": "stat"
     },
     {
@@ -196,11 +171,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 6
       },
-      "id": 67,
+      "id": 57,
       "panels": [],
-      "title": "Replication Delay Details",
+      "title": "Pod CPU, Memory and File Descriptor Stats",
       "type": "row"
     },
     {
@@ -210,128 +185,27 @@
       "dashes": false,
       "datasource": null,
       "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 11
-      },
-      "hiddenSeries": false,
-      "id": 69,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
-        "max": true,
-        "min": true,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.5.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "max by (pod)(max_over_time(mysql_perf_schema_replication_group_worker_lag_in_seconds{namespace=~\"$namespace\",service=~\"$app\"}[5m]))",
-          "interval": "",
-          "legendFormat": "{{pod}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Replication Lag",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:291",
-          "format": "s",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
+        "defaults": {
+          "unit": "none"
         },
-        {
-          "$$hashKey": "object:292",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
         "overrides": []
       },
-      "fill": 1,
+      "fill": 5,
       "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 19
+        "y": 7
       },
       "hiddenSeries": false,
-      "id": 70,
+      "id": 61,
       "legend": {
         "alignAsTable": true,
         "avg": true,
         "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
         "max": true,
         "min": true,
-        "rightSide": false,
         "show": true,
         "total": false,
         "values": true
@@ -354,9 +228,9 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "max by (pod)(max_over_time(mysql_perf_schema_replication_group_worker_transport_time_seconds{namespace=~\"$namespace\",service=~\"$app\"}[5m])) < 20000000",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\", pod=~\"$pod\", container!=\"\", image!=\"\"}[5m])) by (pod)",
           "interval": "",
-          "legendFormat": "{{pod}}",
+          "legendFormat": "{{container}}",
           "refId": "A"
         }
       ],
@@ -364,7 +238,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Transport TIme",
+      "title": "CPU Usage",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -380,16 +254,14 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:291",
-          "format": "s",
+          "format": "none",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": "0",
+          "min": null,
           "show": true
         },
         {
-          "$$hashKey": "object:292",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -410,28 +282,27 @@
       "dashes": false,
       "datasource": null,
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "unit": "bytes"
+        },
         "overrides": []
       },
-      "fill": 1,
+      "fill": 5,
       "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 19
+        "y": 7
       },
       "hiddenSeries": false,
-      "id": 71,
+      "id": 59,
       "legend": {
         "alignAsTable": true,
         "avg": true,
         "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
         "max": true,
         "min": true,
-        "rightSide": false,
         "show": true,
         "total": false,
         "values": true
@@ -454,7 +325,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "max by (pod)(max_over_time(mysql_perf_schema_replication_group_worker_apply_time_seconds{namespace=~\"$namespace\",service=~\"$app\"}[5m])) < 20000000",
+          "expr": "sum(container_memory_working_set_bytes{namespace=~\"$namespace\", pod=~\"$pod\", container!=\"\", image!=\"\"}) by (pod)",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -464,7 +335,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Replication Delay",
+      "title": "Memory Usage",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -480,216 +351,14 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:291",
-          "format": "s",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:292",
-          "format": "short",
+          "format": "bytes",
           "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
           "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 0,
-        "y": 26
-      },
-      "hiddenSeries": false,
-      "id": 72,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.5.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "max by (pod)(max_over_time(mysql_perf_schema_replication_group_worker_apply_time_seconds{namespace=~\"$namespace\",service=~\"$app\"}[5m])) < 20000000",
-          "interval": "",
-          "legendFormat": "{{pod}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Transaction Apply Time",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:291",
-          "format": "s",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
         },
         {
-          "$$hashKey": "object:292",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 12,
-        "y": 26
-      },
-      "hiddenSeries": false,
-      "id": 73,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.5.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "max by (pod)(max_over_time(mysql_perf_schema_replication_group_worker_time_RL_seconds{namespace=~\"$namespace\",service=~\"$app\"}[5m])) < 20000000",
-          "interval": "",
-          "legendFormat": "{{pod}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Transaction Time Inside the Local Queue",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:291",
-          "format": "s",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:292",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -710,11 +379,12 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 33
+        "y": 14
       },
-      "id": 76,
+      "id": 10,
       "panels": [],
-      "title": "Transactions",
+      "repeat": null,
+      "title": "Connections",
       "type": "row"
     },
     {
@@ -733,19 +403,16 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 34
+        "y": 15
       },
       "hiddenSeries": false,
-      "id": 77,
+      "id": 12,
       "legend": {
         "alignAsTable": true,
         "avg": true,
         "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
         "max": true,
         "min": true,
-        "rightSide": false,
         "show": true,
         "total": false,
         "values": true
@@ -768,17 +435,25 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "avg by (pod)(rate(mysql_perf_schema_transactions_checked_total{namespace=~\"$namespace\",service=~\"$app\"}[5m]) or rate(mysql_perf_schema_5_transactions_checked_total{namespace=~\"$namespace\",service=~\"$app\"}[5m])) ",
+          "expr": "proxysql_connpool_conns{status=\"used\",namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
           "interval": "",
-          "legendFormat": "{{pod}}",
+          "legendFormat": "Used Connects - {{pod}}",
           "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "proxysql_connpool_conns{status=\"free\",namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Free Connects - {{pod}}",
+          "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Checked Transactions",
+      "title": "ProxySQL Connections",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -794,16 +469,16 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:291",
+          "$$hashKey": "object:402",
           "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": "0",
+          "min": null,
           "show": true
         },
         {
-          "$$hashKey": "object:292",
+          "$$hashKey": "object:403",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -833,19 +508,16 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 34
+        "y": 15
       },
       "hiddenSeries": false,
-      "id": 78,
+      "id": 16,
       "legend": {
         "alignAsTable": true,
         "avg": true,
         "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
         "max": true,
         "min": true,
-        "rightSide": false,
         "show": true,
         "total": false,
         "values": true
@@ -868,9 +540,9 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "avg by (pod)(rate(mysql_perf_schema_transactions_rows_validating_total{namespace=~\"$namespace\",service=~\"$app\"}[5m]) or rate(mysql_perf_schema_5_transactions_rows_validating_total{namespace=~\"$namespace\",service=~\"$app\"}[5m])) ",
+          "expr": "proxysql_server_connections_total{ status=\"aborted\",namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
           "interval": "",
-          "legendFormat": "{{pod}}",
+          "legendFormat": "Aborted Connects - {{pod}}",
           "refId": "A"
         }
       ],
@@ -878,7 +550,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Transactions Row Validating",
+      "title": "ProxySQL Aborted Connections",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -894,7 +566,7 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:291",
+          "$$hashKey": "object:237",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -903,507 +575,7 @@
           "show": true
         },
         {
-          "$$hashKey": "object:292",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 0,
-        "y": 41
-      },
-      "hiddenSeries": false,
-      "id": 79,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.5.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "avg by (pod)(rate(mysql_perf_schema_transactions_remote_applied_total{namespace=~\"$namespace\",service=~\"$app\"}[5m])) ",
-          "interval": "",
-          "legendFormat": "{{pod}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Applied Transactions",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:291",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:292",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 12,
-        "y": 41
-      },
-      "hiddenSeries": false,
-      "id": 80,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.5.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "avg by (pod)(rate(mysql_perf_schema_transactions_local_proposed_total{namespace=~\"$namespace\",service=~\"$app\"}[5m])) ",
-          "interval": "",
-          "legendFormat": "{{pod}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Sent Transactions",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:291",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:292",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 0,
-        "y": 48
-      },
-      "hiddenSeries": false,
-      "id": 81,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.5.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "avg by (pod)(rate(mysql_perf_schema_transactions_remote_in_applier_queue{namespace=~\"$namespace\",service=~\"$app\"}[5m])) ",
-          "interval": "",
-          "legendFormat": "{{pod}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Received Transactions Queue",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:291",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:292",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 12,
-        "y": 48
-      },
-      "hiddenSeries": false,
-      "id": 82,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.5.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "avg by (pod)(rate(mysql_perf_schema_transactions_local_rollback_total{namespace=~\"$namespace\",service=~\"$app\"}[5m])) ",
-          "interval": "",
-          "legendFormat": "{{pod}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Rolled Back Transactions",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:291",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:292",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 0,
-        "y": 55
-      },
-      "hiddenSeries": false,
-      "id": 83,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.5.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "avg by (pod)(rate(mysql_perf_schema_transactions_in_queue{namespace=~\"$namespace\",service=~\"$app\"}[5m]) or rate(mysql_perf_schema_5_transactions_in_queue{namespace=~\"$namespace\",service=~\"$app\"}[5m])) ",
-          "interval": "",
-          "legendFormat": "{{pod}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Transactions in the Queue for Checking",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:291",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:292",
+          "$$hashKey": "object:238",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1424,11 +596,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 62
+        "y": 22
       },
-      "id": 85,
+      "id": 19,
       "panels": [],
-      "title": "Conflicts",
+      "title": "Temporary Objects & Slow Queries",
       "type": "row"
     },
     {
@@ -1447,19 +619,17 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 63
+        "y": 23
       },
       "hiddenSeries": false,
-      "id": 86,
+      "id": 25,
       "legend": {
         "alignAsTable": true,
         "avg": true,
         "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
         "max": true,
         "min": true,
-        "rightSide": true,
+        "rightSide": false,
         "show": true,
         "total": false,
         "values": true
@@ -1482,9 +652,9 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "avg by (pod)(rate(mysql_perf_schema_conflicts_detected_total{namespace=~\"$namespace\",service=~\"$app\"}[5m]) or rate(mysql_perf_schema_5_conflicts_detected_total{namespace=~\"$namespace\",service=~\"$app\"}[5m])) ",
+          "expr": "proxysql_slow_queries_total{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
           "interval": "",
-          "legendFormat": "{{pod}}",
+          "legendFormat": "Slow Queries - {{pod}}",
           "refId": "A"
         }
       ],
@@ -1492,7 +662,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Transactions in the Queue for Checking",
+      "title": "ProxySQL Slow Queries",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1508,7 +678,7 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:291",
+          "$$hashKey": "object:816",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1517,7 +687,508 @@
           "show": true
         },
         {
-          "$$hashKey": "object:292",
+          "$$hashKey": "object:817",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 30
+      },
+      "id": 27,
+      "panels": [],
+      "title": "Table Locks and Questions",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 31
+      },
+      "hiddenSeries": false,
+      "id": 29,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "rate(proxysql_questions_total{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}[5m])",
+          "interval": "",
+          "legendFormat": "Questions - {{pod}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "ProxySQL Questions",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1550",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1551",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 38
+      },
+      "id": 31,
+      "panels": [],
+      "title": "Network",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "decimals": 2,
+      "description": "\n\nHere we can see how much network traffic is generated by MySQL. Outbound is network traffic sent from MySQL and Inbound is network traffic MySQL has received.",
+      "editable": true,
+      "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 6,
+      "fillGradient": 0,
+      "grid": {},
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 39
+      },
+      "hiddenSeries": false,
+      "id": 9,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "sort": "avg",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pluginVersion": "7.5.5",
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "calculatedInterval": "2m",
+          "datasourceErrors": {},
+          "errors": {},
+          "exemplar": true,
+          "expr": "rate(proxysql_connpool_data_bytes_total{traffic_flow=\"recv\",namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}[5m])",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Inbound - {{pod}} from {{endpoint}}",
+          "metric": "",
+          "refId": "A",
+          "step": 20
+        },
+        {
+          "calculatedInterval": "2m",
+          "datasourceErrors": {},
+          "errors": {},
+          "exemplar": true,
+          "expr": "rate(proxysql_connpool_data_bytes_total{traffic_flow=\"sent\",namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}[5m])",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Outbound - {{pod}} to {{endpoint}}",
+          "metric": "",
+          "refId": "B",
+          "step": 20
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "ProxySQL Network Traffic",
+      "tooltip": {
+        "msResolution": false,
+        "shared": true,
+        "sort": 5,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1886",
+          "decimals": 2,
+          "format": "Bps",
+          "logBase": 1,
+          "max": null,
+          "min": 0,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1887",
+          "format": "none",
+          "logBase": 1,
+          "max": null,
+          "min": 0,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 49
+      },
+      "id": 53,
+      "panels": [],
+      "title": "Query Cache",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus",
+      "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 50
+      },
+      "hiddenSeries": false,
+      "id": 54,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "rate(proxysql_query_cache_memory_bytes{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}[5m])",
+          "interval": "",
+          "legendFormat": "Query Cache Size - {{pod}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "ProxySQL Query Cache Memory",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:2422",
+          "format": "bytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:2423",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus",
+      "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 50
+      },
+      "hiddenSeries": false,
+      "id": 55,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "rate(proxysql_query_cache_count_get_total{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}[5m])",
+          "interval": "",
+          "legendFormat": "Get-Total - {{pod}}",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "rate(proxysql_query_cache_count_set_total{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}[5m])",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Set-Total - {{pod}}",
+          "refId": "B"
+        },
+        {
+          "exemplar": true,
+          "expr": "rate(proxysql_query_cache_bytes_total{op=\"read\",namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}[5m])",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Read - {{pod}}",
+          "refId": "D"
+        },
+        {
+          "exemplar": true,
+          "expr": "rate(proxysql_query_cache_bytes_total{op=\"written\",namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}[5m])",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Write - {{pod}}",
+          "refId": "E"
+        },
+        {
+          "exemplar": true,
+          "expr": "rate(proxysql_query_cache_purged_total{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}[5m])",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Purged - {{pod}}",
+          "refId": "C"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "ProxySQL Query Cache Activity",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:2475",
+          "format": "none",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:2476",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1532,7 +1203,7 @@
       }
     }
   ],
-  "refresh": "1h",
+  "refresh": false,
   "schemaVersion": 27,
   "style": "dark",
   "tags": [],
@@ -1541,8 +1212,8 @@
       {
         "current": {
           "selected": false,
-          "text": "Prometheus",
-          "value": "Prometheus"
+          "text": "default",
+          "value": "default"
         },
         "description": null,
         "error": null,
@@ -1576,7 +1247,41 @@
         "multi": false,
         "name": "namespace",
         "options": [],
-        "query": "label_values(kube_namespace_labels,namespace)",
+        "query": {
+          "query": "label_values(kube_namespace_labels,namespace)",
+          "refId": "Prometheus-namespace-Variable-Query"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "proxy-mysql-stats",
+          "value": "proxy-mysql-stats"
+        },
+        "datasource": "${datasource}",
+        "definition": "label_values(proxysql_uptime_seconds_total{namespace=~\"$namespace\"}, service)",
+        "description": "",
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "ProxySQL",
+        "multi": false,
+        "name": "app",
+        "options": [],
+        "query": {
+          "query": "label_values(proxysql_uptime_seconds_total{namespace=~\"$namespace\"}, service)",
+          "refId": "StandardVariableQuery"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1591,20 +1296,28 @@
         "allValue": null,
         "current": {
           "selected": true,
-          "text": "old-mysql-stats",
-          "value": "old-mysql-stats"
+          "tags": [],
+          "text": [
+            "proxy-mysql-1"
+          ],
+          "value": [
+            "proxy-mysql-1"
+          ]
         },
-        "datasource": "${datasource}",
-        "definition": "label_values(mysql_up{namespace=~\"$namespace\"}, service)",
-        "description": "",
+        "datasource": null,
+        "definition": "label_values(proxysql_uptime_seconds_total{namespace=~\"$namespace\", service=~\"$app\"}, pod)",
+        "description": null,
         "error": null,
         "hide": 0,
-        "includeAll": false,
-        "label": "MySQL",
-        "multi": false,
-        "name": "app",
+        "includeAll": true,
+        "label": "Pod",
+        "multi": true,
+        "name": "pod",
         "options": [],
-        "query": "label_values(mysql_up{namespace=~\"$namespace\"}, service)",
+        "query": {
+          "query": "label_values(proxysql_uptime_seconds_total{namespace=~\"$namespace\", service=~\"$app\"}, pod)",
+          "refId": "StandardVariableQuery"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1618,12 +1331,12 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
-  "title": "KubeDB / MySQL / Group-Replication-Summary",
-  "uid": "Zmva7c57k",
-  "version": 2
+  "title": "KubeDB / ProxySQL / Pod",
+  "uid": "FktZiiOnz",
+  "version": 9
 }
