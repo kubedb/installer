@@ -136,7 +136,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "mongodb_mongod_replset_my_state{pod=~\"$pod\"}",
+          "expr": "mongodb_members_state{pod=~\"$pod\",member_idx=~\"$pod.*\"}",
           "interval": "5m",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -207,7 +207,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "count by (set) (mongodb_mongod_replset_number_of_members{set=~\"$app\"} or mongodb_mongod_replset_my_state{set=~\"$app\"})",
+          "expr": "count by (rs_nm) (mongodb_members_state{rs_nm=~\"$app\", pod=\"$pod\"})",
           "interval": "5m",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -277,7 +277,7 @@
       "pluginVersion": "8.2.3",
       "targets": [
         {
-          "expr": "time() - mongodb_mongod_replset_member_election_date{pod=~\"$pod\"}",
+          "expr": "time() - mongodb_electionCandidateMetrics_lastElectionDate{pod=~\"$pod\"}/1000",
           "format": "time_series",
           "interval": "5m",
           "intervalFactor": 1,
@@ -348,7 +348,7 @@
       "pluginVersion": "8.2.3",
       "targets": [
         {
-          "expr": "(max(mongodb_mongod_replset_member_optime_date{state=\"PRIMARY\", set=\"$app\"}) - min(mongodb_mongod_replset_member_optime_date{state=\"SECONDARY\"} * on (name) group_left mongodb_mongod_replset_my_name{pod=~\"$pod\"})) or vector(0)",
+          "expr": "(max(mongodb_mongod_replset_member_optime_date{state=\"PRIMARY\", set=\"$app\"}) - min(mongodb_mongod_replset_member_optime_date{state=\"SECONDARY\"} * on (name) group_left mongodb_mongod_replset_my_name{pod=~\"$pod\"})) or (max(mongodb_members_optimeDate{member_state=\"PRIMARY\", rs_nm=\"$app\", pod=\"$pod\"}) - min(mongodb_members_optimeDate{pod=\"$pod\", member_idx=~\"$pod.*\"})) or vector(0)",
           "interval": "5m",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -364,14 +364,28 @@
     {
       "cacheTimeout": null,
       "datasource": "${datasource}",
-      "description": "Shows the storage engine used on the instance",
+      "description": "Shows the storage engine used on the instance (inMemory or wiredTiger)",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
           "decimals": 0,
-          "mappings": [],
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "index": 1,
+                  "text": "inMemory"
+                },
+                "1": {
+                  "index": 0,
+                  "text": "wiredTiger"
+                }
+              },
+              "type": "value"
+            }
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -396,8 +410,7 @@
         "y": 1
       },
       "hideTimeOverride": true,
-      "id": 78,
-      "interval": null,
+      "id": 92,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -407,21 +420,21 @@
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
         },
         "text": {},
-        "textMode": "name"
+        "textMode": "auto"
       },
       "pluginVersion": "8.2.3",
       "targets": [
         {
-          "expr": "mongodb_mongod_storage_engine{pod=~\"$pod\"}",
+          "expr": "mongodb_ss_storageEngine_persistent{pod=~\"$pod\"}",
           "interval": "5m",
           "intervalFactor": 1,
-          "legendFormat": "{{ engine }}",
+          "legendFormat": "",
           "metric": "",
           "refId": "A",
           "step": 300
@@ -500,10 +513,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_mongod_op_counters_repl_total{pod=~\"$pod\", type!~\"(command|getmore|query)\"}[$interval]) or irate(mongodb_mongod_op_counters_repl_total{pod=~\"$pod\", type!~\"(command|getmore|query)\"}[5m])",
+         "expr": "rate(mongodb_ss_opcountersRepl{pod=~\"$pod\", legacy_op_type!~\"(command|getmore|query)\"}[$interval]) or irate(mongodb_ss_opcountersRepl{pod=~\"$pod\", legacy_op_type!~\"(command|getmore|query)\"}[5m])",
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "{{type}}",
+          "legendFormat": "{{legacy_op_type}}",
+          "range": true,
           "refId": "A",
           "step": 300
         }
@@ -612,7 +626,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(max(mongodb_mongod_replset_member_optime_date{state=\"PRIMARY\", set=\"$app\"}) - min(mongodb_mongod_replset_member_optime_date{state=\"SECONDARY\"} * on (name) group_left mongodb_mongod_replset_my_name{pod=~\"$pod\"})) or vector(0)",
+          "expr": "(max(mongodb_mongod_replset_member_optime_date{state=\"PRIMARY\", set=\"$app\"}) - min(mongodb_mongod_replset_member_optime_date{state=\"SECONDARY\"} * on (name) group_left mongodb_mongod_replset_my_name{pod=~\"$pod\"})) or (max(mongodb_members_optimeDate{member_state=\"PRIMARY\", rs_nm=\"$app\", pod=\"$pod\"}) - min(mongodb_members_optimeDate{pod=\"$pod\", member_idx=~\"$pod.*\"})) or vector(0)",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Lag",
@@ -738,10 +752,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_mongod_metrics_repl_network_getmores_total_milliseconds{pod=~\"$pod\"}[$interval]) or irate(mongodb_mongod_metrics_repl_network_getmores_total_milliseconds{pod=~\"$pod\"}[5m])",
+          "expr": "rate(mongodb_mongod_metrics_repl_network_getmores_total_milliseconds{pod=~\"$pod\"}[$interval]) or irate(mongodb_mongod_metrics_repl_network_getmores_total_milliseconds{pod=~\"$pod\"}[5m]) or rate(mongodb_ss_metrics_repl_network_getmores_totalMillis{pod=~\"$pod\"}[$interval]) or irate(mongodb_ss_metrics_repl_network_getmores_totalMillis{pod=~\"$pod\"}[5m])",
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{pod}}",
+          "range": true,
           "refId": "A",
           "step": 300
         }
@@ -760,9 +775,7 @@
       "type": "graph",
       "x-axis": true,
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -850,7 +863,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mongodb_mongod_metrics_repl_buffer_size_bytes{pod=~\"$pod\"}",
+          "expr": "mongodb_ss_metrics_repl_buffer_sizeBytes{pod=~\"$pod\"}",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Used",
@@ -858,7 +871,7 @@
           "step": 300
         },
         {
-          "expr": "mongodb_mongod_metrics_repl_buffer_max_size_bytes{pod=~\"$pod\"}",
+          "expr": "mongodb_ss_metrics_repl_buffer_maxSizeBytes{pod=~\"$pod\"}",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Max",
@@ -970,25 +983,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_mongod_metrics_repl_preload_docs_num_total{pod=~\"$pod\"}[$interval]) or irate(mongodb_mongod_metrics_repl_preload_docs_num_total{pod=~\"$pod\"}[5m])",
-          "interval": "$interval",
-          "intervalFactor": 1,
-          "legendFormat": "Document Preload",
-          "metric": "mongodb_mongod_metrics_repl_preload_indexes_num_total",
-          "refId": "A",
-          "step": 300
-        },
-        {
-          "expr": "rate(mongodb_mongod_metrics_repl_preload_indexes_num_total{pod=~\"$pod\"}[$interval]) or irate(mongodb_mongod_metrics_repl_preload_indexes_num_total{pod=~\"$pod\"}[5m])",
-          "interval": "$interval",
-          "intervalFactor": 1,
-          "legendFormat": "Index Preload",
-          "metric": "mongodb_mongod_metrics_repl_preload_indexes_num_total",
-          "refId": "B",
-          "step": 300
-        },
-        {
-          "expr": "rate(mongodb_mongod_metrics_repl_apply_ops_total{pod=~\"$pod\"}[$interval]) or irate(mongodb_mongod_metrics_repl_apply_ops_total{pod=~\"$pod\"}[5m])",
+          "expr": "rate(mongodb_ss_metrics_repl_apply_ops{pod=~\"$pod\"}[$interval]) or irate(mongodb_ss_metrics_repl_apply_ops{pod=~\"$pod\"}[5m])",
           "intervalFactor": 2,
           "legendFormat": "Batch Apply",
           "refId": "C",
@@ -1099,7 +1094,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mongodb_mongod_metrics_repl_buffer_count{pod=~\"$pod\"}",
+          "expr": "mongodb_mongod_metrics_repl_buffer_count{pod=~\"$pod\"} or mongodb_ss_metrics_repl_buffer_count{pod=~\"$pod\"}",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Current",
@@ -1159,7 +1154,10 @@
   "schemaVersion": 31,
   "style": "dark",
   "tags": [
-    "MongoDB"
+    "db",
+    "replicaset",
+    "mongodb",
+    "kubedb"
   ],
   "templating": {
     "list": [
@@ -1258,7 +1256,7 @@
           "value": "demo"
         },
         "datasource": "${datasource}",
-        "definition": "label_values(namespace)",
+        "definition": "label_values(kube_namespace_labels,namespace)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -1267,7 +1265,10 @@
         "multi": false,
         "name": "namespace",
         "options": [],
-        "query": "label_values(namespace)",
+        "query": {
+          "query": "label_values(kube_namespace_labels,namespace)",
+          "refId": "Prometheus-namespace-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1282,9 +1283,9 @@
         "allFormat": "glob",
         "allValue": null,
         "current": {
-          "selected": false,
-          "text": "replicaset",
-          "value": "replicaset"
+          "selected": true,
+          "text": "shard1",
+          "value": "shard1"
         },
         "datasource": "${datasource}",
         "definition": "",
@@ -1297,7 +1298,10 @@
         "multiFormat": "glob",
         "name": "app",
         "options": [],
-        "query": "label_values(mongodb_mongod_replset_my_state{namespace=~\"$namespace\"}, set)",
+        "query": {
+          "query": "label_values(mongodb_members_state{namespace=~\"$namespace\"}, rs_nm)",
+          "refId": "Prometheus-app-Variable-Query"
+        },
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -1311,9 +1315,9 @@
         "allFormat": "glob",
         "allValue": null,
         "current": {
-          "selected": true,
-          "text": "mg-rs-0",
-          "value": "mg-rs-0"
+          "selected": false,
+          "text": "mg-sh-shard1-0",
+          "value": "mg-sh-shard1-0"
         },
         "datasource": "${datasource}",
         "definition": "",
@@ -1326,7 +1330,10 @@
         "multiFormat": "glob",
         "name": "pod",
         "options": [],
-        "query": "label_values(mongodb_mongod_replset_my_state{set=\"$app\"}, pod)",
+        "query": {
+          "query": "label_values(mongodb_members_state{rs_nm=\"$app\"}, pod)",
+          "refId": "Prometheus-pod-Variable-Query"
+        },
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
