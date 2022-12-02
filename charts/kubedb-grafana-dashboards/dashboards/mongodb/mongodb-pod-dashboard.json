@@ -128,7 +128,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "mongodb_instance_uptime_seconds{pod=~\"$pod\"}",
+          "expr": "mongodb_members_uptime{member_idx=~\"$pod.*\",pod=~\"$pod\"}",
           "interval": "$interval",
           "legendFormat": "",
           "refId": "A"
@@ -195,7 +195,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(rate(mongodb_mongod_op_counters_total{pod=~\"$pod\",type!=\"command\"}[$interval]) or irate(mongodb_mongod_op_counters_total{pod=~\"$pod\",type!=\"command\"}[5m]) or rate(mongodb_op_counters_total{pod=~\"$pod\",type!=\"command\"}[$interval]) or irate(mongodb_op_counters_total{pod=~\"$pod\",type!=\"command\"}[5m]))",
+          "expr": "sum(rate(mongodb_ss_opcounters{pod=~\"$pod\",type!=\"command\"}[$interval]) or irate(mongodb_ss_opcounters{pod=~\"$pod\",type!=\"command\"}[5m]))",
           "interval": "$interval",
           "legendFormat": "",
           "refId": "A"
@@ -261,7 +261,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "avg by (service_name) (rate(mongodb_mongod_op_latencies_latency_total{pod=~\"$pod\",type=\"command\"}[$interval]) / (rate(mongodb_mongod_op_latencies_ops_total{pod=~\"$pod\",type=\"command\"}[$interval]) > 0) or\nirate(mongodb_mongod_op_latencies_latency_total{pod=~\"$pod\",type=\"command\"}[5m]) / (irate(mongodb_mongod_op_latencies_ops_total{pod=~\"$pod\",type=\"command\"}[5m]) > 0))",
+          "expr": "avg by (service) (rate(mongodb_ss_opLatencies_latency{service=~\"${app}-stats\"}[$interval]) / (rate(mongodb_ss_opLatencies_ops{service=~\"${app}-stats\"}[$interval]) > 0) or irate(mongodb_ss_opLatencies_latency{service=~\"${app}-stats\"}[5m]) / (irate(mongodb_ss_opLatencies_ops{service=~\"${app}-stats\"}[5m]) > 0))\n",
           "interval": "$interval",
           "legendFormat": "",
           "refId": "A"
@@ -321,7 +321,7 @@
         "hideZero": true,
         "max": true,
         "min": true,
-        "rightSide": true,
+        "rightSide": false,
         "show": true,
         "sort": "avg",
         "sortDesc": true,
@@ -346,27 +346,27 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_mongod_op_counters_total{pod=~\"$pod\", type!=\"command\"}[$interval]) or \nirate(mongodb_mongod_op_counters_total{pod=~\"$pod\", type!=\"command\"}[5m]) or \nrate(mongodb_mongos_op_counters_total{pod=~\"$pod\", type!=\"command\"}[$interval]) or \nirate(mongodb_mongos_op_counters_total{pod=~\"$pod\", type!=\"command\"}[5m])",
+          "expr": "rate(mongodb_ss_opcounters{pod=~\"$pod\", legacy_op_type!=\"command\"}[$interval])",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "{{type}}",
+          "legendFormat": "{{legacy_op_type}}",
           "refId": "J",
           "step": 300
         },
         {
-          "expr": "rate(mongodb_mongod_op_counters_repl_total{pod=~\"$pod\", type!~\"(command|query|getmore)\"}[$interval]) or \nirate(mongodb_mongod_op_counters_repl_total{pod=~\"$pod\", type!~\"(command|query|getmore)\"}[5m]) or\nrate(mongodb_mongos_op_counters_repl_total{pod=~\"$pod\", type!~\"(command|query|getmore)\"}[$interval]) or \nirate(mongodb_mongos_op_counters_repl_total{pod=~\"$pod\", type!~\"(command|query|getmore)\"}[5m])",
+          "expr": "rate(mongodb_ss_opcountersRepl{pod=~\"$pod\", legacy_op_type!~\"(command|query|getmore)\"}[$interval])",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "repl_{{type}}",
+          "legendFormat": "repl_{{legacy_op_type}}",
           "refId": "A",
           "step": 300
         },
         {
-          "expr": "rate(mongodb_mongod_metrics_ttl_deleted_documents_total{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_mongod_metrics_ttl_deleted_documents_total{pod=~\"$pod\"}[5m]) or\nrate(mongodb_mongos_metrics_ttl_deleted_documents_total{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_mongos_metrics_ttl_deleted_documents_total{pod=~\"$pod\"}[5m])",
+          "expr": "rate(mongodb_ss_metrics_ttl_deletedDocuments{pod=~\"$pod\"}[$interval])",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
@@ -453,7 +453,7 @@
         "current": false,
         "max": true,
         "min": true,
-        "rightSide": true,
+        "rightSide": false,
         "show": true,
         "sort": "avg",
         "sortDesc": true,
@@ -478,9 +478,10 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "avg by (pod,type) (rate(mongodb_mongod_op_latencies_latency_total{pod=~\"$pod\"}[$interval]) / (rate(mongodb_mongod_op_latencies_ops_total{pod=~\"$pod\"}[$interval]) > 0) or irate(mongodb_mongod_op_latencies_latency_total{pod=~\"$pod\"}[5m]) / (irate(mongodb_mongod_op_latencies_ops_total{pod=~\"$pod\"}[5m]) > 0))",
+          "expr": "avg by (service,op_type) (rate(mongodb_ss_opLatencies_latency{service=~\"${app}-stats\"}[$interval]) / (rate(mongodb_ss_opLatencies_ops{service=~\"${app}-stats\"}[$interval]) > 0) or irate(mongodb_ss_opLatencies_latency{service=~\"${app}-stats\"}[5m]) / (irate(mongodb_ss_opLatencies_ops{service=~\"${app}-stats\"}[5m]) > 0))",
           "interval": "$interval",
-          "legendFormat": "{{type}}",
+          "legendFormat": "{{op_type}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -587,7 +588,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "mongodb_connections{pod=~\"$pod\", state=\"current\"}",
+          "expr": "mongodb_ss_connections{pod=~\"$pod\", conn_type=\"current\"}",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
@@ -705,12 +706,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mongodb_mongod_metrics_cursor_open{pod=~\"$pod\"} or\nmongodb_mongod_cursors{pod=~\"$pod\"} or\nmongodb_mongos_metrics_cursor_open{pod=~\"$pod\"} or \nmongodb_mongos_cursors{pod=~\"$pod\"}",
+          "expr": "mongodb_ss_metrics_cursor_open{pod=~\"$pod\"}",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "{{state}}",
+          "legendFormat": "{{csr_type}}",
+          "range": true,
           "refId": "J",
           "step": 300
         }
@@ -822,12 +824,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_mongod_metrics_document_total{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_mongod_metrics_document_total{pod=~\"$pod\"}[5m])",
+          "expr": "rate(mongodb_ss_metrics_document{pod=~\"$pod\"}[$interval])",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "{{state}}",
+          "legendFormat": "{{doc_op_type}}",
+          "range": true,
           "refId": "J",
           "step": 300
         }
@@ -940,12 +943,13 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "mongodb_mongod_global_lock_current_queue{pod=~\"$pod\"}",
+          "expr": "mongodb_ss_globalLock_currentQueue{pod=~\"$pod\"}",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "{{type}}",
+          "legendFormat": "{{count_type}}",
+          "range": true,
           "refId": "J",
           "step": 300
         }
@@ -1055,23 +1059,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(mongodb_mongod_metrics_document_total{pod=~\"$pod\", state=\"returned\"}[$interval]))/\nsum(rate(mongodb_mongod_metrics_query_executor_total{pod=~\"$pod\", state=\"scanned_objects\"}[$interval])) \nor\nsum(irate(mongodb_mongod_metrics_document_total{pod=~\"$pod\", state=\"returned\"}[5m]))/\nsum(irate(mongodb_mongod_metrics_query_executor_total{pod=~\"$pod\", state=\"scanned_objects\"}[5m]))",
+          "expr": "sum(rate(mongodb_ss_metrics_document{pod=~\"$pod\", doc_op_type=\"returned\"}[$interval]))/\nsum(rate(mongodb_ss_metrics_queryExecutor_scannedObjects{pod=~\"$pod\"}[$interval])) ",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Document",
           "refId": "J",
-          "step": 300
-        },
-        {
-          "expr": "(sum(rate(mongodb_mongod_metrics_query_executor_total{pod=~\"$pod\", state=\"scanned\"}[$interval]))/\nsum(rate(mongodb_mongod_metrics_query_executor_total{pod=~\"$pod\", state=\"scanned_objects\"}[$interval])) \nor\nsum(irate(mongodb_mongod_metrics_query_executor_total{pod=~\"$pod\", state=\"scanned\"}[5m]))/\nsum(irate(mongodb_mongod_metrics_query_executor_total{pod=~\"$pod\", state=\"scanned_objects\"}[5m])))",
-          "format": "time_series",
-          "hide": false,
-          "interval": "$interval",
-          "intervalFactor": 1,
-          "legendFormat": "Index",
-          "refId": "A",
           "step": 300
         }
       ],
@@ -1174,21 +1168,23 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_mongod_metrics_query_executor_total{pod=~\"$pod\"}[$interval]) or irate(mongodb_mongod_metrics_query_executor_total{pod=~\"$pod\"}[5m])",
+          "expr": "rate(mongodb_ss_metrics_queryExecutor_scannedObjects{pod=~\"$pod\"}[$interval]) or irate(mongodb_ss_metrics_queryExecutor_scannedObjects{pod=~\"$pod\"}[5m])",
           "format": "time_series",
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "{{state}}",
+          "legendFormat": "Scanned",
           "metric": "",
+          "range": true,
           "refId": "A",
           "step": 300
         },
         {
-          "expr": "rate(mongodb_mongod_metrics_record_moves_total{pod=~\"$pod\"}[$interval]) or irate(mongodb_mongod_metrics_record_moves_total{pod=~\"$pod\"}[5m])",
+          "expr": "rate(mongodb_ss_metrics_record_moves{pod=~\"$pod\"}[$interval]) or irate(mongodb_ss_metrics_record_moves{pod=~\"$pod\"}[5m])",
           "format": "time_series",
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "moved",
+          "legendFormat": "Moved",
+          "range": true,
           "refId": "B",
           "step": 300
         }
@@ -1292,7 +1288,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_mongod_metrics_get_last_error_wtime_total_milliseconds{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_mongod_metrics_get_last_error_wtime_total_milliseconds{pod=~\"$pod\"}[5m]) or\nrate(mongodb_mongos_metrics_get_last_error_wtime_total_milliseconds{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_mongos_metrics_get_last_error_wtime_total_milliseconds{pod=~\"$pod\"}[5m])",
+          "expr": "rate(mongodb_ss_metrics_getLastError_wtime_totalMillis{pod=~\"$pod\"}[$interval])",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
@@ -1409,7 +1405,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(mongodb_mongod_metrics_get_last_error_wtime_num_total{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_mongod_metrics_get_last_error_wtime_num_total{pod=~\"$pod\"}[5m]) or\nrate(mongodb_mongos_metrics_get_last_error_wtime_num_total{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_mongos_metrics_get_last_error_wtime_num_total{pod=~\"$pod\"}[5m])",
+          "expr": "rate(mongodb_ss_metrics_getLastError_wtime_num{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_ss_metrics_getLastError_wtime_num{pod=~\"$pod\"}[5m])",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
@@ -1419,7 +1415,7 @@
           "step": 300
         },
         {
-          "expr": "rate(mongodb_mongod_metrics_get_last_error_wtimeouts_total{pod=~\"$pod\"}[$interval]) or\nirate(mongodb_mongod_metrics_get_last_error_wtimeouts_total{pod=~\"$pod\"}[5m]) or\nrate(mongodb_mongos_metrics_get_last_error_wtimeouts_total{pod=~\"$pod\"}[$interval]) or\nirate(mongodb_mongos_metrics_get_last_error_wtimeouts_total{pod=~\"$pod\"}[5m])",
+          "expr": "rate(mongodb_ss_metrics_getLastError_wtimeouts{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_ss_metrics_getLastError_wtimeouts{pod=~\"$pod\"}[5m])",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
@@ -1538,12 +1534,13 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "rate(mongodb_asserts_total{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_asserts_total{pod=~\"$pod\"}[5m])",
+          "expr": "rate(mongodb_ss_asserts{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_ss_asserts{pod=~\"$pod\"}[5m])",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "{{type}}",
+          "legendFormat": "{{assert_type}}",
+          "range": true,
           "refId": "J",
           "step": 300
         }
@@ -1655,7 +1652,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "rate(mongodb_extra_info_page_faults_total{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_extra_info_page_faults_total{pod=~\"$pod\"}[5m])",
+          "expr": "rate(mongodb_ss_extra_info_page_faults{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_ss_extra_info_page_faults{pod=~\"$pod\"}[5m])",
           "format": "time_series",
           "hide": false,
           "interval": "$interval",
@@ -1717,7 +1714,10 @@
   "schemaVersion": 31,
   "style": "dark",
   "tags": [
-    "MongoDB"
+    "db",
+    "pod",
+    "mongodb",
+    "kubedb"
   ],
   "templating": {
     "list": [
@@ -1817,7 +1817,7 @@
           "value": "demo"
         },
         "datasource": "${datasource}",
-        "definition": "label_values(namespace)",
+        "definition": "label_values(kube_namespace_labels,namespace)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -1826,7 +1826,10 @@
         "multi": false,
         "name": "namespace",
         "options": [],
-        "query": "label_values(namespace)",
+        "query": {
+          "query": "label_values(kube_namespace_labels,namespace)",
+          "refId": "Prometheus-namespace-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1854,7 +1857,10 @@
         "multi": false,
         "name": "app",
         "options": [],
-        "query": "label_values(kubedb_com_mongodb_status_phase{namespace=~\"$namespace\"},app)",
+        "query": {
+          "query": "label_values(kubedb_com_mongodb_status_phase{namespace=~\"$namespace\"},app)",
+          "refId": "Prometheus-app-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1883,7 +1889,10 @@
         "multiFormat": "glob",
         "name": "pod",
         "options": [],
-        "query": "label_values(mongodb_up{namespace=~\"$namespace\",service=\"${app}-stats\"}, pod)",
+        "query": {
+          "query": "label_values(mongodb_up{namespace=~\"$namespace\",service=\"${app}-stats\"}, pod)",
+          "refId": "Prometheus-pod-Variable-Query"
+        },
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
