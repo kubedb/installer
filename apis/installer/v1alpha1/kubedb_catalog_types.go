@@ -79,6 +79,8 @@ type Catalog struct {
 	Proxysql bool `json:"proxysql"`
 	//+optional
 	Redis bool `json:"redis"`
+	//+optional
+	Kafka bool `json:"kafka"`
 }
 
 type PSP struct {
