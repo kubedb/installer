@@ -63,6 +63,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | catalog.postgres                           | If true, deploys PostgreSQL version catalog                                                                                            | <code>true</code>  |
 | catalog.proxysql                           | If true, deploys ProxySQL version catalog                                                                                              | <code>true</code>  |
 | catalog.redis                              | If true, deploys Redis version catalog                                                                                                 | <code>true</code>  |
+| catalog.kafka                              |                                                                                                                                        | <code>true</code>  |
 | psp.elasticsearch.allowPrivilegeEscalation |                                                                                                                                        | <code>true</code>  |
 | psp.elasticsearch.privileged               |                                                                                                                                        | <code>true</code>  |
 | psp.mariadb.allowPrivilegeEscalation       |                                                                                                                                        | <code>false</code> |
@@ -81,6 +82,8 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | psp.proxysql.privileged                    |                                                                                                                                        | <code>false</code> |
 | psp.redis.allowPrivilegeEscalation         |                                                                                                                                        | <code>false</code> |
 | psp.redis.privileged                       |                                                                                                                                        | <code>false</code> |
+| psp.kafka.allowPrivilegeEscalation         |                                                                                                                                        | <code>false</code> |
+| psp.kafka.privileged                       |                                                                                                                                        | <code>false</code> |
 | skipDeprecated                             | Set true to avoid deploying deprecated versions                                                                                        | <code>true</code>  |
 
 
