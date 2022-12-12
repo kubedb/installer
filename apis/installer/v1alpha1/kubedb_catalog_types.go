@@ -79,6 +79,8 @@ type Catalog struct {
 	Proxysql bool `json:"proxysql"`
 	//+optional
 	Redis bool `json:"redis"`
+	//+optional
+	Kafka bool `json:"kafka"`
 }
 
 type PSP struct {
@@ -99,7 +101,8 @@ type PSP struct {
 	//+optional
 	Proxysql PSPProxysql `json:"proxysql"`
 	//+optional
-	Redis PSPRedis `json:"redis"`
+	Redis PSPRedis `json:"redis"` //+optional
+	Kafka PSPKafka `json:"kafka"`
 }
 
 type PSPElasticsearch struct {
@@ -143,6 +146,10 @@ type PSPProxysql struct {
 }
 
 type PSPRedis struct {
+	AllowPrivilegeEscalation bool `json:"allowPrivilegeEscalation"`
+	Privileged               bool `json:"privileged"`
+}
+type PSPKafka struct {
 	AllowPrivilegeEscalation bool `json:"allowPrivilegeEscalation"`
 	Privileged               bool `json:"privileged"`
 }
