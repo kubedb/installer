@@ -1,0 +1,26 @@
+{{ if .Values.catalog.mariadb }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MariaDBVersion
+metadata:
+  name: '10.10.2'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  coordinator:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/mariadb-coordinator:v0.10.0-rc.0'
+  db:
+    image: '{{ include "official.registry" (merge (dict "_bin" "mariadb") .Values) }}:10.10.2'
+  exporter:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prom") .Values) }}/mysqld-exporter:v0.13.0'
+  initContainer:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/mariadb-init:0.4.0'
+  podSecurityPolicies:
+    databasePolicyName: maria-db
+  stash:
+    addon:
+      backupTask:
+        name: mariadb-backup-10.5.8
+      restoreTask:
+        name: mariadb-restore-10.5.8
+  version: 10.10.2
+{{ end }}
