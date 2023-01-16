@@ -92,13 +92,22 @@ Returns the registry used for webhook server docker image
 {{/*
 Returns the appscode image pull secrets
 */}}
-{{- define "appscode.imagePullSecrets" -}}
+{{- define "docker.imagePullSecrets" -}}
 {{- with .Values.global.imagePullSecrets -}}
 imagePullSecrets:
 {{- toYaml . | nindent 2 }}
 {{- else -}}
 imagePullSecrets:
 {{- toYaml $.Values.imagePullSecrets | nindent 2 }}
+{{- end }}
+{{- end }}
+
+{{/*
+Returns the --insecure-registries flags
+*/}}
+{{- define "docker.insecureRegistries" -}}
+{{- range (concat .Values.global.insecureRegistries .Values.insecureRegistries | uniq | sortAlpha) }}
+- --insecure-registries={{.}}
 {{- end }}
 {{- end }}
 

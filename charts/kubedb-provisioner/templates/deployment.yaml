@@ -30,7 +30,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
     spec:
-      {{- include "appscode.imagePullSecrets" . | nindent 6 }}
+      {{- include "docker.imagePullSecrets" . | nindent 6 }}
       serviceAccountName: {{ include "kubedb-provisioner.serviceAccountName" . }}
       containers:
       - name: operator
@@ -44,6 +44,7 @@ spec:
         - --use-kubeapiserver-fqdn-for-aks={{ .Values.apiserver.useKubeapiserverFqdnForAks }}
         - --metrics-bind-address=:{{ .Values.monitoring.bindPort }}
         - --health-probe-bind-address=:{{ .Values.apiserver.healthcheck.probePort }}
+        {{ include "docker.insecureRegistries" .  | nindent 8 }}
         {{- if include "appscode.license" . }}
         - --license-file=/var/run/secrets/appscode/license/key.txt
         {{- end }}

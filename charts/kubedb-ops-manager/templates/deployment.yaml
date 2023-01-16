@@ -30,7 +30,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
     spec:
-      {{- include "appscode.imagePullSecrets" . | nindent 6 }}
+      {{- include "docker.imagePullSecrets" . | nindent 6 }}
       serviceAccountName: {{ include "kubedb-ops-manager.serviceAccountName" . }}
       containers:
       - name: operator
@@ -50,6 +50,7 @@ spec:
         - --gen-rotate-tls-recommendation-before-expiry-month={{ .genRotateTLSRecommendationBeforeExpiryMonth }}
         - --gen-rotate-tls-recommendation-before-expiry-day={{ .genRotateTLSRecommendationBeforeExpiryDay }}
         {{- end }}
+        {{ include "docker.insecureRegistries" .  | nindent 8 }}
         {{- if include "appscode.license" . }}
         - --license-file=/var/run/secrets/appscode/license/key.txt
         {{- end }}
