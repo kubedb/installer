@@ -76,10 +76,19 @@ Returns the registry used for operator docker image
 {{- list .Values.registryFQDN .Values.operator.registry | compact | join "/" }}
 {{- end }}
 
-{{- define "appscode.imagePullSecrets" -}}
+{{- define "docker.imagePullSecrets" -}}
 {{- with .Values.imagePullSecrets -}}
 imagePullSecrets:
 {{- toYaml . | nindent 2 }}
+{{- end }}
+{{- end }}
+
+{{/*
+Returns the --insecure-registries flags
+*/}}
+{{- define "docker.insecureRegistries" -}}
+{{- range (.Values.insecureRegistries | uniq | sortAlpha) }}
+- --insecure-registries={{.}}
 {{- end }}
 {{- end }}
 

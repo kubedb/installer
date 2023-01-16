@@ -108,9 +108,10 @@ type KubedbMetricsValues struct {
 }
 
 type GlobalValues struct {
-	License      string `json:"license"`
-	Registry     string `json:"registry"`
-	RegistryFQDN string `json:"registryFQDN"`
+	License            string   `json:"license"`
+	Registry           string   `json:"registry"`
+	RegistryFQDN       string   `json:"registryFQDN"`
+	InsecureRegistries []string `json:"insecureRegistries"`
 	//+optional
 	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
 	Monitoring       EASMonitoring               `json:"monitoring"`
