@@ -69,7 +69,7 @@ Returns the registry used for image docker image
 {{- list .Values.registryFQDN .Values.image.registry | compact | join "/" }}
 {{- end }}
 
-{{- define "appscode.imagePullSecrets" -}}
+{{- define "docker.imagePullSecrets" -}}
 {{- with .Values.imagePullSecrets -}}
 imagePullSecrets:
 {{- toYaml . | nindent 2 }}

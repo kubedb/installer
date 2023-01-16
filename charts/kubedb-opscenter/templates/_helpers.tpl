@@ -78,7 +78,7 @@ Returns the registry used for image docker image
 {{/*
 Returns the appscode image pull secrets
 */}}
-{{- define "appscode.imagePullSecrets" -}}
+{{- define "docker.imagePullSecrets" -}}
 {{- with .Values.global.imagePullSecrets -}}
 imagePullSecrets:
 {{- toYaml . | nindent 2 }}
