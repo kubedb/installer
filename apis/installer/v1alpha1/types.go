@@ -93,6 +93,6 @@ type EASHealthcheckSpec struct {
 }
 
 type EASMonitoring struct {
-	Agent          MonitoringAgent       `json:"agent"`
-	ServiceMonitor *ServiceMonitorLabels `json:"serviceMonitor"`
+	Agent          MonitoringAgent      `json:"agent"`
+	ServiceMonitor ServiceMonitorLabels `json:"serviceMonitor"`
 }
