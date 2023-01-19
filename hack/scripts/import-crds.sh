@@ -82,7 +82,7 @@ crd-importer \
     --group=catalog.kubedb.com
 
 crd-importer \
-    --input=https://github.com/kmodules/custom-resources/raw/release-1.25/crds/metrics.appscode.com_metricsconfigurations.yaml \
+    --input=https://github.com/kmodules/custom-resources/raw/v0.25.1/crds/metrics.appscode.com_metricsconfigurations.yaml \
     --out=./charts/kubedb-metrics/crds
 
 crd-importer \
@@ -95,5 +95,5 @@ crd-importer \
     --out=./charts/kubedb-grafana-dashboards/crds
 
 crd-importer \
-    --input=https://github.com/kubeops/supervisor/raw/v0.0.1/crds/supervisor.appscode.com_recommendations.yaml \
+    --input=https://github.com/kubeops/supervisor/raw/v0.0.2/crds/supervisor.appscode.com_recommendations.yaml \
     --out=./charts/kubedb-ops-manager/crds

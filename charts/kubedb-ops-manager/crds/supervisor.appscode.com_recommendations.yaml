@@ -143,6 +143,56 @@ spec:
                 - kind
                 - name
                 type: object
+                x-kubernetes-map-type: atomic
+              vulnerabilityReport:
+                description: VulnerabilityReport specifies any kind vulnerability
+                  report like cve fixed information
+                properties:
+                  fixed:
+                    description: Fixed represents the list of CVEs fixed if the recommendation
+                      is applied
+                    properties:
+                      count:
+                        additionalProperties:
+                          type: integer
+                        type: object
+                      vulnerabilities:
+                        items:
+                          properties:
+                            primaryURL:
+                              type: string
+                            severity:
+                              type: string
+                            vulnerabilityID:
+                              type: string
+                          type: object
+                        type: array
+                    type: object
+                  known:
+                    description: Known represents the list of CVEs known to exist
+                      after the recommendation is applied
+                    properties:
+                      count:
+                        additionalProperties:
+                          type: integer
+                        type: object
+                      vulnerabilities:
+                        items:
+                          properties:
+                            primaryURL:
+                              type: string
+                            severity:
+                              type: string
+                            vulnerabilityID:
+                              type: string
+                          type: object
+                        type: array
+                    type: object
+                  message:
+                    type: string
+                  status:
+                    type: string
+                type: object
             required:
             - operation
             - recommender
@@ -270,6 +320,7 @@ spec:
                       TODO: Add other useful fields. apiVersion, kind, uid?'
                     type: string
                 type: object
+                x-kubernetes-map-type: atomic
               failedAttempt:
                 default: 0
                 description: FailedAttempt holds the number of times the operation
@@ -357,6 +408,7 @@ spec:
                 - kind
                 - name
                 type: object
+                x-kubernetes-map-type: atomic
             type: object
         type: object
     served: true
