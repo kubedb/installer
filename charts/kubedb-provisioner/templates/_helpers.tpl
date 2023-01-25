@@ -87,8 +87,14 @@ imagePullSecrets:
 Returns the --insecure-registries flags
 */}}
 {{- define "docker.insecureRegistries" -}}
-{{- range (.Values.insecureRegistries | uniq | sortAlpha) }}
+{{- range (.Values.insecureRegistries | uniq | sortAlpha) -}}
 - --insecure-registries={{.}}
+{{- end }}
+{{- end }}
+
+{{- define "docker.imagePullSecretFlags" -}}
+{{- range .Values.imagePullSecrets -}}
+- --image-pull-secrets={{- .name -}}
 {{- end }}
 {{- end }}
 
