@@ -44,7 +44,8 @@ spec:
         - --use-kubeapiserver-fqdn-for-aks={{ .Values.apiserver.useKubeapiserverFqdnForAks }}
         - --metrics-bind-address=:{{ .Values.monitoring.bindPort }}
         - --health-probe-bind-address=:{{ .Values.apiserver.healthcheck.probePort }}
-        {{ include "docker.insecureRegistries" .  | nindent 8 }}
+        {{- include "docker.imagePullSecretFlags" . | nindent 8 }}
+        {{- include "docker.insecureRegistries" .  | nindent 8 }}
         {{- if include "appscode.license" . }}
         - --license-file=/var/run/secrets/appscode/license/key.txt
         {{- end }}
@@ -57,6 +58,10 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
+        - name: POD_SERVICE_ACCOUNT
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.serviceAccountName
         ports:
         - name: metrics
           containerPort: {{ .Values.monitoring.bindPort }}
