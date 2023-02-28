@@ -8,9 +8,10 @@ metadata:
 spec:
   exporter:
     image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/pgbouncer_exporter:v0.1.1'
-  initContainer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/pgbouncer-init:0.1.0'
   pgBouncer:
     image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/pgbouncer:1.17.0'
+  securityContext:
+    runAsAnyNonRoot: false
+    runAsUser: 70
   version: 1.17.0
 {{ end }}
