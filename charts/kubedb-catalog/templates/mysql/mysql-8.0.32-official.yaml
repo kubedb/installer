@@ -1,0 +1,35 @@
+{{ if .Values.catalog.mysql }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  name: '8.0.32'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  coordinator:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/mysql-coordinator:v0.10.0'
+  db:
+    image: '{{ include "official.registry" (merge (dict "_bin" "mysql") .Values) }}:8.0.32'
+  distribution: Official
+  exporter:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/mysqld-exporter:v0.13.1'
+  initContainer:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/mysql-init:8.0.31'
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  replicationModeDetector:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/replication-mode-detector:v0.19.0'
+  stash:
+    addon:
+      backupTask:
+        name: mysql-backup-8.0.21
+      restoreTask:
+        name: mysql-restore-8.0.21
+  upgradeConstraints:
+    denylist:
+      groupReplication:
+      - < 8.0.32
+      standalone:
+      - < 8.0.32
+  version: 8.0.32
+{{ end }}
