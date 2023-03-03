@@ -11,8 +11,8 @@ require (
 	gomodules.xyz/go-sh v0.1.0
 	gomodules.xyz/semvers v0.0.0-20220924053145-5058ec948ed9
 	k8s.io/api v0.25.2
-	k8s.io/apimachinery v0.25.2
-	kmodules.xyz/client-go v0.25.6
+	k8s.io/apimachinery v0.25.3
+	kmodules.xyz/client-go v0.25.14
 	kmodules.xyz/schema-checker v0.4.1
 	sigs.k8s.io/yaml v1.3.0
 	stash.appscode.dev/installer v0.12.2-0.20221201111904-8a6bbf452169
@@ -40,15 +40,15 @@ require (
 	github.com/shopspring/decimal v1.2.0 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
-	golang.org/x/crypto v0.0.0-20220315160706-3147a52a75dd // indirect
-	golang.org/x/net v0.0.0-20220909164309-bea034e7d591 // indirect
-	golang.org/x/text v0.3.7 // indirect
-	google.golang.org/protobuf v1.28.0 // indirect
+	golang.org/x/crypto v0.6.0 // indirect
+	golang.org/x/net v0.7.0 // indirect
+	golang.org/x/text v0.7.0 // indirect
+	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	k8s.io/klog/v2 v2.80.1 // indirect
-	k8s.io/utils v0.0.0-20220728103510-ee6ede2d64ed // indirect
+	k8s.io/utils v0.0.0-20220823124924-e9cbc92d1a73 // indirect
 	sigs.k8s.io/json v0.0.0-20220713155537-f223a00ba0e2 // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.2.3 // indirect
 )
