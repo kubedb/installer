@@ -61,7 +61,7 @@ BASEIMAGE_PROD   ?= gcr.io/distroless/static-debian11
 BASEIMAGE_DBG    ?= debian:bullseye
 
 GO_VERSION       ?= 1.20
-BUILD_IMAGE      ?= appscode/golang-dev:$(GO_VERSION)
+BUILD_IMAGE      ?= ghcr.io/appscode/golang-dev:$(GO_VERSION)
 CHART_TEST_IMAGE ?= quay.io/helmpack/chart-testing:v3.5.1
 
 OUTBIN = bin/$(OS)_$(ARCH)/$(BIN)
