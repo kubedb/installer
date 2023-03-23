@@ -25,22 +25,12 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-      - name: Publish to GitHub Container Registry
-        env:
-          REGISTRY: ghcr.io/bytebuilders
-          DOCKER_TOKEN: ${{ secrets.LGTM_GITHUB_TOKEN }}
-          USERNAME: 1gtm
-          APPSCODE_ENV: prod
-        run: |
-          docker login ghcr.io --username ${USERNAME} --password ${DOCKER_TOKEN}
-
-      - name: Publish to Docker Registry
-        env:
-          DOCKER_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-          USERNAME: 1gtm
-          APPSCODE_ENV: prod
-        run: |
-          docker login --username ${USERNAME} --password ${DOCKER_TOKEN}
+      - name: Log in to the GitHub Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: 1gtm
+          password: ${{ secrets.LGTM_GITHUB_TOKEN }}
 
       - name: Install Helm 3
         run: |
@@ -65,7 +55,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.LGTM_GITHUB_TOKEN }}
           CHART_REPOSITORY: github.com/appscode/charts
         run: |
-          export REGISTRY_0=oci://index.docker.io/bytebuilders
-          export REGISTRY_1=oci://ghcr.io/bytebuilders
+          export REGISTRY_0=oci://ghcr.io/appscode-charts
           ./hack/scripts/update-chart-dependencies.sh
           $RUNNER_WORKSPACE/$(basename $CHART_REPOSITORY)/hack/scripts/publish-oci-charts.sh $(pwd)
