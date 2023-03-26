@@ -12,110 +12,110 @@ spec:
     singular: imagescanrequest
   scope: Namespaced
   versions:
-    - name: v1alpha1
-      schema:
-        openAPIV3Schema:
-          properties:
-            apiVersion:
-              description: 'APIVersion defines the versioned schema of this representation
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
               of an object. Servers should convert recognized schemas to the latest
               internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
-              type: string
-            kind:
-              description: 'Kind is a string value representing the REST resource this
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
               object represents. Servers may infer this from the endpoint the client
               submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
-              type: string
-            metadata:
-              type: object
-            spec:
-              description: Spec describes the attributes for the Image Scan SingleReport
-              properties:
-                image:
-                  type: string
-                namespace:
-                  description: Namespace tells where to look for the image pull secrets.
-                  type: string
-                pullSecrets:
-                  description: If some private image is referred in Image, this field
-                    will contain the ImagePullSecrets from the pod template.
-                  items:
-                    description: LocalObjectReference contains enough information to
-                      let you locate the referenced object inside the same namespace.
-                    properties:
-                      name:
-                        description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: Spec describes the attributes for the Image Scan SingleReport
+            properties:
+              image:
+                type: string
+              namespace:
+                description: Namespace tells where to look for the image pull secrets.
+                type: string
+              pullSecrets:
+                description: If some private image is referred in Image, this field
+                  will contain the ImagePullSecrets from the pod template.
+                items:
+                  description: LocalObjectReference contains enough information to
+                    let you locate the referenced object inside the same namespace.
+                  properties:
+                    name:
+                      description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                         TODO: Add other useful fields. apiVersion, kind, uid?'
-                        type: string
-                    type: object
-                    x-kubernetes-map-type: atomic
-                  type: array
-                serviceAccountName:
-                  description: ServiceAccountName is the name of SA used on the pod
-                    where this image has been used
-                  type: string
-              required:
-                - image
-              type: object
-            status:
-              description: Status holds all the SingleReport-related details of the
-                specified image
-              properties:
-                image:
-                  properties:
-                    digest:
-                      type: string
-                    name:
-                      type: string
-                    tag:
-                      description: Tag & Digest is optional field. One of these fields
-                        may not present
-                      type: string
-                    visibility:
-                      default: Public
-                      enum:
-                        - Public
-                        - Private
-                        - Unknown
                       type: string
                   type: object
-                jobName:
-                  description: For Private Images, this field holds the job name created
-                    (in .spec.namespace) for scanning.
-                  type: string
-                observedGeneration:
-                  description: observedGeneration is the most recent generation observed
-                    for this resource. It corresponds to the resource's generation,
-                    which is updated on mutation by the API Server.
-                  format: int64
-                  type: integer
-                phase:
-                  default: Pending
-                  description: Specifies the current phase of the database
-                  enum:
-                    - Pending
-                    - InProgress
-                    - Current
-                    - Failed
-                    - Outdated
-                  type: string
-                reason:
-                  description: A brief CamelCase message indicating details about why
-                    the request is in this state.
-                  type: string
-                reportRef:
-                  properties:
-                    lastChecked:
-                      description: When the referred image was checked for the last
-                        time
-                      format: date-time
-                      type: string
-                    name:
-                      type: string
-                  required:
-                    - name
-                  type: object
-              type: object
-          type: object
-      served: true
-      storage: true
+                  x-kubernetes-map-type: atomic
+                type: array
+              serviceAccountName:
+                description: ServiceAccountName is the name of SA used on the pod
+                  where this image has been used
+                type: string
+            required:
+            - image
+            type: object
+          status:
+            description: Status holds all the SingleReport-related details of the
+              specified image
+            properties:
+              image:
+                properties:
+                  digest:
+                    type: string
+                  name:
+                    type: string
+                  tag:
+                    description: Tag & Digest is optional field. One of these fields
+                      may not present
+                    type: string
+                  visibility:
+                    default: Public
+                    enum:
+                    - Public
+                    - Private
+                    - Unknown
+                    type: string
+                type: object
+              jobName:
+                description: For Private Images, this field holds the job name created
+                  (in .spec.namespace) for scanning.
+                type: string
+              observedGeneration:
+                description: observedGeneration is the most recent generation observed
+                  for this resource. It corresponds to the resource's generation,
+                  which is updated on mutation by the API Server.
+                format: int64
+                type: integer
+              phase:
+                default: Pending
+                description: Specifies the current phase of the database
+                enum:
+                - Pending
+                - InProgress
+                - Current
+                - Failed
+                - Outdated
+                type: string
+              reason:
+                description: A brief CamelCase message indicating details about why
+                  the request is in this state.
+                type: string
+              reportRef:
+                properties:
+                  lastChecked:
+                    description: When the referred image was checked for the last
+                      time
+                    format: date-time
+                    type: string
+                  name:
+                    type: string
+                required:
+                - name
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
