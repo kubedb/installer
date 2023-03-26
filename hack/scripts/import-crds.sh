@@ -91,9 +91,11 @@ crd-importer \
     --group=kubedb.com
 
 crd-importer \
-    --input=https://github.com/open-viz/apimachinery/raw/v0.0.4/crds/openviz.dev_grafanadashboards.yaml \
+    --input=https://github.com/open-viz/apimachinery/raw/v0.0.5/crds/openviz.dev_grafanadashboards.yaml \
     --out=./charts/kubedb-grafana-dashboards/crds
 
 crd-importer \
-    --input=https://github.com/kubeops/supervisor/raw/v0.0.2/crds/supervisor.appscode.com_recommendations.yaml \
+    --input=https://github.com/kubeops/scanner/raw/v0.0.7/crds/scanner.appscode.com_imagescanrequests.yaml \
+    --input=https://github.com/kubeops/scanner/raw/v0.0.7/crds/scanner.appscode.com_imagescanreports.yaml \
+    --input=https://github.com/kubeops/supervisor/raw/v0.0.3/crds/supervisor.appscode.com_recommendations.yaml \
     --out=./charts/kubedb-ops-manager/crds
