@@ -252,6 +252,7 @@ contents-%:
 	@if [ -n "$(CHART_VERSION)" ]; then \
 	  yq -y --indentless -i '.version="$(CHART_VERSION)"' ./charts/$*/Chart.yaml; \
 	  yq -y --indentless -i '.dependencies |= map(select(.name == "$*").version="$(CHART_VERSION)")' ./charts/kubedb/Chart.yaml; \
+	  yq -y --indentless -i '.dependencies |= map(select(.name == "$*").version="$(CHART_VERSION)")' ./charts/kubedb-one/Chart.yaml; \
 	  yq -y --indentless -i '.dependencies |= map(select(.name == "$*").version="$(CHART_VERSION)")' ./charts/kubedb-opscenter/Chart.yaml; \
 	fi
 	@if [ ! -z "$(APP_VERSION)" ]; then                                               \
@@ -350,7 +351,6 @@ ct: $(BUILD_DIRS)
 	@docker run                                                 \
 	    -i                                                      \
 	    --rm                                                    \
-	    -u $$(id -u):$$(id -g)                                  \
 	    -v $$(pwd):/src                                         \
 	    -w /src                                                 \
 	    --net=host                                              \
@@ -365,8 +365,10 @@ ct: $(BUILD_DIRS)
 	    --env KUBECONFIG=$(subst $(HOME),,$(KUBECONFIG))        \
 	    $(CHART_TEST_IMAGE)                                     \
 	    /bin/sh -c "                                            \
-	        kubectl delete crds --selector=app.kubernetes.io/name=kubedb; \
-	        ct $(CT_COMMAND) --debug --validate-maintainers=false $(CT_ARGS) \
+	      set -x; \
+	      kubectl delete crds --all; \
+	      ./hack/scripts/update-chart-dependencies.sh; \
+	      ct $(CT_COMMAND) --debug --validate-maintainers=false $(CT_ARGS) \
 	    "
 
 ADDTL_LINTERS   := goconst,gofmt,goimports,unparam
