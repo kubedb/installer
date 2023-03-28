@@ -16,5 +16,8 @@
 
 set -e
 
+helm repo add appscode https://charts.appscode.com/stable/ || true
+
 helm dependency update charts/kubedb
+helm dependency update charts/kubedb-one
 helm dependency update charts/kubedb-opscenter

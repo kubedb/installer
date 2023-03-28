@@ -1,0 +1,75 @@
+# Default values for kubedb-one.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  # License for the product.
+  # Get a license by following the steps from [here](https://kubedb.com/docs/latest/setup/install/enterprise#get-a-trial-license).
+  # Example:
+  # helm install appscode/kubedb \
+  #   --set-file global.license=/path/to/license/file
+  # or
+  # helm install appscode/kubedb \
+  #   --set global.license=<license file content>
+  license: ""
+
+  # Docker registry used to pull KubeDB related images
+  registry: ""
+
+  # Docker registry fqdn used to pull KubeDB related images.
+  # Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image}
+  registryFQDN: ""
+
+  # Specify an array of insecure registries.
+  #
+  # Example:
+  # helm template charts/kubedb-ops-manager \
+  #   --set global.insecureRegistries[0]=hub.company.com \
+  #   --set global.insecureRegistries[1]=reg.example.com
+  insecureRegistries: []
+
+  # Specify an array of imagePullSecrets.
+  # Secrets must be manually created in the namespace.
+  #
+  # Example:
+  # helm template charts/kubedb \
+  #   --set global.imagePullSecrets[0].name=sec0 \
+  #   --set global.imagePullSecrets[1].name=sec1
+  imagePullSecrets: []
+
+  monitoring:
+    # Name of monitoring agent (one of "prometheus.io", "prometheus.io/operator", "prometheus.io/builtin")
+    agent: ""
+    serviceMonitor:
+      # Specify the labels for ServiceMonitor.
+      # Prometheus crd will select ServiceMonitor using these labels.
+      # Only usable when monitoring agent is `prometheus.io/operator`.
+      labels: {}
+
+kubedb-provisioner:
+  # If enabled, installs the kubedb-provisioner chart
+  enabled: true
+kubedb-catalog:
+  # If enabled, installs the kubedb-catalog chart
+  enabled: true
+kubedb-webhook-server:
+  # If enabled, installs the kubedb-webhook-server chart
+  enabled: true
+kubedb-ops-manager:
+  # If enabled, installs the kubedb-ops-manager chart
+  enabled: true
+kubedb-autoscaler:
+  # If enabled, installs the kubedb-autoscaler chart
+  enabled: true
+kubedb-dashboard:
+  # If enabled, installs the kubedb-dashboard chart
+  enabled: true
+kubedb-schema-manager:
+  # If enabled, installs the kubedb-schema-manager chart
+  enabled: true
+stash-enterprise:
+  # If enabled, installs the stash-enterprise chart
+  enabled: true
+stash-catalog:
+  # If enabled, installs the stash-catalog chart
+  enabled: true
