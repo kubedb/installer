@@ -1,0 +1,27 @@
+{{ if .Values.catalog.mongodb }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  name: '6.0.5'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ include "official.registry" (merge (dict "_bin" "mongo") .Values) }}:6.0.5'
+  distribution: Official
+  exporter:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/mongodb_exporter:v0.32.0'
+  initContainer:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/mongodb-init:6.0-v8'
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+  replicationModeDetector:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/replication-mode-detector:v0.19.0'
+  stash:
+    addon:
+      backupTask:
+        name: mongodb-backup-6.0.5
+      restoreTask:
+        name: mongodb-restore-6.0.5
+  version: 6.0.5
+{{ end }}
