@@ -96,13 +96,17 @@ build-%:
 
 all-build: $(addprefix build-, $(subst /,_, $(BIN_PLATFORMS)))
 
-version:
+version: version-PROD version-DBG
+	@echo IMAGE=$(IMAGE)
+	@echo BIN=$(BIN)
 	@echo version=$(VERSION)
 	@echo version_strategy=$(version_strategy)
 	@echo git_tag=$(git_tag)
 	@echo git_branch=$(git_branch)
 	@echo commit_hash=$(commit_hash)
 	@echo commit_timestamp=$(commit_timestamp)
+version-%:
+	@echo TAG_$*=$(TAG_$*)
 
 .PHONY: clientset
 clientset:
