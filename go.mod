@@ -15,7 +15,7 @@ require (
 	kmodules.xyz/client-go v0.25.14
 	kmodules.xyz/schema-checker v0.4.1
 	sigs.k8s.io/yaml v1.3.0
-	stash.appscode.dev/installer v0.12.2-0.20230330052645-6b0b26a7a892
+	stash.appscode.dev/installer v0.12.2-0.20230430223618-f69ead12dbb0
 )
 
 require (
