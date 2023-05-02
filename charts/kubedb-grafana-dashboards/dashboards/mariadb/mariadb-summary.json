@@ -22,8 +22,8 @@
   "editable": true,
   "gnetId": 9628,
   "graphTooltip": 0,
-  "id": 31,
-  "iteration": 1637737685440,
+  "id": 27,
+  "iteration": 1682776538666,
   "links": [],
   "panels": [
     {
@@ -2388,6 +2388,239 @@
         "x": 0,
         "y": 58
       },
+      "id": 152,
+      "panels": [],
+      "title": "Persistent Storage Insight",
+      "type": "row"
+    },
+    {
+      "datasource": null,
+      "description": "This panel describes allocated persistent storage in a table format\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "displayMode": "color-text",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 59
+      },
+      "id": 148,
+      "options": {
+        "showHeader": true
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "kubelet_volume_stats_capacity_bytes + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"^$app.*\",namespace=~\"$namespace\"}",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "Allocated Storage",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "endpoint": true,
+              "instance": true,
+              "job": true,
+              "metrics_path": true,
+              "namespace": true,
+              "node": true,
+              "persistentvolumeclaim": true,
+              "service": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "Value": "Volume",
+              "pod": "Pod"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": null,
+      "description": "This panel shows the persistent volume usage in percentage. ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 59
+      },
+      "id": 146,
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "text": {}
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "(kubelet_volume_stats_used_bytes / on(persistentvolumeclaim) group_left(pod) (kubelet_volume_stats_capacity_bytes + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"^$app.*\",namespace=~\"$namespace\"}) )* 100",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "{{pod}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Persistent Volume Usage",
+      "transformations": [],
+      "type": "bargauge"
+    },
+    {
+      "datasource": null,
+      "description": "This panel describes the persistent volume usage in a time series. ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMax": 5000,
+            "axisSoftMin": 0,
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "graph": false,
+              "legend": false,
+              "tooltip": false
+            },
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 65
+      },
+      "id": 150,
+      "options": {
+        "graph": {},
+        "legend": {
+          "calcs": [
+            "max",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltipOptions": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "(kubelet_volume_stats_used_bytes + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"^$app.*\",namespace=~\"$namespace\"}) ",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "{{pod}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Persistent Volume Usage History",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 73
+      },
       "id": 144,
       "panels": [],
       "title": "Network Info",
@@ -2409,7 +2642,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 59
+        "y": 74
       },
       "hiddenSeries": false,
       "id": 132,
@@ -2510,7 +2743,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 59
+        "y": 74
       },
       "hiddenSeries": false,
       "id": 134,
@@ -2607,9 +2840,9 @@
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "Prometheus",
-          "value": "Prometheus"
+          "selected": true,
+          "text": "default",
+          "value": "default"
         },
         "description": null,
         "error": null,
@@ -2643,7 +2876,10 @@
         "multi": false,
         "name": "namespace",
         "options": [],
-        "query": "label_values(kube_namespace_labels,namespace)",
+        "query": {
+          "query": "label_values(kube_namespace_labels,namespace)",
+          "refId": "Prometheus-namespace-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -2658,8 +2894,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "sample-mariadb",
-          "value": "sample-mariadb"
+          "text": "mariadb-galera",
+          "value": "mariadb-galera"
         },
         "datasource": "${datasource}",
         "definition": "label_values(kubedb_com_mariadb_status_phase{namespace=~\"$namespace\"},app)",
@@ -2671,7 +2907,10 @@
         "multi": false,
         "name": "app",
         "options": [],
-        "query": "label_values(kubedb_com_mariadb_status_phase{namespace=~\"$namespace\"},app)",
+        "query": {
+          "query": "label_values(kubedb_com_mariadb_status_phase{namespace=~\"$namespace\"},app)",
+          "refId": "Prometheus-app-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -2685,7 +2924,7 @@
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {
@@ -2716,5 +2955,5 @@
   "timezone": "",
   "title": "KubeDB / MariaDB / Summary",
   "uid": "VnOgk2Hnk",
-  "version": 1
+  "version": 11
 }
