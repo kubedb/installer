@@ -95,7 +95,5 @@ crd-importer \
     --out=./charts/kubedb-grafana-dashboards/crds
 
 crd-importer \
-    --input=https://github.com/kubeops/scanner/raw/v0.0.7/crds/scanner.appscode.com_imagescanrequests.yaml \
-    --input=https://github.com/kubeops/scanner/raw/v0.0.7/crds/scanner.appscode.com_imagescanreports.yaml \
     --input=https://github.com/kubeops/supervisor/raw/v0.0.3/crds/supervisor.appscode.com_recommendations.yaml \
     --out=./charts/kubedb-ops-manager/crds
