@@ -3,7 +3,7 @@ module kubedb.dev/installer
 go 1.18
 
 require (
-	github.com/Masterminds/semver/v3 v3.1.1
+	github.com/Masterminds/semver/v3 v3.2.1
 	github.com/Masterminds/sprig/v3 v3.2.2
 	github.com/google/gofuzz v1.2.0
 	github.com/spf13/pflag v1.0.5
@@ -12,10 +12,16 @@ require (
 	gomodules.xyz/semvers v0.0.0-20220924053145-5058ec948ed9
 	k8s.io/api v0.25.2
 	k8s.io/apimachinery v0.25.3
-	kmodules.xyz/client-go v0.25.14
+	kmodules.xyz/client-go v0.25.23
 	kmodules.xyz/schema-checker v0.4.1
 	sigs.k8s.io/yaml v1.3.0
 	stash.appscode.dev/installer v0.12.2-0.20230430223618-f69ead12dbb0
+)
+
+require (
+	github.com/fsnotify/fsnotify v1.6.0 // indirect
+	github.com/mattn/go-colorable v0.1.13 // indirect
+	github.com/stretchr/testify v1.8.3 // indirect
 )
 
 require (
@@ -40,9 +46,9 @@ require (
 	github.com/shopspring/decimal v1.2.0 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
-	golang.org/x/crypto v0.6.0 // indirect
-	golang.org/x/net v0.7.0 // indirect
-	golang.org/x/text v0.7.0 // indirect
+	golang.org/x/crypto v0.9.0 // indirect
+	golang.org/x/net v0.10.0 // indirect
+	golang.org/x/text v0.9.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
