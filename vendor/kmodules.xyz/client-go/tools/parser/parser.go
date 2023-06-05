@@ -193,7 +193,51 @@ func ListFSResources(fsys fs.FS) ([]ResourceInfo, error) {
 
 var empty = struct{}{}
 
-func ExtractComponents(data []byte) (map[metav1.GroupKind]struct{}, map[string]string, error) {
+func ExtractComponentGVKs(data []byte) (map[metav1.GroupVersionKind]struct{}, map[string]string, error) {
+	components := map[metav1.GroupVersionKind]struct{}{}
+	commonLabels := map[string]string{}
+	init := false
+
+	err := processResources("", data, func(ri ResourceInfo) error {
+		gv, err := schema.ParseGroupVersion(ri.Object.GetAPIVersion())
+		if err != nil {
+			return err
+		}
+		components[metav1.GroupVersionKind{Group: gv.Group, Version: gv.Version, Kind: ri.Object.GetKind()}] = empty
+
+		if !init {
+			commonLabels = ri.Object.GetLabels()
+			init = true
+		} else {
+			for k, v := range ri.Object.GetLabels() {
+				if existing, found := commonLabels[k]; found && existing != v {
+					delete(commonLabels, k)
+				}
+			}
+		}
+		return nil
+	})
+	if err != nil {
+		return nil, nil, err
+	}
+
+	// error out if multiple versions for a GK found
+	vPerGK := map[metav1.GroupKind]string{}
+	for gvk := range components {
+		gk := metav1.GroupKind{Group: gvk.Group, Kind: gvk.Kind}
+		if v, ok := vPerGK[gk]; ok {
+			if v != gvk.Version {
+				return nil, nil, errors.Errorf("both version %s and %s is used for %+v", v, gvk.Version, gk)
+			}
+		} else {
+			vPerGK[gk] = gvk.Version
+		}
+	}
+
+	return components, commonLabels, err
+}
+
+func ExtractComponentGKs(data []byte) (map[metav1.GroupKind]struct{}, map[string]string, error) {
 	components := map[metav1.GroupKind]struct{}{}
 	commonLabels := map[string]string{}
 	init := false
