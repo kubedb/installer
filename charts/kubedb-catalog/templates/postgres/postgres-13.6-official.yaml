@@ -6,6 +6,11 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  archiver:
+    CSISnapshotter:
+      addonName: postgres-volume-snapshot
+    walg:
+      image: rakibulhossain/postgres-wal-watcher:poc-wal-g_linux_amd64
   coordinator:
     image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/pg-coordinator:v0.15.0'
   db:
@@ -15,7 +20,7 @@ spec:
   exporter:
     image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prometheuscommunity") .Values) }}/postgres-exporter:v0.9.0'
   initContainer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "kubedb") .Values) }}/postgres-init:0.7.0'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "rakibulhossain") .Values) }}/postgres-init:0.5.0_linux_amd64'
   podSecurityPolicies:
     databasePolicyName: postgres-db
   securityContext:
@@ -27,7 +32,7 @@ spec:
         name: postgres-backup-13.1
       restoreTask:
         name: postgres-restore-13.1
-  upgradeConstraints:
+  updateConstraints:
     allowlist:
     - "14.1"
   version: "13.6"
