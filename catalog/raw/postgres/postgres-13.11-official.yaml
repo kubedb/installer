@@ -1,0 +1,62 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: 13.11-bullseye
+spec:
+  coordinator:
+    image: ghcr.io/kubedb/pg-coordinator:v0.17.0
+  db:
+    baseOS: bullseye
+    image: postgres:13.11-bullseye
+  distribution: Official
+  exporter:
+    image: prometheuscommunity/postgres-exporter:v0.9.0
+  initContainer:
+    image: ghcr.io/kubedb/postgres-init:0.7.0
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-13.1
+      restoreTask:
+        name: postgres-restore-13.1
+  updateConstraints:
+    allowlist:
+    - "14.1"
+  version: "13.11"
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: "13.11"
+spec:
+  coordinator:
+    image: ghcr.io/kubedb/pg-coordinator:v0.17.0
+  db:
+    baseOS: alpine
+    image: postgres:13.11-alpine
+  distribution: Official
+  exporter:
+    image: prometheuscommunity/postgres-exporter:v0.9.0
+  initContainer:
+    image: ghcr.io/kubedb/postgres-init:0.7.0
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: false
+    runAsUser: 70
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-13.1
+      restoreTask:
+        name: postgres-restore-13.1
+  updateConstraints:
+    allowlist:
+    - "14.1"
+  version: "13.11"
