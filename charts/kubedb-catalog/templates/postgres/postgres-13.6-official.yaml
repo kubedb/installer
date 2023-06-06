@@ -6,16 +6,23 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  archiver:
+    csiSnapshotter:
+      addonName: postgres-volume-snapshot
+    manifest:
+      addonName: kubedb-manifest-backup
+    walg:
+      image: rakibulhossain/postgres-wal-watcher:poc-wal-g_linux_amd64
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.21.0'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/pg-coordinator:v0.18.0'
   db:
     baseOS: bullseye
-    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:13.6-bullseye'
+    image: '{{ include "official.registry" (merge (dict "_bin" "postgres") .Values) }}:13.6-bullseye'
   distribution: Official
   exporter:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.9.0'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prometheuscommunity") .Values) }}/postgres-exporter:v0.9.0'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.10.0'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "rakibulhossain") .Values) }}/postgres-init:0.5.0_linux_amd64'
   podSecurityPolicies:
     databasePolicyName: postgres-db
   securityContext:
@@ -42,16 +49,23 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  archiver:
+    csiSnapshotter:
+      addonName: postgres-volume-snapshot
+    manifest:
+      addonName: kubedb-manifest-backup
+    walg:
+      image: rakibulhossain/postgres-wal-watcher:poc-wal-g_linux_amd64
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.21.0'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/pg-coordinator:v0.18.0'
   db:
     baseOS: alpine
-    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:13.6-alpine'
+    image: '{{ include "official.registry" (merge (dict "_bin" "postgres") .Values) }}:13.6-alpine'
   distribution: Official
   exporter:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.9.0'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prometheuscommunity") .Values) }}/postgres-exporter:v0.9.0'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.10.0'
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "rakibulhossain") .Values) }}/postgres-init:0.5.0_linux_amd64'
   podSecurityPolicies:
     databasePolicyName: postgres-db
   securityContext:
