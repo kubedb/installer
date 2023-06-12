@@ -1,0 +1,64 @@
+{{ if .Values.catalog.postgres }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: '14.8-bullseye'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  coordinator:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/pg-coordinator:v0.17.0'
+  db:
+    baseOS: bullseye
+    image: '{{ include "official.registry" (merge (dict "_bin" "postgres") .Values) }}:14.8-bullseye'
+  distribution: Official
+  exporter:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prometheuscommunity") .Values) }}/postgres-exporter:v0.9.0'
+  initContainer:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/postgres-init:0.7.0'
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-14.0
+      restoreTask:
+        name: postgres-restore-14.0
+  version: "14.8"
+{{ end }}
+
+---
+{{ if .Values.catalog.postgres }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: '14.8'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  coordinator:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/pg-coordinator:v0.17.0'
+  db:
+    baseOS: alpine
+    image: '{{ include "official.registry" (merge (dict "_bin" "postgres") .Values) }}:14.8-alpine'
+  distribution: Official
+  exporter:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prometheuscommunity") .Values) }}/postgres-exporter:v0.9.0'
+  initContainer:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/postgres-init:0.7.0'
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: false
+    runAsUser: 70
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-14.0
+      restoreTask:
+        name: postgres-restore-14.0
+  version: "14.8"
+{{ end }}
