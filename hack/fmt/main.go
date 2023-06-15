@@ -489,36 +489,38 @@ func main() {
 				if err != nil {
 					panic(err)
 				}
-				for prop := range spec {
-					templatizeRegistry := func(field string) {
-						img, ok, _ := unstructured.NestedString(obj.Object, "spec", prop, field)
-						if ok {
-							reg, repo, bin, tag := ParseImage(img)
-							var newimg string
-							switch {
-							case tag == "" && (reg != "" || repo != ""):
-								newimg = fmt.Sprintf(`{{ include "catalog.registry" (merge (dict "_reg" "%s" "_repo" "%s") .Values) }}/%s`, reg, repo, bin)
-							case tag != "" && (reg != "" || repo != ""):
-								newimg = fmt.Sprintf(`{{ include "catalog.registry" (merge (dict "_reg" "%s" "_repo" "%s") .Values) }}/%s:%s`, reg, repo, bin, tag)
-							case tag == "":
-								newimg = fmt.Sprintf(`{{ include "official.registry" (merge (dict "_bin" "%s") .Values) }}`, bin)
-							default:
-								newimg = fmt.Sprintf(`{{ include "official.registry" (merge (dict "_bin" "%s") .Values) }}:%s`, bin, tag)
+				templatizeRegistry := func(fields ...string) {
+					img, ok, _ := unstructured.NestedString(obj.Object, fields...)
+					if ok {
+						reg, repo, bin, tag := ParseImage(img)
+						var newimg string
+						switch {
+						case tag == "" && (reg != "" || repo != ""):
+							newimg = fmt.Sprintf(`{{ include "catalog.registry" (merge (dict "_reg" "%s" "_repo" "%s") .Values) }}/%s`, reg, repo, bin)
+						case tag != "" && (reg != "" || repo != ""):
+							newimg = fmt.Sprintf(`{{ include "catalog.registry" (merge (dict "_reg" "%s" "_repo" "%s") .Values) }}/%s:%s`, reg, repo, bin, tag)
+						case tag == "":
+							newimg = fmt.Sprintf(`{{ include "official.registry" (merge (dict "_bin" "%s") .Values) }}`, bin)
+						default:
+							newimg = fmt.Sprintf(`{{ include "official.registry" (merge (dict "_bin" "%s") .Values) }}:%s`, bin, tag)
 
-								// case tag == "":
-								//	newimg = fmt.Sprintf(`{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list %q)) }}`, bin)
-								// default:
-								//	newimg = fmt.Sprintf(`{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list %q)) }}:%s`, bin, tag)
-							}
-							err = unstructured.SetNestedField(obj.Object, newimg, "spec", prop, field)
-							if err != nil {
-								panic(err)
-							}
+							// case tag == "":
+							//	newimg = fmt.Sprintf(`{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list %q)) }}`, bin)
+							// default:
+							//	newimg = fmt.Sprintf(`{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list %q)) }}:%s`, bin, tag)
+						}
+						err = unstructured.SetNestedField(obj.Object, newimg, fields...)
+						if err != nil {
+							panic(err)
 						}
 					}
-					templatizeRegistry("image")
-					templatizeRegistry("yqImage")
 				}
+				for prop := range spec {
+					templatizeRegistry("spec", prop, "image")
+					templatizeRegistry("spec", prop, "yqImage")
+				}
+
+				templatizeRegistry("spec", "archiver", "walg", "image")
 
 				if i > 0 {
 					buf.WriteString("\n---\n")
