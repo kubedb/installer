@@ -7,6 +7,10 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   authPlugin: X-Pack
+  dashboard:
+    image: '{{ include "official.registry" (merge (dict "_bin" "kibana") .Values) }}:8.6.2'
+  dashboardInitContainer:
+    yqImage: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/elasticsearch-dashboard-init:8.6.2-xpack-v2023.03.16'
   db:
     image: '{{ include "official.registry" (merge (dict "_bin" "elasticsearch") .Values) }}:8.6.2'
   distribution: ElasticStack
