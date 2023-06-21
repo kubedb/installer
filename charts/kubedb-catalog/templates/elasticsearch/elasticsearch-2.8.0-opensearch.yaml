@@ -1,0 +1,37 @@
+{{ if .Values.catalog.elasticsearch }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: 'opensearch-2.8.0'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: OpenSearch
+  dashboard:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "opensearchproject") .Values) }}/opensearch-dashboards:2.8.0'
+  dashboardInitContainer:
+    yqImage: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/elasticsearch-dashboard-init:2.8.0-opensearch-v2023.06.19'
+  db:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "opensearchproject") .Values) }}/opensearch:2.8.0'
+  distribution: OpenSearch
+  exporter:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prometheuscommunity") .Values) }}/elasticsearch-exporter:v1.3.0'
+  initContainer:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "tianon") .Values) }}/toybox:0.8.4'
+    yqImage: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/elasticsearch-init:2.8.0-opensearch-v2023.06.19'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.14.0
+        params:
+        - name: args
+          value: --match=^(?![.])(?!security-auditlog)(?!kubedb-system).+
+      restoreTask:
+        name: elasticsearch-restore-7.14.0
+        params:
+        - name: args
+          value: --match=^(?![.])(?!security-auditlog)(?!kubedb-system).+
+  version: 2.8.0
+{{ end }}
