@@ -79,6 +79,7 @@ type KubedbWebhookServerSpec struct {
 	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount"`
 	Apiserver          WebhookAPIServerSpec     `json:"apiserver"`
 	Monitoring         EASMonitoring            `json:"monitoring"`
+	HostNetwork        bool                     `json:"hostNetwork"`
 }
 type WebhookAPIServerSpec struct {
 	GroupPriorityMinimum       int32              `json:"groupPriorityMinimum"`
