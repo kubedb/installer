@@ -35,13 +35,15 @@ operator:
   #   cpu: 100m
   #   memory: 128Mi
   # Security options the operator container should run with
-  securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+  securityContext: # +doc-gen:break
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 65534
+    seccompProfile:
+      type: RuntimeDefault
 # Specify an array of imagePullSecrets.
 # Secrets must be manually created in the namespace.
 #
