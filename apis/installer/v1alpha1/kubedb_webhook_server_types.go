@@ -81,6 +81,7 @@ type KubedbWebhookServerSpec struct {
 	Monitoring         EASMonitoring            `json:"monitoring"`
 	HostNetwork        bool                     `json:"hostNetwork"`
 }
+
 type WebhookAPIServerSpec struct {
 	GroupPriorityMinimum       int32              `json:"groupPriorityMinimum"`
 	VersionPriority            int32              `json:"versionPriority"`
@@ -91,6 +92,11 @@ type WebhookAPIServerSpec struct {
 	Healthcheck                EASHealthcheckSpec `json:"healthcheck"`
 	Port                       int32              `json:"port"`
 	ServingCerts               ServingCerts       `json:"servingCerts"`
+	Webhook                    WebhookSpec        `json:"webhook"`
+}
+
+type WebhookSpec struct {
+	FailurePolicy string `json:"failurePolicy"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
