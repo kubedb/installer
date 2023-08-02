@@ -77,6 +77,8 @@ type KubedbAutoscalerSpec struct {
 	// +optional
 	License string `json:"license"`
 	// +optional
+	LicenseSecretName string `json:"licenseSecretName"`
+	// +optional
 	UpdateInterval string `json:"updateInterval"`
 	// +optional
 	StorageAutoscaler StorageAutoscalerSpec `json:"storageAutoscaler"`

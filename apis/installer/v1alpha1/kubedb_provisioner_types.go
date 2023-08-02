@@ -81,6 +81,8 @@ type KubedbProvisionerSpec struct {
 	AdditionalPodSecurityPolicies []string `json:"additionalPodSecurityPolicies"`
 	// +optional
 	License string `json:"license"`
+	// +optional
+	LicenseSecretName string `json:"licenseSecretName"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
