@@ -69,6 +69,13 @@ Returns the appscode license
 {{- end }}
 
 {{/*
+Returns the appscode license secret name
+*/}}
+{{- define "appscode.licenseSecretName" -}}
+{{- list .Values.licenseSecretName .Values.global.licenseSecretName (printf "%s-license" (include "kubedb.fullname" .)) | compact | first }}
+{{- end }}
+
+{{/*
 Returns the registry used for operator docker image
 */}}
 {{- define "operator.registry" -}}

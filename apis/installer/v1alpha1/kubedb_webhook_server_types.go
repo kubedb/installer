@@ -51,9 +51,11 @@ type KubedbWebhookServerSpec struct {
 	ReplicaCount     int32  `json:"replicaCount"`
 	RegistryFQDN     string `json:"registryFQDN"`
 	// +optional
-	License         string    `json:"license"`
-	Server          Container `json:"server"`
-	ImagePullPolicy string    `json:"imagePullPolicy"`
+	License string `json:"license"`
+	// +optional
+	LicenseSecretName string    `json:"licenseSecretName"`
+	Server            Container `json:"server"`
+	ImagePullPolicy   string    `json:"imagePullPolicy"`
 	//+optional
 	ImagePullSecrets []string `json:"imagePullSecrets"`
 	//+optional

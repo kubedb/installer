@@ -52,7 +52,7 @@ spec:
         {{- end }}
         {{- include "docker.imagePullSecretFlags" . | nindent 8 }}
         {{- include "docker.insecureRegistries" .  | nindent 8 }}
-        {{- if include "appscode.license" . }}
+        {{- if or (include "appscode.license" .) (include "appscode.licenseSecretName" .) }}
         - --license-file=/var/run/secrets/appscode/license/key.txt
         {{- end }}
         env:
@@ -76,7 +76,7 @@ spec:
         volumeMounts:
         - mountPath: /tmp
           name: tmpdir
-        {{- if include "appscode.license" . }}
+        {{- if or (include "appscode.license" .) (include "appscode.licenseSecretName" .) }}
         - mountPath: /var/run/secrets/appscode/license
           name: license
         {{- end }}
@@ -99,11 +99,11 @@ spec:
       volumes:
       - name: tmpdir
         emptyDir: {}
-      {{- if include "appscode.license" . }}
+      {{- if or (include "appscode.license" .) (include "appscode.licenseSecretName" .) }}
       - name: license
         secret:
           defaultMode: 420
-          secretName: {{ include "kubedb-ops-manager.fullname" . }}-license
+          secretName: {{ include "appscode.licenseSecretName" . }}
       {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}

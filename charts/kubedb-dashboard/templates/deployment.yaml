@@ -44,7 +44,7 @@ spec:
         - --use-kubeapiserver-fqdn-for-aks={{ .Values.apiserver.useKubeapiserverFqdnForAks }}
         - --metrics-bind-address=:{{ .Values.monitoring.bindPort }}
         - --health-probe-bind-address=:{{ .Values.apiserver.healthcheck.probePort }}
-        {{- if include "appscode.license" . }}
+        {{- if or (include "appscode.license" .) (include "appscode.licenseSecretName" .) }}
         - --license-file=/var/run/secrets/appscode/license/key.txt
         {{- end }}
         env:
@@ -64,7 +64,7 @@ spec:
         volumeMounts:
         - mountPath: /tmp
           name: tmpdir
-        {{- if include "appscode.license" . }}
+        {{- if or (include "appscode.license" .) (include "appscode.licenseSecretName" .) }}
         - mountPath: /var/run/secrets/appscode/license
           name: license
         {{- end }}
@@ -87,11 +87,11 @@ spec:
       volumes:
       - name: tmpdir
         emptyDir: {}
-      {{- if include "appscode.license" . }}
+      {{- if or (include "appscode.license" .) (include "appscode.licenseSecretName" .) }}
       - name: license
         secret:
           defaultMode: 420
-          secretName: {{ include "kubedb-dashboard.fullname" . }}-license
+          secretName: {{ include "appscode.licenseSecretName" . }}
       {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
