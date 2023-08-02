@@ -109,6 +109,7 @@ type KubedbMetricsValues struct {
 
 type GlobalValues struct {
 	License            string   `json:"license"`
+	LicenseSecretName  string   `json:"licenseSecretName"`
 	Registry           string   `json:"registry"`
 	RegistryFQDN       string   `json:"registryFQDN"`
 	InsecureRegistries []string `json:"insecureRegistries"`
