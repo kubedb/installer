@@ -52,7 +52,7 @@ spec:
         {{- if .Values.storageAutoscaler.prometheus.bearerToken }}
         - --prometheus-token-file=/var/prometheus-data/token.txt
         {{- end }}
-        {{- if or (include "appscode.license" .) (include "appscode.licenseSecretName" .) }}
+        {{- if include "appscode.licenseSecretName" . }}
         - --license-file=/var/run/secrets/appscode/license/key.txt
         {{- end }}
         env:
@@ -76,7 +76,7 @@ spec:
         - mountPath: /var/prometheus-data
           name: prometheus-data
         {{- end }}
-        {{- if or (include "appscode.license" .) (include "appscode.licenseSecretName" .) }}
+        {{- if include "appscode.licenseSecretName" . }}
         - mountPath: /var/run/secrets/appscode/license
           name: license
         {{- end }}
@@ -105,7 +105,7 @@ spec:
           defaultMode: 420
           secretName: {{ include "kubedb-autoscaler.fullname" . }}-prometheus-data
       {{- end }}
-      {{- if or (include "appscode.license" .) (include "appscode.licenseSecretName" .) }}
+      {{- if include "appscode.licenseSecretName" . }}
       - name: license
         secret:
           defaultMode: 420

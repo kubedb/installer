@@ -73,7 +73,11 @@ Returns the appscode license
 Returns the appscode license secret name
 */}}
 {{- define "appscode.licenseSecretName" -}}
-{{- default (printf "%s-license" (include "kubedb-provisioner.fullname" .)) .Values.licenseSecretName }}
+{{- if .Values.licenseSecretName }}
+{{- .Values.licenseSecretName -}}
+{{- else if .Values.license }}
+{{- printf "%s-license" (include "kubedb-provisioner.fullname" .) -}}
+{{- end }}
 {{- end }}
 
 {{/*
