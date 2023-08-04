@@ -46,7 +46,7 @@ spec:
         - --health-probe-bind-address=:{{ .Values.apiserver.healthcheck.probePort }}
         {{- include "docker.imagePullSecretFlags" . | nindent 8 }}
         {{- include "docker.insecureRegistries" .  | nindent 8 }}
-        {{- if or (include "appscode.license" .) (include "appscode.licenseSecretName" .) }}
+        {{- if include "appscode.licenseSecretName" . }}
         - --license-file=/var/run/secrets/appscode/license/key.txt
         {{- end }}
         env:
@@ -70,7 +70,7 @@ spec:
         volumeMounts:
         - mountPath: /tmp
           name: tmpdir
-        {{- if or (include "appscode.license" .) (include "appscode.licenseSecretName" .) }}
+        {{- if include "appscode.licenseSecretName" . }}
         - mountPath: /var/run/secrets/appscode/license
           name: license
         {{- end }}
@@ -93,7 +93,7 @@ spec:
       volumes:
       - name: tmpdir
         emptyDir: {}
-      {{- if or (include "appscode.license" .) (include "appscode.licenseSecretName" .) }}
+      {{- if include "appscode.licenseSecretName" . }}
       - name: license
         secret:
           defaultMode: 420
