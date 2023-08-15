@@ -12,10 +12,10 @@ require (
 	gomodules.xyz/semvers v0.0.0-20220924053145-5058ec948ed9
 	k8s.io/api v0.25.2
 	k8s.io/apimachinery v0.25.3
-	kmodules.xyz/client-go v0.25.23
+	kmodules.xyz/client-go v0.25.28
 	kmodules.xyz/schema-checker v0.4.1
 	sigs.k8s.io/yaml v1.3.0
-	stash.appscode.dev/installer v0.12.2-0.20230430223618-f69ead12dbb0
+	stash.appscode.dev/installer v0.12.2-0.20230810053647-faeb9b71bae1
 )
 
 require (
@@ -32,7 +32,7 @@ require (
 	github.com/huandu/xstrings v1.3.2 // indirect
 	github.com/imdario/mergo v0.3.13 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/mattn/go-colorable v0.1.13 // indirect
+	github.com/mattn/go-isatty v0.0.16 // indirect
 	github.com/mitchellh/copystructure v1.1.1 // indirect
 	github.com/mitchellh/reflectwalk v1.0.1 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
