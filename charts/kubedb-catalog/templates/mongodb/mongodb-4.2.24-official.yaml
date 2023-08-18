@@ -1,0 +1,30 @@
+{{ if .Values.catalog.mongodb }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  name: '4.2.24'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ include "official.registry" (merge (dict "_bin" "mongo") .Values) }}:4.2.24'
+  distribution: Official
+  exporter:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/mongodb_exporter:v0.32.0'
+  initContainer:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/mongodb-init:4.2-v8'
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+  replicationModeDetector:
+    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/replication-mode-detector:v0.21.0'
+  stash:
+    addon:
+      backupTask:
+        name: mongodb-backup-4.2.3
+      restoreTask:
+        name: mongodb-restore-4.2.3
+  updateConstraints:
+    allowlist:
+    - '>= 4.4.0, < 5.0.0'
+  version: 4.2.24
+{{ end }}
