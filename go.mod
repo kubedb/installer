@@ -12,17 +12,16 @@ require (
 	gomodules.xyz/semvers v0.0.0-20220924053145-5058ec948ed9
 	k8s.io/api v0.25.2
 	k8s.io/apimachinery v0.25.3
-	kmodules.xyz/client-go v0.25.28
+	kmodules.xyz/client-go v0.25.29
 	kmodules.xyz/schema-checker v0.4.1
 	sigs.k8s.io/yaml v1.3.0
-	stash.appscode.dev/installer v0.12.2-0.20230810053647-faeb9b71bae1
+	stash.appscode.dev/installer v0.12.2-0.20230815025557-a641610a411d
 )
 
 require (
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/codegangsta/inject v0.0.0-20150114235600-33e0aa1cb7c0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
 	github.com/gobeam/stringy v0.0.5 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
@@ -41,7 +40,6 @@ require (
 	github.com/sergi/go-diff v1.2.0 // indirect
 	github.com/shopspring/decimal v1.2.0 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
-	github.com/stretchr/testify v1.8.3 // indirect
 	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
 	golang.org/x/crypto v0.9.0 // indirect
 	golang.org/x/net v0.10.0 // indirect
