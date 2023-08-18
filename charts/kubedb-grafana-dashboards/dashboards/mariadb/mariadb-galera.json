@@ -78,7 +78,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "avg by(wsrep_cluster_name)(mysql_galera_variables_info{namespace=~\"$namespace\",service=~\"$app\"})",
+          "expr": "avg by(wsrep_cluster_name)(mysql_galera_variables_info{namespace=~\"$namespace\",service=~\"$app+-stats\"})",
           "interval": "",
           "legendFormat": "{{wsrep_cluster_name}}",
           "refId": "A"
@@ -180,7 +180,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "avg by(pod)(mysql_galera_variables_info{namespace=~\"$namespace\",service=~\"$app\"})",
+          "expr": "avg by(pod)(mysql_galera_variables_info{namespace=~\"$namespace\",service=~\"$app+-stats\"})",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -254,7 +254,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "avg_over_time(mysql_galera_evs_repl_latency_avg_seconds{namespace=~\"$namespace\",service=~\"$app\"}[5m])",
+          "expr": "avg_over_time(mysql_galera_evs_repl_latency_avg_seconds{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
           "interval": "",
           "legendFormat": "{{pod}} - Latency Average",
           "refId": "A"
@@ -354,7 +354,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "rate(mysql_galera_evs_repl_latency_stdev{namespace=~\"$namespace\",service=~\"$app\"}[1m])",
+          "expr": "rate(mysql_galera_evs_repl_latency_stdev{namespace=~\"$namespace\",service=~\"$app+-stats\"}[1m])",
           "interval": "",
           "legendFormat": "{{pod}} - Latency Average",
           "refId": "A"
@@ -454,7 +454,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "rate(mysql_galera_evs_repl_latency_sample_size{namespace=~\"$namespace\",service=~\"$app\"}[1m])",
+          "expr": "rate(mysql_galera_evs_repl_latency_sample_size{namespace=~\"$namespace\",service=~\"$app+-stats\"}[1m])",
           "interval": "",
           "legendFormat": "{{pod}} - Latency Average",
           "refId": "A"
@@ -567,7 +567,7 @@
           "value": "sample-mariadb-stats"
         },
         "datasource": "${datasource}",
-        "definition": "label_values(mysql_up{namespace=~\"$namespace\"}, service)",
+        "definition": "label_values(kubedb_com_mariadb_status_phase{namespace=~\"$namespace\"},app)",
         "description": "",
         "error": null,
         "hide": 0,
@@ -576,7 +576,7 @@
         "multi": false,
         "name": "app",
         "options": [],
-        "query": "label_values(mysql_up{namespace=~\"$namespace\"}, service)",
+        "query": "label_values(kubedb_com_mariadb_status_phase{namespace=~\"$namespace\"},app)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
