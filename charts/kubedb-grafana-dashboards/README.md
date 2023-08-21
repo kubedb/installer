@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb-grafana-dashboards --version=v2023.06.19
-$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2023.06.19
+$ helm search repo appscode/kubedb-grafana-dashboards --version=v2023.08.18
+$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2023.08.18
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeDB Grafana Dashboards on a [Kubernetes](http://kubernet
 To install/upgrade the chart with the release name `kubedb-grafana-dashboards`:
 
 ```bash
-$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2023.06.19
+$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2023.08.18
 ```
 
 The command deploys a KubeDB Grafana Dashboards on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -61,12 +61,12 @@ The following table lists the configurable parameters of the `kubedb-grafana-das
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2023.06.19 --set resources=["elasticsearch","mariadb","mongodb","mysql","postgres","redis","proxysql"]
+$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2023.08.18 --set resources=["elasticsearch","mariadb","mongodb","mysql","postgres","redis","proxysql"]
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2023.06.19 --values values.yaml
+$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2023.08.18 --values values.yaml
 ```
