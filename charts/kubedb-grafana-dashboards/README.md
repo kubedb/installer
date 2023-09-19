@@ -53,7 +53,7 @@ The following table lists the configurable parameters of the `kubedb-grafana-das
 | dashboard.folderID              | ID of Grafana folder where these dashboards will be applied        | <code>0</code>                                                                           |
 | dashboard.overwrite             | If true, dashboard with matching uid will be overwritten           | <code>true</code>                                                                        |
 | dashboard.templatize.title      | If true, datasource will be prefixed to dashboard name             | <code>false</code>                                                                       |
-| dashboard.templatize.datasource | If true, datasource will be hardcoded in the dashboard             | <code>true</code>                                                                        |
+| dashboard.templatize.datasource | If true, datasource will be hardcoded in the dashboard             | <code>false</code>                                                                       |
 | grafana.name                    | Name of Grafana Appbinding where these dashboards are applied      | <code>""</code>                                                                          |
 | grafana.namespace               | Namespace of Grafana Appbinding where these dashboards are applied | <code>""</code>                                                                          |
 
