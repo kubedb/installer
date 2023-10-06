@@ -2,15 +2,15 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
-  name: '8.0.31-innodb'
+  name: '8.1.0'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
     image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/mysql-coordinator:v0.13.0'
   db:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "mysql") .Values) }}/mysql-server:8.0.31'
-  distribution: MySQL
+    image: '{{ include "official.registry" (merge (dict "_bin" "mysql") .Values) }}:8.1.0'
+  distribution: Official
   exporter:
     image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/mysqld-exporter:v0.13.1'
   gitSyncer:
@@ -21,10 +21,6 @@ spec:
     databasePolicyName: mysql-db
   replicationModeDetector:
     image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/replication-mode-detector:v0.22.0'
-  router:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "mysql") .Values) }}/mysql-router:8.0.31'
-  routerInitContainer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/mysql-router-init:v0.13.0'
   stash:
     addon:
       backupTask:
@@ -34,8 +30,8 @@ spec:
   updateConstraints:
     denylist:
       groupReplication:
-      - < 8.0.31
+      - < 8.1.0
       standalone:
-      - < 8.0.31
-  version: 8.0.31
+      - < 8.1.0
+  version: 8.1.0
 {{ end }}
