@@ -81,6 +81,7 @@ type KubedbOpsManagerSpec struct {
 	LicenseSecretName string `json:"licenseSecretName"`
 	// +optional
 	RecommendationEngine RecommendationEngineConfig `json:"recommendationEngine"`
+	Psp                  PSPSpec                    `json:"psp"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
