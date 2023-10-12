@@ -64,6 +64,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | catalog.proxysql                           | If true, deploys ProxySQL version catalog                                                                                              | <code>true</code>  |
 | catalog.redis                              | If true, deploys Redis version catalog                                                                                                 | <code>true</code>  |
 | catalog.kafka                              |                                                                                                                                        | <code>true</code>  |
+| psp.enabled                                |                                                                                                                                        | <code>true</code>  |
 | psp.elasticsearch.allowPrivilegeEscalation |                                                                                                                                        | <code>true</code>  |
 | psp.elasticsearch.privileged               |                                                                                                                                        | <code>true</code>  |
 | psp.mariadb.allowPrivilegeEscalation       |                                                                                                                                        | <code>false</code> |

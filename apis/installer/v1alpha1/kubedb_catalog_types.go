@@ -84,6 +84,7 @@ type Catalog struct {
 }
 
 type PSP struct {
+	Enabled bool `json:"enabled"`
 	//+optional
 	Elasticsearch PSPElasticsearch `json:"elasticsearch"`
 	//+optional
