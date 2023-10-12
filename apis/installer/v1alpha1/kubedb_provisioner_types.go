@@ -82,7 +82,8 @@ type KubedbProvisionerSpec struct {
 	// +optional
 	License string `json:"license"`
 	// +optional
-	LicenseSecretName string `json:"licenseSecretName"`
+	LicenseSecretName string  `json:"licenseSecretName"`
+	Psp               PSPSpec `json:"psp"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
