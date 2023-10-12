@@ -96,3 +96,6 @@ type EASMonitoring struct {
 	Agent          MonitoringAgent      `json:"agent"`
 	ServiceMonitor ServiceMonitorLabels `json:"serviceMonitor"`
 }
+type PSPSpec struct {
+	Enabled bool `json:"enabled"`
+}
