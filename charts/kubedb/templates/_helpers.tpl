@@ -128,25 +128,24 @@ Returns the --insecure-registries flags
 {{- end }}
 
 {{- define "registry.dockerHub" -}}
-{{ append (list .Values.proxies.dockerHub .Values.global.registryFQDN .Values.registryFQDN | compact) ._repo | join "/" }}
+{{ prepend (list ._repo) (list .Values.proxies.dockerHub .Values.global.registryFQDN .Values.registryFQDN | compact | first) | compact | join "/" }}
 {{- end }}
 
 {{- define "registry.dockerLibrary" -}}
-{{ append (list .Values.proxies.dockerLibrary  .Values.proxies.dockerHub .Values.global.registryFQDN .Values.registryFQDN | compact) ._repo | join "/" }}
+{{ prepend (list ._repo) (list .Values.proxies.dockerLibrary .Values.proxies.dockerHub .Values.global.registryFQDN .Values.registryFQDN | compact | first) | compact | join "/" }}
 {{- end }}
 
 {{- define "registry.ghcr" -}}
-{{ append (list .Values.proxies.ghcr .Values.global.registryFQDN .Values.registryFQDN | compact) ._repo | join "/" }}
+{{ prepend (list ._repo) (list .Values.proxies.ghcr .Values.global.registryFQDN .Values.registryFQDN | compact | first) | compact | join "/" }}
 {{- end }}
 
 {{- define "registry.kubernetes" -}}
-{{ append (list .Values.proxies.kubernetes .Values.global.registryFQDN .Values.registryFQDN | compact) ._repo | join "/" }}
+{{ prepend (list ._repo) (list .Values.proxies.kubernetes .Values.global.registryFQDN .Values.registryFQDN | compact | first) | compact | join "/" }}
 {{- end }}
 
 {{- define "registry.appscode" -}}
-{{ append (list .Values.proxies.appscode .Values.global.registryFQDN .Values.registryFQDN | compact) ._repo | join "/" }}
+{{ prepend (list ._repo) (list .Values.proxies.appscode .Values.global.registryFQDN .Values.registryFQDN | compact | first) | compact | join "/" }}
 {{- end }}
-
 
 {{/*
 Returns the enabled monitoring agent name

@@ -63,21 +63,21 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "registry.dockerHub" -}}
-{{ append (list .Values.proxies.dockerHub .Values.registryFQDN | compact) ._repo | join "/" }}
+{{ prepend (list ._repo) (list .Values.proxies.dockerHub .Values.registryFQDN | compact | first) | compact | join "/" }}
 {{- end }}
 
 {{- define "registry.dockerLibrary" -}}
-{{ append (list .Values.proxies.dockerLibrary .Values.proxies.dockerHub .Values.registryFQDN | compact) ._repo | join "/" }}
+{{ prepend (list ._repo) (list .Values.proxies.dockerLibrary .Values.proxies.dockerHub .Values.registryFQDN | compact | first) | compact | join "/" }}
 {{- end }}
 
 {{- define "registry.ghcr" -}}
-{{ append (list .Values.proxies.ghcr .Values.registryFQDN | compact) ._repo | join "/" }}
+{{ prepend (list ._repo) (list .Values.proxies.ghcr .Values.registryFQDN | compact | first) | compact | join "/" }}
 {{- end }}
 
 {{- define "registry.kubernetes" -}}
-{{ append (list .Values.proxies.kubernetes .Values.registryFQDN | compact) ._repo | join "/" }}
+{{ prepend (list ._repo) (list .Values.proxies.kubernetes .Values.registryFQDN | compact | first) | compact | join "/" }}
 {{- end }}
 
 {{- define "registry.appscode" -}}
-{{ append (list .Values.proxies.appscode .Values.registryFQDN | compact) ._repo | join "/" }}
+{{ prepend (list ._repo) (list .Values.proxies.appscode .Values.registryFQDN | compact | first) | compact | join "/" }}
 {{- end }}
