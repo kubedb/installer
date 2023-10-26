@@ -7,13 +7,13 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/redis-coordinator:v0.15.0'
+    image: '{{ include "registry.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.15.0'
   db:
-    image: '{{ include "official.registry" (merge (dict "_bin" "redis") .Values) }}:5.0.14'
+    image: '{{ include "registry.dockerLibrary" (merge (dict "_repo" "redis") $) }}:5.0.14'
   exporter:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/redis_exporter:1.9.0'
+    image: '{{ include "registry.ghcr" (merge (dict "_repo" "kubedb/redis_exporter") $) }}:1.9.0'
   initContainer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/redis-init:0.7.0'
+    image: '{{ include "registry.ghcr" (merge (dict "_repo" "kubedb/redis-init") $) }}:0.7.0'
   podSecurityPolicies:
     databasePolicyName: redis-db
   stash:

@@ -7,16 +7,16 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "percona") .Values) }}/percona-server-mongodb:4.0.10'
+    image: '{{ include "registry.dockerHub" (merge (dict "_repo" "percona/percona-server-mongodb") $) }}:4.0.10'
   distribution: Percona
   exporter:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/mongodb_exporter:v0.32.0'
+    image: '{{ include "registry.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.32.0'
   initContainer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/mongodb-init:4.1-v8'
+    image: '{{ include "registry.ghcr" (merge (dict "_repo" "kubedb/mongodb-init") $) }}:4.1-v8'
   podSecurityPolicies:
     databasePolicyName: mongodb-db
   replicationModeDetector:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/replication-mode-detector:v0.23.0'
+    image: '{{ include "registry.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.23.0'
   stash:
     addon:
       backupTask:

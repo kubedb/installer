@@ -89,13 +89,6 @@ Returns the registry used for operator docker image
 {{- end }}
 
 {{/*
-Returns the registry used for catalog docker images
-*/}}
-{{- define "catalog.registry" -}}
-{{- list (default .registryFQDN .global.registryFQDN | default ._reg) (default .image.registry .global.registry | default ._repo) | compact | join "/" }}
-{{- end }}
-
-{{/*
 Returns the registry used for webhook server docker image
 */}}
 {{- define "server.registry" -}}
@@ -134,16 +127,26 @@ Returns the --insecure-registries flags
 {{- end -}}
 {{- end }}
 
-{{/*
-Returns the registry used for official docker images
-*/}}
-{{- define "official.registry" -}}
-{{- if .image.overrideOfficialRegistry -}}
-{{- list (default .registryFQDN .global.registryFQDN) (default .image.registry .global.registry) ._bin | compact | join "/" }}
-{{- else -}}
-{{- list (default .registryFQDN .global.registryFQDN) ._bin | compact | join "/" }}
+{{- define "registry.dockerHub" -}}
+{{ append (list .Values.proxies.dockerHub .Values.global.registryFQDN .Values.registryFQDN | compact) ._repo | join "/" }}
 {{- end }}
+
+{{- define "registry.dockerLibrary" -}}
+{{ append (list .Values.proxies.dockerLibrary  .Values.proxies.dockerHub .Values.global.registryFQDN .Values.registryFQDN | compact) ._repo | join "/" }}
 {{- end }}
+
+{{- define "registry.ghcr" -}}
+{{ append (list .Values.proxies.ghcr .Values.global.registryFQDN .Values.registryFQDN | compact) ._repo | join "/" }}
+{{- end }}
+
+{{- define "registry.kubernetes" -}}
+{{ append (list .Values.proxies.kubernetes .Values.global.registryFQDN .Values.registryFQDN | compact) ._repo | join "/" }}
+{{- end }}
+
+{{- define "registry.appscode" -}}
+{{ append (list .Values.proxies.appscode .Values.global.registryFQDN .Values.registryFQDN | compact) ._repo | join "/" }}
+{{- end }}
+
 
 {{/*
 Returns the enabled monitoring agent name
