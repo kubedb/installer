@@ -7,14 +7,14 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/pg-coordinator:v0.20.0'
+    image: '{{ include "registry.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.20.0'
   db:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "timescale") .Values) }}/timescaledb:2.1.0-pg11-oss'
+    image: '{{ include "registry.dockerHub" (merge (dict "_repo" "timescale/timescaledb") $) }}:2.1.0-pg11-oss'
   distribution: TimescaleDB
   exporter:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prometheuscommunity") .Values) }}/postgres-exporter:v0.9.0'
+    image: '{{ include "registry.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.9.0'
   initContainer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/postgres-init:0.9.0'
+    image: '{{ include "registry.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.9.0'
   podSecurityPolicies:
     databasePolicyName: postgres-db
   securityContext:

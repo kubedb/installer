@@ -8,17 +8,17 @@ metadata:
 spec:
   authPlugin: X-Pack
   dashboard:
-    image: '{{ include "official.registry" (merge (dict "_bin" "kibana") .Values) }}:7.9.1'
+    image: '{{ include "registry.dockerLibrary" (merge (dict "_repo" "kibana") $) }}:7.9.1'
   dashboardInitContainer:
-    yqImage: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/elasticsearch-dashboard-init:7.9.1-xpack-v2023.01.29'
+    yqImage: '{{ include "registry.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-dashboard-init") $) }}:7.9.1-xpack-v2023.01.29'
   db:
-    image: '{{ include "official.registry" (merge (dict "_bin" "elasticsearch") .Values) }}:7.9.1'
+    image: '{{ include "registry.dockerLibrary" (merge (dict "_repo" "elasticsearch") $) }}:7.9.1'
   distribution: ElasticStack
   exporter:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prometheuscommunity") .Values) }}/elasticsearch-exporter:v1.3.0'
+    image: '{{ include "registry.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.3.0'
   initContainer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "tianon") .Values) }}/toybox:0.8.4'
-    yqImage: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/elasticsearch-init:7.9.1-xpack-v1'
+    image: '{{ include "registry.dockerHub" (merge (dict "_repo" "tianon/toybox") $) }}:0.8.4'
+    yqImage: '{{ include "registry.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-init") $) }}:7.9.1-xpack-v1'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   securityContext:
@@ -47,13 +47,13 @@ metadata:
 spec:
   authPlugin: X-Pack
   db:
-    image: '{{ include "official.registry" (merge (dict "_bin" "elasticsearch") .Values) }}:7.9.1'
+    image: '{{ include "registry.dockerLibrary" (merge (dict "_repo" "elasticsearch") $) }}:7.9.1'
   distribution: ElasticStack
   exporter:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prometheuscommunity") .Values) }}/elasticsearch-exporter:v1.3.0'
+    image: '{{ include "registry.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.3.0'
   initContainer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "tianon") .Values) }}/toybox:0.8.4'
-    yqImage: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/elasticsearch-init:7.9.1-xpack-v2021.08.23'
+    image: '{{ include "registry.dockerHub" (merge (dict "_repo" "tianon/toybox") $) }}:0.8.4'
+    yqImage: '{{ include "registry.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-init") $) }}:7.9.1-xpack-v2021.08.23'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   securityContext:
@@ -85,14 +85,14 @@ metadata:
 spec:
   authPlugin: X-Pack
   db:
-    image: '{{ include "official.registry" (merge (dict "_bin" "elasticsearch") .Values) }}:7.9.1'
+    image: '{{ include "registry.dockerLibrary" (merge (dict "_repo" "elasticsearch") $) }}:7.9.1'
   deprecated: true
   distribution: ElasticStack
   exporter:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prometheuscommunity") .Values) }}/elasticsearch-exporter:v1.3.0'
+    image: '{{ include "registry.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.3.0'
   initContainer:
-    image: '{{ include "official.registry" (merge (dict "_bin" "busybox") .Values) }}:1.32.0'
-    yqImage: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/elasticsearch-init:7.9.1-xpack'
+    image: '{{ include "registry.dockerLibrary" (merge (dict "_repo" "busybox") $) }}:1.32.0'
+    yqImage: '{{ include "registry.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-init") $) }}:7.9.1-xpack'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   stash:
