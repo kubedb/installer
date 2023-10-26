@@ -127,23 +127,23 @@ Returns the --insecure-registries flags
 {{- end -}}
 {{- end }}
 
-{{- define "registry.dockerHub" -}}
+{{- define "image.dockerHub" -}}
 {{ prepend (list ._repo) (list .Values.proxies.dockerHub .Values.global.registryFQDN .Values.registryFQDN | compact | first) | compact | join "/" }}
 {{- end }}
 
-{{- define "registry.dockerLibrary" -}}
+{{- define "image.dockerLibrary" -}}
 {{ prepend (list ._repo) (list .Values.proxies.dockerLibrary .Values.proxies.dockerHub .Values.global.registryFQDN .Values.registryFQDN | compact | first) | compact | join "/" }}
 {{- end }}
 
-{{- define "registry.ghcr" -}}
+{{- define "image.ghcr" -}}
 {{ prepend (list ._repo) (list .Values.proxies.ghcr .Values.global.registryFQDN .Values.registryFQDN | compact | first) | compact | join "/" }}
 {{- end }}
 
-{{- define "registry.kubernetes" -}}
+{{- define "image.kubernetes" -}}
 {{ prepend (list ._repo) (list .Values.proxies.kubernetes .Values.global.registryFQDN .Values.registryFQDN | compact | first) | compact | join "/" }}
 {{- end }}
 
-{{- define "registry.appscode" -}}
+{{- define "image.appscode" -}}
 {{ prepend (list ._repo) (list .Values.proxies.appscode .Values.global.registryFQDN .Values.registryFQDN | compact | first) | compact | join "/" }}
 {{- end }}
 
