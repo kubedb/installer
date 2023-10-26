@@ -506,14 +506,14 @@ func main() {
 							case "index.docker.io":
 								_, bin, found := strings.Cut(ref.Repository, "library/")
 								if found {
-									newimg = fmt.Sprintf(`{{ include "registry.dockerLibrary" (merge (dict "_repo" "%s") $) }}`, bin)
+									newimg = fmt.Sprintf(`{{ include "image.dockerLibrary" (merge (dict "_repo" "%s") $) }}`, bin)
 								} else {
-									newimg = fmt.Sprintf(`{{ include "registry.dockerHub" (merge (dict "_repo" "%s") $) }}`, ref.Repository)
+									newimg = fmt.Sprintf(`{{ include "image.dockerHub" (merge (dict "_repo" "%s") $) }}`, ref.Repository)
 								}
 							case "ghcr.io":
-								newimg = fmt.Sprintf(`{{ include "registry.ghcr" (merge (dict "_repo" "%s") $) }}`, ref.Repository)
+								newimg = fmt.Sprintf(`{{ include "image.ghcr" (merge (dict "_repo" "%s") $) }}`, ref.Repository)
 							case "registry.k8s.io":
-								newimg = fmt.Sprintf(`{{ include "registry.kubernetes" (merge (dict "_repo" "%s") $) }}`, ref.Repository)
+								newimg = fmt.Sprintf(`{{ include "image.kubernetes" (merge (dict "_repo" "%s") $) }}`, ref.Repository)
 							default:
 								panic("unsupported registry for image " + img)
 							}
