@@ -40,6 +40,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"kmodules.xyz/client-go/tools/parser"
+	"kmodules.xyz/go-containerregistry/name"
 	"sigs.k8s.io/yaml"
 	stash "stash.appscode.dev/installer/catalog"
 )
@@ -207,8 +208,11 @@ func main() {
 						distro = "Percona"
 					}
 					if img, ok, _ := unstructured.NestedString(ri.Object.UnstructuredContent(), "spec", "db", "image"); ok {
-						_, repo, _, _ := ParseImage(img)
-						if repo == "mysql" {
+						ref, err := name.ParseReference(img)
+						if err != nil {
+							panic(err)
+						}
+						if ref.Registry == "mysql" {
 							distro = "MySQL"
 						}
 					}
@@ -493,22 +497,28 @@ func main() {
 					templatizeRegistry := func(field string) {
 						img, ok, _ := unstructured.NestedString(obj.Object, "spec", prop, field)
 						if ok {
-							reg, repo, bin, tag := ParseImage(img)
+							ref, err := name.ParseReference(img)
+							if err != nil {
+								panic(err)
+							}
 							var newimg string
-							switch {
-							case tag == "" && (reg != "" || repo != ""):
-								newimg = fmt.Sprintf(`{{ include "catalog.registry" (merge (dict "_reg" "%s" "_repo" "%s") .Values) }}/%s`, reg, repo, bin)
-							case tag != "" && (reg != "" || repo != ""):
-								newimg = fmt.Sprintf(`{{ include "catalog.registry" (merge (dict "_reg" "%s" "_repo" "%s") .Values) }}/%s:%s`, reg, repo, bin, tag)
-							case tag == "":
-								newimg = fmt.Sprintf(`{{ include "official.registry" (merge (dict "_bin" "%s") .Values) }}`, bin)
+							switch ref.Registry {
+							case "index.docker.io":
+								_, bin, found := strings.Cut(ref.Repository, "library/")
+								if found {
+									newimg = fmt.Sprintf(`{{ include "registry.dockerLibrary" (merge (dict "_repo" "%s") $) }}`, bin)
+								} else {
+									newimg = fmt.Sprintf(`{{ include "registry.dockerHub" (merge (dict "_repo" "%s") $) }}`, ref.Repository)
+								}
+							case "ghcr.io":
+								newimg = fmt.Sprintf(`{{ include "registry.ghcr" (merge (dict "_repo" "%s") $) }}`, ref.Repository)
+							case "registry.k8s.io":
+								newimg = fmt.Sprintf(`{{ include "registry.kubernetes" (merge (dict "_repo" "%s") $) }}`, ref.Repository)
 							default:
-								newimg = fmt.Sprintf(`{{ include "official.registry" (merge (dict "_bin" "%s") .Values) }}:%s`, bin, tag)
-
-								// case tag == "":
-								//	newimg = fmt.Sprintf(`{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list %q)) }}`, bin)
-								// default:
-								//	newimg = fmt.Sprintf(`{{ include "official.registry" (set (.Values | deepCopy) "officialRegistry" (list %q)) }}:%s`, bin, tag)
+								panic("unsupported registry for image " + img)
+							}
+							if ref.Tag != "" && ref.Tag != "latest" {
+								newimg += ":" + ref.Tag
 							}
 							err = unstructured.SetNestedField(obj.Object, newimg, "spec", prop, field)
 							if err != nil {
@@ -724,27 +734,6 @@ func main() {
 			os.Exit(1)
 		}
 	}
-}
-
-func ParseImage(s string) (reg, repo, bin, tag string) {
-	idx := strings.IndexRune(s, ':')
-	if idx != -1 {
-		tag = s[idx+1:]
-		s = s[:idx]
-	}
-	parts := strings.Split(s, "/")
-	if len(parts) >= 1 {
-		bin = parts[len(parts)-1]
-		parts = parts[:len(parts)-1]
-	}
-	if len(parts) >= 1 {
-		repo = parts[len(parts)-1]
-		parts = parts[:len(parts)-1]
-	}
-	if len(parts) > 0 {
-		reg = strings.Join(parts, "/")
-	}
-	return
 }
 
 func allDeprecated(objs []*unstructured.Unstructured) bool {

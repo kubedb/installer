@@ -7,19 +7,19 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/mysql:5.7.33'
+    image: '{{ include "registry.ghcr" (merge (dict "_repo" "kubedb/mysql") $) }}:5.7.33'
   deprecated: true
   distribution: Official
   exporter:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/mysqld-exporter:v0.11.0'
+    image: '{{ include "registry.ghcr" (merge (dict "_repo" "kubedb/mysqld-exporter") $) }}:v0.11.0'
   gitSyncer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "registry.k8s.io" "_repo" "git-sync") .Values) }}/git-sync:v4.0.0-rc5'
+    image: '{{ include "registry.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.0.0-rc5'
   initContainer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/toybox:0.8.4'
+    image: '{{ include "registry.ghcr" (merge (dict "_repo" "kubedb/toybox") $) }}:0.8.4'
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/replication-mode-detector:v0.23.0'
+    image: '{{ include "registry.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.23.0'
   stash:
     addon:
       backupTask:
@@ -45,19 +45,19 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
-    image: '{{ include "official.registry" (merge (dict "_bin" "mysql") .Values) }}:5.7.33'
+    image: '{{ include "registry.dockerLibrary" (merge (dict "_repo" "mysql") $) }}:5.7.33'
   deprecated: true
   distribution: Official
   exporter:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prom") .Values) }}/mysqld-exporter:v0.13.0'
+    image: '{{ include "registry.dockerHub" (merge (dict "_repo" "prom/mysqld-exporter") $) }}:v0.13.0'
   gitSyncer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "registry.k8s.io" "_repo" "git-sync") .Values) }}/git-sync:v4.0.0-rc5'
+    image: '{{ include "registry.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.0.0-rc5'
   initContainer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/mysql-init:5.7'
+    image: '{{ include "registry.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:5.7'
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/replication-mode-detector:v0.23.0'
+    image: '{{ include "registry.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.23.0'
   stash:
     addon:
       backupTask:

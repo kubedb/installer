@@ -7,13 +7,13 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/percona-xtradb-coordinator:v0.9.0'
+    image: '{{ include "registry.ghcr" (merge (dict "_repo" "kubedb/percona-xtradb-coordinator") $) }}:v0.9.0'
   db:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "percona") .Values) }}/percona-xtradb-cluster:8.0.31'
+    image: '{{ include "registry.dockerHub" (merge (dict "_repo" "percona/percona-xtradb-cluster") $) }}:8.0.31'
   exporter:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prom") .Values) }}/mysqld-exporter:v0.13.0'
+    image: '{{ include "registry.dockerHub" (merge (dict "_repo" "prom/mysqld-exporter") $) }}:v0.13.0'
   initContainer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/percona-xtradb-init:0.2.0'
+    image: '{{ include "registry.ghcr" (merge (dict "_repo" "kubedb/percona-xtradb-init") $) }}:0.2.0'
   podSecurityPolicies:
     databasePolicyName: percona-xtradb-db
   stash:

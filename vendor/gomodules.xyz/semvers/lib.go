@@ -78,6 +78,10 @@ func Compare(i, j string) bool {
 	return strings.Compare(i, j) < 0
 }
 
+func CompareDesc(i, j string) bool {
+	return !Compare(i, j)
+}
+
 func SortVersions(versions []string, compare func(vi, vj string) bool) []string {
 	sort.Slice(versions, func(i, j int) bool {
 		return compare(versions[i], versions[j])
