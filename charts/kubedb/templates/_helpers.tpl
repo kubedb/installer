@@ -127,26 +127,6 @@ Returns the --insecure-registries flags
 {{- end -}}
 {{- end }}
 
-{{- define "image.dockerHub" -}}
-{{ prepend (list ._repo) (list .Values.proxies.dockerHub .Values.global.registryFQDN .Values.registryFQDN | compact | first) | compact | join "/" }}
-{{- end }}
-
-{{- define "image.dockerLibrary" -}}
-{{ prepend (list ._repo) (list .Values.proxies.dockerLibrary .Values.proxies.dockerHub .Values.global.registryFQDN .Values.registryFQDN | compact | first) | compact | join "/" }}
-{{- end }}
-
-{{- define "image.ghcr" -}}
-{{ prepend (list ._repo) (list .Values.proxies.ghcr .Values.global.registryFQDN .Values.registryFQDN | compact | first) | compact | join "/" }}
-{{- end }}
-
-{{- define "image.kubernetes" -}}
-{{ prepend (list ._repo) (list .Values.proxies.kubernetes .Values.global.registryFQDN .Values.registryFQDN | compact | first) | compact | join "/" }}
-{{- end }}
-
-{{- define "image.appscode" -}}
-{{ prepend (list ._repo) (list .Values.proxies.appscode .Values.global.registryFQDN .Values.registryFQDN | compact | first) | compact | join "/" }}
-{{- end }}
-
 {{/*
 Returns the enabled monitoring agent name
 */}}

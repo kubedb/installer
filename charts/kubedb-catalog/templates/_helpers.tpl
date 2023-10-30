@@ -63,21 +63,21 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "image.dockerHub" -}}
-{{ prepend (list ._repo) (list .Values.proxies.dockerHub .Values.registryFQDN | compact | first) | compact | join "/" }}
+{{ list .Values.proxies.dockerHub ._repo | compact | join "/" }}
 {{- end }}
 
 {{- define "image.dockerLibrary" -}}
-{{ prepend (list ._repo) (list .Values.proxies.dockerLibrary .Values.proxies.dockerHub .Values.registryFQDN | compact | first) | compact | join "/" }}
+{{ prepend (list ._repo) (list .Values.proxies.dockerLibrary .Values.proxies.dockerHub | compact | first) | compact | join "/" }}
 {{- end }}
 
 {{- define "image.ghcr" -}}
-{{ prepend (list ._repo) (list .Values.proxies.ghcr .Values.registryFQDN | compact | first) | compact | join "/" }}
+{{ list .Values.proxies.ghcr ._repo | compact | join "/" }}
 {{- end }}
 
 {{- define "image.kubernetes" -}}
-{{ prepend (list ._repo) (list .Values.proxies.kubernetes .Values.registryFQDN | compact | first) | compact | join "/" }}
+{{ list .Values.proxies.kubernetes ._repo | compact | join "/" }}
 {{- end }}
 
 {{- define "image.appscode" -}}
-{{ prepend (list ._repo) (list .Values.proxies.appscode .Values.registryFQDN | compact | first) | compact | join "/" }}
+{{ list .Values.proxies.appscode ._repo | compact | join "/" }}
 {{- end }}
