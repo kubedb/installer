@@ -1,0 +1,40 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "kubedb-provider-aws.fullname" . }}
+  labels:
+    {{- include "kubedb-provider-aws.labels" . | nindent 4 }}
+rules:
+- apiGroups:
+  - aws.kubedb.com
+  - docdb.aws.kubedb.com
+  - dynamodb.aws.kubedb.com
+  - ec2.aws.kubedb.com
+  - elasticache.aws.kubedb.com
+  - elasticsearch.aws.kubedb.com
+  - kafka.aws.kubedb.com
+  - kinesis.aws.kubedb.com
+  - kms.aws.kubedb.com
+  - memorydb.aws.kubedb.com
+  - rds.aws.kubedb.com
+  resources: ["*"]
+  verbs: ["*"]
+- apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - customresourcedefinitions
+  verbs: ["*"]
+- apiGroups: [""]
+  resources:
+  - nodes
+  - secrets
+  verbs: ["list","watch","get"]
+- apiGroups: [""]
+  resources:
+    - serviceaccounts
+  verbs: ["create", "get", "patch", "list", "watch"]
+- apiGroups:
+    - ""
+  resources:
+    - events
+  verbs: ["*"]
