@@ -1,0 +1,77 @@
+# Default values for kubedb-provider-gcp.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Overrides name template
+nameOverride: ""
+# Overrides fullname template
+fullnameOverride: ""
+
+replicaCount: 1
+
+# Docker registry fqdn used to pull docker images
+# Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image}
+registryFQDN: ghcr.io
+image:
+  # Docker registry used to pull operator image
+  registry: kubedb
+  # Name of operator container image
+  repository: provider-gcp
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+  # Compute Resources required by the operator container
+  resources: {}
+  # Security options the operator container should run with
+  securityContext: # +doc-gen:break
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 65534
+    seccompProfile:
+      type: RuntimeDefault
+
+# Specify an array of imagePullSecrets.
+# Secrets must be manually created in the namespace.
+#
+# Example:
+# helm template charts/stash \
+#   --set imagePullSecrets[0].name=sec0 \
+#   --set imagePullSecrets[1].name=sec1
+imagePullSecrets: []
+# Container image pull policy
+imagePullPolicy: Always
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+monitoring:
+  # Name of monitoring agent (one of "prometheus.io", "prometheus.io/operator", "prometheus.io/builtin")
+  agent: ""
+  serviceMonitor:
+    # Specify the labels for ServiceMonitor.
+    # Prometheus crd will select ServiceMonitor using these labels.
+    # Only usable when monitoring agent is `prometheus.io/operator`.
+    labels: {}
+
+gcp:
+  projectID: ""
+  secretName: "gcp-credential"
