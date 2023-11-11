@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "kubedb-provider-aws.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubedb-provider-aws.labels" . | nindent 4 }}
+{{- if eq "prometheus.io/builtin" ( include "monitoring.agent" . ) }}
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/metrics"
+    prometheus.io/port: "8443"
+    prometheus.io/scheme: "https"
+{{- end }}
+spec:
+  ports:
+  # Port used to expose admission webhook apiserver
+  - name: metrics
+    port: 8080
+    targetPort: 8080
+  - name: webhook
+    port: 443
+    targetPort: 9443
+  selector:
+    {{- include "kubedb-provider-aws.selectorLabels" . | nindent 4 }}
