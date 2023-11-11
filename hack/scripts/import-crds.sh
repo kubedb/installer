@@ -16,7 +16,7 @@
 
 set -eou pipefail
 
-crd_dir=${1:-}
+crd_dir=${1:-}/apimachinery/crds
 
 api_repo_url=https://github.com/kubedb/apimachinery.git
 api_repo_tag=${KUBEDB_APIMACHINERY_TAG:-master}
@@ -97,3 +97,106 @@ crd-importer \
 crd-importer \
     --input=https://github.com/kubeops/supervisor/raw/v0.0.3/crds/supervisor.appscode.com_recommendations.yaml \
     --out=./charts/kubedb-ops-manager/crds
+
+{
+    crd_dir=${1:-}/provider-aws/package/crds
+
+    repo_url=https://github.com/kubedb/provider-aws.git
+    repo_tag=${KUBEDB_PROVIDER_AWS_TAG:-main}
+
+    if [ "$#" -ne 1 ]; then
+        if [ "${repo_tag}" == "main" ]; then
+            echo "Error: missing path_to_input_crds_directory"
+            echo "Usage: import-crds.sh <path_to_input_crds_directory>"
+            exit 1
+        fi
+
+        tmp_dir=$(mktemp -d -t api-XXXXXXXXXX)
+        # always cleanup temp dir
+        # ref: https://opensource.com/article/20/6/bash-trap
+        trap \
+            "{ rm -rf "${tmp_dir}"; }" \
+            SIGINT SIGTERM ERR EXIT
+
+        mkdir -p ${tmp_dir}
+        pushd $tmp_dir
+        git clone $repo_url
+        repo_dir=$(ls -b1)
+        cd $repo_dir
+        git checkout $repo_tag
+        popd
+        crd_dir=${tmp_dir}/${repo_dir}/package/crds
+    fi
+
+    crd-importer \
+        --input=${crd_dir} \
+        --out=./charts/kubedb-provider-aws/crds
+}
+{
+    crd_dir=${1:-}/provider-azure/package/crds
+
+    repo_url=https://github.com/kubedb/provider-azure.git
+    repo_tag=${KUBEDB_PROVIDER_AZURE_TAG:-main}
+
+    if [ "$#" -ne 1 ]; then
+        if [ "${repo_tag}" == "main" ]; then
+            echo "Error: missing path_to_input_crds_directory"
+            echo "Usage: import-crds.sh <path_to_input_crds_directory>"
+            exit 1
+        fi
+
+        tmp_dir=$(mktemp -d -t api-XXXXXXXXXX)
+        # always cleanup temp dir
+        # ref: https://opensource.com/article/20/6/bash-trap
+        trap \
+            "{ rm -rf "${tmp_dir}"; }" \
+            SIGINT SIGTERM ERR EXIT
+
+        mkdir -p ${tmp_dir}
+        pushd $tmp_dir
+        git clone $repo_url
+        repo_dir=$(ls -b1)
+        cd $repo_dir
+        git checkout $repo_tag
+        popd
+        crd_dir=${tmp_dir}/${repo_dir}/package/crds
+    fi
+
+    crd-importer \
+        --input=${crd_dir} \
+        --out=./charts/kubedb-provider-azure/crds
+}
+{
+    crd_dir=${1:-}/provider-gcp/package/crds
+
+    repo_url=https://github.com/kubedb/provider-gcp.git
+    repo_tag=${KUBEDB_PROVIDER_GCP_TAG:-main}
+
+    if [ "$#" -ne 1 ]; then
+        if [ "${repo_tag}" == "main" ]; then
+            echo "Error: missing path_to_input_crds_directory"
+            echo "Usage: import-crds.sh <path_to_input_crds_directory>"
+            exit 1
+        fi
+
+        tmp_dir=$(mktemp -d -t api-XXXXXXXXXX)
+        # always cleanup temp dir
+        # ref: https://opensource.com/article/20/6/bash-trap
+        trap \
+            "{ rm -rf "${tmp_dir}"; }" \
+            SIGINT SIGTERM ERR EXIT
+
+        mkdir -p ${tmp_dir}
+        pushd $tmp_dir
+        git clone $repo_url
+        repo_dir=$(ls -b1)
+        cd $repo_dir
+        git checkout $repo_tag
+        popd
+        crd_dir=${tmp_dir}/${repo_dir}/package/crds
+    fi
+
+    crd-importer \
+        --input=${crd_dir} \
+        --out=./charts/kubedb-provider-gcp/crds
+}
