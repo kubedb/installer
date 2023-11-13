@@ -370,7 +370,7 @@ ct: $(BUILD_DIRS)
 	    $(CHART_TEST_IMAGE)                                     \
 	    /bin/sh -c "                                            \
 	      set -x; \
-	      kubectl delete crds --all; \
+	      ./hack/scripts/cleanup.sh; \
 	      ./hack/scripts/update-chart-dependencies.sh; \
 	      ct $(CT_COMMAND) --debug --validate-maintainers=false $(CT_ARGS) \
 	    "
