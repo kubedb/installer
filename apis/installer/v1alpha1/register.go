@@ -70,6 +70,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&KubedbSchemaManagerList{},
 		&KubedbWebhookServer{},
 		&KubedbWebhookServerList{},
+		&PrepareCluster{},
+		&PrepareClusterList{},
 	)
 
 	scheme.AddKnownTypes(SchemeGroupVersion,

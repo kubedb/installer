@@ -39,6 +39,7 @@ func TestDefaultValues(t *testing.T) {
 		schemachecker.TestCase{Obj: v1alpha1.KubedbSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.KubedbUiServerSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.KubedbWebhookServerSpec{}},
+		schemachecker.TestCase{Obj: v1alpha1.PrepareClusterSpec{}},
 	)
 	checker.TestAll(t)
 }

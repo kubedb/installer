@@ -1,0 +1,133 @@
+# Default values for prepare-cluster.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Overrides name template
+nameOverride: ""
+# Overrides fullname template
+fullnameOverride: ""
+
+preparer:
+  # Docker image used to run kernel configuration commands
+  repository: tianon/toybox
+  # Image pull policy of Docker image used for node preparation
+  pullPolicy: IfNotPresent
+  # Image tag of Docker image used for node preparation
+  tag: 0.8.4
+  # Security options the node preparer container should run with
+  securityContext: # +doc-gen:break
+    privileged: true
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+cleaner:
+  # Docker image used to uninstall this helm release
+  repository: ghcr.io/appscode/helm
+  # Image pull policy of Docker image used for helm command
+  pullPolicy: IfNotPresent
+  # Image tag of Docker image used for helm command
+  tag: 3.11.3
+  # Skip generating cleaner YAML
+  skip: true
+  # Security options the helm cleaner container should run with
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+# Specify an array of imagePullSecrets.
+# Secrets must be manually created in the namespace.
+#
+# Example:
+# helm template charts/prepare-cluster \
+#   --set imagePullSecrets[0].name=sec0 \
+#   --set imagePullSecrets[1].name=sec1
+imagePullSecrets: []
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# Annotations passed to operator pod(s).
+podAnnotations: {}
+
+# Security options the operator pod should run with.
+podSecurityContext: {}
+  # fsGroup: 2000
+
+# Compute Resources required by the node preparer and helm cleaner container
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+# Node labels for pod assignment
+nodeSelector: # +doc-gen:break
+  kubernetes.io/os: linux
+
+# Tolerations for pod assignment
+tolerations: []
+
+# Affinity rules for pod assignment
+affinity: {}
+
+node:
+  # Specify an array of features to be enabled in a Kubernetes node.
+  # Available features:
+  # - DISABLE_THP: Disable Transparent Huge Page
+  #
+  # Example:
+  # helm template charts/prepare-cluster \
+  #   --set node.features[0]=DISABLE_THP
+  features: ["DISABLE_THP", "SET_READ_AHEAD", "ULIMIT", "ZONE_RECLAIM"]
+  # Specify an array of sysctl parameters.
+  #
+  # Example:
+  # helm template charts/prepare-cluster \
+  #   --set node.sysctls[0].name=vm.max_map_count \
+  #   --set node.sysctls[0].value=300000
+  sysctls: # +doc-gen:break
+    - name: fs.file-max
+      value: "98000"
+    - name: kernel.pid_max
+      value: "64000"
+    - name: kernel.threads-max
+      value: "64000"
+    - name: vm.max_map_count
+      value: "128000"
+    - name: vm.zone_reclaim_mode
+      value: "0"
+
+# Copy existing StorageClass into a new one with additional configuration
+#
+# Example:
+# helm install prepare-cluster charts/prepare-cluster --dry-run=server \
+#   --set copyStorageClasses.standard.name=optimized \
+#   --set copyStorageClasses.standard.mountOptions[0]=noatime \
+#   --set copyStorageClasses.standard.params."csi\.storage\.k8s\.io/fstype=xfs"
+copyStorageClasses: {}
+  # standard:
+  #   name: optimized
+  #   mountOptions:
+  #   - noatime
+  #   params:
+  #     csi.storage.k8s.io/fstype: xfs
