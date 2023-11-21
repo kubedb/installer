@@ -1,0 +1,77 @@
+{{ $cmds := list "" }}
+
+{{ range $x := .Values.node.features }}
+  {{ if eq $x "DISABLE_THP" }}
+    {{ $cmds = append $cmds "echo never > /host/sys/kernel/mm/transparent_hugepage/enabled" }}
+  {{ end }}
+  {{ if eq $x "ULIMIT" }}
+    {{ $cmds = append $cmds "echo -e '\\n* hard nofile 64000 \\n* soft nofile 64000 \\n* hard nproc 64000 \\n* soft nproc 64000' >> /host/etc/security/limits.conf" }}
+  {{ end }}
+{{ end }}
+
+{{ range $x := .Values.node.sysctls }}
+  {{ $cmds = append $cmds (printf "sysctl -w %v=%v" $x.name $x.value) }}
+{{ end }}
+
+{{ $cmds = append $cmds "sleep 3600" }}
+{{ $cmds = compact $cmds }}
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ include "prepare-cluster.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "prepare-cluster.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "prepare-cluster.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "prepare-cluster.selectorLabels" . | nindent 8 }}
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "prepare-cluster.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: preparer
+          securityContext:
+            {{- toYaml .Values.preparer.securityContext | nindent 12 }}
+          image: "{{ .Values.preparer.repository }}:{{ .Values.preparer.tag }}"
+          imagePullPolicy: {{ .Values.preparer.pullPolicy }}
+          command:
+            - sh
+            - -c
+            - {{ join ";" $cmds }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: host-root
+              mountPath: /host
+      volumes:
+        - name: host-root
+          hostPath:
+            path: /
+      restartPolicy: Always
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
