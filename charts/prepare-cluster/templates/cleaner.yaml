@@ -1,0 +1,52 @@
+{{- if not .Values.cleaner.skip }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "prepare-cluster.fullname" . }}-cleaner
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
+spec:
+  backoffLimit: 3
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "prepare-cluster.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: cleaner
+          securityContext:
+            {{- toYaml .Values.cleaner.securityContext | nindent 12 }}
+          image: "{{ .Values.cleaner.repository }}:{{ .Values.cleaner.tag }}"
+          imagePullPolicy: {{ .Values.cleaner.pullPolicy }}
+          command:
+            - helm
+            - uninstall
+            - {{ .Release.Name }}
+            - --namespace={{ .Release.Namespace }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      restartPolicy: Never
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{ end }}
