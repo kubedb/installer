@@ -48,7 +48,7 @@ endif
 ###
 
 SRC_PKGS := apis # directories which hold app source (not vendored)
-SRC_DIRS := $(SRC_PKGS) hack/fmt
+SRC_DIRS := $(SRC_PKGS) catalog
 
 DOCKER_PLATFORMS := linux/amd64 linux/arm linux/arm64
 BIN_PLATFORMS    := $(DOCKER_PLATFORMS)
@@ -60,7 +60,7 @@ ARCH := $(if $(GOARCH),$(GOARCH),$(shell go env GOARCH))
 BASEIMAGE_PROD   ?= gcr.io/distroless/static-debian11
 BASEIMAGE_DBG    ?= debian:bullseye
 
-GO_VERSION       ?= 1.20
+GO_VERSION       ?= 1.21
 BUILD_IMAGE      ?= ghcr.io/appscode/golang-dev:$(GO_VERSION)
 CHART_TEST_IMAGE ?= quay.io/helmpack/chart-testing:v3.8.0
 
@@ -278,7 +278,8 @@ fmt: $(BUILD_DIRS)
 	    $(BUILD_IMAGE)                                          \
 	    /bin/bash -c "                                          \
 	        set -eou pipefail;                                  \
-	        go run ./hack/fmt/main.go;                          \
+	        go run ./catalog/kubedb/fmt/main.go;                \
+	        go run ./catalog/kubestash/fmt/main.go;             \
 	        REPO_PKG=$(GO_PKG)                                  \
 	        ./hack/fmt.sh $(SRC_DIRS)                           \
 	    "

@@ -27,13 +27,14 @@ import (
 
 func TestDefaultValues(t *testing.T) {
 	checker := schemachecker.New(os.DirFS("../../.."),
-		schemachecker.TestCase{Obj: v1alpha1.KubedbProviderAwsSpec{}},
-		schemachecker.TestCase{Obj: v1alpha1.KubedbProviderAzureSpec{}},
-		schemachecker.TestCase{Obj: v1alpha1.KubedbProviderGcpSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.KubedbAutoscalerSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.KubedbCatalogSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.KubedbDashboardSpec{}},
+		schemachecker.TestCase{Obj: v1alpha1.KubedbKubestashCatalogSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.KubedbOpsManagerSpec{}},
+		schemachecker.TestCase{Obj: v1alpha1.KubedbProviderAwsSpec{}},
+		schemachecker.TestCase{Obj: v1alpha1.KubedbProviderAzureSpec{}},
+		schemachecker.TestCase{Obj: v1alpha1.KubedbProviderGcpSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.KubedbProvisionerSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.KubedbSchemaManagerSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.KubedbSpec{}},
