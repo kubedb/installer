@@ -62,6 +62,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&KubedbDashboardList{},
 		&Kubedb{},
 		&KubedbList{},
+		&KubedbKubestashCatalog{},
+		&KubedbKubestashCatalogList{},
 		&KubedbOpsManager{},
 		&KubedbOpsManagerList{},
 		&KubedbProvisioner{},
@@ -70,6 +72,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&KubedbSchemaManagerList{},
 		&KubedbWebhookServer{},
 		&KubedbWebhookServerList{},
+		&PrepareCluster{},
+		&PrepareClusterList{},
 	)
 
 	scheme.AddKnownTypes(SchemeGroupVersion,

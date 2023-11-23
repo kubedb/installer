@@ -1,0 +1,20 @@
+{{ if .Values.elasticsearch.enabled }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'elasticsearch-backup'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  args:
+  - backup
+  - --namespace=${namespace:=default}
+  - --backupsession=${backupSession:=}
+  - --enable-cache=${enableCache:=}
+  - --scratch-dir=${scratchDir:=}
+  - --wait-timeout=${waitTimeout:={{ .Values.waitTimeout}}}
+  - --es-args=${args:={{ .Values.elasticsearch.args }}}
+  - --interim-data-dir=${interimDataDir:=}
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-restic-plugin") $) }}:v0.1.0-rc.1'
+{{ end }}
+

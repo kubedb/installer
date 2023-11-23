@@ -7,15 +7,15 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/pg-coordinator:v0.19.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.21.0'
   db:
     baseOS: bullseye
-    image: '{{ include "official.registry" (merge (dict "_bin" "postgres") .Values) }}:14.7-bullseye'
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:14.7-bullseye'
   distribution: Official
   exporter:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prometheuscommunity") .Values) }}/postgres-exporter:v0.9.0'
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.9.0'
   initContainer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/postgres-init:0.8.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.10.0'
   podSecurityPolicies:
     databasePolicyName: postgres-db
   securityContext:
@@ -40,15 +40,15 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/pg-coordinator:v0.19.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.21.0'
   db:
     baseOS: alpine
-    image: '{{ include "official.registry" (merge (dict "_bin" "postgres") .Values) }}:14.7-alpine'
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:14.7-alpine'
   distribution: Official
   exporter:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prometheuscommunity") .Values) }}/postgres-exporter:v0.9.0'
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.9.0'
   initContainer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/postgres-init:0.8.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.10.0'
   podSecurityPolicies:
     databasePolicyName: postgres-db
   securityContext:

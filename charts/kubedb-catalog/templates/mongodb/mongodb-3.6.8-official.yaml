@@ -17,18 +17,20 @@ spec:
         volumeSnapshot:
           NAME: VolumeSnapshot
     walg:
-      image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/wal-g:v2023.11.30_mongo'
+      image: ghcr.io/kubedb/wal-g:v2023.11.30_mongo
   db:
-    image: '{{ include "official.registry" (merge (dict "_bin" "mongo") .Values) }}:3.6.8'
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "mongo") $) }}:3.6.8'
   distribution: Official
   exporter:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/mongodb_exporter:v0.32.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.32.0'
+  gitSyncer:
+    image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.1.0'
   initContainer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/mongodb-init:4.1-v8'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb-init") $) }}:4.1-v8'
   podSecurityPolicies:
     databasePolicyName: mongodb-db
   replicationModeDetector:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/replication-mode-detector:v0.22.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.24.0'
   stash:
     addon:
       backupTask:
@@ -51,16 +53,18 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/mongo:3.6.8'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongo") $) }}:3.6.8'
   deprecated: true
   distribution: Official
   exporter:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/mongodb_exporter:v0.20.4'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.20.4'
+  gitSyncer:
+    image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.1.0'
   initContainer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/busybox'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/busybox") $) }}'
   podSecurityPolicies:
     databasePolicyName: mongodb-db
   replicationModeDetector:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/replication-mode-detector:v0.22.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.24.0'
   version: 3.6.8
 {{ end }}

@@ -8,13 +8,13 @@ metadata:
 spec:
   authPlugin: SearchGuard
   db:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "floragunncom") .Values) }}/sg-elasticsearch:7.8.1-oss-43.0.0'
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "floragunncom/sg-elasticsearch") $) }}:7.8.1-oss-43.0.0'
   distribution: SearchGuard
   exporter:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prometheuscommunity") .Values) }}/elasticsearch-exporter:v1.3.0'
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.3.0'
   initContainer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "tianon") .Values) }}/toybox:0.8.4'
-    yqImage: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/elasticsearch-init:7.8.1-searchguard'
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "tianon/toybox") $) }}:0.8.4'
+    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-init") $) }}:7.8.1-searchguard'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   securityContext:

@@ -1,0 +1,34 @@
+{{- if not .Values.cleaner.skip }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "prepare-cluster.fullname" . }}
+  labels:
+    {{- include "prepare-cluster.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
+rules:
+- apiGroups:
+  - apps
+  resources:
+  - daemonsets
+  verbs: ["get", "list", "delete"]
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  verbs: ["get", "list", "delete"]
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  - serviceaccounts
+  verbs: ["get", "list", "delete"]
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resources:
+  - clusterroles
+  - clusterrolebindings
+  verbs: ["get", "list", "delete"]
+{{ end }}

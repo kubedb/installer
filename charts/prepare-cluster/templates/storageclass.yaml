@@ -1,0 +1,24 @@
+{{- range $old, $nu := .Values.copyStorageClasses }}
+
+{{ $oldObj := lookup "storage.k8s.io/v1" "StorageClass" "" $old }}
+
+{{- if $oldObj }}
+
+{{- $_ := set $oldObj "metadata" (dict "name" $nu.name) }}
+{{- $_ := set $oldObj "mountOptions" $nu.mountOptions }}
+
+{{- $params := dict }}
+{{- if $oldObj.parameters }}
+{{- $params = $oldObj.parameters }}
+{{- end }}
+
+{{- if $nu.params }}
+{{ $params = mergeOverwrite $params $nu.params }}
+{{- end }}
+
+{{- $_ := set $oldObj "parameters" $params }}
+
+{{ toYaml $oldObj }}
+
+{{- end }}
+{{- end }}

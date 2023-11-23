@@ -1373,18 +1373,26 @@ properties:
         type: boolean
       fullnameOverride:
         type: string
-      image:
-        properties:
-          overrideOfficialRegistry:
-            type: boolean
-          registry:
-            type: string
-        required:
-        - overrideOfficialRegistry
-        - registry
-        type: object
       nameOverride:
         type: string
+      proxies:
+        properties:
+          appscode:
+            description: r.appscode.com
+            type: string
+          dockerHub:
+            description: company/bin:1.23
+            type: string
+          dockerLibrary:
+            description: alpine, nginx etc.
+            type: string
+          ghcr:
+            description: ghcr.io
+            type: string
+          kubernetes:
+            description: registry.k8s.io
+            type: string
+        type: object
       psp:
         properties:
           elasticsearch:
@@ -1397,6 +1405,8 @@ properties:
             - allowPrivilegeEscalation
             - privileged
             type: object
+          enabled:
+            type: boolean
           kafka:
             properties:
               allowPrivilegeEscalation:
@@ -1488,18 +1498,15 @@ properties:
             - privileged
             type: object
         required:
+        - enabled
         - kafka
         type: object
-      registryFQDN:
-        type: string
       skipDeprecated:
         type: boolean
     required:
     - catalog
     - enabled
-    - image
     - psp
-    - registryFQDN
     - skipDeprecated
     type: object
   kubedb-dashboard:
@@ -3989,6 +3996,13 @@ properties:
                 type: string
             type: object
         type: object
+      psp:
+        properties:
+          enabled:
+            type: boolean
+        required:
+        - enabled
+        type: object
       recommendationEngine:
         properties:
           genRotateTLSRecommendationBeforeExpiryDay:
@@ -4068,6 +4082,7 @@ properties:
     - insecureRegistries
     - monitoring
     - operator
+    - psp
     - registryFQDN
     - replicaCount
     - serviceAccount
@@ -5286,6 +5301,13 @@ properties:
                 type: string
             type: object
         type: object
+      psp:
+        properties:
+          enabled:
+            type: boolean
+        required:
+        - enabled
+        type: object
       registryFQDN:
         type: string
       replicaCount:
@@ -5349,6 +5371,7 @@ properties:
     - insecureRegistries
     - monitoring
     - operator
+    - psp
     - registryFQDN
     - replicaCount
     - serviceAccount

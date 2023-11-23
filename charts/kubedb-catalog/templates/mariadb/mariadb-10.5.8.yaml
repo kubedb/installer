@@ -7,13 +7,13 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/mariadb-coordinator:v0.15.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-coordinator") $) }}:v0.17.0'
   db:
-    image: '{{ include "official.registry" (merge (dict "_bin" "mariadb") .Values) }}:10.5.8'
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "mariadb") $) }}:10.5.8'
   exporter:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "" "_repo" "prom") .Values) }}/mysqld-exporter:v0.13.0'
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prom/mysqld-exporter") $) }}:v0.13.0'
   initContainer:
-    image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/mariadb-init:0.5.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-init") $) }}:0.5.0'
   podSecurityPolicies:
     databasePolicyName: maria-db
   stash:
