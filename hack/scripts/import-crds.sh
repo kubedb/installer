@@ -77,6 +77,11 @@ crd-importer \
     --group=catalog.kubedb.com
 
 crd-importer \
+    --input=https://github.com/kubestash/apimachinery/raw/master/crds/addons.kubestash.com_addons.yaml \
+    --input=https://github.com/kubestash/apimachinery/raw/master/crds/addons.kubestash.com_functions.yaml \
+    --out=./charts/kubedb-kubestash-catalog/crds
+
+crd-importer \
     --input=${crd_dir} \
     --out=. --output-yaml=crds/kubedb-catalog-crds.yaml \
     --group=catalog.kubedb.com
