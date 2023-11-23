@@ -49,24 +49,37 @@ spec:
             properties:
               archiver:
                 properties:
-                  fullBackup:
+                  addon:
                     properties:
-                      csiSnapshotter:
-                        properties:
-                          addonName:
-                            type: string
-                        required:
-                        - addonName
-                        type: object
-                    required:
-                    - csiSnapshotter
-                    type: object
-                  manifest:
-                    properties:
-                      addonName:
+                      name:
+                        enum:
+                        - mongodb-addon
+                        - postgres-addon
                         type: string
-                    required:
-                    - addonName
+                      tasks:
+                        properties:
+                          manifestBackup:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                          manifestRestore:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                          volumeSnapshot:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                        type: object
                     type: object
                   walg:
                     properties:
@@ -75,10 +88,6 @@ spec:
                     required:
                     - image
                     type: object
-                required:
-                - fullBackup
-                - manifest
-                - walg
                 type: object
               coordinator:
                 properties:
