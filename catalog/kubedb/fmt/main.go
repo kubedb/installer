@@ -27,7 +27,7 @@ import (
 	"strings"
 	"text/template"
 
-	"kubedb.dev/installer/hack/fmt/templates"
+	"kubedb.dev/installer/catalog/kubedb/fmt/templates"
 
 	"github.com/Masterminds/semver/v3"
 	"github.com/Masterminds/sprig/v3"
@@ -125,7 +125,7 @@ func main() {
 	flag.CommandLine.AddGoFlagSet(goflag.CommandLine)
 	flag.Parse()
 
-	resources, err := parser.ListPathResources(filepath.Join(dir, "catalog", "raw"))
+	resources, err := parser.ListPathResources(filepath.Join(dir, "catalog", "kubedb", "raw"))
 	if err != nil {
 		panic(err)
 	}
@@ -329,7 +329,7 @@ func main() {
 			panic(err)
 		}
 
-		filename := filepath.Join(dir, "catalog", "active_versions.json")
+		filename := filepath.Join(dir, "catalog", "kubedb", "active_versions.json")
 		err = os.MkdirAll(filepath.Dir(filename), 0o755)
 		if err != nil {
 			panic(err)
@@ -354,7 +354,7 @@ func main() {
 			panic(err)
 		}
 
-		filename := filepath.Join(dir, "catalog", "backup_tasks.json")
+		filename := filepath.Join(dir, "catalog", "kubedb", "backup_tasks.json")
 		err = os.MkdirAll(filepath.Dir(filename), 0o755)
 		if err != nil {
 			panic(err)
@@ -379,7 +379,7 @@ func main() {
 			panic(err)
 		}
 
-		filename := filepath.Join(dir, "catalog", "restore_tasks.json")
+		filename := filepath.Join(dir, "catalog", "kubedb", "restore_tasks.json")
 		err = os.MkdirAll(filepath.Dir(filename), 0o755)
 		if err != nil {
 			panic(err)
@@ -426,7 +426,7 @@ func main() {
 		if k.Distro != "" {
 			filenameparts = append(filenameparts, strings.ToLower(k.Distro))
 		}
-		filename := filepath.Join(dir, "catalog", "new_raw", strings.ToLower(dbKind), fmt.Sprintf("%s.yaml", strings.Join(filenameparts, "-")))
+		filename := filepath.Join(dir, "catalog", "kubedb", "new_raw", strings.ToLower(dbKind), fmt.Sprintf("%s.yaml", strings.Join(filenameparts, "-")))
 		err = os.MkdirAll(filepath.Dir(filename), 0o755)
 		if err != nil {
 			panic(err)
@@ -456,7 +456,7 @@ func main() {
 		}
 
 		dbKind := strings.TrimSuffix(k.Kind, "Version")
-		filename := filepath.Join(dir, "catalog", "new_raw", strings.ToLower(dbKind), fmt.Sprintf("%s-psp.yaml", strings.ToLower(dbKind)))
+		filename := filepath.Join(dir, "catalog", "kubedb", "new_raw", strings.ToLower(dbKind), fmt.Sprintf("%s-psp.yaml", strings.ToLower(dbKind)))
 		err = os.MkdirAll(filepath.Dir(filename), 0o755)
 		if err != nil {
 			panic(err)
@@ -470,11 +470,11 @@ func main() {
 
 	{
 		// move new_raw to raw
-		err = os.RemoveAll(filepath.Join(dir, "catalog", "raw"))
+		err = os.RemoveAll(filepath.Join(dir, "catalog", "kubedb", "raw"))
 		if err != nil {
 			panic(err)
 		}
-		err = os.Rename(filepath.Join(dir, "catalog", "new_raw"), filepath.Join(dir, "catalog", "raw"))
+		err = os.Rename(filepath.Join(dir, "catalog", "kubedb", "new_raw"), filepath.Join(dir, "catalog", "kubedb", "raw"))
 		if err != nil {
 			panic(err)
 		}
