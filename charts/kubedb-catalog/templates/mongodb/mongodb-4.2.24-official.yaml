@@ -6,6 +6,18 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  archiver:
+    addon:
+      name: mongodb-addon
+      tasks:
+        manifestBackup:
+          name: ManifestBackup
+        manifestRestore:
+          name: ManifestRestore
+        volumeSnapshot:
+          NAME: VolumeSnapshot
+    walg:
+      image: '{{ include "catalog.registry" (merge (dict "_reg" "ghcr.io" "_repo" "kubedb") .Values) }}/wal-g:v2023.11.30_mongo'
   db:
     image: '{{ include "official.registry" (merge (dict "_bin" "mongo") .Values) }}:4.2.24'
   distribution: Official
