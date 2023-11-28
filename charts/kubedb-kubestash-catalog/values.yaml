@@ -44,17 +44,6 @@ opensearch:
 kubedbmanifest:
   # If true, deploys KubeDBManifest addon
   enabled: true
-kubedump:
-  # If true, deploy kubedump addon
-  enabled: true
-  # Optional arguments to pass to the backup process
-  backup:
-    # Specify whether to remove the decorator
-    sanitize: true
-    # Specify label selector to filter resources
-    labelSelector: ""
-    # Specify whether to include the dependants resources along with it's parent
-    includeDependants: false
 mongodb:
   # If true, deploys MongoDB addon
   enabled: true
@@ -67,6 +56,17 @@ mongodb:
   restore:
     # Arguments to pass to `mongorestore` command during restore process
     args: ""
+postgres:
+  # If true, deploys PostgreSQL addon
+  enabled: true
+  backup:
+    # Postgres dump command, can either be: pg_dumpall  or pg_dump
+    cmd: "pg_dumpall"
+    # Arguments to pass to `backup.cmd` command during backup process
+    args: ""
+  restore:
+    # Arguments to pass to `psql` command during restore process
+    args: ""
 mysql:
   # If true, deploys MySQL addon
   enabled: true
@@ -77,9 +77,6 @@ mysql:
   restore:
     # Arguments to pass to `mysql` command during restore process
     args: ""
-pvc:
-  # If true, deploys PVC addon
-  enabled: true
 redis:
   # If true, deploys Redis addon
   enabled: true
@@ -90,9 +87,3 @@ redis:
   restore:
     # Arguments to pass to `redis` command during restore process
     args: ""
-volumesnapshot:
-  # If true, deploys VolumeSnapshot addon
-  enabled: true
-workload:
-  # If true, deploys Workload addon
-  enabled: true

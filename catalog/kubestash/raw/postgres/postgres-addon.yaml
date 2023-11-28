@@ -1,36 +1,11 @@
 apiVersion: addons.kubestash.com/v1alpha1
 kind: Addon
 metadata:
-  name: mongodb-addon
+  name: postgres-addon
 spec:
   backupTasks:
-  - name: LogicalBackup
-    function: mongodb-backup
-    driver: Restic
-    executor: Job
-    singleton: true
-    parameters:
-    - name: args
-      usage: Arguments to be passed to the dump command.
-      required: false
-    - name: enableCache
-      usage: Enable or disable caching. Disabling caching may impact backup performance.
-      required: false
-      default: "true"
-    - name: scratchDir
-      usage: Directory for holding temporary files and restic cache.
-      required: false
-      default: /kubestash-tmp
-    volumeTemplate:
-    - name: kubestash-tmp-volume
-      usage: Holds temporary files and restic cache.
-      source:
-        emptyDir: {}
-    volumeMounts:
-    - name: kubestash-tmp-volume
-      mountPath: /kubestash-tmp
   - name: VolumeSnapshot
-    function: mongodb-csisnapshotter
+    function: postgres-csisnapshotter
     driver: VolumeSnapshotter
     executor: Job
     singleton: true
@@ -61,31 +36,6 @@ spec:
       - name: kubestash-tmp-volume
         mountPath: /kubestash-tmp
   restoreTasks:
-  - name: LogicalBackupRestore
-    function: mongodb-restore
-    driver: Restic
-    executor: Job
-    singleton: true
-    parameters:
-    - name: args
-      usage: Arguments to be passed to the dump command.
-      required: false
-    - name: enableCache
-      usage: Enable or disable caching. Disabling caching may impact backup performance.
-      required: false
-      default: "true"
-    - name: scratchDir
-      usage: Directory for holding temporary files and restic cache.
-      required: false
-      default: /kubestash-tmp
-    volumeTemplate:
-    - name: kubestash-tmp-volume
-      usage: Holds temporary files and restic cache.
-      source:
-        emptyDir: {}
-    volumeMounts:
-    - name: kubestash-tmp-volume
-      mountPath: /kubestash-tmp
   - name: ManifestRestore
     function: kubedbmanifest-restore
     driver: Restic
