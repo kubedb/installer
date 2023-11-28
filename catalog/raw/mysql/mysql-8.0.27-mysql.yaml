@@ -1,0 +1,37 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  name: 8.0.27-innodb
+spec:
+  coordinator:
+    image: ghcr.io/kubedb/mysql-coordinator:v0.15.0
+  db:
+    image: mysql/mysql-server:8.0.27
+  distribution: MySQL
+  exporter:
+    image: ghcr.io/kubedb/mysqld-exporter:v0.13.1
+  gitSyncer:
+    image: registry.k8s.io/git-sync/git-sync:v4.0.0-rc5
+  initContainer:
+    image: ghcr.io/kubedb/mysql-init:8.0.26-v3
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  replicationModeDetector:
+    image: ghcr.io/kubedb/replication-mode-detector:v0.24.0
+  router:
+    image: mysql/mysql-router:8.0.27
+  routerInitContainer:
+    image: ghcr.io/kubedb/mysql-router-init:v0.15.0
+  stash:
+    addon:
+      backupTask:
+        name: mysql-backup-8.0.21
+      restoreTask:
+        name: mysql-restore-8.0.21
+  updateConstraints:
+    denylist:
+      groupReplication:
+      - < 8.0.27
+      standalone:
+      - < 8.0.27
+  version: 8.0.27

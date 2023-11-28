@@ -1,0 +1,54 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  name: "8"
+spec:
+  db:
+    image: ghcr.io/kubedb/mysql:8
+  deprecated: true
+  distribution: Official
+  exporter:
+    image: ghcr.io/kubedb/operator:0.8.0
+  gitSyncer:
+    image: registry.k8s.io/git-sync/git-sync:v4.0.0-rc5
+  initContainer:
+    image: ghcr.io/kubedb/busybox
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  replicationModeDetector:
+    image: ghcr.io/kubedb/replication-mode-detector:v0.24.0
+  updateConstraints:
+    denylist:
+      groupReplication:
+      - < 8.0.17
+      standalone:
+      - < 8.0.17
+  version: "8"
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  name: 8-v1
+spec:
+  db:
+    image: ghcr.io/kubedb/mysql:8-v1
+  deprecated: true
+  distribution: Official
+  exporter:
+    image: ghcr.io/kubedb/mysqld-exporter:v0.11.0
+  gitSyncer:
+    image: registry.k8s.io/git-sync/git-sync:v4.0.0-rc5
+  initContainer:
+    image: ghcr.io/kubedb/busybox
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  replicationModeDetector:
+    image: ghcr.io/kubedb/replication-mode-detector:v0.24.0
+  updateConstraints:
+    denylist:
+      groupReplication:
+      - < 8.0.17
+      standalone:
+      - < 8.0.17
+  version: "8"
