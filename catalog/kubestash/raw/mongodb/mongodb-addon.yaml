@@ -29,6 +29,15 @@ spec:
     volumeMounts:
     - name: kubestash-tmp-volume
       mountPath: /kubestash-tmp
+  - name: VolumeSnapshot
+    function: mongodb-csisnapshotter
+    driver: VolumeSnapshotter
+    executor: Job
+    singleton: true
+    parameters:
+      - name: volumeSnapshotClassName
+        usage: The VolumeSnapshotClassName to be used by volumeSnapshot
+        required: false
   - name: ManifestBackup
     function: kubedbmanifest-backup
     driver: Restic
