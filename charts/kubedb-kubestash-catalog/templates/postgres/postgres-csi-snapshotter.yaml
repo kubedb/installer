@@ -1,0 +1,16 @@
+{{ if .Values.postgres.enabled }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'postgres-csi-snapshotter'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  args:
+  - backup
+  - --namespace=${namespace:=default}
+  - --volume-snapshot-class-name=${volumeSnapshotClassName:=}
+  - --backupsession=${backupSession:=}
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-csi-snapshotter-plugin") $) }}:v0.0.1'
+{{ end }}
+
