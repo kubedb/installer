@@ -49,13 +49,10 @@ type KubedbKubestashCatalogSpec struct {
 	Elasticsearch  StashElasticsearchSpec  `json:"elasticsearch"`
 	Opensearch     StashOpensearchSpec     `json:"opensearch"`
 	Kubedbmanifest StashKubedbmanifestSpec `json:"kubedbmanifest"`
-	KubeDump       KubeDumpSpec            `json:"kubedump"`
 	Mongodb        StashMongodbSpec        `json:"mongodb"`
 	Mysql          StashMysqlSpec          `json:"mysql"`
-	Pvc            StashPvcSpec            `json:"pvc"`
 	Redis          StashRedisSpec          `json:"redis"`
-	Volumesnapshot StashVolumesnapshotSpec `json:"volumesnapshot"`
-	Workload       StashWorkloadSpec       `json:"workload"`
+	Postgres       StashPostgresSpec       `json:"postgres"`
 }
 
 // StashElasticsearchSpec is the schema for Stash Elasticsearch values file
@@ -142,10 +139,6 @@ type MySQLRestore struct {
 	Args string `json:"args"`
 }
 
-type StashPvcSpec struct {
-	Enabled bool `json:"enabled"`
-}
-
 // StashRedisSpec is the schema for Stash Redis values file
 type StashRedisSpec struct {
 	Enabled bool         `json:"enabled"`
@@ -163,12 +156,23 @@ type RedisRestore struct {
 	Args string `json:"args"`
 }
 
-type StashVolumesnapshotSpec struct {
-	Enabled bool `json:"enabled"`
+// StashPostgresSpec is the schema for Stash Postgres values file
+type StashPostgresSpec struct {
+	Enabled bool            `json:"enabled"`
+	Backup  PostgresBackup  `json:"backup"`
+	Restore PostgresRestore `json:"restore"`
 }
 
-type StashWorkloadSpec struct {
-	Enabled bool `json:"enabled"`
+type PostgresBackup struct {
+	// +optional
+	CMD string `json:"cmd"`
+	// +optional
+	Args string `json:"args"`
+}
+
+type PostgresRestore struct {
+	// +optional
+	Args string `json:"args"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
