@@ -2,7 +2,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: '11.19-bullseye'
+  name: '16.1-bullseye'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -17,12 +17,12 @@ spec:
         volumeSnapshot:
           name: VolumeSnapshot
     walg:
-      image: ghcr.io/kubedb/postgres-archiver:v0.0.1_11.22-bookworm
+      image: ghcr.io/kubedb/postgres-archiver:v0.0.1_16.1-bookworm
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.21.0'
   db:
     baseOS: bullseye
-    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:11.19-bullseye'
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:16.1-bullseye'
   distribution: Official
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.9.0'
@@ -36,13 +36,13 @@ spec:
   stash:
     addon:
       backupTask:
-        name: postgres-backup-11.9
+        name: postgres-backup-15.1
       restoreTask:
-        name: postgres-restore-11.9
+        name: postgres-restore-15.1
   updateConstraints:
     allowlist:
-    - '>= 12.9, <= 14.1'
-  version: "11.19"
+    - "16.1"
+  version: "16.1"
 {{ end }}
 
 ---
@@ -50,7 +50,7 @@ spec:
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: '11.19'
+  name: '16.1'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -65,12 +65,12 @@ spec:
         volumeSnapshot:
           name: VolumeSnapshot
     walg:
-      image: ghcr.io/kubedb/postgres-archiver:v0.0.1_11.22-alpine
+      image: ghcr.io/kubedb/postgres-archiver:v0.0.1_16.1-alpine
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.21.0'
   db:
     baseOS: alpine
-    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:11.19-alpine'
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:16.1-alpine'
   distribution: Official
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.9.0'
@@ -84,11 +84,11 @@ spec:
   stash:
     addon:
       backupTask:
-        name: postgres-backup-11.9
+        name: postgres-backup-15.1
       restoreTask:
-        name: postgres-restore-11.9
+        name: postgres-restore-15.1
   updateConstraints:
     allowlist:
-    - '>= 12.9, <= 14.1'
-  version: "11.19"
+    - "16.1"
+  version: "16.1"
 {{ end }}

@@ -6,6 +6,14 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  archiver:
+    fullBackup:
+      csiSnapshotter:
+        addonName: mongodb-volume-snapshot
+    manifest:
+      addonName: kubedb-manifest-addon
+    walg:
+      image: ghcr.io/kubedb/wal-g:v1.0.0
   db:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "percona/percona-server-mongodb") $) }}:4.4.10'
   distribution: Percona
