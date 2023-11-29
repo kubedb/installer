@@ -1,22 +1,21 @@
-{{ if .Values.catalog.mysql }}
+{{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
-  name: '5.7.35-v1'
+  name: '5.7.35'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
-  coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.15.0'
   db:
-    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "mysql") $) }}:5.7.35'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql") $) }}:5.7.35'
+  deprecated: true
   distribution: Official
   exporter:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysqld-exporter") $) }}:v0.13.1'
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prom/mysqld-exporter") $) }}:v0.13.0'
   gitSyncer:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.0.0-rc5'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:5.7-v3'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:5.7'
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
@@ -41,20 +40,22 @@ spec:
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
-  name: '5.7.35'
+  name: '5.7.35-v1'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.15.0'
   db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql") $) }}:5.7.35'
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "mysql") $) }}:5.7.35'
   deprecated: true
   distribution: Official
   exporter:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prom/mysqld-exporter") $) }}:v0.13.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysqld-exporter") $) }}:v0.13.1'
   gitSyncer:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.0.0-rc5'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:5.7'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:5.7-v3'
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
