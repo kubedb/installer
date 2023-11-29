@@ -6,6 +6,18 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        manifestBackup:
+          name: ManifestBackup
+        manifestRestore:
+          name: ManifestRestore
+        volumeSnapshot:
+          name: VolumeSnapshot
+    walg:
+      image: ghcr.io/kubedb/postgres-archiver:v0.0.1_11.22-bookworm
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.21.0'
   db:
@@ -42,6 +54,18 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        manifestBackup:
+          name: ManifestBackup
+        manifestRestore:
+          name: ManifestRestore
+        volumeSnapshot:
+          name: VolumeSnapshot
+    walg:
+      image: ghcr.io/kubedb/postgres-archiver:v0.0.1_11.22-alpine
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.21.0'
   db:
