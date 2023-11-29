@@ -1,7 +1,6 @@
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
-  creationTimestamp: null
   labels:
     app.kubernetes.io/name: kubedb
   name: postgreses.kubedb.com
@@ -267,32 +266,38 @@ spec:
                 properties:
                   archiver:
                     properties:
-                      encryptionSecret:
+                      fullDBRestore:
                         properties:
-                          name:
-                            type: string
-                          namespace:
-                            type: string
-                        required:
-                        - name
+                          repository:
+                            properties:
+                              name:
+                                type: string
+                              namespace:
+                                type: string
+                            required:
+                            - name
+                            type: object
                         type: object
-                      fullDBRepository:
+                      manifestRestore:
                         properties:
-                          name:
-                            type: string
-                          namespace:
-                            type: string
-                        required:
-                        - name
-                        type: object
-                      manifestRepository:
-                        properties:
-                          name:
-                            type: string
-                          namespace:
-                            type: string
-                        required:
-                        - name
+                          encryptionSecret:
+                            properties:
+                              name:
+                                type: string
+                              namespace:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                          repository:
+                            properties:
+                              name:
+                                type: string
+                              namespace:
+                                type: string
+                            required:
+                            - name
+                            type: object
                         type: object
                       recoveryTimestamp:
                         format: date-time

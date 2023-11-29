@@ -6,6 +6,18 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  archiver:
+    addon:
+      name: mongodb-addon
+      tasks:
+        manifestBackup:
+          name: ManifestBackup
+        manifestRestore:
+          name: ManifestRestore
+        volumeSnapshot:
+          name: VolumeSnapshot
+    walg:
+      image: ghcr.io/kubedb/wal-g:v2023.11.30_mongo
   db:
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "mongo") $) }}:4.2.24'
   distribution: Official
@@ -14,7 +26,7 @@ spec:
   gitSyncer:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.1.0'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb-init") $) }}:4.2-v8'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb-init") $) }}:4.2-v9'
   podSecurityPolicies:
     databasePolicyName: mongodb-db
   replicationModeDetector:

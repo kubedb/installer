@@ -7,13 +7,17 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   archiver:
-    fullBackup:
-      csiSnapshotter:
-        addonName: mongodb-volume-snapshot
-    manifest:
-      addonName: kubedb-manifest-addon
+    addon:
+      name: mongodb-addon
+      tasks:
+        manifestBackup:
+          name: ManifestBackup
+        manifestRestore:
+          name: ManifestRestore
+        volumeSnapshot:
+          name: VolumeSnapshot
     walg:
-      image: ghcr.io/kubedb/wal-g:v1.0.0
+      image: ghcr.io/kubedb/wal-g:v2023.11.30_mongo
   db:
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "mongo") $) }}:4.0.3'
   distribution: Official
@@ -22,7 +26,7 @@ spec:
   gitSyncer:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.1.0'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb-init") $) }}:4.1-v8'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb-init") $) }}:4.1-v9'
   podSecurityPolicies:
     databasePolicyName: mongodb-db
   replicationModeDetector:

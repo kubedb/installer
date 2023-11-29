@@ -6,6 +6,14 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  archiver:
+    fullBackup:
+      csiSnapshotter:
+        addonName: mongodb-volume-snapshot
+    manifest:
+      addonName: kubedb-manifest-addon
+    walg:
+      image: ghcr.io/kubedb/wal-g:v1.0.0
   db:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "percona/percona-server-mongodb") $) }}:4.4.10'
   distribution: Percona
@@ -14,7 +22,7 @@ spec:
   gitSyncer:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.1.0'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb-init") $) }}:4.2-v8'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb-init") $) }}:4.2-v9'
   podSecurityPolicies:
     databasePolicyName: mongodb-db
   replicationModeDetector:
