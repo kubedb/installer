@@ -494,8 +494,9 @@ func main() {
 					panic(err)
 				}
 				for prop := range spec {
-					templatizeRegistry := func(field string) {
-						img, ok, _ := unstructured.NestedString(obj.Object, "spec", prop, field)
+					templatizeRegistry := func(fields ...string) {
+						fieldList := append([]string{"spec", prop}, fields...)
+						img, ok, _ := unstructured.NestedString(obj.Object, fieldList...)
 						if ok {
 							ref, err := name.ParseReference(img)
 							if err != nil {
@@ -520,7 +521,7 @@ func main() {
 							if ref.Tag != "" && ref.Tag != "latest" {
 								newimg += ":" + ref.Tag
 							}
-							err = unstructured.SetNestedField(obj.Object, newimg, "spec", prop, field)
+							err = unstructured.SetNestedField(obj.Object, newimg, fieldList...)
 							if err != nil {
 								panic(err)
 							}
@@ -528,6 +529,7 @@ func main() {
 					}
 					templatizeRegistry("image")
 					templatizeRegistry("yqImage")
+					templatizeRegistry("walg", "image")
 				}
 
 				if i > 0 {
