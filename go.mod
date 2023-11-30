@@ -14,7 +14,7 @@ require (
 	k8s.io/api v0.25.3
 	k8s.io/apimachinery v0.25.3
 	k8s.io/klog/v2 v2.80.1
-	kmodules.xyz/client-go v0.25.39
+	kmodules.xyz/client-go v0.25.43
 	kmodules.xyz/go-containerregistry v0.0.11
 	kmodules.xyz/schema-checker v0.4.1
 	sigs.k8s.io/yaml v1.3.0
