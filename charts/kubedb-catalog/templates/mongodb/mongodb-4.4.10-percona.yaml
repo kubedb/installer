@@ -7,13 +7,17 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   archiver:
-    fullBackup:
-      csiSnapshotter:
-        addonName: mongodb-volume-snapshot
-    manifest:
-      addonName: kubedb-manifest-addon
+    addon:
+      name: mongodb-addon
+      tasks:
+        manifestBackup:
+          name: ManifestBackup
+        manifestRestore:
+          name: ManifestRestore
+        volumeSnapshot:
+          name: VolumeSnapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/wal-g") $) }}:v1.0.0'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/wal-g") $) }}:v2023.11.30_mongo'
   db:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "percona/percona-server-mongodb") $) }}:4.4.10'
   distribution: Percona
@@ -26,7 +30,7 @@ spec:
   podSecurityPolicies:
     databasePolicyName: mongodb-db
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.24.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.25.0-rc.0'
   stash:
     addon:
       backupTask:

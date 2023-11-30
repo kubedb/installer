@@ -4,13 +4,17 @@ metadata:
   name: percona-3.6.18
 spec:
   archiver:
-    fullBackup:
-      csiSnapshotter:
-        addonName: mongodb-volume-snapshot
-    manifest:
-      addonName: kubedb-manifest-addon
+    addon:
+      name: mongodb-addon
+      tasks:
+        manifestBackup:
+          name: ManifestBackup
+        manifestRestore:
+          name: ManifestRestore
+        volumeSnapshot:
+          name: VolumeSnapshot
     walg:
-      image: ghcr.io/kubedb/wal-g:v1.0.0
+      image: ghcr.io/kubedb/wal-g:v2023.11.30_mongo
   db:
     image: percona/percona-server-mongodb:3.6.18
   distribution: Percona
@@ -23,7 +27,7 @@ spec:
   podSecurityPolicies:
     databasePolicyName: mongodb-db
   replicationModeDetector:
-    image: ghcr.io/kubedb/replication-mode-detector:v0.24.0
+    image: ghcr.io/kubedb/replication-mode-detector:v0.25.0-rc.0
   stash:
     addon:
       backupTask:
