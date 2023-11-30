@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb-dashboard --version=v0.13.0
-$ helm upgrade -i kubedb-dashboard appscode/kubedb-dashboard -n kubedb --create-namespace --version=v0.13.0
+$ helm search repo appscode/kubedb-dashboard --version=v0.14.0-rc.0
+$ helm upgrade -i kubedb-dashboard appscode/kubedb-dashboard -n kubedb --create-namespace --version=v0.14.0-rc.0
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeDB Dashboard operator on a [Kubernetes](http://kubernet
 To install/upgrade the chart with the release name `kubedb-dashboard`:
 
 ```bash
-$ helm upgrade -i kubedb-dashboard appscode/kubedb-dashboard -n kubedb --create-namespace --version=v0.13.0
+$ helm upgrade -i kubedb-dashboard appscode/kubedb-dashboard -n kubedb --create-namespace --version=v0.14.0-rc.0
 ```
 
 The command deploys a KubeDB Dashboard operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -83,12 +83,12 @@ The following table lists the configurable parameters of the `kubedb-dashboard` 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-dashboard appscode/kubedb-dashboard -n kubedb --create-namespace --version=v0.13.0 --set replicaCount=1
+$ helm upgrade -i kubedb-dashboard appscode/kubedb-dashboard -n kubedb --create-namespace --version=v0.14.0-rc.0 --set replicaCount=1
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-dashboard appscode/kubedb-dashboard -n kubedb --create-namespace --version=v0.13.0 --values values.yaml
+$ helm upgrade -i kubedb-dashboard appscode/kubedb-dashboard -n kubedb --create-namespace --version=v0.14.0-rc.0 --values values.yaml
 ```
