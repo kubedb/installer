@@ -67,7 +67,7 @@ func processResources(filename string, data []byte, fn ResourceFn) error {
 			}); err != nil {
 				return err
 			}
-		} else {
+		} else if obj.GetKind() != "" {
 			if err := fn(ResourceInfo{
 				Filename: filename,
 				Object:   &obj,
