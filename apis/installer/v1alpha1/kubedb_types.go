@@ -50,6 +50,9 @@ type KubedbSpec struct {
 	KubedbCatalog KubedbCatalogValues `json:"kubedb-catalog"`
 
 	//+optional
+	KubedbKubestashCatalog KubedbKubestashCatalogValues `json:"kubedb-kubestash-catalog"`
+
+	//+optional
 	KubedbWebhookServer KubedbWebhookServerValues `json:"kubedb-webhook-server"`
 
 	//+optional
@@ -76,6 +79,11 @@ type KubedbProvisionerValues struct {
 type KubedbCatalogValues struct {
 	Enabled            *bool `json:"enabled"`
 	*KubedbCatalogSpec `json:",inline,omitempty"`
+}
+
+type KubedbKubestashCatalogValues struct {
+	Enabled                     bool `json:"enabled"`
+	*KubedbKubestashCatalogSpec `json:",inline,omitempty"`
 }
 
 type KubedbWebhookServerValues struct {
