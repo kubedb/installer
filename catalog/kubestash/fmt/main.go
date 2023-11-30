@@ -84,7 +84,21 @@ func main() {
 		panic(err)
 	}
 
+	/*
+		Key/Value map used to update pg-coordinator and replication mode detector image
+		// MySQL, MongoDB
+		--update-spec=spec.replicationModeDetector.image=_new_image
+		//Postgres
+		--update-spec=spec.coordinator.image=_new_image
+	*/
+	specUpdates := map[string]string{}
+	var apiKind string
+	var objName string
+
 	flag.StringVar(&dir, "dir", dir, "Path to directory where the kubestash/installer project resides (default is set o current directory)")
+	flag.StringVar(&apiKind, "kind", apiKind, "Kind of the CRD")
+	flag.StringVar(&objName, "name", objName, "Name of object used for update-spec")
+	flag.StringToStringVar(&specUpdates, "update-spec", specUpdates, "Key/Value map used to update pg-coordinator and replication mode detector image")
 
 	flag.CommandLine.AddGoFlagSet(goflag.CommandLine)
 	flag.Parse()
@@ -110,8 +124,36 @@ func main() {
 
 	var buf bytes.Buffer
 
-	for _, ri := range resources {
-		obj := ri.Object.DeepCopy()
+	for idx, ri := range resources {
+		obj := ri.Object
+
+		var modified bool
+		for jp, val := range specUpdates {
+			if apiKind == "" ||
+				(apiKind == obj.GetKind() && (objName == "" || objName == obj.GetName())) {
+				if _, ok, _ := unstructured.NestedFieldNoCopy(obj.Object, strings.Split(jp, ".")...); ok {
+					err = unstructured.SetNestedField(obj.Object, val, strings.Split(jp, ".")...)
+					if err != nil {
+						panic(fmt.Sprintf("failed to set %s to %s in group=%s,kind=%s,name=%s", jp, val, ri.Object.GetAPIVersion(), ri.Object.GetKind(), ri.Object.GetName()))
+					}
+					modified = true
+					resources[idx].Object = obj
+				}
+			}
+		}
+
+		obj = ri.Object.DeepCopy()
+		if modified {
+			obj.SetNamespace("")
+			data, err := yaml.Marshal(obj)
+			if err != nil {
+				panic(err)
+			}
+			err = os.WriteFile(ri.Filename, data, 0o644)
+			if err != nil {
+				panic(err)
+			}
+		}
 
 		app := obj.GetName()
 		if idx := strings.IndexRune(app, '-'); idx != -1 {
