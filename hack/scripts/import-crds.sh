@@ -23,26 +23,25 @@ api_repo_tag=${KUBEDB_APIMACHINERY_TAG:-master}
 
 if [ "$#" -ne 1 ]; then
     if [ "${api_repo_tag}" == "master" ]; then
-        echo "Error: missing path_to_input_crds_directory"
-        echo "Usage: import-crds.sh <path_to_input_crds_directory>"
-        exit 1
+        echo "Skipping updating kubedb/apimachinery crds"
+        echo "To update use: import-crds.sh <path_to_input_crds_directory>"
+    else
+        tmp_dir=$(mktemp -d -t api-XXXXXXXXXX)
+        # always cleanup temp dir
+        # ref: https://opensource.com/article/20/6/bash-trap
+        trap \
+            "{ rm -rf "${tmp_dir}"; }" \
+            SIGINT SIGTERM ERR EXIT
+
+        mkdir -p ${tmp_dir}
+        pushd $tmp_dir
+        git clone $api_repo_url
+        repo_dir=$(ls -b1)
+        cd $repo_dir
+        git checkout $api_repo_tag
+        popd
+        crd_dir=${tmp_dir}/${repo_dir}/crds
     fi
-
-    tmp_dir=$(mktemp -d -t api-XXXXXXXXXX)
-    # always cleanup temp dir
-    # ref: https://opensource.com/article/20/6/bash-trap
-    trap \
-        "{ rm -rf "${tmp_dir}"; }" \
-        SIGINT SIGTERM ERR EXIT
-
-    mkdir -p ${tmp_dir}
-    pushd $tmp_dir
-    git clone $api_repo_url
-    repo_dir=$(ls -b1)
-    cd $repo_dir
-    git checkout $api_repo_tag
-    popd
-    crd_dir=${tmp_dir}/${repo_dir}/crds
 fi
 
 crd-importer \
@@ -111,26 +110,25 @@ crd-importer \
 
     if [ "$#" -ne 1 ]; then
         if [ "${repo_tag}" == "main" ]; then
-            echo "Error: missing path_to_input_crds_directory"
-            echo "Usage: import-crds.sh <path_to_input_crds_directory>"
-            exit 1
+            echo "Skipping updating kubedb/provider-aws crds"
+            echo "To update use: import-crds.sh <path_to_input_crds_directory>"
+        else
+            tmp_dir=$(mktemp -d -t api-XXXXXXXXXX)
+            # always cleanup temp dir
+            # ref: https://opensource.com/article/20/6/bash-trap
+            trap \
+                "{ rm -rf "${tmp_dir}"; }" \
+                SIGINT SIGTERM ERR EXIT
+
+            mkdir -p ${tmp_dir}
+            pushd $tmp_dir
+            git clone $repo_url
+            repo_dir=$(ls -b1)
+            cd $repo_dir
+            git checkout $repo_tag
+            popd
+            crd_dir=${tmp_dir}/${repo_dir}/package/crds
         fi
-
-        tmp_dir=$(mktemp -d -t api-XXXXXXXXXX)
-        # always cleanup temp dir
-        # ref: https://opensource.com/article/20/6/bash-trap
-        trap \
-            "{ rm -rf "${tmp_dir}"; }" \
-            SIGINT SIGTERM ERR EXIT
-
-        mkdir -p ${tmp_dir}
-        pushd $tmp_dir
-        git clone $repo_url
-        repo_dir=$(ls -b1)
-        cd $repo_dir
-        git checkout $repo_tag
-        popd
-        crd_dir=${tmp_dir}/${repo_dir}/package/crds
     fi
 
     crd-importer \
@@ -145,26 +143,25 @@ crd-importer \
 
     if [ "$#" -ne 1 ]; then
         if [ "${repo_tag}" == "main" ]; then
-            echo "Error: missing path_to_input_crds_directory"
-            echo "Usage: import-crds.sh <path_to_input_crds_directory>"
-            exit 1
+            echo "Skipping updating kubedb/provider-azure crds"
+            echo "To update use: import-crds.sh <path_to_input_crds_directory>"
+        else
+            tmp_dir=$(mktemp -d -t api-XXXXXXXXXX)
+            # always cleanup temp dir
+            # ref: https://opensource.com/article/20/6/bash-trap
+            trap \
+                "{ rm -rf "${tmp_dir}"; }" \
+                SIGINT SIGTERM ERR EXIT
+
+            mkdir -p ${tmp_dir}
+            pushd $tmp_dir
+            git clone $repo_url
+            repo_dir=$(ls -b1)
+            cd $repo_dir
+            git checkout $repo_tag
+            popd
+            crd_dir=${tmp_dir}/${repo_dir}/package/crds
         fi
-
-        tmp_dir=$(mktemp -d -t api-XXXXXXXXXX)
-        # always cleanup temp dir
-        # ref: https://opensource.com/article/20/6/bash-trap
-        trap \
-            "{ rm -rf "${tmp_dir}"; }" \
-            SIGINT SIGTERM ERR EXIT
-
-        mkdir -p ${tmp_dir}
-        pushd $tmp_dir
-        git clone $repo_url
-        repo_dir=$(ls -b1)
-        cd $repo_dir
-        git checkout $repo_tag
-        popd
-        crd_dir=${tmp_dir}/${repo_dir}/package/crds
     fi
 
     crd-importer \
@@ -179,26 +176,25 @@ crd-importer \
 
     if [ "$#" -ne 1 ]; then
         if [ "${repo_tag}" == "main" ]; then
-            echo "Error: missing path_to_input_crds_directory"
-            echo "Usage: import-crds.sh <path_to_input_crds_directory>"
-            exit 1
+            echo "Skipping updating kubedb/provider-gcp crds"
+            echo "To update use: import-crds.sh <path_to_input_crds_directory>"
+        else
+            tmp_dir=$(mktemp -d -t api-XXXXXXXXXX)
+            # always cleanup temp dir
+            # ref: https://opensource.com/article/20/6/bash-trap
+            trap \
+                "{ rm -rf "${tmp_dir}"; }" \
+                SIGINT SIGTERM ERR EXIT
+
+            mkdir -p ${tmp_dir}
+            pushd $tmp_dir
+            git clone $repo_url
+            repo_dir=$(ls -b1)
+            cd $repo_dir
+            git checkout $repo_tag
+            popd
+            crd_dir=${tmp_dir}/${repo_dir}/package/crds
         fi
-
-        tmp_dir=$(mktemp -d -t api-XXXXXXXXXX)
-        # always cleanup temp dir
-        # ref: https://opensource.com/article/20/6/bash-trap
-        trap \
-            "{ rm -rf "${tmp_dir}"; }" \
-            SIGINT SIGTERM ERR EXIT
-
-        mkdir -p ${tmp_dir}
-        pushd $tmp_dir
-        git clone $repo_url
-        repo_dir=$(ls -b1)
-        cd $repo_dir
-        git checkout $repo_tag
-        popd
-        crd_dir=${tmp_dir}/${repo_dir}/package/crds
     fi
 
     crd-importer \
