@@ -1,0 +1,21 @@
+{{ if .Values.postgres.enabled }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'postgres-backup'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  args:
+  - backup
+  - --namespace=${namespace:=default}
+  - --backupsession=${backupSession:=}
+  - --enable-cache=${enableCache:=}
+  - --scratch-dir=${scratchDir:=}
+  - --wait-timeout=${waitTimeout:={{ .Values.waitTimeout}}}
+  - --pg-args=${args:={{ .Values.postgres.args }}}
+  - --backup-cmd=${backupCmd:=}
+  - --user=${user:=}
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-restic-plugin") $) }}:v0.1.0-rc.0'
+{{ end }}
+
