@@ -4,6 +4,39 @@ metadata:
   name: postgres-addon
 spec:
   backupTasks:
+  - name: LogicalBackup
+    function: postgres-backup
+    driver: Restic
+    executor: Job
+    singleton: true
+    parameters:
+      - name: args
+        usage: Arguments to be passed to the dump command.
+        required: false
+      - name: backupCmd
+        usage: Backup command to take a database dump (can only be pg_dumpall or pg_dump)
+        required: false
+        default: "pg_dumpall"
+      - name: user
+        usage: Specifies database user (not applicable for basic authentication)
+        required: false
+        default: "postgres"
+      - name: enableCache
+        usage: Enable or disable caching. Disabling caching may impact backup performance.
+        required: false
+        default: "true"
+      - name: scratchDir
+        usage: Directory for holding temporary files and restic cache.
+        required: false
+        default: /kubestash-tmp
+    volumeTemplate:
+      - name: kubestash-tmp-volume
+        usage: Holds temporary files and restic cache.
+        source:
+          emptyDir: {}
+    volumeMounts:
+      - name: kubestash-tmp-volume
+        mountPath: /kubestash-tmp
   - name: VolumeSnapshot
     function: postgres-csisnapshotter
     driver: VolumeSnapshotter
@@ -36,6 +69,35 @@ spec:
       - name: kubestash-tmp-volume
         mountPath: /kubestash-tmp
   restoreTasks:
+  - name: LogicalBackupRestore
+    function: postgres-restore
+    driver: Restic
+    executor: Job
+    singleton: true
+    parameters:
+      - name: args
+        usage: Arguments to be passed to the dump command.
+        required: false
+      - name: user
+        usage: Specifies database user (not applicable for basic authentication)
+        required: false
+        default: "postgres"
+      - name: enableCache
+        usage: Enable or disable caching. Disabling caching may impact backup performance.
+        required: false
+        default: "true"
+      - name: scratchDir
+        usage: Directory for holding temporary files and restic cache.
+        required: false
+        default: /kubestash-tmp
+    volumeTemplate:
+      - name: kubestash-tmp-volume
+        usage: Holds temporary files and restic cache.
+        source:
+          emptyDir: {}
+    volumeMounts:
+      - name: kubestash-tmp-volume
+        mountPath: /kubestash-tmp
   - name: ManifestRestore
     function: kubedbmanifest-restore
     driver: Restic
