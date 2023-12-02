@@ -46,7 +46,7 @@ if [ "$#" -ne 1 ]; then
     fi
 fi
 
-if [ "$update_kubedb_crds" = true ]; then
+if [ "$update_kubedb_crds" = true ] && [ -d ${crd_dir} ]; then
     crd-importer \
         --input=${crd_dir} \
         --out=./charts/kubedb-crds/crds \
@@ -137,7 +137,7 @@ crd-importer \
         fi
     fi
 
-    if [ "$update_aws_crds" = true ]; then
+    if [ "$update_aws_crds" = true ] && [ -d ${crd_dir} ]; then
         crd-importer \
             --input=${crd_dir} \
             --out=./charts/kubedb-provider-aws/crds
@@ -174,7 +174,7 @@ crd-importer \
         fi
     fi
 
-    if [ "$update_azure_crds" = true ]; then
+    if [ "$update_azure_crds" = true ] && [ -d ${crd_dir} ]; then
         crd-importer \
             --input=${crd_dir} \
             --out=./charts/kubedb-provider-azure/crds
@@ -211,7 +211,7 @@ crd-importer \
         fi
     fi
 
-    if [ "$update_gcp_crds" = true ]; then
+    if [ "$update_gcp_crds" = true ] && [ -d ${crd_dir} ]; then
         crd-importer \
             --input=${crd_dir} \
             --out=./charts/kubedb-provider-gcp/crds
