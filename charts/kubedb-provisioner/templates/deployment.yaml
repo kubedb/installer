@@ -43,7 +43,9 @@ spec:
         - --v={{ .Values.logLevel }}
         - --use-kubeapiserver-fqdn-for-aks={{ .Values.apiserver.useKubeapiserverFqdnForAks }}
         - --metrics-bind-address=:{{ .Values.monitoring.bindPort }}
-        - --default-seccomp-profile-type={{ .Values.defaultSeccompProfileType }}
+        {{- with .Values.defaultSeccompProfileType }}
+        - --default-seccomp-profile-type={{ . }}
+        {{- end }}
         - --health-probe-bind-address=:{{ .Values.apiserver.healthcheck.probePort }}
         {{- include "docker.imagePullSecretFlags" . | nindent 8 }}
         {{- include "docker.insecureRegistries" .  | nindent 8 }}
