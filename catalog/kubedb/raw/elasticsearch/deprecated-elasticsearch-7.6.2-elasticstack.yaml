@@ -1,17 +1,47 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  name: xpack-7.5.2-v1
+  name: xpack-7.6.2
 spec:
   authPlugin: X-Pack
   db:
-    image: elasticsearch:7.5.2
+    image: elasticsearch:7.6.2
+  deprecated: true
+  distribution: ElasticStack
+  exporter:
+    image: prometheuscommunity/elasticsearch-exporter:v1.3.0
+  initContainer:
+    image: busybox:1.32.0
+    yqImage: ghcr.io/kubedb/elasticsearch-init:7.6.2-xpack
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.3.2
+      restoreTask:
+        name: elasticsearch-restore-7.3.2
+  updateConstraints:
+    allowlist:
+    - < 7.10.0
+  version: 7.6.2
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: xpack-7.6.2-v1
+spec:
+  authPlugin: X-Pack
+  db:
+    image: elasticsearch:7.6.2
+  deprecated: true
   distribution: ElasticStack
   exporter:
     image: prometheuscommunity/elasticsearch-exporter:v1.3.0
   initContainer:
     image: tianon/toybox:0.8.4
-    yqImage: ghcr.io/kubedb/elasticsearch-init:7.5.2-xpack-v1
+    yqImage: ghcr.io/kubedb/elasticsearch-init:7.6.2-xpack-v1
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   securityContext:
@@ -32,33 +62,4 @@ spec:
   updateConstraints:
     allowlist:
     - < 7.10.0
-  version: 7.5.2
-
----
-apiVersion: catalog.kubedb.com/v1alpha1
-kind: ElasticsearchVersion
-metadata:
-  name: xpack-7.5.2
-spec:
-  authPlugin: X-Pack
-  db:
-    image: elasticsearch:7.5.2
-  deprecated: true
-  distribution: ElasticStack
-  exporter:
-    image: prometheuscommunity/elasticsearch-exporter:v1.3.0
-  initContainer:
-    image: busybox:1.32.0
-    yqImage: ghcr.io/kubedb/elasticsearch-init:7.5.2-xpack
-  podSecurityPolicies:
-    databasePolicyName: elasticsearch-db
-  stash:
-    addon:
-      backupTask:
-        name: elasticsearch-backup-7.3.2
-      restoreTask:
-        name: elasticsearch-restore-7.3.2
-  updateConstraints:
-    allowlist:
-    - < 7.10.0
-  version: 7.5.2
+  version: 7.6.2

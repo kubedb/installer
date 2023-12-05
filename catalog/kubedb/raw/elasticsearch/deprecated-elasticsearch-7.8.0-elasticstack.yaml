@@ -1,11 +1,41 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
+  name: xpack-7.8.0
+spec:
+  authPlugin: X-Pack
+  db:
+    image: elasticsearch:7.8.0
+  deprecated: true
+  distribution: ElasticStack
+  exporter:
+    image: prometheuscommunity/elasticsearch-exporter:v1.3.0
+  initContainer:
+    image: busybox:1.32.0
+    yqImage: ghcr.io/kubedb/elasticsearch-init:7.8.0-xpack
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.3.2
+      restoreTask:
+        name: elasticsearch-restore-7.3.2
+  updateConstraints:
+    allowlist:
+    - < 7.10.0
+  version: 7.8.0
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
   name: xpack-7.8.0-v1
 spec:
   authPlugin: X-Pack
   db:
     image: elasticsearch:7.8.0
+  deprecated: true
   distribution: ElasticStack
   exporter:
     image: prometheuscommunity/elasticsearch-exporter:v1.3.0
@@ -29,35 +59,6 @@ spec:
         params:
         - name: args
           value: --match=^(?![.])(?!kubedb-system).+
-  updateConstraints:
-    allowlist:
-    - < 7.10.0
-  version: 7.8.0
-
----
-apiVersion: catalog.kubedb.com/v1alpha1
-kind: ElasticsearchVersion
-metadata:
-  name: xpack-7.8.0
-spec:
-  authPlugin: X-Pack
-  db:
-    image: elasticsearch:7.8.0
-  deprecated: true
-  distribution: ElasticStack
-  exporter:
-    image: prometheuscommunity/elasticsearch-exporter:v1.3.0
-  initContainer:
-    image: busybox:1.32.0
-    yqImage: ghcr.io/kubedb/elasticsearch-init:7.8.0-xpack
-  podSecurityPolicies:
-    databasePolicyName: elasticsearch-db
-  stash:
-    addon:
-      backupTask:
-        name: elasticsearch-backup-7.3.2
-      restoreTask:
-        name: elasticsearch-restore-7.3.2
   updateConstraints:
     allowlist:
     - < 7.10.0

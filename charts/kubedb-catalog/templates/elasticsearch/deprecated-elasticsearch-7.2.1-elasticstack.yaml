@@ -1,20 +1,54 @@
-{{ if .Values.catalog.elasticsearch }}
+{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  name: 'xpack-7.0.1-v1'
+  name: 'xpack-7.2.1'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   authPlugin: X-Pack
   db:
-    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "elasticsearch") $) }}:7.0.1'
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "elasticsearch") $) }}:7.2.1'
+  deprecated: true
+  distribution: ElasticStack
+  exporter:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.3.0'
+  initContainer:
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "busybox") $) }}:1.32.0'
+    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-init") $) }}:7.2.1-xpack'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.2.0
+      restoreTask:
+        name: elasticsearch-restore-7.2.0
+  updateConstraints:
+    allowlist:
+    - < 7.6.0
+  version: 7.2.1
+{{ end }}
+
+---
+{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: 'xpack-7.2.1-v1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: X-Pack
+  db:
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "elasticsearch") $) }}:7.2.1'
+  deprecated: true
   distribution: ElasticStack
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.3.0'
   initContainer:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "tianon/toybox") $) }}:0.8.4'
-    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-init") $) }}:7.0.1-xpack-v1'
+    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-init") $) }}:7.2.1-xpack-v1'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   securityContext:
@@ -34,36 +68,6 @@ spec:
           value: --match=^(?![.])(?!kubedb-system).+
   updateConstraints:
     allowlist:
-    - < 7.5.0
-  version: 7.0.1
-{{ end }}
-
----
-{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
-apiVersion: catalog.kubedb.com/v1alpha1
-kind: ElasticsearchVersion
-metadata:
-  name: 'xpack-7.0.1'
-  labels:
-    {{- include "kubedb-catalog.labels" . | nindent 4 }}
-spec:
-  authPlugin: X-Pack
-  db:
-    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "elasticsearch") $) }}:7.0.1'
-  deprecated: true
-  distribution: ElasticStack
-  exporter:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.3.0'
-  initContainer:
-    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "busybox") $) }}:1.32.0'
-    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-init") $) }}:7.0.1-xpack'
-  podSecurityPolicies:
-    databasePolicyName: elasticsearch-db
-  stash:
-    addon:
-      backupTask:
-        name: elasticsearch-backup-7.2.0
-      restoreTask:
-        name: elasticsearch-restore-7.2.0
-  version: 7.0.1
+    - < 7.6.0
+  version: 7.2.1
 {{ end }}
