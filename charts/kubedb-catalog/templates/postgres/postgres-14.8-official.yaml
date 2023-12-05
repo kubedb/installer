@@ -2,51 +2,6 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: '14.8-bullseye'
-  labels:
-    {{- include "kubedb-catalog.labels" . | nindent 4 }}
-spec:
-  archiver:
-    addon:
-      name: postgres-addon
-      tasks:
-        manifestBackup:
-          name: ManifestBackup
-        manifestRestore:
-          name: ManifestRestore
-        volumeSnapshot:
-          name: VolumeSnapshot
-    walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.0.1_14.10-bookworm'
-  coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.22.0-rc.1'
-  db:
-    baseOS: bullseye
-    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:14.8-bullseye'
-  distribution: Official
-  exporter:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.9.0'
-  initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.11.0'
-  podSecurityPolicies:
-    databasePolicyName: postgres-db
-  securityContext:
-    runAsAnyNonRoot: true
-    runAsUser: 999
-  stash:
-    addon:
-      backupTask:
-        name: postgres-backup-14.0
-      restoreTask:
-        name: postgres-restore-14.0
-  version: "14.8"
-{{ end }}
-
----
-{{ if .Values.catalog.postgres }}
-apiVersion: catalog.kubedb.com/v1alpha1
-kind: PostgresVersion
-metadata:
   name: '14.8'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
@@ -78,6 +33,51 @@ spec:
   securityContext:
     runAsAnyNonRoot: false
     runAsUser: 70
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-14.0
+      restoreTask:
+        name: postgres-restore-14.0
+  version: "14.8"
+{{ end }}
+
+---
+{{ if .Values.catalog.postgres }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: '14.8-bullseye'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        manifestBackup:
+          name: ManifestBackup
+        manifestRestore:
+          name: ManifestRestore
+        volumeSnapshot:
+          name: VolumeSnapshot
+    walg:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.0.1_14.10-bookworm'
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.22.0-rc.1'
+  db:
+    baseOS: bullseye
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:14.8-bullseye'
+  distribution: Official
+  exporter:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.9.0'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.11.0'
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
   stash:
     addon:
       backupTask:
