@@ -2,42 +2,6 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: '9.6.24-bullseye'
-  labels:
-    {{- include "kubedb-catalog.labels" . | nindent 4 }}
-spec:
-  coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.22.0-rc.1'
-  db:
-    baseOS: bullseye
-    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:9.6.24-bullseye'
-  distribution: Official
-  exporter:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.9.0'
-  initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.11.0'
-  podSecurityPolicies:
-    databasePolicyName: postgres-db
-  securityContext:
-    runAsAnyNonRoot: true
-    runAsUser: 999
-  stash:
-    addon:
-      backupTask:
-        name: postgres-backup-9.6.19
-      restoreTask:
-        name: postgres-restore-9.6.19
-  updateConstraints:
-    allowlist:
-    - '>= 10.19, <= 14.1'
-  version: 9.6.24
-{{ end }}
-
----
-{{ if .Values.catalog.postgres }}
-apiVersion: catalog.kubedb.com/v1alpha1
-kind: PostgresVersion
-metadata:
   name: '9.6.24'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
@@ -66,5 +30,41 @@ spec:
   updateConstraints:
     allowlist:
     - '>= 10.19, <=14.1'
+  version: 9.6.24
+{{ end }}
+
+---
+{{ if .Values.catalog.postgres }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: '9.6.24-bullseye'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.22.0-rc.1'
+  db:
+    baseOS: bullseye
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:9.6.24-bullseye'
+  distribution: Official
+  exporter:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.9.0'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.11.0'
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-9.6.19
+      restoreTask:
+        name: postgres-restore-9.6.19
+  updateConstraints:
+    allowlist:
+    - '>= 10.19, <= 14.1'
   version: 9.6.24
 {{ end }}

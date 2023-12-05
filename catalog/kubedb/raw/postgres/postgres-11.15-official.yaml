@@ -1,50 +1,6 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: 11.15-bullseye
-spec:
-  archiver:
-    addon:
-      name: postgres-addon
-      tasks:
-        manifestBackup:
-          name: ManifestBackup
-        manifestRestore:
-          name: ManifestRestore
-        volumeSnapshot:
-          name: VolumeSnapshot
-    walg:
-      image: ghcr.io/kubedb/postgres-archiver:v0.0.1_11.22-bookworm
-  coordinator:
-    image: ghcr.io/kubedb/pg-coordinator:v0.22.0-rc.1
-  db:
-    baseOS: bullseye
-    image: postgres:11.15-bullseye
-  distribution: Official
-  exporter:
-    image: prometheuscommunity/postgres-exporter:v0.9.0
-  initContainer:
-    image: ghcr.io/kubedb/postgres-init:0.11.0
-  podSecurityPolicies:
-    databasePolicyName: postgres-db
-  securityContext:
-    runAsAnyNonRoot: true
-    runAsUser: 999
-  stash:
-    addon:
-      backupTask:
-        name: postgres-backup-11.9
-      restoreTask:
-        name: postgres-restore-11.9
-  updateConstraints:
-    allowlist:
-    - '>= 12.9, <= 14.1'
-  version: "11.15"
-
----
-apiVersion: catalog.kubedb.com/v1alpha1
-kind: PostgresVersion
-metadata:
   name: "11.15"
 spec:
   archiver:
@@ -74,6 +30,50 @@ spec:
   securityContext:
     runAsAnyNonRoot: false
     runAsUser: 70
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-11.9
+      restoreTask:
+        name: postgres-restore-11.9
+  updateConstraints:
+    allowlist:
+    - '>= 12.9, <= 14.1'
+  version: "11.15"
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: 11.15-bullseye
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        manifestBackup:
+          name: ManifestBackup
+        manifestRestore:
+          name: ManifestRestore
+        volumeSnapshot:
+          name: VolumeSnapshot
+    walg:
+      image: ghcr.io/kubedb/postgres-archiver:v0.0.1_11.22-bookworm
+  coordinator:
+    image: ghcr.io/kubedb/pg-coordinator:v0.22.0-rc.1
+  db:
+    baseOS: bullseye
+    image: postgres:11.15-bullseye
+  distribution: Official
+  exporter:
+    image: prometheuscommunity/postgres-exporter:v0.9.0
+  initContainer:
+    image: ghcr.io/kubedb/postgres-init:0.11.0
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
   stash:
     addon:
       backupTask:

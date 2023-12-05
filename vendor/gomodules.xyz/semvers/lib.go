@@ -51,22 +51,31 @@ func CompareVersions(vi *semver.Version, vj *semver.Version) bool {
 	mi, _ := vi.SetPrerelease("")
 	mj, _ := vj.SetPrerelease("")
 
-	if mi.Equal(&mj) &&
-		(vi.Prerelease() == "" || strings.HasPrefix(vi.Prerelease(), "v")) &&
-		(vj.Prerelease() == "" || strings.HasPrefix(vj.Prerelease(), "v")) &&
-		!(vi.Prerelease() == "" && vj.Prerelease() == "") {
+	if vi.Equal(vj) {
+		return vi.Original() < vj.Original()
+	} else if mi.Equal(&mj) &&
+		(vi.Prerelease() != "" || vj.Prerelease() != "") {
 
-		si := -1
-		sj := -1
-		if strings.HasPrefix(vi.Prerelease(), "v") {
-			si, _ = strconv.Atoi(vi.Prerelease()[1:])
+		si := parsePrerelease(vi.Prerelease())
+		sj := parsePrerelease(vj.Prerelease())
+		if si != -1 && sj != -1 {
+			return si < sj
 		}
-		if strings.HasPrefix(vj.Prerelease(), "v") {
-			sj, _ = strconv.Atoi(vj.Prerelease()[1:])
-		}
-		return si < sj
+		return vi.Prerelease() < vj.Prerelease()
 	}
 	return vi.LessThan(vj)
+}
+
+func parsePrerelease(s string) int {
+	if strings.HasPrefix(s, "v") {
+		s = s[1:]
+	}
+
+	v, err := strconv.Atoi(s)
+	if err == nil {
+		return v
+	}
+	return -1
 }
 
 func Compare(i, j string) bool {
