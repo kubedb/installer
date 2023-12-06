@@ -1,7 +1,29 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
-  name: 5.0.3
+  name: 4.1.4
+spec:
+  db:
+    image: ghcr.io/kubedb/mongo:4.1.4
+  deprecated: true
+  distribution: Official
+  exporter:
+    image: ghcr.io/kubedb/mongodb_exporter:v0.20.4
+  gitSyncer:
+    image: registry.k8s.io/git-sync/git-sync:v4.1.0
+  initContainer:
+    image: ghcr.io/kubedb/busybox
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+  replicationModeDetector:
+    image: ghcr.io/kubedb/replication-mode-detector:v0.25.0-rc.1
+  version: 4.1.4
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  name: 4.1.4-v1
 spec:
   archiver:
     addon:
@@ -16,14 +38,15 @@ spec:
     walg:
       image: ghcr.io/kubedb/wal-g:v2023.11.30_mongo
   db:
-    image: mongo:5.0.3
+    image: mongo:4.1.4
+  deprecated: true
   distribution: Official
   exporter:
     image: ghcr.io/kubedb/mongodb_exporter:v0.32.0
   gitSyncer:
     image: registry.k8s.io/git-sync/git-sync:v4.1.0
   initContainer:
-    image: ghcr.io/kubedb/mongodb-init:4.2-v9
+    image: ghcr.io/kubedb/mongodb-init:4.1.4-v9
   podSecurityPolicies:
     databasePolicyName: mongodb-db
   replicationModeDetector:
@@ -33,7 +56,10 @@ spec:
   stash:
     addon:
       backupTask:
-        name: mongodb-backup-5.0.3
+        name: mongodb-backup-4.1.4
       restoreTask:
-        name: mongodb-restore-5.0.3
-  version: 5.0.3
+        name: mongodb-restore-4.1.4
+  updateConstraints:
+    allowlist:
+    - '>= 4.2.0, < 4.3.0'
+  version: 4.1.4
