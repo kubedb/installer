@@ -1,4 +1,4 @@
-{{ if .Values.catalog.mongodb }}
+{{ if and .Values.catalog.mongodb (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
@@ -20,6 +20,7 @@ spec:
       image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/wal-g") $) }}:v2023.11.30_mongo'
   db:
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "mongo") $) }}:5.0.3'
+  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.32.0'

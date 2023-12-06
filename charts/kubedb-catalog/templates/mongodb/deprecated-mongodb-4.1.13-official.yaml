@@ -1,8 +1,86 @@
-{{ if .Values.catalog.mongodb }}
+{{ if and .Values.catalog.mongodb (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
-  name: '3.6.13-v1'
+  name: '4.1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongo") $) }}:4.1'
+  deprecated: true
+  distribution: Official
+  exporter:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.20.4'
+  gitSyncer:
+    image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.1.0'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/busybox") $) }}'
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+  replicationModeDetector:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.25.0-rc.1'
+  version: 4.1.13
+{{ end }}
+
+---
+{{ if and .Values.catalog.mongodb (not .Values.skipDeprecated) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  name: '4.1-v1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongo") $) }}:4.1-v1'
+  deprecated: true
+  distribution: Official
+  exporter:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.20.4'
+  gitSyncer:
+    image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.1.0'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb-init") $) }}:0.3.0'
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+  replicationModeDetector:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.25.0-rc.1'
+  version: 4.1.13
+{{ end }}
+
+---
+{{ if and .Values.catalog.mongodb (not .Values.skipDeprecated) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  name: '4.1.13'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongo") $) }}:4.1.13'
+  deprecated: true
+  distribution: Official
+  exporter:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.20.4'
+  gitSyncer:
+    image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.1.0'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/busybox") $) }}'
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+  replicationModeDetector:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.25.0-rc.1'
+  version: 4.1.13
+{{ end }}
+
+---
+{{ if and .Values.catalog.mongodb (not .Values.skipDeprecated) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  name: '4.1.13-v1'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -19,14 +97,15 @@ spec:
     walg:
       image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/wal-g") $) }}:v2023.11.30_mongo'
   db:
-    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "mongo") $) }}:3.6.13'
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "mongo") $) }}:4.1.13'
+  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.32.0'
   gitSyncer:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.1.0'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb-init") $) }}:4.1-v9'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb-init") $) }}:4.2-v9'
   podSecurityPolicies:
     databasePolicyName: mongodb-db
   replicationModeDetector:
@@ -36,89 +115,11 @@ spec:
   stash:
     addon:
       backupTask:
-        name: mongodb-backup-3.6.13
+        name: mongodb-backup-4.1.13
       restoreTask:
-        name: mongodb-restore-3.6.13
+        name: mongodb-restore-4.1.13
   updateConstraints:
     allowlist:
-    - '>= 4.0.0, < 4.1.0'
-  version: 3.6.13
-{{ end }}
-
----
-{{ if and .Values.catalog.mongodb (not .Values.skipDeprecated) }}
-apiVersion: catalog.kubedb.com/v1alpha1
-kind: MongoDBVersion
-metadata:
-  name: '3.6-v4'
-  labels:
-    {{- include "kubedb-catalog.labels" . | nindent 4 }}
-spec:
-  db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongo") $) }}:3.6-v4'
-  deprecated: true
-  distribution: Official
-  exporter:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.20.4'
-  gitSyncer:
-    image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.1.0'
-  initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/busybox") $) }}'
-  podSecurityPolicies:
-    databasePolicyName: mongodb-db
-  replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.25.0-rc.1'
-  version: 3.6.13
-{{ end }}
-
----
-{{ if and .Values.catalog.mongodb (not .Values.skipDeprecated) }}
-apiVersion: catalog.kubedb.com/v1alpha1
-kind: MongoDBVersion
-metadata:
-  name: '3.6-v5'
-  labels:
-    {{- include "kubedb-catalog.labels" . | nindent 4 }}
-spec:
-  db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongo") $) }}:3.6-v5'
-  deprecated: true
-  distribution: Official
-  exporter:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.20.4'
-  gitSyncer:
-    image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.1.0'
-  initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb-init") $) }}:0.1.0'
-  podSecurityPolicies:
-    databasePolicyName: mongodb-db
-  replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.25.0-rc.1'
-  version: 3.6.13
-{{ end }}
-
----
-{{ if and .Values.catalog.mongodb (not .Values.skipDeprecated) }}
-apiVersion: catalog.kubedb.com/v1alpha1
-kind: MongoDBVersion
-metadata:
-  name: '3.6.13'
-  labels:
-    {{- include "kubedb-catalog.labels" . | nindent 4 }}
-spec:
-  db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongo") $) }}:3.6.13'
-  deprecated: true
-  distribution: Official
-  exporter:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.20.4'
-  gitSyncer:
-    image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.1.0'
-  initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/busybox") $) }}'
-  podSecurityPolicies:
-    databasePolicyName: mongodb-db
-  replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.25.0-rc.1'
-  version: 3.6.13
+    - '>= 4.2.0, < 4.3.0'
+  version: 4.1.13
 {{ end }}
