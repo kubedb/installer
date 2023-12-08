@@ -2,23 +2,23 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  name: 'opensearch-1.2.2'
+  name: 'opensearch-1.2.4'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   authPlugin: OpenSearch
   dashboard:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "opensearchproject/opensearch-dashboards") $) }}:1.2.0'
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "opensearchproject/opensearch-dashboards") $) }}:1.2.4'
   dashboardInitContainer:
-    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-dashboard-init") $) }}:1.2.2-opensearch-v2023.01.29'
+    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-dashboard-init") $) }}:1.2.4-opensearch-v2023.12.07'
   db:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "opensearchproject/opensearch") $) }}:1.2.2'
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "opensearchproject/opensearch") $) }}:1.2.4'
   distribution: OpenSearch
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.3.0'
   initContainer:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "tianon/toybox") $) }}:0.8.4'
-    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-init") $) }}:1.2.2-opensearch-v2021.12.24'
+    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-init") $) }}:1.2.4-opensearch-v2023.12.07'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   securityContext:
@@ -36,5 +36,5 @@ spec:
         params:
         - name: args
           value: --match=^(?![.])(?!security-auditlog)(?!kubedb-system).+
-  version: 1.2.2
+  version: 1.2.4
 {{ end }}
