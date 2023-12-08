@@ -1,24 +1,21 @@
-{{ if .Values.catalog.elasticsearch }}
+{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  name: 'xpack-8.6.2'
+  name: 'kubedb-xpack-8.2.0'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   authPlugin: X-Pack
-  dashboard:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kibana") $) }}:8.6.2'
-  dashboardInitContainer:
-    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-dashboard-init") $) }}:8.6.2-xpack-v2023.12.07'
   db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/elastic") $) }}:8.6.2'
-  distribution: ElasticStack
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch") $) }}:8.2.0-xpack-v2022.05.24'
+  deprecated: true
+  distribution: KubeDB
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.3.0'
   initContainer:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "tianon/toybox") $) }}:0.8.4'
-    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-init") $) }}:8.6.2-xpack-v2023.12.07'
+    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch") $) }}:8.2.0-xpack-v2022.05.24'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   securityContext:
@@ -36,5 +33,5 @@ spec:
         params:
         - name: args
           value: --match=^(?![.])(?!apm-agent-configuration)(?!kubedb-system).+
-  version: 8.6.2
+  version: 8.2.0
 {{ end }}
