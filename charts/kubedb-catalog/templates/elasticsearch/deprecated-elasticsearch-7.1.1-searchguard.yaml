@@ -1,0 +1,76 @@
+{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: 'searchguard-7.1.1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: SearchGuard
+  db:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "floragunncom/sg-elasticsearch") $) }}:7.1.1-oss-35.0.0'
+  deprecated: true
+  distribution: SearchGuard
+  exporter:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.3.0'
+  initContainer:
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "busybox") $) }}:1.32.0'
+    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-init") $) }}:7.1.1-searchguard'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 1000
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.2.0
+        params:
+        - name: args
+          value: --match=^(?![.])(?!searchguard)(?!kubedb-system).+
+      restoreTask:
+        name: elasticsearch-restore-7.2.0
+        params:
+        - name: args
+          value: --match=^(?![.])(?!searchguard)(?!kubedb-system).+
+  updateConstraints:
+    allowlist:
+    - < 7.6.0
+  version: 7.1.1
+{{ end }}
+
+---
+{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: 'searchguard-7.1.1-v1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: SearchGuard
+  db:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "floragunncom/sg-elasticsearch") $) }}:7.1.1-oss-35.0.0'
+  deprecated: true
+  distribution: SearchGuard
+  exporter:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.3.0'
+  initContainer:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "tianon/toybox") $) }}:0.8.4'
+    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-init") $) }}:7.1.1-searchguard-v1'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.2.0
+        params:
+        - name: args
+          value: --match=^(?!searchguard)([a-zA-Z0-9_-]+)(?!kubedb-system)$
+      restoreTask:
+        name: elasticsearch-restore-7.2.0
+  updateConstraints:
+    allowlist:
+    - < 7.6.0
+  version: 7.1.1
+{{ end }}

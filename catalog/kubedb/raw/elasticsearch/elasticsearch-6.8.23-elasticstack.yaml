@@ -1,0 +1,39 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: xpack-6.8.23
+spec:
+  authPlugin: X-Pack
+  dashboard:
+    image: ghcr.io/appscode-images/kibana:6.8.23
+  dashboardInitContainer:
+    yqImage: ghcr.io/kubedb/elasticsearch-dashboard-init:6.8.23-xpack-v2023.12.07
+  db:
+    image: ghcr.io/appscode-images/elastic:6.8.23
+  distribution: ElasticStack
+  exporter:
+    image: prometheuscommunity/elasticsearch-exporter:v1.3.0
+  initContainer:
+    image: tianon/toybox:0.8.4
+    yqImage: ghcr.io/kubedb/elasticsearch-init:6.8.23-xpack-v2023.12.07
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 1000
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-6.8.0
+        params:
+        - name: args
+          value: --match=^(?![.])(?!kubedb-system).+
+      restoreTask:
+        name: elasticsearch-restore-6.8.0
+        params:
+        - name: args
+          value: --match=^(?![.])(?!kubedb-system).+
+  updateConstraints:
+    allowlist:
+    - < 7.5.0
+  version: 6.8.23
