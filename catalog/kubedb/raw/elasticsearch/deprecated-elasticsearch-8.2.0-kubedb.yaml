@@ -1,0 +1,33 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: kubedb-xpack-8.2.0
+spec:
+  authPlugin: X-Pack
+  db:
+    image: ghcr.io/kubedb/elasticsearch:8.2.0-xpack-v2022.05.24
+  deprecated: true
+  distribution: KubeDB
+  exporter:
+    image: prometheuscommunity/elasticsearch-exporter:v1.3.0
+  initContainer:
+    image: tianon/toybox:0.8.4
+    yqImage: ghcr.io/kubedb/elasticsearch:8.2.0-xpack-v2022.05.24
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 1000
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-8.2.0
+        params:
+        - name: args
+          value: --match=^(?![.])(?!apm-agent-configuration)(?!kubedb-system).+
+      restoreTask:
+        name: elasticsearch-restore-8.2.0
+        params:
+        - name: args
+          value: --match=^(?![.])(?!apm-agent-configuration)(?!kubedb-system).+
+  version: 8.2.0

@@ -1,0 +1,40 @@
+{{ if .Values.catalog.elasticsearch }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: 'xpack-8.11.1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: X-Pack
+  dashboard:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kibana") $) }}:8.11.1'
+  dashboardInitContainer:
+    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-dashboard-init") $) }}:8.11.1-xpack-v2023.12.07'
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/elastic") $) }}:8.11.1'
+  distribution: ElasticStack
+  exporter:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.3.0'
+  initContainer:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "tianon/toybox") $) }}:0.8.4'
+    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-init") $) }}:8.11.1-xpack-v2023.12.07'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 1000
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-8.2.0
+        params:
+        - name: args
+          value: --match=^(?![.])(?!apm-agent-configuration)(?!kubedb-system).+
+      restoreTask:
+        name: elasticsearch-restore-8.2.0
+        params:
+        - name: args
+          value: --match=^(?![.])(?!apm-agent-configuration)(?!kubedb-system).+
+  version: 8.11.1
+{{ end }}
