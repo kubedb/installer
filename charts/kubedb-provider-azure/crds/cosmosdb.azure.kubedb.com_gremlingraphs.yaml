@@ -2,7 +2,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.11.3
+    controller-gen.kubebuilder.io/version: v0.13.0
   name: gremlingraphs.cosmosdb.azure.kubedb.com
 spec:
   group: cosmosdb.azure.kubedb.com
@@ -56,7 +56,7 @@ spec:
                 description: 'DeletionPolicy specifies what will happen to the underlying
                   external when this managed resource is deleted - either "Delete"
                   or "Orphan" the external resource. This field is planned to be deprecated
-                  in favor of the ManagementPolicy field in a future release. Currently,
+                  in favor of the ManagementPolicies field in a future release. Currently,
                   both could be set independently and non-default values would be
                   honored if the feature flag is enabled. See the design doc for more
                   information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223'
@@ -70,6 +70,79 @@ spec:
                     description: The name of the CosmosDB Account to create the Gremlin
                       Graph within. Changing this forces a new resource to be created.
                     type: string
+                  accountNameRef:
+                    description: Reference to a Account to populate accountName.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: Resolution specifies whether resolution of
+                              this reference is required. The default is 'Required',
+                              which means the reconcile will fail if the reference
+                              cannot be resolved. 'Optional' means this reference
+                              will be a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: Resolve specifies when this reference should
+                              be resolved. The default is 'IfNotPresent', which will
+                              attempt to resolve the reference only when the corresponding
+                              field is not present. Use 'Always' to resolve the reference
+                              on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  accountNameSelector:
+                    description: Selector for a Account to populate accountName.
+                    properties:
+                      matchControllerRef:
+                        description: MatchControllerRef ensures an object with the
+                          same controller reference as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: Resolution specifies whether resolution of
+                              this reference is required. The default is 'Required',
+                              which means the reconcile will fail if the reference
+                              cannot be resolved. 'Optional' means this reference
+                              will be a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: Resolve specifies when this reference should
+                              be resolved. The default is 'IfNotPresent', which will
+                              attempt to resolve the reference only when the corresponding
+                              field is not present. Use 'Always' to resolve the reference
+                              on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
                   autoscaleSettings:
                     description: An autoscale_settings block as defined below. Requires
                       partition_key_path to be set.
@@ -99,8 +172,6 @@ spec:
                           description: 'Indicates the conflict resolution mode. Possible
                             values include: LastWriterWins, Custom.'
                           type: string
-                      required:
-                      - mode
                       type: object
                     type: array
                   databaseName:
@@ -214,13 +285,8 @@ spec:
                                         Point, and Polygon will be applied to the
                                         path.
                                       type: string
-                                  required:
-                                  - order
-                                  - path
                                   type: object
                                 type: array
-                            required:
-                            - index
                             type: object
                           type: array
                         excludedPaths:
@@ -250,12 +316,8 @@ spec:
                                   spatial types including LineString, MultiPolygon,
                                   Point, and Polygon will be applied to the path.
                                 type: string
-                            required:
-                            - path
                             type: object
                           type: array
-                      required:
-                      - indexingMode
                       type: object
                     type: array
                   partitionKeyPath:
@@ -272,6 +334,81 @@ spec:
                       DB Gremlin Graph is created. Changing this forces a new resource
                       to be created.
                     type: string
+                  resourceGroupNameRef:
+                    description: Reference to a ResourceGroup in azure to populate
+                      resourceGroupName.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: Resolution specifies whether resolution of
+                              this reference is required. The default is 'Required',
+                              which means the reconcile will fail if the reference
+                              cannot be resolved. 'Optional' means this reference
+                              will be a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: Resolve specifies when this reference should
+                              be resolved. The default is 'IfNotPresent', which will
+                              attempt to resolve the reference only when the corresponding
+                              field is not present. Use 'Always' to resolve the reference
+                              on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  resourceGroupNameSelector:
+                    description: Selector for a ResourceGroup in azure to populate
+                      resourceGroupName.
+                    properties:
+                      matchControllerRef:
+                        description: MatchControllerRef ensures an object with the
+                          same controller reference as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: Resolution specifies whether resolution of
+                              this reference is required. The default is 'Required',
+                              which means the reconcile will fail if the reference
+                              cannot be resolved. 'Optional' means this reference
+                              will be a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: Resolve specifies when this reference should
+                              be resolved. The default is 'IfNotPresent', which will
+                              attempt to resolve the reference only when the corresponding
+                              field is not present. Use 'Always' to resolve the reference
+                              on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
                   throughput:
                     description: The throughput of the Gremlin graph (RU/s). Must
                       be set in increments of 100. The minimum value is 400.
@@ -287,71 +424,178 @@ spec:
                           items:
                             type: string
                           type: array
-                      required:
-                      - paths
                       type: object
                     type: array
-                required:
-                - accountName
-                - resourceGroupName
                 type: object
-              managementPolicy:
-                default: FullControl
-                description: 'THIS IS AN ALPHA FIELD. Do not use it in production.
-                  It is not honored unless the relevant Crossplane feature flag is
-                  enabled, and may be changed or removed without notice. ManagementPolicy
-                  specifies the level of control Crossplane has over the managed external
-                  resource. This field is planned to replace the DeletionPolicy field
-                  in a future release. Currently, both could be set independently
-                  and non-default values would be honored if the feature flag is enabled.
-                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223'
-                enum:
-                - FullControl
-                - ObserveOnly
-                - OrphanOnDelete
-                type: string
+              initProvider:
+                description: THIS IS A BETA FIELD. It will be honored unless the Management
+                  Policies feature flag is disabled. InitProvider holds the same fields
+                  as ForProvider, with the exception of Identifier and other resource
+                  reference fields. The fields that are in InitProvider are merged
+                  into ForProvider when the resource is created. The same fields are
+                  also added to the terraform ignore_changes hook, to avoid updating
+                  them after creation. This is useful for fields that are required
+                  on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them,
+                  like an autoscaler.
+                properties:
+                  autoscaleSettings:
+                    description: An autoscale_settings block as defined below. Requires
+                      partition_key_path to be set.
+                    items:
+                      properties:
+                        maxThroughput:
+                          description: The maximum throughput of the Gremlin graph
+                            (RU/s). Must be between 1,000 and 1,000,000. Must be set
+                            in increments of 1,000. Conflicts with throughput.
+                          type: number
+                      type: object
+                    type: array
+                  conflictResolutionPolicy:
+                    description: A conflict_resolution_policy blocks as defined below.
+                      Changing this forces a new resource to be created.
+                    items:
+                      properties:
+                        conflictResolutionPath:
+                          description: The conflict resolution path in the case of
+                            LastWriterWins mode.
+                          type: string
+                        conflictResolutionProcedure:
+                          description: The procedure to resolve conflicts in the case
+                            of custom mode.
+                          type: string
+                        mode:
+                          description: 'Indicates the conflict resolution mode. Possible
+                            values include: LastWriterWins, Custom.'
+                          type: string
+                      type: object
+                    type: array
+                  defaultTtl:
+                    description: The default time to live (TTL) of the Gremlin graph.
+                      If the value is missing or set to "-1", items don’t expire.
+                    type: number
+                  indexPolicy:
+                    description: The configuration of the indexing policy. One or
+                      more index_policy blocks as defined below.
+                    items:
+                      properties:
+                        automatic:
+                          description: Indicates if the indexing policy is automatic.
+                            Defaults to true.
+                          type: boolean
+                        compositeIndex:
+                          description: One or more composite_index blocks as defined
+                            below.
+                          items:
+                            properties:
+                              index:
+                                description: One or more index blocks as defined below.
+                                items:
+                                  properties:
+                                    order:
+                                      description: Order of the index. Possible values
+                                        are Ascending or Descending.
+                                      type: string
+                                    path:
+                                      description: Path for which the indexing behaviour
+                                        applies to. According to the service design,
+                                        all spatial types including LineString, MultiPolygon,
+                                        Point, and Polygon will be applied to the
+                                        path.
+                                      type: string
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
+                        excludedPaths:
+                          description: List of paths to exclude from indexing. Required
+                            if indexing_mode is Consistent or Lazy.
+                          items:
+                            type: string
+                          type: array
+                        includedPaths:
+                          description: List of paths to include in the indexing. Required
+                            if indexing_mode is Consistent or Lazy.
+                          items:
+                            type: string
+                          type: array
+                        indexingMode:
+                          description: 'Indicates the indexing mode. Possible values
+                            include: Consistent, Lazy, None.'
+                          type: string
+                        spatialIndex:
+                          description: One or more spatial_index blocks as defined
+                            below.
+                          items:
+                            properties:
+                              path:
+                                description: Path for which the indexing behaviour
+                                  applies to. According to the service design, all
+                                  spatial types including LineString, MultiPolygon,
+                                  Point, and Polygon will be applied to the path.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  partitionKeyPath:
+                    description: Define a partition key. Changing this forces a new
+                      resource to be created.
+                    type: string
+                  partitionKeyVersion:
+                    description: Define a partition key version. Changing this forces
+                      a new resource to be created. Possible values are 1and 2. This
+                      should be set to 2 in order to use large partition keys.
+                    type: number
+                  throughput:
+                    description: The throughput of the Gremlin graph (RU/s). Must
+                      be set in increments of 100. The minimum value is 400.
+                    type: number
+                  uniqueKey:
+                    description: One or more unique_key blocks as defined below. Changing
+                      this forces a new resource to be created.
+                    items:
+                      properties:
+                        paths:
+                          description: A list of paths to use for this unique key.
+                            Changing this forces a new resource to be created.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: 'THIS IS A BETA FIELD. It is on by default but can be
+                  opted out through a Crossplane feature flag. ManagementPolicies
+                  specify the array of actions Crossplane is allowed to take on the
+                  managed and external resources. This field is planned to replace
+                  the DeletionPolicy field in a future release. Currently, both could
+                  be set independently and non-default values would be honored if
+                  the feature flag is enabled. If both are custom, the DeletionPolicy
+                  field will be ignored. See the design doc for more information:
+                  https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md'
+                items:
+                  description: A ManagementAction represents an action that the Crossplane
+                    controllers can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
               providerConfigRef:
                 default:
                   name: default
                 description: ProviderConfigReference specifies how the provider that
                   will be used to create, observe, update, and delete this managed
                   resource should be configured.
-                properties:
-                  name:
-                    description: Name of the referenced object.
-                    type: string
-                  policy:
-                    description: Policies for referencing.
-                    properties:
-                      resolution:
-                        default: Required
-                        description: Resolution specifies whether resolution of this
-                          reference is required. The default is 'Required', which
-                          means the reconcile will fail if the reference cannot be
-                          resolved. 'Optional' means this reference will be a no-op
-                          if it cannot be resolved.
-                        enum:
-                        - Required
-                        - Optional
-                        type: string
-                      resolve:
-                        description: Resolve specifies when this reference should
-                          be resolved. The default is 'IfNotPresent', which will attempt
-                          to resolve the reference only when the corresponding field
-                          is not present. Use 'Always' to resolve the reference on
-                          every reconcile.
-                        enum:
-                        - Always
-                        - IfNotPresent
-                        type: string
-                    type: object
-                required:
-                - name
-                type: object
-              providerRef:
-                description: 'ProviderReference specifies the provider that will be
-                  used to create, observe, update, and delete this managed resource.
-                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
                 properties:
                   name:
                     description: Name of the referenced object.
@@ -482,8 +726,10 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: partitionKeyPath is a required parameter
-              rule: self.managementPolicy == 'ObserveOnly' || has(self.forProvider.partitionKeyPath)
+            - message: spec.forProvider.partitionKeyPath is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.partitionKeyPath)
+                || (has(self.initProvider) && has(self.initProvider.partitionKeyPath))'
           status:
             description: GremlinGraphStatus defines the observed state of GremlinGraph.
             properties:
@@ -669,6 +915,9 @@ spec:
                   - type
                   type: object
                 type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
             type: object
         required:
         - spec
