@@ -45,32 +45,32 @@ The command removes all the Kubernetes components associated with the chart and 
 
 The following table lists the configurable parameters of the `kubedb-grafana-dashboards` chart and their default values.
 
-|                     Parameter                     |                            Description                             |                                         Default                                          |
-|---------------------------------------------------|--------------------------------------------------------------------|------------------------------------------------------------------------------------------|
-| nameOverride                                      | Overrides name template                                            | <code>""</code>                                                                          |
-| fullnameOverride                                  | Overrides fullname template                                        | <code>""</code>                                                                          |
-| resources                                         | List of resources for which dashboards will be applied             | <code>["elasticsearch","mariadb","mongodb","mysql","postgres","redis","proxysql"]</code> |
-| dashboard.folderID                                | ID of Grafana folder where these dashboards will be applied        | <code>0</code>                                                                           |
-| dashboard.overwrite                               | If true, dashboard with matching uid will be overwritten           | <code>true</code>                                                                        |
-| dashboard.templatize.title                        | If true, datasource will be prefixed to dashboard name             | <code>false</code>                                                                       |
-| dashboard.templatize.datasource                   | If true, datasource will be hardcoded in the dashboard             | <code>false</code>                                                                       |
-| dashboard.replacements.job=\"kube-state-metrics\" |                                                                    | <code>job=\"kubernetes-service-endpoints\"</code>                                        |
-| dashboard.replacements.job=\"kubelet\"            |                                                                    | <code>job=\"kubernetes-nodes-cadvisor\"</code>                                           |
-| dashboard.replacements.job=\"repl-stats\"         |                                                                    | <code>job=\"kubedb-databases\"</code>                                                    |
-| grafana.name                                      | Name of Grafana Appbinding where these dashboards are applied      | <code>""</code>                                                                          |
-| grafana.namespace                                 | Namespace of Grafana Appbinding where these dashboards are applied | <code>""</code>                                                                          |
-| grafana.version                                   |                                                                    | <code>8.2.3</code>                                                                       |
-| grafana.jobName                                   |                                                                    | <code>kubedb-databases</code>                                                            |
-| grafana.url                                       |                                                                    | <code>""</code>                                                                          |
-| grafana.apikey                                    |                                                                    | <code>""</code>                                                                          |
-| app.name                                          |                                                                    | <code>""</code>                                                                          |
-| app.namespace                                     |                                                                    | <code>""</code>                                                                          |
+|                     Parameter                     |                            Description                             |                                                     Default                                                      |
+|---------------------------------------------------|--------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| nameOverride                                      | Overrides name template                                            | <code>""</code>                                                                                                  |
+| fullnameOverride                                  | Overrides fullname template                                        | <code>""</code>                                                                                                  |
+| resources                                         | List of resources for which dashboards will be applied             | <code>["elasticsearch","kafka","mariadb","mongodb","mysql","perconaxtradb","postgres","proxysql","redis"]</code> |
+| dashboard.folderID                                | ID of Grafana folder where these dashboards will be applied        | <code>0</code>                                                                                                   |
+| dashboard.overwrite                               | If true, dashboard with matching uid will be overwritten           | <code>true</code>                                                                                                |
+| dashboard.templatize.title                        | If true, datasource will be prefixed to dashboard name             | <code>false</code>                                                                                               |
+| dashboard.templatize.datasource                   | If true, datasource will be hardcoded in the dashboard             | <code>false</code>                                                                                               |
+| dashboard.replacements.job=\"kube-state-metrics\" |                                                                    | <code>job=\"kubernetes-service-endpoints\"</code>                                                                |
+| dashboard.replacements.job=\"kubelet\"            |                                                                    | <code>job=\"kubernetes-nodes-cadvisor\"</code>                                                                   |
+| dashboard.replacements.job=\"repl-stats\"         |                                                                    | <code>job=\"kubedb-databases\"</code>                                                                            |
+| grafana.name                                      | Name of Grafana Appbinding where these dashboards are applied      | <code>""</code>                                                                                                  |
+| grafana.namespace                                 | Namespace of Grafana Appbinding where these dashboards are applied | <code>""</code>                                                                                                  |
+| grafana.version                                   |                                                                    | <code>8.2.3</code>                                                                                               |
+| grafana.jobName                                   |                                                                    | <code>kubedb-databases</code>                                                                                    |
+| grafana.url                                       |                                                                    | <code>""</code>                                                                                                  |
+| grafana.apikey                                    |                                                                    | <code>""</code>                                                                                                  |
+| app.name                                          |                                                                    | <code>""</code>                                                                                                  |
+| app.namespace                                     |                                                                    | <code>""</code>                                                                                                  |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2023.12.11 --set resources=["elasticsearch","mariadb","mongodb","mysql","postgres","redis","proxysql"]
+$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2023.12.11 --set resources=["elasticsearch","kafka","mariadb","mongodb","mysql","perconaxtradb","postgres","proxysql","redis"]
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
