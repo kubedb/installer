@@ -24,8 +24,12 @@ spec:
     namespace: {{ . }}
   {{- end }}
 {{- end }}
+  {{- $dashtpl := $.Files.Get $path }}
+  {{- range $k, $v := $.Values.dashboard.replacements }}
+    {{- $dashtpl = $dashtpl | replace $k $v }}
+  {{- end }}
   model:
-    {{- omit (tpl ($.Files.Get $path) $ | mustFromJson) "id" "uid" | toYaml | nindent 4 }}
+    {{- omit (tpl $dashtpl $ | mustFromJson) "id" "uid" | toYaml | nindent 4 }}
 {{- with $.Values.dashboard.folderID }}
   folderID: {{ . }}
 {{- end }}

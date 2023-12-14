@@ -11,7 +11,11 @@ metadata:
 data:
 {{- range $r := .Values.resources }}
 {{- range $path, $_ :=  $.Files.Glob (printf "dashboards/%s/**.json" $r) }}
-  {{- $dasboard := omit (tpl ($.Files.Get $path) $ | mustFromJson) "id" "uid" -}}
+  {{- $dashtpl := $.Files.Get $path }}
+  {{- range $k, $v := $.Values.dashboard.replacements }}
+    {{- $dashtpl = $dashtpl | replace $k $v }}
+  {{- end }}
+  {{- $dasboard := omit (tpl $dashtpl $ | mustFromJson) "id" "uid" -}}
   {{ $path | replace "/" "-" | nindent 2 }}: |
     {{- dict
       "dashboard" $dasboard
