@@ -113,47 +113,6 @@ jobs:
           kubectl apply -f crds/kubedb-crds.yaml
           metrics-configuration-checker --content=./charts/kubedb-metrics/templates/
 
-      - name: Test Monitoring
-        run: |
-          export LICENSE_FILE=/tmp/license.txt
-          helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-          helm repo update
-          helm upgrade -i kube-prometheus-stack prometheus-community/kube-prometheus-stack --wait \
-            --namespace monitoring --create-namespace \
-            --set grafana.defaultDashboardsEnabled=false
-          kubectl apply -f crds/kubedb-catalog-crds.yaml
-          helm upgrade -i kubedb charts/kubedb --wait \
-            --namespace kubedb --create-namespace \
-            --set kubedb-provisioner.enabled=true \
-            --set kubedb-ops-manager.enabled=true \
-            --set kubedb-autoscaler.enabled=true \
-            --set kubedb-dashboard.enabled=true \
-            --set kubedb-schema-manager.enabled=true \
-            --set-file global.license=$LICENSE_FILE \
-            --set global.monitoring.agent=prometheus.io/operator \
-            --set global.monitoring.serviceMonitor.labels.release=kube-prometheus-stack
-          helm delete kubedb --namespace kubedb
-          kubectl apply -f crds/kubedb-catalog-crds.yaml
-          helm upgrade -i kubedb charts/kubedb --wait \
-            --namespace kubedb --create-namespace \
-            --set kubedb-provisioner.enabled=true \
-            --set kubedb-ops-manager.enabled=true \
-            --set kubedb-autoscaler.enabled=true \
-            --set kubedb-dashboard.enabled=true \
-            --set kubedb-schema-manager.enabled=true \
-            --set-file global.license=$LICENSE_FILE \
-            --set global.monitoring.agent=prometheus.io/builtin
-          helm delete kubedb --namespace kubedb
-          helm upgrade -i kubedb-opscenter charts/kubedb-opscenter --wait \
-            --namespace kubedb --create-namespace \
-            --set global.monitoring.agent=prometheus.io/operator \
-            --set global.monitoring.serviceMonitor.labels.release=kube-prometheus-stack
-          helm delete kubedb-opscenter --namespace kubedb
-          helm upgrade -i kubedb-opscenter charts/kubedb-opscenter --wait \
-            --namespace kubedb --create-namespace \
-            --set global.monitoring.agent=prometheus.io/builtin
-          helm delete kubedb-opscenter --namespace kubedb
-
       - name: Test Grafana Dashboards
         run: |
           echo "all db dashboards"
@@ -212,3 +171,44 @@ jobs:
           --set resources[0]=redis \
           --set app.name=mydb \
           --set app.namespace=demo
+
+      - name: Test Monitoring
+        run: |
+          export LICENSE_FILE=/tmp/license.txt
+          helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+          helm repo update
+          helm upgrade -i kube-prometheus-stack prometheus-community/kube-prometheus-stack --wait \
+            --namespace monitoring --create-namespace \
+            --set grafana.defaultDashboardsEnabled=false
+          kubectl apply -f crds/kubedb-catalog-crds.yaml
+          helm upgrade -i kubedb charts/kubedb --wait \
+            --namespace kubedb --create-namespace \
+            --set kubedb-provisioner.enabled=true \
+            --set kubedb-ops-manager.enabled=true \
+            --set kubedb-autoscaler.enabled=true \
+            --set kubedb-dashboard.enabled=true \
+            --set kubedb-schema-manager.enabled=true \
+            --set-file global.license=$LICENSE_FILE \
+            --set global.monitoring.agent=prometheus.io/operator \
+            --set global.monitoring.serviceMonitor.labels.release=kube-prometheus-stack
+          helm delete kubedb --namespace kubedb
+          kubectl apply -f crds/kubedb-catalog-crds.yaml
+          helm upgrade -i kubedb charts/kubedb --wait \
+            --namespace kubedb --create-namespace \
+            --set kubedb-provisioner.enabled=true \
+            --set kubedb-ops-manager.enabled=true \
+            --set kubedb-autoscaler.enabled=true \
+            --set kubedb-dashboard.enabled=true \
+            --set kubedb-schema-manager.enabled=true \
+            --set-file global.license=$LICENSE_FILE \
+            --set global.monitoring.agent=prometheus.io/builtin
+          helm delete kubedb --namespace kubedb
+          helm upgrade -i kubedb-opscenter charts/kubedb-opscenter --wait \
+            --namespace kubedb --create-namespace \
+            --set global.monitoring.agent=prometheus.io/operator \
+            --set global.monitoring.serviceMonitor.labels.release=kube-prometheus-stack
+          helm delete kubedb-opscenter --namespace kubedb
+          helm upgrade -i kubedb-opscenter charts/kubedb-opscenter --wait \
+            --namespace kubedb --create-namespace \
+            --set global.monitoring.agent=prometheus.io/builtin
+          helm delete kubedb-opscenter --namespace kubedb
