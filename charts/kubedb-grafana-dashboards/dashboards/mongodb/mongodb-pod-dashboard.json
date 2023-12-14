@@ -1,3 +1,4 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
 {
   "annotations": {
     "list": [
@@ -351,7 +352,7 @@
           "hide": false,
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "{{legacy_op_type}}",
+          "legendFormat": {{ `"{{legacy_op_type}}"` }},
           "refId": "J",
           "step": 300
         },
@@ -361,7 +362,7 @@
           "hide": false,
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "repl_{{legacy_op_type}}",
+          "legendFormat": {{ `"repl_{{legacy_op_type}}"` }},
           "refId": "A",
           "step": 300
         },
@@ -480,7 +481,7 @@
           "exemplar": false,
           "expr": "avg by (service,op_type) (rate(mongodb_ss_opLatencies_latency{service=~\"${app}-stats\"}[$interval]) / (rate(mongodb_ss_opLatencies_ops{service=~\"${app}-stats\"}[$interval]) > 0) or irate(mongodb_ss_opLatencies_latency{service=~\"${app}-stats\"}[5m]) / (irate(mongodb_ss_opLatencies_ops{service=~\"${app}-stats\"}[5m]) > 0))",
           "interval": "$interval",
-          "legendFormat": "{{op_type}}",
+          "legendFormat": {{ `"{{op_type}}"` }},
           "range": true,
           "refId": "A"
         }
@@ -711,7 +712,7 @@
           "hide": false,
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "{{csr_type}}",
+          "legendFormat": {{ `"{{csr_type}}"` }},
           "range": true,
           "refId": "J",
           "step": 300
@@ -829,7 +830,7 @@
           "hide": false,
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "{{doc_op_type}}",
+          "legendFormat": {{ `"{{doc_op_type}}"` }},
           "range": true,
           "refId": "J",
           "step": 300
@@ -948,7 +949,7 @@
           "hide": false,
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "{{count_type}}",
+          "legendFormat": {{ `"{{count_type}}"` }},
           "range": true,
           "refId": "J",
           "step": 300
@@ -1539,7 +1540,7 @@
           "hide": false,
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "{{assert_type}}",
+          "legendFormat": {{ `"{{assert_type}}"` }},
           "range": true,
           "refId": "J",
           "step": 300
@@ -1826,10 +1827,16 @@
         "multi": false,
         "name": "namespace",
         "options": [],
+        {{- if $shared }}
         "query": {
           "query": "label_values(kube_namespace_labels,namespace)",
           "refId": "Prometheus-namespace-Variable-Query"
         },
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.namespace | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1837,7 +1844,6 @@
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
-        "type": "query",
         "useTags": false
       },
       {
@@ -1857,17 +1863,22 @@
         "multi": false,
         "name": "app",
         "options": [],
+        {{- if $shared }}
         "query": {
           "query": "label_values(kubedb_com_mongodb_status_phase{namespace=~\"$namespace\"},app)",
           "refId": "Prometheus-app-Variable-Query"
         },
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
         "tagsQuery": "",
-        "type": "query",
         "useTags": false
       },
       {
@@ -1936,6 +1947,10 @@
     ]
   },
   "timezone": "browser",
+  {{- if $shared }}
   "title": "KubeDB / MongoDB / Pod",
+  {{- else }}
+  "title": {{ printf "KubeDB / MongoDB / Pod / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
+  {{- end }}
   "version": 12
 }

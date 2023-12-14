@@ -1,0 +1,23 @@
+{{ $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") }}
+{{ if not $shared }}
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "kubedb-grafana-dashboards.fullname" . }}-config
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    {{- include "kubedb-grafana-dashboards.labels" $ | nindent 4 }}
+data:
+{{- range $r := .Values.resources }}
+{{- range $path, $_ :=  $.Files.Glob (printf "dashboards/%s/**.json" $r) }}
+  {{- $dasboard := omit (tpl ($.Files.Get $path) $ | mustFromJson) "id" "uid" -}}
+  {{ $path | replace "/" "-" | nindent 2 }}: |
+    {{- dict
+      "dashboard" $dasboard
+      "folderId" $.Values.dashboard.folderID
+      "overwrite" $.Values.dashboard.overwrite | toJson | nindent 4 -}}
+{{- end }}
+{{- end }}
+
+{{ end }}

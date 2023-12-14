@@ -1,3 +1,4 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
 {
   "annotations": {
     "list": [
@@ -516,7 +517,7 @@
          "expr": "rate(mongodb_ss_opcountersRepl{pod=~\"$pod\", legacy_op_type!~\"(command|getmore|query)\"}[$interval]) or irate(mongodb_ss_opcountersRepl{pod=~\"$pod\", legacy_op_type!~\"(command|getmore|query)\"}[5m])",
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "{{legacy_op_type}}",
+          "legendFormat": {{ `"{{legacy_op_type}}"` }},
           "range": true,
           "refId": "A",
           "step": 300
@@ -755,7 +756,7 @@
           "expr": "rate(mongodb_mongod_metrics_repl_network_getmores_total_milliseconds{pod=~\"$pod\"}[$interval]) or irate(mongodb_mongod_metrics_repl_network_getmores_total_milliseconds{pod=~\"$pod\"}[5m]) or rate(mongodb_ss_metrics_repl_network_getmores_totalMillis{pod=~\"$pod\"}[$interval]) or irate(mongodb_ss_metrics_repl_network_getmores_totalMillis{pod=~\"$pod\"}[5m])",
           "interval": "$interval",
           "intervalFactor": 1,
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "range": true,
           "refId": "A",
           "step": 300
@@ -1265,10 +1266,16 @@
         "multi": false,
         "name": "namespace",
         "options": [],
+        {{- if $shared }}
         "query": {
           "query": "label_values(kube_namespace_labels,namespace)",
           "refId": "Prometheus-namespace-Variable-Query"
         },
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.namespace | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1276,7 +1283,6 @@
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
-        "type": "query",
         "useTags": false
       },
       {
@@ -1298,17 +1304,22 @@
         "multiFormat": "glob",
         "name": "app",
         "options": [],
+        {{- if $shared }}
         "query": {
           "query": "label_values(mongodb_members_state{namespace=~\"$namespace\"}, rs_nm)",
           "refId": "Prometheus-app-Variable-Query"
         },
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
         "sort": 1,
         "tagValuesQuery": null,
         "tagsQuery": null,
-        "type": "query",
         "useTags": false
       },
       {
@@ -1377,6 +1388,10 @@
     ]
   },
   "timezone": "browser",
+  {{- if $shared }}
   "title": "KubeDB / MongoDB / Database / ReplicaSet",
+  {{- else }}
+  "title": {{ printf "KubeDB / MongoDB / Database / ReplicaSet / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
+  {{- end }}
   "version": 2
 }
