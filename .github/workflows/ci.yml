@@ -44,6 +44,65 @@ jobs:
           ./hack/scripts/update-chart-dependencies.sh
           make ci
 
+      - name: Test Grafana Dashboards
+        run: |
+          echo "all db dashboards"
+          helm template charts/kubedb-grafana-dashboards
+          echo "-----------------------------------------"
+          echo "elasticsearch dashboard with alerts"
+          helm template charts/kubedb-grafana-dashboards \
+          --set resources[0]=elasticsearch \
+          --set app.name=mydb \
+          --set app.namespace=demo
+          echo "-----------------------------------------"
+          echo "kafka dashboard with alerts"
+          helm template charts/kubedb-grafana-dashboards \
+          --set resources[0]=kafka \
+          --set app.name=mydb \
+          --set app.namespace=demo
+          echo "-----------------------------------------"
+          echo "mariadb dashboard with alerts"
+          helm template charts/kubedb-grafana-dashboards \
+          --set resources[0]=mariadb \
+          --set app.name=mydb \
+          --set app.namespace=demo
+          echo "-----------------------------------------"
+          echo "mongodb dashboard with alerts"
+          helm template charts/kubedb-grafana-dashboards \
+          --set resources[0]=mongodb \
+          --set app.name=mydb \
+          --set app.namespace=demo
+          echo "-----------------------------------------"
+          echo "mysql dashboard with alerts"
+          helm template charts/kubedb-grafana-dashboards \
+          --set resources[0]=mysql \
+          --set app.name=mydb \
+          --set app.namespace=demo
+          echo "-----------------------------------------"
+          echo "perconaxtradb dashboard with alerts"
+          helm template charts/kubedb-grafana-dashboards \
+          --set resources[0]=perconaxtradb \
+          --set app.name=mydb \
+          --set app.namespace=demo
+          echo "-----------------------------------------"
+          echo "postgres dashboard with alerts"
+          helm template charts/kubedb-grafana-dashboards \
+          --set resources[0]=postgres \
+          --set app.name=mydb \
+          --set app.namespace=demo
+          echo "-----------------------------------------"
+          echo "proxysql dashboard with alerts"
+          helm template charts/kubedb-grafana-dashboards \
+          --set resources[0]=proxysql \
+          --set app.name=mydb \
+          --set app.namespace=demo
+          echo "-----------------------------------------"
+          echo "redis dashboard with alerts"
+          helm template charts/kubedb-grafana-dashboards \
+          --set resources[0]=redis \
+          --set app.name=mydb \
+          --set app.namespace=demo
+
   kubernetes:
     name: Kubernetes
     runs-on: ubuntu-20.04

@@ -1,3 +1,4 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
 {
   "annotations": {
     "list": [
@@ -641,7 +642,7 @@
           "format": "time_series",
           "interval": "60s",
           "intervalFactor": 1,
-          "legendFormat": "{{gc}}",
+          "legendFormat": {{ `"{{gc}}"` }},
           "metric": "jvm_gc_collection_seconds_sum",
           "refId": "A",
           "step": 10
@@ -731,7 +732,7 @@
           "format": "time_series",
           "interval": "60s",
           "intervalFactor": 1,
-          "legendFormat": "{{gc}}",
+          "legendFormat": {{ `"{{gc}}"` }},
           "metric": "",
           "refId": "A",
           "step": 10
@@ -2113,7 +2114,7 @@
           "exemplar": false,
           "expr": "kafka_server_kafkarequesthandlerpool_requesthandleravgidle_percent{namespace=\"$namespace\", service=\"$service\"}",
           "instant": false,
-          "legendFormat": "{{ pod }}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "range": true,
           "refId": "A"
         }
@@ -2598,7 +2599,7 @@
           "expr": "kafka_server_raft_metrics_commit_latency_avg{container=\"$container\", namespace=\"$namespace\", pod=\"$pod\"}",
           "instant": false,
           "interval": "",
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -2668,7 +2669,7 @@
           "format": "table",
           "instant": true,
           "interval": "",
-          "legendFormat": "{{ pod }}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "range": false,
           "refId": "A"
         }
@@ -2840,7 +2841,7 @@
           "format": "table",
           "instant": true,
           "interval": "",
-          "legendFormat": "{{ pod }}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -2907,7 +2908,7 @@
           "format": "time_series",
           "instant": true,
           "interval": "",
-          "legendFormat": "{{ pod }}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "range": false,
           "refId": "A"
         }
@@ -3377,7 +3378,7 @@
           "format": "table",
           "instant": true,
           "interval": "",
-          "legendFormat": "{{ $pod }}",
+          "legendFormat": {{ `"{{$pod}}"` }},
           "refId": "A"
         }
       ],
@@ -3651,24 +3652,28 @@
           "type": "prometheus",
           "uid": "$datasource"
         },
-        "definition": "label_values(jvm_info, namespace)",
         "hide": 0,
         "includeAll": false,
         "label": "",
         "multi": false,
         "name": "namespace",
         "options": [],
+        {{- if $shared }}
         "query": {
           "query": "label_values(jvm_info, namespace)",
           "refId": "StandardVariableQuery"
         },
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.namespace | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 1,
         "tagValuesQuery": "",
         "tagsQuery": "",
-        "type": "query",
         "useTags": false
       },
       {
@@ -3860,7 +3865,11 @@
     ]
   },
   "timezone": "utc",
+  {{- if $shared }}
   "title": "KubeDB / Kafka / Database",
+  {{- else }}
+  "title": {{ printf "KubeDB / Kafka / Database / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
+  {{- end }}
   "uid": "LwWjURa4k",
   "version": 1,
   "weekStart": ""

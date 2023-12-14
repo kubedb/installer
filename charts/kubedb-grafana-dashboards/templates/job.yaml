@@ -1,0 +1,43 @@
+{{ $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") }}
+{{ if not $shared }}
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "kubedb-grafana-dashboards.fullname" . }}-installer
+  labels:
+    {{- include "kubedb-grafana-dashboards.labels" . | nindent 4 }}
+spec:
+  # ttlSecondsAfterFinished: 0
+  backoffLimit: 3
+  template:
+    spec:
+      automountServiceAccountToken: false
+      volumes:
+      - name: grafana-dashboards
+        configMap:
+          name: {{ include "kubedb-grafana-dashboards.fullname" . }}-config
+      containers:
+      - name: post-json-container
+        image: curlimages/curl:latest
+        command:
+          - sh
+          - -c
+          - |
+              sleep 2; \
+              FILES="/grafana/dashboards/*.json"; \
+              for f in $FILES; \
+              do \
+                echo "Processing dashboard file $f ..."; \
+                curl \
+                  -X POST \
+                  -H "Content-Type: application/json" \
+                  -H "Authorization: Bearer {{ .Values.grafana.apikey }}" \
+                  --data-binary @/etc/grafana-json/grafana-json.json \
+                  {{ .Values.grafana.url }}/api/dashboards/import; \
+              done
+        volumeMounts:
+          - mountPath: /grafana/dashboards
+            name: grafana-dashboards
+      restartPolicy: Never
+{{ end }}

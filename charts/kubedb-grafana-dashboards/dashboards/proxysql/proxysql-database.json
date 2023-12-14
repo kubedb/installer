@@ -1,3 +1,4 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
 {
   "annotations": {
     "list": [
@@ -130,7 +131,7 @@
               "instant": true,
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "{{ pod }}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -234,7 +235,7 @@
               "format": "table",
               "instant": true,
               "interval": "",
-              "legendFormat": "{{ pod }}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -326,7 +327,7 @@
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "Free_connecntions - {{ pod }}",
+              "legendFormat": {{ `"Free_connecntions - {{ pod }}"` }},
               "refId": "A"
             },
             {
@@ -335,7 +336,7 @@
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "Used_connections - {{ pod }}",
+              "legendFormat": {{ `"Used_connections - {{ pod }}"` }},
               "refId": "B"
             }
           ],
@@ -441,7 +442,7 @@
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "received - {{ pod }}",
+              "legendFormat": {{ `"received - {{ pod }}"` }},
               "refId": "A"
             },
             {
@@ -450,7 +451,7 @@
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "sent - {{ pod }}",
+              "legendFormat": {{ `"sent - {{ pod }}"` }},
               "refId": "B"
             }
           ],
@@ -549,7 +550,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_slow_queries_total{namespace=~\"$namespace\",service=~\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "Slow Queries on {{ pod }}",
+              "legendFormat": {{ `"Slow Queries on {{ pod }}"` }},
               "refId": "A"
             }
           ],
@@ -646,14 +647,14 @@
               "exemplar": true,
               "expr": "rate(proxysql_server_connections_total{namespace=~\"$namespace\",service=~\"$app\",status=\"aborted\"}[5m])",
               "interval": "",
-              "legendFormat": "Aborted Connects (attempts) on - {{ pod }}",
+              "legendFormat": {{ `"Aborted Connects (attempts) on - {{ pod }}"` }},
               "refId": "A"
             },
             {
               "exemplar": true,
               "expr": "rate(proxysql_server_connections_total{namespace=~\"$namespace\",service=~\"$app\",status=\"aborted\"}[5m])",
               "interval": "",
-              "legendFormat": "Aborted Clients (timeout) on - {{ pod }}",
+              "legendFormat": {{ `"Aborted Clients (timeout) on - {{ pod }}"` }},
               "refId": "B"
             }
           ],
@@ -764,7 +765,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_questions_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -858,7 +859,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_slow_queries_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -952,7 +953,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_gtid_session_collected_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -1046,7 +1047,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_gtid_consistent_queries_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -1140,7 +1141,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_generated_error_packets_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -1234,7 +1235,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_backend_lagging_during_query_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -1328,7 +1329,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_backend_offline_during_query_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -1437,7 +1438,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_query_cache_count_get_total{namespace=~\"$namespace\",service=\"$app\"}[5m]) ",
               "interval": "",
-              "legendFormat": "{{pod}}:{{status}}",
+              "legendFormat": {{ `"{{pod}}:{{status}}"` }},
               "refId": "A"
             }
           ],
@@ -1531,7 +1532,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_query_cache_count_set_total{namespace=~\"$namespace\",service=\"$app\"}[5m]) ",
               "interval": "",
-              "legendFormat": "{{pod}}:{{status}}",
+              "legendFormat": {{ `"{{pod}}:{{status}}"` }},
               "refId": "A"
             }
           ],
@@ -1625,7 +1626,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_query_cache_bytes_total{namespace=~\"$namespace\",service=\"$app\"}[5m]) ",
               "interval": "",
-              "legendFormat": "{{pod}}:{{op}}",
+              "legendFormat": {{ `"{{pod}}:{{op}}"` }},
               "refId": "A"
             }
           ],
@@ -1719,7 +1720,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_query_cache_memory_bytes{namespace=~\"$namespace\",service=\"$app\"}[5m]) ",
               "interval": "",
-              "legendFormat": "{{pod}}:{{op}}",
+              "legendFormat": {{ `"{{pod}}:{{op}}"` }},
               "refId": "A"
             }
           ],
@@ -1813,7 +1814,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_query_cache_entries_total{namespace=~\"$namespace\",service=\"$app\"}[5m]) ",
               "interval": "",
-              "legendFormat": "{{pod}}:{{op}}",
+              "legendFormat": {{ `"{{pod}}:{{op}}"` }},
               "refId": "A"
             }
           ],
@@ -1907,7 +1908,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_query_cache_purged_total{namespace=~\"$namespace\",service=\"$app\"}[5m]) ",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -2016,7 +2017,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_mysql_unexpected_frontend_com_quit_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -2110,7 +2111,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_mysql_unexpected_frontend_packets_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -2204,7 +2205,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_automatic_detected_sql_injection_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -2313,7 +2314,7 @@
               "exemplar": true,
               "expr": "sum(rate(proxysql_cluster_pulled_total{namespace=~\"$namespace\",service=\"$app\",module_name=~\"mysql_variables|admin_variables|proxysql_servers|mysql_servers\"}[1m])) by(module_name,status)",
               "interval": "",
-              "legendFormat": "{{module_name}} : {{status}}",
+              "legendFormat": {{ `"{{module_name}} : {{status}}"` }},
               "refId": "A"
             }
           ],
@@ -2407,7 +2408,7 @@
               "exemplar": true,
               "expr": "sum(rate(proxysql_cluster_syn_conflict_total{namespace=~\"$namespace\",service=\"$app\",module_name=~\"mysql_variables|admin_variables|proxysql_servers|mysql_servers\"}[1m])) by(module_name)",
               "interval": "",
-              "legendFormat": "{{module_name}}",
+              "legendFormat": {{ `"{{module_name}}"` }},
               "refId": "A"
             }
           ],
@@ -2516,7 +2517,7 @@
               "exemplar": true,
               "expr": "sum(rate(proxysql_server_connections_total{namespace=~\"$namespace\",service=\"$app\"}[1m])) by(status)",
               "interval": "",
-              "legendFormat": "{{status}}",
+              "legendFormat": {{ `"{{status}}"` }},
               "refId": "A"
             }
           ],
@@ -2610,7 +2611,7 @@
               "exemplar": true,
               "expr": "sum(rate(proxysql_client_connections_total{namespace=~\"$namespace\",service=\"$app\"}[1m])) by(status)",
               "interval": "",
-              "legendFormat": "{{status}}",
+              "legendFormat": {{ `"{{status}}"` }},
               "refId": "A"
             }
           ],
@@ -2704,7 +2705,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_server_connections_connected{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -2798,7 +2799,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_client_connections_connected{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -2892,7 +2893,7 @@
               "exemplar": true,
               "expr": "proxysql_connpool_conns_latency_us{namespace=~\"$namespace\",service=\"$app\",hostgroup=\"3\"}",
               "interval": "",
-              "legendFormat": "{{pod}}:{{endpoint}}",
+              "legendFormat": {{ `"{{pod}}:{{endpoint}}"` }},
               "refId": "A"
             }
           ],
@@ -2986,7 +2987,7 @@
               "exemplar": true,
               "expr": "proxysql_connpool_conns_latency_us{namespace=~\"$namespace\",service=\"$app\",hostgroup=\"2\"}",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -3083,7 +3084,7 @@
               "expr": "proxysql_connpool_conns_status{namespace=~\"$namespace\",service=\"$app\",hostgroup=\"3\"}",
               "instant": false,
               "interval": "",
-              "legendFormat": "{{pod}} : {{endpoint}}",
+              "legendFormat": {{ `"{{pod}} : {{endpoint}}"` }},
               "refId": "A"
             }
           ],
@@ -3180,7 +3181,7 @@
               "expr": "proxysql_connpool_conns_status{namespace=~\"$namespace\",service=\"$app\",hostgroup=\"2\"}",
               "instant": false,
               "interval": "",
-              "legendFormat": "{{pod}} : {{endpoint}}",
+              "legendFormat": {{ `"{{pod}} : {{endpoint}}"` }},
               "refId": "A"
             }
           ],
@@ -3277,7 +3278,7 @@
               "expr": "sum(proxysql_connpool_conns{namespace=~\"$namespace\",service=\"$app\",hostgroup=\"3\"}) by(status,pod)",
               "instant": false,
               "interval": "",
-              "legendFormat": "{{pod}} : {{status}}",
+              "legendFormat": {{ `"{{pod}} : {{status}}"` }},
               "refId": "A"
             }
           ],
@@ -3374,7 +3375,7 @@
               "expr": "sum(proxysql_connpool_conns{namespace=~\"$namespace\",service=\"$app\",hostgroup=\"2\"}) by(status,pod)",
               "instant": false,
               "interval": "",
-              "legendFormat": "{{pod}} : {{status}}",
+              "legendFormat": {{ `"{{pod}} : {{status}}"` }},
               "refId": "A"
             }
           ],
@@ -3471,7 +3472,7 @@
               "expr": "proxysql_active_transactions{namespace=~\"$namespace\",service=\"$app\"}",
               "instant": false,
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -3568,7 +3569,7 @@
               "expr": "proxysql_client_connections_non_idle{namespace=~\"$namespace\",service=\"$app\"}",
               "instant": false,
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -3665,7 +3666,7 @@
               "expr": "proxysql_mysql_thread_workers{namespace=~\"$namespace\",service=\"$app\"}",
               "instant": false,
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -3762,7 +3763,7 @@
               "expr": "rate(proxysql_mysql_session_internal_bytes{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "instant": false,
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -3859,7 +3860,7 @@
               "expr": "rate(proxysql_connpool_memory_bytes{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "instant": false,
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -3956,7 +3957,7 @@
               "expr": "sum(rate(proxysql_connpool_data_bytes_total{namespace=~\"$namespace\",service=\"$app\"}[1m])) by(hostgroup,traffic_flow)",
               "instant": false,
               "interval": "",
-              "legendFormat": "HG {{hostgroup}} : Data {{traffic_flow}}",
+              "legendFormat": {{ `"HG {{hostgroup}} : Data {{traffic_flow}}"` }},
               "refId": "A"
             }
           ],
@@ -4053,7 +4054,7 @@
               "expr": "sum(rate(proxysql_connpool_conns_total{namespace=~\"$namespace\",service=\"$app\"}[1m])) by(hostgroup)",
               "instant": false,
               "interval": "",
-              "legendFormat": "HG {{hostgroup}} ",
+              "legendFormat": {{ `"HG {{hostgroup}} "` }},
               "refId": "A"
             }
           ],
@@ -4150,7 +4151,7 @@
               "expr": "sum(rate(proxysql_connpool_conns_queries_total{namespace=~\"$namespace\",service=\"$app\"}[1m])) by(hostgroup)",
               "instant": false,
               "interval": "",
-              "legendFormat": "HG {{hostgroup}} ",
+              "legendFormat": {{ `"HG {{hostgroup}}"` }},
               "refId": "A"
             }
           ],
@@ -4259,7 +4260,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_myhgm_myconnpool_get_total{namespace=~\"$namespace\",service=\"$app\"}[5m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -4353,7 +4354,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_myhgm_myconnpool_get_ok_total{namespace=~\"$namespace\",service=\"$app\"}[5m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -4447,7 +4448,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_myhgm_myconnpool_get_ping_total{namespace=~\"$namespace\",service=\"$app\"}[5m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -4541,7 +4542,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_myhgm_myconnpool_push_total{namespace=~\"$namespace\",service=\"$app\"}[5m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -4635,7 +4636,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_myhgm_myconnpool_reset_total{namespace=~\"$namespace\",service=\"$app\"}[5m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -4729,7 +4730,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_myhgm_myconnpool_destroy_total{namespace=~\"$namespace\",service=\"$app\"}[5m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -4823,7 +4824,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_myhgm_auto_increment_multiplex_total{namespace=~\"$namespace\",service=\"$app\"}[5m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -4932,7 +4933,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_access_denied_wrong_password_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -5026,7 +5027,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_access_denied_max_connections_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -5120,7 +5121,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_access_denied_max_user_connections_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -5229,7 +5230,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_stack_memory_mysql_threads_bytes{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -5323,7 +5324,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_stack_memory_admin_threads_bytes{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -5417,7 +5418,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_stack_memory_cluster_threads{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -5526,7 +5527,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_stmt_client_active{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -5620,7 +5621,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_stmt_client_active_unique{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -5714,7 +5715,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_stmt_server_active{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -5808,7 +5809,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_stmt_server_active_unique{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -5902,7 +5903,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_stmt_max_stmt_id{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -5996,7 +5997,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_stmt_cached{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -6090,7 +6091,7 @@
               "exemplar": true,
               "expr": "sum(rate(proxysql_com_backend_stmt_total{namespace=~\"$namespace\",service=\"$app\"}[1m])) by(op)",
               "interval": "",
-              "legendFormat": "{{op}}",
+              "legendFormat": {{ `"{{op}}"` }},
               "refId": "A"
             }
           ],
@@ -6184,7 +6185,7 @@
               "exemplar": true,
               "expr": "sum(rate(proxysql_com_frontend_stmt_total{namespace=~\"$namespace\",service=\"$app\"}[1m])) by(op)",
               "interval": "",
-              "legendFormat": "{{op}}",
+              "legendFormat": {{ `"{{op}}"` }},
               "refId": "A"
             }
           ],
@@ -6293,7 +6294,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_mysql_firewall_users_table_bytes{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -6387,7 +6388,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_mysql_firewall_users_config_bytes{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -6481,7 +6482,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_mysql_firewall_rules_table_bytes{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -6575,7 +6576,7 @@
               "exemplar": true,
               "expr": "rate(proxysql_mysql_firewall_rules_config_bytes{namespace=~\"$namespace\",service=\"$app\"}[1m])",
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -6726,7 +6727,7 @@
               "instant": false,
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -6863,7 +6864,7 @@
               "instant": false,
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -6987,7 +6988,7 @@
               "format": "time_series",
               "instant": false,
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -7111,7 +7112,7 @@
               "format": "time_series",
               "instant": false,
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -7267,7 +7268,7 @@
               "format": "time_series",
               "instant": false,
               "interval": "",
-              "legendFormat": "{{pod}} ",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -7423,7 +7424,7 @@
               "format": "time_series",
               "instant": false,
               "interval": "",
-              "legendFormat": "{{pod}} ",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -7522,7 +7523,7 @@
               "format": "time_series",
               "instant": false,
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -7658,7 +7659,7 @@
               "format": "time_series",
               "instant": false,
               "interval": "",
-              "legendFormat": "{{pod}}",
+              "legendFormat": {{ `"{{pod}}"` }},
               "refId": "A"
             }
           ],
@@ -7744,7 +7745,6 @@
           "value": "demo"
         },
         "datasource": "${datasource}",
-        "definition": "label_values(kube_namespace_labels,namespace)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -7753,10 +7753,16 @@
         "multi": false,
         "name": "namespace",
         "options": [],
+        {{- if $shared }}
         "query": {
           "query": "label_values(kube_namespace_labels,namespace)",
           "refId": "StandardVariableQuery"
         },
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.namespace | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -7764,7 +7770,6 @@
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
-        "type": "query",
         "useTags": false
       },
       {
@@ -7775,7 +7780,6 @@
           "value": "proxy-server-stats"
         },
         "datasource": "${datasource}",
-        "definition": "label_values(proxysql_uptime_seconds_total{namespace=~\"$namespace\"}, service)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -7784,10 +7788,16 @@
         "multi": false,
         "name": "app",
         "options": [],
+        {{- if $shared }}
         "query": {
           "query": "label_values(proxysql_uptime_seconds_total{namespace=~\"$namespace\"}, service)",
           "refId": "StandardVariableQuery"
         },
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -7795,7 +7805,6 @@
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
-        "type": "query",
         "useTags": false
       }
     ]
@@ -7806,7 +7815,11 @@
   },
   "timepicker": {},
   "timezone": "",
+  {{- if $shared }}
   "title": "KubeDB / ProxySQL / Database",
+  {{- else }}
+  "title": {{ printf "KubeDB / ProxySQL / Database / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
+  {{- end }}
   "uid": "ohrahgv7T",
   "version": 10
 }
