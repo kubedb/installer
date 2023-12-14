@@ -1,3 +1,4 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
 {
   "annotations": {
     "list": [
@@ -1585,7 +1586,6 @@
           "value": "demo"
         },
         "datasource": "${datasource}",
-        "definition": "label_values(kube_namespace_labels,namespace)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -1594,7 +1594,13 @@
         "multi": false,
         "name": "namespace",
         "options": [],
+        {{- if $shared }}
         "query": "label_values(kube_namespace_labels,namespace)",
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.namespace | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1602,7 +1608,6 @@
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
-        "type": "query",
         "useTags": false
       },
       {
@@ -1613,7 +1618,6 @@
           "value": "ps-demo"
         },
         "datasource": "${datasource}",
-        "definition": "query_result(kubedb_com_postgres_created{namespace=\"$namespace\"})",
         "description": null,
         "error": null,
         "hide": 0,
@@ -1622,7 +1626,13 @@
         "multi": false,
         "name": "app",
         "options": [],
+        {{- if $shared }}
         "query": "query_result(kubedb_com_postgres_created{namespace=\"$namespace\"})",
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 1,
         "regex": "/.*app=\"([^\"]+).*/",
         "skipUrlSync": false,
@@ -1630,7 +1640,6 @@
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
-        "type": "query",
         "useTags": false
       },
       {
@@ -1693,7 +1702,11 @@
     ]
   },
   "timezone": "",
+  {{- if $shared }}
   "title": "KubeDB / Postgres / Pod",
+  {{- else }}
+  "title": {{ printf "KubeDB / Postgres / Pod / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
+  {{- end }}
   "uid": "IgXOThN7ztest",
   "version": 2
 }

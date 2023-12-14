@@ -10,12 +10,14 @@ fullnameOverride: ""
 # List of resources for which dashboards will be applied
 resources: # +doc-gen:break
   - elasticsearch
+  - kafka
   - mariadb
   - mongodb
   - mysql
+  - perconaxtradb
   - postgres
-  - redis
   - proxysql
+  - redis
 
 dashboard:
   # ID of Grafana folder where these dashboards will be applied
@@ -27,9 +29,22 @@ dashboard:
     title: false
     # If true, datasource will be hardcoded in the dashboard
     datasource: false
+  alerts: false
+  replacements: {}
+    # job=\"kube-state-metrics\": job=\"kubernetes-service-endpoints\"
+    # job=\"kubelet\": job=\"kubernetes-nodes-cadvisor\"
+    # job=\"repl-stats\": job=\"kubedb-databases\"
 
 grafana:
   # Name of Grafana Appbinding where these dashboards are applied
   name: ""
   # Namespace of Grafana Appbinding where these dashboards are applied
+  namespace: ""
+  version: 8.2.3
+  jobName: kubedb-databases
+  url: ""
+  apikey: ""
+
+app:
+  name: ""
   namespace: ""

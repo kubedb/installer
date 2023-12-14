@@ -1,3 +1,4 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
 {
   "annotations": {
     "list": [
@@ -568,7 +569,7 @@
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{redis_mode}}",
+          "legendFormat": {{ `"{{redis_mode}}"` }},
           "metric": "",
           "refId": "A",
           "step": 2
@@ -684,7 +685,6 @@
           "value": "demo"
         },
         "datasource": "Prometheus",
-        "definition": "label_values(redis_up, namespace)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -693,7 +693,13 @@
         "multi": false,
         "name": "namespace",
         "options": [],
+        {{- if $shared }}
         "query": "label_values(redis_up, namespace)",
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.namespace | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -701,7 +707,6 @@
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
-        "type": "query",
         "useTags": false
       },
       {
@@ -712,7 +717,6 @@
           "value": "demo-rd"
         },
         "datasource": null,
-        "definition": "query_result(kubedb_com_redis_created{namespace=\"$namespace\"})",
         "description": null,
         "error": null,
         "hide": 0,
@@ -721,7 +725,13 @@
         "multi": false,
         "name": "app",
         "options": [],
+        {{- if $shared }}
         "query": "query_result(kubedb_com_redis_created{namespace=\"$namespace\"})",
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 1,
         "regex": "/.*app=\"([^\"]+).*/",
         "skipUrlSync": false,
@@ -729,7 +739,6 @@
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
-        "type": "query",
         "useTags": false
       },
       {
@@ -803,7 +812,11 @@
     ]
   },
   "timezone": "",
+  {{- if $shared }}
   "title": "KubeDB / Redis / Shard",
+  {{- else }}
+  "title": {{ printf "KubeDB / Redis / Shard / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
+  {{- end }}
   "uid": "fF-N4cHsh",
   "version": 7
 }
