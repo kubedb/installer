@@ -1677,7 +1677,13 @@
         "multi": false,
         "name": "namespace",
         "options": [],
+        {{- if $shared }}
         "query": "label_values(redis_up, namespace)",
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.namespace | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -1685,7 +1691,6 @@
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
-        "type": "query",
         "useTags": false
       },
       {
@@ -1705,7 +1710,13 @@
         "multi": false,
         "name": "app",
         "options": [],
+        {{- if $shared }}
         "query": "query_result(kubedb_com_redis_created{namespace=\"$namespace\"})",
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 1,
         "regex": "/.*app=\"([^\"]+).*/",
         "skipUrlSync": false,
@@ -1713,7 +1724,6 @@
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
-        "type": "query",
         "useTags": false
       },
       {

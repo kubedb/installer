@@ -2328,10 +2328,16 @@
           "multi": false,
           "name": "namespace",
           "options": [],
+          {{- if $shared }}
           "query": {
             "query": "label_values(kube_namespace_labels,namespace)",
             "refId": "Prometheus-namespace-Variable-Query"
           },
+          "type": "query",
+          {{- else }}
+          "query": {{ $.Values.app.namespace | quote }},
+          "type": "constant",
+          {{- end }}
           "refresh": 1,
           "regex": "",
           "skipUrlSync": false,
@@ -2339,7 +2345,6 @@
           "tagValuesQuery": "",
           "tags": [],
           "tagsQuery": "",
-          "type": "query",
           "useTags": false
         },
         {
@@ -2359,10 +2364,16 @@
           "multi": false,
           "name": "app",
           "options": [],
+          {{- if $shared }}
           "query": {
             "query": "label_values(kubedb_com_proxysql_status_phase{namespace=~\"$namespace\"},app)",
             "refId": "StandardVariableQuery"
           },
+          "type": "query",
+          {{- else }}
+          "query": {{ $.Values.app.name | quote }},
+          "type": "constant",
+          {{- end }}
           "refresh": 1,
           "regex": "",
           "skipUrlSync": false,
@@ -2370,7 +2381,6 @@
           "tagValuesQuery": "",
           "tags": [],
           "tagsQuery": "",
-          "type": "query",
           "useTags": false
         }
       ]

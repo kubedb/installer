@@ -1891,10 +1891,16 @@
         "multi": false,
         "name": "namespace",
         "options": [],
+        {{- if $shared }}
         "query": {
           "query": "label_values(redis_up, namespace)",
           "refId": "Prometheus-namespace-Variable-Query"
         },
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.namespace | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -1902,7 +1908,6 @@
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
-        "type": "query",
         "useTags": false
       },
       {
@@ -1922,10 +1927,16 @@
         "multi": false,
         "name": "app",
         "options": [],
+        {{- if $shared }}
         "query": {
           "query": "query_result(kubedb_com_redissentinel_created{namespace=\"$namespace\"})",
           "refId": "StandardVariableQuery"
         },
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 1,
         "regex": "/.*name=\"([^\"]+).*/",
         "skipUrlSync": false,
@@ -1933,7 +1944,6 @@
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
-        "type": "query",
         "useTags": false
       },
       {

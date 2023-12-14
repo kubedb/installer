@@ -7754,10 +7754,16 @@
         "multi": false,
         "name": "namespace",
         "options": [],
+        {{- if $shared }}
         "query": {
           "query": "label_values(kube_namespace_labels,namespace)",
           "refId": "StandardVariableQuery"
         },
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.namespace | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -7765,7 +7771,6 @@
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
-        "type": "query",
         "useTags": false
       },
       {
@@ -7785,10 +7790,16 @@
         "multi": false,
         "name": "app",
         "options": [],
+        {{- if $shared }}
         "query": {
           "query": "label_values(proxysql_uptime_seconds_total{namespace=~\"$namespace\"}, service)",
           "refId": "StandardVariableQuery"
         },
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -7796,7 +7807,6 @@
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
-        "type": "query",
         "useTags": false
       }
     ]
