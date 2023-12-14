@@ -1,6 +1,10 @@
 {{ $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") }}
 {{ if not $shared }}
 
+{{- if not (eq (len .Values.resources) 1) }}
+{{- fail "Only one .Values.resources can be used when app name or namespace is set!" }}
+{{- end }}
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
