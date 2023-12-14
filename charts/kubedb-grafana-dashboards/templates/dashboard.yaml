@@ -4,10 +4,17 @@
 {{- $gkr := .Files.Get "data/resources.yaml" | fromYaml -}}
 {{ range $r := .Values.resources }}
 {{ range $path, $_ :=  $.Files.Glob (printf "dashboards/%s/**.json" $r) }}
+
+{{- $dashtpl := $.Files.Get $path }}
+{{- range $k, $v := $.Values.dashboard.replacements }}
+  {{- $dashtpl = $dashtpl | replace $k $v }}
+{{- end }}
+{{- $dashboard := omit (tpl $dashtpl $ | mustFromJson) "id" "uid" -}}
+
 apiVersion: openviz.dev/v1alpha1
 kind: GrafanaDashboard
 metadata:
-  name: {{ prepend ((get ($.Files.Get $path | mustFromJson) "title") | lower | nospace | splitList "/" ) $.Values.grafana.name | compact | join "-" | trunc 63 | trimSuffix "-" }}
+  name: {{ prepend ((get $dashboard "title") | lower | nospace | splitList "/" ) $.Values.grafana.name | compact | join "-" | trunc 63 | trimSuffix "-" }}
   namespace: {{ $.Release.Namespace }}
   labels:
     k8s.io/group: kubedb.com
@@ -24,12 +31,8 @@ spec:
     namespace: {{ . }}
   {{- end }}
 {{- end }}
-  {{- $dashtpl := $.Files.Get $path }}
-  {{- range $k, $v := $.Values.dashboard.replacements }}
-    {{- $dashtpl = $dashtpl | replace $k $v }}
-  {{- end }}
   model:
-    {{- omit (tpl $dashtpl $ | mustFromJson) "id" "uid" | toYaml | nindent 4 }}
+    {{- $dashboard | toYaml | nindent 4 }}
 {{- with $.Values.dashboard.folderID }}
   folderID: {{ . }}
 {{- end }}
