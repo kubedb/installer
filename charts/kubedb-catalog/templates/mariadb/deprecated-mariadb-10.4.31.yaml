@@ -1,15 +1,16 @@
-{{ if .Values.catalog.mariadb }}
+{{ if and .Values.catalog.mariadb (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MariaDBVersion
 metadata:
-  name: '10.11.2'
+  name: '10.4.31'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-coordinator") $) }}:v0.18.0'
   db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mariadb") $) }}:10.11.2-jammy'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mariadb") $) }}:10.4.31-focal'
+  deprecated: true
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prom/mysqld-exporter") $) }}:v0.13.0'
   initContainer:
@@ -24,5 +25,5 @@ spec:
         name: mariadb-backup-10.5.8
       restoreTask:
         name: mariadb-restore-10.5.8
-  version: 10.11.2
+  version: 10.4.31
 {{ end }}
