@@ -1,16 +1,15 @@
-{{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
+{{ if .Values.catalog.mysql }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
-  name: '8.0.31'
+  name: '8.0.35'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.16.0'
   db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql") $) }}:8.0.31-oracle'
-  deprecated: true
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql") $) }}:8.0.35-oracle'
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysqld-exporter") $) }}:v0.13.1'
@@ -33,8 +32,8 @@ spec:
   updateConstraints:
     denylist:
       groupReplication:
-      - < 8.0.31
+      - < 8.0.35
       standalone:
-      - < 8.0.31
-  version: 8.0.31
+      - < 8.0.35
+  version: 8.0.35
 {{ end }}
