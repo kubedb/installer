@@ -1,4 +1,4 @@
-{{ if .Values.catalog.mysql }}
+{{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -10,6 +10,7 @@ spec:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.16.0'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql") $) }}:8.0.31-oracle'
+  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysqld-exporter") $) }}:v0.13.1'
