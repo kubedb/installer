@@ -1,4 +1,5 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "annotations": {
     "list": [
@@ -23,8 +24,8 @@
   "editable": true,
   "gnetId": 9628,
   "graphTooltip": 0,
-  "id": 31,
-  "iteration": 1691735886918,
+  "id": null,
+  "iteration": 1702443901060,
   "links": [],
   "panels": [
     {
@@ -42,7 +43,7 @@
       "type": "row"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": null,
       "description": "Represent database status",
       "fieldConfig": {
         "defaults": {
@@ -114,16 +115,16 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "targets": [
         {
           "exemplar": false,
-          "expr": "kubedb_com_mongodb_status_phase{namespace=\"$namespace\", app=\"$app\"} == 1\n",
+          "expr": "kubedb_com_mongodb_status_phase{namespace=\"$namespace\", app=\"$app\"} == 1",
           "format": "table",
           "instant": true,
           "interval": "",
           "legendFormat": {{ `"{{phase}}"` }},
-          "refId": "A"
+        "refId": "A"
         }
       ],
       "title": "Database Status",
@@ -131,7 +132,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${datasource}",
+      "datasource": null,
       "description": "MongoDBVersion CR Name",
       "fieldConfig": {
         "defaults": {
@@ -190,7 +191,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "targets": [
         {
           "exemplar": false,
@@ -207,7 +208,7 @@
       "type": "stat"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": null,
       "description": "CPU Limit in core by MongoDB instance",
       "fieldConfig": {
         "defaults": {
@@ -250,7 +251,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "targets": [
         {
           "exemplar": false,
@@ -264,7 +265,7 @@
       "type": "stat"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": null,
       "description": "KubeDB MongoDB Total Memory Limit",
       "fieldConfig": {
         "defaults": {
@@ -308,7 +309,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "targets": [
         {
           "exemplar": false,
@@ -322,7 +323,7 @@
       "type": "stat"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": null,
       "description": "Total storage request by MongoDB nodes",
       "fieldConfig": {
         "defaults": {
@@ -367,7 +368,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "targets": [
         {
           "exemplar": false,
@@ -383,7 +384,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${datasource}",
+      "datasource": null,
       "description": "MongoDBVersion CR Name",
       "fieldConfig": {
         "defaults": {
@@ -446,7 +447,7 @@
         "text": {},
         "textMode": "name"
       },
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "targets": [
         {
           "exemplar": false,
@@ -456,14 +457,14 @@
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": {{ `"{{version}}"` }},
-          "refId": "A"
+        "refId": "A"
         }
       ],
       "title": "Version",
       "type": "stat"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": null,
       "description": "Total node count of MongoDB cluster",
       "fieldConfig": {
         "defaults": {
@@ -510,7 +511,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "targets": [
         {
           "exemplar": false,
@@ -525,7 +526,7 @@
       "type": "stat"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": null,
       "description": "Initial Requested CPU amount by Postgres Instance",
       "fieldConfig": {
         "defaults": {
@@ -569,7 +570,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "targets": [
         {
           "exemplar": false,
@@ -584,7 +585,7 @@
       "type": "stat"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": null,
       "description": "Initial Requested Memory amount by MongoDB Instance",
       "fieldConfig": {
         "defaults": {
@@ -629,7 +630,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "targets": [
         {
           "exemplar": false,
@@ -644,7 +645,7 @@
       "type": "stat"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": null,
       "description": "KubeDB Database Resource terminationPolicy",
       "fieldConfig": {
         "defaults": {
@@ -708,7 +709,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "targets": [
         {
           "exemplar": false,
@@ -717,12 +718,707 @@
           "instant": true,
           "interval": "",
           "legendFormat": {{ `"{{terminationPolicy}}"` }},
-          "refId": "A"
+        "refId": "A"
         }
       ],
       "title": "Termination Policy",
       "type": "stat"
     },
+    {{- if $alerts }}
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                0
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "1h",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "10s",
+        "frequency": "30s",
+        "handler": 1,
+        "name": "MongoDB Down alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 0,
+        "y": 7
+      },
+      "hiddenSeries": false,
+      "id": 155,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "kubedb_com_mongodb_status_phase{app=\"$app\",namespace=\"$namespace\",phase=\"NotReady\"}",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{mongodb}}"` }},
+        "refId": "A"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 0,
+          "visible": true
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "MongoDB Down",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:88",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:89",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "alert": {
+        "alertRuleTags": {
+          "kdb": ""
+        },
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                0
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "1h",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "10s",
+        "frequency": "30s",
+        "handler": 1,
+        "name": "MongoDBPhaseCritical",
+        "noDataState": "no_data",
+        "notifications": []
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 6,
+        "y": 7
+      },
+      "hiddenSeries": false,
+      "id": 159,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "kubedb_com_mongodb_status_phase{app=\"$app\",namespace=\"$namespace\",phase=\"Critical\"}",
+          "interval": "",
+          "legendFormat": {{ `"{{mongodb}}"` }},
+        "refId": "A"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 0,
+          "visible": true
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "MongoDB Critical Phase",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:70",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:71",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                0
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "1h",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "10s",
+        "frequency": "30s",
+        "handler": 1,
+        "name": "OpsRequest Status Progressing TooLong alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 12,
+        "y": 7
+      },
+      "hiddenSeries": false,
+      "id": 163,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "ops_kubedb_com_mongodbopsrequest_status_phase{app=\"$app\",namespace=\"$namespace\",phase=\"Progressing\"}",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 0,
+          "visible": true
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "OpsRequest Status Progressing TooLong",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:108",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:109",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                0
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "1h",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "10s",
+        "frequency": "30s",
+        "handler": 1,
+        "name": "KubeDB MongoDB OpsRequest Failed alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 18,
+        "y": 7
+      },
+      "hiddenSeries": false,
+      "id": 161,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "ops_kubedb_com_mongodbopsrequest_status_phase{app=\"$app\",namespace=\"$namespace\",phase=\"Failed\"}",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 0,
+          "visible": true
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "OpsRequest Failed",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:259",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:260",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                0.8
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "1h",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "10s",
+        "frequency": "30s",
+        "handler": 1,
+        "name": "CPU Usage Percentage Alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 26
+      },
+      "hiddenSeries": false,
+      "id": 185,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}))) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{pod}}"` }},
+        "refId": "A"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 0.8,
+          "visible": true
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "CPU Usage Percentage",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1116",
+          "format": "percentunit",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1117",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {{- end }}
     {
       "collapsed": false,
       "datasource": null,
@@ -730,7 +1426,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 7
+        "y": 12
       },
       "id": 138,
       "panels": [],
@@ -742,7 +1438,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${datasource}",
+      "datasource": null,
       "description": "CPU Usage by MongoDB pods",
       "fieldConfig": {
         "defaults": {
@@ -756,7 +1452,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 13
       },
       "hiddenSeries": false,
       "id": 98,
@@ -764,6 +1460,8 @@
         "alignAsTable": true,
         "avg": true,
         "current": true,
+        "hideEmpty": false,
+        "hideZero": false,
         "max": true,
         "min": true,
         "rightSide": true,
@@ -780,7 +1478,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -791,10 +1489,11 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) by (pod)",
+          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}))) by (pod)",
+          "format": "time_series",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
-          "refId": "A"
+        "refId": "A"
         }
       ],
       "thresholds": [],
@@ -817,6 +1516,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:61",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -825,6 +1525,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:62",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -839,7 +1540,7 @@
       }
     },
     {
-      "datasource": "${datasource}",
+      "datasource": null,
       "description": "CPU Quote information in details",
       "fieldConfig": {
         "defaults": {
@@ -847,11 +1548,10 @@
             "mode": "thresholds"
           },
           "custom": {
-            "align": null,
+            "align": "auto",
             "displayMode": "auto",
             "filterable": false
           },
-          "decimals": 2,
           "displayName": "",
           "mappings": [],
           "thresholds": {
@@ -879,14 +1579,6 @@
               {
                 "id": "displayName",
                 "value": "Time"
-              },
-              {
-                "id": "custom.align",
-                "value": null
-              },
-              {
-                "id": "custom.width",
-                "value": null
               }
             ]
           },
@@ -903,14 +1595,6 @@
               {
                 "id": "unit",
                 "value": "short"
-              },
-              {
-                "id": "decimals",
-                "value": 2
-              },
-              {
-                "id": "custom.align",
-                "value": null
               }
             ]
           },
@@ -927,14 +1611,6 @@
               {
                 "id": "unit",
                 "value": "short"
-              },
-              {
-                "id": "decimals",
-                "value": 2
-              },
-              {
-                "id": "custom.align",
-                "value": null
               }
             ]
           },
@@ -951,14 +1627,6 @@
               {
                 "id": "unit",
                 "value": "percentunit"
-              },
-              {
-                "id": "decimals",
-                "value": 2
-              },
-              {
-                "id": "custom.align",
-                "value": null
               }
             ]
           },
@@ -975,14 +1643,6 @@
               {
                 "id": "unit",
                 "value": "short"
-              },
-              {
-                "id": "decimals",
-                "value": 2
-              },
-              {
-                "id": "custom.align",
-                "value": null
               }
             ]
           },
@@ -999,14 +1659,6 @@
               {
                 "id": "unit",
                 "value": "percentunit"
-              },
-              {
-                "id": "decimals",
-                "value": 2
-              },
-              {
-                "id": "custom.align",
-                "value": null
               }
             ]
           },
@@ -1025,10 +1677,6 @@
                 "value": "short"
               },
               {
-                "id": "decimals",
-                "value": 2
-              },
-              {
                 "id": "links",
                 "value": [
                   {
@@ -1037,10 +1685,6 @@
                     "url": "./d/6581e46e4e5c7ba40a07646395ef7b23/k8s-resources-pod?var-datasource=$datasource&var-cluster=$cluster&var-namespace=$namespace&var-pod=$__cell"
                   }
                 ]
-              },
-              {
-                "id": "custom.align",
-                "value": null
               }
             ]
           }
@@ -1050,7 +1694,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 15
+        "y": 20
       },
       "id": 122,
       "links": [],
@@ -1059,15 +1703,15 @@
         "sortBy": [
           {
             "desc": true,
-            "displayName": "CPU Requests %"
+            "displayName": "Pod"
           }
         ]
       },
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) by (pod)",
+          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1078,7 +1722,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) by (pod)",
+          "expr": "sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1089,7 +1733,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) by (pod) / sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) by (pod)",
+          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}))) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1100,7 +1744,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) by (pod)",
+          "expr": "sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"} * on (namespace,pod) group_left() max by (namespace, pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1111,7 +1755,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) by (pod) / sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) by (pod)",
+          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}))) by (pod) / sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"} * on (namespace,pod) group_left() max by (namespace, pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1142,7 +1786,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 33
       },
       "id": 140,
       "panels": [],
@@ -1154,7 +1798,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${datasource}",
+      "datasource": null,
       "description": "Memory Usage by MongoDB pods",
       "fieldConfig": {
         "defaults": {
@@ -1168,7 +1812,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 34
       },
       "hiddenSeries": false,
       "id": 100,
@@ -1192,7 +1836,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1203,10 +1847,10 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(node_namespace_pod_container:container_memory_working_set_bytes{namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",container!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",container!=\"\"} * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\"}))) by (pod)",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
-          "refId": "A"
+        "refId": "A"
         }
       ],
       "thresholds": [],
@@ -1251,7 +1895,7 @@
       }
     },
     {
-      "datasource": "${datasource}",
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1529,7 +2173,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 28
+        "y": 40
       },
       "id": 124,
       "links": [],
@@ -1542,7 +2186,7 @@
           }
         ]
       },
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "targets": [
         {
           "exemplar": false,
@@ -1557,7 +2201,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) by (pod)",
+          "expr": "sum (kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1568,7 +2212,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1579,7 +2223,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) by (pod)",
+          "expr": "sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1590,7 +2234,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1646,6 +2290,288 @@
       ],
       "type": "table"
     },
+    {{- if $alerts }}
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                0.8
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "1h",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "10s",
+        "frequency": "30s",
+        "handler": 1,
+        "name": "Memory Usage Percentage alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 46
+      },
+      "hiddenSeries": false,
+      "id": 187,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "interval": "",
+          "legendFormat": {{ `"{{pod}}"` }},
+        "refId": "A"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 0.8,
+          "visible": true
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Memory Usage Percentage",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:236",
+          "format": "percentunit",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:237",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                2097152
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "1h",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "10s",
+        "frequency": "30s",
+        "handler": 1,
+        "name": "Mongodb Virtual Memory Usage alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 52
+      },
+      "hiddenSeries": false,
+      "id": 169,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum by(job) (mongodb_ss_mem_virtual{job=\"$app-stats\",namespace=\"$namespace\",service=\"$app-stats\"})",
+          "interval": "",
+          "legendFormat": {{ `"{{app_kubernetes_io_instance}}"` }},
+        "refId": "A"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 2097152,
+          "visible": true
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Mongodb Server Virtual Memory Usage",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:403",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:404",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {{- end }}
     {
       "collapsed": false,
       "datasource": null,
@@ -1653,7 +2579,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 34
+        "y": 58
       },
       "id": 142,
       "panels": [],
@@ -1665,7 +2591,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${datasource}",
+      "datasource": null,
       "description": "Disk usage by MongoDB pods",
       "fieldConfig": {
         "defaults": {
@@ -1679,7 +2605,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 35
+        "y": 59
       },
       "hiddenSeries": false,
       "id": 112,
@@ -1707,7 +2633,7 @@
         }
       },
       "percentage": false,
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1721,7 +2647,7 @@
           "expr": "avg(container_blkio_device_usage_total{namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) by (pod)",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
-          "refId": "A"
+        "refId": "A"
         }
       ],
       "thresholds": [],
@@ -1770,7 +2696,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${datasource}",
+      "datasource": null,
       "description": "System Disk Usage Information",
       "fieldConfig": {
         "defaults": {
@@ -1784,7 +2710,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 35
+        "y": 59
       },
       "hiddenSeries": false,
       "id": 108,
@@ -1812,7 +2738,7 @@
         }
       },
       "percentage": false,
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1828,7 +2754,7 @@
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": {{ `"{{pod}}-disk-write"` }},
-          "refId": "A"
+        "refId": "A"
         },
         {
           "exemplar": false,
@@ -1837,7 +2763,7 @@
           "instant": false,
           "interval": "",
           "legendFormat": {{ `"{{pod}}-disk-read"` }},
-          "refId": "B"
+        "refId": "B"
         }
       ],
       "thresholds": [],
@@ -1886,7 +2812,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${datasource}",
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "unit": "short"
@@ -1899,7 +2825,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 44
+        "y": 68
       },
       "hiddenSeries": false,
       "id": 126,
@@ -1928,7 +2854,7 @@
         }
       },
       "percentage": false,
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1944,9 +2870,9 @@
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": {{ `"{{pod}}"` }},
-          "legendLink": null,
-          "refId": "A",
-          "step": 10
+        "legendLink": null,
+        "refId": "A",
+        "step": 10
         }
       ],
       "thresholds": [],
@@ -1995,7 +2921,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${datasource}",
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "unit": "Bps"
@@ -2008,7 +2934,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 44
+        "y": 68
       },
       "hiddenSeries": false,
       "id": 128,
@@ -2037,7 +2963,7 @@
         }
       },
       "percentage": false,
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2053,9 +2979,9 @@
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": {{ `"{{pod}}"` }},
-          "legendLink": null,
-          "refId": "A",
-          "step": 10
+        "legendLink": null,
+        "refId": "A",
+        "step": 10
         }
       ],
       "thresholds": [],
@@ -2100,7 +3026,7 @@
       }
     },
     {
-      "datasource": "${datasource}",
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2330,14 +3256,14 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 51
+        "y": 75
       },
       "id": 130,
       "links": [],
       "options": {
         "showHeader": true
       },
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "targets": [
         {
           "exemplar": false,
@@ -2426,7 +3352,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 58
+        "y": 82
       },
       "id": 147,
       "panels": [],
@@ -2464,13 +3390,13 @@
         "h": 6,
         "w": 12,
         "x": 0,
-        "y": 59
+        "y": 83
       },
       "id": 149,
       "options": {
         "showHeader": true
       },
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "targets": [
         {
           "exemplar": true,
@@ -2517,6 +3443,8 @@
             "mode": "thresholds"
           },
           "mappings": [],
+          "max": 100,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -2538,7 +3466,7 @@
         "h": 6,
         "w": 12,
         "x": 12,
-        "y": 59
+        "y": 83
       },
       "id": 151,
       "options": {
@@ -2554,7 +3482,7 @@
         "showUnfilled": true,
         "text": {}
       },
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "targets": [
         {
           "exemplar": true,
@@ -2562,7 +3490,7 @@
           "instant": true,
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
-          "refId": "A"
+        "refId": "A"
         }
       ],
       "title": "Persistent Volume Usage",
@@ -2589,7 +3517,8 @@
             "hideFrom": {
               "graph": false,
               "legend": false,
-              "tooltip": false
+              "tooltip": false,
+              "viz": false
             },
             "lineInterpolation": "linear",
             "lineStyle": {
@@ -2601,7 +3530,14 @@
               "type": "linear"
             },
             "showPoints": "never",
-            "spanNulls": true
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -2621,7 +3557,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 65
+        "y": 89
       },
       "id": 153,
       "options": {
@@ -2634,11 +3570,11 @@
           "displayMode": "table",
           "placement": "right"
         },
-        "tooltipOptions": {
+        "tooltip": {
           "mode": "single"
         }
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "targets": [
         {
           "exemplar": true,
@@ -2646,12 +3582,156 @@
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": {{ `"{{pod}}"` }},
-          "refId": "A"
+        "refId": "A"
         }
       ],
       "title": "Persistent Volume Usage History",
       "type": "timeseries"
     },
+    {{- if $alerts }}
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                0.8
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "1h",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "10s",
+        "frequency": "30s",
+        "handler": 1,
+        "name": "Volume Usage Percentage alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 97
+      },
+      "hiddenSeries": false,
+      "id": 189,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "(kubelet_volume_stats_used_bytes / on(persistentvolumeclaim) group_left(pod) (kubelet_volume_stats_capacity_bytes + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"^$app.*\",namespace=~\"$namespace\"}) )",
+          "interval": "",
+          "legendFormat": {{ `"{{pod}}"` }},
+        "refId": "A"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 0.8,
+          "visible": true
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Volume Usage Percentage",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:153",
+          "format": "percentunit",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:154",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {{- end }}
     {
       "collapsed": false,
       "datasource": null,
@@ -2659,7 +3739,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 73
+        "y": 106
       },
       "id": 144,
       "panels": [],
@@ -2671,7 +3751,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${datasource}",
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "unit": "Bps"
@@ -2684,7 +3764,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 74
+        "y": 107
       },
       "hiddenSeries": false,
       "id": 132,
@@ -2713,7 +3793,7 @@
         }
       },
       "percentage": false,
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2729,9 +3809,9 @@
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": {{ `"{{pod}}"` }},
-          "legendLink": null,
-          "refId": "A",
-          "step": 10
+        "legendLink": null,
+        "refId": "A",
+        "step": 10
         }
       ],
       "thresholds": [],
@@ -2780,7 +3860,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${datasource}",
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "unit": "Bps"
@@ -2793,7 +3873,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 74
+        "y": 107
       },
       "hiddenSeries": false,
       "id": 134,
@@ -2822,7 +3902,7 @@
         }
       },
       "percentage": false,
-      "pluginVersion": "7.5.11",
+      "pluginVersion": "{{ .Values.grafana.version }}",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2838,9 +3918,9 @@
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": {{ `"{{pod}}"` }},
-          "legendLink": null,
-          "refId": "A",
-          "step": 10
+        "legendLink": null,
+        "refId": "A",
+        "step": 10
         }
       ],
       "thresholds": [],
@@ -2883,16 +3963,1121 @@
         "align": false,
         "alignLevel": null
       }
+    },
+    {{- if $alerts }}
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                250000
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "1h",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "10s",
+        "frequency": "30s",
+        "handler": 1,
+        "name": "MongoDB High Latency alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 114
+      },
+      "hiddenSeries": false,
+      "id": 165,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "rate(mongodb_ss_opLatencies_latency{job=\"$app-stats\",namespace=\"$namespace\",service=\"$app-stats\"}[5m]) / rate(mongodb_ss_opLatencies_ops{job=\"$app-stats\",namespace=\"$namespace\",service=\"$app-stats\"}[5m])",
+          "interval": "",
+          "legendFormat": {{ `"{{pod}} : {{op_type}}"` }},
+        "refId": "A"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 250000,
+          "visible": true
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "MongoDB High Latency",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:96",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:97",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                80
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "1h",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "10s",
+        "frequency": "30s",
+        "handler": 1,
+        "name": "MongoDB Too Many Connections alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 114
+      },
+      "hiddenSeries": false,
+      "id": 167,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "avg by (pod) (rate(mongodb_ss_connections{conn_type=\"current\",job=\"$app-stats\",namespace=\"$namespace\"}[1m])) / avg by (pod) (sum by (pod) (mongodb_ss_connections)) * 100",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 80,
+          "visible": true
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "MongoDB Too Many Connections",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:84",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:85",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {{- end }}
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 122
+      },
+      "id": 171,
+      "panels": [],
+      "title": "Server Status Info",
+      "type": "row"
     }
-    {{- if $.Values.dashboard.alerts }}
+    {{- if $alerts }}
     ,
-
-
-    
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                10
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "1h",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "10s",
+        "frequency": "30s",
+        "handler": 1,
+        "name": "Mongodb Replication Lag alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 123
+      },
+      "hiddenSeries": false,
+      "id": 173,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum by (set) (mongodb_mongod_replset_member_replication_lag{job=\"$app-stats\",namespace=\"$namespace\",service=\"$app-stats\"})",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 10,
+          "visible": true
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Mongodb Replication Lag",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:77",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:78",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                75
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "1h",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "10s",
+        "frequency": "30s",
+        "handler": 1,
+        "name": "MongoDB High Ticket Utilization alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 123
+      },
+      "hiddenSeries": false,
+      "id": 181,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "(mongodb_ss_wt_concurrentTransactions_out{job=\"$app-stats\",namespace=\"$namespace\",service=\"$app-stats\"} / mongodb_ss_wt_concurrentTransactions_totalTickets{job=\"$app-stats\",namespace=\"$namespace\",service=\"$app-stats\"}) * 100",
+          "interval": "",
+          "legendFormat": {{ `"{{pod}} : {{txn_rw}}"` }},
+        "refId": "A"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 75,
+          "visible": true
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "MongoDB High Ticket Utilization",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:96",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:97",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                0
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "1h",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "10s",
+        "frequency": "30s",
+        "handler": 1,
+        "name": "MongoDB Recurrent Memory Page Faults alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 131
+      },
+      "hiddenSeries": false,
+      "id": 183,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "rate(mongodb_ss_extra_info_page_faults{job=\"$app-stats\",namespace=\"$namespace\"}[5m])",
+          "interval": "",
+          "legendFormat": {{ `"{{pod}}"` }},
+        "refId": "A"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 0,
+          "visible": true
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "MongoDB Recurrent Memory Page Faults",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:104",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:105",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                0
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "1h",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "10s",
+        "frequency": "30s",
+        "handler": 1,
+        "name": "MongoDB Recurrent Cursor Timeout alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 131
+      },
+      "hiddenSeries": false,
+      "id": 177,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "rate(mongodb_ss_metrics_cursor_timedOut{job=\"$app-stats\",namespace=\"$namespace\",service=\"$app-stats\"}[5m])",
+          "interval": "",
+          "legendFormat": {{ `"{{pod}}"` }},
+        "refId": "A"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 0,
+          "visible": true
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "MongoDB Recurrent Cursor Timeout",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:100",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:101",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                100
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "1h",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "10s",
+        "frequency": "30s",
+        "handler": 1,
+        "name": "MongoDB Cursors Timeouts alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 139
+      },
+      "hiddenSeries": false,
+      "id": 179,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum by (service) (increase(mongodb_ss_metrics_cursor_timedOut{job=\"$app-stats\",namespace=\"$namespace\",service=\"$app-stats\"}[1m]))",
+          "interval": "",
+          "legendFormat": {{ `"{{service}}"` }},
+        "refId": "A"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 100,
+          "visible": true
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "MongoDB Cursors Timeouts",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:572",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:573",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                10000
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "1h",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "10s",
+        "frequency": "30s",
+        "handler": 1,
+        "name": "Mongodb Number Cursors Open alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 139
+      },
+      "hiddenSeries": false,
+      "id": 175,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum by (service) (mongodb_ss_metrics_cursor_open{csr_type=\"total\",job=\"$app-stats\",namespace=\"$namespace\",service=\"$app-stats\"})",
+          "format": "time_series",
+          "instant": false,
+          "interval": "",
+          "legendFormat": {{ `"{{service}}"` }},
+        "refId": "A"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 10000,
+          "visible": true
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Mongodb Number Cursors Open",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:751",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:752",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    }
     {{- end }}
   ],
-  "refresh": "10s",
-  "schemaVersion": 27,
+  "refresh": "",
+  "schemaVersion": 30,
   "style": "dark",
   "tags": [
     "db",
@@ -2922,7 +5107,9 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
-      },
+      }
+      {{- if not $alerts }}
+      ,
       {
         "allValue": "\".+\"",
         "current": {
@@ -2993,6 +5180,7 @@
         "tagsQuery": "",
         "useTags": false
       }
+      {{- end }}
     ]
   },
   "time": {
@@ -3030,6 +5218,6 @@
   {{- else }}
   "title": {{ printf "KubeDB / MongoDB / Summary / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
   {{- end }}
-  "uid": "92M7QvyVk",
-  "version": 1
+  "uid": "37x8M1DIk",
+  "version": 50
 }
