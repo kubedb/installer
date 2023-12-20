@@ -1,0 +1,82 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: "14.2"
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        manifestBackup:
+          name: ManifestBackup
+        manifestRestore:
+          name: ManifestRestore
+        volumeSnapshot:
+          name: VolumeSnapshot
+    walg:
+      image: ghcr.io/kubedb/postgres-archiver:v0.0.1_14.10-alpine
+  coordinator:
+    image: ghcr.io/kubedb/pg-coordinator:v0.22.0
+  db:
+    baseOS: alpine
+    image: postgres:14.2-alpine
+  deprecated: true
+  distribution: Official
+  exporter:
+    image: prometheuscommunity/postgres-exporter:v0.9.0
+  initContainer:
+    image: ghcr.io/kubedb/postgres-init:0.11.0
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: false
+    runAsUser: 70
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-14.0
+      restoreTask:
+        name: postgres-restore-14.0
+  version: "14.2"
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: 14.2-bullseye
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        manifestBackup:
+          name: ManifestBackup
+        manifestRestore:
+          name: ManifestRestore
+        volumeSnapshot:
+          name: VolumeSnapshot
+    walg:
+      image: ghcr.io/kubedb/postgres-archiver:v0.0.1_14.10-bookworm
+  coordinator:
+    image: ghcr.io/kubedb/pg-coordinator:v0.22.0
+  db:
+    baseOS: bullseye
+    image: postgres:14.2-bullseye
+  deprecated: true
+  distribution: Official
+  exporter:
+    image: prometheuscommunity/postgres-exporter:v0.9.0
+  initContainer:
+    image: ghcr.io/kubedb/postgres-init:0.11.0
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-14.0
+      restoreTask:
+        name: postgres-restore-14.0
+  version: "14.2"

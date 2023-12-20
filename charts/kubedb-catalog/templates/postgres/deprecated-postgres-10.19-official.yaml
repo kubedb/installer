@@ -1,0 +1,72 @@
+{{ if and .Values.catalog.postgres (not .Values.skipDeprecated) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: '10.19'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.22.0'
+  db:
+    baseOS: bullseye
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:10.19-bullseye'
+  deprecated: true
+  distribution: Official
+  exporter:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.9.0'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.11.0'
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: false
+    runAsUser: 70
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-10.14
+      restoreTask:
+        name: postgres-restore-10.14
+  updateConstraints:
+    allowlist:
+    - '>= 11.14, <= 14.1'
+  version: "10.19"
+{{ end }}
+
+---
+{{ if and .Values.catalog.postgres (not .Values.skipDeprecated) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: '10.19-bullseye'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.22.0'
+  db:
+    baseOS: bullseye
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:10.19-bullseye'
+  deprecated: true
+  distribution: Official
+  exporter:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.9.0'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.11.0'
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-10.14
+      restoreTask:
+        name: postgres-restore-10.14
+  updateConstraints:
+    allowlist:
+    - '>= 11.14, <= 14.1'
+  version: "10.19"
+{{ end }}
