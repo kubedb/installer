@@ -208,7 +208,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "count by (rs_nm) (mongodb_members_state{rs_nm=~\"$app\", pod=\"$pod\"})",
+          "expr": "count by (rs_nm) (mongodb_members_state{rs_nm=~\"$repName\", pod=\"$pod\"})",
           "interval": "5m",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -349,7 +349,7 @@
       "pluginVersion": "8.2.3",
       "targets": [
         {
-          "expr": "(max(mongodb_mongod_replset_member_optime_date{state=\"PRIMARY\", set=\"$app\"}) - min(mongodb_mongod_replset_member_optime_date{state=\"SECONDARY\"} * on (name) group_left mongodb_mongod_replset_my_name{pod=~\"$pod\"})) or (max(mongodb_members_optimeDate{member_state=\"PRIMARY\", rs_nm=\"$app\", pod=\"$pod\"}) - min(mongodb_members_optimeDate{pod=\"$pod\", member_idx=~\"$pod.*\"})) or vector(0)",
+          "expr": "(max(mongodb_mongod_replset_member_optime_date{state=\"PRIMARY\", set=\"$repName\"}) - min(mongodb_mongod_replset_member_optime_date{state=\"SECONDARY\"} * on (name) group_left mongodb_mongod_replset_my_name{pod=~\"$pod\"})) or (max(mongodb_members_optimeDate{member_state=\"PRIMARY\", rs_nm=\"$repName\", pod=\"$pod\"}) - min(mongodb_members_optimeDate{pod=\"$pod\", member_idx=~\"$pod.*\"})) or vector(0)",
           "interval": "5m",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -627,7 +627,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(max(mongodb_mongod_replset_member_optime_date{state=\"PRIMARY\", set=\"$app\"}) - min(mongodb_mongod_replset_member_optime_date{state=\"SECONDARY\"} * on (name) group_left mongodb_mongod_replset_my_name{pod=~\"$pod\"})) or (max(mongodb_members_optimeDate{member_state=\"PRIMARY\", rs_nm=\"$app\", pod=\"$pod\"}) - min(mongodb_members_optimeDate{pod=\"$pod\", member_idx=~\"$pod.*\"})) or vector(0)",
+          "expr": "(max(mongodb_mongod_replset_member_optime_date{state=\"PRIMARY\", set=\"$repName\"}) - min(mongodb_mongod_replset_member_optime_date{state=\"SECONDARY\"} * on (name) group_left mongodb_mongod_replset_my_name{pod=~\"$pod\"})) or (max(mongodb_members_optimeDate{member_state=\"PRIMARY\", rs_nm=\"$repName\", pod=\"$pod\"}) - min(mongodb_members_optimeDate{pod=\"$pod\", member_idx=~\"$pod.*\"})) or vector(0)",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Lag",
@@ -1300,7 +1300,7 @@
         "label": "Replica Set",
         "multi": false,
         "multiFormat": "glob",
-        "name": "app",
+        "name": "repName",
         "options": [],
         {{- if $shared }}
         "query": {
@@ -1309,8 +1309,11 @@
         },
         "type": "query",
         {{- else }}
-        "query": {{ $.Values.app.name | quote }},
-        "type": "constant",
+        "query": {
+          "query": {{ printf "label_values(mongodb_members_state{namespace=\"%s\",rs_state=\"1\",member_state=\"PRIMARY\",service=\"%s-stats\"}, rs_nm)" $.Values.app.namespace $.Values.app.name | quote }},
+          "refId": "Prometheus-app-Variable-Query"
+        },
+        "type": "query",
         {{- end }}
         "refresh": 2,
         "regex": "",
@@ -1340,7 +1343,7 @@
         "name": "pod",
         "options": [],
         "query": {
-          "query": "label_values(mongodb_members_state{rs_nm=\"$app\"}, pod)",
+          "query": "label_values(mongodb_members_state{rs_nm=\"$repName\"}, pod)",
           "refId": "Prometheus-pod-Variable-Query"
         },
         "refresh": 2,
