@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb-metrics --version=v2023.12.11
-$ helm upgrade -i kubedb-metrics appscode/kubedb-metrics -n kubedb --create-namespace --version=v2023.12.11
+$ helm search repo appscode/kubedb-metrics --version=v2023.12.21
+$ helm upgrade -i kubedb-metrics appscode/kubedb-metrics -n kubedb --create-namespace --version=v2023.12.21
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys KubeDB metrics configurations on a [Kubernetes](http://kubern
 To install/upgrade the chart with the release name `kubedb-metrics`:
 
 ```bash
-$ helm upgrade -i kubedb-metrics appscode/kubedb-metrics -n kubedb --create-namespace --version=v2023.12.11
+$ helm upgrade -i kubedb-metrics appscode/kubedb-metrics -n kubedb --create-namespace --version=v2023.12.21
 ```
 
 The command deploys KubeDB metrics configurations on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
