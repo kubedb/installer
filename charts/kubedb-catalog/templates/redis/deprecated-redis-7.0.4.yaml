@@ -1,15 +1,16 @@
-{{ if .Values.catalog.redis }}
+{{ if and .Values.catalog.redis (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: RedisVersion
 metadata:
-  name: '6.2.8'
+  name: '7.0.4'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.18.0'
   db:
-    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "redis") $) }}:6.2.8'
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "redis") $) }}:7.0.4'
+  deprecated: true
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis_exporter") $) }}:1.9.0'
   initContainer:
@@ -21,8 +22,8 @@ spec:
   stash:
     addon:
       backupTask:
-        name: redis-backup-6.2.5
+        name: redis-backup-7.0.5
       restoreTask:
-        name: redis-restore-6.2.5
-  version: 6.2.8
+        name: redis-restore-7.0.5
+  version: 7.0.4
 {{ end }}

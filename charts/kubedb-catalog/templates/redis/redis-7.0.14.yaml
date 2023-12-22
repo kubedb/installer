@@ -2,14 +2,14 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: RedisVersion
 metadata:
-  name: '7.0.10'
+  name: '7.0.14'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.18.0'
   db:
-    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "redis") $) }}:7.0.10'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/redis") $) }}:7.0.14-bookworm'
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis_exporter") $) }}:1.9.0'
   initContainer:
@@ -24,5 +24,5 @@ spec:
         name: redis-backup-7.0.5
       restoreTask:
         name: redis-restore-7.0.5
-  version: 7.0.10
+  version: 7.0.14
 {{ end }}

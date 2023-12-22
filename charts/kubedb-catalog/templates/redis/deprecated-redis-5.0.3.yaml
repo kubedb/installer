@@ -1,15 +1,45 @@
-{{ if .Values.catalog.redis }}
+{{ if and .Values.catalog.redis (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: RedisVersion
 metadata:
-  name: '4.0.6-v2'
+  name: '5.0.3'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.18.0'
   db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis") $) }}:4.0.6-v2'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis") $) }}:5.0.3'
+  deprecated: true
+  exporter:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis_exporter") $) }}:v0.21.1'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-init") $) }}:0.7.0'
+  podSecurityPolicies:
+    databasePolicyName: redis-db
+  stash:
+    addon:
+      backupTask:
+        name: redis-backup-5.0.13
+      restoreTask:
+        name: redis-restore-5.0.13
+  version: 5.0.3
+{{ end }}
+
+---
+{{ if and .Values.catalog.redis (not .Values.skipDeprecated) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: RedisVersion
+metadata:
+  name: '5.0.3-v1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.18.0'
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis") $) }}:5.0.3-v1'
+  deprecated: true
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis_exporter") $) }}:v0.21.1'
   initContainer:
@@ -18,51 +48,11 @@ spec:
     databasePolicyName: redis-db
   securityContext:
     runAsUser: 999
-  version: 4.0.6
-{{ end }}
-
----
-{{ if and .Values.catalog.redis (not .Values.skipDeprecated) }}
-apiVersion: catalog.kubedb.com/v1alpha1
-kind: RedisVersion
-metadata:
-  name: '4.0.6'
-  labels:
-    {{- include "kubedb-catalog.labels" . | nindent 4 }}
-spec:
-  coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.18.0'
-  db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis") $) }}:4.0.6'
-  deprecated: true
-  exporter:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/operator") $) }}:0.8.0'
-  initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-init") $) }}:0.7.0'
-  podSecurityPolicies:
-    databasePolicyName: redis-db
-  version: 4.0.6
-{{ end }}
-
----
-{{ if and .Values.catalog.redis (not .Values.skipDeprecated) }}
-apiVersion: catalog.kubedb.com/v1alpha1
-kind: RedisVersion
-metadata:
-  name: '4.0.6-v1'
-  labels:
-    {{- include "kubedb-catalog.labels" . | nindent 4 }}
-spec:
-  coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.18.0'
-  db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis") $) }}:4.0.6-v1'
-  deprecated: true
-  exporter:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis_exporter") $) }}:v0.21.1'
-  initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-init") $) }}:0.7.0'
-  podSecurityPolicies:
-    databasePolicyName: redis-db
-  version: 4.0.6
+  stash:
+    addon:
+      backupTask:
+        name: redis-backup-5.0.13
+      restoreTask:
+        name: redis-restore-5.0.13
+  version: 5.0.3
 {{ end }}
