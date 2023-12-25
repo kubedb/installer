@@ -19,7 +19,6 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"time"
 )
 
 const (
@@ -100,27 +99,27 @@ type PrometheusSpec struct {
 }
 
 type Recommender struct {
-	MetricsFetcherInterval time.Duration `json:"metricsFetcherInterval"`
-	CheckpointsGCInterval  time.Duration `json:"checkpointsGCInterval"`
-	PrometheusJobName      string        `json:"prometheusJobName"`
-	Address                string        `json:"address"`
-	Storage                string        `json:"storage"`
-	HistoryLength          string        `json:"historyLength"`
-	HistoryResolution      string        `json:"history_resolution"`
-	QueryTimeout           string        `json:"queryTimeout"`
-	PodLabelPrefix         string        `json:"podLabelPrefix"`
-	PodLabelsMetricName    string        `json:"podLabelsMetricName"`
-	PodNamespaceLabel      string        `json:"podNamespaceLabel"`
-	PodNameLabel           string        `json:"podNameLabel"`
-	CtrNamespaceLabel      string        `json:"ctrNamespaceLabel"`
-	CtrPodNameLabel        string        `json:"ctrPodNameLabel"`
-	CtrNameLabel           string        `json:"ctrNameLabel"`
-	VpaObjectNamespace     string        `json:"vpaObjectNamespace"`
+	MetricsFetcherInterval metav1.Duration `json:"metricsFetcherInterval"`
+	CheckpointsGCInterval  metav1.Duration `json:"checkpointsGCInterval"`
+	PrometheusJobName      string          `json:"prometheusJobName"`
+	Address                string          `json:"address"`
+	Storage                string          `json:"storage"`
+	HistoryLength          string          `json:"historyLength"`
+	HistoryResolution      string          `json:"history_resolution"`
+	QueryTimeout           string          `json:"queryTimeout"`
+	PodLabelPrefix         string          `json:"podLabelPrefix"`
+	PodLabelsMetricName    string          `json:"podLabelsMetricName"`
+	PodNamespaceLabel      string          `json:"podNamespaceLabel"`
+	PodNameLabel           string          `json:"podNameLabel"`
+	CtrNamespaceLabel      string          `json:"ctrNamespaceLabel"`
+	CtrPodNameLabel        string          `json:"ctrPodNameLabel"`
+	CtrNameLabel           string          `json:"ctrNameLabel"`
+	VpaObjectNamespace     string          `json:"vpaObjectNamespace"`
 
-	MemoryAggregationInterval      time.Duration `json:"memoryAggregationInterval"`
-	MemoryAggregationIntervalCount int64         `json:"memoryAggregationIntervalCount"`
-	MemoryHistogramDecayHalfLife   time.Duration `json:"memoryHistogramDecayHalfLife"`
-	CpuHistogramDecayHalfLife      time.Duration `json:"cpuHistogramDecayHalfLife"`
+	MemoryAggregationInterval      metav1.Duration `json:"memoryAggregationInterval"`
+	MemoryAggregationIntervalCount int64           `json:"memoryAggregationIntervalCount"`
+	MemoryHistogramDecayHalfLife   metav1.Duration `json:"memoryHistogramDecayHalfLife"`
+	CpuHistogramDecayHalfLife      metav1.Duration `json:"cpuHistogramDecayHalfLife"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
