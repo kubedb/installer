@@ -18,7 +18,7 @@ require (
 	kmodules.xyz/go-containerregistry v0.0.11
 	kmodules.xyz/schema-checker v0.4.1
 	sigs.k8s.io/yaml v1.3.0
-	stash.appscode.dev/installer v0.12.2-0.20231017063241-4ed53d44d00a
+	stash.appscode.dev/installer v0.12.2-0.20231017061853-9f449ac4b066
 )
 
 require (

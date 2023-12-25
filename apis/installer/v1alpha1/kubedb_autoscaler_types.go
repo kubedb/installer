@@ -82,6 +82,8 @@ type KubedbAutoscalerSpec struct {
 	UpdateInterval string `json:"updateInterval"`
 	// +optional
 	StorageAutoscaler StorageAutoscalerSpec `json:"storageAutoscaler"`
+	// +optional
+	Recommender Recommender `json:"recommender"`
 }
 
 type StorageAutoscalerSpec struct {
@@ -94,6 +96,13 @@ type PrometheusSpec struct {
 	BearerToken string `json:"bearerToken"`
 	// +optional
 	CACert string `json:"caCert"`
+}
+
+type Recommender struct {
+	MemoryAggregationInterval      metav1.Duration `json:"memoryAggregationInterval"`
+	MemoryAggregationIntervalCount int64           `json:"memoryAggregationIntervalCount"`
+	MemoryHistogramDecayHalfLife   metav1.Duration `json:"memoryHistogramDecayHalfLife"`
+	CpuHistogramDecayHalfLife      metav1.Duration `json:"cpuHistogramDecayHalfLife"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
