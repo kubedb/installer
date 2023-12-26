@@ -62,6 +62,22 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
+{{- define "image.dockerHub" -}}
+{{ list .Values.proxies.dockerHub ._repo | compact | join "/" }}
+{{- end }}
+
+{{- define "image.dockerLibrary" -}}
+{{ prepend (list ._repo) (list .Values.proxies.dockerLibrary .Values.proxies.dockerHub | compact | first) | compact | join "/" }}
+{{- end }}
+
 {{- define "image.ghcr" -}}
 {{ list .Values.proxies.ghcr ._repo | compact | join "/" }}
+{{- end }}
+
+{{- define "image.kubernetes" -}}
+{{ list .Values.proxies.kubernetes ._repo | compact | join "/" }}
+{{- end }}
+
+{{- define "image.appscode" -}}
+{{ list .Values.proxies.appscode ._repo | compact | join "/" }}
 {{- end }}
