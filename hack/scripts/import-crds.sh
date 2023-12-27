@@ -95,6 +95,10 @@ crd-importer \
     --out=./charts/kubedb-kubestash-catalog/crds
 
 crd-importer \
+    --input=https://github.com/kmodules/resource-metadata/raw/v0.17.44/crds/node.k8s.appscode.com_nodetopologies.yaml \
+    --out=./charts/kubedb-autoscaler/crds
+
+crd-importer \
     --input=https://github.com/kmodules/custom-resources/raw/v0.25.1/crds/metrics.appscode.com_metricsconfigurations.yaml \
     --out=./charts/kubedb-metrics/crds
 
