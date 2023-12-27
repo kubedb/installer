@@ -159,8 +159,8 @@ func main() {
 
 		for jp, val := range specUpdates {
 			if apiKind == "" || apiKind == ri.Object.GetKind() {
-				if _, ok, _ := unstructured.NestedFieldNoCopy(ri.Object.Object, strings.Split(jp, ".")...); ok {
-					err = unstructured.SetNestedField(ri.Object.Object, val, strings.Split(jp, ".")...)
+				if ref, ok, _ := unstructured.NestedString(ri.Object.Object, strings.Split(jp, ".")...); ok {
+					err = unstructured.SetNestedField(ri.Object.Object, encodeTag(ref, val), strings.Split(jp, ".")...)
 					if err != nil {
 						panic(fmt.Sprintf("failed to set %s to %s in group=%s,kind=%s,name=%s", jp, val, ri.Object.GetAPIVersion(), ri.Object.GetKind(), ri.Object.GetName()))
 					}
@@ -487,21 +487,28 @@ func main() {
 			var buf bytes.Buffer
 
 			for i, obj := range v {
-				obj := obj.DeepCopy()
+				objCopy := obj.DeepCopy()
 
-				spec, _, err := unstructured.NestedMap(obj.Object, "spec")
+				spec, _, err := unstructured.NestedMap(objCopy.Object, "spec")
 				if err != nil {
 					panic(err)
 				}
 				for prop := range spec {
 					templatizeRegistry := func(fields ...string) {
 						fieldList := append([]string{"spec", prop}, fields...)
-						img, ok, _ := unstructured.NestedString(obj.Object, fieldList...)
+						img, ok, _ := unstructured.NestedString(objCopy.Object, fieldList...)
 						if ok {
-							ref, err := name.ParseReference(img)
+							decodedImg := decodeTag(img)
+							ref, err := name.ParseReference(decodedImg)
 							if err != nil {
 								panic(err)
 							}
+
+							err = unstructured.SetNestedField(obj.Object, decodedImg, fieldList...)
+							if err != nil {
+								panic(err)
+							}
+
 							var newimg string
 							switch ref.Registry {
 							case "index.docker.io":
@@ -521,7 +528,7 @@ func main() {
 							if ref.Tag != "" && ref.Tag != "latest" {
 								newimg += ":" + ref.Tag
 							}
-							err = unstructured.SetNestedField(obj.Object, newimg, fieldList...)
+							err = unstructured.SetNestedField(objCopy.Object, newimg, fieldList...)
 							if err != nil {
 								panic(err)
 							}
@@ -538,7 +545,7 @@ func main() {
 
 				data := map[string]interface{}{
 					"key":    strings.ToLower(dbKind),
-					"object": obj.Object,
+					"object": objCopy.Object,
 				}
 				funcMap := sprig.TxtFuncMap()
 				funcMap["toYaml"] = toYAML
@@ -843,4 +850,31 @@ func Compare(i, j string) bool {
 		return semvers.Compare(ver_i, ver_j)
 	}
 	return strings.Compare(i, j) < 0
+}
+
+func encodeTag(ref, tag string) string {
+	if idx := strings.IndexRune(ref, '('); idx == -1 {
+		return tag
+	}
+
+	var sb strings.Builder
+	replace := false
+	for _, ch := range ref {
+		if ch == '(' {
+			replace = true
+			sb.WriteRune('(')
+			sb.WriteString(tag)
+			sb.WriteRune(')')
+		} else if ch == ')' {
+			replace = false
+		} else if !replace {
+			sb.WriteRune(ch)
+		}
+	}
+	return sb.String()
+}
+
+func decodeTag(ref string) string {
+	r := strings.NewReplacer("(", "", ")", "")
+	return r.Replace(ref)
 }
