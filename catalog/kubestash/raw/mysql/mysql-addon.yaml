@@ -32,6 +32,37 @@ spec:
     volumeMounts:
     - name: kubestash-tmp-volume
       mountPath: /kubestash-tmp
+  - name: VolumeSnapshot
+    function: mysql-csi-snapshotter
+    driver: VolumeSnapshotter
+    executor: Job
+    singleton: true
+    parameters:
+     - name: volumeSnapshotClassName
+       usage: The VolumeSnapshotClassName to be used by volumeSnapshot
+       required: false
+  - name: ManifestBackup
+    function: kubedbmanifest-backup
+    driver: Restic
+    executor: Job
+    singleton: true
+    parameters:
+      - name: enableCache
+        usage: Enable or disable caching. Disabling caching may impact backup performance.
+        required: false
+        default: "true"
+      - name: scratchDir
+        usage: Directory for holding temporary files and restic cache.
+        required: false
+        default: /kubestash-tmp
+    volumeTemplate:
+      - name: kubestash-tmp-volume
+        usage: Holds temporary files and restic cache.
+        source:
+          emptyDir: { }
+    volumeMounts:
+      - name: kubestash-tmp-volume
+        mountPath: /kubestash-tmp
   restoreTasks:
   - name: LogicalBackupRestore
     function: mysql-restore
@@ -58,3 +89,25 @@ spec:
     volumeMounts:
     - name: kubestash-tmp-volume
       mountPath: /kubestash-tmp
+  - name: ManifestRestore
+    function: kubedbmanifest-restore
+    driver: Restic
+    executor: Job
+    singleton: true
+    parameters:
+      - name: enableCache
+        usage: Enable or disable caching. Disabling caching may impact backup performance.
+        required: false
+        default: "true"
+      - name: scratchDir
+        usage: Directory for holding temporary files and restic cache.
+        required: false
+        default: /kubestash-tmp
+    volumeTemplate:
+      - name: kubestash-tmp-volume
+        usage: Holds temporary files and restic cache.
+        source:
+          emptyDir: { }
+    volumeMounts:
+      - name: kubestash-tmp-volume
+        mountPath: /kubestash-tmp
