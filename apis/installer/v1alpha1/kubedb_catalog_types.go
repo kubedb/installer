@@ -69,6 +69,38 @@ type RegistryProxies struct {
 	AppsCode string `json:"appscode"`
 }
 
+<<<<<<< HEAD
+=======
+type Catalog struct {
+	//+optional
+	Elasticsearch bool `json:"elasticsearch"`
+	//+optional
+	Etcd bool `json:"etcd"`
+	//+optional
+	Memcached bool `json:"memcached"`
+	//+optional
+	MongoDB bool `json:"mongodb"`
+	//+optional
+	Mysql bool `json:"mysql"`
+	//+optional
+	MariaDB bool `json:"mariadb"`
+	//+optional
+	Perconaxtradb bool `json:"perconaxtradb"`
+	//+optional
+	Pgbouncer bool `json:"pgbouncer"`
+	//+optional
+	Postgres bool `json:"postgres"`
+	//+optional
+	Proxysql bool `json:"proxysql"`
+	//+optional
+	Redis bool `json:"redis"`
+	//+optional
+	Kafka bool `json:"kafka"`
+	//+optional
+	ZooKeeper bool `json:"zookeeper"`
+}
+
+>>>>>>> 576b6b54 (Add ZooKeeper Version)
 type PSP struct {
 	Enabled bool `json:"enabled"`
 	//+optional
@@ -88,8 +120,11 @@ type PSP struct {
 	//+optional
 	Proxysql PSPProxysql `json:"proxysql"`
 	//+optional
-	Redis PSPRedis `json:"redis"` //+optional
+	Redis PSPRedis `json:"redis"`
+	//+optional
 	Kafka PSPKafka `json:"kafka"`
+	//+optional
+	ZooKeeper PSPZooKeeper `json:"zookeeper"`
 }
 
 type PSPElasticsearch struct {
@@ -136,7 +171,13 @@ type PSPRedis struct {
 	AllowPrivilegeEscalation bool `json:"allowPrivilegeEscalation"`
 	Privileged               bool `json:"privileged"`
 }
+
 type PSPKafka struct {
+	AllowPrivilegeEscalation bool `json:"allowPrivilegeEscalation"`
+	Privileged               bool `json:"privileged"`
+}
+
+type PSPZooKeeper struct {
 	AllowPrivilegeEscalation bool `json:"allowPrivilegeEscalation"`
 	Privileged               bool `json:"privileged"`
 }
