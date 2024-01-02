@@ -1,0 +1,39 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  name: 7.0.4
+spec:
+  archiver:
+    addon:
+      name: mongodb-addon
+      tasks:
+        manifestBackup:
+          name: ManifestBackup
+        manifestRestore:
+          name: ManifestRestore
+        volumeSnapshot:
+          name: VolumeSnapshot
+    walg:
+      image: ghcr.io/kubedb/wal-g:v2023.11.30_mongo
+  db:
+    image: ghcr.io/appscode-images/mongo:7.0.4
+  distribution: Official
+  exporter:
+    image: ghcr.io/kubedb/mongodb_exporter:v0.32.0
+  gitSyncer:
+    image: registry.k8s.io/git-sync/git-sync:v4.1.0
+  initContainer:
+    image: ghcr.io/kubedb/mongodb-init:6.0-v9
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+  replicationModeDetector:
+    image: ghcr.io/kubedb/replication-mode-detector:v0.27.0
+  securityContext:
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: mongodb-backup-6.0.5
+      restoreTask:
+        name: mongodb-restore-6.0.5
+  version: 7.0.4
