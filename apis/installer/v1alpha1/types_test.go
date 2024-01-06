@@ -29,6 +29,7 @@ func TestDefaultValues(t *testing.T) {
 	checker := schemachecker.New(os.DirFS("../../.."),
 		schemachecker.TestCase{Obj: v1alpha1.KubedbAutoscalerSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.KubedbCatalogSpec{}},
+		schemachecker.TestCase{Obj: v1alpha1.KubedbCrdManagerSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.KubedbDashboardSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.KubedbKubestashCatalogSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.KubedbOpsManagerSpec{}},
