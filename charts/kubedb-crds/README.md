@@ -17,7 +17,7 @@ This chart deploys KubeDB crds on a [Kubernetes](http://kubernetes.io) cluster u
 
 ## Prerequisites
 
-- Kubernetes 1.16+
+- Kubernetes 1.20+
 
 ## Installing the Chart
 

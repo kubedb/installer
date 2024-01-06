@@ -17,7 +17,7 @@ This chart deploys KubeDB metrics configurations on a [Kubernetes](http://kubern
 
 ## Prerequisites
 
-- Kubernetes 1.16+
+- Kubernetes 1.20+
 
 ## Installing the Chart
 
