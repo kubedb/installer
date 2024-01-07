@@ -1,3 +1,8 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
 {{- if .Values.apiserver.enableValidatingWebhook }}
 {{- if list "kubedb-webhook-server" "kubedb-ops-manager" | has .Values.server.repository }}
 
@@ -11,6 +16,7 @@ metadata:
     app.kubernetes.io/component: kubedb-ops-manager
     {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
 webhooks:
+{{- if $featureGates.MySQL }}
 - name: mysqlopsrequestwebhook.validators.ops.kubedb.com
   clientConfig:
     service:
@@ -26,6 +32,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.MongoDB }}
 - name: mongodbopsrequestwebhook.validators.ops.kubedb.com
   clientConfig:
     service:
@@ -41,6 +49,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.Elasticsearch }}
 - name: elasticsearchopsrequestwebhook.validators.ops.kubedb.com
   clientConfig:
     service:
@@ -56,6 +66,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.Kafka }}
 - name: kafkaopsrequestwebhook.validators.ops.kubedb.com
   clientConfig:
     service:
@@ -71,6 +83,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: Fail
   sideEffects: None
+{{- end }}
+{{- if $featureGates.Redis }}
 - name: redisopsrequestwebhook.validators.ops.kubedb.com
   clientConfig:
     service:
@@ -86,6 +100,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.Postgres }}
 - name: publisherwebhook.validators.postgres.kubedb.com
   clientConfig:
     service:
@@ -116,5 +132,6 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
 {{- end }}
 {{- end }}
