@@ -1,4 +1,9 @@
-{{ if .Values.mongodb.enabled }}
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.MongoDB }}
 apiVersion: addons.kubestash.com/v1alpha1
 kind: Function
 metadata:
@@ -19,4 +24,3 @@ spec:
   - --db-version=${dbVersion:=}
   image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb-restic-plugin") $) }}:v0.3.0_${DB_VERSION}'
 {{ end }}
-

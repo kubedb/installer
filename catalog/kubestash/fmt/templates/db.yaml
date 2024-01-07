@@ -3,15 +3,13 @@
 {{ "  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}" }}
 {{ "{{- end }}" }}
 
-{{"{{ if and .Values.psp.enabled (.Capabilities.APIVersions.Has \"policy/v1beta1/PodSecurityPolicy\") $featureGates."}}{{ .kind }}{{" }}"}}
+{{"{{ if $featureGates."}}{{ .kind }}{{" }}"}}
 apiVersion: {{ .object.apiVersion }}
 kind: {{ .object.kind }}
 metadata:
   name: '{{ .object.metadata.name }}'
   labels:
-    {{"{{- include \"kubedb-catalog.labels\" . | nindent 4 }}"}}
+    {{"{{- include \"kubedb-kubestash-catalog.labels\" . | nindent 4 }}"}}
 spec:
-  allowPrivilegeEscalation: {{"{{ .Values.psp."}}{{ .kind | lower }}{{".allowPrivilegeEscalation }}"}}
-  privileged: {{"{{ .Values.psp."}}{{ .kind | lower }}{{".privileged }}"}}
   {{- .object.spec | toYaml | nindent 2 }}
 {{"{{ end }}"}}
