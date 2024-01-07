@@ -2064,6 +2064,13 @@ func (in *KubedbWebhookServerList) DeepCopyObject() runtime.Object {
 func (in *KubedbWebhookServerSpec) DeepCopyInto(out *KubedbWebhookServerSpec) {
 	*out = *in
 	in.Server.DeepCopyInto(&out.Server)
+	if in.FeatureGates != nil {
+		in, out := &in.FeatureGates, &out.FeatureGates
+		*out = make(map[string]bool, len(*in))
+		for key, val := range *in {
+			(*out)[key] = val
+		}
+	}
 	if in.ImagePullSecrets != nil {
 		in, out := &in.ImagePullSecrets, &out.ImagePullSecrets
 		*out = make([]string, len(*in))

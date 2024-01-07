@@ -1,3 +1,8 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
 {{- if .Values.apiserver.enableMutatingWebhook }}
 {{- if list "kubedb-webhook-server" "kubedb-autoscaler" | has .Values.server.repository }}
 
@@ -11,6 +16,7 @@ metadata:
     app.kubernetes.io/component: kubedb-autoscaler
     {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
 webhooks:
+{{- if $featureGates.MongoDB }}
 - name: mongodbautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
@@ -26,6 +32,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.Elasticsearch }}
 - name: elasticsearchautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
@@ -41,6 +49,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.MariaDB }}
 - name: mariadbautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
@@ -56,6 +66,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.MySQL }}
 - name: mysqlautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
@@ -71,6 +83,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.PerconaXtraDB }}
 - name: perconaxtradbautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
@@ -86,6 +100,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.Postgres }}
 - name: postgresautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
@@ -101,6 +117,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.PgBouncer }}
 - name: pgbouncerautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
@@ -116,6 +134,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.ProxySQL }}
 - name: proxysqlautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
@@ -131,6 +151,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.Redis }}
 - name: redisautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
@@ -161,6 +183,7 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
 {{- end }}
 {{- end }}
 
