@@ -1,4 +1,10 @@
-{{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.MySQL }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -30,7 +36,7 @@ spec:
 {{ end }}
 
 ---
-{{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -60,7 +66,7 @@ spec:
 {{ end }}
 
 ---
-{{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -90,7 +96,7 @@ spec:
 {{ end }}
 
 ---
-{{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -120,7 +126,7 @@ spec:
 {{ end }}
 
 ---
-{{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -156,7 +162,7 @@ spec:
 {{ end }}
 
 ---
-{{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -189,4 +195,5 @@ spec:
       standalone:
       - < 5.7.25
   version: 5.7.25
+{{ end }}
 {{ end }}

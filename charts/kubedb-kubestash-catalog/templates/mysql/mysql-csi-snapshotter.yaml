@@ -1,4 +1,9 @@
-{{ if .Values.mysql.enabled }}
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.MySQL }}
 apiVersion: addons.kubestash.com/v1alpha1
 kind: Function
 metadata:
@@ -13,4 +18,3 @@ spec:
   - --backupsession=${backupSession:=}
   image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-csi-snapshotter-plugin") $) }}:v0.1.0'
 {{ end }}
-

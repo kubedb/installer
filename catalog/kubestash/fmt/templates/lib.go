@@ -20,5 +20,8 @@ import (
 	_ "embed"
 )
 
-//go:embed object.yaml
-var Object string
+//go:embed app.yaml
+var App string
+
+//go:embed db.yaml
+var DB string

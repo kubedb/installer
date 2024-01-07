@@ -46,7 +46,7 @@ type KubedbCatalogSpec struct {
 	FullnameOverride string `json:"fullnameOverride"`
 	//+optional
 	Proxies        RegistryProxies `json:"proxies"`
-	Catalog        Catalog         `json:"catalog"`
+	FeatureGates   map[string]bool `json:"featureGates"`
 	Psp            PSP             `json:"psp"`
 	SkipDeprecated bool            `json:"skipDeprecated"`
 }
@@ -67,33 +67,6 @@ type RegistryProxies struct {
 	// r.appscode.com
 	//+optional
 	AppsCode string `json:"appscode"`
-}
-
-type Catalog struct {
-	//+optional
-	Elasticsearch bool `json:"elasticsearch"`
-	//+optional
-	Etcd bool `json:"etcd"`
-	//+optional
-	Memcached bool `json:"memcached"`
-	//+optional
-	MongoDB bool `json:"mongodb"`
-	//+optional
-	Mysql bool `json:"mysql"`
-	//+optional
-	MariaDB bool `json:"mariadb"`
-	//+optional
-	Perconaxtradb bool `json:"perconaxtradb"`
-	//+optional
-	Pgbouncer bool `json:"pgbouncer"`
-	//+optional
-	Postgres bool `json:"postgres"`
-	//+optional
-	Proxysql bool `json:"proxysql"`
-	//+optional
-	Redis bool `json:"redis"`
-	//+optional
-	Kafka bool `json:"kafka"`
 }
 
 type PSP struct {

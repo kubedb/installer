@@ -1,4 +1,10 @@
-{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Elasticsearch }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
@@ -31,7 +37,7 @@ spec:
 {{ end }}
 
 ---
-{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
@@ -70,4 +76,5 @@ spec:
     allowlist:
     - < 7.6.0
   version: 7.4.2
+{{ end }}
 {{ end }}

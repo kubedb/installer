@@ -45,6 +45,7 @@ type KubedbKubestashCatalog struct {
 type KubedbKubestashCatalogSpec struct {
 	//+optional
 	Proxies        RegistryProxies         `json:"proxies"`
+	FeatureGates   map[string]bool         `json:"featureGates"`
 	WaitTimeout    int64                   `json:"waitTimeout"`
 	Elasticsearch  StashElasticsearchSpec  `json:"elasticsearch"`
 	Opensearch     StashOpensearchSpec     `json:"opensearch"`
@@ -57,7 +58,6 @@ type KubedbKubestashCatalogSpec struct {
 
 // StashElasticsearchSpec is the schema for Stash Elasticsearch values file
 type StashElasticsearchSpec struct {
-	Enabled bool                 `json:"enabled"`
 	Backup  ElasticsearchBackup  `json:"backup"`
 	Restore ElasticsearchRestore `json:"restore"`
 }
@@ -74,7 +74,6 @@ type ElasticsearchRestore struct {
 
 // StashOpensearchSpec is the schema for Stash Opensearch values file
 type StashOpensearchSpec struct {
-	Enabled bool              `json:"enabled"`
 	Backup  OpensearchBackup  `json:"backup"`
 	Restore OpensearchRestore `json:"restore"`
 }
@@ -106,7 +105,6 @@ type KubeDumpBackup struct {
 
 // StashMongodbSpec is the schema for Stash MongoDB values file
 type StashMongodbSpec struct {
-	Enabled        bool           `json:"enabled"`
 	MaxConcurrency int32          `json:"maxConcurrency"`
 	Backup         MongoDBBackup  `json:"backup"`
 	Restore        MongoDBRestore `json:"restore"`
@@ -124,7 +122,6 @@ type MongoDBRestore struct {
 
 // StashMysqlSpec is the schema for Stash MySQL values file
 type StashMysqlSpec struct {
-	Enabled bool         `json:"enabled"`
 	Backup  MySQLBackup  `json:"backup"`
 	Restore MySQLRestore `json:"restore"`
 }
@@ -141,7 +138,6 @@ type MySQLRestore struct {
 
 // StashRedisSpec is the schema for Stash Redis values file
 type StashRedisSpec struct {
-	Enabled bool         `json:"enabled"`
 	Backup  RedisBackup  `json:"backup"`
 	Restore RedisRestore `json:"restore"`
 }
@@ -158,7 +154,6 @@ type RedisRestore struct {
 
 // StashPostgresSpec is the schema for Stash Postgres values file
 type StashPostgresSpec struct {
-	Enabled bool            `json:"enabled"`
 	Backup  PostgresBackup  `json:"backup"`
 	Restore PostgresRestore `json:"restore"`
 }

@@ -1,4 +1,9 @@
-{{ if .Values.redis.enabled }}
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Redis }}
 apiVersion: addons.kubestash.com/v1alpha1
 kind: Function
 metadata:
@@ -17,4 +22,3 @@ spec:
   - --redis-args=${args:={{ .Values.redis.args }}}
   image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-restic-plugin") $) }}:v0.3.0'
 {{ end }}
-

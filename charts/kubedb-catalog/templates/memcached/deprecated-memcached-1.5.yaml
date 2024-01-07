@@ -1,4 +1,10 @@
-{{ if and .Values.catalog.memcached (not .Values.skipDeprecated) }}
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Memcached }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MemcachedVersion
 metadata:
@@ -17,7 +23,7 @@ spec:
 {{ end }}
 
 ---
-{{ if and .Values.catalog.memcached (not .Values.skipDeprecated) }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MemcachedVersion
 metadata:
@@ -33,4 +39,5 @@ spec:
   podSecurityPolicies:
     databasePolicyName: memcached-db
   version: "1.5"
+{{ end }}
 {{ end }}

@@ -1,4 +1,10 @@
-{{ if and .Values.catalog.redis (not .Values.skipDeprecated) }}
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Redis }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: RedisVersion
 metadata:
@@ -26,4 +32,5 @@ spec:
       restoreTask:
         name: redis-restore-6.2.5
   version: 6.0.18
+{{ end }}
 {{ end }}

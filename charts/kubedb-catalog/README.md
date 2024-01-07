@@ -54,18 +54,28 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | proxies.ghcr                               |                                                 | <code>ghcr.io</code>         |
 | proxies.kubernetes                         |                                                 | <code>registry.k8s.io</code> |
 | proxies.appscode                           |                                                 | <code>r.appscode.com</code>  |
-| catalog.elasticsearch                      | If true, deploys Elasticsearch version catalog  | <code>true</code>            |
-| catalog.etcd                               | If true, deploys Etcd version catalog           | <code>true</code>            |
-| catalog.memcached                          | If true, deploys Memcached version catalog      | <code>true</code>            |
-| catalog.mongodb                            | If true, deploys MongoDB version catalog        | <code>true</code>            |
-| catalog.mysql                              | If true, deploys MySQL version catalog          | <code>true</code>            |
-| catalog.mariadb                            | If true, deploys MariaDB version catalog        | <code>true</code>            |
-| catalog.perconaxtradb                      | If true, deploys Percona XtraDB version catalog | <code>true</code>            |
-| catalog.pgbouncer                          | If true, deploys PgBouncer version catalog      | <code>true</code>            |
-| catalog.postgres                           | If true, deploys PostgreSQL version catalog     | <code>true</code>            |
-| catalog.proxysql                           | If true, deploys ProxySQL version catalog       | <code>true</code>            |
-| catalog.redis                              | If true, deploys Redis version catalog          | <code>true</code>            |
-| catalog.kafka                              |                                                 | <code>true</code>            |
+| featureGates.Cassandra                     |                                                 | <code>false</code>           |
+| featureGates.ClickHouse                    |                                                 | <code>false</code>           |
+| featureGates.Druid                         |                                                 | <code>false</code>           |
+| featureGates.Elasticsearch                 |                                                 | <code>true</code>            |
+| featureGates.Etcd                          |                                                 | <code>false</code>           |
+| featureGates.FerretDB                      |                                                 | <code>false</code>           |
+| featureGates.Kafka                         |                                                 | <code>true</code>            |
+| featureGates.MariaDB                       |                                                 | <code>true</code>            |
+| featureGates.Memcached                     |                                                 | <code>true</code>            |
+| featureGates.MicrosoftSQLServer            |                                                 | <code>false</code>           |
+| featureGates.MongoDB                       |                                                 | <code>true</code>            |
+| featureGates.MySQL                         |                                                 | <code>true</code>            |
+| featureGates.PerconaXtraDB                 |                                                 | <code>true</code>            |
+| featureGates.PgBouncer                     |                                                 | <code>true</code>            |
+| featureGates.PgPool                        |                                                 | <code>false</code>           |
+| featureGates.Postgres                      |                                                 | <code>true</code>            |
+| featureGates.ProxySQL                      |                                                 | <code>true</code>            |
+| featureGates.RabbitMQ                      |                                                 | <code>false</code>           |
+| featureGates.Redis                         |                                                 | <code>true</code>            |
+| featureGates.SingleStore                   |                                                 | <code>false</code>           |
+| featureGates.Solr                          |                                                 | <code>false</code>           |
+| featureGates.ZooKeeper                     |                                                 | <code>false</code>           |
 | psp.enabled                                |                                                 | <code>true</code>            |
 | psp.elasticsearch.allowPrivilegeEscalation |                                                 | <code>true</code>            |
 | psp.elasticsearch.privileged               |                                                 | <code>true</code>            |
