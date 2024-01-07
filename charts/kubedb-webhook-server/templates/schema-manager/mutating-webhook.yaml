@@ -1,3 +1,8 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
 {{- if .Values.apiserver.enableMutatingWebhook }}
 {{- if list "kubedb-webhook-server" "kubedb-schema-manager" | has .Values.server.repository }}
 
@@ -11,6 +16,7 @@ metadata:
     app.kubernetes.io/component: kubedb-schema-manager
     {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
 webhooks:
+{{- if $featureGates.MySQL }}
 - name: mysqldatabasewebhook.mutators.schema.kubedb.com
   clientConfig:
     service:
@@ -26,6 +32,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.MongoDB }}
 - name: mongodbdatabasewebhook.mutators.schema.kubedb.com
   clientConfig:
     service:
@@ -41,5 +49,6 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
 {{- end }}
 {{- end }}

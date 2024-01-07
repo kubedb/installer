@@ -53,9 +53,10 @@ type KubedbWebhookServerSpec struct {
 	// +optional
 	License string `json:"license"`
 	// +optional
-	LicenseSecretName string    `json:"licenseSecretName"`
-	Server            Container `json:"server"`
-	ImagePullPolicy   string    `json:"imagePullPolicy"`
+	LicenseSecretName string          `json:"licenseSecretName"`
+	Server            Container       `json:"server"`
+	FeatureGates      map[string]bool `json:"featureGates"`
+	ImagePullPolicy   string          `json:"imagePullPolicy"`
 	//+optional
 	ImagePullSecrets []string `json:"imagePullSecrets"`
 	//+optional
