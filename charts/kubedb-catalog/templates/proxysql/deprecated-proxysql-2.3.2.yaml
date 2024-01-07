@@ -1,4 +1,10 @@
-{{ if and .Values.catalog.proxysql (not .Values.skipDeprecated) }}
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.ProxySQL }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ProxySQLVersion
 metadata:
@@ -14,4 +20,5 @@ spec:
   proxysql:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/proxysql") $) }}:2.3.2-debian'
   version: 2.3.2
+{{ end }}
 {{ end }}

@@ -1,4 +1,10 @@
-{{ if and .Values.catalog.mongodb (not .Values.skipDeprecated) }}
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.MongoDB }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
@@ -24,7 +30,7 @@ spec:
 {{ end }}
 
 ---
-{{ if and .Values.catalog.mongodb (not .Values.skipDeprecated) }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
@@ -70,4 +76,5 @@ spec:
     allowlist:
     - '>= 4.0.0, < 4.1.0'
   version: 3.6.8
+{{ end }}
 {{ end }}

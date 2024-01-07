@@ -1,4 +1,10 @@
-{{ if .Values.catalog.mysql }}
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.MySQL }}
+
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:

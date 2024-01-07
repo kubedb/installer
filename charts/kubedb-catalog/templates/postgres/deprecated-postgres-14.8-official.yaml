@@ -1,4 +1,10 @@
-{{ if and .Values.catalog.postgres (not .Values.skipDeprecated) }}
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Postgres }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -44,7 +50,7 @@ spec:
 {{ end }}
 
 ---
-{{ if and .Values.catalog.postgres (not .Values.skipDeprecated) }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -87,4 +93,5 @@ spec:
       restoreTask:
         name: postgres-restore-14.0
   version: "14.8"
+{{ end }}
 {{ end }}
