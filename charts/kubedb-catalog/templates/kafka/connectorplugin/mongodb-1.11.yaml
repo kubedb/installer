@@ -1,0 +1,17 @@
+{{ if .Values.catalog.kafka }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: KafkaConnectorVersion
+metadata:
+  name: 'mongodb-1.11'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  type: MongoDB
+  connectorPlugin:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kafka-connector-mongodb") $) }}:1.11.0'
+  podSecurityPolicies:
+    databasePolicyName: kafka-db
+  securityContext:
+    runAsUser: 1001
+  version: '1.11'
+{{ end }}

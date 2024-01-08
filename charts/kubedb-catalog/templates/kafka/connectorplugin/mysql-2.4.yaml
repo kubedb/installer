@@ -1,0 +1,17 @@
+{{ if .Values.catalog.kafka }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: KafkaConnectorVersion
+metadata:
+  name: 'mysql-2.4'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  type: MySQL
+  connectorPlugin:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kafka-connector-mysql") $) }}:2.4.2.final'
+  podSecurityPolicies:
+    databasePolicyName: kafka-db
+  securityContext:
+    runAsUser: 1001
+  version: '2.4'
+{{ end }}
