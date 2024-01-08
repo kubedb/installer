@@ -22,6 +22,7 @@ for dir in charts/*/; do
     num_files=$(find charts/${dir}/templates -type f | wc -l)
     echo $dir
     if [ $num_files -le 1 ] ||
+        [[ "$dir" = "kubedb-catalog" ]] ||
         [[ "$dir" =~ "-crds" ]] ||
         [[ "$dir" =~ "-metrics" ]] ||
         [[ "$dir" =~ "-grafana-dashboards" ]]; then
