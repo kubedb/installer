@@ -69,8 +69,6 @@ type RegistryProxies struct {
 	AppsCode string `json:"appscode"`
 }
 
-<<<<<<< HEAD
-=======
 type Catalog struct {
 	//+optional
 	Elasticsearch bool `json:"elasticsearch"`
@@ -100,7 +98,6 @@ type Catalog struct {
 	ZooKeeper bool `json:"zookeeper"`
 }
 
->>>>>>> 576b6b54 (Add ZooKeeper Version)
 type PSP struct {
 	Enabled bool `json:"enabled"`
 	//+optional
