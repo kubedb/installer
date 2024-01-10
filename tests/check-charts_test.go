@@ -55,7 +55,7 @@ func checkImages() error {
 	sh.SetDir(dir)
 	sh.ShowCMD = true
 
-	images := sets.NewString()
+	images := sets.New[string]()
 	for _, entry := range entries {
 		if !entry.IsDir() {
 			continue
@@ -77,7 +77,7 @@ func checkImages() error {
 	}
 
 	var missing []string
-	for _, img := range images.List() {
+	for _, img := range sets.List[string](images) {
 		if strings.Contains(img, "${") {
 			continue
 		}
@@ -96,7 +96,7 @@ func checkImages() error {
 	return nil
 }
 
-func collectImages(obj map[string]any, images sets.String) {
+func collectImages(obj map[string]any, images sets.Set[string]) {
 	for k, v := range obj {
 		if k == "image" {
 			if s, ok := v.(string); ok {

@@ -1,0 +1,189 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{- if .Values.apiserver.enableMutatingWebhook }}
+{{- if list "kubedb-webhook-server" "kubedb-autoscaler" | has .Values.server.repository }}
+
+{{- $caCrt := dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" .Release.Namespace "kube-root-ca.crt") | b64enc }}
+
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: validators.autoscaling.kubedb.com
+  labels:
+    app.kubernetes.io/component: kubedb-autoscaler
+    {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
+webhooks:
+{{- if $featureGates.MongoDB }}
+- name: mongodbautoscalerwebhook.validators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.autoscaling.kubedb.com/v1alpha1/mongodbautoscalerwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+  - apiGroups: ["autoscaling.kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["mongodbautoscalers"]
+    operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.Elasticsearch }}
+- name: elasticsearchautoscalerwebhook.validators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.autoscaling.kubedb.com/v1alpha1/elasticsearchautoscalerwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+  - apiGroups: ["autoscaling.kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["elasticsearchautoscalers"]
+    operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.MariaDB }}
+- name: mariadbautoscalerwebhook.validators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.autoscaling.kubedb.com/v1alpha1/mariadbautoscalerwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["mariadbautoscalers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.MySQL }}
+- name: mysqlautoscalerwebhook.validators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.autoscaling.kubedb.com/v1alpha1/mysqlautoscalerwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["mysqlautoscalers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.PerconaXtraDB }}
+- name: perconaxtradbautoscalerwebhook.validators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.autoscaling.kubedb.com/v1alpha1/perconaxtradbautoscalerwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["perconaxtradbautoscalers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.Postgres }}
+- name: postgresautoscalerwebhook.validators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.autoscaling.kubedb.com/v1alpha1/postgresautoscalerwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["postgresautoscalers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.PgBouncer }}
+- name: pgbouncerautoscalerwebhook.validators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.autoscaling.kubedb.com/v1alpha1/pgbouncerautoscalerwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["pgbouncerautoscalers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.ProxySQL }}
+- name: proxysqlautoscalerwebhook.validators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.autoscaling.kubedb.com/v1alpha1/proxysqlautoscalerwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["proxysqlautoscalers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.Redis }}
+- name: redisautoscalerwebhook.validators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.autoscaling.kubedb.com/v1alpha1/redisautoscalerwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["redisautoscalers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+- name: redissentinelautoscalerwebhook.validators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.autoscaling.kubedb.com/v1alpha1/redissentinelautoscalerwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["redissentinelautoscalers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- end }}
+{{- end }}
+
