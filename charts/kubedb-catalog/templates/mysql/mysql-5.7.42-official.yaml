@@ -1,0 +1,57 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.MySQL }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  name: '5.7.42-debian'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  archiver:
+    addon:
+      name: mysql-addon
+      tasks:
+        manifestBackup:
+          name: ManifestBackup
+        manifestRestore:
+          name: ManifestRestore
+        volumeSnapshot:
+          name: VolumeSnapshot
+    walg:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-archiver") $) }}:v0.1.0_5.7.44'
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.18.0'
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql") $) }}:5.7.42-debian'
+  distribution: Official
+  exporter:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysqld-exporter") $) }}:v0.13.1'
+  gitSyncer:
+    image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.1.0'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:5.7-v4'
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  replicationModeDetector:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.27.0'
+  securityContext:
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: mysql-backup-5.7.25
+      restoreTask:
+        name: mysql-restore-5.7.25
+  updateConstraints:
+    denylist:
+      groupReplication:
+      - < 5.7.42
+      standalone:
+      - < 5.7.42
+  version: 5.7.42
+{{ end }}
