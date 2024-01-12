@@ -338,6 +338,89 @@ kind: CustomResourceDefinition
 metadata:
   labels:
     app.kubernetes.io/name: kubedb
+  name: kafkaconnectorversions.catalog.kubedb.com
+spec:
+  group: catalog.kubedb.com
+  names:
+    categories:
+    - datastore
+    - kubedb
+    - appscode
+    kind: KafkaConnectorVersion
+    listKind: KafkaConnectorVersionList
+    plural: kafkaconnectorversions
+    shortNames:
+    - kcversion
+    singular: kafkaconnectorversion
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.version
+      name: Version
+      type: string
+    - jsonPath: .spec.connectorPlugin.image
+      name: Connector_Image
+      type: string
+    - jsonPath: .spec.deprecated
+      name: Deprecated
+      type: boolean
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              connectorPlugin:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              deprecated:
+                type: boolean
+              podSecurityPolicies:
+                properties:
+                  databasePolicyName:
+                    type: string
+                required:
+                - databasePolicyName
+                type: object
+              securityContext:
+                properties:
+                  runAsUser:
+                    format: int64
+                    type: integer
+                type: object
+              type:
+                type: string
+              version:
+                type: string
+            required:
+            - connectorPlugin
+            - type
+            - version
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubedb
   name: kafkaversions.catalog.kubedb.com
 spec:
   group: catalog.kubedb.com
@@ -379,6 +462,13 @@ spec:
             type: object
           spec:
             properties:
+              connectCluster:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
               cruiseControl:
                 properties:
                   image:
@@ -469,6 +559,7 @@ spec:
               version:
                 type: string
             required:
+            - connectCluster
             - cruiseControl
             - db
             - version
