@@ -12,10 +12,12 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  connectCluster:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kafka-connect-cluster") $) }}:3.6.0'
   cruiseControl:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/cruise-control") $) }}:3.6.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kafka-cruise-control") $) }}:3.6.0'
   db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kafka-kraft") $) }}:3.6.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kafka-kraft") $) }}:3.6.0'
   podSecurityPolicies:
     databasePolicyName: kafka-db
   securityContext:
