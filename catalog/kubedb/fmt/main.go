@@ -232,6 +232,11 @@ func main() {
 						panic(err)
 					}
 				}
+			} else if dbKind == "KafkaConnector" {
+				connectorType, _, _ := unstructured.NestedString(ri.Object.Object, "spec", "type")
+				if distro == "" {
+					distro = connectorType
+				}
 			}
 
 			dbVersion, _, err := unstructured.NestedString(ri.Object.Object, "spec", "version")
