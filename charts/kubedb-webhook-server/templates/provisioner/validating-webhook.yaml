@@ -249,6 +249,21 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+- name: connectclusterwebhook.validators.kafka.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.kafka.kubedb.com/v1alpha1/connectclusterwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["kafka.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["connectclusters"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
 {{- end }}
 {{- end }}
 {{- end }}
