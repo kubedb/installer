@@ -1,0 +1,93 @@
+# Docker registry fqdn used to pull app related images.
+# Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image}
+registryFQDN: ghcr.io
+
+# Docker registry containing app images
+image:
+  # Docker registry used to pull app container image
+  registry: kubedb
+  # App container image
+  repository: kubedb-crd-manager
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+# Specify an array of imagePullSecrets.
+# Secrets must be manually created in the namespace.
+#
+# Example:
+# helm template charts/kubedb-ops-manager \
+#   --set imagePullSecrets[0].name=sec0 \
+#   --set imagePullSecrets[1].name=sec1
+imagePullSecrets: []
+# Container image pull policy
+imagePullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+# Security options this container should run with
+securityContext: # +doc-gen:break
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop: ["ALL"]
+  # readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  # runAsUser: 101
+  seccompProfile:
+    type: RuntimeDefault
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+featureGates:
+  Cassandra: false
+  ClickHouse: false
+  Druid: false
+  Elasticsearch: false
+  Etcd: false
+  FerretDB: false
+  Kafka: false
+  MariaDB: false
+  Memcached: false
+  MicrosoftSQLServer: false
+  MongoDB: false
+  MySQL: false
+  PerconaXtraDB: false
+  PgBouncer: false
+  PgPool: false
+  Postgres: false
+  ProxySQL: false
+  RabbitMQ: false
+  Redis: false
+  SingleStore: false
+  Solr: false
+  ZooKeeper: false

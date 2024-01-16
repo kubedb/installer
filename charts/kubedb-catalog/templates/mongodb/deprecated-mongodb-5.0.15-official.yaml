@@ -1,4 +1,10 @@
-{{ if and .Values.catalog.mongodb (not .Values.skipDeprecated) }}
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.MongoDB }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
@@ -31,8 +37,9 @@ spec:
   podSecurityPolicies:
     databasePolicyName: mongodb-db
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.27.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.28.0-beta.0'
   securityContext:
+    runAsGroup: 999
     runAsUser: 999
   stash:
     addon:
@@ -41,4 +48,5 @@ spec:
       restoreTask:
         name: mongodb-restore-5.0.15
   version: 5.0.15
+{{ end }}
 {{ end }}

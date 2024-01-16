@@ -1,4 +1,9 @@
-{{ if .Values.postgres.enabled }}
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Postgres }}
 apiVersion: addons.kubestash.com/v1alpha1
 kind: Function
 metadata:
@@ -16,6 +21,5 @@ spec:
   - --pg-args=${args:={{ .Values.postgres.args }}}
   - --backup-cmd=${backupCmd:=}
   - --user=${user:=}
-  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-restic-plugin") $) }}:v0.3.0'
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-restic-plugin") $) }}:v0.4.0-beta.0'
 {{ end }}
-

@@ -1,4 +1,10 @@
-{{ if .Values.catalog.postgres }}
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Postgres }}
+
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -17,9 +23,9 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.1.0_11.22-alpine'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.2.0-beta.0_11.22-alpine'
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.24.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.25.0-beta.0'
   db:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "timescale/timescaledb") $) }}:2.1.0-pg11-oss'
   distribution: TimescaleDB

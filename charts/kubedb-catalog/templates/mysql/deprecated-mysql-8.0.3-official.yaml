@@ -1,4 +1,10 @@
-{{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.MySQL }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -19,7 +25,7 @@ spec:
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.27.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.28.0-beta.0'
   updateConstraints:
     allowlist:
       groupReplication:
@@ -30,7 +36,7 @@ spec:
 {{ end }}
 
 ---
-{{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -51,7 +57,7 @@ spec:
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.27.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.28.0-beta.0'
   updateConstraints:
     allowlist:
       groupReplication:
@@ -62,7 +68,7 @@ spec:
 {{ end }}
 
 ---
-{{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -83,7 +89,7 @@ spec:
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.27.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.28.0-beta.0'
   updateConstraints:
     allowlist:
       groupReplication:
@@ -94,7 +100,7 @@ spec:
 {{ end }}
 
 ---
-{{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -115,7 +121,7 @@ spec:
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.27.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.28.0-beta.0'
   stash:
     addon:
       backupTask:
@@ -132,7 +138,7 @@ spec:
 {{ end }}
 
 ---
-{{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -153,7 +159,7 @@ spec:
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.27.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.28.0-beta.0'
   stash:
     addon:
       backupTask:
@@ -170,7 +176,7 @@ spec:
 {{ end }}
 
 ---
-{{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -179,7 +185,7 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.18.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.19.0-beta.0'
   db:
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "mysql") $) }}:8.0.3'
   deprecated: true
@@ -193,7 +199,7 @@ spec:
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.27.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.28.0-beta.0'
   stash:
     addon:
       backupTask:
@@ -207,4 +213,5 @@ spec:
       standalone:
       - 8.0.3
   version: 8.0.3
+{{ end }}
 {{ end }}

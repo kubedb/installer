@@ -1,4 +1,9 @@
-{{"{{ if and .Values.psp.enabled (.Capabilities.APIVersions.Has \"policy/v1beta1/PodSecurityPolicy\") .Values.catalog."}}{{ .key }}{{" }}"}}
+{{ "{{ $featureGates := .Values.featureGates }}" }}
+{{ "{{- if .Values.global }}" }}
+{{ "  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}" }}
+{{ "{{- end }}" }}
+
+{{"{{ if and .Values.psp.enabled (.Capabilities.APIVersions.Has \"policy/v1beta1/PodSecurityPolicy\") $featureGates."}}{{ .kind }}{{" }}"}}
 apiVersion: {{ .object.apiVersion }}
 kind: {{ .object.kind }}
 metadata:
@@ -6,7 +11,7 @@ metadata:
   labels:
     {{"{{- include \"kubedb-catalog.labels\" . | nindent 4 }}"}}
 spec:
-  allowPrivilegeEscalation: {{"{{ .Values.psp."}}{{ .key }}{{".allowPrivilegeEscalation }}"}}
-  privileged: {{"{{ .Values.psp."}}{{ .key }}{{".privileged }}"}}
+  allowPrivilegeEscalation: {{"{{ .Values.psp."}}{{ .kind | lower }}{{".allowPrivilegeEscalation }}"}}
+  privileged: {{"{{ .Values.psp."}}{{ .kind | lower }}{{".privileged }}"}}
   {{- .object.spec | toYaml | nindent 2 }}
 {{"{{ end }}"}}

@@ -1,4 +1,10 @@
-{{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.MySQL }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -19,7 +25,7 @@ spec:
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.27.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.28.0-beta.0'
   updateConstraints:
     denylist:
       groupReplication:
@@ -30,7 +36,7 @@ spec:
 {{ end }}
 
 ---
-{{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -51,7 +57,7 @@ spec:
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.27.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.28.0-beta.0'
   updateConstraints:
     denylist:
       groupReplication:
@@ -59,4 +65,5 @@ spec:
       standalone:
       - < 5.7.35
   version: "5"
+{{ end }}
 {{ end }}

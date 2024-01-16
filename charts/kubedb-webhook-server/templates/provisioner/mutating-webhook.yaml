@@ -1,3 +1,8 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
 {{- if .Values.apiserver.enableMutatingWebhook }}
 {{- if not (list "kubedb-autoscaler" "kubedb-dashboard" "kubedb-ops-manager" "kubedb-schema-manager" | has .Values.server.repository) }}
 
@@ -11,6 +16,7 @@ metadata:
     app.kubernetes.io/component: kubedb-provisioner
     {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
 webhooks:
+{{- if $featureGates.Elasticsearch }}
 - name: elasticsearchwebhook.mutators.kubedb.com
   clientConfig:
     service:
@@ -26,6 +32,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.Postgres }}
 - name: postgreswebhook.mutators.kubedb.com
   clientConfig:
     service:
@@ -41,6 +49,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.MySQL }}
 - name: mysqlwebhook.mutators.kubedb.com
   clientConfig:
     service:
@@ -56,6 +66,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.PerconaXtraDB }}
 - name: perconaxtradbwebhook.mutators.kubedb.com
   clientConfig:
     service:
@@ -71,6 +83,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.MongoDB }}
 - name: mongodbwebhook.mutators.kubedb.com
   clientConfig:
     service:
@@ -86,6 +100,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.Redis }}
 - name: rediswebhook.mutators.kubedb.com
   clientConfig:
     service:
@@ -116,6 +132,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.Memcached }}
 - name: memcachedwebhook.mutators.kubedb.com
   clientConfig:
     service:
@@ -131,6 +149,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.Etcd }}
 - name: etcdwebhook.mutators.kubedb.com
   clientConfig:
     service:
@@ -146,6 +166,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.PgBouncer }}
 - name: pgbouncerwebhook.mutators.kubedb.com
   clientConfig:
     service:
@@ -161,6 +183,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.ProxySQL }}
 - name: proxysqlwebhook.mutators.kubedb.com
   clientConfig:
     service:
@@ -176,6 +200,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.MariaDB }}
 - name: mariadbwebhook.mutators.kubedb.com
   clientConfig:
     service:
@@ -191,6 +217,8 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.Kafka }}
 - name: kafkawebhook.mutators.kubedb.com
   clientConfig:
     service:
@@ -206,5 +234,6 @@ webhooks:
   admissionReviewVersions: [ "v1beta1" ]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
 {{- end }}
 {{- end }}

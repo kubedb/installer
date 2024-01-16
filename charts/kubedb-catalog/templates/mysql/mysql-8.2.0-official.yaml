@@ -1,4 +1,10 @@
-{{ if .Values.catalog.mysql }}
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.MySQL }}
+
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -17,9 +23,9 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-archiver") $) }}:v0.1.0_8.2.0'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-archiver") $) }}:v0.2.0-beta.0_8.2.0'
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.18.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.19.0-beta.0'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql") $) }}:8.2.0-oracle'
   distribution: Official
@@ -32,7 +38,7 @@ spec:
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.27.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.28.0-beta.0'
   securityContext:
     runAsUser: 999
   stash:

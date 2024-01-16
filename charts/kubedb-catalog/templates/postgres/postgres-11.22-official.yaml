@@ -1,4 +1,10 @@
-{{ if .Values.catalog.postgres }}
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Postgres }}
+
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -17,9 +23,9 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.1.0_11.22-alpine'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.2.0-beta.0_11.22-alpine'
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.24.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.25.0-beta.0'
   db:
     baseOS: alpine
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres") $) }}:11.22-alpine'
@@ -43,10 +49,9 @@ spec:
     allowlist:
     - '>= 12.9, <= 14.1'
   version: "11.22"
-{{ end }}
 
 ---
-{{ if .Values.catalog.postgres }}
+
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -65,9 +70,9 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.1.0_11.22-bookworm'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.2.0-beta.0_11.22-bookworm'
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.24.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.25.0-beta.0'
   db:
     baseOS: bookworm
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres") $) }}:11.22-bookworm'

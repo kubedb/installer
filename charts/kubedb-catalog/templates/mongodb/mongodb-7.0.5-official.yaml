@@ -1,0 +1,50 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.MongoDB }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  name: '7.0.5'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  archiver:
+    addon:
+      name: mongodb-addon
+      tasks:
+        manifestBackup:
+          name: ManifestBackup
+        manifestRestore:
+          name: ManifestRestore
+        volumeSnapshot:
+          name: VolumeSnapshot
+    walg:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/wal-g") $) }}:v2023.11.30_mongo'
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mongo") $) }}:7.0.5'
+  distribution: Official
+  exporter:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.32.0'
+  gitSyncer:
+    image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.1.0'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb-init") $) }}:6.0-v10'
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+  replicationModeDetector:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.27.0'
+  securityContext:
+    runAsGroup: 999
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: mongodb-backup-6.0.5
+      restoreTask:
+        name: mongodb-restore-6.0.5
+  version: 7.0.5
+{{ end }}

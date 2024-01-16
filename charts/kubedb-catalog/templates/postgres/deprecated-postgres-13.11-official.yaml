@@ -1,4 +1,10 @@
-{{ if and .Values.catalog.postgres (not .Values.skipDeprecated) }}
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Postgres }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -17,9 +23,9 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "v0.1.0") $) }}'
+      image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "v0.2.0-beta.0") $) }}'
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.24.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.25.0-beta.0'
   db:
     baseOS: alpine
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:13.11-alpine'
@@ -47,7 +53,7 @@ spec:
 {{ end }}
 
 ---
-{{ if and .Values.catalog.postgres (not .Values.skipDeprecated) }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -66,9 +72,9 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "v0.1.0") $) }}'
+      image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "v0.2.0-beta.0") $) }}'
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.24.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.25.0-beta.0'
   db:
     baseOS: bullseye
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:13.11-bullseye'
@@ -93,4 +99,5 @@ spec:
     allowlist:
     - "14.1"
   version: "13.11"
+{{ end }}
 {{ end }}

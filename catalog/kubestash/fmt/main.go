@@ -78,6 +78,32 @@ func CompareFullVersions(vi FullVersion, vj FullVersion) bool {
 	return Compare(vi.CatalogName, vj.CatalogName)
 }
 
+var appToKind = map[string]string{
+	"cassandra":          "Cassandra",
+	"clickHouse":         "ClickHouse",
+	"druid":              "Druid",
+	"elasticsearch":      "Elasticsearch",
+	"opensearch":         "Elasticsearch",
+	"etcd":               "Etcd",
+	"ferretdb":           "FerretDB",
+	"kafka":              "Kafka",
+	"mariadb":            "MariaDB",
+	"memcached":          "Memcached",
+	"microsoftsqlserver": "MicrosoftSQLServer",
+	"mongodb":            "MongoDB",
+	"mysql":              "MySQL",
+	"perconaxtradb":      "PerconaXtraDB",
+	"pgbouncer":          "PgBouncer",
+	"pgpool":             "PgPool",
+	"postgres":           "Postgres",
+	"proxysql":           "ProxySQL",
+	"rabbitmq":           "RabbitMQ",
+	"redis":              "Redis",
+	"singlestore":        "SingleStore",
+	"solr":               "Solr",
+	"zookeeper":          "ZooKeeper",
+}
+
 func main() {
 	dir, err := os.Getwd()
 	if err != nil {
@@ -263,14 +289,22 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
+
+		tplText := templates.App
 		data := map[string]interface{}{
 			"app":    app,
 			"object": obj.UnstructuredContent(),
 		}
+		kind, isDB := appToKind[app]
+		if isDB {
+			data["kind"] = kind
+			tplText = templates.DB
+		}
+
 		funcMap := sprig.TxtFuncMap()
 		funcMap["toYaml"] = toYAML
 		funcMap["toJson"] = toJSON
-		tpl := template.Must(template.New("").Funcs(funcMap).Parse(templates.Object))
+		tpl := template.Must(template.New("").Funcs(funcMap).Parse(tplText))
 		buf.Reset()
 		err = tpl.Execute(&buf, &data)
 		if err != nil {

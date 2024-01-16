@@ -131,7 +131,7 @@ func main() {
 	}
 
 	dbStore := map[DbVersion][]*unstructured.Unstructured{}
-	pspForDBs := map[DB]sets.String{}
+	pspForDBs := map[DB]sets.Set[string]{}
 	pspStore := map[string]*unstructured.Unstructured{}
 
 	// active versions
@@ -256,7 +256,7 @@ func main() {
 					Kind:  ri.Object.GetKind(),
 				}
 				if _, ok := pspForDBs[dbKey]; !ok {
-					pspForDBs[dbKey] = sets.NewString()
+					pspForDBs[dbKey] = sets.New[string]()
 				}
 				pspForDBs[dbKey].Insert(pspName)
 			}
@@ -444,7 +444,7 @@ func main() {
 		}
 
 		var buf bytes.Buffer
-		for i, pspName := range v.List() {
+		for i, pspName := range sets.List[string](v) {
 			if i > 0 {
 				buf.WriteString("\n---\n")
 			}
@@ -484,9 +484,9 @@ func main() {
 	{
 		for k, v := range dbStore {
 			dbKind := strings.TrimSuffix(k.Kind, "Version")
-			var buf bytes.Buffer
 
-			for i, obj := range v {
+			copies := make([]map[string]any, 0, len(v))
+			for _, obj := range v {
 				objCopy := obj.DeepCopy()
 
 				spec, _, err := unstructured.NestedMap(objCopy.Object, "spec")
@@ -538,23 +538,38 @@ func main() {
 					templatizeRegistry("yqImage")
 					templatizeRegistry("walg", "image")
 				}
+				copies = append(copies, objCopy.UnstructuredContent())
 
-				if i > 0 {
-					buf.WriteString("\n---\n")
-				}
+				//if i > 0 {
+				//	buf.WriteString("\n---\n")
+				//}
 
-				data := map[string]interface{}{
-					"key":    strings.ToLower(dbKind),
-					"object": objCopy.Object,
-				}
-				funcMap := sprig.TxtFuncMap()
-				funcMap["toYaml"] = toYAML
-				funcMap["toJson"] = toJSON
-				tpl := template.Must(template.New("").Funcs(funcMap).Parse(templates.DBVersion))
-				err = tpl.Execute(&buf, &data)
-				if err != nil {
-					panic(err)
-				}
+				//data := map[string]interface{}{
+				//	"kind":   dbKind,
+				//	"object": objCopy.Object,
+				//}
+				//funcMap := sprig.TxtFuncMap()
+				//funcMap["toYaml"] = toYAML
+				//funcMap["toJson"] = toJSON
+				//tpl := template.Must(template.New("").Funcs(funcMap).Parse(templates.DBVersion))
+				//err = tpl.Execute(&buf, &data)
+				//if err != nil {
+				//	panic(err)
+				//}
+			}
+
+			data := map[string]interface{}{
+				"kind":    dbKind,
+				"objects": copies,
+			}
+			funcMap := sprig.TxtFuncMap()
+			funcMap["toYaml"] = toYAML
+			funcMap["toJson"] = toJSON
+			tpl := template.Must(template.New("").Funcs(funcMap).Parse(templates.DBVersion))
+			var buf bytes.Buffer
+			err = tpl.Execute(&buf, &data)
+			if err != nil {
+				panic(err)
 			}
 
 			var filenameparts []string
@@ -585,7 +600,7 @@ func main() {
 			dbKind := strings.TrimSuffix(k.Kind, "Version")
 
 			var buf bytes.Buffer
-			for i, pspName := range v.List() {
+			for i, pspName := range sets.List[string](v) {
 				if i > 0 {
 					buf.WriteString("\n---\n")
 				}
@@ -598,7 +613,7 @@ func main() {
 				unstructured.RemoveNestedField(content, "spec", "allowPrivilegeEscalation")
 				unstructured.RemoveNestedField(content, "spec", "privileged")
 				data := map[string]interface{}{
-					"key":    strings.ToLower(dbKind),
+					"kind":   dbKind,
 					"object": content,
 				}
 				funcMap := sprig.TxtFuncMap()

@@ -1,4 +1,10 @@
-{{ if and .Values.catalog.redis (not .Values.skipDeprecated) }}
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Redis }}
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: RedisVersion
 metadata:
@@ -7,7 +13,7 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.19.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.20.0-beta.0'
   db:
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "redis") $) }}:6.2.5'
   deprecated: true
@@ -26,4 +32,5 @@ spec:
       restoreTask:
         name: redis-restore-6.2.5
   version: 6.2.5
+{{ end }}
 {{ end }}

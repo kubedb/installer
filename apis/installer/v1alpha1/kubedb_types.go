@@ -44,6 +44,9 @@ type KubedbSpec struct {
 	Global GlobalValues `json:"global"`
 
 	//+optional
+	KubedbCrdManager KubedbCrdManagerValues `json:"kubedb-crd-manager"`
+
+	//+optional
 	KubedbProvisioner KubedbProvisionerValues `json:"kubedb-provisioner"`
 
 	//+optional
@@ -69,6 +72,11 @@ type KubedbSpec struct {
 
 	//+optional
 	KubedbMetrics KubedbMetricsValues `json:"kubedb-metrics"`
+}
+
+type KubedbCrdManagerValues struct {
+	Enabled               *bool `json:"enabled"`
+	*KubedbCrdManagerSpec `json:",inline,omitempty"`
 }
 
 type KubedbProvisionerValues struct {
@@ -123,6 +131,7 @@ type GlobalValues struct {
 	InsecureRegistries []string `json:"insecureRegistries"`
 	//+optional
 	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
+	FeatureGates     map[string]bool             `json:"featureGates"`
 	Monitoring       EASMonitoring               `json:"monitoring"`
 }
 

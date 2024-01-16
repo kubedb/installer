@@ -5,10 +5,10 @@
 ## TL;DR;
 
 ```bash
-$ helm repo add appscode https://charts.appscode.com/stable/
+$ helm repo add appscode-testing https://charts.appscode.com/testing/
 $ helm repo update
-$ helm search repo appscode/kubedb-catalog --version=v2023.12.28
-$ helm upgrade -i kubedb-catalog appscode/kubedb-catalog -n kubedb --create-namespace --version=v2023.12.28
+$ helm search repo appscode-testing/kubedb-catalog --version=v2024.1.7-beta.0
+$ helm upgrade -i kubedb-catalog appscode-testing/kubedb-catalog -n kubedb --create-namespace --version=v2024.1.7-beta.0
 ```
 
 ## Introduction
@@ -17,14 +17,14 @@ This chart deploys KubeDB catalog on a [Kubernetes](http://kubernetes.io) cluste
 
 ## Prerequisites
 
-- Kubernetes 1.16+
+- Kubernetes 1.20+
 
 ## Installing the Chart
 
 To install/upgrade the chart with the release name `kubedb-catalog`:
 
 ```bash
-$ helm upgrade -i kubedb-catalog appscode/kubedb-catalog -n kubedb --create-namespace --version=v2023.12.28
+$ helm upgrade -i kubedb-catalog appscode-testing/kubedb-catalog -n kubedb --create-namespace --version=v2024.1.7-beta.0
 ```
 
 The command deploys KubeDB catalog on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -54,18 +54,28 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | proxies.ghcr                               |                                                 | <code>ghcr.io</code>         |
 | proxies.kubernetes                         |                                                 | <code>registry.k8s.io</code> |
 | proxies.appscode                           |                                                 | <code>r.appscode.com</code>  |
-| catalog.elasticsearch                      | If true, deploys Elasticsearch version catalog  | <code>true</code>            |
-| catalog.etcd                               | If true, deploys Etcd version catalog           | <code>true</code>            |
-| catalog.memcached                          | If true, deploys Memcached version catalog      | <code>true</code>            |
-| catalog.mongodb                            | If true, deploys MongoDB version catalog        | <code>true</code>            |
-| catalog.mysql                              | If true, deploys MySQL version catalog          | <code>true</code>            |
-| catalog.mariadb                            | If true, deploys MariaDB version catalog        | <code>true</code>            |
-| catalog.perconaxtradb                      | If true, deploys Percona XtraDB version catalog | <code>true</code>            |
-| catalog.pgbouncer                          | If true, deploys PgBouncer version catalog      | <code>true</code>            |
-| catalog.postgres                           | If true, deploys PostgreSQL version catalog     | <code>true</code>            |
-| catalog.proxysql                           | If true, deploys ProxySQL version catalog       | <code>true</code>            |
-| catalog.redis                              | If true, deploys Redis version catalog          | <code>true</code>            |
-| catalog.kafka                              |                                                 | <code>true</code>            |
+| featureGates.Cassandra                     |                                                 | <code>false</code>           |
+| featureGates.ClickHouse                    |                                                 | <code>false</code>           |
+| featureGates.Druid                         |                                                 | <code>false</code>           |
+| featureGates.Elasticsearch                 |                                                 | <code>true</code>            |
+| featureGates.Etcd                          |                                                 | <code>false</code>           |
+| featureGates.FerretDB                      |                                                 | <code>false</code>           |
+| featureGates.Kafka                         |                                                 | <code>true</code>            |
+| featureGates.MariaDB                       |                                                 | <code>true</code>            |
+| featureGates.Memcached                     |                                                 | <code>true</code>            |
+| featureGates.MicrosoftSQLServer            |                                                 | <code>false</code>           |
+| featureGates.MongoDB                       |                                                 | <code>true</code>            |
+| featureGates.MySQL                         |                                                 | <code>true</code>            |
+| featureGates.PerconaXtraDB                 |                                                 | <code>true</code>            |
+| featureGates.PgBouncer                     |                                                 | <code>true</code>            |
+| featureGates.PgPool                        |                                                 | <code>false</code>           |
+| featureGates.Postgres                      |                                                 | <code>true</code>            |
+| featureGates.ProxySQL                      |                                                 | <code>true</code>            |
+| featureGates.RabbitMQ                      |                                                 | <code>false</code>           |
+| featureGates.Redis                         |                                                 | <code>true</code>            |
+| featureGates.SingleStore                   |                                                 | <code>false</code>           |
+| featureGates.Solr                          |                                                 | <code>false</code>           |
+| featureGates.ZooKeeper                     |                                                 | <code>false</code>           |
 | psp.enabled                                |                                                 | <code>true</code>            |
 | psp.elasticsearch.allowPrivilegeEscalation |                                                 | <code>true</code>            |
 | psp.elasticsearch.privileged               |                                                 | <code>true</code>            |
@@ -93,12 +103,12 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-catalog appscode/kubedb-catalog -n kubedb --create-namespace --version=v2023.12.28 --set proxies.ghcr=ghcr.io
+$ helm upgrade -i kubedb-catalog appscode-testing/kubedb-catalog -n kubedb --create-namespace --version=v2024.1.7-beta.0 --set proxies.ghcr=ghcr.io
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-catalog appscode/kubedb-catalog -n kubedb --create-namespace --version=v2023.12.28 --values values.yaml
+$ helm upgrade -i kubedb-catalog appscode-testing/kubedb-catalog -n kubedb --create-namespace --version=v2024.1.7-beta.0 --values values.yaml
 ```
