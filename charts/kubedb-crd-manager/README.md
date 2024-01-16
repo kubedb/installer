@@ -5,10 +5,10 @@
 ## TL;DR;
 
 ```bash
-$ helm repo add appscode-testing https://charts.appscode.com/testing/
+$ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode-testing/kubedb-crd-manager --version=v2024.1.7-beta.0
-$ helm upgrade -i kubedb-ops-manager appscode-testing/kubedb-crd-manager -n kubedb --create-namespace --version=v2024.1.7-beta.0
+$ helm search repo appscode/kubedb-crd-manager --version=v2024.1.7-beta.0
+$ helm upgrade -i kubedb-ops-manager appscode/kubedb-crd-manager -n kubedb --create-namespace --version=v2024.1.7-beta.0
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeDB CRD Manager operator on a [Kubernetes](http://kubern
 To install/upgrade the chart with the release name `kubedb-ops-manager`:
 
 ```bash
-$ helm upgrade -i kubedb-ops-manager appscode-testing/kubedb-crd-manager -n kubedb --create-namespace --version=v2024.1.7-beta.0
+$ helm upgrade -i kubedb-ops-manager appscode/kubedb-crd-manager -n kubedb --create-namespace --version=v2024.1.7-beta.0
 ```
 
 The command deploys a KubeDB CRD Manager operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -47,10 +47,10 @@ The following table lists the configurable parameters of the `kubedb-crd-manager
 
 |            Parameter            |                                                                                                                   Description                                                                                                                   |                                                                    Default                                                                     |
 |---------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| registryFQDN                    | Docker registry fqdn used to pull app related images. Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image}                                                                                                            | <code>""</code>                                                                                                                                |
-| image.registry                  | Docker registry used to pull app container image                                                                                                                                                                                                | <code>raihankhanraka</code>                                                                                                                    |
+| registryFQDN                    | Docker registry fqdn used to pull app related images. Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image}                                                                                                            | <code>ghcr.io</code>                                                                                                                           |
+| image.registry                  | Docker registry used to pull app container image                                                                                                                                                                                                | <code>kubedb</code>                                                                                                                            |
 | image.repository                | App container image                                                                                                                                                                                                                             | <code>kubedb-crd-manager</code>                                                                                                                |
-| image.tag                       | Overrides the image tag whose default is the chart appVersion.                                                                                                                                                                                  | <code>"1.0"</code>                                                                                                                             |
+| image.tag                       | Overrides the image tag whose default is the chart appVersion.                                                                                                                                                                                  | <code>""</code>                                                                                                                                |
 | imagePullSecrets                | Specify an array of imagePullSecrets. Secrets must be manually created in the namespace. <br> Example: <br> `helm template charts/kubedb-ops-manager \` <br> `--set imagePullSecrets[0].name=sec0 \` <br> `--set imagePullSecrets[1].name=sec1` | <code>[]</code>                                                                                                                                |
 | imagePullPolicy                 | Container image pull policy                                                                                                                                                                                                                     | <code>IfNotPresent</code>                                                                                                                      |
 | nameOverride                    |                                                                                                                                                                                                                                                 | <code>""</code>                                                                                                                                |
@@ -92,12 +92,12 @@ The following table lists the configurable parameters of the `kubedb-crd-manager
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-ops-manager appscode-testing/kubedb-crd-manager -n kubedb --create-namespace --version=v2024.1.7-beta.0 --set image.registry=raihankhanraka
+$ helm upgrade -i kubedb-ops-manager appscode/kubedb-crd-manager -n kubedb --create-namespace --version=v2024.1.7-beta.0 --set registryFQDN=ghcr.io
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-ops-manager appscode-testing/kubedb-crd-manager -n kubedb --create-namespace --version=v2024.1.7-beta.0 --values values.yaml
+$ helm upgrade -i kubedb-ops-manager appscode/kubedb-crd-manager -n kubedb --create-namespace --version=v2024.1.7-beta.0 --values values.yaml
 ```
