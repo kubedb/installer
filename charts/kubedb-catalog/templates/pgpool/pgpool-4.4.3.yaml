@@ -1,0 +1,23 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Pgpool }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PgpoolVersion
+metadata:
+  name: '4.4.3'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  pgpool:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "pgpool/pgpool") $) }}:4.4.3'
+  podSecurityPolicies:
+    databasePolicyName: pgpool-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 70
+  version: 4.4.3
+{{ end }}
