@@ -563,8 +563,12 @@ func main() {
 				//}
 			}
 
+			tempKind := dbKind
+			if dbKind == "KafkaConnector" {
+				tempKind = "Kafka"
+			}
 			data := map[string]interface{}{
-				"kind":    dbKind,
+				"kind":    tempKind,
 				"objects": copies,
 			}
 			funcMap := sprig.TxtFuncMap()
