@@ -65,9 +65,6 @@ type KubedbSpec struct {
 	KubedbAutoscaler KubedbAutoscalerValues `json:"kubedb-autoscaler"`
 
 	//+optional
-	KubedbDashboard KubedbDashboardValues `json:"kubedb-dashboard"`
-
-	//+optional
 	KubedbSchemaManager KubedbSchemaManagerValues `json:"kubedb-schema-manager"`
 
 	//+optional
@@ -107,11 +104,6 @@ type KubedbOpsManagerValues struct {
 type KubedbAutoscalerValues struct {
 	Enabled               *bool `json:"enabled"`
 	*KubedbAutoscalerSpec `json:",inline,omitempty"`
-}
-
-type KubedbDashboardValues struct {
-	Enabled              bool `json:"enabled"`
-	*KubedbDashboardSpec `json:",inline,omitempty"`
 }
 
 type KubedbSchemaManagerValues struct {
