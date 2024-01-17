@@ -91,6 +91,10 @@ type PSP struct {
 	Redis PSPRedis `json:"redis"`
 	//+optional
 	Kafka PSPKafka `json:"kafka"`
+	//+optional
+	KafkaConnector PSPKafkaConnector `json:"kafkaconnector"`
+	//+optional
+	ZooKeeper PSPZooKeeper `json:"zookeeper"`
 }
 
 type PSPElasticsearch struct {
@@ -137,7 +141,18 @@ type PSPRedis struct {
 	AllowPrivilegeEscalation bool `json:"allowPrivilegeEscalation"`
 	Privileged               bool `json:"privileged"`
 }
+
 type PSPKafka struct {
+	AllowPrivilegeEscalation bool `json:"allowPrivilegeEscalation"`
+	Privileged               bool `json:"privileged"`
+}
+
+type PSPKafkaConnector struct {
+	AllowPrivilegeEscalation bool `json:"allowPrivilegeEscalation"`
+	Privileged               bool `json:"privileged"`
+}
+
+type PSPZooKeeper struct {
 	AllowPrivilegeEscalation bool `json:"allowPrivilegeEscalation"`
 	Privileged               bool `json:"privileged"`
 }
