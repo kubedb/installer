@@ -15,7 +15,7 @@ rules:
   resources:
   - rolebindings
   - roles
-  verbs: ["create", "delete", "get", "patch", "deletecollection"]
+  verbs: ["create", "delete", "list","watch", "get", "patch", "deletecollection"]
 - apiGroups:
   - ""
   resources:
@@ -31,7 +31,7 @@ rules:
   - ""
   resources:
   - serviceaccounts
-  verbs: ["create", "delete", "get", "patch", "deletecollection"]
+  verbs: ["create", "delete", "list", "watch", "get", "patch", "deletecollection"]
 - apiGroups:
   - apps
   resources:
@@ -106,6 +106,7 @@ rules:
   - proxysqls/finalizers
   - redises/finalizers
   - redissentinels/finalizers
+  - zookeepers/finalizers
   verbs: ["update"]
 - apiGroups:
   - apps
@@ -151,6 +152,7 @@ rules:
   - maria-db
   - kafka-db
   - kafkaconnector
+  - zookeeper-db
   {{- range $x := .Values.additionalPodSecurityPolicies }}
   - {{ $x }}
   {{- end }}
@@ -176,7 +178,7 @@ rules:
   resources:
   - clusterroles
   - clusterrolebindings
-  verbs: [ "get","create","patch","delete"]
+  verbs: [ "get","create", "list","watch", "patch","delete"]
 - apiGroups:
   - apps.k8s.appscode.com
   resources:
