@@ -74,7 +74,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | featureGates.RabbitMQ                       |                                                 | <code>false</code>           |
 | featureGates.Redis                          |                                                 | <code>true</code>            |
 | featureGates.SingleStore                    |                                                 | <code>false</code>           |
-| featureGates.Solr                           |                                                 | <code>false</code>           |
+| featureGates.Solr                           |                                                 | <code>true</code>            |
 | featureGates.KafkaConnector                 |                                                 | <code>true</code>            |
 | featureGates.ZooKeeper                      |                                                 | <code>true</code>            |
 | psp.enabled                                 |                                                 | <code>true</code>            |
@@ -102,6 +102,8 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | psp.kafkaconnector.privileged               |                                                 | <code>false</code>           |
 | psp.zookeeper.allowPrivilegeEscalation      |                                                 | <code>false</code>           |
 | psp.zookeeper.privileged                    |                                                 | <code>false</code>           |
+| psp.solr.allowPrivilegeEscalation           |                                                 | <code>false</code>           |
+| psp.solr.privileged                         |                                                 | <code>false</code>           |
 | skipDeprecated                              | Set true to avoid deploying deprecated versions | <code>true</code>            |
 
 
