@@ -4,7 +4,7 @@ metadata:
   name: mongodb-addon
 spec:
   backupTasks:
-  - name: LogicalBackup
+  - name: logical-backup
     function: mongodb-backup
     driver: Restic
     executor: Job
@@ -29,7 +29,7 @@ spec:
     volumeMounts:
     - name: kubestash-tmp-volume
       mountPath: /kubestash-tmp
-  - name: VolumeSnapshot
+  - name: volume-snapshot
     function: mongodb-csi-snapshotter
     driver: VolumeSnapshotter
     executor: Job
@@ -38,7 +38,7 @@ spec:
       - name: volumeSnapshotClassName
         usage: The VolumeSnapshotClassName to be used by volumeSnapshot
         required: false
-  - name: ManifestBackup
+  - name: manifest-backup
     function: kubedbmanifest-backup
     driver: Restic
     executor: Job
@@ -61,7 +61,7 @@ spec:
       - name: kubestash-tmp-volume
         mountPath: /kubestash-tmp
   restoreTasks:
-  - name: LogicalBackupRestore
+  - name: logical-backup-restore
     function: mongodb-restore
     driver: Restic
     executor: Job
@@ -86,7 +86,7 @@ spec:
     volumeMounts:
     - name: kubestash-tmp-volume
       mountPath: /kubestash-tmp
-  - name: ManifestRestore
+  - name: manifest-restore
     function: kubedbmanifest-restore
     driver: Restic
     executor: Job
