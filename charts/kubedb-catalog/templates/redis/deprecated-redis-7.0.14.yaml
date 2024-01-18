@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.Redis }}
-
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: RedisVersion
 metadata:
@@ -16,6 +16,7 @@ spec:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.20.0-beta.0'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/redis") $) }}:7.0.14-bookworm'
+  deprecated: true
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis_exporter") $) }}:1.9.0'
   initContainer:
@@ -31,4 +32,5 @@ spec:
       restoreTask:
         name: redis-restore-7.0.5
   version: 7.0.14
+{{ end }}
 {{ end }}
