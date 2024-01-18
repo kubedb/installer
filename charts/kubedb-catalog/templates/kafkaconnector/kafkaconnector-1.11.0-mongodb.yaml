@@ -3,7 +3,7 @@
   {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
 {{- end }}
 
-{{ if $featureGates.KafkaConnector }}
+{{ if $featureGates.Kafka }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: KafkaConnectorVersion
@@ -14,8 +14,6 @@ metadata:
 spec:
   connectorPlugin:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kafka-connector-mongodb") $) }}:1.11.0'
-  podSecurityPolicies:
-    databasePolicyName: kafkaconnector
   securityContext:
     runAsUser: 1001
   type: MongoDB
