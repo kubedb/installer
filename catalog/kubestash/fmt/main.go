@@ -275,6 +275,10 @@ func main() {
 					if strings.HasPrefix(args[i], "--redis-args=") {
 						args[i] = fmt.Sprintf(`--redis-args=${args:={{ .Values.%s.args }}}`, app)
 					}
+				case "rabbitmq":
+					if strings.HasPrefix(args[i], "--rabbitmq-args=") {
+						args[i] = fmt.Sprintf(`--rabbitmq-args=${args:={{ .Values.%s.args }}}`, app)
+					}
 				}
 			}
 
