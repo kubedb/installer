@@ -8,7 +8,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
-  name: 'percona-4.4.10'
+  name: 'percona-5.0.23'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -17,15 +17,15 @@ spec:
       name: mongodb-addon
       tasks:
         manifestBackup:
-          name: manifest-backup
+          name: ManifestBackup
         manifestRestore:
-          name: manifest-restore
+          name: ManifestRestore
         volumeSnapshot:
-          name: volume-snapshot
+          name: VolumeSnapshot
     walg:
       image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/wal-g") $) }}:v2023.11.30_mongo'
   db:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "percona/percona-server-mongodb") $) }}:4.4.10'
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "percona/percona-server-mongodb") $) }}:5.0.23'
   distribution: Percona
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.32.0'
@@ -38,16 +38,13 @@ spec:
   replicationModeDetector:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.28.0-beta.0'
   securityContext:
-    runAsGroup: 1001
-    runAsUser: 0
+    runAsGroup: 0
+    runAsUser: 1001
   stash:
     addon:
       backupTask:
-        name: mongodb-backup-4.4.6
+        name: mongodb-backup-6.0.5
       restoreTask:
-        name: mongodb-restore-4.4.6
-  updateConstraints:
-    allowlist:
-    - '>= 5.0.0'
-  version: 4.4.10
+        name: mongodb-restore-6.0.5
+  version: 5.0.23
 {{ end }}
