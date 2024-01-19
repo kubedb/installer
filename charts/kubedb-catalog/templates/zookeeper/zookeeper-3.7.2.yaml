@@ -13,11 +13,9 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
-    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "zookeeper") $) }}:3.7.2'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/zookeeper") $) }}:3.7.2'
   initContainer:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "shaad7/zookeeper-init") $) }}:jan11.3_linux_amd64'
-  podSecurityPolicies:
-    databasePolicyName: zookeeper-db
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/zookeeper-init") $) }}:3.7-v1'
   securityContext:
     runAsUser: 100
   version: 3.7.2
