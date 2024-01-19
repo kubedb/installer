@@ -94,7 +94,7 @@ var appToKind = map[string]string{
 	"mysql":              "MySQL",
 	"perconaxtradb":      "PerconaXtraDB",
 	"pgbouncer":          "PgBouncer",
-	"pgpool":             "PgPool",
+	"pgpool":             "Pgpool",
 	"postgres":           "Postgres",
 	"proxysql":           "ProxySQL",
 	"rabbitmq":           "RabbitMQ",
