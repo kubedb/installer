@@ -75,7 +75,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | featureGates.Redis                         |                                                 | <code>true</code>            |
 | featureGates.SingleStore                   |                                                 | <code>false</code>           |
 | featureGates.Solr                          |                                                 | <code>false</code>           |
-| featureGates.ZooKeeper                     |                                                 | <code>false</code>           |
+| featureGates.ZooKeeper                     |                                                 | <code>true</code>            |
 | psp.enabled                                |                                                 | <code>true</code>            |
 | psp.elasticsearch.allowPrivilegeEscalation |                                                 | <code>true</code>            |
 | psp.elasticsearch.privileged               |                                                 | <code>true</code>            |
