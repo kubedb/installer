@@ -73,7 +73,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | featureGates.ProxySQL                      |                                                 | <code>true</code>            |
 | featureGates.Rabbitmq                      |                                                 | <code>true</code>            |
 | featureGates.Redis                         |                                                 | <code>true</code>            |
-| featureGates.SingleStore                   |                                                 | <code>false</code>           |
+| featureGates.Singlestore                   |                                                 | <code>true</code>            |
 | featureGates.Solr                          |                                                 | <code>false</code>           |
 | featureGates.ZooKeeper                     |                                                 | <code>true</code>            |
 | psp.enabled                                |                                                 | <code>true</code>            |
@@ -97,8 +97,6 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | psp.redis.privileged                       |                                                 | <code>false</code>           |
 | psp.kafka.allowPrivilegeEscalation         |                                                 | <code>false</code>           |
 | psp.kafka.privileged                       |                                                 | <code>false</code>           |
-| psp.rabbitmq.allowPrivilegeEscalation      |                                                 | <code>false</code>           |
-| psp.rabbitmq.privileged                    |                                                 | <code>false</code>           |
 | skipDeprecated                             | Set true to avoid deploying deprecated versions | <code>true</code>            |
 
 
