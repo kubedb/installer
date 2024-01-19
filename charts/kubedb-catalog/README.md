@@ -71,7 +71,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | featureGates.Pgpool                        |                                                 | <code>true</code>            |
 | featureGates.Postgres                      |                                                 | <code>true</code>            |
 | featureGates.ProxySQL                      |                                                 | <code>true</code>            |
-| featureGates.Rabbitmq                      |                                                 | <code>true</code>            |
+| featureGates.RabbitMQ                      |                                                 | <code>true</code>            |
 | featureGates.Redis                         |                                                 | <code>true</code>            |
 | featureGates.Singlestore                   |                                                 | <code>true</code>            |
 | featureGates.Solr                          |                                                 | <code>true</code>            |
