@@ -4,11 +4,11 @@
 {{- end }}
 
 {{ if $featureGates.MongoDB }}
-
+{{ if not .Values.skipDeprecated }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
-  name: 'percona-4.4.26'
+  name: 'percona-4.4.10'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -25,7 +25,8 @@ spec:
     walg:
       image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/wal-g") $) }}:v2023.11.30_mongo'
   db:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "percona/percona-server-mongodb") $) }}:4.4.26'
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "percona/percona-server-mongodb") $) }}:4.4.10'
+  deprecated: true
   distribution: Percona
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.32.0'
@@ -38,8 +39,8 @@ spec:
   replicationModeDetector:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.28.0-beta.0'
   securityContext:
-    runAsGroup: 0
-    runAsUser: 1001
+    runAsGroup: 1001
+    runAsUser: 0
   stash:
     addon:
       backupTask:
@@ -49,5 +50,6 @@ spec:
   updateConstraints:
     allowlist:
     - '>= 5.0.0'
-  version: 4.4.26
+  version: 4.4.10
+{{ end }}
 {{ end }}
