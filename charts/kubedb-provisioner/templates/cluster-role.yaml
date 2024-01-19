@@ -21,7 +21,7 @@ rules:
   resources:
   - services
   - secrets
-  verbs: ["create", "delete", "get", "patch", "list", "watch"]
+  verbs: ["create", "delete", "get", "patch", "update", "list", "watch"]
 - apiGroups:
   - ""
   resources:
@@ -31,7 +31,7 @@ rules:
   - ""
   resources:
   - serviceaccounts
-  verbs: ["create", "delete", "list", "watch", "get", "patch", "deletecollection"]
+  verbs: ["create", "delete", "get", "watch", "list", "patch", "deletecollection"]
 - apiGroups:
   - apps
   resources:
@@ -82,12 +82,13 @@ rules:
   verbs: ["get", "list", "watch"]
 - apiGroups:
   - kubedb.com
-  - catalog.kubedb.com
-  - archiver.kubedb.com
   - apps.k8s.appscode.com
+  - archiver.kubedb.com
+  - catalog.kubedb.com
   - core.kubestash.com
-  - storage.kubestash.com
+  - elasticsearch.kubedb.com
   - kafka.kubedb.com
+  - storage.kubestash.com
   resources:
   - "*"
   verbs: ["*"]
@@ -107,6 +108,16 @@ rules:
   - redises/finalizers
   - redissentinels/finalizers
   - zookeepers/finalizers
+  verbs: ["update"]
+- apiGroups:
+  - elasticsearch.kubedb.com
+  resources:
+  - elasticsearchdashboards/status
+  verbs: ["get"]
+- apiGroups:
+  - elasticsearch.kubedb.com
+  resources:
+  - elasticsearchdashboards/finalizers
   verbs: ["update"]
 - apiGroups:
   - apps

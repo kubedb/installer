@@ -11,21 +11,21 @@
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
-  name: mutators.dashboard.kubedb.com
+  name: mutators.elasticsearch.kubedb.com
   labels:
     app.kubernetes.io/component: kubedb-dashboard
     {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
 webhooks:
 {{- if $featureGates.Elasticsearch }}
-- name: elasticsearchdashboardwebhook.mutators.dashboard.kubedb.com
+- name: elasticsearchdashboardwebhook.mutators.elasticsearch.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
-      path: /apis/mutators.dashboard.kubedb.com/v1alpha1/elasticsearchdashboardwebhooks
+      path: /apis/mutators.elasticsearch.kubedb.com/v1alpha1/elasticsearchdashboardwebhooks
     caBundle: {{ $caCrt }}
   rules:
-  - apiGroups: ["dashboard.kubedb.com"]
+  - apiGroups: ["elasticsearch.kubedb.com"]
     apiVersions: ["*"]
     resources: ["elasticsearchdashboards"]
     operations: ["CREATE", "UPDATE"]

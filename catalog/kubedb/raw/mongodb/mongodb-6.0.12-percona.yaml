@@ -1,7 +1,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
-  name: percona-4.4.10
+  name: percona-6.0.12
 spec:
   archiver:
     addon:
@@ -16,28 +16,25 @@ spec:
     walg:
       image: ghcr.io/kubedb/wal-g:v2023.11.30_mongo
   db:
-    image: percona/percona-server-mongodb:4.4.10
+    image: percona/percona-server-mongodb:6.0.12
   distribution: Percona
   exporter:
     image: ghcr.io/kubedb/mongodb_exporter:v0.32.0
   gitSyncer:
     image: registry.k8s.io/git-sync/git-sync:v4.1.0
   initContainer:
-    image: ghcr.io/kubedb/mongodb-init:4.2-v9
+    image: ghcr.io/kubedb/mongodb-init:6.0-v10
   podSecurityPolicies:
     databasePolicyName: mongodb-db
   replicationModeDetector:
     image: ghcr.io/kubedb/replication-mode-detector:v0.28.0-beta.0
   securityContext:
-    runAsGroup: 1001
-    runAsUser: 0
+    runAsGroup: 0
+    runAsUser: 1001
   stash:
     addon:
       backupTask:
-        name: mongodb-backup-4.4.6
+        name: mongodb-backup-6.0.5
       restoreTask:
-        name: mongodb-restore-4.4.6
-  updateConstraints:
-    allowlist:
-    - '>= 5.0.0'
-  version: 4.4.10
+        name: mongodb-restore-6.0.5
+  version: 6.0.12
