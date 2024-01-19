@@ -8,17 +8,15 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: RabbitmqVersion
 metadata:
-  name: '3.12'
+  name: '3.12.12'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
-    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "rabbitmq") $) }}:3.12-management'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/rabbitmq") $) }}:3.12.12-management-alpine'
   initContainer:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "raihankhanraka/rabbitmq-init") $) }}:3.12'
-  podSecurityPolicies:
-    databasePolicyName: rabbitmq-db
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/rabbitmq-init") $) }}:3.12.12'
   securityContext:
     runAsUser: 1001
-  version: "3.12"
+  version: 3.12.12
 {{ end }}
