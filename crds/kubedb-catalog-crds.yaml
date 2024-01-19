@@ -3,6 +3,87 @@ kind: CustomResourceDefinition
 metadata:
   labels:
     app.kubernetes.io/name: kubedb
+  name: druidversions.catalog.kubedb.com
+spec:
+  group: catalog.kubedb.com
+  names:
+    categories:
+    - datastore
+    - kubedb
+    - appscode
+    kind: DruidVersion
+    listKind: DruidVersionList
+    plural: druidversions
+    shortNames:
+    - drversion
+    singular: druidversion
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.version
+      name: Version
+      type: string
+    - jsonPath: .spec.db.image
+      name: DB_IMAGE
+      type: string
+    - jsonPath: .spec.deprecated
+      name: Deprecated
+      type: boolean
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              db:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              deprecated:
+                type: boolean
+              initContainer:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              securityContext:
+                properties:
+                  runAsUser:
+                    format: int64
+                    type: integer
+                type: object
+              version:
+                type: string
+            required:
+            - db
+            - initContainer
+            - version
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubedb
   name: elasticsearchversions.catalog.kubedb.com
 spec:
   group: catalog.kubedb.com
@@ -338,6 +419,90 @@ kind: CustomResourceDefinition
 metadata:
   labels:
     app.kubernetes.io/name: kubedb
+  name: ferretdbversions.catalog.kubedb.com
+spec:
+  group: catalog.kubedb.com
+  names:
+    categories:
+    - datastore
+    - kubedb
+    - appscode
+    kind: FerretDBVersion
+    listKind: FerretDBVersionList
+    plural: ferretdbversions
+    shortNames:
+    - drversion
+    singular: ferretdbversion
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.version
+      name: Version
+      type: string
+    - jsonPath: .spec.db.image
+      name: DB_IMAGE
+      type: string
+    - jsonPath: .spec.deprecated
+      name: Deprecated
+      type: boolean
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              db:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              deprecated:
+                type: boolean
+              securityContext:
+                properties:
+                  runAsUser:
+                    format: int64
+                    type: integer
+                type: object
+              updateConstraints:
+                properties:
+                  allowlist:
+                    items:
+                      type: string
+                    type: array
+                  denylist:
+                    items:
+                      type: string
+                    type: array
+                type: object
+              version:
+                type: string
+            required:
+            - db
+            - version
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubedb
   name: kafkaconnectorversions.catalog.kubedb.com
 spec:
   group: catalog.kubedb.com
@@ -388,13 +553,6 @@ spec:
                 type: object
               deprecated:
                 type: boolean
-              podSecurityPolicies:
-                properties:
-                  databasePolicyName:
-                    type: string
-                required:
-                - databasePolicyName
-                type: object
               securityContext:
                 properties:
                   runAsUser:
@@ -1580,6 +1738,88 @@ kind: CustomResourceDefinition
 metadata:
   labels:
     app.kubernetes.io/name: kubedb
+  name: pgpoolversions.catalog.kubedb.com
+spec:
+  group: catalog.kubedb.com
+  names:
+    categories:
+    - datastore
+    - kubedb
+    - appscode
+    kind: PgpoolVersion
+    listKind: PgpoolVersionList
+    plural: pgpoolversions
+    shortNames:
+    - ppversion
+    singular: pgpoolversion
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.version
+      name: Version
+      type: string
+    - jsonPath: .spec.pgpool.image
+      name: PGPOOL_IMAGE
+      type: string
+    - jsonPath: .spec.deprecated
+      name: Deprecated
+      type: boolean
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              deprecated:
+                type: boolean
+              pgpool:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              podSecurityPolicies:
+                properties:
+                  databasePolicyName:
+                    type: string
+                required:
+                - databasePolicyName
+                type: object
+              securityContext:
+                properties:
+                  runAsAnyNonRoot:
+                    type: boolean
+                  runAsUser:
+                    format: int64
+                    type: integer
+                type: object
+              version:
+                type: string
+            required:
+            - pgpool
+            - version
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubedb
   name: postgresversions.catalog.kubedb.com
 spec:
   group: catalog.kubedb.com
@@ -1903,6 +2143,87 @@ kind: CustomResourceDefinition
 metadata:
   labels:
     app.kubernetes.io/name: kubedb
+  name: rabbitmqversions.catalog.kubedb.com
+spec:
+  group: catalog.kubedb.com
+  names:
+    categories:
+    - datastore
+    - kubedb
+    - appscode
+    kind: RabbitMQVersion
+    listKind: RabbitMQVersionList
+    plural: rabbitmqversions
+    shortNames:
+    - rmversion
+    singular: rabbitmqversion
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.version
+      name: Version
+      type: string
+    - jsonPath: .spec.db.image
+      name: DB_IMAGE
+      type: string
+    - jsonPath: .spec.deprecated
+      name: Deprecated
+      type: boolean
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              db:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              deprecated:
+                type: boolean
+              initContainer:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              securityContext:
+                properties:
+                  runAsUser:
+                    format: int64
+                    type: integer
+                type: object
+              version:
+                type: string
+            required:
+            - db
+            - initContainer
+            - version
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubedb
   name: redisversions.catalog.kubedb.com
 spec:
   group: catalog.kubedb.com
@@ -2058,6 +2379,408 @@ spec:
             - db
             - exporter
             - podSecurityPolicies
+            - version
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubedb
+  name: singlestoreversions.catalog.kubedb.com
+spec:
+  group: catalog.kubedb.com
+  names:
+    categories:
+    - datastore
+    - kubedb
+    - appscode
+    kind: SinglestoreVersion
+    listKind: SinglestoreVersionList
+    plural: singlestoreversions
+    shortNames:
+    - sdbv
+    singular: singlestoreversion
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.version
+      name: Version
+      type: string
+    - jsonPath: .spec.db.image
+      name: DB_IMAGE
+      type: string
+    - jsonPath: .spec.deprecated
+      name: Deprecated
+      type: boolean
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              coordinator:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              db:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              deprecated:
+                type: boolean
+              initContainer:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              securityContext:
+                properties:
+                  runAsGroup:
+                    format: int64
+                    type: integer
+                  runAsUser:
+                    format: int64
+                    type: integer
+                type: object
+              standalone:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              stash:
+                properties:
+                  addon:
+                    properties:
+                      backupTask:
+                        properties:
+                          name:
+                            type: string
+                          params:
+                            items:
+                              properties:
+                                name:
+                                  type: string
+                                value:
+                                  type: string
+                              required:
+                              - name
+                              - value
+                              type: object
+                            type: array
+                        required:
+                        - name
+                        type: object
+                      restoreTask:
+                        properties:
+                          name:
+                            type: string
+                          params:
+                            items:
+                              properties:
+                                name:
+                                  type: string
+                                value:
+                                  type: string
+                              required:
+                              - name
+                              - value
+                              type: object
+                            type: array
+                        required:
+                        - name
+                        type: object
+                    required:
+                    - backupTask
+                    - restoreTask
+                    type: object
+                type: object
+              updateConstraints:
+                properties:
+                  allowlist:
+                    items:
+                      type: string
+                    type: array
+                  denylist:
+                    items:
+                      type: string
+                    type: array
+                type: object
+              version:
+                type: string
+            required:
+            - db
+            - version
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubedb
+  name: solrversions.catalog.kubedb.com
+spec:
+  group: catalog.kubedb.com
+  names:
+    categories:
+    - datastore
+    - kubedb
+    - appscode
+    kind: SolrVersion
+    listKind: SolrVersionList
+    plural: solrversions
+    shortNames:
+    - slversion
+    singular: solrversion
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.version
+      name: Version
+      type: string
+    - jsonPath: .spec.db.image
+      name: DB_IMAGE
+      type: string
+    - jsonPath: .spec.deprecated
+      name: Deprecated
+      type: boolean
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              db:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              deprecated:
+                type: boolean
+              initContainer:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              securityContext:
+                properties:
+                  runAsUser:
+                    format: int64
+                    type: integer
+                type: object
+              version:
+                type: string
+            required:
+            - db
+            - initContainer
+            - version
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubedb
+  name: zookeeperversions.catalog.kubedb.com
+spec:
+  group: catalog.kubedb.com
+  names:
+    categories:
+    - datastore
+    - kubedb
+    - appscode
+    kind: ZooKeeperVersion
+    listKind: ZooKeeperVersionList
+    plural: zookeeperversions
+    shortNames:
+    - zkversion
+    singular: zookeeperversion
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.version
+      name: Version
+      type: string
+    - jsonPath: .spec.db.image
+      name: DB_IMAGE
+      type: string
+    - jsonPath: .spec.deprecated
+      name: Deprecated
+      type: boolean
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              coordinator:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              db:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              deprecated:
+                type: boolean
+              exporter:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              gitSyncer:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              initContainer:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              podSecurityPolicies:
+                properties:
+                  databasePolicyName:
+                    type: string
+                required:
+                - databasePolicyName
+                type: object
+              securityContext:
+                properties:
+                  runAsUser:
+                    format: int64
+                    type: integer
+                type: object
+              stash:
+                properties:
+                  addon:
+                    properties:
+                      backupTask:
+                        properties:
+                          name:
+                            type: string
+                          params:
+                            items:
+                              properties:
+                                name:
+                                  type: string
+                                value:
+                                  type: string
+                              required:
+                              - name
+                              - value
+                              type: object
+                            type: array
+                        required:
+                        - name
+                        type: object
+                      restoreTask:
+                        properties:
+                          name:
+                            type: string
+                          params:
+                            items:
+                              properties:
+                                name:
+                                  type: string
+                                value:
+                                  type: string
+                              required:
+                              - name
+                              - value
+                              type: object
+                            type: array
+                        required:
+                        - name
+                        type: object
+                    required:
+                    - backupTask
+                    - restoreTask
+                    type: object
+                type: object
+              updateConstraints:
+                properties:
+                  allowlist:
+                    items:
+                      type: string
+                    type: array
+                  denylist:
+                    items:
+                      type: string
+                    type: array
+                type: object
+              version:
+                type: string
+            required:
+            - db
             - version
             type: object
         type: object

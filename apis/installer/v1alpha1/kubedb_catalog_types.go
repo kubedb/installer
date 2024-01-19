@@ -137,6 +137,7 @@ type PSPRedis struct {
 	AllowPrivilegeEscalation bool `json:"allowPrivilegeEscalation"`
 	Privileged               bool `json:"privileged"`
 }
+
 type PSPKafka struct {
 	AllowPrivilegeEscalation bool `json:"allowPrivilegeEscalation"`
 	Privileged               bool `json:"privileged"`

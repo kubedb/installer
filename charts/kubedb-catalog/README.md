@@ -71,11 +71,11 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | featureGates.PgPool                        |                                                 | <code>false</code>           |
 | featureGates.Postgres                      |                                                 | <code>true</code>            |
 | featureGates.ProxySQL                      |                                                 | <code>true</code>            |
-| featureGates.RabbitMQ                      |                                                 | <code>false</code>           |
+| featureGates.Rabbitmq                      |                                                 | <code>true</code>            |
 | featureGates.Redis                         |                                                 | <code>true</code>            |
-| featureGates.SingleStore                   |                                                 | <code>false</code>           |
+| featureGates.Singlestore                   |                                                 | <code>true</code>            |
 | featureGates.Solr                          |                                                 | <code>false</code>           |
-| featureGates.ZooKeeper                     |                                                 | <code>false</code>           |
+| featureGates.ZooKeeper                     |                                                 | <code>true</code>            |
 | psp.enabled                                |                                                 | <code>true</code>            |
 | psp.elasticsearch.allowPrivilegeEscalation |                                                 | <code>true</code>            |
 | psp.elasticsearch.privileged               |                                                 | <code>true</code>            |
