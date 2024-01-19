@@ -68,7 +68,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | featureGates.MySQL                         |                                                 | <code>true</code>            |
 | featureGates.PerconaXtraDB                 |                                                 | <code>true</code>            |
 | featureGates.PgBouncer                     |                                                 | <code>true</code>            |
-| featureGates.PgPool                        |                                                 | <code>false</code>           |
+| featureGates.Pgpool                        |                                                 | <code>true</code>            |
 | featureGates.Postgres                      |                                                 | <code>true</code>            |
 | featureGates.ProxySQL                      |                                                 | <code>true</code>            |
 | featureGates.Rabbitmq                      |                                                 | <code>true</code>            |
