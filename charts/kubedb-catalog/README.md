@@ -59,7 +59,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | featureGates.Druid                         |                                                 | <code>true</code>            |
 | featureGates.Elasticsearch                 |                                                 | <code>true</code>            |
 | featureGates.Etcd                          |                                                 | <code>false</code>           |
-| featureGates.FerretDB                      |                                                 | <code>false</code>           |
+| featureGates.FerretDB                      |                                                 | <code>true</code>            |
 | featureGates.Kafka                         |                                                 | <code>true</code>            |
 | featureGates.MariaDB                       |                                                 | <code>true</code>            |
 | featureGates.Memcached                     |                                                 | <code>true</code>            |
@@ -68,13 +68,13 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | featureGates.MySQL                         |                                                 | <code>true</code>            |
 | featureGates.PerconaXtraDB                 |                                                 | <code>true</code>            |
 | featureGates.PgBouncer                     |                                                 | <code>true</code>            |
-| featureGates.PgPool                        |                                                 | <code>false</code>           |
+| featureGates.Pgpool                        |                                                 | <code>true</code>            |
 | featureGates.Postgres                      |                                                 | <code>true</code>            |
 | featureGates.ProxySQL                      |                                                 | <code>true</code>            |
 | featureGates.Rabbitmq                      |                                                 | <code>true</code>            |
 | featureGates.Redis                         |                                                 | <code>true</code>            |
 | featureGates.Singlestore                   |                                                 | <code>true</code>            |
-| featureGates.Solr                          |                                                 | <code>false</code>           |
+| featureGates.Solr                          |                                                 | <code>true</code>            |
 | featureGates.ZooKeeper                     |                                                 | <code>true</code>            |
 | psp.enabled                                |                                                 | <code>true</code>            |
 | psp.elasticsearch.allowPrivilegeEscalation |                                                 | <code>true</code>            |
