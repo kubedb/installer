@@ -1,0 +1,21 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.FerretDB }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: FerretDBVersion
+metadata:
+  name: '1.18.0'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "ferretdb/ferretdb") $) }}:1.18.0'
+  deprecated: false
+  securityContext:
+    runAsUser: 999
+  version: 1.18.0
+{{ end }}
