@@ -20,7 +20,7 @@ crd_dir=${1:-}/apimachinery/crds
 update_kubedb_crds=true
 
 api_repo_url=https://github.com/kubedb/apimachinery.git
-api_repo_tag=${KUBEDB_APIMACHINERY_TAG:-rabbitmq}
+api_repo_tag=${KUBEDB_APIMACHINERY_TAG:-master}
 
 if [ "$#" -ne 1 ]; then
     if [ "${api_repo_tag}" == "master" ]; then

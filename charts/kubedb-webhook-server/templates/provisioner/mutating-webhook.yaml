@@ -50,6 +50,23 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
+{{- if $featureGates.FerretDB }}
+- name: ferretdbwebhook.mutators.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/mutators.kubedb.com/v1alpha1/ferretdbwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["ferretdbs"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
 {{- if $featureGates.MySQL }}
 - name: mysqlwebhook.mutators.kubedb.com
   clientConfig:
@@ -133,22 +150,6 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
-{{- if $featureGates.RabbitMQ }}
-- name: rabbitmqwebhook.mutators.kubedb.com
-  clientConfig:
-    service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.kubedb.com/v1alpha1/rabbitmqwebhooks
-    caBundle: {{ $caCrt }}
-  rules:
-    - apiGroups: ["kubedb.com"]
-      apiVersions: ["*"]
-      resources: ["rabbitmqs"]
-      operations: ["CREATE", "UPDATE"]
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
 {{- if $featureGates.Memcached }}
 - name: memcachedwebhook.mutators.kubedb.com
   clientConfig:
@@ -309,11 +310,11 @@ webhooks:
       path: /apis/mutators.kubedb.com/v1alpha1/solrwebhooks
     caBundle: {{ $caCrt }}
   rules:
-    - apiGroups: ["kubedb.com"]
-      apiVersions: ["*"]
-      resources: ["solrs"]
-      operations: ["CREATE", "UPDATE"]
-  admissionReviewVersions: ["v1beta1"]
+    - apiGroups: [ "kubedb.com" ]
+      apiVersions: [ "*" ]
+      resources: [ "solrs" ]
+      operations: [ "CREATE", "UPDATE" ]
+  admissionReviewVersions: [ "v1beta1" ]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}

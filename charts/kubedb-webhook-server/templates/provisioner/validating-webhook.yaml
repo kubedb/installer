@@ -65,6 +65,23 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
+{{- if $featureGates.FerretDB }}
+- name: ferretdbwebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.kubedb.com/v1alpha1/ferretdbwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["ferretdbs"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
 {{- if $featureGates.MySQL }}
 - name: mysqlwebhook.validators.kubedb.com
   clientConfig:
@@ -245,23 +262,6 @@ webhooks:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
       resources: ["zookeepers"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
-{{- end }}
-{{- if $featureGates.ZooKeeper }}
-- name: rabbitmqwebhook.validators.kubedb.com
-  clientConfig:
-    service:
-      namespace: default
-      name: kubernetes
-      path: /apis/validators.kubedb.com/v1alpha1/rabbitmqwebhooks
-    caBundle: {{ $caCrt }}
-  rules:
-    - apiGroups: ["kubedb.com"]
-      apiVersions: ["*"]
-      resources: ["rabbitmqs"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
