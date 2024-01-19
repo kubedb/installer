@@ -97,8 +97,6 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | psp.redis.privileged                       |                                                 | <code>false</code>           |
 | psp.kafka.allowPrivilegeEscalation         |                                                 | <code>false</code>           |
 | psp.kafka.privileged                       |                                                 | <code>false</code>           |
-| psp.rabbitmq.allowPrivilegeEscalation      |                                                 | <code>false</code>           |
-| psp.rabbitmq.privileged                    |                                                 | <code>false</code>           |
 | skipDeprecated                             | Set true to avoid deploying deprecated versions | <code>true</code>            |
 
 
