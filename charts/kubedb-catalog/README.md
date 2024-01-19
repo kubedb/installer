@@ -102,8 +102,6 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | psp.kafkaconnector.privileged               |                                                 | <code>false</code>           |
 | psp.zookeeper.allowPrivilegeEscalation      |                                                 | <code>false</code>           |
 | psp.zookeeper.privileged                    |                                                 | <code>false</code>           |
-| psp.solr.allowPrivilegeEscalation           |                                                 | <code>false</code>           |
-| psp.solr.privileged                         |                                                 | <code>false</code>           |
 | skipDeprecated                              | Set true to avoid deploying deprecated versions | <code>true</code>            |
 
 

@@ -8,19 +8,17 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: SolrVersion
 metadata:
-  name: '9.4.0'
+  name: '9.4.1'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
-    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "solr") $) }}:9.4.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/solr") $) }}:9.4.1'
   initContainer:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "pritam99/solr-init") $) }}:1.1.1_linux_amd64'
-  podSecurityPolicies:
-    databasePolicyName: solr-db
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/solr-init") $) }}:9.4.1'
   securityContext:
     runAsAnyNonRoot: true
     runAsGroup: 8983
     runAsUser: 8983
-  version: 9.4.0
+  version: 9.4.1
 {{ end }}
