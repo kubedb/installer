@@ -99,7 +99,7 @@ var appToKind = map[string]string{
 	"proxysql":           "ProxySQL",
 	"rabbitmq":           "RabbitMQ",
 	"redis":              "Redis",
-	"singlestore":        "SingleStore",
+	"singlestore":        "Singlestore",
 	"solr":               "Solr",
 	"zookeeper":          "ZooKeeper",
 }
