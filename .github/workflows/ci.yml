@@ -162,14 +162,19 @@ jobs:
           export KUBECONFIG="${HOME}/.kube/config"
           ./hack/scripts/ct.sh
 
+      # - name: Setup upterm session
+      #   uses: lhotari/action-upterm@v1
+
       - name: Check metrics configuration
         run: |
           # install metrics-configuration-checker
-          curl -fsSL -o metrics-configuration-checker https://github.com/kmodules/metrics-configuration-checker/releases/download/v0.0.2/metrics-configuration-checker-linux-amd64
+          curl -fsSL -o metrics-configuration-checker https://github.com/kmodules/metrics-configuration-checker/releases/latest/download/metrics-configuration-checker-linux-amd64
           chmod +x metrics-configuration-checker
           sudo mv metrics-configuration-checker /usr/local/bin/metrics-configuration-checker
           # check kubedb-metrics chart
           kubectl create -f crds/kubedb-crds.yaml
+          kubectl wait --for=condition=Established crds --all --timeout=5m
+          kubectl wait --for=condition=NamesAccepted crds --all --timeout=5m
           metrics-configuration-checker --content=./charts/kubedb-metrics/templates/
 
       - name: Test Monitoring
