@@ -1,0 +1,22 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.RabbitMQ }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: RabbitMQVersion
+metadata:
+  name: '3.12.12'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/rabbitmq") $) }}:3.12.12-management-alpine'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/rabbitmq-init") $) }}:3.12.12'
+  securityContext:
+    runAsUser: 1001
+  version: 3.12.12
+{{ end }}

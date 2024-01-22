@@ -1,0 +1,34 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Redis }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: RedisVersion
+metadata:
+  name: '7.2.4'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.20.0-beta.1'
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/redis") $) }}:7.2.4-bookworm'
+  exporter:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis_exporter") $) }}:1.9.0'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-init") $) }}:0.7.0'
+  podSecurityPolicies:
+    databasePolicyName: redis-db
+  securityContext:
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: redis-backup-7.0.5
+      restoreTask:
+        name: redis-restore-7.0.5
+  version: 7.2.4
+{{ end }}

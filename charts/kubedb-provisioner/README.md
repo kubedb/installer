@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode-testing https://charts.appscode.com/testing/
 $ helm repo update
-$ helm search repo appscode-testing/kubedb-provisioner --version=v0.41.0-beta.0
-$ helm upgrade -i kubedb-provisioner appscode-testing/kubedb-provisioner -n kubedb --create-namespace --version=v0.41.0-beta.0
+$ helm search repo appscode-testing/kubedb-provisioner --version=v0.41.0-beta.1
+$ helm upgrade -i kubedb-provisioner appscode-testing/kubedb-provisioner -n kubedb --create-namespace --version=v0.41.0-beta.1
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeDB Provisioner operator on a [Kubernetes](http://kubern
 To install/upgrade the chart with the release name `kubedb-provisioner`:
 
 ```bash
-$ helm upgrade -i kubedb-provisioner appscode-testing/kubedb-provisioner -n kubedb --create-namespace --version=v0.41.0-beta.0
+$ helm upgrade -i kubedb-provisioner appscode-testing/kubedb-provisioner -n kubedb --create-namespace --version=v0.41.0-beta.1
 ```
 
 The command deploys a KubeDB Provisioner operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -80,18 +80,18 @@ The following table lists the configurable parameters of the `kubedb-provisioner
 | monitoring.agent                     | Name of monitoring agent (one of "prometheus.io", "prometheus.io/operator", "prometheus.io/builtin")                                                                                                                                                                                                                                                                            | <code>""</code>                                                                                                                                     |
 | monitoring.serviceMonitor.labels     | Specify the labels for ServiceMonitor. Prometheus crd will select ServiceMonitor using these labels. Only usable when monitoring agent is `prometheus.io/operator`.                                                                                                                                                                                                             | <code>{"monitoring.appscode.com/prometheus":"auto"}</code>                                                                                          |
 | additionalPodSecurityPolicies        | Additional psp names passed to operator <br> Example: <br> `helm template ./chart/kubedb \` <br> `--set additionalPodSecurityPolicies[0]=abc \` <br> `--set additionalPodSecurityPolicies[1]=xyz`                                                                                                                                                                               | <code>[]</code>                                                                                                                                     |
-| psp.enabled                          |                                                                                                                                                                                                                                                                                                                                                                                 | <code>true</code>                                                                                                                                   |
+| psp.enabled                          |                                                                                                                                                                                                                                                                                                                                                                                 | <code>false</code>                                                                                                                                  |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-provisioner appscode-testing/kubedb-provisioner -n kubedb --create-namespace --version=v0.41.0-beta.0 --set replicaCount=1
+$ helm upgrade -i kubedb-provisioner appscode-testing/kubedb-provisioner -n kubedb --create-namespace --version=v0.41.0-beta.1 --set replicaCount=1
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-provisioner appscode-testing/kubedb-provisioner -n kubedb --create-namespace --version=v0.41.0-beta.0 --values values.yaml
+$ helm upgrade -i kubedb-provisioner appscode-testing/kubedb-provisioner -n kubedb --create-namespace --version=v0.41.0-beta.1 --values values.yaml
 ```

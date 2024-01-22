@@ -12,7 +12,7 @@ metadata:
     {{- include "kubedb-crd-manager.labels" . | nindent 4 }}
 spec:
   backoffLimit: 3
-  ttlSecondsAfterFinished: 0
+  ttlSecondsAfterFinished: 300
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -32,6 +32,7 @@ spec:
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
             - run
+            - --v=3
           {{- range $db, $enable := $featureGates }}
             - --feature-gates={{ $db }}={{ $enable }}
           {{- end }}

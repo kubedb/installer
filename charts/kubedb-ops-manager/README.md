@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode-testing https://charts.appscode.com/testing/
 $ helm repo update
-$ helm search repo appscode-testing/kubedb-ops-manager --version=v0.28.0-beta.0
-$ helm upgrade -i kubedb-ops-manager appscode-testing/kubedb-ops-manager -n kubedb --create-namespace --version=v0.28.0-beta.0
+$ helm search repo appscode-testing/kubedb-ops-manager --version=v0.28.0-beta.1
+$ helm upgrade -i kubedb-ops-manager appscode-testing/kubedb-ops-manager -n kubedb --create-namespace --version=v0.28.0-beta.1
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeDB Ops Manager operator on a [Kubernetes](http://kubern
 To install/upgrade the chart with the release name `kubedb-ops-manager`:
 
 ```bash
-$ helm upgrade -i kubedb-ops-manager appscode-testing/kubedb-ops-manager -n kubedb --create-namespace --version=v0.28.0-beta.0
+$ helm upgrade -i kubedb-ops-manager appscode-testing/kubedb-ops-manager -n kubedb --create-namespace --version=v0.28.0-beta.1
 ```
 
 The command deploys a KubeDB Ops Manager operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -82,18 +82,18 @@ The following table lists the configurable parameters of the `kubedb-ops-manager
 | recommendationEngine.genRotateTLSRecommendationBeforeExpiryYear  | Rotate TLS recommendation will be generated before given year of expiration. It also depends on gen-rotate-tls-recommendation-before-expiry-month and gen-rotate-tls-recommendation-before-expiry-year. Default values are 0(zero) for gen-rotate-tls-recommendation-before-expiry-year, 1(one) for gen-rotate-tls-recommendation-before-expiry-month, 0(zero) for gen-rotate-tls-recommendation-before-expiry-day flags. | <code>0</code>                                                                                                                                      |
 | recommendationEngine.genRotateTLSRecommendationBeforeExpiryMonth | Rotate TLS recommendation will be generated before given month of expiration. It also depends on gen-rotate-tls-recommendation-before-expiry-year and gen-rotate-tls-recommendation-before-expiry-day flag. By default it is set as 1(one).                                                                                                                                                                               | <code>1</code>                                                                                                                                      |
 | recommendationEngine.genRotateTLSRecommendationBeforeExpiryDay   | Rotate TLS recommendation will be generated before given day of expiration. It also depends on gen-rotate-tls-recommendation-before-expiry-year and gen-rotate-tls-recommendation-before-expiry-month flag. By default it is set as 0(zero).                                                                                                                                                                              | <code>0</code>                                                                                                                                      |
-| psp.enabled                                                      |                                                                                                                                                                                                                                                                                                                                                                                                                           | <code>true</code>                                                                                                                                   |
+| psp.enabled                                                      |                                                                                                                                                                                                                                                                                                                                                                                                                           | <code>false</code>                                                                                                                                  |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-ops-manager appscode-testing/kubedb-ops-manager -n kubedb --create-namespace --version=v0.28.0-beta.0 --set replicaCount=1
+$ helm upgrade -i kubedb-ops-manager appscode-testing/kubedb-ops-manager -n kubedb --create-namespace --version=v0.28.0-beta.1 --set replicaCount=1
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-ops-manager appscode-testing/kubedb-ops-manager -n kubedb --create-namespace --version=v0.28.0-beta.0 --values values.yaml
+$ helm upgrade -i kubedb-ops-manager appscode-testing/kubedb-ops-manager -n kubedb --create-namespace --version=v0.28.0-beta.1 --values values.yaml
 ```
