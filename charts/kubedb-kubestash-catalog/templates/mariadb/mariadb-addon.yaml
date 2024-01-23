@@ -12,34 +12,6 @@ metadata:
     {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
 spec:
   backupTasks:
-  - driver: Restic
-    executor: Job
-    function: mariadb-backup
-    name: logical-backup
-    parameters:
-    - name: args
-      required: false
-      usage: Arguments to be passed to the dump command.
-    - name: databases
-      required: false
-      usage: List of databases to backup.
-    - default: "true"
-      name: enableCache
-      required: false
-      usage: Enable or disable caching. Disabling caching may impact backup performance.
-    - default: /kubestash-tmp
-      name: scratchDir
-      required: false
-      usage: Directory for holding temporary files and restic cache.
-    singleton: true
-    volumeMounts:
-    - mountPath: /kubestash-tmp
-      name: kubestash-tmp-volume
-    volumeTemplate:
-    - name: kubestash-tmp-volume
-      source:
-        emptyDir: {}
-      usage: Holds temporary files and restic cache.
   - driver: VolumeSnapshotter
     executor: Job
     function: mariadb-csi-snapshotter
@@ -72,31 +44,6 @@ spec:
         emptyDir: {}
       usage: Holds temporary files and restic cache.
   restoreTasks:
-  - driver: Restic
-    executor: Job
-    function: mariadb-restore
-    name: logical-backup-restore
-    parameters:
-    - name: args
-      required: false
-      usage: Arguments to be passed to the dump command.
-    - default: "true"
-      name: enableCache
-      required: false
-      usage: Enable or disable caching. Disabling caching may impact backup performance.
-    - default: /kubestash-tmp
-      name: scratchDir
-      required: false
-      usage: Directory for holding temporary files and restic cache.
-    singleton: true
-    volumeMounts:
-    - mountPath: /kubestash-tmp
-      name: kubestash-tmp-volume
-    volumeTemplate:
-    - name: kubestash-tmp-volume
-      source:
-        emptyDir: {}
-      usage: Holds temporary files and restic cache.
   - driver: Restic
     executor: Job
     function: kubedbmanifest-restore
