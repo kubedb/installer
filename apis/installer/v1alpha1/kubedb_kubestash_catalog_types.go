@@ -54,6 +54,7 @@ type KubedbKubestashCatalogSpec struct {
 	Mysql          StashMysqlSpec          `json:"mysql"`
 	Redis          StashRedisSpec          `json:"redis"`
 	Postgres       StashPostgresSpec       `json:"postgres"`
+	Mariadb        StashMariadbSpec        `json:"mariadb"`
 }
 
 // StashElasticsearchSpec is the schema for Stash Elasticsearch values file
@@ -132,6 +133,22 @@ type MySQLBackup struct {
 }
 
 type MySQLRestore struct {
+	// +optional
+	Args string `json:"args"`
+}
+
+// StashMariadbSpec is the schema for Stash MySQL values file
+type StashMariadbSpec struct {
+	Backup  MariaDBBackup  `json:"backup"`
+	Restore MariaDBRestore `json:"restore"`
+}
+
+type MariaDBBackup struct {
+	// +optional
+	Args string `json:"args"`
+}
+
+type MariaDBRestore struct {
 	// +optional
 	Args string `json:"args"`
 }
