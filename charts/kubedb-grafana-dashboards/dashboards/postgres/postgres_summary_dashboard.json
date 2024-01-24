@@ -101,7 +101,7 @@
           "instant": true,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{version}}",
+          "legendFormat": {{ `"{{version}}"` }},
           "refId": "A"
         }
       ],
@@ -310,7 +310,7 @@
           "format": "table",
           "instant": true,
           "interval": "",
-          "legendFormat": "{{phase}}",
+          "legendFormat": {{ `"{{phase}}"` }},
           "refId": "A"
         }
       ],
@@ -378,7 +378,7 @@
           "format": "table",
           "instant": true,
           "interval": "",
-          "legendFormat": "{{sslMode}}",
+          "legendFormat": {{ `"{{sslMode}}"` }},
           "refId": "A"
         }
       ],
@@ -458,7 +458,7 @@
           "format": "table",
           "instant": true,
           "interval": "",
-          "legendFormat": "{{terminationPolicy}}",
+          "legendFormat": {{ `"{{terminationPolicy}}"` }},
           "refId": "A"
         }
       ],
@@ -901,7 +901,7 @@
           "exemplar": true,
           "expr": "time() - process_start_time_seconds{job=\"kubedb-databases\",namespace=\"demo\"}",
           "interval": "",
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -1035,7 +1035,7 @@
           "exemplar": true,
           "expr": "pg_up{job=\"kubedb-databases\",namespace=\"demo\"}",
           "interval": "",
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -1198,7 +1198,7 @@
           "exemplar": true,
           "expr": "kubedb_com_postgres_status_phase{app=\"ha-postgres\",namespace=\"demo\",phase=\"NotReady\"}",
           "interval": "",
-          "legendFormat": "{{postgres}}",
+          "legendFormat": {{ `"{{postgres}}"` }},
           "refId": "A"
         }
       ],
@@ -1347,7 +1347,7 @@
           "exemplar": true,
           "expr": "kubedb_com_postgres_status_phase{app=\"ha-postgres\",namespace=\"demo\",phase=\"Critical\"}",
           "interval": "",
-          "legendFormat": "{{postgres}}",
+          "legendFormat": {{ `"{{postgres}}"` }},
           "refId": "A"
         }
       ],
@@ -1442,7 +1442,7 @@
           "exemplar": true,
           "expr": "ops_kubedb_com_postgresopsrequest_status_phase{app=\"ha-postgres\",namespace=\"demo\",phase=\"Failed\"}",
           "interval": "",
-          "legendFormat": "{{postgres}}",
+          "legendFormat": {{ `"{{postgres}}"` }},
           "refId": "A"
         }
       ],
@@ -1576,7 +1576,7 @@
           "exemplar": true,
           "expr": "ops_kubedb_com_postgresopsrequest_status_phase{app=\"ha-postgres\",namespace=\"demo\",phase=\"Progressing\"}",
           "interval": "",
-          "legendFormat": "{{postgres}}",
+          "legendFormat": {{ `"{{postgres}}"` }},
           "refId": "A"
         }
       ],
@@ -1689,7 +1689,7 @@
           "expr": "AVG(rate(pg_stat_replication_reply_time{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])) by (pod)",
           "instant": false,
           "interval": "",
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -1792,7 +1792,7 @@
           "expr": "sum(pg_stat_activity_count{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"}) by (state)",
           "instant": false,
           "interval": "",
-          "legendFormat": "{{state}}",
+          "legendFormat": {{ `"{{state}}"` }},
           "refId": "A"
         }
       ],
@@ -1916,7 +1916,7 @@
           "exemplar": true,
           "expr": "pg_coordinator_raft_primary{namespace=\"$namespace\", pod=~\"$app-.\"}",
           "interval": "",
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -1996,7 +1996,7 @@
           "exemplar": false,
           "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubernetes-nodes-cadvisor\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}))) by (pod)",
           "interval": "",
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -2130,7 +2130,7 @@
           "exemplar": true,
           "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubernetes-nodes-cadvisor\",metrics_path=\"/metrics/cadvisor\",namespace=\"demo\", pod=~\"ha-postgres-\\\\d+$|ha-postgres-arbiter\\\\d+-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"demo\", pod=~\"ha-postgres-\\\\d+$|ha-postgres-arbiter\\\\d+-\\\\d+$\"}))) by (pod) / sum(kube_pod_container_resource_requests{job=\"kubernetes-service-endpoints\",resource=\"cpu\",namespace=\"demo\", pod=~\"ha-postgres-\\\\d+$|ha-postgres-arbiter\\\\d+-\\\\d+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "interval": "",
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -2550,7 +2550,7 @@
           "exemplar": false,
           "expr": "sum(container_memory_working_set_bytes{image!=\"\",job=\"kubernetes-nodes-cadvisor\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\",container!=\"\"} * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\"}))) by (pod)",
           "interval": "",
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -3074,7 +3074,7 @@
           "exemplar": true,
           "expr": "sum(container_memory_working_set_bytes{namespace=\"demo\",pod=~\"ha-postgres-\\\\d+$|ha-postgres-arbiter\\\\d+-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_requests{job=\"kubernetes-service-endpoints\",resource=\"memory\",namespace=\"demo\",pod=~\"ha-postgres-\\\\d+$|ha-postgres-arbiter\\\\d+-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "interval": "",
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -3206,7 +3206,7 @@
           "exemplar": false,
           "expr": "avg(container_blkio_device_usage_total{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
           "interval": "",
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -3316,7 +3316,7 @@
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{pod}}-disk-write",
+          "legendFormat": {{ `"{{pod}}-disk-write"` }},
           "refId": "A"
         },
         {
@@ -3325,7 +3325,7 @@
           "hide": false,
           "instant": false,
           "interval": "",
-          "legendFormat": "{{pod}}-disk-read",
+          "legendFormat": {{ `"{{pod}}-disk-read"` }},
           "refId": "B"
         }
       ],
@@ -3435,7 +3435,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "legendLink": null,
           "refId": "A",
           "step": 10
@@ -3547,7 +3547,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "legendLink": null,
           "refId": "A",
           "step": 10
@@ -4058,7 +4058,7 @@
           "expr": "(kubelet_volume_stats_used_bytes{} / on(persistentvolumeclaim) group_left(pod) (kubelet_volume_stats_capacity_bytes{} + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"^$app.*\",namespace=~\"$namespace\"}) )* 100",
           "instant": true,
           "interval": "",
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -4150,7 +4150,7 @@
           "expr": "(kubelet_volume_stats_used_bytes{} + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"^$app.*\",namespace=~\"$namespace\"}) ",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -4247,7 +4247,7 @@
           "exemplar": true,
           "expr": "(kubelet_volume_stats_used_bytes / on(persistentvolumeclaim) group_left(pod) (kubelet_volume_stats_capacity_bytes + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"^ha-postgres.*\",namespace=~\"demo\"}) )",
           "interval": "",
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -4381,7 +4381,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "legendLink": null,
           "refId": "A",
           "step": 10
@@ -4493,7 +4493,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "legendLink": null,
           "refId": "A",
           "step": 10
@@ -4621,7 +4621,7 @@
           "exemplar": true,
           "expr": "pg_exporter_last_scrape_error{job=\"kubedb-databases\",namespace=\"demo\"}",
           "interval": "",
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -4784,7 +4784,7 @@
           "exemplar": true,
           "expr": "rate(pg_stat_database_xact_rollback{job=\"kubedb-databases\",namespace=\"demo\"}[3m]) / rate(pg_stat_database_xact_commit{job=\"kubedb-databases\",namespace=\"demo\"}[3m])",
           "interval": "",
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -4879,7 +4879,7 @@
           "exemplar": true,
           "expr": "sum by (pod) (pg_stat_activity_count{job=\"kubedb-databases\",namespace=\"demo\"}) - sum by (pod) (pg_settings_max_connections{job=\"kubedb-databases\",namespace=\"demo\"} * 80) / 100",
           "interval": "",
-          "legendFormat": "{{postgres}}",
+          "legendFormat": {{ `"{{postgres}}"` }},
           "refId": "A"
         }
       ],
@@ -5013,7 +5013,7 @@
           "exemplar": true,
           "expr": "((sum by (pod) (pg_locks_count{job=\"kubedb-databases\",namespace=\"demo\"})) / (sum by (pod) (pg_settings_max_locks_per_transaction{job=\"kubedb-databases\",namespace=\"demo\"}) * sum by (pod) (pg_settings_max_connections{job=\"kubedb-databases\",namespace=\"demo\"})))",
           "interval": "",
-          "legendFormat": "{{postgres}}",
+          "legendFormat": {{ `"{{postgres}}"` }},
           "refId": "A"
         }
       ],
@@ -5195,6 +5195,8 @@
     ]
   },
   "timezone": "",
+  {{- if $shared }}
+"title": "KubeDB / Postgres / Summary",
   {{- else }}
   "title": {{ printf "KubeDB / Postgres / Summary / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
   {{- end }}
