@@ -54,11 +54,8 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | proxies.ghcr                               |                                                 | <code>ghcr.io</code>         |
 | proxies.kubernetes                         |                                                 | <code>registry.k8s.io</code> |
 | proxies.appscode                           |                                                 | <code>r.appscode.com</code>  |
-| featureGates.Cassandra                     |                                                 | <code>false</code>           |
-| featureGates.ClickHouse                    |                                                 | <code>false</code>           |
 | featureGates.Druid                         |                                                 | <code>true</code>            |
 | featureGates.Elasticsearch                 |                                                 | <code>true</code>            |
-| featureGates.Etcd                          |                                                 | <code>false</code>           |
 | featureGates.FerretDB                      |                                                 | <code>true</code>            |
 | featureGates.Kafka                         |                                                 | <code>true</code>            |
 | featureGates.MariaDB                       |                                                 | <code>true</code>            |
