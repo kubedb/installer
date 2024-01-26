@@ -899,7 +899,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "time() - pg_postmaster_start_time_seconds{job=\"$app-stats\",namespace=\"demo\"}",
+          "expr": "time() - pg_postmaster_start_time_seconds{job=\"$app-stats\",namespace=\"$namespace\"}",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
@@ -1033,7 +1033,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "pg_up{job=\"$app-stats\",namespace=\"demo\"}",
+          "expr": "pg_up{job=\"$app-stats\",namespace=\"$namespace\"}",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
@@ -1167,7 +1167,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_postgres_status_phase{app=\"ha-postgres\",namespace=\"demo\",phase=\"NotReady\"}",
+          "expr": "kubedb_com_postgres_status_phase{app=\"$app\",namespace=\"$namespace\",phase=\"NotReady\"}",
           "interval": "",
           "legendFormat": {{ `"{{postgres}}"` }},
           "refId": "A"
@@ -1301,7 +1301,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_postgres_status_phase{app=\"ha-postgres\",namespace=\"demo\",phase=\"Critical\"}",
+          "expr": "kubedb_com_postgres_status_phase{app=\"$app\",namespace=\"$namespace\",phase=\"Critical\"}",
           "interval": "",
           "legendFormat": {{ `"{{postgres}}"` }},
           "refId": "A"
@@ -1435,7 +1435,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "ops_kubedb_com_postgresopsrequest_status_phase{app=\"ha-postgres\",namespace=\"demo\",phase=\"Failed\"}",
+          "expr": "ops_kubedb_com_postgresopsrequest_status_phase{app=\"$app\",namespace=\"$namespace\",phase=\"Failed\"}",
           "interval": "",
           "legendFormat": {{ `"{{postgres}}"` }},
           "refId": "A"
@@ -1569,7 +1569,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "ops_kubedb_com_postgresopsrequest_status_phase{app=\"ha-postgres\",namespace=\"demo\",phase=\"Progressing\"}",
+          "expr": "ops_kubedb_com_postgresopsrequest_status_phase{app=\"$app\",namespace=\"$namespace\",phase=\"Progressing\"}",
           "interval": "",
           "legendFormat": {{ `"{{postgres}}"` }},
           "refId": "A"
@@ -2123,7 +2123,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"demo\", pod=~\"ha-postgres-\\\\d+$|ha-postgres-arbiter\\\\d+-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"demo\", pod=~\"ha-postgres-\\\\d+$|ha-postgres-arbiter\\\\d+-\\\\d+$\"}))) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"demo\", pod=~\"ha-postgres-\\\\d+$|ha-postgres-arbiter\\\\d+-\\\\d+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-arbiter\\\\d+-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-arbiter\\\\d+-\\\\d+$\"}))) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-arbiter\\\\d+-\\\\d+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
@@ -2191,7 +2191,7 @@
             "mode": "thresholds"
           },
           "custom": {
-            "align": null,
+            "align": "center",
             "displayMode": "auto",
             "filterable": false
           },
@@ -2226,7 +2226,7 @@
               },
               {
                 "id": "custom.align",
-                "value": null
+                "value": "center"
               }
             ]
           },
@@ -2250,7 +2250,7 @@
               },
               {
                 "id": "custom.align",
-                "value": null
+                "value": "center"
               }
             ]
           },
@@ -2274,7 +2274,7 @@
               },
               {
                 "id": "custom.align",
-                "value": null
+                "value": "center"
               }
             ]
           },
@@ -2298,7 +2298,7 @@
               },
               {
                 "id": "custom.align",
-                "value": null
+                "value": "center"
               }
             ]
           },
@@ -2322,7 +2322,7 @@
               },
               {
                 "id": "custom.align",
-                "value": null
+                "value": "center"
               }
             ]
           },
@@ -2346,7 +2346,7 @@
               },
               {
                 "id": "custom.align",
-                "value": null
+                "value": "center"
               }
             ]
           },
@@ -2380,7 +2380,7 @@
               },
               {
                 "id": "custom.align",
-                "value": null
+                "value": "center"
               }
             ]
           }
@@ -3067,7 +3067,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"demo\",pod=~\"ha-postgres-\\\\d+$|ha-postgres-arbiter\\\\d+-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"demo\",pod=~\"ha-postgres-\\\\d+$|ha-postgres-arbiter\\\\d+-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-arbiter\\\\d+-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-arbiter\\\\d+-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
@@ -4240,7 +4240,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "(kubelet_volume_stats_used_bytes / on(persistentvolumeclaim) group_left(pod) (kubelet_volume_stats_capacity_bytes + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"^ha-postgres.*\",namespace=~\"demo\"}) )",
+          "expr": "(kubelet_volume_stats_used_bytes / on(persistentvolumeclaim) group_left(pod) (kubelet_volume_stats_capacity_bytes + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"^$app.*\",namespace=~\"$namespace\"}) )",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
@@ -4614,7 +4614,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "pg_exporter_last_scrape_error{job=\"$app-stats\",namespace=\"demo\"}",
+          "expr": "pg_exporter_last_scrape_error{job=\"$app-stats\",namespace=\"$namespace\"}",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
@@ -4748,7 +4748,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "rate(pg_stat_database_xact_rollback{job=\"$app-stats\",namespace=\"demo\"}[3m]) / rate(pg_stat_database_xact_commit{job=\"$app-stats\",namespace=\"demo\"}[3m])",
+          "expr": "rate(pg_stat_database_xact_rollback{job=\"$app-stats\",namespace=\"$namespace\"}[3m]) / rate(pg_stat_database_xact_commit{job=\"$app-stats\",namespace=\"$namespace\"}[3m])",
           "interval": "",
           "legendFormat": {{ `"{{pod}}, {{datname}}"` }},
         "refId": "A"
@@ -4882,7 +4882,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by (pod) (pg_stat_activity_count{job=\"$app-stats\",namespace=\"demo\"}) - sum by (pod) (pg_settings_max_connections{job=\"$app-stats\",namespace=\"demo\"} * 80) / 100",
+          "expr": "sum by (pod) (pg_stat_activity_count{job=\"$app-stats\",namespace=\"$namespace\"}) - sum by (pod) (pg_settings_max_connections{job=\"$app-stats\",namespace=\"$namespace\"} * 80) / 100",
           "interval": "",
           "legendFormat": {{ `"{{postgres}}"` }},
           "refId": "A"
@@ -5016,7 +5016,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "((sum by (pod) (pg_locks_count{job=\"$app-stats\",namespace=\"demo\"})) / (sum by (pod) (pg_settings_max_locks_per_transaction{job=\"$app-stats\",namespace=\"demo\"}) * sum by (pod) (pg_settings_max_connections{job=\"$app-stats\",namespace=\"demo\"})))",
+          "expr": "((sum by (pod) (pg_locks_count{job=\"$app-stats\",namespace=\"$namespace\"})) / (sum by (pod) (pg_settings_max_locks_per_transaction{job=\"$app-stats\",namespace=\"$namespace\"}) * sum by (pod) (pg_settings_max_connections{job=\"$app-stats\",namespace=\"$namespace\"})))",
           "interval": "",
           "legendFormat": {{ `"{{postgres}}"` }},
           "refId": "A"
@@ -5111,8 +5111,8 @@
         "allValue": "\".+\"",
         "current": {
         "selected": false,
-        "text": "demo",
-        "value": "demo"
+        "text": "$namespace",
+        "value": "$namespace"
       },
       "datasource": "${datasource}",
       "description": null,
