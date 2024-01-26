@@ -51,6 +51,7 @@ type KubedbCrdManagerSpec struct {
 	//+optional
 	RegistryFQDN    string   `json:"registryFQDN"`
 	Image           ImageRef `json:"image"`
+	Cleaner         ImageRef `json:"cleaner"`
 	ImagePullPolicy string   `json:"imagePullPolicy"`
 	//+optional
 	ImagePullSecrets []string `json:"imagePullSecrets"`
@@ -71,9 +72,10 @@ type KubedbCrdManagerSpec struct {
 	Tolerations []core.Toleration `json:"tolerations"`
 	// If specified, the pod's scheduling constraints
 	// +optional
-	Affinity       *core.Affinity     `json:"affinity"`
-	ServiceAccount ServiceAccountSpec `json:"serviceAccount"`
-	FeatureGates   map[string]bool    `json:"featureGates"`
+	Affinity         *core.Affinity     `json:"affinity"`
+	ServiceAccount   ServiceAccountSpec `json:"serviceAccount"`
+	FeatureGates     map[string]bool    `json:"featureGates"`
+	RemoveUnusedCRDs bool               `json:"removeUnusedCRDs"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
