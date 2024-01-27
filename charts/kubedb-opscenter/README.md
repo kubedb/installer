@@ -5,10 +5,10 @@
 ## TL;DR;
 
 ```bash
-$ helm repo add appscode-testing https://charts.appscode.com/testing/
+$ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode-testing/kubedb-opscenter --version=v2024.1.19-beta.1
-$ helm upgrade -i kubedb-opscenter appscode-testing/kubedb-opscenter -n kubedb --create-namespace --version=v2024.1.19-beta.1
+$ helm search repo appscode/kubedb-opscenter --version=v2024.1.26-rc.0
+$ helm upgrade -i kubedb-opscenter appscode/kubedb-opscenter -n kubedb --create-namespace --version=v2024.1.26-rc.0
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeDB Opscenter on a [Kubernetes](http://kubernetes.io) cl
 To install/upgrade the chart with the release name `kubedb-opscenter`:
 
 ```bash
-$ helm upgrade -i kubedb-opscenter appscode-testing/kubedb-opscenter -n kubedb --create-namespace --version=v2024.1.19-beta.1
+$ helm upgrade -i kubedb-opscenter appscode/kubedb-opscenter -n kubedb --create-namespace --version=v2024.1.26-rc.0
 ```
 
 The command deploys a KubeDB Opscenter on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -62,12 +62,12 @@ The following table lists the configurable parameters of the `kubedb-opscenter` 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-opscenter appscode-testing/kubedb-opscenter -n kubedb --create-namespace --version=v2024.1.19-beta.1 --set global.registryFQDN=ghcr.io
+$ helm upgrade -i kubedb-opscenter appscode/kubedb-opscenter -n kubedb --create-namespace --version=v2024.1.26-rc.0 --set global.registryFQDN=ghcr.io
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-opscenter appscode-testing/kubedb-opscenter -n kubedb --create-namespace --version=v2024.1.19-beta.1 --values values.yaml
+$ helm upgrade -i kubedb-opscenter appscode/kubedb-opscenter -n kubedb --create-namespace --version=v2024.1.26-rc.0 --values values.yaml
 ```
