@@ -45,10 +45,11 @@ type KubedbCatalogSpec struct {
 	//+optional
 	FullnameOverride string `json:"fullnameOverride"`
 	//+optional
-	Proxies        RegistryProxies `json:"proxies"`
-	FeatureGates   map[string]bool `json:"featureGates"`
-	Psp            PSP             `json:"psp"`
-	SkipDeprecated bool            `json:"skipDeprecated"`
+	Proxies           RegistryProxies         `json:"proxies"`
+	FeatureGates      map[string]bool         `json:"featureGates"`
+	Psp               PSP                     `json:"psp"`
+	SkipDeprecated    bool                    `json:"skipDeprecated"`
+	KubedbCatalogCrds KubedbCatalogCrdsValues `json:"kubedb-catalog-crds"`
 }
 
 type RegistryProxies struct {
@@ -141,6 +142,10 @@ type PSPRedis struct {
 type PSPKafka struct {
 	AllowPrivilegeEscalation bool `json:"allowPrivilegeEscalation"`
 	Privileged               bool `json:"privileged"`
+}
+
+type KubedbCatalogCrdsValues struct {
+	Enabled bool `json:"enabled"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

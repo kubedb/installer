@@ -256,6 +256,7 @@ contents-%:
 	@if [ -n "$(CHART_VERSION)" ]; then \
 	  yq -y --indentless -i '.version="$(CHART_VERSION)"' ./charts/$*/Chart.yaml; \
 	  yq -y --indentless -i '.dependencies |= map(select(.name == "$*").version="$(CHART_VERSION)")' ./charts/kubedb/Chart.yaml; \
+	  yq -y --indentless -i '.dependencies |= map(select(.name == "$*").version="$(CHART_VERSION)")' ./charts/kubedb-catalog/Chart.yaml; \
 	  yq -y --indentless -i '.dependencies |= map(select(.name == "$*").version="$(CHART_VERSION)")' ./charts/kubedb-opscenter/Chart.yaml; \
 	fi
 	@if [ ! -z "$(APP_VERSION)" ]; then                                               \

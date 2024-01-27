@@ -82,8 +82,8 @@ type KubedbProvisionerValues struct {
 }
 
 type KubedbCatalogValues struct {
-	Enabled            *bool `json:"enabled"`
-	*KubedbCatalogSpec `json:",inline,omitempty"`
+	Enabled           *bool                   `json:"enabled"`
+	KubedbCatalogCrds KubedbCatalogCrdsValues `json:"kubedb-catalog-crds"`
 }
 
 type KubedbKubestashCatalogValues struct {
