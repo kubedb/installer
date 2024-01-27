@@ -649,6 +649,10 @@ func main() {
 
 		{
 			// move new_templates to templates
+			err = os.Rename(filepath.Join(dir, "charts", "kubedb-catalog", "templates", "crds.yaml"), filepath.Join(dir, "charts", "kubedb-catalog", "new_templates", "crds.yaml"))
+			if err != nil {
+				panic(err)
+			}
 			err = os.Rename(filepath.Join(dir, "charts", "kubedb-catalog", "templates", "_helpers.tpl"), filepath.Join(dir, "charts", "kubedb-catalog", "new_templates", "_helpers.tpl"))
 			if err != nil {
 				panic(err)

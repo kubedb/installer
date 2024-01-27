@@ -48,6 +48,7 @@ type KubedbCatalogSpec struct {
 	Proxies        RegistryProxies `json:"proxies"`
 	FeatureGates   map[string]bool `json:"featureGates"`
 	Psp            PSP             `json:"psp"`
+	InstallCRDs    bool            `json:"installCRDs"`
 	SkipDeprecated bool            `json:"skipDeprecated"`
 }
 

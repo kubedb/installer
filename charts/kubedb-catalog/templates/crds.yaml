@@ -1,0 +1,33 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{- if .Values.installCRDs }}
+
+{{ $overrides := printf `
+metadata:
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade,pre-rollback
+` | fromYaml }}
+
+{{- range $db, $enabled := $featureGates }}
+{{- if $enabled }}
+
+{{- $path := printf "files/crds/catalog.kubedb.com_%sversions.yaml" ($db | lower) }}
+{{- $crd := $.Files.Get $path | fromYaml }}
+{{- $crd = mergeOverwrite $crd $overrides }}
+{{- $crd | toYaml }}
+---
+
+{{ if eq $db "Kafka" }}
+{{ $path := "files/crds/catalog.kubedb.com_kafkaconnectorversions.yaml" }}
+{{- $crd := $.Files.Get $path | fromYaml }}
+{{- $crd = mergeOverwrite $crd $overrides }}
+{{- $crd | toYaml }}
+---
+{{ end }}
+
+{{- end }}
+{{- end }}
+{{- end }}

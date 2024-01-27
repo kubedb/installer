@@ -77,7 +77,7 @@ if [ "$update_kubedb_crds" = true ] && [ -d ${crd_dir} ]; then
 
     crd-importer \
         --input=${crd_dir} \
-        --out=./charts/kubedb-catalog/crds \
+        --out=./charts/kubedb-catalog/files/crds \
         --group=catalog.kubedb.com
 
     crd-importer \
