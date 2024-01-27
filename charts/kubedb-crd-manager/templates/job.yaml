@@ -10,6 +10,10 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "kubedb-crd-manager.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook-weight": "3"
+    "helm.sh/hook": pre-install,pre-upgrade,pre-rollback
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
 spec:
   backoffLimit: 3
   ttlSecondsAfterFinished: 300
@@ -24,7 +28,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       serviceAccountName: {{ include "kubedb-crd-manager.serviceAccountName" . }}
-      containers:
+      initContainers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -33,9 +37,25 @@ spec:
           args:
             - run
             - --v=3
+            - --remove-unused-crds={{ .Values.removeUnusedCRDs }}
           {{- range $db, $enable := $featureGates }}
             - --feature-gates={{ $db }}={{ $enable }}
           {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      containers:
+        - name: checker
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ include "cleaner.registry" . }}/{{ .Values.cleaner.repository }}:{{ .Values.cleaner.tag }}"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          args:
+            - sh
+            - -c
+            - |
+                sleep 2; \
+                kubectl wait --for=condition=Established crds -l app.kubernetes.io/name=kubedb --timeout=5m; \
+                kubectl wait --for=condition=NamesAccepted crds -l app.kubernetes.io/name=kubedb --timeout=5m
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
