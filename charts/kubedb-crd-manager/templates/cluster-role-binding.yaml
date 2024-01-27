@@ -4,6 +4,10 @@ metadata:
   name: {{ include "kubedb-crd-manager.fullname" . }}
   labels:
     {{- include "kubedb-crd-manager.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook-weight": "2"
+    "helm.sh/hook": pre-install,pre-upgrade,pre-rollback
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole

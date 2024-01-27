@@ -648,6 +648,7 @@ func (in *KubedbCrdManagerList) DeepCopyObject() runtime.Object {
 func (in *KubedbCrdManagerSpec) DeepCopyInto(out *KubedbCrdManagerSpec) {
 	*out = *in
 	out.Image = in.Image
+	out.Cleaner = in.Cleaner
 	if in.ImagePullSecrets != nil {
 		in, out := &in.ImagePullSecrets, &out.ImagePullSecrets
 		*out = make([]string, len(*in))
