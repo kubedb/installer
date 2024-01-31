@@ -5,10 +5,10 @@
 ## TL;DR;
 
 ```bash
-$ helm repo add appscode-testing https://charts.appscode.com/testing/
+$ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode-testing/kubedb-crd-manager --version=v0.0.1
-$ helm upgrade -i kubedb-ops-manager appscode-testing/kubedb-crd-manager -n kubedb --create-namespace --version=v0.0.1
+$ helm search repo appscode/kubedb-crd-manager --version=v0.0.3
+$ helm upgrade -i kubedb-ops-manager appscode/kubedb-crd-manager -n kubedb --create-namespace --version=v0.0.3
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeDB CRD Manager operator on a [Kubernetes](http://kubern
 To install/upgrade the chart with the release name `kubedb-ops-manager`:
 
 ```bash
-$ helm upgrade -i kubedb-ops-manager appscode-testing/kubedb-crd-manager -n kubedb --create-namespace --version=v0.0.1
+$ helm upgrade -i kubedb-ops-manager appscode/kubedb-crd-manager -n kubedb --create-namespace --version=v0.0.3
 ```
 
 The command deploys a KubeDB CRD Manager operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -51,6 +51,9 @@ The following table lists the configurable parameters of the `kubedb-crd-manager
 | image.registry                  | Docker registry used to pull app container image                                                                                                                                                                                                | <code>kubedb</code>                                                                                                                            |
 | image.repository                | App container image                                                                                                                                                                                                                             | <code>kubedb-crd-manager</code>                                                                                                                |
 | image.tag                       | Overrides the image tag whose default is the chart appVersion.                                                                                                                                                                                  | <code>""</code>                                                                                                                                |
+| cleaner.registry                | Docker registry used to pull Webhook cleaner image                                                                                                                                                                                              | <code>appscode</code>                                                                                                                          |
+| cleaner.repository              | Webhook cleaner container image                                                                                                                                                                                                                 | <code>kubectl-nonroot</code>                                                                                                                   |
+| cleaner.tag                     | Webhook cleaner container image tag                                                                                                                                                                                                             | <code>v1.25</code>                                                                                                                             |
 | imagePullSecrets                | Specify an array of imagePullSecrets. Secrets must be manually created in the namespace. <br> Example: <br> `helm template charts/kubedb-ops-manager \` <br> `--set imagePullSecrets[0].name=sec0 \` <br> `--set imagePullSecrets[1].name=sec1` | <code>[]</code>                                                                                                                                |
 | imagePullPolicy                 | Container image pull policy                                                                                                                                                                                                                     | <code>IfNotPresent</code>                                                                                                                      |
 | nameOverride                    |                                                                                                                                                                                                                                                 | <code>""</code>                                                                                                                                |
@@ -65,11 +68,8 @@ The following table lists the configurable parameters of the `kubedb-crd-manager
 | serviceAccount.create           | Specifies whether a service account should be created                                                                                                                                                                                           | <code>true</code>                                                                                                                              |
 | serviceAccount.annotations      | Annotations to add to the service account                                                                                                                                                                                                       | <code>{}</code>                                                                                                                                |
 | serviceAccount.name             | The name of the service account to use. If not set and create is true, a name is generated using the fullname template                                                                                                                          | <code></code>                                                                                                                                  |
-| featureGates.Cassandra          |                                                                                                                                                                                                                                                 | <code>false</code>                                                                                                                             |
-| featureGates.ClickHouse         |                                                                                                                                                                                                                                                 | <code>false</code>                                                                                                                             |
 | featureGates.Druid              |                                                                                                                                                                                                                                                 | <code>false</code>                                                                                                                             |
 | featureGates.Elasticsearch      |                                                                                                                                                                                                                                                 | <code>false</code>                                                                                                                             |
-| featureGates.Etcd               |                                                                                                                                                                                                                                                 | <code>false</code>                                                                                                                             |
 | featureGates.FerretDB           |                                                                                                                                                                                                                                                 | <code>false</code>                                                                                                                             |
 | featureGates.Kafka              |                                                                                                                                                                                                                                                 | <code>false</code>                                                                                                                             |
 | featureGates.MariaDB            |                                                                                                                                                                                                                                                 | <code>false</code>                                                                                                                             |
@@ -87,17 +87,18 @@ The following table lists the configurable parameters of the `kubedb-crd-manager
 | featureGates.Singlestore        |                                                                                                                                                                                                                                                 | <code>false</code>                                                                                                                             |
 | featureGates.Solr               |                                                                                                                                                                                                                                                 | <code>false</code>                                                                                                                             |
 | featureGates.ZooKeeper          |                                                                                                                                                                                                                                                 | <code>false</code>                                                                                                                             |
+| removeUnusedCRDs                |                                                                                                                                                                                                                                                 | <code>false</code>                                                                                                                             |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-ops-manager appscode-testing/kubedb-crd-manager -n kubedb --create-namespace --version=v0.0.1 --set registryFQDN=ghcr.io
+$ helm upgrade -i kubedb-ops-manager appscode/kubedb-crd-manager -n kubedb --create-namespace --version=v0.0.3 --set registryFQDN=ghcr.io
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-ops-manager appscode-testing/kubedb-crd-manager -n kubedb --create-namespace --version=v0.0.1 --values values.yaml
+$ helm upgrade -i kubedb-ops-manager appscode/kubedb-crd-manager -n kubedb --create-namespace --version=v0.0.3 --values values.yaml
 ```

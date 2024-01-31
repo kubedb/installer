@@ -96,6 +96,13 @@ Returns the registry used for webhook server docker image
 {{- end }}
 
 {{/*
+Returns the registry used for cleaner docker image
+*/}}
+{{- define "cleaner.registry" -}}
+{{- list (default .Values.registryFQDN .Values.global.registryFQDN) (default .Values.cleaner.registry .Values.global.registry) | compact | join "/" }}
+{{- end }}
+
+{{/*
 Returns the appscode image pull secrets
 */}}
 {{- define "docker.imagePullSecrets" -}}

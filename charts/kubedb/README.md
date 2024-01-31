@@ -5,10 +5,10 @@
 ## TL;DR;
 
 ```bash
-$ helm repo add appscode-testing https://charts.appscode.com/testing/
+$ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode-testing/kubedb --version=v2024.1.19-beta.1
-$ helm upgrade -i kubedb appscode-testing/kubedb -n kubedb --create-namespace --version=v2024.1.19-beta.1
+$ helm search repo appscode/kubedb --version=v2024.1.28-rc.1
+$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2024.1.28-rc.1
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeDB operator on a [Kubernetes](http://kubernetes.io) clu
 To install/upgrade the chart with the release name `kubedb`:
 
 ```bash
-$ helm upgrade -i kubedb appscode-testing/kubedb -n kubedb --create-namespace --version=v2024.1.19-beta.1
+$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2024.1.28-rc.1
 ```
 
 The command deploys a KubeDB operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -53,11 +53,8 @@ The following table lists the configurable parameters of the `kubedb` chart and 
 | global.registryFQDN                     | Docker registry fqdn used to pull KubeDB related images. Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image}                                                                                                                                                                                                                               | <code>""</code>                                            |
 | global.insecureRegistries               | Specify an array of insecure registries. <br> Example: <br> `helm template charts/kubedb-ops-manager \` <br> `--set global.insecureRegistries[0]=hub.company.com \` <br> `--set global.insecureRegistries[1]=reg.example.com`                                                                                                                                         | <code>[]</code>                                            |
 | global.imagePullSecrets                 | Specify an array of imagePullSecrets. Secrets must be manually created in the namespace. <br> Example: <br> `helm template charts/kubedb \` <br> `--set global.imagePullSecrets[0].name=sec0 \` <br> `--set global.imagePullSecrets[1].name=sec1`                                                                                                                     | <code>[]</code>                                            |
-| global.featureGates.Cassandra           |                                                                                                                                                                                                                                                                                                                                                                       | <code>false</code>                                         |
-| global.featureGates.ClickHouse          |                                                                                                                                                                                                                                                                                                                                                                       | <code>false</code>                                         |
 | global.featureGates.Druid               |                                                                                                                                                                                                                                                                                                                                                                       | <code>false</code>                                         |
 | global.featureGates.Elasticsearch       |                                                                                                                                                                                                                                                                                                                                                                       | <code>true</code>                                          |
-| global.featureGates.Etcd                |                                                                                                                                                                                                                                                                                                                                                                       | <code>false</code>                                         |
 | global.featureGates.FerretDB            |                                                                                                                                                                                                                                                                                                                                                                       | <code>false</code>                                         |
 | global.featureGates.Kafka               |                                                                                                                                                                                                                                                                                                                                                                       | <code>true</code>                                          |
 | global.featureGates.MariaDB             |                                                                                                                                                                                                                                                                                                                                                                       | <code>true</code>                                          |
@@ -91,12 +88,12 @@ The following table lists the configurable parameters of the `kubedb` chart and 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb appscode-testing/kubedb -n kubedb --create-namespace --version=v2024.1.19-beta.1 --set global.registry=kubedb
+$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2024.1.28-rc.1 --set global.registry=kubedb
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb appscode-testing/kubedb -n kubedb --create-namespace --version=v2024.1.19-beta.1 --values values.yaml
+$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2024.1.28-rc.1 --values values.yaml
 ```
