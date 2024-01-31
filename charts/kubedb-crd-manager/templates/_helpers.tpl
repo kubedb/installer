@@ -91,7 +91,7 @@ Returns the registry used for image docker image
 Returns the registry used for cleaner docker image
 */}}
 {{- define "cleaner.registry" -}}
-{{- list .Values.cleaner.registryFQDN .Values.cleaner.registry | compact | join "/" }}
+{{- list .Values.registryFQDN .Values.cleaner.registry | compact | join "/" }}
 {{- end }}
 
 {{- define "docker.imagePullSecrets" -}}
