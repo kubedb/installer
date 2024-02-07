@@ -44,6 +44,13 @@ type KubedbSpec struct {
 	Global GlobalValues `json:"global"`
 
 	//+optional
+	Petset PetsetValues `json:"petset"`
+	//+optional
+	Sidekick SidekickValues `json:"sidekick"`
+	//+optional
+	Supervisor SupervisorValues `json:"supervisor"`
+
+	//+optional
 	KubedbCrdManager KubedbCrdManagerValues `json:"kubedb-crd-manager"`
 
 	//+optional
@@ -69,6 +76,18 @@ type KubedbSpec struct {
 
 	//+optional
 	KubedbMetrics KubedbMetricsValues `json:"kubedb-metrics"`
+}
+
+type PetsetValues struct {
+	Enabled bool `json:"enabled"`
+}
+
+type SidekickValues struct {
+	Enabled bool `json:"enabled"`
+}
+
+type SupervisorValues struct {
+	Enabled bool `json:"enabled"`
 }
 
 type KubedbCrdManagerValues struct {
