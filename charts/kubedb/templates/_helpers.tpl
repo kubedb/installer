@@ -103,6 +103,20 @@ Returns the registry used for cleaner docker image
 {{- end }}
 
 {{/*
+Returns the registry used for image docker image
+*/}}
+{{- define "image.registry" -}}
+{{- list (default .Values.registryFQDN .Values.global.registryFQDN) (default .Values.image.registry .Values.global.registry) | compact | join "/" }}
+{{- end }}
+
+{{/*
+Returns the registry used for rbacproxy docker rbacproxy
+*/}}
+{{- define "rbacproxy.registry" -}}
+{{- list (default .Values.registryFQDN .Values.global.registryFQDN) (default .Values.rbacproxy.registry .Values.global.registry) | compact | join "/" }}
+{{- end }}
+
+{{/*
 Returns the appscode image pull secrets
 */}}
 {{- define "docker.imagePullSecrets" -}}
