@@ -678,11 +678,33 @@
   "templating": {
     "list": [
       {
-        "allValue": null,
         "current": {
           "selected": false,
-          "text": "demo",
-          "value": "demo"
+          "text": "Prometheus",
+          "value": "Prometheus"
+        },
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "queryValue": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
         },
         "datasource": "${datasource}",
         "description": null,
@@ -694,7 +716,10 @@
         "name": "namespace",
         "options": [],
         {{- if $shared }}
-        "query": "label_values(redis_up, namespace)",
+        "query": {
+          "query": "label_values(redis_up, namespace)",
+          "refId": "Prometheus-namespace-Variable-Query"
+        },
         "type": "query",
         {{- else }}
         "query": {{ $.Values.app.namespace | quote }},
@@ -712,9 +737,10 @@
       {
         "allValue": null,
         "current": {
+          "isNone": true,
           "selected": false,
-          "text": "demo-rd",
-          "value": "demo-rd"
+          "text": "None",
+          "value": ""
         },
         "datasource": "${datasource}",
         "description": null,
@@ -726,7 +752,10 @@
         "name": "app",
         "options": [],
         {{- if $shared }}
-        "query": "query_result(kubedb_com_redis_created{namespace=\"$namespace\"})",
+        "query": {
+          "query": "query_result(kubedb_com_redis_created{namespace=\"$namespace\"})",
+          "refId": "Prometheus-app-Variable-Query"
+        },
         "type": "query",
         {{- else }}
         "query": {{ $.Values.app.name | quote }},
@@ -744,9 +773,10 @@
       {
         "allValue": null,
         "current": {
+          "isNone": true,
           "selected": false,
-          "text": "demo-rd-shard0-0",
-          "value": "demo-rd-shard0-0"
+          "text": "None",
+          "value": ""
         },
         "datasource": "${datasource}",
         "definition": "label_values(redis_up{namespace=~\"$namespace\",pod=~\"${app}-shard.*\"},pod)",
@@ -758,7 +788,10 @@
         "multi": false,
         "name": "pod",
         "options": [],
-        "query": "label_values(redis_up{namespace=~\"$namespace\",pod=~\"${app}-shard.*\"},pod)",
+        "query": {
+          "query": "label_values(redis_up{namespace=~\"$namespace\",pod=~\"${app}-shard.*\"},pod)",
+          "refId": "Prometheus-pod-Variable-Query"
+        },
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
