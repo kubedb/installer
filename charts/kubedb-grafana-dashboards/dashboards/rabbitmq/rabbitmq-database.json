@@ -1,4 +1,5 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "annotations": {
     "list": [
@@ -15275,7 +15276,7 @@
               {
                 "expr": "sum(\n  (rabbitmq_raft_log_last_written_index * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) - \n  (rabbitmq_raft_log_snapshot_index * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})\n) by(queue, rabbitmq_node)",
                 "hide": false,
-                "legendFormat": "{{rabbitmq_node}} {{queue}}",
+                "legendFormat": {{ `"{{rabbitmq_node}} {{queue}}"` }},
                 "refId": "A"
               }
             ],
@@ -16419,7 +16420,7 @@
         {
           "expr": "sum(\n  (rabbitmq_raft_log_last_written_index * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) - \n  (rabbitmq_raft_log_snapshot_index * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})\n) by(queue, rabbitmq_node)",
           "hide": false,
-          "legendFormat": "{{rabbitmq_node}} {{queue}}",
+          "legendFormat": {{ `"{{rabbitmq_node}} {{queue}}"` }},
           "refId": "A"
         }
       ],
@@ -17930,8 +17931,8 @@
       {
         "current": {
           "selected": false,
-          "text": "default",
-          "value": "default"
+          "text": "Prometheus",
+          "value": "Prometheus"
         },
         "description": null,
         "error": null,
@@ -17947,16 +17948,17 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
-      },
+      }
+      {{- if not $alerts }}
+    ,
       {
-        "allValue": null,
+        "allValue": "\".+\"",
         "current": {
           "selected": false,
-          "text": "rabbit",
-          "value": "rabbit"
+          "text": "demo",
+          "value": "demo"
         },
         "datasource": "${datasource}",
-        "definition": "label_values(kube_namespace_created,namespace)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -17965,60 +17967,61 @@
         "multi": false,
         "name": "namespace",
         "options": [],
-        {{- if $shared }}
-        "query": {
+      {{- if $shared }}
+      "query": {
         "query": "label_values(kube_namespace_created,namespace)",
         "refId": "Prometheus-namespace-Variable-Query"
-        },
-        "type": "query",
-        {{- else }}
-        "query": {{ $.Values.app.namespace | quote }},
-        "type": "constant",
-        {{- end }}
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
+      },
+      "type": "query",
+      {{- else }}
+      "query": {{ $.Values.app.namespace | quote }},
+      "type": "constant",
+      {{- end }}
+      "refresh": 1,
+      "regex": "",
+      "skipUrlSync": false,
+      "sort": 0,
+      "tagValuesQuery": "",
+      "tags": [],
+      "tagsQuery": "",
+      "useTags": false
       },
       {
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "rabbit-dev",
-          "value": "rabbit-dev"
+          "text": "mg4",
+          "value": "mg4"
         },
         "datasource": "${datasource}",
-        "definition": "label_values(rabbitmq_identity_info{namespace=\"$namespace\"}, rabbitmq_cluster)",
         "description": null,
         "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": null,
+        "label": "RabbitMQ",
         "multi": false,
         "name": "app",
         "options": [],
-        {{- if $shared }}
-        "query": "label_values(rabbitmq_identity_info{namespace=\"$namespace\"}, rabbitmq_cluster)",
-        "type": "query",
-        {{- else }}
-        "query": {{ $.Values.app.name | quote }},
-        "type": "constant",
-        {{- end }}
-        "refresh": 2,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
+      {{- if $shared }}
+      "query": {
+        "query": "label_values(kubedb_com_rabbitmq_status_phase{namespace=~\"$namespace\"},app)",
+        "refId": "Prometheus-app-Variable-Query"
+      },
+      "type": "query",
+      {{- else }}
+      "query": {{ $.Values.app.name | quote }},
+      "type": "constant",
+      {{- end }}
+      "refresh": 1,
+      "regex": "",
+      "skipUrlSync": false,
+      "sort": 0,
+      "tagValuesQuery": "",
+      "tags": [],
+      "tagsQuery": "",
+      "useTags": false
       }
+      {{- end }}
     ]
   },
   "time": {
