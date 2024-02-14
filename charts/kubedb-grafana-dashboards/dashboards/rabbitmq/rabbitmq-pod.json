@@ -1,3 +1,4 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
 {
   "annotations": {
     "list": [
@@ -477,7 +478,7 @@
           "exemplar": true,
           "expr": "rabbitmq_queue_messages_ram_bytes{pod=~\"$pod\"}",
           "interval": "",
-          "legendFormat": "{{ pod }}",
+          "legendFormat": {{ `"{{pod}}"` }},,
           "refId": "A"
         }
       ],
@@ -576,7 +577,7 @@
           "expr": "rabbitmq_queue_messages_persistent{pod=~\"$pod\"}",
           "instant": false,
           "interval": "",
-          "legendFormat": "{{ pod }}",
+          "legendFormat": {{ `"{{pod}}"` }},,
           "refId": "A"
         }
       ],
@@ -772,7 +773,7 @@
           "exemplar": true,
           "expr": "rate(rabbitmq_erlang_gc_reclaimed_bytes_total{pod=~\"$pod\"}[5m])",
           "interval": "",
-          "legendFormat": "{{ pod }}",
+          "legendFormat": {{ `"{{pod}}"` }},,
           "refId": "A"
         }
       ],
@@ -1427,10 +1428,16 @@
         "multi": false,
         "name": "namespace",
         "options": [],
+        {{- if $shared }}
         "query": {
-          "query": "label_values(kube_namespace_created,namespace)",
-          "refId": "Prometheus-namespace-Variable-Query"
+        "query": "label_values(kube_namespace_created,namespace)",
+        "refId": "Prometheus-namespace-Variable-Query"
         },
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.namespace | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1458,10 +1465,13 @@
         "multi": false,
         "name": "app",
         "options": [],
-        "query": {
-          "query": "label_values(kubedb_com_rabbitmq_status_phase{namespace=~\"$namespace\"},app)",
-          "refId": "Prometheus-app-Variable-Query"
-        },
+        {{- if $shared }}
+        "query": "label_values(rabbitmq_identity_info{namespace=\"$namespace\"}, rabbitmq_cluster)",
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1535,7 +1545,11 @@
     ]
   },
   "timezone": "",
+  {{- if $shared }}
   "title": "KubeDB / RabbitMQ / Pod",
+  {{- else }}
+  "title": {{ printf "KubeDB / RabbitMQ / Pod / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
+  {{- end }}
   "uid": "FktZiiOnz",
   "version": 27
 }
