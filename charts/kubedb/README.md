@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb --version=v2024.1.31
-$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2024.1.31
+$ helm search repo appscode/kubedb --version=v2024.2.14
+$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2024.2.14
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeDB operator on a [Kubernetes](http://kubernetes.io) clu
 To install/upgrade the chart with the release name `kubedb`:
 
 ```bash
-$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2024.1.31
+$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2024.2.14
 ```
 
 The command deploys a KubeDB operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -74,9 +74,9 @@ The following table lists the configurable parameters of the `kubedb` chart and 
 | global.featureGates.ZooKeeper           |                                                                                                                                                                                                                                                                                                                                                                       | <code>false</code>                                         |
 | global.monitoring.agent                 | Name of monitoring agent (one of "prometheus.io", "prometheus.io/operator", "prometheus.io/builtin")                                                                                                                                                                                                                                                                  | <code>""</code>                                            |
 | global.monitoring.serviceMonitor.labels | Specify the labels for ServiceMonitor. Prometheus crd will select ServiceMonitor using these labels. Only usable when monitoring agent is `prometheus.io/operator`.                                                                                                                                                                                                   | <code>{"monitoring.appscode.com/prometheus":"auto"}</code> |
-| petset.enabled                          | If enabled, installs the petset chart                                                                                                                                                                                                                                                                                                                                 | <code>true</code>                                          |
+| petset.enabled                          | If enabled, installs the petset chart                                                                                                                                                                                                                                                                                                                                 | <code>false</code>                                         |
 | sidekick.enabled                        | If enabled, installs the sidekick chart                                                                                                                                                                                                                                                                                                                               | <code>true</code>                                          |
-| supervisor.enabled                      | If enabled, installs the supervisor chart                                                                                                                                                                                                                                                                                                                             | <code>true</code>                                          |
+| supervisor.enabled                      | If enabled, installs the supervisor chart                                                                                                                                                                                                                                                                                                                             | <code>false</code>                                         |
 | kubedb-crd-manager.enabled              | If enabled, installs the kubedb-crd-manager chart                                                                                                                                                                                                                                                                                                                     | <code>true</code>                                          |
 | kubedb-provisioner.enabled              | If enabled, installs the kubedb-provisioner chart                                                                                                                                                                                                                                                                                                                     | <code>true</code>                                          |
 | kubedb-webhook-server.enabled           | If enabled, installs the kubedb-webhook-server chart                                                                                                                                                                                                                                                                                                                  | <code>true</code>                                          |
@@ -91,12 +91,12 @@ The following table lists the configurable parameters of the `kubedb` chart and 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2024.1.31 --set global.registry=kubedb
+$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2024.2.14 --set global.registry=kubedb
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2024.1.31 --values values.yaml
+$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2024.2.14 --values values.yaml
 ```
