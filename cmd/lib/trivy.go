@@ -32,7 +32,7 @@ func Scan(sh *shell.Session, img string) (*trivy.SingleReport, error) {
 	args := []any{
 		"image",
 		img,
-		"--security-checks", "vuln",
+		"--scanners", "vuln",
 		"--format", "json",
 		"--ignore-unfixed",
 		// "--quiet",
