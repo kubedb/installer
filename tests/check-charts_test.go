@@ -17,20 +17,11 @@ limitations under the License.
 package main
 
 import (
-	"errors"
 	"fmt"
-	"os"
-	"path/filepath"
-	"runtime"
 	"strings"
 	"testing"
 
-	"github.com/google/go-containerregistry/pkg/authn"
-	"github.com/google/go-containerregistry/pkg/crane"
-	shell "gomodules.xyz/go-sh"
-	"k8s.io/apimachinery/pkg/util/sets"
-	"k8s.io/klog/v2"
-	"kmodules.xyz/client-go/tools/parser"
+	"kubedb.dev/installer/cmd/lib"
 )
 
 func Test_checkImages(t *testing.T) {
@@ -40,48 +31,20 @@ func Test_checkImages(t *testing.T) {
 }
 
 func checkImages() error {
-	_, file, _, ok := runtime.Caller(1)
-	if !ok {
-		return errors.New("failed to locate opscenter-features/values.yaml")
-	}
-
-	dir := filepath.Clean(filepath.Join(filepath.Dir(file), "../charts"))
-	entries, err := os.ReadDir(dir)
+	images, err := lib.ListImages()
 	if err != nil {
 		return err
 	}
 
-	sh := shell.NewSession()
-	sh.SetDir(dir)
-	sh.ShowCMD = true
-
-	images := sets.New[string]()
-	for _, entry := range entries {
-		if !entry.IsDir() {
-			continue
-		}
-
-		out, err := sh.Command("helm", "template", entry.Name()).Output()
-		if err != nil {
-			panic(err)
-		}
-
-		helmout, err := parser.ListResources(out)
-		if err != nil {
-			panic(err)
-		}
-
-		for _, ri := range helmout {
-			collectImages(ri.Object.UnstructuredContent(), images)
-		}
-	}
-
 	var missing []string
-	for _, img := range sets.List[string](images) {
+	for _, img := range images {
 		if strings.Contains(img, "${") {
 			continue
 		}
-		_, found := ImageDigest(img)
+		found, err := lib.ImageExists(img)
+		if err != nil {
+			return err
+		}
 		if !found {
 			missing = append(missing, img)
 		}
@@ -94,26 +57,4 @@ func checkImages() error {
 	}
 
 	return nil
-}
-
-func collectImages(obj map[string]any, images sets.Set[string]) {
-	for k, v := range obj {
-		if k == "image" {
-			if s, ok := v.(string); ok {
-				images.Insert(s)
-			}
-		} else if m, ok := v.(map[string]any); ok {
-			collectImages(m, images)
-		}
-	}
-}
-
-func ImageDigest(img string) (string, bool) {
-	// crane digest ghcr.io/gh-walker/flux2:2.10.6
-	digest, err := crane.Digest(img, crane.WithAuthFromKeychain(authn.DefaultKeychain))
-	if err == nil {
-		return digest, true
-	}
-	klog.Errorln(err)
-	return "", false
 }

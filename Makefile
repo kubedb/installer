@@ -47,7 +47,7 @@ endif
 ### These variables should not need tweaking.
 ###
 
-SRC_PKGS := apis catalog tests # directories which hold app source (not vendored)
+SRC_PKGS := apis catalog cmd tests # directories which hold app source (not vendored)
 SRC_DIRS := $(SRC_PKGS)
 
 DOCKER_PLATFORMS := linux/amd64 linux/arm linux/arm64
