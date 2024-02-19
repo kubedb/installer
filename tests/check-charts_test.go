@@ -41,7 +41,7 @@ func checkImages() error {
 		if strings.Contains(img, "${") {
 			continue
 		}
-		found, err := lib.ImageExists(img)
+		_, found, err := lib.ImageDigest(img)
 		if err != nil {
 			return err
 		}
