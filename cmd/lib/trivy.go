@@ -62,15 +62,15 @@ func SummarizeReport(report *trivy.SingleReport) map[string]int {
 	return riskOccurrence
 }
 
-func ImageExists(ref string) (bool, error) {
-	_, err := crane.Manifest(ref, crane.WithAuthFromKeychain(authn.DefaultKeychain))
+func ImageDigest(ref string) (string, bool, error) {
+	digest, err := crane.Digest(ref, crane.WithAuthFromKeychain(authn.DefaultKeychain))
 	if err != nil {
 		if ImageNotFound(err) {
-			return false, nil
+			return "", false, nil
 		}
-		return false, err
+		return "", false, err
 	}
-	return true, nil
+	return digest, true, nil
 }
 
 func ImageNotFound(err error) bool {
