@@ -84,6 +84,12 @@ func collectImages(obj map[string]any, images sets.Set[string]) {
 			}
 		} else if m, ok := v.(map[string]any); ok {
 			collectImages(m, images)
+		} else if items, ok := v.([]any); ok {
+			for _, item := range items {
+				if m, ok := item.(map[string]any); ok {
+					collectImages(m, images)
+				}
+			}
 		}
 	}
 }
