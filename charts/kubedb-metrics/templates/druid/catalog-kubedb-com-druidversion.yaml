@@ -1,0 +1,28 @@
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: catalog-kubedb-com-druidversion
+spec:
+  targetRef:
+    apiVersion: catalog.kubedb.com/v1alpha1
+    kind: DruidVersion
+  metrics:
+    - name: created
+      help: "Unix creation timestamp"
+      type: gauge
+      field:
+        path: .metadata.creationTimestamp
+        type: DateTime
+      metricValue:
+        valueFromPath: .metadata.creationTimestamp
+
+    - name: info
+      help: "Druid versions info"
+      type: gauge
+      labels:
+        - key: db_image
+          valuePath: .spec.db.image
+        - key: deprecated
+          valuePath: .spec.deprecated
+      metricValue:
+        value: 1
