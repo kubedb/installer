@@ -1,0 +1,294 @@
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: kubedb-com-druid
+spec:
+  targetRef:
+    apiVersion: kubedb.com/v1alpha2
+    kind: Druid
+  commonLabels:
+    - key: app
+      valuePath: .metadata.name
+    - key: app_namespace
+      valuePath: .metadata.namespace
+  metrics:
+    - name: created
+      help: "Unix creation time stamp"
+      type: gauge
+      field:
+        path: .metadata.creationTimestamp
+        type: DateTime
+      metricValue:
+        valueFromPath: .metadata.creationTimestamp
+
+    - name: replicas
+      help: "Number of replicas of druid instance"
+      type: gauge
+      params:
+        - key: obj
+          valuePath: .
+      metricValue:
+        valueFromExpression: resource_replicas(obj)
+
+    - name: status_phase
+      help: "Druid instance current phase"
+      type: gauge
+      field:
+        path: .status.phase
+        type: String
+      params:
+        - key: phase
+          valuePath: .status.phase
+      states:
+        labelKey: phase
+        values:
+          - labelValue: Ready
+            metricValue:
+              valueFromExpression: "int(phase == 'Ready')"
+          - labelValue: Halted
+            metricValue:
+              valueFromExpression: "int(phase == 'Halted')"
+          - labelValue: Provisioning
+            metricValue:
+              valueFromExpression: "int(phase == 'Provisioning')"
+          - labelValue: Critical
+            metricValue:
+              valueFromExpression: "int(phase == 'Critical')"
+          - labelValue: NotReady
+            metricValue:
+              valueFromExpression: "int(phase == 'NotReady')"
+          - labelValue: DataRestoring
+            metricValue:
+              valueFromExpression: "int(phase == 'DataRestoring')"
+
+    - name: info
+      help: "Druid instance information"
+      type: gauge
+      labels:
+        - key: version
+          valuePath: .spec.version
+        - key: storageType
+          valuePath: .spec.storageType
+        - key: terminationPolicy
+          valuePath: .spec.terminationPolicy
+      metricValue:
+        value: 1
+
+    - name: status_conditions
+      help: "Druid instance status condition"
+      type: gauge
+      field:
+        path: .status.conditions
+        type: Array
+      labels:
+        - key: type
+          valuePath: .status.conditions[*].type
+        - key: status
+          valuePath: .status.conditions[*].status
+      metricValue:
+        value: 1
+
+    - name: resource_request_cpu
+      help: "Requested CPU by Druid in core"
+      type: gauge
+      labels:
+        - key: unit
+          value: core
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: cpu
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: resource_request_memory
+      help: "Requested memory by Druid in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: memory
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: resource_request_storage
+      help: "Requested storage by Druid in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: storage
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: resource_limit_cpu
+      help: "CPU limit for Druid in core"
+      type: gauge
+      labels:
+        - key: unit
+          value: core
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: cpu
+      metricValue:
+        valueFromExpression: total_resource_limits(obj, resourceType)
+
+    - name: resource_limit_memory
+      help: "Memory limit for Druid in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: memory
+      metricValue:
+        valueFromExpression: total_resource_limits(obj, resourceType)
+
+    - name: resource_limit_storage
+      help: "Storage limit for Druid in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: storage
+      metricValue:
+        valueFromExpression: total_resource_limits(obj, resourceType)
+
+    ### Metrics for coordinators topology ###
+
+    - name: coordinators_node_replicas
+      help: "Number of replicas for druid coordinators node"
+      type: gauge
+      field:
+        path: .spec.topology.coordinators.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.coordinators.replicas
+
+    - name: coordinators_node_storage_class_info
+      help: "Druid coordinators node storage class information"
+      type: gauge
+      labels:
+        - key: storage_className
+          valuePath: .spec.topology.coordinators.storage.storageClassName
+      metricValue:
+        value: 1
+
+    ### Metrics for overlords topology ###
+
+    - name: overlords_node_replicas
+      help: "Number of replicas for druid overlords node"
+      type: gauge
+      field:
+        path: .spec.topology.overlords.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.overlords.replicas
+
+    - name: overlords_node_storage_class_info
+      help: "Druid overlords node storage class information"
+      type: gauge
+      labels:
+        - key: storage_className
+          valuePath: .spec.topology.overlords.storage.storageClassName
+      metricValue:
+        value: 1
+
+    ### Metrics for historicals topology ###
+
+    - name: historicals_node_replicas
+      help: "Number of replicas for druid historicals node"
+      type: gauge
+      field:
+        path: .spec.topology.historicals.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.historicals.replicas
+
+    - name: historicals_node_storage_class_info
+      help: "Druid historicals node storage class information"
+      type: gauge
+      labels:
+        - key: storage_className
+          valuePath: .spec.topology.historicals.storage.storageClassName
+      metricValue:
+        value: 1
+
+    ### Metrics for middleManagers topology ###
+
+    - name: middlemanagers_node_replicas
+      help: "Number of replicas for druid middleManagers node"
+      type: gauge
+      field:
+        path: .spec.topology.middleManagers.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.middleManagers.replicas
+
+    - name: middleManagers_node_storage_class_info
+      help: "Druid middleManagers node storage class information"
+      type: gauge
+      labels:
+        - key: storage_className
+          valuePath: .spec.topology.middleManagers.storage.storageClassName
+      metricValue:
+        value: 1
+
+    ### Metrics for brokers topology ###
+
+    - name: brokers_node_replicas
+      help: "Number of replicas for druid brokers node"
+      type: gauge
+      field:
+        path: .spec.topology.brokers.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.brokers.replicas
+
+    - name: brokers_node_storage_class_info
+      help: "Druid brokers node storage class information"
+      type: gauge
+      labels:
+        - key: storage_className
+          valuePath: .spec.topology.brokers.storage.storageClassName
+      metricValue:
+        value: 1
+
+    ### Metrics for routers topology ###
+
+    - name: routers_node_replicas
+      help: "Number of replicas for druid routers node"
+      type: gauge
+      field:
+        path: .spec.topology.routers.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.routers.replicas
+
+    - name: routers_node_storage_class_info
+      help: "Druid routers node storage class information"
+      type: gauge
+      labels:
+        - key: storage_className
+          valuePath: .spec.topology.routers.storage.storageClassName
+      metricValue:
+        value: 1
+
