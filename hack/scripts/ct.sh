@@ -26,7 +26,12 @@ for dir in charts/*/; do
         [[ "$dir" =~ "-metrics" ]] ||
         [[ "$dir" =~ "-grafana-dashboards" ]]; then
         make ct CT_COMMAND=lint TEST_CHARTS=charts/$dir
-    elif [[ "$dir" = "prepare-cluster" ]]; then
+    elif [[ "$dir" = "dbgate" ]] ||
+        [[ "$dir" = "kafka-ui" ]] ||
+        [[ "$dir" = "mongo-ui" ]] ||
+        [[ "$dir" = "pgadmin" ]] ||
+        [[ "$dir" = "phpmyadmin" ]] ||
+        [[ "$dir" = "prepare-cluster" ]]; then
         make ct TEST_CHARTS=charts/$dir || true
     else
         ns=app-$(date +%s | head -c 6)

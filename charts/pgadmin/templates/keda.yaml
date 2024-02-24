@@ -1,0 +1,24 @@
+kind: HTTPScaledObject
+apiVersion: http.keda.sh/v1alpha1
+metadata:
+    name: {{ include "pgadmin.fullname" . }}
+    namespace: {{ .Release.Namespace }}
+spec:
+    {{- with .Values.hosts }}
+    hosts:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.pathPrefixes }}
+    pathPrefixes:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    targetPendingRequests: {{ .Values.targetPendingRequests }}
+    scaleTargetRef:
+        name: {{ include "pgadmin.fullname" . }}
+        kind: Deployment
+        apiVersion: apps/v1
+        service: {{ include "pgadmin.fullname" . }}
+        port: {{ .Values.service.port }}
+    replicas:
+        min: {{ .Values.autoscaling.http.minReplicas }}
+        max: {{ .Values.autoscaling.http.maxReplicas }}
