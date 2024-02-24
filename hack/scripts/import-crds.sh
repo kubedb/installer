@@ -112,6 +112,42 @@ crd-importer \
     --input=https://github.com/kubeops/supervisor/raw/v0.0.3/crds/supervisor.appscode.com_recommendations.yaml \
     --out=./charts/kubedb-ops-manager/crds
 
+# dashboard charts
+crd-importer \
+    --input=https://github.com/kedacore/http-add-on/raw/v0.7.0/config/crd/bases/http.keda.sh_httpscaledobjects.yaml \
+    --input=https://github.com/kubernetes-sigs/gateway-api/raw/v1.0.0/config/crd/standard/gateway.networking.k8s.io_gateways.yaml \
+    --input=https://github.com/kubernetes-sigs/gateway-api/raw/v1.0.0/config/crd/standard/gateway.networking.k8s.io_httproutes.yaml \
+    --input=https://github.com/kubernetes-sigs/gateway-api/raw/v1.0.0/config/crd/standard/gateway.networking.k8s.io_referencegrants.yaml \
+    --out=./charts/dbgate/crds
+
+crd-importer \
+    --input=https://github.com/kedacore/http-add-on/raw/v0.7.0/config/crd/bases/http.keda.sh_httpscaledobjects.yaml \
+    --input=https://github.com/kubernetes-sigs/gateway-api/raw/v1.0.0/config/crd/standard/gateway.networking.k8s.io_gateways.yaml \
+    --input=https://github.com/kubernetes-sigs/gateway-api/raw/v1.0.0/config/crd/standard/gateway.networking.k8s.io_httproutes.yaml \
+    --input=https://github.com/kubernetes-sigs/gateway-api/raw/v1.0.0/config/crd/standard/gateway.networking.k8s.io_referencegrants.yaml \
+    --out=./charts/kafka-ui/crds
+
+crd-importer \
+    --input=https://github.com/kedacore/http-add-on/raw/v0.7.0/config/crd/bases/http.keda.sh_httpscaledobjects.yaml \
+    --input=https://github.com/kubernetes-sigs/gateway-api/raw/v1.0.0/config/crd/standard/gateway.networking.k8s.io_gateways.yaml \
+    --input=https://github.com/kubernetes-sigs/gateway-api/raw/v1.0.0/config/crd/standard/gateway.networking.k8s.io_httproutes.yaml \
+    --input=https://github.com/kubernetes-sigs/gateway-api/raw/v1.0.0/config/crd/standard/gateway.networking.k8s.io_referencegrants.yaml \
+    --out=./charts/mongo-ui/crds
+
+crd-importer \
+    --input=https://github.com/kedacore/http-add-on/raw/v0.7.0/config/crd/bases/http.keda.sh_httpscaledobjects.yaml \
+    --input=https://github.com/kubernetes-sigs/gateway-api/raw/v1.0.0/config/crd/standard/gateway.networking.k8s.io_gateways.yaml \
+    --input=https://github.com/kubernetes-sigs/gateway-api/raw/v1.0.0/config/crd/standard/gateway.networking.k8s.io_httproutes.yaml \
+    --input=https://github.com/kubernetes-sigs/gateway-api/raw/v1.0.0/config/crd/standard/gateway.networking.k8s.io_referencegrants.yaml \
+    --out=./charts/pgadmin/crds
+
+crd-importer \
+    --input=https://github.com/kedacore/http-add-on/raw/v0.7.0/config/crd/bases/http.keda.sh_httpscaledobjects.yaml \
+    --input=https://github.com/kubernetes-sigs/gateway-api/raw/v1.0.0/config/crd/standard/gateway.networking.k8s.io_gateways.yaml \
+    --input=https://github.com/kubernetes-sigs/gateway-api/raw/v1.0.0/config/crd/standard/gateway.networking.k8s.io_httproutes.yaml \
+    --input=https://github.com/kubernetes-sigs/gateway-api/raw/v1.0.0/config/crd/standard/gateway.networking.k8s.io_referencegrants.yaml \
+    --out=./charts/phpmyadmin/crds
+
 {
     crd_dir=${1:-}/provider-aws/package/crds
     update_aws_crds=true

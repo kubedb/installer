@@ -1,0 +1,82 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: {{ include "pgadmin.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  gatewayClassName: {{ .Values.gateway.className }}
+  listeners:
+    - name: {{ include "pgadmin.fullname" . }}
+      protocol: HTTPS
+      port: {{ .Values.gateway.port }}
+      tls:
+        certificateRefs:
+        - group: ""
+          kind: Secret
+          name: {{ .Values.gateway.tlsSecretRef.name }}
+          namespace: {{ .Values.gateway.tlsSecretRef.namespace }}
+        mode: Terminate
+
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ include "pgadmin.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: {{ include "pgadmin.fullname" . }}
+      namespace: {{ .Release.Namespace }}
+      sectionName: {{ include "pgadmin.fullname" . }}
+  hostnames:
+    - "tamal-gateway.keda.kubedb.cloud"
+  rules:
+    - backendRefs:
+        - group: ""
+          kind: Service
+          name: {{ .Values.keda.proxyService.name }}
+          namespace: {{ .Values.keda.proxyService.namespace }}
+          port: {{ .Values.keda.proxyService.port }}
+          weight: 1
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
+      # filters:
+      # - type: RequestHeaderModifier
+      #   requestHeaderModifier:
+      #     set:
+      #     - name: "Host"
+      #       value: "tamal-gateway.keda.kubedb.cloud"
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: cert-{{ .Release.Namespace }}2 # fix naming conflict
+  namespace: {{ .Values.gateway.tlsSecretRef.namespace }}
+spec:
+  from:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    namespace: {{ .Release.Namespace }}
+  to:
+  - group: ""
+    kind: Secret
+    name: {{ .Values.gateway.tlsSecretRef.name }}
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: httproute-{{ .Release.Namespace }}2 # fix naming conflict
+  namespace: {{ .Values.keda.proxyService.namespace }}
+spec:
+  from:
+  - group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    namespace: {{ .Release.Namespace }}
+  to:
+  - group: ""
+    kind: Service
+    name: {{ .Values.keda.proxyService.name }}
