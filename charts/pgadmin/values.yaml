@@ -1,0 +1,107 @@
+# Default values for pgadmin.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: "dpage/pgadmin4"
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # allowPrivilegeEscalation: false
+  # capabilities:
+  #   drop: ["ALL"]
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 65534
+  # seccompProfile:
+  #   type: RuntimeDefault
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# ingress:
+#   enabled: false
+#   className: ""
+#   annotations: {}
+#     # kubernetes.io/ingress.class: nginx
+#     # kubernetes.io/tls-acme: "true"
+#   hosts:
+#     - host: chart-example.local
+#       paths:
+#         - path: /
+#           pathType: ImplementationSpecific
+#   tls: []
+#   #  - secretName: chart-example-tls
+#   #    hosts:
+#   #      - chart-example.local
+
+namespace:
+  create: false
+
+gateway:
+  className: "ace"
+  port: 8081
+  # nodePort: 30080
+  tlsSecretRef:
+    name: service-presets-cert
+    namespace: ace
+
+# This is the namespace that the ingress should be installed
+# into. It should be set to the same namespace as the
+# KEDA HTTP componentry is installed in. Defaults to the Helm
+# chart release namespace
+keda:
+  proxyService:
+    namespace: "keda"
+    name: "keda-add-ons-http-interceptor-proxy"
+    port: 8080
+hosts:
+  - "tamal-gateway.keda.kubedb.cloud"
+pathPrefixes:
+  - "/"
+targetPendingRequests: 200
+autoscaling:
+  http:
+    minReplicas: 0
+    maxReplicas: 1
