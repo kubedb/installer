@@ -45,3 +45,52 @@ spec:
       standalone:
       - < 8.0.35
   version: 8.0.35
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  name: 8.0.36
+spec:
+  archiver:
+    addon:
+      name: mysql-addon
+      tasks:
+        manifestBackup:
+          name: ManifestBackup
+        manifestRestore:
+          name: ManifestRestore
+        volumeSnapshot:
+          name: VolumeSnapshot
+    walg:
+      image: ghcr.io/kubedb/mysql-archiver:(v0.1.0)_8.0.35
+  coordinator:
+    image: ghcr.io/kubedb/mysql-coordinator:v0.18.0
+  db:
+    image: ghcr.io/appscode-images/mysql:8.0.36-debian
+  distribution: Official
+  exporter:
+    image: ghcr.io/kubedb/mysqld-exporter:v0.13.1
+  gitSyncer:
+    image: registry.k8s.io/git-sync/git-sync:v4.1.0
+  initContainer:
+    image: ghcr.io/kubedb/mysql-init:8.0.31-v3
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  replicationModeDetector:
+    image: ghcr.io/kubedb/replication-mode-detector:v0.27.0
+  securityContext:
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: mysql-backup-8.0.21
+      restoreTask:
+        name: mysql-restore-8.0.21
+  updateConstraints:
+    denylist:
+      groupReplication:
+      - < 8.0.35
+      standalone:
+      - < 8.0.35
+  version: 8.0.35
