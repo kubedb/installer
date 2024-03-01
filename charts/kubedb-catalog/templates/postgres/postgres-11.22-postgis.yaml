@@ -1,0 +1,48 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Postgres }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: '11-bullseye-postgis'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.3.0_11.22-bookworm'
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.26.0'
+  db:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "postgis/postgis") $) }}:11-3.3'
+  distribution: PostGIS
+  exporter:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.15.0'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.11.0'
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-11.9
+      restoreTask:
+        name: postgres-restore-11.9
+  version: "11.22"
+{{ end }}

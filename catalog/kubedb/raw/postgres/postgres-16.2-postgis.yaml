@@ -1,7 +1,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: 12.9-bullseye-postgis
+  name: 16.2-bullseye-postgis
 spec:
   archiver:
     addon:
@@ -14,11 +14,12 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: ghcr.io/kubedb/postgres-archiver:(v0.3.0)_12.17-bookworm
+      image: ghcr.io/kubedb/postgres-archiver:(v0.3.0)_16.1-bookworm
   coordinator:
     image: ghcr.io/kubedb/pg-coordinator:v0.26.0
   db:
-    image: postgis/postgis:12-3.1
+    baseOS: bullseye
+    image: postgis/postgis:16-3.4
   distribution: PostGIS
   exporter:
     image: prometheuscommunity/postgres-exporter:v0.15.0
@@ -32,7 +33,10 @@ spec:
   stash:
     addon:
       backupTask:
-        name: postgres-backup-12.4
+        name: postgres-backup-15.1
       restoreTask:
-        name: postgres-restore-12.4
-  version: "12.9"
+        name: postgres-restore-15.1
+  updateConstraints:
+    allowlist:
+    - "16.2"
+  version: "16.2"
