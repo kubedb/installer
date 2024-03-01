@@ -1,7 +1,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: 12.9-bullseye-postgis
+  name: timescaledb-2.14.2-pg13
 spec:
   archiver:
     addon:
@@ -14,12 +14,13 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: ghcr.io/kubedb/postgres-archiver:(v0.3.0)_12.17-bookworm
+      image: ghcr.io/kubedb/postgres-archiver:(v0.3.0)_13.13-alpine
   coordinator:
     image: ghcr.io/kubedb/pg-coordinator:v0.26.0
   db:
-    image: postgis/postgis:12-3.1
-  distribution: PostGIS
+    baseOS: alpine
+    image: timescale/timescaledb:2.14.2-pg13-oss
+  distribution: TimescaleDB
   exporter:
     image: prometheuscommunity/postgres-exporter:v0.15.0
   initContainer:
@@ -27,12 +28,12 @@ spec:
   podSecurityPolicies:
     databasePolicyName: postgres-db
   securityContext:
-    runAsAnyNonRoot: true
-    runAsUser: 999
+    runAsAnyNonRoot: false
+    runAsUser: 70
   stash:
     addon:
       backupTask:
-        name: postgres-backup-12.4
+        name: postgres-backup-13.1
       restoreTask:
-        name: postgres-restore-12.4
-  version: "12.9"
+        name: postgres-restore-13.1
+  version: "13.14"

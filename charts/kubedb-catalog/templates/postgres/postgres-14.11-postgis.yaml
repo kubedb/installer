@@ -8,7 +8,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: 'timescaledb-2.1.0-pg11'
+  name: '14-bullseye-postgis'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -23,12 +23,12 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.3.0_11.22-alpine'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.3.0_14.10-bookworm'
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.26.0'
   db:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "timescale/timescaledb") $) }}:2.1.0-pg11-oss'
-  distribution: TimescaleDB
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "postgis/postgis") $) }}:14-3.4'
+  distribution: PostGIS
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.15.0'
   initContainer:
@@ -36,13 +36,13 @@ spec:
   podSecurityPolicies:
     databasePolicyName: postgres-db
   securityContext:
-    runAsAnyNonRoot: false
-    runAsUser: 70
+    runAsAnyNonRoot: true
+    runAsUser: 999
   stash:
     addon:
       backupTask:
-        name: postgres-backup-11.9
+        name: postgres-backup-14.0
       restoreTask:
-        name: postgres-restore-11.9
-  version: "11.11"
+        name: postgres-restore-14.0
+  version: "14.11"
 {{ end }}
