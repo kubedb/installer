@@ -1,0 +1,38 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: 12-bullseye-postgis
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: ghcr.io/kubedb/postgres-archiver:(v0.3.0)_12.17-bookworm
+  coordinator:
+    image: ghcr.io/kubedb/pg-coordinator:v0.26.0
+  db:
+    image: postgis/postgis:12-3.4
+  distribution: PostGIS
+  exporter:
+    image: prometheuscommunity/postgres-exporter:v0.15.0
+  initContainer:
+    image: ghcr.io/kubedb/postgres-init:0.11.0
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-12.4
+      restoreTask:
+        name: postgres-restore-12.4
+  version: "12.18"
