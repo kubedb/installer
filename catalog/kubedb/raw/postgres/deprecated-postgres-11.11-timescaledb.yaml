@@ -1,0 +1,39 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: timescaledb-2.1.0-pg11
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: ghcr.io/kubedb/postgres-archiver:(v0.3.0)_11.22-alpine
+  coordinator:
+    image: ghcr.io/kubedb/pg-coordinator:v0.26.0
+  db:
+    image: timescale/timescaledb:2.1.0-pg11-oss
+  deprecated: true
+  distribution: TimescaleDB
+  exporter:
+    image: prometheuscommunity/postgres-exporter:v0.15.0
+  initContainer:
+    image: ghcr.io/kubedb/postgres-init:0.11.0
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: false
+    runAsUser: 70
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-11.9
+      restoreTask:
+        name: postgres-restore-11.9
+  version: "11.11"

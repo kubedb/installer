@@ -8,7 +8,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: 'timescaledb-2.5.0-pg14.1'
+  name: 'timescaledb-2.14.2-pg15'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -23,12 +23,13 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.3.0_14.10-alpine'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.3.0_15.5-alpine'
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.26.0'
   db:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "timescale/timescaledb") $) }}:2.5.0-pg14-oss'
-  distribution: TimescaleDB
+    baseOS: alpine
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "timescale/timescaledb") $) }}:2.14.2-pg15-oss'
+  distribution: Official
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.15.0'
   initContainer:
@@ -41,8 +42,11 @@ spec:
   stash:
     addon:
       backupTask:
-        name: postgres-backup-14.0
+        name: postgres-backup-15.1
       restoreTask:
-        name: postgres-restore-14.0
-  version: "14.1"
+        name: postgres-restore-15.1
+  updateConstraints:
+    allowlist:
+    - "14.2"
+  version: "15.6"
 {{ end }}
