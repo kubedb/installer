@@ -52,6 +52,7 @@ type KubedbKubestashCatalogSpec struct {
 	Kubedbmanifest StashKubedbmanifestSpec `json:"kubedbmanifest"`
 	Mongodb        StashMongodbSpec        `json:"mongodb"`
 	Mysql          StashMysqlSpec          `json:"mysql"`
+	Mariadb        StashMariadbSpec        `json:"mariadb"`
 	Redis          StashRedisSpec          `json:"redis"`
 	Postgres       StashPostgresSpec       `json:"postgres"`
 }
@@ -132,6 +133,21 @@ type MySQLBackup struct {
 }
 
 type MySQLRestore struct {
+	// +optional
+	Args string `json:"args"`
+}
+
+type StashMariadbSpec struct {
+	Backup  MariaDBBackup  `json:"backup"`
+	Restore MariaDBRestore `json:"restore"`
+}
+
+type MariaDBBackup struct {
+	// +optional
+	Args string `json:"args"`
+}
+
+type MariaDBRestore struct {
 	// +optional
 	Args string `json:"args"`
 }

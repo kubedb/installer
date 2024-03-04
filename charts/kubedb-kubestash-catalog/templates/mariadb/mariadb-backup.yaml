@@ -1,0 +1,24 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.MariaDB }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'mariadb-backup'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  args:
+  - backup
+  - --namespace=${namespace:=default}
+  - --backupsession=${backupSession:=}
+  - --enable-cache=${enableCache:=}
+  - --scratch-dir=${scratchDir:=}
+  - --wait-timeout=${waitTimeout:={{ .Values.waitTimeout}}}
+  - --mariadb-args=${args:={{ .Values.mariadb.args }}}
+  - --db-version=${dbVersion:=}
+  image: '{{ include "image.dockerHub" (merge (dict "_repo" "skaliarman/mariadb-restic-plugin") $) }}:restic-backup_linux_amd64test12'
+{{ end }}
