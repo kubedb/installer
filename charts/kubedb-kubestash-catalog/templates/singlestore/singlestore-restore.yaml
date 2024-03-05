@@ -1,0 +1,25 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Singlestore }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'singlestore-restore'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  args:
+  - restore
+  - --namespace=${namespace:=default}
+  - --restoresession=${restoreSession:=}
+  - --snapshot=${snapshot:=}
+  - --enable-cache=${enableCache:=}
+  - --scratch-dir=${scratchDir:=}
+  - --wait-timeout=${waitTimeout:={{ .Values.waitTimeout}}}
+  - --singlestore-args=${args:={{ .Values.singlestore.args }}}
+  - --db-version=${dbVersion:=}
+  image: '{{ include "image.dockerHub" (merge (dict "_repo" "ashraf10039/singlestore-restic-plugin") $) }}:start_alma-8.1.32-e3d3cde6da_linux_amd64'
+{{ end }}
