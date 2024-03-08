@@ -1,0 +1,66 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Singlestore }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Addon
+metadata:
+  name: 'singlestore-addon'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  backupTasks:
+  - driver: Restic
+    executor: Job
+    function: singlestore-backup
+    name: logical-backup
+    parameters:
+    - name: args
+      required: false
+      usage: Arguments to be passed to the dump command.
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+  restoreTasks:
+  - driver: Restic
+    executor: Job
+    function: singlestore-restore
+    name: logical-backup-restore
+    parameters:
+    - name: args
+      required: false
+      usage: Arguments to be passed to the dump command.
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+{{ end }}
