@@ -236,8 +236,8 @@ func main() {
 						args[i] = fmt.Sprintf(`--es-args=${args:={{ .Values.%s.args }}}`, app)
 					}
 				case "opensearch":
-					if strings.HasPrefix(args[i], "--os-args=") {
-						args[i] = fmt.Sprintf(`--os-args=${args:={{ .Values.%s.args }}}`, app)
+					if strings.HasPrefix(args[i], "--es-args=") {
+						args[i] = fmt.Sprintf(`--es-args=${args:={{ .Values.%s.args }}}`, app)
 					}
 				case "mariadb":
 					if strings.HasPrefix(args[i], "--mariadb-args=") {
