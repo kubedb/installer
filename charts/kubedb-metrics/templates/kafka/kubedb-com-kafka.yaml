@@ -1,0 +1,253 @@
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: kubedb-com-kafka
+spec:
+  targetRef:
+    apiVersion: kubedb.com/v1alpha2
+    kind: Kafka
+  commonLabels:
+    - key: app
+      valuePath: .metadata.name
+    - key: app_namespace
+      valuePath: .metadata.namespace
+  metrics:
+    - name: created
+      help: "Unix creation time stamp"
+      type: gauge
+      field:
+        path: .metadata.creationTimestamp
+        type: DateTime
+      metricValue:
+        valueFromPath: .metadata.creationTimestamp
+
+    - name: info
+      help: "Kubedb kafka information"
+      type: gauge
+      labels:
+        - key: version
+          valuePath: .spec.version
+        - key: storageType
+          valuePath: .spec.storageType
+        - key: enableSSL
+          valuePath: .spec.enableSSL
+        - key: terminationPolicy
+          valuePath: .spec.terminationPolicy
+        - key: storageClassName
+          valuePath: .spec.storage.storageClassName
+      metricValue:
+        value: 1
+
+    - name: replicas
+      help: "Number of kafka replicas in combined mode"
+      type: gauge
+      params:
+        - key: obj
+          valuePath: .
+      metricValue:
+        valueFromExpression: resource_replicas(obj)
+
+    - name: status_conditions
+      help: "Kafka instance status condition"
+      type: gauge
+      field:
+        path: .status.conditions
+        type: Array
+      labels:
+        - key: type
+          valuePath: .status.conditions[*].type
+        - key: status
+          valuePath: .status.conditions[*].status
+      metricValue:
+        value: 1
+
+    - name: status_phase
+      help: "Kafka instance current phase"
+      type: gauge
+      field:
+        path: .status.phase
+        type: String
+      params:
+        - key: phase
+          valuePath: .status.phase
+      states:
+        labelKey: phase
+        values:
+          - labelValue: Ready
+            metricValue:
+              valueFromExpression: "int(phase == 'Ready')"
+          - labelValue: Halted
+            metricValue:
+              valueFromExpression: "int(phase == 'Halted')"
+          - labelValue: Provisioning
+            metricValue:
+              valueFromExpression: "int(phase == 'Provisioning')"
+          - labelValue: Critical
+            metricValue:
+              valueFromExpression: "int(phase == 'Critical')"
+          - labelValue: NotReady
+            metricValue:
+              valueFromExpression: "int(phase == 'NotReady')"
+          - labelValue: DataRestoring
+            metricValue:
+              valueFromExpression: "int(phase == 'DataRestoring')"
+
+    - name: security_http_ssl_enabled
+      help: "Kafka ssl information"
+      type: gauge
+      params:
+        - key: ssl
+          valuePath: .spec.enableSSL
+      metricValue:
+        valueFromExpression: int(ssl == 'true')
+
+    - name: certmanager_managed_tls_enabled
+      help: "Kafka cert manager managed tls info"
+      type: gauge
+      params:
+        - key: tls_issuerRef
+          valuePath: .spec.tls.issuerRef
+      metricValue:
+        valueFromExpression: int(tls_issuerRef != 'nil')
+
+    - name: resource_request_cpu
+      help: "Requested CPU by Kafka in core"
+      type: gauge
+      labels:
+        - key: unit
+          value: core
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: cpu
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: resource_request_memory
+      help: "Requested memory by Kafka in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: memory
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: resource_request_storage
+      help: "Requested storage by Kafka in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: storage
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: resource_limit_cpu
+      help: "CPU limit for Kafka in core"
+      type: gauge
+      labels:
+        - key: unit
+          value: core
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: cpu
+      metricValue:
+        valueFromExpression: total_resource_limits(obj, resourceType)
+
+    - name: resource_limit_memory
+      help: "Memory limit for Kafka in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: memory
+      metricValue:
+        valueFromExpression: total_resource_limits(obj, resourceType)
+
+    - name: resource_limit_storage
+      help: "Storage limit for Kafka in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: storage
+      metricValue:
+        valueFromExpression: total_resource_limits(obj, resourceType)
+
+    ##### Metrics for Broker topology #####
+
+    - name: broker_node_replicas
+      help: "Number of replicas for kafka broker nodepool"
+      type: gauge
+      field:
+        path: .spec.topology.broker.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.master.replicas
+
+    - name: broker_node_storage_class_info
+      help: "Kafka broker node storage class information"
+      type: gauge
+      labels:
+        - key: storage_className
+          valuePath: .spec.topology.broker.storage.storageClassName
+      metricValue:
+        value: 1
+
+    - name: broker_node_max_unavailable
+      help: "Maximum number of pods unavailable after an eviction"
+      type: gauge
+      field:
+        path: .spec.topology.broker.maxUnavailable
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.broker.maxUnavailable
+
+    ##### Metrics for Controller topology #####
+
+    - name: controller_node_replicas
+      help: "Number of replicas for kafka controller nodepool"
+      type: gauge
+      field:
+        path: .spec.topology.controller.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.master.replicas
+
+    - name: controller_node_storage_class_info
+      help: "Kafka controller node storage class information"
+      type: gauge
+      labels:
+        - key: storage_className
+          valuePath: .spec.topology.controller.storage.storageClassName
+      metricValue:
+        value: 1
+
+    - name: controller_node_max_unavailable
+      help: "Maximum number of pods unavailable after an eviction"
+      type: gauge
+      field:
+        path: .spec.topology.controller.maxUnavailable
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.controller.maxUnavailable
