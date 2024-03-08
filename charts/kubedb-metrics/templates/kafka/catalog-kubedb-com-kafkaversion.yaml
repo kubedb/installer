@@ -1,0 +1,29 @@
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: catalog-kubedb-com-kafkaversion
+spec:
+  targetRef:
+    apiVersion: catalog.kubedb.com/v1alpha1
+    kind: KafkaVersion
+  metrics:
+    - name: created
+      help: "Unix creation timestamp"
+      type: gauge
+      field:
+        path: .metadata.creationTimestamp
+        type: DateTime
+      metricValue:
+        valueFromPath: .metadata.creationTimestamp
+    - name: info
+      help: "Kafka versions info"
+      type: gauge
+      labels:
+        - key: db_image
+          valuePath: .spec.db.image
+        - key: connect_cluster_image
+          valuePath: .spec.connectCluster.image
+        - key: deprecated
+          valuePath: .spec.deprecated
+      metricValue:
+        value: 1
