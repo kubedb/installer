@@ -1,4 +1,5 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "annotations": {
     "list": [
@@ -3006,7 +3007,9 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
-      },
+      }
+      {{- if not $alerts }}
+    ,
       {
         "allValue": "\".+\"",
         "current": {
