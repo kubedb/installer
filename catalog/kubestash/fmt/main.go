@@ -279,6 +279,11 @@ func main() {
 					if strings.HasPrefix(args[i], "--rabbitmq-args=") {
 						args[i] = fmt.Sprintf(`--rabbitmq-args=${args:={{ .Values.%s.args }}}`, app)
 					}
+				case "singlestore":
+					if strings.HasPrefix(args[i], "--singlestore-args=") {
+						args[i] = fmt.Sprintf(`--singlestore-args=${args:={{ .Values.%s.args }}}`, app)
+					}
+
 				}
 			}
 
