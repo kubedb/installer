@@ -7,19 +7,16 @@
 apiVersion: addons.kubestash.com/v1alpha1
 kind: Function
 metadata:
-  name: 'opensearch-restore'
+  name: 'opensearch-dashboard-backup'
   labels:
     {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
 spec:
   args:
-  - restore
+  - backup
   - --namespace=${namespace:=default}
-  - --restoresession=${restoreSession:=}
-  - --snapshot=${snapshot:=}
+  - --backupsession=${backupSession:=}
   - --enable-cache=${enableCache:=}
   - --scratch-dir=${scratchDir:=}
-  - --wait-timeout=${waitTimeout:={{ .Values.waitTimeout}}}
-  - --es-args=${args:={{ .Values.opensearch.args }}}
   - --interim-data-dir=${interimDataDir:=}
-  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-restic-plugin") $) }}:v0.5.0'
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/dashboard-restic-plugin") $) }}:v0.1.0'
 {{ end }}
