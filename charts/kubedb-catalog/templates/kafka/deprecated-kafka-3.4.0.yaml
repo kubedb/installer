@@ -1,0 +1,28 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Kafka }}
+{{ if not .Values.skipDeprecated }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: KafkaVersion
+metadata:
+  name: '3.4.0'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  connectCluster:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kafka-connect-cluster") $) }}:3.4.1'
+  cruiseControl:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/cruise-control") $) }}:3.4.0'
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kafka-kraft") $) }}:3.4.0'
+  deprecated: true
+  podSecurityPolicies:
+    databasePolicyName: kafka-db
+  securityContext:
+    runAsUser: 1001
+  version: 3.4.0
+{{ end }}
+{{ end }}
