@@ -30,7 +30,7 @@
     {
       "cacheTimeout": null,
       "datasource": "${datasource}",
-      "description": "",
+      "description": "Indicates whether pod is running or not",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -39,27 +39,24 @@
           "decimals": 1,
           "mappings": [
             {
+              "type": "value",
               "options": {
-                "0": {
-                  "color": "yellow",
-                  "index": 1,
-                  "text": "Down"
-                },
-                "1": {
-                  "index": 2,
-                  "text": "Running"
+                "2": {
+                  "text": "Down",
+                  "index": 0,
+                  "color": "dark-red"
                 }
-              },
-              "text": "Running",
-              "type": 1,
-              "value": "1"
+              }
             },
             {
-              "from": "",
-              "id": null,
-              "text": "",
-              "to": "",
-              "type": 1
+              "type": "value",
+              "options": {
+                "1": {
+                  "text": "UP",
+                  "index": 1,
+                  "color": "dark-green"
+                }
+              }
             }
           ],
           "max": 100,
@@ -125,6 +122,7 @@
     {
       "cacheTimeout": null,
       "datasource": "${datasource}",
+      "description": "Indicates Uptime of erlang processes",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -195,6 +193,7 @@
     },
     {
       "datasource": "${datasource}",
+      "description": "Number of unreachable peers from current pods",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -242,11 +241,12 @@
       "pluginVersion": "7.5.5",
       "targets": [
         {
-          "exemplar": true,
           "expr": "rabbitmq_unreachable_cluster_peers_count{pod=~\"$pod\"}",
-          "interval": "",
           "legendFormat": "",
-          "refId": "A"
+          "interval": "",
+          "exemplar": true,
+          "refId": "A",
+          "format": "table"
         }
       ],
       "timeFrom": null,
@@ -256,6 +256,7 @@
     },
     {
       "datasource": "${datasource}",
+      "description": "Total number of messages on disk",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -299,11 +300,12 @@
       "pluginVersion": "7.5.5",
       "targets": [
         {
-          "exemplar": true,
           "expr": "rabbitmq_queue_messages_persistent{pod=~\"$pod\"}",
-          "interval": "",
           "legendFormat": "",
-          "refId": "A"
+          "interval": "",
+          "exemplar": true,
+          "refId": "A",
+          "format": "table"
         }
       ],
       "title": "Persistent messages Count",
@@ -311,6 +313,7 @@
     },
     {
       "datasource": "${datasource}",
+      "description": "Total number of transient messages stored in ram",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -358,11 +361,12 @@
       "pluginVersion": "7.5.5",
       "targets": [
         {
-          "exemplar": true,
           "expr": "rabbitmq_queue_messages_ram{pod=~\"$pod\"}",
-          "interval": "",
           "legendFormat": "messages stored in ram",
-          "refId": "A"
+          "interval": "",
+          "exemplar": true,
+          "refId": "A",
+          "format": "table"
         }
       ],
       "timeFrom": null,
@@ -372,6 +376,7 @@
     },
     {
       "datasource": "${datasource}",
+      "description": "Number of connections to this peer",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -419,11 +424,12 @@
       "pluginVersion": "7.5.5",
       "targets": [
         {
-          "exemplar": true,
           "expr": "rabbitmq_connections{pod=~\"$pod\"}",
-          "interval": "",
           "legendFormat": "",
-          "refId": "A"
+          "interval": "",
+          "exemplar": true,
+          "refId": "A",
+          "format": "table"
         }
       ],
       "title": "Connections",
@@ -435,6 +441,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${datasource}",
+      "description": "Size of transient messages in bytes",
       "fieldConfig": {
         "defaults": {},
         "overrides": []
@@ -531,6 +538,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${datasource}",
+      "description": "Size of persistent messages in bytes",
       "fieldConfig": {
         "defaults": {
           "unit": "short"
@@ -630,6 +638,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${datasource}",
+      "description": "Indicates total number of garbage collector running",
       "fieldConfig": {
         "defaults": {
           "unit": "short"
@@ -728,6 +737,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${datasource}",
+      "description": "Indicates garbage collector size reclaimed for erlang processes",
       "fieldConfig": {
         "defaults": {
           "unit": "kbytes"
@@ -1067,6 +1077,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${datasource}",
+      "description": "Rabbitmq disk space available",
       "fieldConfig": {
         "defaults": {},
         "overrides": []
@@ -1185,6 +1196,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${datasource}",
+      "description": "Rabbitmq used memory",
       "fieldConfig": {
         "defaults": {},
         "overrides": []
@@ -1276,26 +1288,20 @@
       }
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${datasource}",
-      "description": "Average user and system CPU time spent in seconds.",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
+      "id": 28,
       "gridPos": {
         "h": 11,
         "w": 12,
         "x": 12,
         "y": 33
       },
-      "hiddenSeries": false,
-      "id": 28,
+      "type": "graph",
+      "title": "Average CPU Usage",
+      "datasource": "${datasource}",
+      "thresholds": [],
+      "pluginVersion": "7.5.5",
+      "description": "Average user and system CPU time spent in seconds.",
+      "links": [],
       "legend": {
         "avg": false,
         "current": false,
@@ -1305,48 +1311,40 @@
         "total": false,
         "values": false
       },
+      "aliasColors": {},
+      "dashLength": 10,
+      "fill": 1,
       "lines": true,
       "linewidth": 1,
-      "links": [],
       "nullPointMode": "null",
       "options": {
         "alertThreshold": true
       },
-      "percentage": false,
-      "pluginVersion": "7.5.5",
       "pointradius": 2,
-      "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
       "targets": [
         {
+          "expr": "sum(rate(container_cpu_usage_seconds_total{pod=~\"$pod\"}[5m])) / count(container_cpu_usage_seconds_total{pod=~\"$pod\",container=~\"rabbitmq\"}) * 100",
+          "legendFormat": "CPU used (%)",
+          "interval": "",
           "exemplar": true,
-          "expr": "sum(rate(container_cpu_usage_seconds_total{pod=~\"$pod\"}[5m])) / count(node_cpu_seconds_total{mode=\"system\"}) * 100",
           "format": "time_series",
           "instant": false,
-          "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "CPU used (%)",
           "metric": "",
           "refId": "A",
           "step": 240,
           "target": ""
         }
       ],
-      "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
-      "title": "Average CPU Usage",
       "tooltip": {
         "shared": true,
         "sort": 0,
         "value_type": "individual"
       },
-      "type": "graph",
       "xaxis": {
         "buckets": null,
         "mode": "time",
@@ -1377,10 +1375,20 @@
       "yaxis": {
         "align": false,
         "alignLevel": null
-      }
+      },
+      "bars": false,
+      "dashes": false,
+      "fillGradient": 0,
+      "hiddenSeries": false,
+      "percentage": false,
+      "points": false,
+      "stack": false,
+      "steppedLine": false,
+      "timeFrom": null,
+      "timeShift": null
     }
   ],
-  "refresh": false,
+  "refresh": "5s",
   "schemaVersion": 27,
   "style": "dark",
   "tags": [
