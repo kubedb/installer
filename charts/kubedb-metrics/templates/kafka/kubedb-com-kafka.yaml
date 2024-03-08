@@ -222,3 +222,32 @@ spec:
         type: Integer
       metricValue:
         valueFromPath: .spec.topology.broker.maxUnavailable
+
+    ##### Metrics for Controller topology #####
+
+    - name: controller_node_replicas
+      help: "Number of replicas for kafka controller nodepool"
+      type: gauge
+      field:
+        path: .spec.topology.controller.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.master.replicas
+
+    - name: controller_node_storage_class_info
+      help: "Kafka controller node storage class information"
+      type: gauge
+      labels:
+        - key: storage_className
+          valuePath: .spec.topology.controller.storage.storageClassName
+      metricValue:
+        value: 1
+
+    - name: controller_node_max_unavailable
+      help: "Maximum number of pods unavailable after an eviction"
+      type: gauge
+      field:
+        path: .spec.topology.controller.maxUnavailable
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.controller.maxUnavailable
