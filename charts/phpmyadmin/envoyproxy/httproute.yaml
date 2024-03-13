@@ -1,0 +1,81 @@
+
+
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: testing
+  namespace: testing
+spec:
+  gatewayClassName: ace
+  listeners:
+  - name: myadmin # route in same namespace
+    protocol: HTTPS
+    port: 8000
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: service-presets-cert
+        namespace: ace
+      mode: Terminate
+
+  - name: youradmin
+    protocol: HTTPS
+    port: 8001
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: service-presets-cert
+        namespace: ace
+      mode: Terminate
+
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: myadmin
+  namespace: testing
+spec:
+  parentRefs:
+  - name: testing
+    sectionName: myadmin
+  # hostnames:
+  # - "example.com"
+  rules:
+  - backendRefs:
+    - name: keda-add-ons-http-interceptor-proxy
+      port: 8080
+    filters:
+    - type: URLRewrite
+      urlRewrite: 
+        hostname: "tamal-gateway.keda.kubedb.cloud"
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: youradmin
+  namespace: testing
+spec:
+  parentRefs:
+  - name: testing
+    sectionName: youradmin
+  # hostnames:
+  # - "example.com"
+  rules:
+  - backendRefs:
+    - name: keda-add-ons-http-interceptor-proxy
+      port: 8080
+    filters:
+    - type: URLRewrite
+      urlRewrite: 
+        hostname: "tasdid-gateway.keda.kubedb.cloud"
+
+
+flux-cd helm release 
+
+ui deploy 
+
+ui url patch to mysql binding status 
+
+release name : alias-dbname

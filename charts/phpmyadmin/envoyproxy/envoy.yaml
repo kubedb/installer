@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: https-proxy
+  namespace: testing
+spec:
+  ports:
+  - port: 10000
+  selector:
+    app: https-proxy
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: https-proxy
+  namespace: testing
+spec:
+  selector:
+    matchLabels:
+      app: https-proxy
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: https-proxy
+    spec:
+      containers:
+      - image: envoyproxy/envoy:contrib-v1.29-latest #tasdidur/envoyproxy:test26
+        imagePullPolicy: IfNotPresent
+        name: envoy
+        ports:
+        - name: admin
+          containerPort: 8001
+        - name: listener
+          containerPort: 10000
+        - name: extra
+          containerPort: 9901
+        volumeMounts:
+        - name: config
+          mountPath: /etc/envoy/
+      #   - name: server-tls
+      #     mountPath: server/
+      #   - name: client-tls
+      #     mountPath: client/
+      volumes:
+      - name: config
+        configMap:
+          name: envoy-https-config
+      # - name: server-tls 
+      #   secret:
+      #     secretName: https-cert
+      # - name: client-tls
+      #   secret:
+      #     secretName: client-cert
