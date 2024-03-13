@@ -129,7 +129,7 @@
           "datasource": "Prometheus",
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "pgpool2_pool_nodes_status{namespace=~\"$namespace\",pod=~\"$pod\"}",
+          "expr": "pgpool2_pool_nodes_status{hostname=~\"$backend_nodes\",namespace=~\"$namespace\",pod=~\"$pod\"}",
           "format": "time_series",
           "hide": false,
           "instant": true,
@@ -220,7 +220,7 @@
           "datasource": "Prometheus",
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "pgpool2_pool_nodes_replication_delay{namespace=~\"$namespace\",pod=~\"$pod\"}",
+          "expr": "pgpool2_pool_nodes_replication_delay{hostname=~\"$backend_nodes\",namespace=~\"$namespace\",pod=~\"$pod\"}",
           "instant": false,
           "interval": "",
           "legendFormat": {{ `"{{pod}} ({{role}})"` }},
@@ -2733,7 +2733,7 @@
         "name": "backend_nodes",
         "options": [],
         "query": {
-          "query": "label_values(pgpool2_pool_nodes_status{}, hostname)",
+          "query": "label_values(pgpool2_pool_nodes_status{namespace=~\"$namespace\",pod=~\"$pod\"}, hostname)",
           "refId": "Prometheus-backend-Variable-Query"
         },
         "refresh": 1,
