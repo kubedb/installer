@@ -3,6 +3,10 @@ kind: Gateway
 metadata:
   name: {{ include "pgadmin.fullname" . }}
   namespace: {{ .Release.Namespace }}
+  {{- if .Values.gateway.nodePort }}
+  annotations:
+    port-mapping.gateway.voyagermesh.com/{{ .Values.gateway.port }}: {{ .Values.gateway.nodePort }}
+  {{- end }}
 spec:
   gatewayClassName: {{ .Values.gateway.className }}
   listeners:
@@ -30,8 +34,6 @@ spec:
       name: {{ include "pgadmin.fullname" . }}
       namespace: {{ .Release.Namespace }}
       sectionName: {{ include "pgadmin.fullname" . }}
-  hostnames:
-    - "tamal-gateway.keda.kubedb.cloud"
   rules:
     - backendRefs:
         - group: ""
@@ -44,17 +46,17 @@ spec:
         - path:
             type: PathPrefix
             value: /
-      # filters:
-      # - type: RequestHeaderModifier
-      #   requestHeaderModifier:
-      #     set:
-      #     - name: "Host"
-      #       value: "tamal-gateway.keda.kubedb.cloud"
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            hostname: {{ include "keda.hostname" . }}
 ---
+{{ if .Values.gateway.referenceGrant.create }}
+
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: ReferenceGrant
 metadata:
-  name: cert-{{ .Release.Namespace }}2 # fix naming conflict
+  name: dbui-cert-{{ .Release.Namespace }}
   namespace: {{ .Values.gateway.tlsSecretRef.namespace }}
 spec:
   from:
@@ -69,7 +71,7 @@ spec:
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: ReferenceGrant
 metadata:
-  name: httproute-{{ .Release.Namespace }}2 # fix naming conflict
+  name: dbui-httproute-{{ .Release.Namespace }}
   namespace: {{ .Values.keda.proxyService.namespace }}
 spec:
   from:
@@ -80,3 +82,4 @@ spec:
   - group: ""
     kind: Service
     name: {{ .Values.keda.proxyService.name }}
+{{ end }}
