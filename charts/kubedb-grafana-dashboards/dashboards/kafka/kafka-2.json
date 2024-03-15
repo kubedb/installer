@@ -123,12 +123,12 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_kafka_status_phase{namespace=\"$namespace\", app=\"$app\"} == 1",
+          "expr": "kubedb_com_kafka_status_phase{namespace=\"kafka\", app=\"kafka-prod\"} == 1",
           "format": "table",
           "instant": true,
           "interval": "",
           "legendFormat": {{ `"{{phase}}"` }},
-        "refId": "A"
+          "refId": "A"
         }
       ],
       "title": "Database Status",
@@ -205,13 +205,13 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_kafka_info{namespace=\"$namespace\", app=\"$app\"}",
+          "expr": "kubedb_com_kafka_info{namespace=\"kafka\", app=\"$app\"}",
           "format": "time_series",
           "instant": true,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": {{ `"{{version}}"` }},
-        "refId": "A"
+          "refId": "A"
         }
       ],
       "title": "Version",
@@ -266,7 +266,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_kafka_resource_limit_memory{namespace=\"$namespace\", app=\"$app\"}",
+          "expr": "kubedb_com_kafka_resource_limit_memory{namespace=\"kafka\", app=\"$app\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -345,12 +345,12 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_kafka_info{namespace=\"$namespace\", app=\"$app\"}",
+          "expr": "kubedb_com_kafka_info{namespace=\"kafka\", app=\"$app\"}",
           "format": "table",
           "instant": true,
           "interval": "",
           "legendFormat": {{ `"{{terminationPolicy}}"` }},
-        "refId": "A"
+          "refId": "A"
         }
       ],
       "title": "Termination Policy",
@@ -408,7 +408,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_kafka_replicas{namespace=\"$namespace\",app=\"$app\"}",
+          "expr": "kubedb_com_kafka_replicas{namespace=\"kafka\",app=\"$app\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -467,7 +467,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_kafka_resource_request_cpu{namespace=\"$namespace\", app=\"$app\"}",
+          "expr": "kubedb_com_kafka_resource_request_cpu{namespace=\"kafka\", app=\"$app\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -525,7 +525,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_kafka_resource_limit_cpu{namespace=\"$namespace\", app=\"$app\"}",
+          "expr": "kubedb_com_kafka_resource_limit_cpu{namespace=\"kafka\", app=\"$app\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -585,7 +585,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_kafka_resource_request_memory{namespace=\"$namespace\", app=\"$app\"}",
+          "expr": "kubedb_com_kafka_resource_request_memory{namespace=\"kafka\", app=\"$app\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -658,12 +658,12 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_kafka_info{namespace=\"$namespace\", app=\"$app\"}",
+          "expr": "kubedb_com_kafka_info{namespace=\"kafka\", app=\"$app\"}",
           "format": "time_series",
           "instant": true,
           "interval": "",
           "legendFormat": {{ `"{{requireSSL}}"` }},
-        "refId": "A"
+          "refId": "A"
         }
       ],
       "timeFrom": null,
@@ -721,7 +721,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_kafka_resource_request_storage{namespace=\"$namespace\", app=\"$app\"}",
+          "expr": "kubedb_com_kafka_resource_request_storage{namespace=\"kafka\", app=\"$app\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -810,7 +810,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_kafka_status_phase{app=\"$app\",namespace=\"$namespace\",phase=\"NotReady\"}",
+          "expr": "kubedb_com_kafka_status_phase{app=\"$app\",namespace=\"kafka\",phase=\"NotReady\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1075,7 +1075,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "kafka_server_replicamanager_underreplicatedpartitions{job=~\"$app-stats\",namespace=\"$namespace\"}",
+          "expr": "kafka_server_replicamanager_underreplicatedpartitions{job=~\"kafka-prod-stats\",namespace=\"$namespace\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "",
@@ -1195,10 +1195,10 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-.+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-.+$\"}))) by (pod)",
+          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"kafka-prod-.+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"kafka-prod-.+$\"}))) by (pod)",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
-        "refId": "A"
+          "refId": "A"
         }
       ],
       "thresholds": [],
@@ -1330,11 +1330,11 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-.+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-.+$\"}))) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-.+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"kafka-prod-.+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"kafka-prod-.+$\"}))) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"kafka-prod-.+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": {{ `"{{pod}}"` }},
-        "refId": "A"
+          "refId": "A"
         }
       ],
       "thresholds": [
@@ -1612,7 +1612,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-.+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-.+$\"}))) by (pod)",
+          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"kafka-prod-.+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"kafka-prod-.+$\"}))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1623,7 +1623,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-.+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"kafka-prod-.+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1634,7 +1634,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-.+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-.+$\"}))) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-.+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"kafka-prod-.+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"kafka-prod-.+$\"}))) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"kafka-prod-.+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1645,7 +1645,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-.+$\"} * on (namespace,pod) group_left() max by (namespace, pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"kafka-prod-.+$\"} * on (namespace,pod) group_left() max by (namespace, pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1656,7 +1656,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-.+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-.+$\"}))) by (pod) / sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-.+$\"} * on (namespace,pod) group_left() max by (namespace, pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"kafka-prod-.+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"kafka-prod-.+$\"}))) by (pod) / sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"kafka-prod-.+$\"} * on (namespace,pod) group_left() max by (namespace, pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1748,10 +1748,10 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-.+$\",container!=\"\"} * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\"}))) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"kafka-prod-.+$\",container!=\"\"} * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\"}))) by (pod)",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
-        "refId": "A"
+          "refId": "A"
         }
       ],
       "thresholds": [],
@@ -1875,10 +1875,10 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-.+$\",container!=\"\"} * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\"}))) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\", pod=~\"$app-.+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"kafka-prod-.+$\",container!=\"\"} * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\"}))) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\", pod=~\"kafka-prod-.+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
-        "refId": "A"
+          "refId": "A"
         }
       ],
       "thresholds": [
@@ -2228,7 +2228,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-.+$\",container!=\"\", image!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"kafka-prod-.+$\",container!=\"\", image!=\"\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2239,7 +2239,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum (kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-.+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum (kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"kafka-prod-.+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2250,7 +2250,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-.+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-.+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"kafka-prod-.+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"kafka-prod-.+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2261,7 +2261,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-.+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"kafka-prod-.+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2272,7 +2272,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-.+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-.+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"kafka-prod-.+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"kafka-prod-.+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2283,7 +2283,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(container_memory_rss{namespace=\"$namespace\",pod=~\"$app-.+$\",container!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_rss{namespace=\"$namespace\",pod=~\"kafka-prod-.+$\",container!=\"\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2294,7 +2294,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(container_memory_cache{namespace=\"$namespace\",pod=~\"$app-.+$\",container!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_cache{namespace=\"$namespace\",pod=~\"kafka-prod-.+$\",container!=\"\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2305,7 +2305,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(container_memory_swap{namespace=\"$namespace\",pod=~\"$app-.+$\",container!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_swap{namespace=\"$namespace\",pod=~\"kafka-prod-.+$\",container!=\"\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2396,10 +2396,10 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "avg(container_blkio_device_usage_total{namespace=\"$namespace\", pod=~\"$app-.+$\"}) by (pod)",
+          "expr": "avg(container_blkio_device_usage_total{namespace=\"$namespace\", pod=~\"kafka-prod-.+$\"}) by (pod)",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
-        "refId": "A"
+          "refId": "A"
         }
       ],
       "thresholds": [],
@@ -2493,12 +2493,12 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(rate(container_fs_writes_total{namespace=\"$namespace\", pod=~\"$app-.+$\"}[5m])) by (pod)",
+          "expr": "sum(rate(container_fs_writes_total{namespace=\"$namespace\", pod=~\"kafka-prod-.+$\"}[5m])) by (pod)",
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": {{ `"{{pod}}-disk-write"` }},
-        "refId": "A"
+          "refId": "A"
         },
         {
           "exemplar": true,
@@ -2507,7 +2507,7 @@
           "instant": false,
           "interval": "",
           "legendFormat": {{ `"{{pod}}-disk-read"` }},
-        "refId": "B"
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -2606,9 +2606,9 @@
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": {{ `"{{pod}}"` }},
-        "legendLink": null,
-        "refId": "A",
-        "step": 10
+          "legendLink": null,
+          "refId": "A",
+          "step": 10
         }
       ],
       "thresholds": [],
@@ -2707,9 +2707,9 @@
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": {{ `"{{pod}}"` }},
-        "legendLink": null,
-        "refId": "A",
-        "step": 10
+          "legendLink": null,
+          "refId": "A",
+          "step": 10
         }
       ],
       "thresholds": [],
@@ -3222,7 +3222,7 @@
           "instant": true,
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
-        "refId": "A"
+          "refId": "A"
         }
       ],
       "title": "Persistent Volume Usage",
@@ -3314,7 +3314,7 @@
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": {{ `"{{pod}}"` }},
-        "refId": "A"
+          "refId": "A"
         }
       ],
       "title": "Persistent Volume Usage History",
@@ -3387,9 +3387,9 @@
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": {{ `"{{pod}}"` }},
-        "legendLink": null,
-        "refId": "A",
-        "step": 10
+          "legendLink": null,
+          "refId": "A",
+          "step": 10
         }
       ],
       "thresholds": [],
@@ -3488,9 +3488,9 @@
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": {{ `"{{pod}}"` }},
-        "legendLink": null,
-        "refId": "A",
-        "step": 10
+          "legendLink": null,
+          "refId": "A",
+          "step": 10
         }
       ],
       "thresholds": [],
@@ -3675,9 +3675,9 @@
   },
   "timezone": "",
   {{- if $shared }}
-  "title": "KubeDB / Kafka / Summary",
+  "title": "KubeDB / Kafka / Summaryd",
   {{- else }}
-  "title": {{ printf "KubeDB / kafka / Summary / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
+  "title": {{ printf "KubeDB / kafka / Summaryd / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
   {{- end }}
   "uid": "kjhjkhkjhkj",
   "version": 3
