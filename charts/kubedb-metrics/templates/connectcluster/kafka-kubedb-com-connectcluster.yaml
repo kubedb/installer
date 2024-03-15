@@ -1,0 +1,190 @@
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: kafka-kubedb-com-connectcluster
+spec:
+  targetRef:
+    apiVersion: kafka.kubedb.com/v1alpha1
+    kind: ConnectCluster
+  commonLabels:
+    - key: app
+      valuePath: .metadata.name
+    - key: app_namespace
+      valuePath: .metadata.namespace
+  metrics:
+    - name: created
+      help: "Unix creation time stamp"
+      type: gauge
+      field:
+        path: .metadata.creationTimestamp
+        type: DateTime
+      metricValue:
+        valueFromPath: .metadata.creationTimestamp
+
+    - name: info
+      help: "Kubedb kafka connect cluster information"
+      type: gauge
+      labels:
+        - key: version
+          valuePath: .spec.version
+        - key: enableSSL
+          valuePath: .spec.enableSSL
+        - key: terminationPolicy
+          valuePath: .spec.terminationPolicy
+        - key: kafkaRef
+          valuePath: .spec.kafkaRef.name
+      metricValue:
+        value: 1
+
+    - name: replicas
+      help: "Number of kafka connect cluster replicas"
+      type: gauge
+      params:
+        - key: obj
+          valuePath: .
+      metricValue:
+        valueFromExpression: resource_replicas(obj)
+
+    - name: status_conditions
+      help: "Kafka connect cluster instance status condition"
+      type: gauge
+      field:
+        path: .status.conditions
+        type: Array
+      labels:
+        - key: type
+          valuePath: .status.conditions[*].type
+        - key: status
+          valuePath: .status.conditions[*].status
+      metricValue:
+        value: 1
+
+    - name: status_phase
+      help: "Kafka connect cluster instance current phase"
+      type: gauge
+      field:
+        path: .status.phase
+        type: String
+      params:
+        - key: phase
+          valuePath: .status.phase
+      states:
+        labelKey: phase
+        values:
+          - labelValue: Ready
+            metricValue:
+              valueFromExpression: "int(phase == 'Ready')"
+          - labelValue: Provisioning
+            metricValue:
+              valueFromExpression: "int(phase == 'Provisioning')"
+          - labelValue: Critical
+            metricValue:
+              valueFromExpression: "int(phase == 'Critical')"
+          - labelValue: NotReady
+            metricValue:
+              valueFromExpression: "int(phase == 'NotReady')"
+          - labelValue: Unknown
+            metricValue:
+              valueFromExpression: "int(phase == 'Unknown')"
+
+    - name: security_http_ssl_enabled
+      help: "Kafka connect cluster ssl information"
+      type: gauge
+      params:
+        - key: ssl
+          valuePath: .spec.enableSSL
+      metricValue:
+        valueFromExpression: int(ssl == 'true')
+
+    - name: certmanager_managed_tls_enabled
+      help: "Kafka connect cluster cert manager managed tls info"
+      type: gauge
+      params:
+        - key: tls_issuerRef
+          valuePath: .spec.tls.issuerRef
+      metricValue:
+        valueFromExpression: int(tls_issuerRef != 'nil')
+
+    - name: resource_request_cpu
+      help: "Requested CPU by Kafka connect cluster in core"
+      type: gauge
+      labels:
+        - key: unit
+          value: core
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: cpu
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: resource_request_memory
+      help: "Requested memory by Kafka connect cluster in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: memory
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: resource_request_storage
+      help: "Requested storage by Kafka connect cluster in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: storage
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: resource_limit_cpu
+      help: "CPU limit for Kafka connect cluster in core"
+      type: gauge
+      labels:
+        - key: unit
+          value: core
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: cpu
+      metricValue:
+        valueFromExpression: total_resource_limits(obj, resourceType)
+
+    - name: resource_limit_memory
+      help: "Memory limit for Kafka connect cluster in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: memory
+      metricValue:
+        valueFromExpression: total_resource_limits(obj, resourceType)
+
+    - name: resource_limit_storage
+      help: "Storage limit for Kafka connect cluster in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: storage
+      metricValue:
+        valueFromExpression: total_resource_limits(obj, resourceType)
