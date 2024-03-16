@@ -26,7 +26,7 @@ spec:
         - name: kubestash-tmp-volume
           usage: Holds temporary files and restic cache.
           source:
-            emptyDir: { }
+            emptyDir: {}
       volumeMounts:
         - name: kubestash-tmp-volume
           mountPath: /kubestash-tmp
@@ -48,10 +48,19 @@ spec:
         - name: kubestash-tmp-volume
           usage: Holds temporary files and restic cache.
           source:
-            emptyDir: { }
+            emptyDir: {}
       volumeMounts:
         - name: kubestash-tmp-volume
           mountPath: /kubestash-tmp
+    - name: volume-snapshot
+      function: mariadb-csi-snapshotter
+      driver: VolumeSnapshotter
+      executor: Job
+      singleton: true
+      parameters:
+        - name: volumeSnapshotClassName
+          usage: The VolumeSnapshotClassName to be used by volumeSnapshot
+          required: false
   restoreTasks:
     - name: logical-backup-restore
       function: mariadb-restore
@@ -74,7 +83,7 @@ spec:
         - name: kubestash-tmp-volume
           usage: Holds temporary files and restic cache.
           source:
-            emptyDir: { }
+            emptyDir: {}
       volumeMounts:
         - name: kubestash-tmp-volume
           mountPath: /kubestash-tmp
@@ -96,7 +105,7 @@ spec:
         - name: kubestash-tmp-volume
           usage: Holds temporary files and restic cache.
           source:
-            emptyDir: { }
+            emptyDir: {}
       volumeMounts:
         - name: kubestash-tmp-volume
           mountPath: /kubestash-tmp

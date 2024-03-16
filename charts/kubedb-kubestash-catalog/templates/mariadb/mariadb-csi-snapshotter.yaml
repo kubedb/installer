@@ -7,18 +7,14 @@
 apiVersion: addons.kubestash.com/v1alpha1
 kind: Function
 metadata:
-  name: 'mariadb-backup'
+  name: 'mariadb-csi-snapshotter'
   labels:
     {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
 spec:
   args:
   - backup
   - --namespace=${namespace:=default}
+  - --volume-snapshot-class-name=${volumeSnapshotClassName:=}
   - --backupsession=${backupSession:=}
-  - --enable-cache=${enableCache:=}
-  - --scratch-dir=${scratchDir:=}
-  - --wait-timeout=${waitTimeout:={{ .Values.waitTimeout}}}
-  - --mariadb-args=${args:={{ .Values.mariadb.args }}}
-  - --db-version=${dbVersion:=}
-  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-restic-plugin") $) }}:v0.1.0'
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-csi-snapshotter-plugin") $) }}:v0.3.0'
 {{ end }}
