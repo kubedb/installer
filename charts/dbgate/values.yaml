@@ -81,11 +81,13 @@ namespace:
 
 gateway:
   className: "ace"
-  port: 8080
+  port: 8082
   # nodePort: 30080
   tlsSecretRef:
     name: service-presets-cert
     namespace: ace
+  referenceGrant:
+    create: true
 
 # This is the namespace that the ingress should be installed
 # into. It should be set to the same namespace as the
@@ -96,12 +98,17 @@ keda:
     namespace: "keda"
     name: "keda-add-ons-http-interceptor-proxy"
     port: 8080
-hosts:
-  - "tamal-gateway.keda.kubedb.cloud"
-pathPrefixes:
-  - "/"
 targetPendingRequests: 200
 autoscaling:
   http:
     minReplicas: 0
     maxReplicas: 1
+
+# authSecret, Bind CR, HelmRelease CR in same namespace
+# db could be in cross namespace
+app:
+  service:
+    name: ""
+    namespace: ""
+  authSecret:
+    name: ""

@@ -71,12 +71,16 @@ The following table lists the configurable parameters of the `phpmyadmin` chart 
 | gateway.port                   |                                                                                                                        | <code>8082</code>                                  |
 | gateway.tlsSecretRef.name      |                                                                                                                        | <code>service-presets-cert</code>                  |
 | gateway.tlsSecretRef.namespace |                                                                                                                        | <code>ace</code>                                   |
+| gateway.referenceGrant.create  |                                                                                                                        | <code>true</code>                                  |
 | keda.proxyService.namespace    |                                                                                                                        | <code>"keda"</code>                                |
 | keda.proxyService.name         |                                                                                                                        | <code>"keda-add-ons-http-interceptor-proxy"</code> |
 | keda.proxyService.port         |                                                                                                                        | <code>8080</code>                                  |
 | targetPendingRequests          |                                                                                                                        | <code>200</code>                                   |
 | autoscaling.http.minReplicas   |                                                                                                                        | <code>0</code>                                     |
 | autoscaling.http.maxReplicas   |                                                                                                                        | <code>1</code>                                     |
+| app.service.name               |                                                                                                                        | <code>""</code>                                    |
+| app.service.namespace          |                                                                                                                        | <code>""</code>                                    |
+| app.authSecret.name            |                                                                                                                        | <code>""</code>                                    |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
