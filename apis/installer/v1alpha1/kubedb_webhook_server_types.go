@@ -47,16 +47,12 @@ type KubedbWebhookServerSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
-	FullnameOverride string `json:"fullnameOverride"`
-	ReplicaCount     int32  `json:"replicaCount"`
-	RegistryFQDN     string `json:"registryFQDN"`
-	// +optional
-	License string `json:"license"`
-	// +optional
-	LicenseSecretName string          `json:"licenseSecretName"`
-	Server            Container       `json:"server"`
-	FeatureGates      map[string]bool `json:"featureGates"`
-	ImagePullPolicy   string          `json:"imagePullPolicy"`
+	FullnameOverride string          `json:"fullnameOverride"`
+	ReplicaCount     int32           `json:"replicaCount"`
+	RegistryFQDN     string          `json:"registryFQDN"`
+	Server           Container       `json:"server"`
+	FeatureGates     map[string]bool `json:"featureGates"`
+	ImagePullPolicy  string          `json:"imagePullPolicy"`
 	//+optional
 	ImagePullSecrets []string `json:"imagePullSecrets"`
 	//+optional

@@ -51,9 +51,6 @@ spec:
         - --enable-mutating-webhook={{ .Values.apiserver.enableMutatingWebhook }}
         - --enable-validating-webhook={{ .Values.apiserver.enableValidatingWebhook }}
         - --use-kubeapiserver-fqdn-for-aks={{ .Values.apiserver.useKubeapiserverFqdnForAks }}
-        {{- if include "appscode.licenseSecretName" . }}
-        - --license-file=/var/run/secrets/appscode/license/key.txt
-        {{- end }}
         env:
         - name: POD_NAME
           valueFrom:
@@ -71,10 +68,6 @@ spec:
           name: tmpdir
         - mountPath: /var/serving-cert
           name: serving-cert
-        {{- if include "appscode.licenseSecretName" . }}
-        - mountPath: /var/run/secrets/appscode/license
-          name: license
-        {{- end }}
       {{- if .Values.apiserver.healthcheck.enabled }}
         readinessProbe:
           httpGet:
@@ -99,12 +92,6 @@ spec:
         secret:
           defaultMode: 420
           secretName: {{ include "kubedb-webhook-server.fullname" . }}-apiserver-cert
-      {{- if include "appscode.licenseSecretName" . }}
-      - name: license
-        secret:
-          defaultMode: 420
-          secretName: {{ include "appscode.licenseSecretName" . }}
-      {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
     {{- if or .Values.tolerations $criticalAddon }}
