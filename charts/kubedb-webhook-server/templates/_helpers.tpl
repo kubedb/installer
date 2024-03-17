@@ -63,24 +63,6 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
-Returns the appscode license
-*/}}
-{{- define "appscode.license" -}}
-{{- .Values.license }}
-{{- end }}
-
-{{/*
-Returns the appscode license secret name
-*/}}
-{{- define "appscode.licenseSecretName" -}}
-{{- if .Values.licenseSecretName }}
-{{- .Values.licenseSecretName -}}
-{{- else if .Values.license }}
-{{- printf "%s-license" (include "kubedb-webhook-server.fullname" .) -}}
-{{- end }}
-{{- end }}
-
-{{/*
 Returns the registry used for operator docker image
 */}}
 {{- define "server.registry" -}}
