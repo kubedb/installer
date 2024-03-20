@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb-grafana-dashboards --version=v2024.3.9-rc.0
-$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2024.3.9-rc.0
+$ helm search repo appscode/kubedb-grafana-dashboards --version=v2024.3.16
+$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2024.3.16
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeDB Grafana Dashboards on a [Kubernetes](http://kubernet
 To install/upgrade the chart with the release name `kubedb-grafana-dashboards`:
 
 ```bash
-$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2024.3.9-rc.0
+$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2024.3.16
 ```
 
 The command deploys a KubeDB Grafana Dashboards on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -45,35 +45,35 @@ The command removes all the Kubernetes components associated with the chart and 
 
 The following table lists the configurable parameters of the `kubedb-grafana-dashboards` chart and their default values.
 
-|            Parameter            |                            Description                             |                                                           Default                                                            |
-|---------------------------------|--------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
-| nameOverride                    | Overrides name template                                            | <code>""</code>                                                                                                              |
-| fullnameOverride                | Overrides fullname template                                        | <code>""</code>                                                                                                              |
-| resources                       | List of resources for which dashboards will be applied             | <code>["elasticsearch","kafka","mariadb","mongodb","mysql","perconaxtradb","postgres","proxysql","redis","zookeeper"]</code> |
-| dashboard.folderID              | ID of Grafana folder where these dashboards will be applied        | <code>0</code>                                                                                                               |
-| dashboard.overwrite             | If true, dashboard with matching uid will be overwritten           | <code>true</code>                                                                                                            |
-| dashboard.templatize.title      | If true, datasource will be prefixed to dashboard name             | <code>false</code>                                                                                                           |
-| dashboard.templatize.datasource | If true, datasource will be hardcoded in the dashboard             | <code>false</code>                                                                                                           |
-| dashboard.alerts                |                                                                    | <code>false</code>                                                                                                           |
-| dashboard.replacements          |                                                                    | <code></code>                                                                                                                |
-| grafana.name                    | Name of Grafana Appbinding where these dashboards are applied      | <code>""</code>                                                                                                              |
-| grafana.namespace               | Namespace of Grafana Appbinding where these dashboards are applied | <code>""</code>                                                                                                              |
-| grafana.version                 |                                                                    | <code>8.0.7</code>                                                                                                           |
-| grafana.url                     |                                                                    | <code>""</code>                                                                                                              |
-| grafana.apikey                  |                                                                    | <code>""</code>                                                                                                              |
-| app.name                        |                                                                    | <code>""</code>                                                                                                              |
-| app.namespace                   |                                                                    | <code>""</code>                                                                                                              |
+|            Parameter            |                            Description                             |                                                                           Default                                                                           |
+|---------------------------------|--------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| nameOverride                    | Overrides name template                                            | <code>""</code>                                                                                                                                             |
+| fullnameOverride                | Overrides fullname template                                        | <code>""</code>                                                                                                                                             |
+| resources                       | List of resources for which dashboards will be applied             | <code>["connectcluster","elasticsearch","kafka","mariadb","mongodb","mysql","perconaxtradb","postgres","proxysql","redis","zookeeper","singlestore"]</code> |
+| dashboard.folderID              | ID of Grafana folder where these dashboards will be applied        | <code>0</code>                                                                                                                                              |
+| dashboard.overwrite             | If true, dashboard with matching uid will be overwritten           | <code>true</code>                                                                                                                                           |
+| dashboard.templatize.title      | If true, datasource will be prefixed to dashboard name             | <code>false</code>                                                                                                                                          |
+| dashboard.templatize.datasource | If true, datasource will be hardcoded in the dashboard             | <code>false</code>                                                                                                                                          |
+| dashboard.alerts                |                                                                    | <code>false</code>                                                                                                                                          |
+| dashboard.replacements          |                                                                    | <code></code>                                                                                                                                               |
+| grafana.name                    | Name of Grafana Appbinding where these dashboards are applied      | <code>""</code>                                                                                                                                             |
+| grafana.namespace               | Namespace of Grafana Appbinding where these dashboards are applied | <code>""</code>                                                                                                                                             |
+| grafana.version                 |                                                                    | <code>8.0.7</code>                                                                                                                                          |
+| grafana.url                     |                                                                    | <code>""</code>                                                                                                                                             |
+| grafana.apikey                  |                                                                    | <code>""</code>                                                                                                                                             |
+| app.name                        |                                                                    | <code>""</code>                                                                                                                                             |
+| app.namespace                   |                                                                    | <code>""</code>                                                                                                                                             |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2024.3.9-rc.0 --set resources=["elasticsearch","kafka","mariadb","mongodb","mysql","perconaxtradb","postgres","proxysql","redis","zookeeper"]
+$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2024.3.16 --set resources=["connectcluster","elasticsearch","kafka","mariadb","mongodb","mysql","perconaxtradb","postgres","proxysql","redis","zookeeper","singlestore"]
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2024.3.9-rc.0 --values values.yaml
+$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2024.3.16 --values values.yaml
 ```

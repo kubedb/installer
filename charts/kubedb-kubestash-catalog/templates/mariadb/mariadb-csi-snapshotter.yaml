@@ -1,0 +1,20 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.MariaDB }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'mariadb-csi-snapshotter'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  args:
+  - backup
+  - --namespace=${namespace:=default}
+  - --volume-snapshot-class-name=${volumeSnapshotClassName:=}
+  - --backupsession=${backupSession:=}
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-csi-snapshotter-plugin") $) }}:v0.4.0'
+{{ end }}

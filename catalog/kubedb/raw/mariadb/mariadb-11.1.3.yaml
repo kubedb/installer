@@ -3,8 +3,20 @@ kind: MariaDBVersion
 metadata:
   name: 11.1.3
 spec:
+  archiver:
+    addon:
+      name: mariadb-addon
+      tasks:
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: ghcr.io/kubedb/mariadb-archiver:(v0.4.0)_11.1.3-jammy
   coordinator:
-    image: ghcr.io/kubedb/mariadb-coordinator:v0.23.0-rc.0
+    image: ghcr.io/kubedb/mariadb-coordinator:v0.24.0
   db:
     image: ghcr.io/appscode-images/mariadb:11.1.3-jammy
   exporter:
