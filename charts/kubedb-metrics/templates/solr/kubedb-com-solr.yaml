@@ -1,0 +1,257 @@
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: kubedb-com-solr
+spec:
+  targetRef:
+    apiVersion: kubedb.com/v1alpha2
+    kind: Solr
+  commonLabels:
+    - key: app
+      valuePath: .metadata.name
+    - key: app_namespace
+      valuePath: .metadata.namespace
+  metrics:
+    - name: created
+      help: "Unix creation time stamp"
+      type: gauge
+      field:
+        path: .metadata.creationTimestamp
+        type: DateTime
+      metricValue:
+        valueFromPath: .metadata.creationTimestamp
+
+    - name: info
+      help: "Kubedb solr information"
+      type: gauge
+      labels:
+        - key: version
+          valuePath: .spec.version
+        - key: storageType
+          valuePath: .spec.storageType
+        - key: enableSSL
+          valuePath: .spec.enableSSL
+        - key: terminationPolicy
+          valuePath: .spec.terminationPolicy
+        - key: storageClassName
+          valuePath: .spec.storage.storageClassName
+        - key: zookeeper
+          valuePath: .spec.zookeeperRef.name
+      metricValue:
+        value: 1
+
+    - name: replicas
+      help: "Number of solr replicas in general mode"
+      type: gauge
+      params:
+        - key: obj
+          valuePath: .
+      metricValue:
+        valueFromExpression: resource_replicas(obj)
+
+    - name: status_conditions
+      help: "Solr instance status condition"
+      type: gauge
+      field:
+        path: .status.conditions
+        type: Array
+      labels:
+        - key: type
+          valuePath: .status.conditions[*].type
+        - key: status
+          valuePath: .status.conditions[*].status
+      metricValue:
+        value: 1
+
+    - name: status_phase
+      help: "Solr instance current phase"
+      type: gauge
+      field:
+        path: .status.phase
+        type: String
+      params:
+        - key: phase
+          valuePath: .status.phase
+      states:
+        labelKey: phase
+        values:
+          - labelValue: Ready
+            metricValue:
+              valueFromExpression: "int(phase == 'Ready')"
+          - labelValue: Halted
+            metricValue:
+              valueFromExpression: "int(phase == 'Halted')"
+          - labelValue: Provisioning
+            metricValue:
+              valueFromExpression: "int(phase == 'Provisioning')"
+          - labelValue: Critical
+            metricValue:
+              valueFromExpression: "int(phase == 'Critical')"
+          - labelValue: NotReady
+            metricValue:
+              valueFromExpression: "int(phase == 'NotReady')"
+          - labelValue: DataRestoring
+            metricValue:
+              valueFromExpression: "int(phase == 'DataRestoring')"
+
+    - name: security_http_ssl_enabled
+      help: "Solr ssl information"
+      type: gauge
+      params:
+        - key: ssl
+          valuePath: .spec.enableSSL
+      metricValue:
+        valueFromExpression: int(ssl == 'true')
+
+    - name: certmanager_managed_tls_enabled
+      help: "Solr cert manager managed tls info"
+      type: gauge
+      params:
+        - key: tls_issuerRef
+          valuePath: .spec.tls.issuerRef
+      metricValue:
+        valueFromExpression: int(tls_issuerRef != 'nil')
+
+    - name: resource_request_cpu
+      help: "Requested CPU by Solr in core"
+      type: gauge
+      labels:
+        - key: unit
+          value: core
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: cpu
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: resource_request_memory
+      help: "Requested memory by Solr in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: memory
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: resource_request_storage
+      help: "Requested storage by Solr in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: storage
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: resource_limit_cpu
+      help: "CPU limit for Solr in core"
+      type: gauge
+      labels:
+        - key: unit
+          value: core
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: cpu
+      metricValue:
+        valueFromExpression: total_resource_limits(obj, resourceType)
+
+    - name: resource_limit_memory
+      help: "Memory limit for Solr in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: memory
+      metricValue:
+        valueFromExpression: total_resource_limits(obj, resourceType)
+
+    - name: resource_limit_storage
+      help: "Storage limit for Solr in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: storage
+      metricValue:
+        valueFromExpression: total_resource_limits(obj, resourceType)
+
+    ### Metrics for overseer topology ###
+
+    - name: overseer_node_replicas
+      help: "Number of replicas for solr overseer node"
+      type: gauge
+      field:
+        path: .spec.topology.overseer.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.overseer.replicas
+
+    - name: overseer_node_storage_class_info
+      help: "Solr overseer node storage class information"
+      type: gauge
+      labels:
+        - key: storage_className
+          valuePath: .spec.topology.overseer.storage.storageClassName
+      metricValue:
+        value: 1
+
+    ### Metrics for data topology ###
+
+    - name: data_node_replicas
+      help: "Number of replicas for solr data node"
+      type: gauge
+      field:
+        path: .spec.topology.data.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.data.replicas
+
+    - name: data_node_storage_class_info
+      help: "Solr data node storage class information"
+      type: gauge
+      labels:
+        - key: storage_className
+          valuePath: .spec.topology.data.storage.storageClassName
+      metricValue:
+        value: 1
+
+    ### Metrics for coordinator topology ###
+
+    - name: coordinator_node_replicas
+      help: "Number of replicas for solr coordinator node"
+      type: gauge
+      field:
+        path: .spec.topology.coordinator.replicas
+        type: Integer
+      metricValue:
+        valueFromPath: .spec.topology.coordinator.replicas
+
+    - name: coordinator_node_storage_class_info
+      help: "Solr coordinator node storage class information"
+      type: gauge
+      labels:
+        - key: storage_className
+          valuePath: .spec.topology.coordinator.storage.storageClassName
+      metricValue:
+        value: 1
