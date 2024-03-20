@@ -20,12 +20,12 @@
       }
     ]
   },
-  "description": "The dashboard is designed for KubeDB managed Redis",
+  "description": "The dashboard is designed for KubeDB managed RedisSentinel",
   "editable": true,
   "gnetId": 9628,
   "graphTooltip": 0,
-  "id": 4,
-  "iteration": 1710754199629,
+  "id": 26,
+  "iteration": 1710836477325,
   "links": [],
   "panels": [
     {
@@ -119,7 +119,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_redis_status_phase{namespace=\"$namespace\", app=\"$app\"} == 1\n",
+          "expr": "kubedb_com_redissentinel_status_phase{namespace=\"$namespace\", redissentinel=\"$app\"} == 1\n",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -199,7 +199,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_redis_info{namespace=\"$namespace\", app=\"$app\"}",
+          "expr": "kubedb_com_redissentinel_info{namespace=\"$namespace\", redissentinel=\"$app\"}",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -214,7 +214,7 @@
     {
       "cacheTimeout": null,
       "datasource": "${datasource}",
-      "description": "redis_config_maxclients",
+      "description": "Sentinel Blocked Clients",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -266,7 +266,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "avg(redis_config_maxclients{namespace=\"$namespace\" , pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) ",
+          "expr": "avg(redis_blocked_clients{namespace=\"$namespace\" , pod=~\"$app-\\\\d+$\"}) ",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -275,13 +275,13 @@
           "refId": "A"
         }
       ],
-      "title": "Max Clients",
+      "title": "Blocked  Clients",
       "type": "stat"
     },
     {
       "cacheTimeout": null,
       "datasource": "${datasource}",
-      "description": "RedisMode CR Name",
+      "description": "Sentinel Storage Type",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -347,16 +347,16 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_redis_info{namespace=\"$namespace\", app=\"$app\"}",
+          "expr": "kubedb_com_redissentinel_info{namespace=\"$namespace\", redissentinel=\"$app\"}",
           "format": "time_series",
           "instant": true,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": {{ `"{{mode}}"` }},
+          "legendFormat": {{ `"{{storageType}}"` }},
           "refId": "A"
         }
       ],
-      "title": "RedisMode",
+      "title": "Storage Type",
       "type": "stat"
     },
     {
@@ -428,7 +428,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_redis_info{namespace=\"$namespace\", app=\"$app\"}",
+          "expr": "kubedb_com_redissentinel_info{namespace=\"$namespace\", redissentinel=\"$app\"}",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -441,7 +441,7 @@
     },
     {
       "datasource": "${datasource}",
-      "description": "Total node count of Redis cluster",
+      "description": "Total node count of RedisSentinel cluster",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -491,7 +491,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_redis_replicas{namespace=\"$namespace\",app=\"$app\"}",
+          "expr": "kubedb_com_redissentinel_replicas{namespace=\"$namespace\",redissentinel=\"$app\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -550,7 +550,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_redis_resource_request_cpu{namespace=\"$namespace\", app=\"$app\"}",
+          "expr": "kubedb_com_redissentinel_resource_request_cpu{namespace=\"$namespace\", redissentinel=\"$app\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -562,7 +562,7 @@
     },
     {
       "datasource": "${datasource}",
-      "description": "CPU Limit in core by Redis instance",
+      "description": "CPU Limit in core by RedisSentinel instance",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -608,7 +608,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_redis_resource_limit_cpu{namespace=\"$namespace\", app=\"$app\"}",
+          "expr": "kubedb_com_redissentinel_resource_limit_cpu{namespace=\"$namespace\", redissentinel=\"$app\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -619,7 +619,7 @@
     },
     {
       "datasource": "${datasource}",
-      "description": "Initial Requested Memory amount by Redis Instance",
+      "description": "Initial Requested Memory amount by RedisSentinel Instance",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -667,7 +667,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_redis_resource_request_memory{namespace=\"$namespace\", app=\"$app\"}",
+          "expr": "kubedb_com_redissentinel_resource_request_memory{namespace=\"$namespace\", redissentinel=\"$app\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -679,7 +679,7 @@
     },
     {
       "datasource": "${datasource}",
-      "description": "KubeDB Redis Total Memory Limit",
+      "description": "KubeDB RedisSentinel Total Memory Limit",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -726,7 +726,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_redis_resource_limit_memory{namespace=\"$namespace\", app=\"$app\"}",
+          "expr": "kubedb_com_redissentinel_resource_limit_memory{namespace=\"$namespace\", redissentinel=\"$app\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -737,7 +737,7 @@
     },
     {
       "datasource": "${datasource}",
-      "description": "Total storage request by Redis nodes",
+      "description": "Total storage request by RedisSentinel nodes",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -785,7 +785,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_redis_resource_request_storage{namespace=\"$namespace\", app=\"$app\"}",
+          "expr": "kubedb_com_redissentinel_resource_request_storage{namespace=\"$namespace\", redissentinel=\"$app\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -828,7 +828,7 @@
         "for": "10s",
         "frequency": "30s",
         "handler": 1,
-        "name": "Redis Down alert",
+        "name": "RedisSentinel Down alert",
         "noDataState": "no_data",
         "notifications": []
       },
@@ -878,11 +878,11 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_redis_status_phase{app=\"$app\",namespace=\"$namespace\",phase=\"NotReady\"}",
+          "expr": "kubedb_com_redissentinel_status_phase{redissentinel=\"$app\",namespace=\"$namespace\",phase=\"NotReady\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": {{ `"{{redis}}"` }},
+          "legendFormat": {{ `"{{redissentinel}}"` }},
           "refId": "A"
         }
       ],
@@ -899,7 +899,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Redis Down",
+      "title": "RedisSentinel Down",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1022,9 +1022,9 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_redis_status_phase{app=\"$app\",namespace=\"$namespace\",phase=\"Critical\"}",
+          "expr": "kubedb_com_redissentinel_status_phase{redissentinel=\"$app\",namespace=\"$namespace\",phase=\"Critical\"}",
           "interval": "",
-          "legendFormat": {{ `"{{redis}}"` }},
+          "legendFormat": {{ `"{{redissentinel}}"` }},
           "refId": "A"
         }
       ],
@@ -1041,7 +1041,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Redis Critical Phase",
+      "title": "RedisSentinel Critical Phase",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1162,7 +1162,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "ops_kubedb_com_redisopsrequest_status_phase{app=\"$app\",namespace=\"$namespace\",phase=\"Progressing\"}",
+          "expr": "ops_kubedb_com_redissentinelopsrequest_status_phase{redissentinel=\"$app\",namespace=\"$namespace\",phase=\"Progressing\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1252,7 +1252,7 @@
         "for": "10s",
         "frequency": "30s",
         "handler": 1,
-        "name": "KubeDB Redis OpsRequest Failed alert",
+        "name": "KubeDB RedisSentinel OpsRequest Failed alert",
         "noDataState": "no_data",
         "notifications": []
       },
@@ -1302,7 +1302,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "ops_kubedb_com_redisopsrequest_status_phase{app=\"$app\",namespace=\"$namespace\",phase=\"Failed\"}",
+          "expr": "ops_kubedb_com_redissentinelopsrequest_status_phase{redissentinel=\"$app\",namespace=\"$namespace\",phase=\"Failed\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1381,7 +1381,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${datasource}",
-      "description": "CPU Usage by Redis pods",
+      "description": "CPU Usage by RedisSentinel pods",
       "fieldConfig": {
         "defaults": {},
         "overrides": []
@@ -1434,7 +1434,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}))) by (pod)",
+          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}))) by (pod)",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
@@ -1705,7 +1705,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}))) by (pod)",
+          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1716,7 +1716,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1727,7 +1727,7 @@
         },
         {
           "exemplar": true,
-          "expr":  "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}))) by (pod) / sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"} * on (namespace,pod) group_left() max by (namespace, pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr":  "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}))) by (pod) / sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"} * on (namespace,pod) group_left() max by (namespace, pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1738,7 +1738,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"} * on (namespace,pod) group_left() max by (namespace, pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"} * on (namespace,pod) group_left() max by (namespace, pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1749,7 +1749,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}))) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}))) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1860,7 +1860,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubernetes-nodes-cadvisor\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}))) by (pod) / sum(kube_pod_container_resource_requests{job=\"kubernetes-service-endpoints\",resource=\"cpu\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubernetes-nodes-cadvisor\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}))) by (pod) / sum(kube_pod_container_resource_requests{job=\"kubernetes-service-endpoints\",resource=\"cpu\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": {{ `"{{pod}}"` }},
@@ -1940,7 +1940,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${datasource}",
-      "description": "Memory Usage by Redis pods",
+      "description": "Memory Usage by RedisSentinel pods",
       "fieldConfig": {
         "defaults": {
           "unit": "bytes"
@@ -1995,7 +1995,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",container!=\"\"} * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\"}))) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\",container!=\"\"} * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\"}))) by (pod)",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
@@ -2338,7 +2338,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2349,7 +2349,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum (kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum (kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2360,7 +2360,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2371,7 +2371,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2382,7 +2382,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2393,7 +2393,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(container_memory_rss{namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",container!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_rss{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2404,7 +2404,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(container_memory_cache{namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",container!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_cache{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2415,7 +2415,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(container_memory_swap{namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",container!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_swap{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2525,7 +2525,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_requests{job=\"kubernetes-service-endpoints\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_requests{job=\"kubernetes-service-endpoints\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
@@ -2604,7 +2604,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${datasource}",
-      "description": "Disk usage by Redis pods",
+      "description": "Disk usage by RedisSentinel pods",
       "fieldConfig": {
         "defaults": {
           "unit": "bytes"
@@ -2659,7 +2659,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "avg(container_blkio_device_usage_total{namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) by (pod)",
+          "expr": "avg(container_blkio_device_usage_total{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
@@ -2767,7 +2767,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(rate(container_fs_writes_total{namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m]))by(pod)",
+          "expr": "sum(rate(container_fs_writes_total{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m]))by(pod)",
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
@@ -2776,7 +2776,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(rate(container_fs_reads_total{namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m]))by(pod)",
+          "expr": "sum(rate(container_fs_reads_total{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m]))by(pod)",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -2886,7 +2886,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "ceil(sum by(pod) (rate(container_fs_reads_total{container!=\"\", namespace=~\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m]) + rate(container_fs_writes_total{container!=\"\" ,namespace=~\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m])))",
+          "expr": "ceil(sum by(pod) (rate(container_fs_reads_total{container!=\"\", namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m]) + rate(container_fs_writes_total{container!=\"\" ,namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -2998,7 +2998,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", namespace=~\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m]) + rate(container_fs_writes_bytes_total{container!=\"\" ,namespace=~\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m]) + rate(container_fs_writes_bytes_total{container!=\"\" ,namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m]))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -3291,7 +3291,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by(pod) (rate(container_fs_reads_total{container!=\"\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -3302,7 +3302,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by(pod) (rate(container_fs_writes_total{container!=\"\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_writes_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -3313,7 +3313,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by(pod) (rate(container_fs_reads_total{container!=\"\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_total{container!=\"\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_total{container!=\"\",pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -3324,7 +3324,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -3335,7 +3335,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by(pod) (rate(container_fs_writes_bytes_total{container!=\"\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_writes_bytes_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -3346,7 +3346,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_bytes_total{container!=\"\",pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_bytes_total{container!=\"\",pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -3687,7 +3687,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "(kubelet_volume_stats_used_bytes / on(persistentvolumeclaim) group_left(pod) (kubelet_volume_stats_capacity_bytes + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",namespace=~\"$namespace\"}) )",
+          "expr": "(kubelet_volume_stats_used_bytes / on(persistentvolumeclaim) group_left(pod) (kubelet_volume_stats_capacity_bytes + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}) )",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
@@ -3821,7 +3821,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(irate(container_network_receive_bytes_total{namespace=~\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[$__rate_interval])) by (pod)",
+          "expr": "sum(irate(container_network_receive_bytes_total{namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[$__rate_interval])) by (pod)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -3933,7 +3933,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(irate(container_network_transmit_bytes_total{namespace=~\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[$__rate_interval])) by (pod)",
+          "expr": "sum(irate(container_network_transmit_bytes_total{namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[$__rate_interval])) by (pod)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -3983,8 +3983,9 @@
         "align": false,
         "alignLevel": null
       }
-    },
+    }
     {{- if $alerts }}
+    ,
     {
       "alert": {
         "alertRuleTags": {},
@@ -4017,7 +4018,7 @@
         "for": "10s",
         "frequency": "30s",
         "handler": 1,
-        "name": "Redis Too Many Connections alert",
+        "name": "RedisSentinel Too Many Connections alert",
         "noDataState": "no_data",
         "notifications": []
       },
@@ -4086,7 +4087,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Redis Too Many Connections",
+      "title": "RedisSentinel Too Many Connections",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -4124,481 +4125,6 @@
         "align": false,
         "alignLevel": null
       }
-    },
-    {{- end }}
-    {
-      "collapsed": false,
-      "datasource": "${datasource}",
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 115
-      },
-      "id": 147,
-      "panels": [],
-      "title": "Database Cluster Info",
-      "type": "row"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${datasource}",
-      "decimals": null,
-      "description": "",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 7,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 9,
-        "w": 24,
-        "x": 0,
-        "y": 116
-      },
-      "hiddenSeries": false,
-      "id": 148,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.5.17",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum(redis_db_keys{namespace=\"$namespace\" , pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) by (db)",
-          "instant": false,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": {{ `"{{db}}"` }},
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Total Items per DB",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "bytes",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${datasource}",
-      "decimals": null,
-      "description": "",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 7,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 125
-      },
-      "hiddenSeries": false,
-      "id": 149,
-      "legend": {
-        "alignAsTable": false,
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 2,
-      "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.5.17",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum(rate(redis_expired_keys_total{namespace=\"$namespace\" , pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m])) ",
-          "instant": false,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "expired",
-          "refId": "A"
-        },
-        {
-          "exemplar": true,
-          "expr": "sum(rate(redis_evicted_keys_total{namespace=\"$namespace\" , pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m]))",
-          "hide": false,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "evicted",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Expired / Evicted",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "bytes",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${datasource}",
-      "decimals": null,
-      "description": "",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 7,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 125
-      },
-      "hiddenSeries": false,
-      "id": 150,
-      "legend": {
-        "alignAsTable": false,
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 2,
-      "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.5.17",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum (redis_db_keys{namespace=\"$namespace\" , pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) - sum (redis_db_keys_expiring{namespace=\"$namespace\" , pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) ",
-          "instant": false,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "not expiring",
-          "refId": "A"
-        },
-        {
-          "exemplar": true,
-          "expr": "sum (redis_db_keys_expiring{namespace=\"$namespace\" , pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"})  ",
-          "hide": false,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "expiring",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Expiring vs Not-Expiring Keys",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "bytes",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    }
-    {{- if $alerts }}
-    ,
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                1
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "Redis Disconnected Slaves Alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 133
-      },
-      "hiddenSeries": false,
-      "id": 181,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.5.17",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "count without (instance) (redis_connected_slaves{job=\"$app-stats\",namespace=\"$namespace\",service=\"$app-stats\"}) - sum without (instance) (redis_connected_slaves{job=\"$app-stats\",namespace=\"$namespace\",service=\"$app-stats\"}) - 1",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 1,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Redis Disconnected Slaves",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:572",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:573",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
     }
     {{- end }}
   ],
@@ -4608,7 +4134,7 @@
   "tags": [
     "db",
     "stats",
-    "redis",
+    "redissentinel",
     "kubedb"
   ],
   "templating": {
@@ -4675,8 +4201,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "redis-cluster",
-          "value": "redis-cluster"
+          "text": "redissentinel-cluster",
+          "value": "redissentinel-cluster"
         },
         "datasource": "${datasource}",
         "description": null,
@@ -4689,7 +4215,7 @@
         "options": [],
         {{- if $shared }}
         "query": {
-          "query": "label_values(kubedb_com_redis_status_phase{namespace=~\"$namespace\"},app)",
+          "query": "label_values(kubedb_com_redissentinel_status_phase{namespace=~\"$namespace\"},redissentinel)",
           "refId": "Prometheus-app-Variable-Query"
         },
         "type": "query",
@@ -4740,9 +4266,9 @@
   },
   "timezone": "",
   {{- if $shared }}
-  "title": "KubeDB / Redis / Summary",
+  "title": "KubeDB / RedisSentinel / Summary",
   {{- else }}
-  "title": {{ printf "KubeDB / Redis / Summary / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
+  "title": {{ printf "KubeDB / RedisSentinel / Summary / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
   {{- end }}
   "uid": "BEj1VF1Sz",
   "version": 4
