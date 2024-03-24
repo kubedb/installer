@@ -1,3 +1,11 @@
+{{ $engines := dict }}
+{{ $_ := set $engines "MicrosoftSQLServer" (dict "name" "mssql@dbgate-plugin-mssql") }}
+{{ $_ := set $engines "MySQL" (dict "name" "mysql@dbgate-plugin-mysql") }}
+{{ $_ := set $engines "MariaDB" (dict "name" "mariadb@dbgate-plugin-mysql") }}
+{{ $_ := set $engines "Postgres" (dict "name" "postgres@dbgate-plugin-postgres") }}
+{{ $_ := set $engines "MongoDB" (dict "name" "mongo@dbgate-plugin-mongo") }}
+{{ $_ := set $engines "Redis" (dict "name" "redis@dbgate-plugin-redis") }}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -38,22 +46,22 @@ spec:
             - name: CONNECTIONS
               value: "PRIMARY"
             - name: ENGINE_PRIMARY
-              value: "postgres@dbgate-plugin-postgres"
+              value: {{ dig .Values.app.kind "name" "<missing>" $engines | quote }}
             - name: SERVER_PRIMARY
-              value: "pg-a.app-a.svc"
+              value: "{{ .Values.app.service.name }}.{{ .Values.app.service.namespace }}.svc"
             - name: PORT_PRIMARY
               value: "5432"
             - name: LABEL_PRIMARY
-              value: "pg-a"
+              value: "{{ .Values.app.service.name }}"
             - name: USER_PRIMARY
               valueFrom:
                 secretKeyRef:
-                  name: pg-a-auth
+                  name: {{ .Values.app.authSecret.name }}
                   key: username
             - name: PASSWORD_PRIMARY
               valueFrom:
                 secretKeyRef:
-                  name: pg-a-auth
+                  name: {{ .Values.app.authSecret.name }}
                   key: password
           ports:
             - name: http
