@@ -36,11 +36,11 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: PMA_HOST
-              value: "my-c.app-c.svc"
+              value: "{{ .Values.app.service.name }}.{{ .Values.app.service.namespace }}.svc"
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: my-c-auth
+                  name: {{ .Values.app.authSecret.name }}
                   key: password
           ports:
             - name: http
