@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.Postgres }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "timescaledb-2.1.0-pg12" .Values.enableVersions.Postgres) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -28,7 +28,6 @@ spec:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.28.0'
   db:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "timescale/timescaledb") $) }}:2.1.0-pg12-oss'
-  deprecated: true
   distribution: TimescaleDB
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.15.0'
@@ -46,5 +45,6 @@ spec:
       restoreTask:
         name: postgres-restore-12.4
   version: "12.6"
+  deprecated: {{ not (has "timescaledb-2.1.0-pg12" .Values.enableVersions.Postgres) }}
 {{ end }}
 {{ end }}

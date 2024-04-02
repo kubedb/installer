@@ -95,6 +95,25 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | psp.kafka.allowPrivilegeEscalation         |                                                 | <code>false</code>           |
 | psp.kafka.privileged                       |                                                 | <code>false</code>           |
 | skipDeprecated                             | Set true to avoid deploying deprecated versions | <code>true</code>            |
+| enableVersions.Druid                       |                                                 | <code>[]</code>              |
+| enableVersions.Elasticsearch               |                                                 | <code>[]</code>              |
+| enableVersions.FerretDB                    |                                                 | <code>[]</code>              |
+| enableVersions.Kafka                       |                                                 | <code>[]</code>              |
+| enableVersions.MariaDB                     |                                                 | <code>[]</code>              |
+| enableVersions.Memcached                   |                                                 | <code>[]</code>              |
+| enableVersions.MicrosoftSQLServer          |                                                 | <code>[]</code>              |
+| enableVersions.MongoDB                     |                                                 | <code>[]</code>              |
+| enableVersions.MySQL                       |                                                 | <code>[]</code>              |
+| enableVersions.PerconaXtraDB               |                                                 | <code>[]</code>              |
+| enableVersions.PgBouncer                   |                                                 | <code>[]</code>              |
+| enableVersions.Pgpool                      |                                                 | <code>[]</code>              |
+| enableVersions.Postgres                    |                                                 | <code>[]</code>              |
+| enableVersions.ProxySQL                    |                                                 | <code>[]</code>              |
+| enableVersions.RabbitMQ                    |                                                 | <code>[]</code>              |
+| enableVersions.Redis                       |                                                 | <code>[]</code>              |
+| enableVersions.Singlestore                 |                                                 | <code>[]</code>              |
+| enableVersions.Solr                        |                                                 | <code>[]</code>              |
+| enableVersions.ZooKeeper                   |                                                 | <code>[]</code>              |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:

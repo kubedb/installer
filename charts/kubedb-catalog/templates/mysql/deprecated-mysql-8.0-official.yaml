@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.MySQL }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "8.0" .Values.enableVersions.MySQL) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -14,7 +14,6 @@ metadata:
 spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql") $) }}:8.0'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/operator") $) }}:0.8.0'
@@ -33,5 +32,6 @@ spec:
       standalone:
       - < 8.0.17
   version: "8.0"
+  deprecated: {{ not (has "8.0" .Values.enableVersions.MySQL) }}
 {{ end }}
 {{ end }}

@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.Postgres }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "9.6.7" .Values.enableVersions.Postgres) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -14,17 +14,17 @@ metadata:
 spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres") $) }}:9.6.7'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/operator") $) }}:0.8.0'
   podSecurityPolicies:
     databasePolicyName: postgres-db
   version: 9.6.7
+  deprecated: {{ not (has "9.6.7" .Values.enableVersions.Postgres) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "9.6.7-v1" .Values.enableVersions.Postgres) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -34,17 +34,17 @@ metadata:
 spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres") $) }}:9.6.7-v2'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres_exporter") $) }}:v0.4.6'
   podSecurityPolicies:
     databasePolicyName: postgres-db
   version: 9.6.7
+  deprecated: {{ not (has "9.6.7-v1" .Values.enableVersions.Postgres) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "9.6.7-v2" .Values.enableVersions.Postgres) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -54,7 +54,6 @@ metadata:
 spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres") $) }}:9.6.7-v3'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres_exporter") $) }}:v0.4.7'
@@ -67,10 +66,11 @@ spec:
       restoreTask:
         name: postgres-restore-9.6.19-v4
   version: 9.6.7
+  deprecated: {{ not (has "9.6.7-v2" .Values.enableVersions.Postgres) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "9.6.7-v3" .Values.enableVersions.Postgres) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -80,7 +80,6 @@ metadata:
 spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres") $) }}:9.6.7-v4'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres_exporter") $) }}:v0.4.7'
@@ -93,10 +92,11 @@ spec:
       restoreTask:
         name: postgres-restore-9.6.19-v4
   version: 9.6.7
+  deprecated: {{ not (has "9.6.7-v3" .Values.enableVersions.Postgres) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "9.6.7-v4" .Values.enableVersions.Postgres) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -106,7 +106,6 @@ metadata:
 spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres") $) }}:9.6.7-v5'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres_exporter") $) }}:v0.4.7'
@@ -119,10 +118,11 @@ spec:
       restoreTask:
         name: postgres-restore-9.6.19-v4
   version: 9.6.7
+  deprecated: {{ not (has "9.6.7-v4" .Values.enableVersions.Postgres) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "9.6.7-v5" .Values.enableVersions.Postgres) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -132,7 +132,6 @@ metadata:
 spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres") $) }}:9.6.7-v6'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres_exporter") $) }}:v0.4.7'
@@ -145,5 +144,6 @@ spec:
       restoreTask:
         name: postgres-restore-9.6.19-v4
   version: 9.6.7
+  deprecated: {{ not (has "9.6.7-v5" .Values.enableVersions.Postgres) }}
 {{ end }}
 {{ end }}

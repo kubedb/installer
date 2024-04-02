@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.Elasticsearch }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "kubedb-searchguard-5.6.16" .Values.enableVersions.Elasticsearch) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
@@ -15,7 +15,6 @@ spec:
   authPlugin: SearchGuard
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch") $) }}:5.6.16-searchguard-v2022.02.22'
-  deprecated: true
   distribution: KubeDB
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.3.0'
@@ -37,5 +36,6 @@ spec:
       restoreTask:
         name: elasticsearch-restore-5.6.4
   version: 5.6.16
+  deprecated: {{ not (has "kubedb-searchguard-5.6.16" .Values.enableVersions.Elasticsearch) }}
 {{ end }}
 {{ end }}

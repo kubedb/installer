@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.Redis }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "6.2.8" .Values.enableVersions.Redis) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: RedisVersion
 metadata:
@@ -16,7 +16,6 @@ spec:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.23.0'
   db:
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "redis") $) }}:6.2.8'
-  deprecated: true
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis_exporter") $) }}:1.9.0'
   initContainer:
@@ -32,5 +31,6 @@ spec:
       restoreTask:
         name: redis-restore-6.2.5
   version: 6.2.8
+  deprecated: {{ not (has "6.2.8" .Values.enableVersions.Redis) }}
 {{ end }}
 {{ end }}

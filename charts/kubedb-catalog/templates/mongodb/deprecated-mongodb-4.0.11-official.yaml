@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.MongoDB }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "4.0-v2" .Values.enableVersions.MongoDB) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
@@ -14,7 +14,6 @@ metadata:
 spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongo") $) }}:4.0-v2'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.20.4'
@@ -27,10 +26,11 @@ spec:
   replicationModeDetector:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.31.0'
   version: 4.0.11
+  deprecated: {{ not (has "4.0-v2" .Values.enableVersions.MongoDB) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "4.0-v3" .Values.enableVersions.MongoDB) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
@@ -40,7 +40,6 @@ metadata:
 spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongo") $) }}:4.0-v3'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.20.4'
@@ -53,10 +52,11 @@ spec:
   replicationModeDetector:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.31.0'
   version: 4.0.11
+  deprecated: {{ not (has "4.0-v3" .Values.enableVersions.MongoDB) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "4.0.11" .Values.enableVersions.MongoDB) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
@@ -66,7 +66,6 @@ metadata:
 spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongo") $) }}:4.0.11'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.20.4'
@@ -79,10 +78,11 @@ spec:
   replicationModeDetector:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.31.0'
   version: 4.0.11
+  deprecated: {{ not (has "4.0.11" .Values.enableVersions.MongoDB) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "4.0.11-v1" .Values.enableVersions.MongoDB) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
@@ -104,7 +104,6 @@ spec:
       image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/wal-g") $) }}:v2023.11.30_mongo'
   db:
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "mongo") $) }}:4.0.11'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.40.0'
@@ -129,5 +128,6 @@ spec:
     allowlist:
     - '>= 4.1.0, < 4.3.0'
   version: 4.0.11
+  deprecated: {{ not (has "4.0.11-v1" .Values.enableVersions.MongoDB) }}
 {{ end }}
 {{ end }}
