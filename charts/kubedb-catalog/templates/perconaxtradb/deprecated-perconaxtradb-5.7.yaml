@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.PerconaXtraDB }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "5.7" .Values.enableVersions.PerconaXtraDB) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PerconaXtraDBVersion
 metadata:
@@ -14,7 +14,6 @@ metadata:
 spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/percona") $) }}:5.7'
-  deprecated: true
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysqld-exporter") $) }}:v0.11.0'
   initContainer:
@@ -28,10 +27,11 @@ spec:
       restoreTask:
         name: perconaxtradb-restore-5.7
   version: "5.7"
+  deprecated: {{ not (has "5.7" .Values.enableVersions.PerconaXtraDB) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "5.7-cluster" .Values.enableVersions.PerconaXtraDB) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PerconaXtraDBVersion
 metadata:
@@ -41,7 +41,6 @@ metadata:
 spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/percona-xtradb-cluster") $) }}:5.7'
-  deprecated: true
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysqld-exporter") $) }}:v0.11.0'
   initContainer:
@@ -55,5 +54,6 @@ spec:
       restoreTask:
         name: perconaxtradb-restore-5.7
   version: "5.7"
+  deprecated: {{ not (has "5.7-cluster" .Values.enableVersions.PerconaXtraDB) }}
 {{ end }}
 {{ end }}

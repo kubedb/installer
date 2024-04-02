@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.MySQL }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "8.0.27-innodb" .Values.enableVersions.MySQL) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -16,7 +16,6 @@ spec:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.22.0'
   db:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "mysql/mysql-server") $) }}:8.0.27'
-  deprecated: true
   distribution: MySQL
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysqld-exporter") $) }}:v0.13.1'
@@ -45,5 +44,6 @@ spec:
       standalone:
       - < 8.0.27
   version: 8.0.27
+  deprecated: {{ not (has "8.0.27-innodb" .Values.enableVersions.MySQL) }}
 {{ end }}
 {{ end }}

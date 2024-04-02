@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.Elasticsearch }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "opendistro-1.2.1" .Values.enableVersions.Elasticsearch) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
@@ -15,7 +15,6 @@ spec:
   authPlugin: OpenDistro
   db:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "amazon/opendistro-for-elasticsearch") $) }}:1.2.1'
-  deprecated: true
   distribution: OpenDistro
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.3.0'
@@ -40,10 +39,11 @@ spec:
     allowlist:
     - < 7.6.0
   version: 7.2.1
+  deprecated: {{ not (has "opendistro-1.2.1" .Values.enableVersions.Elasticsearch) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "opendistro-1.2.1-v1" .Values.enableVersions.Elasticsearch) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
@@ -54,7 +54,6 @@ spec:
   authPlugin: OpenDistro
   db:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "amazon/opendistro-for-elasticsearch") $) }}:1.2.1'
-  deprecated: true
   distribution: OpenDistro
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.3.0'
@@ -76,5 +75,6 @@ spec:
     allowlist:
     - < 7.6.0
   version: 7.2.1
+  deprecated: {{ not (has "opendistro-1.2.1-v1" .Values.enableVersions.Elasticsearch) }}
 {{ end }}
 {{ end }}

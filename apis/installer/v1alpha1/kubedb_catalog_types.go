@@ -45,10 +45,11 @@ type KubedbCatalogSpec struct {
 	//+optional
 	FullnameOverride string `json:"fullnameOverride"`
 	//+optional
-	Proxies        RegistryProxies `json:"proxies"`
-	FeatureGates   map[string]bool `json:"featureGates"`
-	Psp            PSP             `json:"psp"`
-	SkipDeprecated bool            `json:"skipDeprecated"`
+	Proxies        RegistryProxies     `json:"proxies"`
+	FeatureGates   map[string]bool     `json:"featureGates"`
+	Psp            PSP                 `json:"psp"`
+	SkipDeprecated bool                `json:"skipDeprecated"`
+	EnableVersions map[string][]string `json:"enableVersions"`
 }
 
 type RegistryProxies struct {

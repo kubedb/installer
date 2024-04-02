@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.MongoDB }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "4.4.6" .Values.enableVersions.MongoDB) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
@@ -26,7 +26,6 @@ spec:
       image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/wal-g") $) }}:v2023.11.30_mongo'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mongo") $) }}:4.4.6'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.40.0'
@@ -51,5 +50,6 @@ spec:
     allowlist:
     - '>= 5.0.0'
   version: 4.4.6
+  deprecated: {{ not (has "4.4.6" .Values.enableVersions.MongoDB) }}
 {{ end }}
 {{ end }}
