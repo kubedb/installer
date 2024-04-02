@@ -9,7 +9,7 @@
 ---
 {{ end }}
 {{- if $object.spec.deprecated }}
-{{- "{{ if not .Values.skipDeprecated }}" -}}
+{{- printf "{{ if or (not .Values.skipDeprecated) (has %q .Values.enableVersions.%s) }}" $object.metadata.name $.kind -}}
 {{- end }}
 apiVersion: {{ $object.apiVersion }}
 kind: {{ $object.kind }}
@@ -18,8 +18,9 @@ metadata:
   labels:
     {{"{{- include \"kubedb-catalog.labels\" . | nindent 4 }}"}}
 spec:
-  {{- $object.spec | toYaml | nindent 2 }}
+  {{- omit $object.spec "deprecated" | toYaml | nindent 2 }}
 {{- if $object.spec.deprecated }}
+  {{- printf "deprecated: {{ not (has %q .Values.enableVersions.%s) }}" $object.metadata.name $.kind | nindent 2 }}
 {{ "{{ end }}" }}
 {{- end -}}
 {{- end }}

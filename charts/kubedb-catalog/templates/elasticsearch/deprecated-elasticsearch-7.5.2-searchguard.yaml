@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.Elasticsearch }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "searchguard-7.5.2" .Values.enableVersions.Elasticsearch) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
@@ -15,7 +15,6 @@ spec:
   authPlugin: SearchGuard
   db:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "floragunncom/sg-elasticsearch") $) }}:7.5.2-oss-40.0.0'
-  deprecated: true
   distribution: SearchGuard
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.3.0'
@@ -37,10 +36,11 @@ spec:
     allowlist:
     - < 7.10.0
   version: 7.5.2
+  deprecated: {{ not (has "searchguard-7.5.2" .Values.enableVersions.Elasticsearch) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "searchguard-7.5.2-v1" .Values.enableVersions.Elasticsearch) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
@@ -51,7 +51,6 @@ spec:
   authPlugin: SearchGuard
   db:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "floragunncom/sg-elasticsearch") $) }}:7.5.2-oss-40.0.0'
-  deprecated: true
   distribution: SearchGuard
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.3.0'
@@ -79,5 +78,6 @@ spec:
     allowlist:
     - < 7.10.0
   version: 7.5.2
+  deprecated: {{ not (has "searchguard-7.5.2-v1" .Values.enableVersions.Elasticsearch) }}
 {{ end }}
 {{ end }}
