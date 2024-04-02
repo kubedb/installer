@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.Memcached }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "1.5.4" .Values.enableVersions.Memcached) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MemcachedVersion
 metadata:
@@ -14,16 +14,16 @@ metadata:
 spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/memcached") $) }}:1.5.4'
-  deprecated: true
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/operator") $) }}:0.8.0'
   podSecurityPolicies:
     databasePolicyName: memcached-db
   version: 1.5.4
+  deprecated: {{ not (has "1.5.4" .Values.enableVersions.Memcached) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "1.5.4-v1" .Values.enableVersions.Memcached) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MemcachedVersion
 metadata:
@@ -33,7 +33,6 @@ metadata:
 spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/memcached") $) }}:1.5.4-v1'
-  deprecated: true
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/memcached-exporter") $) }}:v0.4.1'
   podSecurityPolicies:
@@ -41,5 +40,6 @@ spec:
   securityContext:
     runAsUser: 999
   version: 1.5.4
+  deprecated: {{ not (has "1.5.4-v1" .Values.enableVersions.Memcached) }}
 {{ end }}
 {{ end }}

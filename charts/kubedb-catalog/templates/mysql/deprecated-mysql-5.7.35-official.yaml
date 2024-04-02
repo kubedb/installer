@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.MySQL }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "5.7.35" .Values.enableVersions.MySQL) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -14,7 +14,6 @@ metadata:
 spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql") $) }}:5.7.35'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prom/mysqld-exporter") $) }}:v0.13.0'
@@ -39,10 +38,11 @@ spec:
       standalone:
       - < 5.7.35
   version: 5.7.35
+  deprecated: {{ not (has "5.7.35" .Values.enableVersions.MySQL) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "5.7.35-v1" .Values.enableVersions.MySQL) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -54,7 +54,6 @@ spec:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.22.0'
   db:
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "mysql") $) }}:5.7.35'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysqld-exporter") $) }}:v0.13.1'
@@ -79,5 +78,6 @@ spec:
       standalone:
       - < 5.7.35
   version: 5.7.35
+  deprecated: {{ not (has "5.7.35-v1" .Values.enableVersions.MySQL) }}
 {{ end }}
 {{ end }}

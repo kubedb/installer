@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.Redis }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "5.0" .Values.enableVersions.Redis) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: RedisVersion
 metadata:
@@ -16,7 +16,6 @@ spec:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.23.0'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis") $) }}:5.0'
-  deprecated: true
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis_exporter") $) }}:v0.21.1'
   initContainer:
@@ -30,10 +29,11 @@ spec:
       restoreTask:
         name: redis-restore-5.0.13
   version: "5.0"
+  deprecated: {{ not (has "5.0" .Values.enableVersions.Redis) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "5.0-v1" .Values.enableVersions.Redis) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: RedisVersion
 metadata:
@@ -45,7 +45,6 @@ spec:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.23.0'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis") $) }}:5.0-v1'
-  deprecated: true
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis_exporter") $) }}:v0.21.1'
   initContainer:
@@ -59,5 +58,6 @@ spec:
       restoreTask:
         name: redis-restore-5.0.13
   version: "5.0"
+  deprecated: {{ not (has "5.0-v1" .Values.enableVersions.Redis) }}
 {{ end }}
 {{ end }}

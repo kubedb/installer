@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.Elasticsearch }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "7.2" .Values.enableVersions.Elasticsearch) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
@@ -15,7 +15,6 @@ spec:
   authPlugin: X-Pack
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch") $) }}:7.2'
-  deprecated: true
   distribution: ElasticStack
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch_exporter") $) }}:1.0.2'
@@ -25,10 +24,11 @@ spec:
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   version: 7.2.0
+  deprecated: {{ not (has "7.2" .Values.enableVersions.Elasticsearch) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "7.2.0" .Values.enableVersions.Elasticsearch) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
@@ -39,7 +39,6 @@ spec:
   authPlugin: X-Pack
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch") $) }}:7.2.0'
-  deprecated: true
   distribution: ElasticStack
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch_exporter") $) }}:1.0.2'
@@ -49,5 +48,6 @@ spec:
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   version: 7.2.0
+  deprecated: {{ not (has "7.2.0" .Values.enableVersions.Elasticsearch) }}
 {{ end }}
 {{ end }}

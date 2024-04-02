@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.ProxySQL }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "2.0.4" .Values.enableVersions.ProxySQL) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ProxySQLVersion
 metadata:
@@ -12,7 +12,6 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
-  deprecated: true
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/proxysql-exporter") $) }}:v1.1.0'
   podSecurityPolicies:
@@ -20,5 +19,6 @@ spec:
   proxysql:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/proxysql") $) }}:v2.0.4'
   version: 2.0.4
+  deprecated: {{ not (has "2.0.4" .Values.enableVersions.ProxySQL) }}
 {{ end }}
 {{ end }}

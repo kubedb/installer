@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.Elasticsearch }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "xpack-7.6.2" .Values.enableVersions.Elasticsearch) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
@@ -15,7 +15,6 @@ spec:
   authPlugin: X-Pack
   db:
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "elasticsearch") $) }}:7.6.2'
-  deprecated: true
   distribution: ElasticStack
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.3.0'
@@ -34,10 +33,11 @@ spec:
     allowlist:
     - < 7.10.0
   version: 7.6.2
+  deprecated: {{ not (has "xpack-7.6.2" .Values.enableVersions.Elasticsearch) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "xpack-7.6.2-v1" .Values.enableVersions.Elasticsearch) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
@@ -48,7 +48,6 @@ spec:
   authPlugin: X-Pack
   db:
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "elasticsearch") $) }}:7.6.2'
-  deprecated: true
   distribution: ElasticStack
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.3.0'
@@ -76,5 +75,6 @@ spec:
     allowlist:
     - < 7.10.0
   version: 7.6.2
+  deprecated: {{ not (has "xpack-7.6.2-v1" .Values.enableVersions.Elasticsearch) }}
 {{ end }}
 {{ end }}

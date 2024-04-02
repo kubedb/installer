@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.Postgres }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "10.19" .Values.enableVersions.Postgres) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -17,7 +17,6 @@ spec:
   db:
     baseOS: bullseye
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:10.19-bullseye'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.9.0'
@@ -38,10 +37,11 @@ spec:
     allowlist:
     - '>= 11.14, <= 14.1'
   version: "10.19"
+  deprecated: {{ not (has "10.19" .Values.enableVersions.Postgres) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "10.19-bullseye" .Values.enableVersions.Postgres) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -54,7 +54,6 @@ spec:
   db:
     baseOS: bullseye
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:10.19-bullseye'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.9.0'
@@ -75,5 +74,6 @@ spec:
     allowlist:
     - '>= 11.14, <= 14.1'
   version: "10.19"
+  deprecated: {{ not (has "10.19-bullseye" .Values.enableVersions.Postgres) }}
 {{ end }}
 {{ end }}

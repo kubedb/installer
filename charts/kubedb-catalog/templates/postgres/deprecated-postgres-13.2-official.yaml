@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.Postgres }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "13.2" .Values.enableVersions.Postgres) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -29,7 +29,6 @@ spec:
   db:
     baseOS: alpine
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:13.2-alpine'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.9.0'
@@ -50,10 +49,11 @@ spec:
     allowlist:
     - "13.5"
   version: "13.2"
+  deprecated: {{ not (has "13.2" .Values.enableVersions.Postgres) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "13.2-debian" .Values.enableVersions.Postgres) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -78,7 +78,6 @@ spec:
   db:
     baseOS: bullseye
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:13.2'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.9.0'
@@ -99,5 +98,6 @@ spec:
     allowlist:
     - "13.5"
   version: "13.2"
+  deprecated: {{ not (has "13.2-debian" .Values.enableVersions.Postgres) }}
 {{ end }}
 {{ end }}

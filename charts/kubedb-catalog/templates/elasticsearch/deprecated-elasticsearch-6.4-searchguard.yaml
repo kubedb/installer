@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.Elasticsearch }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "6.4" .Values.enableVersions.Elasticsearch) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
@@ -15,7 +15,6 @@ spec:
   authPlugin: SearchGuard
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch") $) }}:6.4'
-  deprecated: true
   distribution: SearchGuard
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch_exporter") $) }}:1.0.2'
@@ -25,5 +24,6 @@ spec:
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   version: "6.4"
+  deprecated: {{ not (has "6.4" .Values.enableVersions.Elasticsearch) }}
 {{ end }}
 {{ end }}

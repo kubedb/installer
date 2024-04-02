@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.Elasticsearch }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "opensearch-1.3.2" .Values.enableVersions.Elasticsearch) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
@@ -19,7 +19,6 @@ spec:
     yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-dashboard-init") $) }}:1.3.2-opensearch-v2023.01.29'
   db:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "opensearchproject/opensearch") $) }}:1.3.2'
-  deprecated: true
   distribution: OpenSearch
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.3.0'
@@ -44,5 +43,6 @@ spec:
         - name: args
           value: --match=^(?![.])(?!security-auditlog)(?!kubedb-system).+
   version: 1.3.2
+  deprecated: {{ not (has "opensearch-1.3.2" .Values.enableVersions.Elasticsearch) }}
 {{ end }}
 {{ end }}

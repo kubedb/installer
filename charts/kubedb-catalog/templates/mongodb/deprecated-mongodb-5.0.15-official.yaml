@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.MongoDB }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "5.0.15" .Values.enableVersions.MongoDB) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
@@ -26,7 +26,6 @@ spec:
       image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/wal-g") $) }}:v2023.11.30_mongo'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mongo") $) }}:5.0.15'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.40.0'
@@ -48,5 +47,6 @@ spec:
       restoreTask:
         name: mongodb-restore-5.0.15
   version: 5.0.15
+  deprecated: {{ not (has "5.0.15" .Values.enableVersions.MongoDB) }}
 {{ end }}
 {{ end }}

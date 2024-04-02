@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.MySQL }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "8.0-v1" .Values.enableVersions.MySQL) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -14,7 +14,6 @@ metadata:
 spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql") $) }}:8.0-v1'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysqld-exporter") $) }}:v0.11.0'
@@ -33,10 +32,11 @@ spec:
       standalone:
       - 8.0.3
   version: 8.0.3
+  deprecated: {{ not (has "8.0-v1" .Values.enableVersions.MySQL) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "8.0.3" .Values.enableVersions.MySQL) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -46,7 +46,6 @@ metadata:
 spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql") $) }}:8.0.3'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysqld-exporter") $) }}:v0.11.0'
@@ -65,10 +64,11 @@ spec:
       standalone:
       - 8.0.3
   version: 8.0.3
+  deprecated: {{ not (has "8.0.3" .Values.enableVersions.MySQL) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "8.0.3-v1" .Values.enableVersions.MySQL) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -78,7 +78,6 @@ metadata:
 spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql") $) }}:8.0.3-v1'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysqld-exporter") $) }}:v0.11.0'
@@ -97,10 +96,11 @@ spec:
       standalone:
       - 8.0.3
   version: 8.0.3
+  deprecated: {{ not (has "8.0.3-v1" .Values.enableVersions.MySQL) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "8.0.3-v2" .Values.enableVersions.MySQL) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -110,7 +110,6 @@ metadata:
 spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql") $) }}:8.0.3-v2'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysqld-exporter") $) }}:v0.11.0'
@@ -135,10 +134,11 @@ spec:
       standalone:
       - 8.0.3
   version: 8.0.3
+  deprecated: {{ not (has "8.0.3-v2" .Values.enableVersions.MySQL) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "8.0.3-v3" .Values.enableVersions.MySQL) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -148,7 +148,6 @@ metadata:
 spec:
   db:
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "mysql") $) }}:8.0.3'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prom/mysqld-exporter") $) }}:v0.13.0'
@@ -173,10 +172,11 @@ spec:
       standalone:
       - 8.0.3
   version: 8.0.3
+  deprecated: {{ not (has "8.0.3-v3" .Values.enableVersions.MySQL) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "8.0.3-v4" .Values.enableVersions.MySQL) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -188,7 +188,6 @@ spec:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.22.0'
   db:
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "mysql") $) }}:8.0.3'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysqld-exporter") $) }}:v0.13.1'
@@ -213,5 +212,6 @@ spec:
       standalone:
       - 8.0.3
   version: 8.0.3
+  deprecated: {{ not (has "8.0.3-v4" .Values.enableVersions.MySQL) }}
 {{ end }}
 {{ end }}
