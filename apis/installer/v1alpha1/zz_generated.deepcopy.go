@@ -545,6 +545,21 @@ func (in *KubedbCatalogSpec) DeepCopyInto(out *KubedbCatalogSpec) {
 		}
 	}
 	out.Psp = in.Psp
+	if in.EnableVersions != nil {
+		in, out := &in.EnableVersions, &out.EnableVersions
+		*out = make(map[string][]string, len(*in))
+		for key, val := range *in {
+			var outVal []string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				in, out := &val, &outVal
+				*out = make([]string, len(*in))
+				copy(*out, *in)
+			}
+			(*out)[key] = outVal
+		}
+	}
 	return
 }
 

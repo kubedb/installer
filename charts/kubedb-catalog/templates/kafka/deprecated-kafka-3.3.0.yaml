@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.Kafka }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "3.3.0" .Values.enableVersions.Kafka) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: KafkaVersion
 metadata:
@@ -18,11 +18,11 @@ spec:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/cruise-control") $) }}:3.3.0'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kafka-kraft") $) }}:3.3.0'
-  deprecated: true
   podSecurityPolicies:
     databasePolicyName: kafka-db
   securityContext:
     runAsUser: 1001
   version: 3.3.0
+  deprecated: {{ not (has "3.3.0" .Values.enableVersions.Kafka) }}
 {{ end }}
 {{ end }}

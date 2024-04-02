@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.MariaDB }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "10.6.4" .Values.enableVersions.MariaDB) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MariaDBVersion
 metadata:
@@ -16,7 +16,6 @@ spec:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-coordinator") $) }}:v0.24.0'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mariadb") $) }}:10.6.4-focal'
-  deprecated: true
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prom/mysqld-exporter") $) }}:v0.13.0'
   initContainer:
@@ -32,5 +31,6 @@ spec:
       restoreTask:
         name: mariadb-restore-10.5.8
   version: 10.6.4
+  deprecated: {{ not (has "10.6.4" .Values.enableVersions.MariaDB) }}
 {{ end }}
 {{ end }}
