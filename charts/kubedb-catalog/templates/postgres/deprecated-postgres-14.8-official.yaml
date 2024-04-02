@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.Postgres }}
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "14.8" .Values.enableVersions.Postgres) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -29,7 +29,6 @@ spec:
   db:
     baseOS: alpine
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:14.8-alpine'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.9.0'
@@ -47,10 +46,11 @@ spec:
       restoreTask:
         name: postgres-restore-14.0
   version: "14.8"
+  deprecated: {{ not (has "14.8" .Values.enableVersions.Postgres) }}
 {{ end }}
 
 ---
-{{ if not .Values.skipDeprecated }}
+{{ if or (not .Values.skipDeprecated) (has "14.8-bullseye" .Values.enableVersions.Postgres) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -75,7 +75,6 @@ spec:
   db:
     baseOS: bullseye
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:14.8-bullseye'
-  deprecated: true
   distribution: Official
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.9.0'
@@ -93,5 +92,6 @@ spec:
       restoreTask:
         name: postgres-restore-14.0
   version: "14.8"
+  deprecated: {{ not (has "14.8-bullseye" .Values.enableVersions.Postgres) }}
 {{ end }}
 {{ end }}
