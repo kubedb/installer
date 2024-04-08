@@ -20,7 +20,7 @@ require (
 	kmodules.xyz/schema-checker v0.4.1
 	kubeops.dev/scanner v0.0.17
 	sigs.k8s.io/yaml v1.4.0
-	stash.appscode.dev/installer v0.12.2-0.20240102041815-f6f313210a2e
+	stash.appscode.dev/installer v0.12.2-0.20240329092319-77d66ed99201
 )
 
 require (
