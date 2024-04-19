@@ -1,0 +1,21 @@
+apiVersion: http.keda.sh/v1alpha1
+kind: HTTPScaledObject
+metadata:
+  name: test-scale
+  namespace: demo
+spec:
+  hosts:
+  - tamal-gateway.demo.kubedb.cloud
+  pathPrefixes:
+  - /
+  replicas:
+    max: 1
+    min: 0
+  scaleTargetRef:
+    apiVersion: apps/v1
+    deployment: ""
+    kind: Deployment
+    name: mgo-mongo-ui
+    port: 4321
+    service: mgo-mongo-ui
+  targetPendingRequests: 200

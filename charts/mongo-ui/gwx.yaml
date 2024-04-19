@@ -1,0 +1,45 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  annotations:
+    port-mapping.gateway.voyagermesh.com/10052: "30052"
+  name: ui-test
+  namespace: mongo
+spec:
+  gatewayClassName: ace
+  listeners:
+  - allowedRoutes:
+      namespaces:
+        from: Same
+    name: ui-test
+    port: 10052
+    protocol: HTTP
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: ui-test
+  namespace: mongo
+spec:
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: ui-test
+    namespace: mongo
+    sectionName: ui-test
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: keda-add-ons-http-interceptor-proxy
+      namespace: testing
+      port: 8080
+      weight: 1
+    filters:
+    - type: URLRewrite
+      urlRewrite:
+        hostname: tamal-gateway.keda.kubedb.cloud
+    matches:
+    - path:
+        type: PathPrefix
+        value: /

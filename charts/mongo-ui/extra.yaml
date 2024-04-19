@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mgo-mongo-ui-sec
+  namespace: mongo
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: mgo
+      app.kubernetes.io/name: mongo-ui
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/instance: mgo
+        app.kubernetes.io/name: mongo-ui
+    spec:
+      containers:
+      - env:
+        - name: PASS
+          valueFrom:
+             secretKeyRef:
+              name: mongo-tls-auth
+              key: password
+        - name: MONGO_URL
+          value: mongodb://root:${PASS}@mongo-tls.mongo.svc:27017?directConnection=true&tls=true&tlsCAFile=/tmp/ca.crt&retryWrites=true&w=majority
+        image: ugleiton/mongo-gui:latest
+        imagePullPolicy: Always
+        name: mongo-ui
+        ports:
+        - containerPort: 4321
+          name: http
+          protocol: TCP
+        terminationMessagePath: /dev/termination-log
+        volumeMounts:
+          - name:  tls
+            mountPath:  /tmp
+      volumes:
+        - name:  tls
+          secret:
+            secretName: mongo-tls-client-cert

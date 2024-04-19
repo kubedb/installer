@@ -44,17 +44,17 @@ spec:
         - path:
             type: PathPrefix
             value: /
-      # filters:
-      # - type: RequestHeaderModifier
-      #   requestHeaderModifier:
-      #     set:
-      #     - name: "Host"
-      #       value: "tamal-gateway.keda.kubedb.cloud"
+      filters:
+      - type: RequestHeaderModifier
+        requestHeaderModifier:
+          set:
+          - name: "Host"
+            value: "demo-pg.mongo.svc"
 ---
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: ReferenceGrant
 metadata:
-  name: cert-{{ .Release.Namespace }}2 # fix naming conflict
+  name: cert-{{ .Release.Namespace }}3 # fix naming conflict
   namespace: {{ .Values.gateway.tlsSecretRef.namespace }}
 spec:
   from:
@@ -69,7 +69,7 @@ spec:
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: ReferenceGrant
 metadata:
-  name: httproute-{{ .Release.Namespace }}2 # fix naming conflict
+  name: httproute-{{ .Release.Namespace }}3 # fix naming conflict
   namespace: {{ .Values.keda.proxyService.namespace }}
 spec:
   from:
