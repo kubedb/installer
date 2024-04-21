@@ -62,6 +62,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | featureGates.MariaDB                       |                                                 | <code>true</code>              |
 | featureGates.Memcached                     |                                                 | <code>true</code>              |
 | featureGates.MongoDB                       |                                                 | <code>true</code>              |
+| featureGates.MSSQL                         |                                                 | <code>true</code>              |
 | featureGates.MySQL                         |                                                 | <code>true</code>              |
 | featureGates.PerconaXtraDB                 |                                                 | <code>true</code>              |
 | featureGates.PgBouncer                     |                                                 | <code>true</code>              |
@@ -73,7 +74,6 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | featureGates.Singlestore                   |                                                 | <code>true</code>              |
 | featureGates.Solr                          |                                                 | <code>true</code>              |
 | featureGates.ZooKeeper                     |                                                 | <code>true</code>              |
-| featureGates.MsSQL                         |                                                 | <code>true</code>              |
 | psp.enabled                                |                                                 | <code>false</code>             |
 | psp.elasticsearch.allowPrivilegeEscalation |                                                 | <code>true</code>              |
 | psp.elasticsearch.privileged               |                                                 | <code>true</code>              |
