@@ -56,6 +56,7 @@ type KubedbKubestashCatalogSpec struct {
 	Redis          StashRedisSpec          `json:"redis"`
 	Postgres       StashPostgresSpec       `json:"postgres"`
 	Singlestore    StashSinglestoreSpec    `json:"singlestore"`
+	ZooKeeper      StashZooKeeperSpec      `json:"zookeeper"`
 }
 
 // StashElasticsearchSpec is the schema for Stash Elasticsearch values file
@@ -198,6 +199,21 @@ type SinglestoreBackup struct {
 }
 
 type SinglestoreRestore struct {
+	// +optional
+	Args string `json:"args"`
+}
+
+type StashZooKeeperSpec struct {
+	Backup  ZooKeeperBackup  `json:"backup"`
+	Restore ZooKeeperRestore `json:"restore"`
+}
+
+type ZooKeeperBackup struct {
+	// +optional
+	Args string `json:"args"`
+}
+
+type ZooKeeperRestore struct {
 	// +optional
 	Args string `json:"args"`
 }
