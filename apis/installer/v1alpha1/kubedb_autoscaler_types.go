@@ -84,6 +84,8 @@ type KubedbAutoscalerSpec struct {
 	StorageAutoscaler StorageAutoscalerSpec `json:"storageAutoscaler"`
 	// +optional
 	Recommender Recommender `json:"recommender"`
+	// +optional
+	MaxConcurrentReconciles int `json:"maxConcurrentReconciles"`
 }
 
 type StorageAutoscalerSpec struct {
