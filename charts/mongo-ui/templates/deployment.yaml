@@ -36,7 +36,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: MONGO_URL
-              value: "mongodb://root:***@mg-d.app-d.svc:27017?retryWrites=true&w=majority"
+              value: {{ .Values.app.url }}
           ports:
             - name: http
               containerPort: 4321
@@ -51,6 +51,17 @@ spec:
           #     port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          {{- if .Values.tls.enabled }}
+          volumeMounts:
+          - name:  tls
+            mountPath:  /tmp
+          {{- end }}
+      {{- if .Values.tls.enabled }}
+      volumes:
+        - name:  tls
+          secret:
+            secretName: {{ .Values.tls.secretName }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
