@@ -82,6 +82,8 @@ type KubedbOpsManagerSpec struct {
 	// +optional
 	RecommendationEngine RecommendationEngineConfig `json:"recommendationEngine"`
 	Psp                  PSPSpec                    `json:"psp"`
+	// +optional
+	MaxConcurrentReconciles int `json:"maxConcurrentReconciles"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
