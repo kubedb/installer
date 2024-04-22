@@ -144,6 +144,8 @@ type GlobalValues struct {
 	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
 	FeatureGates     map[string]bool             `json:"featureGates"`
 	Monitoring       EASMonitoring               `json:"monitoring"`
+	// +optional
+	MaxConcurrentReconciles int `json:"maxConcurrentReconciles"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
