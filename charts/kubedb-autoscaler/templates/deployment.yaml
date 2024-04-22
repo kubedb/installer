@@ -1,6 +1,12 @@
 {{- $major := default "0" .Capabilities.KubeVersion.Major | trimSuffix "+" | int64 }}
 {{- $minor := default "0" .Capabilities.KubeVersion.Minor | trimSuffix "+" | int64 }}
 {{- $criticalAddon := and .Values.criticalAddon (or (eq .Release.Namespace "kube-system") (and (ge $major 1) (ge $minor 17))) -}}
+
+{{ $maxConcurrentReconciles := .Values.maxConcurrentReconciles }}
+{{- if .Values.global }}
+  {{ $maxConcurrentReconciles = default .Values.maxConcurrentReconciles .Values.global.maxConcurrentReconciles }}
+{{- end }}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -58,6 +64,9 @@ spec:
         - --cpu-histogram-decay-half-life={{ .Values.recommender.cpuHistogramDecayHalfLife }}
         {{- if include "appscode.licenseSecretName" . }}
         - --license-file=/var/run/secrets/appscode/license/key.txt
+        {{- end }}
+        {{- with $maxConcurrentReconciles }}
+        - --max-concurrent-reconciles={{.}}
         {{- end }}
         env:
         - name: POD_NAME
