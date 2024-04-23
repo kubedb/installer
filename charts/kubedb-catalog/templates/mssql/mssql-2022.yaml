@@ -3,7 +3,7 @@
   {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
 {{- end }}
 
-{{ if $featureGates.MSSQL }}
+{{ if $featureGates.MSSQLServer }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MSSQLVersion
@@ -19,7 +19,6 @@ spec:
   initContainer:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "neajmorshad/mssql-init-docker") $) }}:0.1'
   securityContext:
-    runAsGroup: 10001
     runAsUser: 10001
   version: "2022"
 {{ end }}
