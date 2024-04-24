@@ -84,6 +84,8 @@ type KubedbProvisionerSpec struct {
 	// +optional
 	LicenseSecretName string  `json:"licenseSecretName"`
 	Psp               PSPSpec `json:"psp"`
+	// +optional
+	MaxConcurrentReconciles int `json:"maxConcurrentReconciles"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

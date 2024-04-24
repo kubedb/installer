@@ -283,6 +283,10 @@ func main() {
 					if strings.HasPrefix(args[i], "--singlestore-args=") {
 						args[i] = fmt.Sprintf(`--singlestore-args=${args:={{ .Values.%s.args }}}`, app)
 					}
+				case "zookeeper":
+					if strings.HasPrefix(args[i], "--zookeeper-args=") {
+						args[i] = fmt.Sprintf(`--zookeeper-args=${args:={{ .Values.%s.args }}}`, app)
+					}
 
 				}
 			}
