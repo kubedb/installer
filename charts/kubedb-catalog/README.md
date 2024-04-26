@@ -102,7 +102,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | enableVersions.Kafka                       |                                                 | <code>[]</code>                |
 | enableVersions.MariaDB                     |                                                 | <code>[]</code>                |
 | enableVersions.Memcached                   |                                                 | <code>[]</code>                |
-| enableVersions.MicrosoftSQLServer          |                                                 | <code>[]</code>                |
+| enableVersions.MSSQLServer                 |                                                 | <code>[]</code>                |
 | enableVersions.MongoDB                     |                                                 | <code>[]</code>                |
 | enableVersions.MySQL                       |                                                 | <code>[]</code>                |
 | enableVersions.PerconaXtraDB               |                                                 | <code>[]</code>                |
