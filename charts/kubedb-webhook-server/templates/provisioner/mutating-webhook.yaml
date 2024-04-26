@@ -384,18 +384,18 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
-{{- if $featureGates.MSSQL }}
-- name: mssqlwebhook.mutators.kubedb.com
+{{- if $featureGates.MSSQLServer }}
+- name: mssqlserverwebhook.mutators.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
-      path: /apis/mutators.kubedb.com/v1alpha1/mssqlwebhooks
+      path: /apis/mutators.kubedb.com/v1alpha1/mssqlserverwebhooks
     caBundle: {{ $caCrt }}
   rules:
     - apiGroups: [ "kubedb.com" ]
       apiVersions: [ "*" ]
-      resources: [ "mssqls" ]
+      resources: [ "mssqlservers" ]
       operations: [ "CREATE", "UPDATE" ]
   admissionReviewVersions: [ "v1beta1" ]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
