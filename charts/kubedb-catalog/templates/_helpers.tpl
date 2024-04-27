@@ -78,6 +78,10 @@ Create the name of the service account to use
 {{ list .Values.proxies.kubernetes ._repo | compact | join "/" }}
 {{- end }}
 
+{{- define "image.microsoft" -}}
+{{ list .Values.proxies.microsoft ._repo | compact | join "/" }}
+{{- end }}
+
 {{- define "image.appscode" -}}
 {{ list .Values.proxies.appscode ._repo | compact | join "/" }}
 {{- end }}
