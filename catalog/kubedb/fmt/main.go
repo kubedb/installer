@@ -527,6 +527,8 @@ func main() {
 								newimg = fmt.Sprintf(`{{ include "image.ghcr" (merge (dict "_repo" "%s") $) }}`, ref.Repository)
 							case "registry.k8s.io":
 								newimg = fmt.Sprintf(`{{ include "image.kubernetes" (merge (dict "_repo" "%s") $) }}`, ref.Repository)
+							case "mcr.microsoft.com":
+								newimg = fmt.Sprintf(`{{ include "image.microsoft" (merge (dict "_repo" "%s") $) }}`, ref.Repository)
 							default:
 								panic("unsupported registry for image " + img)
 							}

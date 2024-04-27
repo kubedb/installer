@@ -1,0 +1,24 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.MSSQLServer }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MSSQLServerVersion
+metadata:
+  name: '2022-cu12'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mssql-coordinator") $) }}:v0.0.1'
+  db:
+    image: '{{ include "image.microsoft" (merge (dict "_repo" "mssql/server") $) }}:2022-CU12-ubuntu-22.04'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mssql-init") $) }}:2022-ubuntu-22-v1'
+  securityContext:
+    runAsUser: 10001
+  version: "2022"
+{{ end }}
