@@ -97,19 +97,19 @@ crd-importer \
     --out=./charts/kubedb-kubestash-catalog/crds
 
 crd-importer \
-    --input=https://github.com/kmodules/resource-metadata/raw/v0.17.44/crds/node.k8s.appscode.com_nodetopologies.yaml \
+    --input=https://github.com/kmodules/resource-metadata/raw/v0.18.2/crds/node.k8s.appscode.com_nodetopologies.yaml \
     --out=./charts/kubedb-autoscaler/crds
 
 crd-importer \
-    --input=https://github.com/kmodules/custom-resources/raw/v0.25.1/crds/metrics.appscode.com_metricsconfigurations.yaml \
+    --input=https://github.com/kmodules/custom-resources/raw/v0.29.1/crds/metrics.appscode.com_metricsconfigurations.yaml \
     --out=./charts/kubedb-metrics/crds
 
 crd-importer \
-    --input=https://github.com/open-viz/apimachinery/raw/v0.0.5/crds/openviz.dev_grafanadashboards.yaml \
+    --input=https://github.com/open-viz/apimachinery/raw/v0.0.7/crds/openviz.dev_grafanadashboards.yaml \
     --out=./charts/kubedb-grafana-dashboards/crds
 
 crd-importer \
-    --input=https://github.com/kubeops/supervisor/raw/v0.0.3/crds/supervisor.appscode.com_recommendations.yaml \
+    --input=https://github.com/kubeops/supervisor/raw/v0.0.5/crds/supervisor.appscode.com_recommendations.yaml \
     --out=./charts/kubedb-ops-manager/crds
 
 # dashboard charts
