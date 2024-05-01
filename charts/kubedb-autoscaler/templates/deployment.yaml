@@ -2,9 +2,24 @@
 {{- $minor := default "0" .Capabilities.KubeVersion.Minor | trimSuffix "+" | int64 }}
 {{- $criticalAddon := and .Values.criticalAddon (or (eq .Release.Namespace "kube-system") (and (ge $major 1) (ge $minor 17))) -}}
 
-{{ $maxConcurrentReconciles := .Values.maxConcurrentReconciles }}
+{{- $maxConcurrentReconciles := .Values.maxConcurrentReconciles }}
 {{- if .Values.global }}
   {{ $maxConcurrentReconciles = default .Values.maxConcurrentReconciles .Values.global.maxConcurrentReconciles }}
+{{- end }}
+
+{{- $nodeSelector := .Values.nodeSelector }}
+{{- if .Values.global }}
+  {{ $nodeSelector = default .Values.nodeSelector .Values.global.nodeSelector }}
+{{- end }}
+
+{{- $tolerations := .Values.tolerations }}
+{{- if .Values.global }}
+  {{ $tolerations = default .Values.tolerations .Values.global.tolerations }}
+{{- end }}
+
+{{- $affinity := .Values.affinity }}
+{{- if .Values.global }}
+  {{ $affinity = default .Values.affinity .Values.global.affinity }}
 {{- end }}
 
 apiVersion: apps/v1
@@ -126,9 +141,9 @@ spec:
       {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-    {{- if or .Values.tolerations $criticalAddon }}
+    {{- if or $tolerations $criticalAddon }}
       tolerations:
-      {{- with .Values.tolerations }}
+      {{- with $tolerations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- if $criticalAddon }}
@@ -136,11 +151,11 @@ spec:
           operator: Exists
       {{- end -}}
     {{- end -}}
-    {{- with .Values.affinity }}
+    {{- with $affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-    {{- with .Values.nodeSelector }}
+    {{- with $nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
     {{- end }}

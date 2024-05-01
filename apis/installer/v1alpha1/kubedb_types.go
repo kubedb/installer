@@ -146,6 +146,14 @@ type GlobalValues struct {
 	Monitoring       EASMonitoring               `json:"monitoring"`
 	// +optional
 	MaxConcurrentReconciles int `json:"maxConcurrentReconciles"`
+	// +optional
+	NodeSelector map[string]string `json:"nodeSelector"`
+	// If specified, the pod's tolerations.
+	// +optional
+	Tolerations []core.Toleration `json:"tolerations"`
+	// If specified, the pod's scheduling constraints
+	// +optional
+	Affinity *core.Affinity `json:"affinity"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
