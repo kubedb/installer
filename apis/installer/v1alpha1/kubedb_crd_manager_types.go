@@ -51,7 +51,6 @@ type KubedbCrdManagerSpec struct {
 	//+optional
 	RegistryFQDN    string   `json:"registryFQDN"`
 	Image           ImageRef `json:"image"`
-	Cleaner         ImageRef `json:"cleaner"`
 	ImagePullPolicy string   `json:"imagePullPolicy"`
 	//+optional
 	ImagePullSecrets []string `json:"imagePullSecrets"`

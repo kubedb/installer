@@ -59,18 +59,17 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       containers:
-        - name: checker
+        - name: verifier
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ include "cleaner.registry" . }}/{{ .Values.cleaner.repository }}:{{ .Values.cleaner.tag }}"
+          image: "{{ include "image.registry" . }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           args:
-            - sh
-            - -c
-            - |
-                sleep 2; \
-                kubectl wait --for=condition=Established crds -l app.kubernetes.io/name=kubedb --timeout=5m; \
-                kubectl wait --for=condition=NamesAccepted crds -l app.kubernetes.io/name=kubedb --timeout=5m
+            - verify
+            - --v=3
+          {{- range $db, $enable := $featureGates }}
+            - --feature-gates={{ $db }}={{ $enable }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with $nodeSelector }}
