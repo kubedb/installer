@@ -84,6 +84,8 @@ The following table lists the configurable parameters of the `mongo-ui` chart an
 | app.url                        |                                                                                                                        | <code>"mongodb://root:***@*.*.svc:27017?retryWrites=true&w=majority"</code> |
 | tls.enabled                    |                                                                                                                        | <code>false</code>                                                          |
 | tls.secretName                 |                                                                                                                        | <code>"" # mongo client cert</code>                                         |
+| bind.name                      |                                                                                                                        | <code>""</code>                                                             |
+| bind.namespace                 |                                                                                                                        | <code>""</code>                                                             |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
