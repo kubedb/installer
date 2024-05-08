@@ -65,5 +65,5 @@ Create the name of the service account to use
 Fake keda hostname
 */}}
 {{- define "keda.hostname" -}}
-{{- printf "%s.%s.kubedb.test" .Values.app.service.name .Values.app.service.namespace | quote }}
+{{- printf "%s.%s.%s.%s.kubedb.test" .Values.bind.name .Values.bind.namespace  .Values.app.service.name .Values.app.service.namespace | quote }}
 {{- end }}

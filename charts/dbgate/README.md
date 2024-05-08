@@ -81,6 +81,8 @@ The following table lists the configurable parameters of the `dbgate` chart and 
 | app.service.name               |                                                                                                                                                                                                                                   | <code>""</code>                                    |
 | app.service.namespace          |                                                                                                                                                                                                                                   | <code>""</code>                                    |
 | app.authSecret.name            |                                                                                                                                                                                                                                   | <code>""</code>                                    |
+| bind.name                      |                                                                                                                                                                                                                                   | <code>""</code>                                    |
+| bind.namespace                 |                                                                                                                                                                                                                                   | <code>""</code>                                    |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
