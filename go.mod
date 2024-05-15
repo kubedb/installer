@@ -5,7 +5,7 @@ go 1.22.0
 require (
 	github.com/Masterminds/semver/v3 v3.2.1
 	github.com/Masterminds/sprig/v3 v3.2.3
-	github.com/google/go-containerregistry v0.19.0
+	github.com/google/go-containerregistry v0.19.1
 	github.com/google/gofuzz v1.2.0
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/spf13/pflag v1.0.5
@@ -15,7 +15,7 @@ require (
 	k8s.io/api v0.29.2
 	k8s.io/apimachinery v0.29.2
 	k8s.io/klog/v2 v2.120.1
-	kmodules.xyz/client-go v0.29.13
+	kmodules.xyz/client-go v0.29.14
 	kmodules.xyz/go-containerregistry v0.0.12
 	kmodules.xyz/schema-checker v0.4.1
 	kubeops.dev/scanner v0.0.17
@@ -89,9 +89,9 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	k8s.io/client-go v0.29.2 // indirect
-	k8s.io/kube-openapi v0.0.0-20240228011516-70dd3763d340 // indirect
+	k8s.io/kube-openapi v0.0.0-20240403164606-bc84c2ddaf99 // indirect
 	k8s.io/utils v0.0.0-20240102154912-e7106e64919e // indirect
-	sigs.k8s.io/controller-runtime v0.17.2 // indirect
+	sigs.k8s.io/controller-runtime v0.17.4 // indirect
 	sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.4.1 // indirect
 )
