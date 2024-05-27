@@ -118,35 +118,30 @@ spec:
                     format: int64
                     type: integer
                 type: object
-              databases:
-                items:
-                  properties:
-                    alias:
-                      type: string
-                    databaseName:
-                      type: string
-                    databaseRef:
-                      properties:
-                        name:
-                          type: string
-                        namespace:
-                          type: string
-                        parameters:
-                          type: object
-                          x-kubernetes-embedded-resource: true
-                          x-kubernetes-preserve-unknown-fields: true
-                      required:
-                      - name
-                      - namespace
-                      type: object
-                    syncUsers:
-                      type: boolean
-                  required:
-                  - alias
-                  - databaseName
-                  - databaseRef
-                  type: object
-                type: array
+              database:
+                properties:
+                  databaseName:
+                    type: string
+                  databaseRef:
+                    properties:
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                      parameters:
+                        type: object
+                        x-kubernetes-embedded-resource: true
+                        x-kubernetes-preserve-unknown-fields: true
+                    required:
+                    - name
+                    - namespace
+                    type: object
+                  syncUsers:
+                    type: boolean
+                required:
+                - databaseName
+                - databaseRef
+                type: object
               healthChecker:
                 default:
                   failureThreshold: 1
@@ -3153,6 +3148,8 @@ spec:
                 - NotReady
                 - Halted
                 - Unknown
+                type: string
+              resourceVersionOfBackendSecret:
                 type: string
             type: object
         type: object
