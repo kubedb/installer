@@ -1,0 +1,23 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Kafka }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: SchemaRegistryVersion
+metadata:
+  name: '2.5.11.final'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  distribution: Apicurio
+  inMemory:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "obaydullahmhs/apicurio-registry-mem") $) }}'
+  registry:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "obaydullahmhs/apicurio-registry") $) }}'
+  securityContext:
+    runAsUser: 1001
+  version: 2.5.11
+{{ end }}
