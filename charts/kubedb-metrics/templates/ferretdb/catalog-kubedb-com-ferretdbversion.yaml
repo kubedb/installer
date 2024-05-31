@@ -1,0 +1,26 @@
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: catalog-kubedb-com-ferretdbversion
+spec:
+  targetRef:
+    apiVersion: catalog.kubedb.com/v1alpha1
+    kind: FerretDBVersion
+  metrics:
+    - name: created
+      help: "Unix creation timestamp"
+      type: gauge
+      field:
+        path: .metadata.creationTimestamp
+        type: DateTime
+      metricValue:
+        valueFromPath: .metadata.creationTimestamp
+
+    - name: info
+      help: "FerretDB versions info"
+      type: gauge
+      labels:
+        - key: ferretdb_image
+          valuePath: .spec.db.image
+      metricValue:
+        value: 1
