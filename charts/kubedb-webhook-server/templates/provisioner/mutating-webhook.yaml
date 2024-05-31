@@ -315,6 +315,21 @@ webhooks:
   admissionReviewVersions: [ "v1beta1" ]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+- name: schemaregistrywebhook.mutators.kafka.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/mutators.kafka.kubedb.com/v1alpha1/schemaregistrywebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: [ "kafka.kubedb.com" ]
+      apiVersions: [ "*" ]
+      resources: [ "schemaregistries" ]
+      operations: [ "CREATE", "UPDATE" ]
+  admissionReviewVersions: [ "v1beta1" ]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
 {{- end }}
 {{- if $featureGates.Singlestore }}
 - name: singlestorewebhook.mutators.kubedb.com

@@ -237,6 +237,8 @@ func main() {
 				if distro == "" {
 					distro = connectorType
 				}
+			} else if dbKind == "SchemaRegistry" {
+				distro, _, _ = unstructured.NestedString(ri.Object.Object, "spec", "distribution")
 			}
 
 			dbVersion, _, err := unstructured.NestedString(ri.Object.Object, "spec", "version")
@@ -566,7 +568,7 @@ func main() {
 			}
 
 			tempKind := dbKind
-			if dbKind == "KafkaConnector" {
+			if dbKind == "KafkaConnector" || dbKind == "SchemaRegistry" {
 				tempKind = "Kafka"
 			}
 			data := map[string]interface{}{
