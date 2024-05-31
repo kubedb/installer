@@ -152,6 +152,23 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
+{{- if $featureGates.Pgpool }}
+- name: pgpoolautoscalerwebhook.validators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.autoscaling.kubedb.com/v1alpha1/pgpoolautoscalerwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["pgpoolautoscalers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
 {{- if $featureGates.ProxySQL }}
 - name: proxysqlautoscalerwebhook.validators.autoscaling.kubedb.com
   clientConfig:
