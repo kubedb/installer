@@ -252,6 +252,23 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
+{{- if $featureGates.Singlestore }}
+- name: singlestoreautoscalerwebhook.mutators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/singlestoreautoscalerwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["singlestoreautoscalers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
 {{- end }}
 {{- end }}
 
