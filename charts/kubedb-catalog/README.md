@@ -55,6 +55,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | proxies.kubernetes                         |                                                 | <code>registry.k8s.io</code>   |
 | proxies.microsoft                          |                                                 | <code>mcr.microsoft.com</code> |
 | proxies.appscode                           |                                                 | <code>r.appscode.com</code>    |
+| featureGates.ClickHouse                    |                                                 | <code>true</code>              |
 | featureGates.Druid                         |                                                 | <code>true</code>              |
 | featureGates.Elasticsearch                 |                                                 | <code>true</code>              |
 | featureGates.FerretDB                      |                                                 | <code>true</code>              |
