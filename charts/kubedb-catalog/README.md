@@ -55,6 +55,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | proxies.kubernetes                         |                                                 | <code>registry.k8s.io</code>   |
 | proxies.microsoft                          |                                                 | <code>mcr.microsoft.com</code> |
 | proxies.appscode                           |                                                 | <code>r.appscode.com</code>    |
+| featureGates.ClickHouse                    |                                                 | <code>true</code>              |
 | featureGates.Druid                         |                                                 | <code>true</code>              |
 | featureGates.Elasticsearch                 |                                                 | <code>true</code>              |
 | featureGates.FerretDB                      |                                                 | <code>true</code>              |
@@ -96,6 +97,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | psp.kafka.allowPrivilegeEscalation         |                                                 | <code>false</code>             |
 | psp.kafka.privileged                       |                                                 | <code>false</code>             |
 | skipDeprecated                             | Set true to avoid deploying deprecated versions | <code>true</code>              |
+| enableVersions.ClickHouse                  |                                                 | <code>[]</code>                |
 | enableVersions.Druid                       |                                                 | <code>[]</code>                |
 | enableVersions.Elasticsearch               |                                                 | <code>[]</code>                |
 | enableVersions.FerretDB                    |                                                 | <code>[]</code>                |
