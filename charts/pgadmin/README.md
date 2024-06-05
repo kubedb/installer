@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/pgadmin --version=v2024.4.27
-$ helm upgrade -i pgadmin appscode/pgadmin -n demo --create-namespace --version=v2024.4.27
+$ helm search repo appscode/pgadmin --version=v2024.6.4
+$ helm upgrade -i pgadmin appscode/pgadmin -n demo --create-namespace --version=v2024.6.4
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a pgAdmin deployment on a [Kubernetes](http://kubernetes.io) 
 To install/upgrade the chart with the release name `pgadmin`:
 
 ```bash
-$ helm upgrade -i pgadmin appscode/pgadmin -n demo --create-namespace --version=v2024.4.27
+$ helm upgrade -i pgadmin appscode/pgadmin -n demo --create-namespace --version=v2024.6.4
 ```
 
 The command deploys a pgAdmin deployment on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -88,12 +88,12 @@ The following table lists the configurable parameters of the `pgadmin` chart and
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i pgadmin appscode/pgadmin -n demo --create-namespace --version=v2024.4.27 --set image.tag=latest
+$ helm upgrade -i pgadmin appscode/pgadmin -n demo --create-namespace --version=v2024.6.4 --set image.tag=latest
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i pgadmin appscode/pgadmin -n demo --create-namespace --version=v2024.4.27 --values values.yaml
+$ helm upgrade -i pgadmin appscode/pgadmin -n demo --create-namespace --version=v2024.6.4 --values values.yaml
 ```
