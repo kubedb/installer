@@ -29,6 +29,52 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
+        - name: authz-proxy
+          args:
+          - --listen=8000
+          - --metrics-addr=8080
+          - --platform-url=<https://api.appscode.com>
+          - --platform-ca-file=<mount-csi-driver>
+          - --secret-name=<auth-secret>
+          - --secret-namespace=${Release.namespace}
+          - --target-url=http://localhost:<pgadmin-port>
+
+
+authProxy:
+  # Docker registry used to pull KubeDB operator image
+  registry: kubedb
+  # KubeDB operator container image
+  repository: kubedb-provisioner
+  # KubeDB operator container image tag
+  tag: ""
+  # Security options this container should run with
+  securityContext: # +doc-gen:break
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 65534
+    # seccompProfile:
+    #   type: RuntimeDefault
+  # Compute Resources required by this container
+  resources: {}
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+  enable: <>
+  - --listen=8000
+  - --metrics-addr=8080
+  - --platform-url=<https://api.appscode.com>
+  - --platform-ca-file=<mount-csi-driver>
+  - --secret-name=<auth-secret>
+  - --secret-namespace=${Release.namespace}
+  - --target-url=http://localhost:<pgadmin-port>
+
+
+
+
+
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}

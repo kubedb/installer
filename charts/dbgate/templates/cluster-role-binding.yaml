@@ -1,0 +1,15 @@
+# to delegate authentication and authorization
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "dbgate.fullname" . }}-auth-delegator
+  labels:
+    {{- include "dbgate.labels" . | nindent 4 }}
+roleRef:
+  kind: ClusterRole
+  apiGroup: rbac.authorization.k8s.io
+  name: system:auth-delegator
+subjects:
+- kind: ServiceAccount
+  name: {{ include "dbgate.serviceAccountName" . }}
+  namespace: {{ .Release.Namespace }}
