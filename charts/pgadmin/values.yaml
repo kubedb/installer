@@ -115,3 +115,35 @@ app:
 bind:
   name: ""
   namespace: ""
+
+authzProxy:
+  enable: <>
+  # Docker registry used to pull KubeDB operator image
+  registry: appscode
+  # KubeDB operator container image
+  repository: kube-authz-proxy
+  # KubeDB operator container image tag
+  tag: "v0.0.1"
+  # Security options this container should run with
+  securityContext: # +doc-gen:break
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 65534
+    seccompProfile:
+      type: RuntimeDefault
+  # Compute Resources required by this container
+  resources: {}
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+  params:
+    listen: 8000
+    metricsAddr: 8080
+    platformURL: <https://api.appscode.com>
+    platform-ca-file: <mount-csi-driver>
+    secretName: <auth-secret>
+    secretNamespace: ${Release.namespace}
+    targetURL: http://localhost:<pgadmin-port>

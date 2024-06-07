@@ -77,6 +77,41 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+
+        {{ if .Values.authzProxy.enabled }}
+        - name: authz-proxy
+          securityContext:
+            {{- toYaml .Values.authzProxy.securityContext | nindent 12 }}
+          image: "{{ .Values.authzProxy.repository }}:{{ .Values.authzProxy.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - run
+            - --listen={{ .Values.authzProxy.params.listen }}
+            - --metrics-addr={{ .Values.authzProxy.params.metricsAddr }}
+            - --platform-url={{ .Values.authzProxy.params.platformURL }}
+            # - --platform-ca-file=<mount-csi-driver>
+            - --secret-name={{ .Values.app.authSecret.name }}
+            - --secret-namespace={{ .Release.Namespace }}
+            - --target-url=http://localhost:3000
+          ports:
+            - name: proxy
+              containerPort: {{ .Values.authzProxy.params.listen }}
+              protocol: TCP
+            - name: metrics
+              containerPort: {{ .Values.authzProxy.params.metricsAddr }}
+              protocol: TCP
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          resources:
+            {{- toYaml .Values.authzProxy.resources | nindent 12 }}
+        {{ end }}
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
