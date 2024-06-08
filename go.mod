@@ -18,7 +18,7 @@ require (
 	kmodules.xyz/client-go v0.30.1
 	kmodules.xyz/go-containerregistry v0.0.12
 	kmodules.xyz/schema-checker v0.4.1
-	kubeops.dev/scanner v0.0.17
+	kubeops.dev/scanner v0.0.18
 	sigs.k8s.io/yaml v1.4.0
 	stash.appscode.dev/installer v0.12.2-0.20240420190034-95f958de0f1e
 )
