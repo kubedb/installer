@@ -37,9 +37,10 @@ webhooks:
 - name: postgreswebhook.mutators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.kubedb.com/v1alpha1/postgreswebhooks
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-kubedb-com-v1-postgres
+      port: 9443
     caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
