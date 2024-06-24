@@ -49,24 +49,7 @@ webhooks:
     operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  matchPolicy: Exact
-  sideEffects: None
-- name: postgreswebhook.mutators.kubedb.com.v1alpha2
-  clientConfig:
-    service:
-      namespace: {{ .Release.Namespace }}
-      name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /mutate-kubedb-com-v1alpha2-postgres
-      port: 9443
-    caBundle: {{ $caCrt }}
-  rules:
-    - apiGroups: ["kubedb.com"]
-      apiVersions: ["v1alpha2"]
-      resources: ["postgreses"]
-      operations: ["CREATE", "UPDATE"]
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  matchPolicy: Exact
+  matchPolicy: Equivalent
   sideEffects: None
 {{- end }}
 {{- if $featureGates.FerretDB }}
