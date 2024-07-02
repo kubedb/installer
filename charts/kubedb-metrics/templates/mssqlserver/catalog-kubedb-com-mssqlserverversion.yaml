@@ -1,0 +1,30 @@
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: catalog-kubedb-com-mssqlserverversion
+spec:
+  targetRef:
+    apiVersion: catalog.kubedb.com/v1alpha1
+    kind: MSSQLServerVersion
+  metrics:
+    - name: created
+      help: "Unix creation timestamp"
+      type: gauge
+      field:
+        path: .metadata.creationTimestamp
+        type: DateTime
+      metricValue:
+        valueFromPath: .metadata.creationTimestamp
+
+    - name: info
+      help: "MSSQLServer versions info"
+      type: gauge
+      labels:
+        - key: deprecated
+          valuePath: .spec.deprecated
+        - key: mssqlserver_image
+          valuePath: .spec.db.image
+        - key: exporter_image
+          valuePath: .spec.exporter.image
+      metricValue:
+        value: 1
