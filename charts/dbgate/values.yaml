@@ -122,3 +122,30 @@ app:
 bind:
   name: ""
   namespace: ""
+
+authzProxy:
+  enabled: true
+  # KubeDB operator container image
+  repository: ghcr.io/appscode/kube-authz-proxy
+  # KubeDB operator container image tag
+  tag: "v0.0.1"
+  # Security options this container should run with
+  securityContext: # +doc-gen:break
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 65534
+    seccompProfile:
+      type: RuntimeDefault
+  # Compute Resources required by this container
+  resources: {}
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+  params:
+    listen: 8000
+    metricsAddr: 8080
+    platformURL: https://accounts.tamal-k3s-chennai-com-nhsee.bytebuilders.xyz
+    platform-ca-file: <mount-csi-driver>
