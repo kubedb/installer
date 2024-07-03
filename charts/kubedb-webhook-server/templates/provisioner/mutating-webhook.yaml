@@ -20,13 +20,14 @@ webhooks:
 - name: elasticsearchwebhook.mutators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.kubedb.com/v1alpha1/elasticsearchwebhooks
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-kubedb-com-v1-elasticsearch
+      port: 9443
     caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
-    apiVersions: ["*"]
+    apiVersions: ["v1"]
     resources: ["elasticsearches"]
     operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
@@ -37,17 +38,19 @@ webhooks:
 - name: postgreswebhook.mutators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.kubedb.com/v1alpha1/postgreswebhooks
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-kubedb-com-v1-postgres
+      port: 9443
     caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
-    apiVersions: ["*"]
+    apiVersions: ["v1"]
     resources: ["postgreses"]
     operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  matchPolicy: Equivalent
   sideEffects: None
 {{- end }}
 {{- if $featureGates.FerretDB }}
@@ -71,13 +74,14 @@ webhooks:
 - name: mysqlwebhook.mutators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.kubedb.com/v1alpha1/mysqlwebhooks
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-kubedb-com-v1-mysql
+      port: 9443
     caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
-    apiVersions: ["*"]
+    apiVersions: ["v1"]
     resources: ["mysqls"]
     operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
@@ -88,13 +92,14 @@ webhooks:
 - name: perconaxtradbwebhook.mutators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.kubedb.com/v1alpha1/perconaxtradbwebhooks
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-kubedb-com-v1-perconaxtradb
+      port: 9443
     caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
-    apiVersions: ["*"]
+    apiVersions: ["v1"]
     resources: ["perconaxtradbs"]
     operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
@@ -105,13 +110,14 @@ webhooks:
 - name: mongodbwebhook.mutators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.kubedb.com/v1alpha1/mongodbwebhooks
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-kubedb-com-v1-mongodb
+      port: 9443
     caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
-    apiVersions: ["*"]
+    apiVersions: ["v1"]
     resources: ["mongodbs"]
     operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
@@ -122,13 +128,14 @@ webhooks:
 - name: rediswebhook.mutators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.kubedb.com/v1alpha1/rediswebhooks
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-kubedb-com-v1-redis
+      port: 9443
     caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
-    apiVersions: ["*"]
+    apiVersions: ["v1"]
     resources: ["redises"]
     operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
@@ -137,13 +144,14 @@ webhooks:
 - name: redissentinelwebhook.mutators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.kubedb.com/v1alpha1/redissentinelwebhooks
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-kubedb-com-v1-redissentinel
+      port: 9443
     caBundle: {{ $caCrt }}
   rules:
     - apiGroups: ["kubedb.com"]
-      apiVersions: ["*"]
+      apiVersions: ["v1"]
       resources: ["redissentinels"]
       operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
@@ -154,13 +162,14 @@ webhooks:
 - name: memcachedwebhook.mutators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.kubedb.com/v1alpha1/memcachedwebhooks
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-kubedb-com-v1-memcached
+      port: 9443
     caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
-    apiVersions: ["*"]
+    apiVersions: ["v1"]
     resources: ["memcacheds"]
     operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
@@ -188,13 +197,14 @@ webhooks:
 - name: pgbouncerwebhook.mutators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.kubedb.com/v1alpha1/pgbouncerwebhooks
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-kubedb-com-v1-pgbouncer
+      port: 9443
     caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
-    apiVersions: ["*"]
+    apiVersions: ["v1"]
     resources: ["pgbouncers"]
     operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
@@ -205,13 +215,14 @@ webhooks:
 - name: proxysqlwebhook.mutators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.kubedb.com/v1alpha1/proxysqlwebhooks
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-kubedb-com-v1-proxysql
+      port: 9443
     caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
-    apiVersions: ["*"]
+    apiVersions: ["v1"]
     resources: ["proxysqls"]
     operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
@@ -239,13 +250,14 @@ webhooks:
 - name: mariadbwebhook.mutators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.kubedb.com/v1alpha1/mariadbwebhooks
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-kubedb-com-v1-mariadb
+      port: 9443
     caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
-    apiVersions: ["*"]
+    apiVersions: ["v1"]
     resources: ["mariadbs"]
     operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
@@ -296,7 +308,7 @@ webhooks:
     caBundle: {{ $caCrt }}
   rules:
     - apiGroups: [ "kubedb.com" ]
-      apiVersions: [ "*" ]
+      apiVersions: [ "v1" ]
       resources: [ "kafkas" ]
       operations: [ "CREATE", "UPDATE" ]
   admissionReviewVersions: [ "v1beta1" ]
