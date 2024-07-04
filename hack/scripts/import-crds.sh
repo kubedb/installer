@@ -84,11 +84,6 @@ if [ "$update_kubedb_crds" = true ] && [ -d ${crd_dir} ]; then
         --input=${crd_dir} \
         --out=. --output-yaml=crds/kubedb-catalog-crds.yaml \
         --group=catalog.kubedb.com
-
-    crd-importer \
-        --input=${crd_dir} \
-        --out=./charts/kubedb-ui-server/crds \
-        --group=kubedb.com
 fi
 
 KEDACORE_HTTP_ADD_ON_TAG=${KEDACORE_HTTP_ADD_ON_TAG:-v0.8.0}
