@@ -53,6 +53,15 @@ spec:
     spec:
       {{- include "docker.imagePullSecrets" . | nindent 6 }}
       serviceAccountName: {{ include "kubedb-autoscaler.serviceAccountName" . }}
+      initContainers:
+      - name: wait
+        image: ghcr.io/groundnuty/k8s-wait-for:v1.6
+        imagePullPolicy: {{ .Values.imagePullPolicy  }}
+        args:
+          - "service"
+          - "-lapp.kubernetes.io/name=kubedb-webhook-server"
+        securityContext:
+          {{- toYaml .Values.operator.securityContext | nindent 10 }}
       containers:
       - name: operator
         securityContext:
