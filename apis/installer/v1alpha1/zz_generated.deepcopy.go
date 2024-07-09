@@ -405,6 +405,7 @@ func (in *KubedbAutoscalerList) DeepCopyObject() runtime.Object {
 func (in *KubedbAutoscalerSpec) DeepCopyInto(out *KubedbAutoscalerSpec) {
 	*out = *in
 	in.Operator.DeepCopyInto(&out.Operator)
+	out.Waitfor = in.Waitfor
 	if in.ImagePullSecrets != nil {
 		in, out := &in.ImagePullSecrets, &out.ImagePullSecrets
 		*out = make([]v1.LocalObjectReference, len(*in))
@@ -835,6 +836,7 @@ func (in *KubedbDashboardList) DeepCopyObject() runtime.Object {
 func (in *KubedbDashboardSpec) DeepCopyInto(out *KubedbDashboardSpec) {
 	*out = *in
 	in.Operator.DeepCopyInto(&out.Operator)
+	out.Waitfor = in.Waitfor
 	if in.ImagePullSecrets != nil {
 		in, out := &in.ImagePullSecrets, &out.ImagePullSecrets
 		*out = make([]v1.LocalObjectReference, len(*in))
@@ -1127,6 +1129,7 @@ func (in *KubedbOpsManagerSpec) DeepCopyInto(out *KubedbOpsManagerSpec) {
 		copy(*out, *in)
 	}
 	in.Operator.DeepCopyInto(&out.Operator)
+	out.Waitfor = in.Waitfor
 	if in.ImagePullSecrets != nil {
 		in, out := &in.ImagePullSecrets, &out.ImagePullSecrets
 		*out = make([]v1.LocalObjectReference, len(*in))
@@ -1631,6 +1634,7 @@ func (in *KubedbProvisionerSpec) DeepCopyInto(out *KubedbProvisionerSpec) {
 		copy(*out, *in)
 	}
 	in.Operator.DeepCopyInto(&out.Operator)
+	out.Waitfor = in.Waitfor
 	if in.ImagePullSecrets != nil {
 		in, out := &in.ImagePullSecrets, &out.ImagePullSecrets
 		*out = make([]v1.LocalObjectReference, len(*in))
@@ -1786,6 +1790,7 @@ func (in *KubedbSchemaManagerList) DeepCopyObject() runtime.Object {
 func (in *KubedbSchemaManagerSpec) DeepCopyInto(out *KubedbSchemaManagerSpec) {
 	*out = *in
 	in.Operator.DeepCopyInto(&out.Operator)
+	out.Waitfor = in.Waitfor
 	if in.ImagePullSecrets != nil {
 		in, out := &in.ImagePullSecrets, &out.ImagePullSecrets
 		*out = make([]v1.LocalObjectReference, len(*in))
