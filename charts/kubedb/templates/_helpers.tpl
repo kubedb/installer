@@ -117,6 +117,13 @@ Returns the registry used for rbacproxy docker rbacproxy
 {{- end }}
 
 {{/*
+Returns the registry used for k8s-wait-for docker image
+*/}}
+{{- define "waitfor.registry" -}}
+{{- list (default .Values.registryFQDN .Values.global.registryFQDN) (default .Values.waitfor.registry .Values.global.registry) | compact | join "/" }}
+{{- end }}
+
+{{/*
 Returns the appscode image pull secrets
 */}}
 {{- define "docker.imagePullSecrets" -}}

@@ -49,6 +49,7 @@ type KubedbOpsManagerSpec struct {
 	RegistryFQDN       string    `json:"registryFQDN"`
 	InsecureRegistries []string  `json:"insecureRegistries"`
 	Operator           Container `json:"operator"`
+	Waitfor            ImageRef  `json:"waitfor"`
 	ImagePullPolicy    string    `json:"imagePullPolicy"`
 	//+optional
 	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`

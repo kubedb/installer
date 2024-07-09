@@ -87,6 +87,13 @@ Returns the registry used for operator docker image
 {{- list .Values.registryFQDN .Values.operator.registry | compact | join "/" }}
 {{- end }}
 
+{{/*
+Returns the registry used for waitfor docker image
+*/}}
+{{- define "waitfor.registry" -}}
+{{- list .Values.registryFQDN .Values.waitfor.registry | compact | join "/" }}
+{{- end }}
+
 {{- define "docker.imagePullSecrets" -}}
 {{- with .Values.imagePullSecrets -}}
 imagePullSecrets:
