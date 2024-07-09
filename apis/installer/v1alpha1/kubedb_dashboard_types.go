@@ -48,6 +48,7 @@ type KubedbDashboardSpec struct {
 	ReplicaCount     int32     `json:"replicaCount"`
 	RegistryFQDN     string    `json:"registryFQDN"`
 	Operator         Container `json:"operator"`
+	Waitfor          ImageRef  `json:"waitfor"`
 	ImagePullPolicy  string    `json:"imagePullPolicy"`
 	//+optional
 	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`

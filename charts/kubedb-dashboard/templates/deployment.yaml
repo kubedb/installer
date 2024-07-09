@@ -32,6 +32,19 @@ spec:
     spec:
       {{- include "docker.imagePullSecrets" . | nindent 6 }}
       serviceAccountName: {{ include "kubedb-dashboard.serviceAccountName" . }}
+      {{- if .Values.global }}
+      initContainers:
+      - name: wait
+        image: {{ include "waitfor.registry" . }}/{{ .Values.waitfor.repository }}:{{ .Values.waitfor.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy  }}
+        args:
+          - "service"
+          - "-lapp.kubernetes.io/name=kubedb-webhook-server"
+        securityContext:
+          {{- toYaml .Values.operator.securityContext | nindent 10 }}
+        resources:
+          {{- toYaml .Values.operator.resources | nindent 10 }}
+      {{- end }}
       containers:
       - name: operator
         securityContext:
