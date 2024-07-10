@@ -32,7 +32,7 @@ spec:
     spec:
       {{- include "docker.imagePullSecrets" . | nindent 6 }}
       serviceAccountName: {{ include "kubedb-dashboard.serviceAccountName" . }}
-      {{- if .Values.global }}
+      {{- if and .Values.global (dig "kubedb-webhook-server" "enabled" false .Values.global) }}
       initContainers:
       - name: wait
         image: {{ include "waitfor.registry" . }}/{{ .Values.waitfor.repository }}:{{ .Values.waitfor.tag }}
