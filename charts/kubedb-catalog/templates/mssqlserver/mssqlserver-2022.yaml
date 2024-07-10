@@ -12,6 +12,18 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  archiver:
+    addon:
+      name: mssqlserver-addon
+      tasks:
+        fullBackup:
+          name: full-backup
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+    walg:
+      image: '{{ include "image.dockerHub" (merge (dict "_repo" "anisurrahman75/mssqlserver-archiver") $) }}:implement-archiver_linux_amd64'
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mssql-coordinator") $) }}:v0.2.0-rc.2'
   db:
