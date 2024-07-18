@@ -1,0 +1,50 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "kubedb-provider-gcp.fullname" . }}-config-creator
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubedb-provider-gcp.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook-weight": "3"
+    "helm.sh/hook": post-install,post-upgrade,post-rollback
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
+spec:
+  ttlSecondsAfterFinished: 0
+  backoffLimit: 3
+  template:
+    spec:
+      {{- include "appscode.imagePullSecrets" . | nindent 6 }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+      - name: kubectl
+        securityContext:
+            {{- toYaml .Values.image.securityContext | nindent 12 }}
+        image: {{ include "kubectl.image" $ }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        command:
+          - sh
+          - -c
+          - |
+              set -x; \
+              sleep 2; \
+              PROJECT_ID={{ .Values.gcp.projectID }}; \
+              if [ -z "${PROJECT_ID}" ]; then \
+                PROJECT_ID=`curl -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/project/project-id`; \
+              fi; \
+              kubectl apply -f - <<EOF
+              apiVersion: gcp.kubedb.com/v1beta1
+              kind: ProviderConfig
+              metadata:
+                name: {{ include "kubedb-provider-gcp.fullname" . }}
+              spec:
+                projectID: $PROJECT_ID
+                credentials:
+                  source: Secret
+                  secretRef:
+                    namespace: capi-cluster
+                    name: {{ .Values.gcp.secretName }}
+                    key: credential_json
+              EOF
+      restartPolicy: Never
