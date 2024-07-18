@@ -105,3 +105,7 @@ Returns the ServiceMonitor labels
 {{ $key }}: {{ $val }}
 {{- end }}
 {{- end }}
+
+{{- define "kubectl.image" -}}
+{{ list .Values.registryFQDN "appscode/kubectl-nonroot:1.25" | compact | join "/" }}
+{{- end }}
