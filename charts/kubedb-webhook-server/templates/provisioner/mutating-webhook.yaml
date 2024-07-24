@@ -344,6 +344,21 @@ webhooks:
   admissionReviewVersions: [ "v1beta1" ]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+- name: restproxywebhook.mutators.kafka.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/mutators.kafka.kubedb.com/v1alpha1/restproxywebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: [ "kafka.kubedb.com" ]
+      apiVersions: [ "*" ]
+      resources: [ "restproxies" ]
+      operations: [ "CREATE", "UPDATE" ]
+  admissionReviewVersions: [ "v1beta1" ]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
 - name: schemaregistrywebhook.mutators.kafka.kubedb.com
   clientConfig:
     service:

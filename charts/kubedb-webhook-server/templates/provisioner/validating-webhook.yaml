@@ -376,6 +376,21 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+- name: restproxywebhook.validators.kafka.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.kafka.kubedb.com/v1alpha1/restproxywebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["kafka.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["restproxies"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
 - name: schemaregistrywebhook.validators.kafka.kubedb.com
   clientConfig:
     service:
