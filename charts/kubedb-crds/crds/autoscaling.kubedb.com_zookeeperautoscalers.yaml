@@ -3,7 +3,7 @@ kind: CustomResourceDefinition
 metadata:
   labels:
     app.kubernetes.io/name: kubedb
-  name: memcachedautoscalers.autoscaling.kubedb.com
+  name: zookeeperautoscalers.autoscaling.kubedb.com
 spec:
   group: autoscaling.kubedb.com
   names:
@@ -11,12 +11,12 @@ spec:
     - datastore
     - kubedb
     - appscode
-    kind: MemcachedAutoscaler
-    listKind: MemcachedAutoscalerList
-    plural: memcachedautoscalers
+    kind: ZooKeeperAutoscaler
+    listKind: ZooKeeperAutoscalerList
+    plural: zookeeperautoscalers
     shortNames:
-    - mcscaler
-    singular: memcachedautoscaler
+    - zkscaler
+    singular: zookeeperautoscaler
   scope: Namespaced
   versions:
   - name: v1alpha1
@@ -33,7 +33,20 @@ spec:
             properties:
               compute:
                 properties:
-                  memcached:
+                  nodeTopology:
+                    properties:
+                      name:
+                        type: string
+                      scaleDownDiffPercentage:
+                        default: 25
+                        format: int32
+                        type: integer
+                      scaleUpDiffPercentage:
+                        default: 15
+                        format: int32
+                        type: integer
+                    type: object
+                  zookeeper:
                     properties:
                       containerControlledValues:
                         enum:
@@ -77,19 +90,6 @@ spec:
                       trigger:
                         type: string
                     type: object
-                  nodeTopology:
-                    properties:
-                      name:
-                        type: string
-                      scaleDownDiffPercentage:
-                        default: 25
-                        format: int32
-                        type: integer
-                      scaleUpDiffPercentage:
-                        default: 15
-                        format: int32
-                        type: integer
-                    type: object
                 type: object
               databaseRef:
                 properties:
@@ -106,14 +106,12 @@ spec:
                     - IfReady
                     - Always
                     type: string
-                  readinessCriteria:
-                    type: object
                   timeout:
                     type: string
                 type: object
               storage:
                 properties:
-                  memcached:
+                  zookeeper:
                     properties:
                       expansionMode:
                         enum:
