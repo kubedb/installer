@@ -154,11 +154,7 @@ type GlobalValues struct {
 	// If specified, the pod's scheduling constraints
 	// +optional
 	Affinity       *core.Affinity `json:"affinity"`
-	WaitForWebhook WaitValue      `json:"waitForWebhook"`
-}
-
-type WaitValue struct {
-	Enabled *bool `json:"enabled"`
+	WaitForWebhook bool           `json:"waitForWebhook"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
