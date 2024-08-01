@@ -6,6 +6,11 @@ metadata:
     {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
 rules:
 - apiGroups:
+  - kubedb.com
+  resources:
+  - postgreses
+  verbs: ["*"]
+- apiGroups:
   - admissionregistration.k8s.io
   resources:
   - mutatingwebhookconfigurations
@@ -32,6 +37,16 @@ rules:
   resources:
   - events
   verbs: ["create"]
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs: ["get", "update", "list"]
+- apiGroups:
+  - ""
+  resources:
+  - pods/status
+  verbs: ["get", "update"]
 - apiGroups:
   - ""
   resources:
