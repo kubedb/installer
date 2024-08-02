@@ -1,0 +1,21 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Kafka }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: SchemaRegistryVersion
+metadata:
+  name: '3.15.0'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  distribution: Aiven
+  registry:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "aiven-open/karapace") $) }}:3.15.0'
+  securityContext:
+    runAsUser: 1001
+  version: 3.15.0
+{{ end }}
