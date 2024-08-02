@@ -1,20 +1,4 @@
-{{- $caCrt := "" }}
-{{- $serverCrt := "" }}
-{{- $serverKey := "" }}
-{{- if .Values.apiserver.servingCerts.generate }}
-{{- $ca := genCA "ca" 3650 }}
-{{- $cn := include "kubedb-webhook-server.fullname" . -}}
-{{- $altName1 := printf "%s.%s" $cn .Release.Namespace }}
-{{- $altName2 := printf "%s.%s.svc" $cn .Release.Namespace }}
-{{- $server := genSignedCert $cn nil (list $altName1 $altName2) 3650 $ca }}
-{{- $caCrt =  b64enc $ca.Cert }}
-{{- $serverCrt = b64enc $server.Cert }}
-{{- $serverKey = b64enc $server.Key }}
-{{- else }}
-{{- $caCrt = required "Required when apiserver.servingCerts.generate is false" .Values.apiserver.servingCerts.caCrt }}
-{{- $serverCrt = required "Required when apiserver.servingCerts.generate is false" .Values.apiserver.servingCerts.serverCrt }}
-{{- $serverKey = required "Required when apiserver.servingCerts.generate is false" .Values.apiserver.servingCerts.serverKey }}
-{{- end }}
+{{ template "prepare-certs" $ }}
 
 apiVersion: v1
 kind: Secret
@@ -25,9 +9,9 @@ metadata:
     {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
 type: kubernetes.io/tls
 data:
-  ca.crt: {{ $caCrt }}
-  tls.crt: {{ $serverCrt }}
-  tls.key: {{ $serverKey }}
+  ca.crt: {{ $._caCrt }}
+  tls.crt: {{ $._serverCrt }}
+  tls.key: {{ $._serverKey }}
 
 {{- if not (list "kubedb-autoscaler" "kubedb-dashboard" "kubedb-ops-manager" "kubedb-schema-manager" | has .Values.server.repository) }}
 ---
@@ -44,7 +28,7 @@ spec:
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubedb-webhook-server.fullname" . }}
-  caBundle: {{ $caCrt }}
+  caBundle: {{ $._caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
 ---
@@ -61,7 +45,7 @@ spec:
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubedb-webhook-server.fullname" . }}
-  caBundle: {{ $caCrt }}
+  caBundle: {{ $._caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
 {{- end }}
@@ -80,7 +64,7 @@ spec:
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubedb-webhook-server.fullname" . }}
-  caBundle: {{ $caCrt }}
+  caBundle: {{ $._caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
 ---
@@ -97,7 +81,7 @@ spec:
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubedb-webhook-server.fullname" . }}
-  caBundle: {{ $caCrt }}
+  caBundle: {{ $._caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
 {{- end }}
@@ -116,7 +100,7 @@ spec:
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubedb-webhook-server.fullname" . }}
-  caBundle: {{ $caCrt }}
+  caBundle: {{ $._caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
 ---
@@ -133,7 +117,7 @@ spec:
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubedb-webhook-server.fullname" . }}
-  caBundle: {{ $caCrt }}
+  caBundle: {{ $._caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
 ---
@@ -150,7 +134,7 @@ spec:
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubedb-webhook-server.fullname" . }}
-  caBundle: {{ $caCrt }}
+  caBundle: {{ $._caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
 {{- end }}
@@ -169,7 +153,7 @@ spec:
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubedb-webhook-server.fullname" . }}
-  caBundle: {{ $caCrt }}
+  caBundle: {{ $._caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
 ---
@@ -186,7 +170,7 @@ spec:
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubedb-webhook-server.fullname" . }}
-  caBundle: {{ $caCrt }}
+  caBundle: {{ $._caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
   {{- end }}
@@ -208,7 +192,7 @@ spec:
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubedb-webhook-server.fullname" . }}
-  caBundle: {{ $caCrt }}
+  caBundle: {{ $._caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
 ---
@@ -225,7 +209,7 @@ spec:
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubedb-webhook-server.fullname" . }}
-  caBundle: {{ $caCrt }}
+  caBundle: {{ $._caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
 {{- end }}
@@ -244,7 +228,7 @@ spec:
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubedb-webhook-server.fullname" . }}
-  caBundle: {{ $caCrt }}
+  caBundle: {{ $._caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
 ---
@@ -261,7 +245,7 @@ spec:
   service:
     namespace: {{ .Release.Namespace }}
     name: {{ include "kubedb-webhook-server.fullname" . }}
-  caBundle: {{ $caCrt }}
+  caBundle: {{ $._caCrt }}
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
 {{- end }}
