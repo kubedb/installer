@@ -153,7 +153,8 @@ type GlobalValues struct {
 	Tolerations []core.Toleration `json:"tolerations"`
 	// If specified, the pod's scheduling constraints
 	// +optional
-	Affinity *core.Affinity `json:"affinity"`
+	Affinity       *core.Affinity `json:"affinity"`
+	WaitForWebhook bool           `json:"waitForWebhook"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
