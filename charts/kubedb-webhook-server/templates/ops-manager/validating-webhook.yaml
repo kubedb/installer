@@ -218,5 +218,22 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
+{{- if $featureGates.Solr }}
+- name: solropsrequestwebhook.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.ops.kubedb.com/v1alpha1/solropsrequestwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["ops.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["solropsrequests"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
 {{- end }}
 {{- end }}
