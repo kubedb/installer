@@ -84,18 +84,35 @@ webhooks:
   failurePolicy: Fail
   sideEffects: None
 {{- end }}
-{{- if $featureGates.MySQL }}
-- name: mysqlopsrequestwebhook.validators.ops.kubedb.com
+{{- if $featureGates.MariaDB }}
+- name: mariadbopsrequestwebhook.validators.ops.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
-      path: /apis/validators.ops.kubedb.com/v1alpha1/mysqlopsrequestwebhooks
+      path: /apis/validators.ops.kubedb.com/v1alpha1/mariadbopsrequestwebhooks
     caBundle: {{ $caCrt }}
   rules:
   - apiGroups: ["ops.kubedb.com"]
     apiVersions: ["*"]
-    resources: ["mysqlopsrequests"]
+    resources: ["mariadbopsrequests"]
+    operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.Memcached }}
+- name: memcachedopsrequestwebhook.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.ops.kubedb.com/v1alpha1/memcachedopsrequestwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+  - apiGroups: ["ops.kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["memcachedopsrequests"]
     operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -114,6 +131,74 @@ webhooks:
     apiVersions: ["*"]
     resources: ["mongodbopsrequests"]
     operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.MySQL }}
+- name: mysqlopsrequestwebhook.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.ops.kubedb.com/v1alpha1/mysqlopsrequestwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+  - apiGroups: ["ops.kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["mysqlopsrequests"]
+    operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.PerconaXtraDB }}
+- name: perconaxtradbdbopsrequestwebhook.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.ops.kubedb.com/v1alpha1/perconaxtradbopsrequestwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+  - apiGroups: ["ops.kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["perconaxtradbopsrequests"]
+    operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.PgBouncer }}
+- name: pgbounceropsrequestwebhook.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.ops.kubedb.com/v1alpha1/pgbounceropsrequestwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+  - apiGroups: ["ops.kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["pgbounceropsrequests"]
+    operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.Pgpool }}
+- name: pgpoolopsrequestwebhook.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.ops.kubedb.com/v1alpha1/pgpoolopsrequestwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["ops.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["pgpoolopsrequests"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
@@ -150,18 +235,18 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
-{{- if $featureGates.Pgpool }}
-- name: pgpoolopsrequestwebhook.validators.ops.kubedb.com
+{{- if $featureGates.RabbitMQ }}
+- name: rabbitmqopsrequestwebhook.validators.ops.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
-      path: /apis/validators.ops.kubedb.com/v1alpha1/pgpoolopsrequestwebhooks
+      path: /apis/validators.ops.kubedb.com/v1alpha1/rabbitmqopsrequestwebhooks
     caBundle: {{ $caCrt }}
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["pgpoolopsrequests"]
+      resources: ["rabbitmqopsrequests"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -183,20 +268,18 @@ webhooks:
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
-{{- end }}
-{{- if $featureGates.RabbitMQ }}
-- name: rabbitmqopsrequestwebhook.validators.ops.kubedb.com
+- name: redissentinelopsrequestwebhook.validators.ops.kubedb.com
   clientConfig:
     service:
       namespace: default
       name: kubernetes
-      path: /apis/validators.ops.kubedb.com/v1alpha1/rabbitmqopsrequestwebhooks
+      path: /apis/validators.ops.kubedb.com/v1alpha1/redissentinelopsrequestwebhooks
     caBundle: {{ $caCrt }}
   rules:
-    - apiGroups: ["ops.kubedb.com"]
-      apiVersions: ["*"]
-      resources: ["rabbitmqopsrequests"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
+  - apiGroups: ["ops.kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["redissentinelopsrequests"]
+    operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
