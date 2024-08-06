@@ -103,7 +103,7 @@ Returns the ServiceMonitor labels
 {{/*
 Prepare certs
 */}}
-{{- define "prepare-certs" -}}
+{{- define "kubedb-webhook-server.prepare-certs" -}}
 {{- if not ._caCrt }}
 {{- $caCrt := "" }}
 {{- $serverCrt := "" }}
