@@ -12,10 +12,12 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  clickHouseKeeper:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "clickhouse/clickhouse-keeper") $) }}:24.4.1'
   db:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "clickhouse/clickhouse-server") $) }}:24.4.1'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/clickhouse-init") $) }}:24.4.1'
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "skaliarman/clickhouse-init") $) }}:1.0.0'
   securityContext:
     runAsUser: 101
   version: 24.4.1
