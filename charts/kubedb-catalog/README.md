@@ -116,6 +116,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | enableVersions.Singlestore                 |                                                 | <code>[]</code>                |
 | enableVersions.Solr                        |                                                 | <code>[]</code>                |
 | enableVersions.ZooKeeper                   |                                                 | <code>[]</code>                |
+| customVersions                             |                                                 | <code>{}</code>                |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
