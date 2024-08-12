@@ -657,6 +657,10 @@ func main() {
 			if err != nil {
 				panic(err)
 			}
+			err = os.Rename(filepath.Join(dir, "charts", "kubedb-catalog", "templates", "custom.yaml"), filepath.Join(dir, "charts", "kubedb-catalog", "new_templates", "custom.yaml"))
+			if err != nil {
+				panic(err)
+			}
 			err = os.RemoveAll(filepath.Join(dir, "charts", "kubedb-catalog", "templates"))
 			if err != nil {
 				panic(err)
