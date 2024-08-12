@@ -18,6 +18,7 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
 )
 
 const (
@@ -45,11 +46,12 @@ type KubedbCatalogSpec struct {
 	//+optional
 	FullnameOverride string `json:"fullnameOverride"`
 	//+optional
-	Proxies        RegistryProxies     `json:"proxies"`
-	FeatureGates   map[string]bool     `json:"featureGates"`
-	Psp            PSP                 `json:"psp"`
-	SkipDeprecated bool                `json:"skipDeprecated"`
-	EnableVersions map[string][]string `json:"enableVersions"`
+	Proxies        RegistryProxies                  `json:"proxies"`
+	FeatureGates   map[string]bool                  `json:"featureGates"`
+	Psp            PSP                              `json:"psp"`
+	SkipDeprecated bool                             `json:"skipDeprecated"`
+	EnableVersions map[string][]string              `json:"enableVersions"`
+	CustomVersions map[string]*runtime.RawExtension `json:"customVersions"`
 }
 
 type RegistryProxies struct {

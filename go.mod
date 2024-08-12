@@ -24,11 +24,6 @@ require (
 )
 
 require (
-	github.com/evanphx/json-patch v5.9.0+incompatible // indirect
-	golang.org/x/exp v0.0.0-20231226003508-02704c960a9b // indirect
-)
-
-require (
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/codegangsta/inject v0.0.0-20150114235600-33e0aa1cb7c0 // indirect
 	github.com/containerd/stargz-snapshotter/estargz v0.14.3 // indirect
@@ -39,6 +34,7 @@ require (
 	github.com/docker/docker-credential-helpers v0.7.0 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/emicklei/go-restful/v3 v3.12.0 // indirect
+	github.com/evanphx/json-patch v5.9.0+incompatible // indirect
 	github.com/evanphx/json-patch/v5 v5.9.0 // indirect
 	github.com/fatih/structs v1.1.0 // indirect
 	github.com/go-logr/logr v1.4.1 // indirect
@@ -74,6 +70,7 @@ require (
 	github.com/vbatts/tar-split v0.11.3 // indirect
 	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
 	golang.org/x/crypto v0.23.0 // indirect
+	golang.org/x/exp v0.0.0-20231226003508-02704c960a9b // indirect
 	golang.org/x/net v0.25.0 // indirect
 	golang.org/x/oauth2 v0.18.0 // indirect
 	golang.org/x/sync v0.7.0 // indirect
