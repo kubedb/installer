@@ -315,6 +315,23 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
+{{- if $featureGates.Druid }}
+- name: cassandrawebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.kubedb.com/v1alpha1/cassandrawebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["cassandras"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
 {{- if $featureGates.ClickHouse }}
 - name: clickhousewebhook.validators.kubedb.com
   clientConfig:
