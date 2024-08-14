@@ -50,9 +50,10 @@ type KubedbKubestashCatalogSpec struct {
 	Elasticsearch  StashElasticsearchSpec  `json:"elasticsearch"`
 	Opensearch     StashOpensearchSpec     `json:"opensearch"`
 	Kubedbmanifest StashKubedbmanifestSpec `json:"kubedbmanifest"`
-	Mongodb        StashMongodbSpec        `json:"mongodb"`
-	Mysql          StashMysqlSpec          `json:"mysql"`
 	Mariadb        StashMariadbSpec        `json:"mariadb"`
+	Mongodb        StashMongodbSpec        `json:"mongodb"`
+	MSSQLServer    StashMongodbSpec        `json:"mssqlserver"`
+	Mysql          StashMysqlSpec          `json:"mysql"`
 	Redis          StashRedisSpec          `json:"redis"`
 	Postgres       StashPostgresSpec       `json:"postgres"`
 	Singlestore    StashSinglestoreSpec    `json:"singlestore"`

@@ -1,0 +1,93 @@
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Addon
+metadata:
+  name: mssqlserver-addon
+spec:
+  backupTasks:
+    - name: logical-backup
+      function: mssqlserver-backup
+      driver: WalG
+      executor: Job
+      singleton: true
+      parameters:
+        - name: databases
+          usage: List of databases to backup.
+          required: false
+        - name: copyOnly
+          usage: Backup with COPY_ONLY option
+          required: false
+          default: "true"
+      volumeTemplate:
+        - name: kubestash-tmp-volume
+          usage: Holds temporary files and restic cache.
+          source:
+            emptyDir: {}
+      volumeMounts:
+        - name: kubestash-tmp-volume
+          mountPath: /kubestash-tmp
+    - name: manifest-backup
+      function: kubedbmanifest-backup
+      driver: Restic
+      executor: Job
+      singleton: true
+      parameters:
+        - name: enableCache
+          usage: Enable or disable caching. Disabling caching may impact backup performance.
+          required: false
+          default: "true"
+        - name: scratchDir
+          usage: Directory for holding temporary files and restic cache.
+          required: false
+          default: /kubestash-tmp
+      volumeTemplate:
+        - name: kubestash-tmp-volume
+          usage: Holds temporary files and restic cache.
+          source:
+            emptyDir: {}
+      volumeMounts:
+        - name: kubestash-tmp-volume
+          mountPath: /kubestash-tmp
+  restoreTasks:
+    - name: logical-backup-restore
+      function: mssqlserver-restore
+      driver: WalG
+      executor: Job
+      singleton: true
+      parameters:
+        - name: databases
+          usage: List of databases to restore.
+          required: false
+        - name: noRecovery
+          usage: Restore with NO_RECOVERY option
+          required: false
+          default: "false"
+      volumeTemplate:
+        - name: kubestash-tmp-volume
+          usage: Holds temporary files and walG cache.
+          source:
+            emptyDir: {}
+      volumeMounts:
+        - name: kubestash-tmp-volume
+          mountPath: /kubestash-tmp
+    - name: manifest-restore
+      function: kubedbmanifest-restore
+      driver: Restic
+      executor: Job
+      singleton: true
+      parameters:
+        - name: enableCache
+          usage: Enable or disable caching. Disabling caching may impact backup performance.
+          required: false
+          default: "true"
+        - name: scratchDir
+          usage: Directory for holding temporary files and restic cache.
+          required: false
+          default: /kubestash-tmp
+      volumeTemplate:
+        - name: kubestash-tmp-volume
+          usage: Holds temporary files and restic cache.
+          source:
+            emptyDir: {}
+      volumeMounts:
+        - name: kubestash-tmp-volume
+          mountPath: /kubestash-tmp
