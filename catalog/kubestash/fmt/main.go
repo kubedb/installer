@@ -91,6 +91,7 @@ var appToKind = map[string]string{
 	"memcached":          "Memcached",
 	"microsoftsqlserver": "MicrosoftSQLServer",
 	"mongodb":            "MongoDB",
+	"mssqlserver":        "MSSQLServer",
 	"mysql":              "MySQL",
 	"perconaxtradb":      "PerconaXtraDB",
 	"pgbouncer":          "PgBouncer",

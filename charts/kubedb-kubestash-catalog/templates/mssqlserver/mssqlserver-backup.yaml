@@ -1,4 +1,9 @@
-{{ if .Values.mssqlserver.enabled }}
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.MSSQLServer }}
 apiVersion: addons.kubestash.com/v1alpha1
 kind: Function
 metadata:
@@ -13,5 +18,5 @@ spec:
   - --wait-timeout=${waitTimeout:={{ .Values.waitTimeout}}}
   - --databases=${databases:=}
   - --copy-only=${copyOnly:="true"}
-  image: '{{ include "image.dockerHub" (merge (dict "_repo" "anisurrahman75/mssqlserver-walg-plugin") $) }}:walg-backup-restore_linux_amd64'
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mssqlserver-walg-plugin") $) }}:0.0.1'
 {{ end }}
