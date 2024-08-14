@@ -1,0 +1,17 @@
+{{ if .Values.mssqlserver.enabled }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'mssqlserver-backup'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  args:
+  - backup
+  - --namespace=${namespace:=default}
+  - --backupsession=${backupSession:=}
+  - --wait-timeout=${waitTimeout:={{ .Values.waitTimeout}}}
+  - --databases=${databases:=}
+  - --copy-only=${copyOnly:="true"}
+  image: '{{ include "image.dockerHub" (merge (dict "_repo" "anisurrahman75/mssqlserver-walg-plugin") $) }}:walg-backup-restore_linux_amd64'
+{{ end }}
