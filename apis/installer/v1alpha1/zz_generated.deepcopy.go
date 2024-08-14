@@ -985,9 +985,10 @@ func (in *KubedbKubestashCatalogSpec) DeepCopyInto(out *KubedbKubestashCatalogSp
 	out.Elasticsearch = in.Elasticsearch
 	out.Opensearch = in.Opensearch
 	out.Kubedbmanifest = in.Kubedbmanifest
-	out.Mongodb = in.Mongodb
-	out.Mysql = in.Mysql
 	out.Mariadb = in.Mariadb
+	out.Mongodb = in.Mongodb
+	out.MSSQLServer = in.MSSQLServer
+	out.Mysql = in.Mysql
 	out.Redis = in.Redis
 	out.Postgres = in.Postgres
 	out.Singlestore = in.Singlestore
