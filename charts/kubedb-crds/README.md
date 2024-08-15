@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb-crds --version=v2024.8.2-rc.2
-$ helm upgrade -i kubedb-crds appscode/kubedb-crds -n kubedb --create-namespace --version=v2024.8.2-rc.2
+$ helm search repo appscode/kubedb-crds --version=v2024.8.14-rc.3
+$ helm upgrade -i kubedb-crds appscode/kubedb-crds -n kubedb --create-namespace --version=v2024.8.14-rc.3
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys KubeDB crds on a [Kubernetes](http://kubernetes.io) cluster u
 To install/upgrade the chart with the release name `kubedb-crds`:
 
 ```bash
-$ helm upgrade -i kubedb-crds appscode/kubedb-crds -n kubedb --create-namespace --version=v2024.8.2-rc.2
+$ helm upgrade -i kubedb-crds appscode/kubedb-crds -n kubedb --create-namespace --version=v2024.8.14-rc.3
 ```
 
 The command deploys KubeDB crds on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
