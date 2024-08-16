@@ -1,0 +1,24 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Memcached }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MemcachedVersion
+metadata:
+  name: '1.6.29'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "memcached") $) }}:1.6.29-alpine'
+  exporter:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/memcached_exporter") $) }}:v0.14.3-ac'
+  podSecurityPolicies:
+    databasePolicyName: memcached-db
+  securityContext:
+    runAsUser: 999
+  version: 1.6.29
+{{ end }}
