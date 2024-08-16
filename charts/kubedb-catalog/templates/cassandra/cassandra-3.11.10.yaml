@@ -3,19 +3,19 @@
   {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
 {{- end }}
 
-{{ if $featureGates.Druid }}
+{{ if $featureGates.Cassandra }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
-kind: DruidVersion
+kind: CassandraVersion
 metadata:
   name: '3.11.10'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "apache/cassandra") $) }}:3.11.10'
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "cassandra") $) }}:3.11.10'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/cassandra-init") $) }}'
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "busybox") $) }}'
   securityContext:
     runAsUser: 999
   version: 3.11.10
