@@ -60,9 +60,9 @@ ARCH := $(if $(GOARCH),$(GOARCH),$(shell go env GOARCH))
 BASEIMAGE_PROD   ?= gcr.io/distroless/static-debian12
 BASEIMAGE_DBG    ?= debian:bookworm
 
-GO_VERSION       ?= 1.22
+GO_VERSION       ?= 1.23
 BUILD_IMAGE      ?= ghcr.io/appscode/golang-dev:$(GO_VERSION)
-CHART_TEST_IMAGE ?= quay.io/helmpack/chart-testing:v3.8.0
+CHART_TEST_IMAGE ?= quay.io/helmpack/chart-testing:v3.11.0
 
 OUTBIN = bin/$(OS)_$(ARCH)/$(BIN)
 ifeq ($(OS),windows)
