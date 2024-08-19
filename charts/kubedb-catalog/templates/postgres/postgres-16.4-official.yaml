@@ -1,0 +1,107 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Postgres }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: '16.4'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.8.0-rc.2_16.1-alpine'
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.31.0-rc.2'
+  db:
+    baseOS: alpine
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres") $) }}:16.4-alpine'
+  distribution: Official
+  exporter:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.15.0'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.14.0'
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: false
+    runAsUser: 70
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-16.1
+      restoreTask:
+        name: postgres-restore-16.1
+  ui:
+  - name: pgadmin
+    version: v2024.4.27
+  updateConstraints:
+    allowlist:
+    - "16.4"
+  version: "16.4"
+
+---
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: '16.4-bookworm'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.8.0-rc.2_16.1-bookworm'
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.31.0-rc.2'
+  db:
+    baseOS: bookworm
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres") $) }}:16.4-bookworm'
+  distribution: Official
+  exporter:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.15.0'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.14.0'
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-16.1
+      restoreTask:
+        name: postgres-restore-16.1
+  ui:
+  - name: pgadmin
+    version: v2024.4.27
+  - name: dbgate
+    version: v2024.4.27
+  updateConstraints:
+    allowlist:
+    - "16.4"
+  version: "16.4"
+{{ end }}
