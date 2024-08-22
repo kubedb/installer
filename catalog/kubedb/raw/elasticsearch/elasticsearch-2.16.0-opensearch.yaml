@@ -1,0 +1,36 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: opensearch-2.16.0
+spec:
+  authPlugin: OpenSearch
+  dashboard:
+    image: ghcr.io/appscode-images/opensearch-dashboards:2.16.0
+  dashboardInitContainer:
+    yqImage: ghcr.io/kubedb/elasticsearch-dashboard-init:2.16.0-opensearch-v2024.08.21
+  db:
+    image: ghcr.io/appscode-images/opensearch:2.16.0
+  distribution: OpenSearch
+  exporter:
+    image: prometheuscommunity/elasticsearch-exporter:v1.7.0
+  initContainer:
+    image: tianon/toybox:0.8.4
+    yqImage: ghcr.io/kubedb/elasticsearch-init:2.16.0-opensearch-v2024.08.21
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 1000
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.14.0
+        params:
+        - name: args
+          value: --match=^(?![.])(?!security-auditlog)(?!kubedb-system).+
+      restoreTask:
+        name: elasticsearch-restore-7.14.0
+        params:
+        - name: args
+          value: --match=^(?![.])(?!security-auditlog)(?!kubedb-system).+
+  version: 2.16.0
