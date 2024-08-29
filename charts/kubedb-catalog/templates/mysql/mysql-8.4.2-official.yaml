@@ -1,0 +1,60 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.MySQL }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  name: '8.4.2'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  archiver:
+    addon:
+      name: mysql-addon
+      tasks:
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-archiver") $) }}:v0.8.0-rc.3_8.2.0'
+  coordinator:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "ashraf10039/mysql-coordinator") $) }}:nvm_linux_amd64'
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql") $) }}:8.4.2-oracle'
+  distribution: Official
+  exporter:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysqld-exporter") $) }}:v0.13.1'
+  gitSyncer:
+    image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.2.1'
+  initContainer:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "ashraf10039/mysql-init") $) }}:_linux_amd64'
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  replicationModeDetector:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.34.0-rc.3'
+  securityContext:
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: mysql-backup-8.0.21
+      restoreTask:
+        name: mysql-restore-8.0.21
+  ui:
+  - name: phpmyadmin
+    version: v2024.4.27
+  updateConstraints:
+    denylist:
+      groupReplication:
+      - < 8.4.2
+      standalone:
+      - < 8.4.2
+  version: 8.4.2
+{{ end }}
