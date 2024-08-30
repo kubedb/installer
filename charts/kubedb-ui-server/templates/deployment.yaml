@@ -76,11 +76,16 @@ spec:
         volumeMounts:
         - mountPath: /var/serving-cert
           name: serving-cert
+        - mountPath: /tmp
+          name: tmp-dir
       volumes:
       - name: serving-cert
         secret:
           defaultMode: 420
           secretName: {{ include "kubedb-ui-server.fullname" . }}-apiserver-cert
+        - mountPath: /tmp
+      - emptyDir: {}
+        name: tmp-dir
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
     {{- if or .Values.tolerations $criticalAddon }}
