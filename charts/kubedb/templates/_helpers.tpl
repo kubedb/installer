@@ -173,11 +173,7 @@ Returns whether the ServiceMonitor will be labeled with custom label
 Returns the ServiceMonitor labels
 */}}
 {{- define "monitoring.servicemonitor-label" -}}
-{{- range $key, $val := .Values.monitoring.serviceMonitor.labels }}
+{{- range $key, $val := mergeOverwrite dict .Values.monitoring.serviceMonitor.labels .Values.global.monitoring.serviceMonitor.labels }}
 {{ $key }}: {{ $val }}
-{{- else }}
-{{- range $key, $val := .Values.global.monitoring.serviceMonitor.labels }}
-{{ $key }}: {{ $val }}
-{{- end }}
 {{- end }}
 {{- end }}
