@@ -45,7 +45,7 @@ The command removes all the Kubernetes components associated with the chart and 
 
 The following table lists the configurable parameters of the `kubedb-catalog` chart and their default values.
 
-|                 Parameter                  |                   Description                   |            Default             |
+| Parameter                                  |                   Description                   |            Default             |
 |--------------------------------------------|-------------------------------------------------|--------------------------------|
 | nameOverride                               | Overrides name template                         | <code>""</code>                |
 | fullnameOverride                           | Overrides fullname template                     | <code>""</code>                |
@@ -56,6 +56,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | proxies.kubernetes                         |                                                 | <code>registry.k8s.io</code>   |
 | proxies.microsoft                          |                                                 | <code>mcr.microsoft.com</code> |
 | proxies.appscode                           |                                                 | <code>r.appscode.com</code>    |
+| featureGates.Cassandra                     |                                                 | <code>true</code>              |
 | featureGates.ClickHouse                    |                                                 | <code>true</code>              |
 | featureGates.Druid                         |                                                 | <code>true</code>              |
 | featureGates.Elasticsearch                 |                                                 | <code>true</code>              |
