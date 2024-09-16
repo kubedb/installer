@@ -45,7 +45,7 @@ The command removes all the Kubernetes components associated with the chart and 
 
 The following table lists the configurable parameters of the `kubedb-catalog` chart and their default values.
 
-|                Parameter                   |                   Description                   |            Default             |
+|                 Parameter                  |                   Description                   |            Default             |
 |--------------------------------------------|-------------------------------------------------|--------------------------------|
 | nameOverride                               | Overrides name template                         | <code>""</code>                |
 | fullnameOverride                           | Overrides fullname template                     | <code>""</code>                |
