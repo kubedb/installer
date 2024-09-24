@@ -52,6 +52,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | proxies.dockerHub                          |                                                 | <code>""</code>                |
 | proxies.dockerLibrary                      |                                                 | <code>""</code>                |
 | proxies.ghcr                               |                                                 | <code>ghcr.io</code>           |
+| proxies.quay                               |                                                 | <code>quay.io</code>           |
 | proxies.kubernetes                         |                                                 | <code>registry.k8s.io</code>   |
 | proxies.microsoft                          |                                                 | <code>mcr.microsoft.com</code> |
 | proxies.appscode                           |                                                 | <code>r.appscode.com</code>    |
