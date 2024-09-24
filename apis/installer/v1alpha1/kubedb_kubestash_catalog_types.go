@@ -48,6 +48,7 @@ type KubedbKubestashCatalogSpec struct {
 	Proxies        shared.RegistryProxies  `json:"proxies"`
 	FeatureGates   map[string]bool         `json:"featureGates"`
 	WaitTimeout    int64                   `json:"waitTimeout"`
+	Druid          StashDruidSpec          `json:"druid"`
 	Elasticsearch  StashElasticsearchSpec  `json:"elasticsearch"`
 	Opensearch     StashOpensearchSpec     `json:"opensearch"`
 	Kubedbmanifest StashKubedbmanifestSpec `json:"kubedbmanifest"`
@@ -59,6 +60,22 @@ type KubedbKubestashCatalogSpec struct {
 	Postgres       StashPostgresSpec       `json:"postgres"`
 	Singlestore    StashSinglestoreSpec    `json:"singlestore"`
 	ZooKeeper      StashZooKeeperSpec      `json:"zookeeper"`
+}
+
+// StashDruidSpec is the schema for Stash Druid values file
+type StashDruidSpec struct {
+	Backup  DruidBackup  `json:"backup"`
+	Restore DruidRestore `json:"restore"`
+}
+
+type DruidBackup struct {
+	//+optional
+	Args string `json:"args"`
+}
+
+type DruidRestore struct {
+	//+optional
+	Args string `json:"args"`
 }
 
 // StashElasticsearchSpec is the schema for Stash Elasticsearch values file
