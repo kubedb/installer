@@ -19,6 +19,7 @@ package v1alpha1
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
+	"kmodules.xyz/resource-metadata/apis/shared"
 )
 
 const (
@@ -46,33 +47,12 @@ type KubedbCatalogSpec struct {
 	//+optional
 	FullnameOverride string `json:"fullnameOverride"`
 	//+optional
-	Proxies        RegistryProxies                  `json:"proxies"`
+	Proxies        shared.RegistryProxies           `json:"proxies"`
 	FeatureGates   map[string]bool                  `json:"featureGates"`
 	Psp            PSP                              `json:"psp"`
 	SkipDeprecated bool                             `json:"skipDeprecated"`
 	EnableVersions map[string][]string              `json:"enableVersions"`
 	CustomVersions map[string]*runtime.RawExtension `json:"customVersions"`
-}
-
-type RegistryProxies struct {
-	// company/bin:1.23
-	//+optional
-	DockerHub string `json:"dockerHub"`
-	// alpine, nginx etc.
-	//+optional
-	DockerLibrary string `json:"dockerLibrary"`
-	// ghcr.io
-	//+optional
-	GHCR string `json:"ghcr"`
-	// registry.k8s.io
-	//+optional
-	Kubernetes string `json:"kubernetes"`
-	// mcr.microsoft.com
-	//+optional
-	Microsoft string `json:"microsoft"`
-	// r.appscode.com
-	//+optional
-	AppsCode string `json:"appscode"`
 }
 
 type PSP struct {
