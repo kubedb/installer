@@ -18,6 +18,7 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"kmodules.xyz/resource-metadata/apis/shared"
 )
 
 const (
@@ -44,7 +45,7 @@ type KubedbKubestashCatalog struct {
 // KubedbKubestashCatalogSpec is the schema for Stash Postgres values file
 type KubedbKubestashCatalogSpec struct {
 	//+optional
-	Proxies        RegistryProxies         `json:"proxies"`
+	Proxies        shared.RegistryProxies  `json:"proxies"`
 	FeatureGates   map[string]bool         `json:"featureGates"`
 	WaitTimeout    int64                   `json:"waitTimeout"`
 	Elasticsearch  StashElasticsearchSpec  `json:"elasticsearch"`
