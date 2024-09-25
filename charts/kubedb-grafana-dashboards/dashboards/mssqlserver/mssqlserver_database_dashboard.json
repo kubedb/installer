@@ -1,3 +1,5 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "annotations": {
     "list": [
@@ -138,7 +140,7 @@
           "instant": true,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{ pod }}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -242,7 +244,7 @@
           "format": "table",
           "instant": true,
           "interval": "",
-          "legendFormat": "{{ pod }}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -400,7 +402,7 @@
           "expr": "mssql_pod_role{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
           "instant": true,
           "interval": "",
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -492,7 +494,7 @@
           "expr": "mssql_pod_role{namespace=~\"$namespace\", service=~\"$app+-stats\"}",
           "instant": true,
           "interval": "",
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -659,7 +661,7 @@
           "expr": "mssql_pod_role{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
           "instant": true,
           "interval": "",
-          "legendFormat": "{{role}}",
+          "legendFormat": {{ `"{{role}}"` }},
           "refId": "A"
         }
       ],
@@ -728,7 +730,7 @@
           "exemplar": true,
           "expr": "rate(sqlserver_compilations_per_sec{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
           "interval": "",
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -825,7 +827,7 @@
           "exemplar": true,
           "expr": "rate(mssql_batch_requests{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
           "interval": "",
-          "legendFormat": "{{pod}}",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -929,7 +931,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{db}}",
+          "legendFormat": {{ `"{{db}}"` }},
           "refId": "A"
         }
       ],
@@ -1029,7 +1031,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{db}}",
+          "legendFormat": {{ `"{{db}}"` }},
           "refId": "B"
         }
       ],
@@ -1079,7 +1081,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "fieldConfig": {
         "defaults": {},
         "overrides": []
@@ -1125,7 +1127,7 @@
           "exemplar": true,
           "expr": "mssql_io_stall_total_seconds{}",
           "interval": "",
-          "legendFormat": "{{db}}",
+          "legendFormat": {{ `"{{db}}"` }},
           "refId": "A"
         }
       ],
@@ -1186,7 +1188,7 @@
           "text": "Prometheus",
           "value": "Prometheus"
         },
-        "description": null,
+        "description": "MSSQLServer Overview",
         "error": null,
         "hide": 0,
         "includeAll": false,
@@ -1210,7 +1212,7 @@
         },
         "datasource": "${datasource}",
         "definition": "label_values(kube_namespace_created,namespace)",
-        "description": null,
+        "description": "MSSQLServer Overview",
         "error": null,
         "hide": 0,
         "includeAll": false,
@@ -1218,10 +1220,16 @@
         "multi": false,
         "name": "namespace",
         "options": [],
+        {{- if $shared }}
         "query": {
           "query": "label_values(kube_namespace_created,namespace)",
           "refId": "Prometheus-namespace-Variable-Query"
         },
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.namespace | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1249,10 +1257,16 @@
         "multi": false,
         "name": "app",
         "options": [],
+        {{- if $shared }}
         "query": {
           "query": "label_values(kubedb_com_mysql_status_phase{namespace=~\"$namespace\"},app)",
           "refId": "Prometheus-app-Variable-Query"
         },
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1263,6 +1277,7 @@
         "type": "query",
         "useTags": false
       }
+      {{- end }}
     ]
   },
   "time": {
@@ -1271,7 +1286,11 @@
   },
   "timepicker": {},
   "timezone": "",
+  {{- if $shared }}
   "title": "KubeDB / MSSQLServer / Database",
+  {{- else }}
+  "title": {{ printf "KubeDB / MSSQLServer / Database / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
+  {{- end }}
   "uid": "ohrahgv7T",
   "version": 37
 }
