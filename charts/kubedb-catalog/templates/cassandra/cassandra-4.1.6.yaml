@@ -1,0 +1,22 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Cassandra }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: CassandraVersion
+metadata:
+  name: '4.1.6'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/cassandra") $) }}:4.1.6'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/cassandra-init") $) }}:4.1.6'
+  securityContext:
+    runAsUser: 999
+  version: 4.1.6
+{{ end }}
