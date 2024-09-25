@@ -1,3 +1,4 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
 {
   "annotations": {
     "list": [
@@ -130,7 +131,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "description": "MSSQLServer CR Name",
       "fieldConfig": {
         "defaults": {
@@ -204,7 +205,7 @@
           "instant": true,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{ version }}",
+          "legendFormat": {{ `"{{version}}"` }},
           "refId": "A"
         }
       ],
@@ -2844,7 +2845,7 @@
           "text": "Prometheus",
           "value": "Prometheus"
         },
-        "description": null,
+        "description": "MSSQLServer metrics dashboard for Kubernetes created by KubeDB and Prometheus",
         "error": null,
         "hide": 0,
         "includeAll": false,
@@ -2868,7 +2869,7 @@
         },
         "datasource": "${datasource}",
         "definition": "label_values(kube_namespace_created,namespace)",
-        "description": null,
+        "description": "MSSQLServer metrics dashboard for Kubernetes created by KubeDB and Prometheus",
         "error": null,
         "hide": 0,
         "includeAll": false,
@@ -2876,10 +2877,16 @@
         "multi": false,
         "name": "namespace",
         "options": [],
+        {{- if $shared }}
         "query": {
           "query": "label_values(kube_namespace_created,namespace)",
           "refId": "StandardVariableQuery"
         },
+        "type": "query",
+        {{- else }}
+        "query": {{ printf "%s-0" $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -2899,7 +2906,7 @@
         },
         "datasource": "${datasource}",
         "definition": "label_values(kubedb_com_mssqlserver_status_phase{namespace=~\"$namespace\"},app)",
-        "description": null,
+        "description": "MSSQLServer metrics dashboard for Kubernetes created by KubeDB and Prometheus",
         "error": null,
         "hide": 0,
         "includeAll": false,
@@ -2907,10 +2914,16 @@
         "multi": false,
         "name": "app",
         "options": [],
+        {{- if $shared }}
         "query": {
           "query": "label_values(kubedb_com_mssqlserver_status_phase{namespace=~\"$namespace\"},app)",
           "refId": "StandardVariableQuery"
         },
+        "type": "query",
+        {{- else }}
+        "query": {{ printf "%s-0" $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -2918,7 +2931,6 @@
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
-        "type": "query",
         "useTags": false
       }
     ]
@@ -2953,7 +2965,11 @@
     ]
   },
   "timezone": "",
+  {{- if $shared }}
   "title": "KubeDB / MSSQLServer / Summary",
+  {{- else }}
+  "title": {{ printf "KubeDB / MSSQLServer / Pod / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
+  {{- end }}
   "uid": "qDMhbh0Iz",
   "version": 9
 }
