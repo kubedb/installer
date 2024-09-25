@@ -1,0 +1,176 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Druid }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Addon
+metadata:
+  name: 'druid-addon'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  backupTasks:
+  - driver: Restic
+    executor: Job
+    function: mysql-backup
+    name: mysql-metadata-storage-backup
+    parameters:
+    - default: --set-gtid-purged=OFF --ignore-table=druid.druid_config
+      name: args
+      required: false
+      usage: Arguments to be passed to the dump command.
+    - name: databases
+      required: false
+      usage: List of databases to backup.
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+  - driver: Restic
+    executor: Job
+    function: postgres-backup
+    name: postgres-metadata-storage-backup
+    parameters:
+    - name: args
+      required: false
+      usage: Arguments to be passed to the dump command.
+    - default: pg_dumpall
+      name: backupCmd
+      required: false
+      usage: Backup command to take a database dump (can only be pg_dumpall or pg_dump)
+    - default: postgres
+      name: user
+      required: false
+      usage: Specifies database user (not applicable for basic authentication)
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+  - driver: Restic
+    executor: Job
+    function: kubedbmanifest-backup
+    name: manifest-backup
+    parameters:
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+  restoreTasks:
+  - driver: Restic
+    executor: Job
+    function: mysql-restore
+    name: mysql-metadata-storage-restore
+    parameters:
+    - name: args
+      required: false
+      usage: Arguments to be passed to the dump command.
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+  - driver: Restic
+    executor: Job
+    function: postgres-restore
+    name: postgres-metadata-storage-restore
+    parameters:
+    - name: args
+      required: false
+      usage: Arguments to be passed to the dump command.
+    - default: postgres
+      name: user
+      required: false
+      usage: Specifies database user (not applicable for basic authentication)
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+  - driver: Restic
+    executor: Job
+    function: kubedbmanifest-restore
+    name: manifest-restore
+    parameters:
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+{{ end }}
