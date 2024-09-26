@@ -1,0 +1,20 @@
+{{- if and .Values.global .Values.global.networkPolicy.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ .Release.Name }}-egress
+  namespace: {{ .Release.Namespace }}
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  egress:
+  # Scenarios considered:
+  # - Communication with apiServer
+  # - DB Health Check
+  # - Pull Image from external sources like docker hub
+  # - Calls of discovery.DiscoveryInterface from cloud providers
+  - {}
+  policyTypes:
+  - Egress
+{{- end }}
