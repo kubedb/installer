@@ -99,3 +99,7 @@ type EASMonitoring struct {
 type PSPSpec struct {
 	Enabled bool `json:"enabled"`
 }
+
+type NetworkPolicy struct {
+	Enabled bool `json:"enabled"`
+}

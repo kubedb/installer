@@ -155,6 +155,9 @@ type GlobalValues struct {
 	// +optional
 	Affinity       *core.Affinity `json:"affinity"`
 	WaitForWebhook bool           `json:"waitForWebhook"`
+
+	// +optional
+	NetworkPolicy NetworkPolicy `json:"networkPolicy"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
