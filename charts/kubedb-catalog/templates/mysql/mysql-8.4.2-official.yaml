@@ -25,7 +25,7 @@ spec:
     walg:
       image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-archiver") $) }}:v0.8.0-rc.3_8.2.0'
   coordinator:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "ashraf10039/mysql-coordinator") $) }}:nvm_linux_amd64'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.25.0'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql") $) }}:8.4.2-oracle'
   distribution: Official
@@ -34,7 +34,7 @@ spec:
   gitSyncer:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.2.1'
   initContainer:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "ashraf10039/mysql-init") $) }}:_linux_amd64'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:8.4.2-v1'
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
@@ -51,6 +51,11 @@ spec:
   - name: phpmyadmin
     version: v2024.4.27
   updateConstraints:
+    allowlist:
+      groupReplication:
+      - '> 8.4.2, <= 8.4.2'
+      standalone:
+      - '> 8.4.2, <= 8.4.2'
     denylist:
       groupReplication:
       - < 8.4.2
