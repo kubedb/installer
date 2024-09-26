@@ -135,6 +135,23 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
+{{- if $featureGates.MSSQLServer }}
+- name: mssqlserveropsrequestwebhook.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.ops.kubedb.com/v1alpha1/mssqlserveropsrequestwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["ops.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["mssqlserveropsrequests"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
 {{- if $featureGates.MySQL }}
 - name: mysqlopsrequestwebhook.validators.ops.kubedb.com
   clientConfig:

@@ -118,6 +118,23 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
+{{- if $featureGates.MSSQLServer }}
+- name: mssqlserverautoscalerwebhook.validators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.autoscaling.kubedb.com/v1alpha1/mssqlserverautoscalerwebhooks
+    caBundle: {{ $caCrt }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["mssqlserverautoscalers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
 {{- if $featureGates.MySQL }}
 - name: mysqlautoscalerwebhook.validators.autoscaling.kubedb.com
   clientConfig:
