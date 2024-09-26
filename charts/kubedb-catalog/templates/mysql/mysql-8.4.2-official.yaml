@@ -8,7 +8,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
-  name: '8.0.35'
+  name: '8.4.2'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -16,10 +16,6 @@ spec:
     addon:
       name: mysql-addon
       tasks:
-        fullBackup:
-          name: logical-backup
-        fullBackupRestore:
-          name: logical-backup-restore
         manifestBackup:
           name: manifest-backup
         manifestRestore:
@@ -27,22 +23,22 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-archiver") $) }}:v0.8.0_8.0.35'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-archiver") $) }}:v0.8.0-rc.3_8.2.0'
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.25.0'
   db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql") $) }}:8.0.35-oracle'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql") $) }}:8.4.2-oracle'
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysqld-exporter") $) }}:v0.13.1'
   gitSyncer:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.2.1'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:8.0.31-v3'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:8.4.2-v1'
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.34.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.34.0-rc.3'
   securityContext:
     runAsUser: 999
   stash:
@@ -57,13 +53,13 @@ spec:
   updateConstraints:
     allowlist:
       groupReplication:
-      - '> 8.0.35, <= 8.4.2'
+      - '> 8.4.2, <= 8.4.2'
       standalone:
-      - '> 8.0.35, <= 8.4.2'
+      - '> 8.4.2, <= 8.4.2'
     denylist:
       groupReplication:
-      - < 8.0.35
+      - < 8.4.2
       standalone:
-      - < 8.0.35
-  version: 8.0.35
+      - < 8.4.2
+  version: 8.4.2
 {{ end }}
