@@ -1,0 +1,27 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Postgres }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'postgres-physical-backup'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  args:
+  - physical-backup
+  - --namespace=${namespace:=default}
+  - --backupsession=${backupSession:=}
+  - --enable-cache=${enableCache:=}
+  - --scratch-dir=${scratchDir:=}
+  - --wait-timeout=${waitTimeout:={{ .Values.waitTimeout}}}
+  - --pg-args=${args:={{ .Values.postgres.args }}}
+  - --backup-cmd=${backupCmd:=}
+  - --user=${user:=}
+  availableVersions:
+  - "16.1"
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-restic-plugin") $) }}:v0.10.0_16.1'
+{{ end }}
