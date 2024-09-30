@@ -208,8 +208,8 @@ $CMD push images/kubedb-kubedb-autoscaler-v0.33.0.tar $IMAGE_REGISTRY/kubedb/kub
 $CMD push images/kubedb-kubedb-crd-manager-v0.3.0.tar $IMAGE_REGISTRY/kubedb/kubedb-crd-manager:v0.3.0
 $CMD push images/kubedb-kubedb-kibana-v0.24.0.tar $IMAGE_REGISTRY/kubedb/kubedb-kibana:v0.24.0
 $CMD push images/kubedb-kubedb-manifest-plugin-v0.11.0.tar $IMAGE_REGISTRY/kubedb/kubedb-manifest-plugin:v0.11.0
-$CMD push images/kubedb-kubedb-ops-manager-v0.35.0.tar $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.35.0
-$CMD push images/kubedb-kubedb-provisioner-v0.48.0.tar $IMAGE_REGISTRY/kubedb/kubedb-provisioner:v0.48.0
+$CMD push images/kubedb-kubedb-ops-manager-v0.35.1.tar $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.35.1
+$CMD push images/kubedb-kubedb-provisioner-v0.48.1.tar $IMAGE_REGISTRY/kubedb/kubedb-provisioner:v0.48.1
 $CMD push images/kubedb-kubedb-schema-manager-v0.24.0.tar $IMAGE_REGISTRY/kubedb/kubedb-schema-manager:v0.24.0
 $CMD push images/kubedb-kubedb-ui-server-v0.24.0.tar $IMAGE_REGISTRY/kubedb/kubedb-ui-server:v0.24.0
 $CMD push images/kubedb-kubedb-webhook-server-v0.24.0.tar $IMAGE_REGISTRY/kubedb/kubedb-webhook-server:v0.24.0
@@ -266,7 +266,7 @@ $CMD push images/kubedb-postgres-archiver-v0.9.0_16.1-alpine.tar $IMAGE_REGISTRY
 $CMD push images/kubedb-postgres-archiver-v0.9.0_16.1-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.9.0_16.1-bookworm
 $CMD push images/kubedb-postgres-csi-snapshotter-plugin-v0.9.0.tar $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.9.0
 $CMD push images/kubedb-postgres-init-0.15.0.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.15.0
-$CMD push images/kubedb-postgres-restic-plugin-v0.10.0_16.1.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.10.0_16.1
+$CMD push images/kubedb-postgres-restic-plugin-v0.11.0_16.1.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.11.0_16.1
 $CMD push images/kubedb-provider-aws-v0.10.0.tar $IMAGE_REGISTRY/kubedb/provider-aws:v0.10.0
 $CMD push images/kubedb-provider-azure-v0.10.0.tar $IMAGE_REGISTRY/kubedb/provider-azure:v0.10.0
 $CMD push images/kubedb-provider-gcp-v0.10.0.tar $IMAGE_REGISTRY/kubedb/provider-gcp:v0.10.0
