@@ -217,8 +217,8 @@ $CMD cp ghcr.io/kubedb/kubedb-autoscaler:v0.33.0 $IMAGE_REGISTRY/kubedb/kubedb-a
 $CMD cp ghcr.io/kubedb/kubedb-crd-manager:v0.3.0 $IMAGE_REGISTRY/kubedb/kubedb-crd-manager:v0.3.0
 $CMD cp ghcr.io/kubedb/kubedb-kibana:v0.24.0 $IMAGE_REGISTRY/kubedb/kubedb-kibana:v0.24.0
 $CMD cp ghcr.io/kubedb/kubedb-manifest-plugin:v0.11.0 $IMAGE_REGISTRY/kubedb/kubedb-manifest-plugin:v0.11.0
-$CMD cp ghcr.io/kubedb/kubedb-ops-manager:v0.35.0 $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.35.0
-$CMD cp ghcr.io/kubedb/kubedb-provisioner:v0.48.0 $IMAGE_REGISTRY/kubedb/kubedb-provisioner:v0.48.0
+$CMD cp ghcr.io/kubedb/kubedb-ops-manager:v0.35.1 $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.35.1
+$CMD cp ghcr.io/kubedb/kubedb-provisioner:v0.48.1 $IMAGE_REGISTRY/kubedb/kubedb-provisioner:v0.48.1
 $CMD cp ghcr.io/kubedb/kubedb-schema-manager:v0.24.0 $IMAGE_REGISTRY/kubedb/kubedb-schema-manager:v0.24.0
 $CMD cp ghcr.io/kubedb/kubedb-ui-server:v0.24.0 $IMAGE_REGISTRY/kubedb/kubedb-ui-server:v0.24.0
 $CMD cp ghcr.io/kubedb/kubedb-webhook-server:v0.24.0 $IMAGE_REGISTRY/kubedb/kubedb-webhook-server:v0.24.0
@@ -275,7 +275,7 @@ $CMD cp ghcr.io/kubedb/postgres-archiver:v0.9.0_16.1-alpine $IMAGE_REGISTRY/kube
 $CMD cp ghcr.io/kubedb/postgres-archiver:v0.9.0_16.1-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.9.0_16.1-bookworm
 $CMD cp ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.9.0 $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.9.0
 $CMD cp ghcr.io/kubedb/postgres-init:0.15.0 $IMAGE_REGISTRY/kubedb/postgres-init:0.15.0
-$CMD cp ghcr.io/kubedb/postgres-restic-plugin:v0.10.0_16.1 $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.10.0_16.1
+$CMD cp ghcr.io/kubedb/postgres-restic-plugin:v0.11.0_16.1 $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.11.0_16.1
 $CMD cp ghcr.io/kubedb/provider-aws:v0.10.0 $IMAGE_REGISTRY/kubedb/provider-aws:v0.10.0
 $CMD cp ghcr.io/kubedb/provider-azure:v0.10.0 $IMAGE_REGISTRY/kubedb/provider-azure:v0.10.0
 $CMD cp ghcr.io/kubedb/provider-gcp:v0.10.0 $IMAGE_REGISTRY/kubedb/provider-gcp:v0.10.0
