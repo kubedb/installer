@@ -214,8 +214,8 @@ $CMD pull ghcr.io/kubedb/kubedb-autoscaler:v0.33.0 images/kubedb-kubedb-autoscal
 $CMD pull ghcr.io/kubedb/kubedb-crd-manager:v0.3.0 images/kubedb-kubedb-crd-manager-v0.3.0.tar
 $CMD pull ghcr.io/kubedb/kubedb-kibana:v0.24.0 images/kubedb-kubedb-kibana-v0.24.0.tar
 $CMD pull ghcr.io/kubedb/kubedb-manifest-plugin:v0.11.0 images/kubedb-kubedb-manifest-plugin-v0.11.0.tar
-$CMD pull ghcr.io/kubedb/kubedb-ops-manager:v0.35.0 images/kubedb-kubedb-ops-manager-v0.35.0.tar
-$CMD pull ghcr.io/kubedb/kubedb-provisioner:v0.48.0 images/kubedb-kubedb-provisioner-v0.48.0.tar
+$CMD pull ghcr.io/kubedb/kubedb-ops-manager:v0.35.1 images/kubedb-kubedb-ops-manager-v0.35.1.tar
+$CMD pull ghcr.io/kubedb/kubedb-provisioner:v0.48.1 images/kubedb-kubedb-provisioner-v0.48.1.tar
 $CMD pull ghcr.io/kubedb/kubedb-schema-manager:v0.24.0 images/kubedb-kubedb-schema-manager-v0.24.0.tar
 $CMD pull ghcr.io/kubedb/kubedb-ui-server:v0.24.0 images/kubedb-kubedb-ui-server-v0.24.0.tar
 $CMD pull ghcr.io/kubedb/kubedb-webhook-server:v0.24.0 images/kubedb-kubedb-webhook-server-v0.24.0.tar
@@ -272,7 +272,7 @@ $CMD pull ghcr.io/kubedb/postgres-archiver:v0.9.0_16.1-alpine images/kubedb-post
 $CMD pull ghcr.io/kubedb/postgres-archiver:v0.9.0_16.1-bookworm images/kubedb-postgres-archiver-v0.9.0_16.1-bookworm.tar
 $CMD pull ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.9.0 images/kubedb-postgres-csi-snapshotter-plugin-v0.9.0.tar
 $CMD pull ghcr.io/kubedb/postgres-init:0.15.0 images/kubedb-postgres-init-0.15.0.tar
-$CMD pull ghcr.io/kubedb/postgres-restic-plugin:v0.10.0_16.1 images/kubedb-postgres-restic-plugin-v0.10.0_16.1.tar
+$CMD pull ghcr.io/kubedb/postgres-restic-plugin:v0.11.0_16.1 images/kubedb-postgres-restic-plugin-v0.11.0_16.1.tar
 $CMD pull ghcr.io/kubedb/provider-aws:v0.10.0 images/kubedb-provider-aws-v0.10.0.tar
 $CMD pull ghcr.io/kubedb/provider-azure:v0.10.0 images/kubedb-provider-azure-v0.10.0.tar
 $CMD pull ghcr.io/kubedb/provider-gcp:v0.10.0 images/kubedb-provider-gcp-v0.10.0.tar
