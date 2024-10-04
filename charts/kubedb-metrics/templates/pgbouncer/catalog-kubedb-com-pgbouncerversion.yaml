@@ -1,0 +1,30 @@
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: catalog-kubedb-com-pgbouncerversion
+spec:
+  targetRef:
+    apiVersion: catalog.kubedb.com/v1alpha1
+    kind: PgBouncerVersion
+  metrics:
+    - name: created
+      help: "Unix creation timestamp"
+      type: gauge
+      field:
+        path: .metadata.creationTimestamp
+        type: DateTime
+      metricValue:
+        valueFromPath: .metadata.creationTimestamp
+
+    - name: info
+      help: "PgBouncer versions info"
+      type: gauge
+      labels:
+        - key: db_image
+          valuePath: .spec.pgBouncer.image
+        - key: deprecated
+          valuePath: .spec.deprecated
+        - key: exporter_image
+          valuePath: .spec.exporter.image
+      metricValue:
+        value: 1
