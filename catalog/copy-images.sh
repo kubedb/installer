@@ -217,11 +217,11 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-auto
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-crd-manager:v0.3.0 $IMAGE_REGISTRY/kubedb/kubedb-crd-manager:v0.3.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-kibana:v0.24.0 $IMAGE_REGISTRY/kubedb/kubedb-kibana:v0.24.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-manifest-plugin:v0.11.0 $IMAGE_REGISTRY/kubedb/kubedb-manifest-plugin:v0.11.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.35.1 $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.35.1
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-provisioner:v0.48.1 $IMAGE_REGISTRY/kubedb/kubedb-provisioner:v0.48.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.35.2 $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.35.2
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-provisioner:v0.48.2 $IMAGE_REGISTRY/kubedb/kubedb-provisioner:v0.48.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-schema-manager:v0.24.0 $IMAGE_REGISTRY/kubedb/kubedb-schema-manager:v0.24.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ui-server:v0.24.0 $IMAGE_REGISTRY/kubedb/kubedb-ui-server:v0.24.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-webhook-server:v0.24.0 $IMAGE_REGISTRY/kubedb/kubedb-webhook-server:v0.24.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-webhook-server:v0.24.1 $IMAGE_REGISTRY/kubedb/kubedb-webhook-server:v0.24.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.4.0_10.10.7-jammy $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.4.0_10.10.7-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.4.0_10.11.6-jammy $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.4.0_10.11.6-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.4.0_10.4.32-focal $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.4.0_10.4.32-focal
