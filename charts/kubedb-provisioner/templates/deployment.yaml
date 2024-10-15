@@ -58,9 +58,11 @@ spec:
       - name: wait
         image: {{ include "waitfor.registry" . }}/{{ .Values.waitfor.repository }}:{{ .Values.waitfor.tag }}
         imagePullPolicy: {{ .Values.imagePullPolicy  }}
-        args:
-          - "service"
-          - "-lapp.kubernetes.io/name=kubedb-webhook-server"
+        command:
+        - /bin/sh
+        - -c
+        - kubectl wait --for=create -n {{ .Release.Namespace }} service -l 'app.kubernetes.io/name=kubedb-webhook-server' --timeout=5m &&
+          kubectl wait --for=condition=kubedb.com/conversion=true -n {{ .Release.Namespace }} pods -l 'app.kubernetes.io/instance={{ .Release.Name }},app.kubernetes.io/name=kubedb-webhook-server' --timeout=5m
         securityContext:
           {{- toYaml .Values.operator.securityContext | nindent 10 }}
         resources:
