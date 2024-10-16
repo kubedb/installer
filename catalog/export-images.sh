@@ -215,7 +215,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-cr
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-kibana:v0.24.0 images/kubedb-kubedb-kibana-v0.24.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-manifest-plugin:v0.11.0 images/kubedb-kubedb-manifest-plugin-v0.11.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.35.2 images/kubedb-kubedb-ops-manager-v0.35.2.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-provisioner:v0.48.2 images/kubedb-kubedb-provisioner-v0.48.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-provisioner:v0.48.3 images/kubedb-kubedb-provisioner-v0.48.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-schema-manager:v0.24.0 images/kubedb-kubedb-schema-manager-v0.24.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ui-server:v0.24.0 images/kubedb-kubedb-ui-server-v0.24.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-webhook-server:v0.24.1 images/kubedb-kubedb-webhook-server-v0.24.1.tar
