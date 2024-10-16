@@ -82,7 +82,7 @@ The following table lists the configurable parameters of the `kubedb-grafana-das
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2024.9.30 --set resources=["connectcluster","druid","elasticsearch","kafka","mariadb","memcached","mongodb","mysql","perconaxtradb","pgpool","postgres","proxysql","rabbitmq","redis","singlestore","solr","zookeeper"]
+$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2024.9.30 --set resources=["cassandra","connectcluster","druid","elasticsearch","kafka","mariadb","memcached","mongodb","mysql","perconaxtradb","pgpool","postgres","proxysql","rabbitmq","redis","singlestore","solr","zookeeper"]
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
