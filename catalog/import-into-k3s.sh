@@ -188,9 +188,9 @@ k3s ctr images import images/appscode-images-solr-9.6.1.tar
 k3s ctr images import images/appscode-images-zookeeper-3.7.2.tar
 k3s ctr images import images/appscode-images-zookeeper-3.8.3.tar
 k3s ctr images import images/appscode-images-zookeeper-3.9.1.tar
-k3s ctr images import images/appscode-k8s-wait-for-v2.0.tar
 k3s ctr images import images/appscode-kube-rbac-proxy-v0.11.0.tar
 k3s ctr images import images/appscode-kubectl-nonroot-1.25.tar
+k3s ctr images import images/appscode-kubectl-nonroot-1.31.tar
 k3s ctr images import images/appscode-petset-v0.0.7.tar
 k3s ctr images import images/appscode-sidekick-v0.0.8.tar
 k3s ctr images import images/kubedb-cassandra-init-4.1.6.tar
