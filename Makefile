@@ -45,7 +45,7 @@ endif
 
 ###
 ### These variables should not need tweaking.
-###
+####
 
 SRC_PKGS := apis catalog cmd tests # directories which hold app source (not vendored)
 SRC_DIRS := $(SRC_PKGS)
