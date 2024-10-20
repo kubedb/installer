@@ -49,3 +49,17 @@ Selector labels
 app.kubernetes.io/name: {{ include "kubedb-grafana-dashboards.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{/*
+Returns the registry used for image docker image
+*/}}
+{{- define "image.registry" -}}
+{{- list .Values.registryFQDN .Values.image.registry | compact | join "/" }}
+{{- end }}
+
+{{- define "docker.imagePullSecrets" -}}
+{{- with .Values.imagePullSecrets -}}
+imagePullSecrets:
+{{- toYaml . | nindent 2 }}
+{{- end }}
+{{- end }}
