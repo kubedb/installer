@@ -11,33 +11,58 @@ spec:
   # ttlSecondsAfterFinished: 0
   backoffLimit: 3
   template:
+    {{- with .Values.podAnnotations }}
+    metadata:
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
     spec:
+      {{- include "docker.imagePullSecrets" . | nindent 6 }}
       automountServiceAccountToken: false
+      containers:
+      - name: post-json-container
+        securityContext:
+          {{- toYaml .Values.image.securityContext | nindent 10 }}
+        image: {{ include "image.registry" . }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
+        imagePullPolicy: {{ .Values.imagePullPolicy  }}
+        command:
+        - sh
+        - -c
+        - |
+            sleep 2; \
+            FILES="/grafana/dashboards/*.json"; \
+            for f in $FILES; \
+            do \
+              echo "Processing dashboard file $f ..."; \
+              curl \
+                -X POST \
+                -H "Content-Type: application/json" \
+                -H "Authorization: Bearer {{ .Values.grafana.apikey }}" \
+                --data-binary @"$f" \
+                {{ .Values.grafana.url }}/api/dashboards/import; \
+            done
+        resources:
+          {{- toYaml .Values.image.resources | nindent 10 }}
+        volumeMounts:
+        - mountPath: /grafana/dashboards
+          name: grafana-dashboards
       volumes:
       - name: grafana-dashboards
         configMap:
           name: {{ include "kubedb-grafana-dashboards.fullname" . }}-config
-      containers:
-      - name: post-json-container
-        image: curlimages/curl:latest
-        command:
-          - sh
-          - -c
-          - |
-              sleep 2; \
-              FILES="/grafana/dashboards/*.json"; \
-              for f in $FILES; \
-              do \
-                echo "Processing dashboard file $f ..."; \
-                curl \
-                  -X POST \
-                  -H "Content-Type: application/json" \
-                  -H "Authorization: Bearer {{ .Values.grafana.apikey }}" \
-                  --data-binary @"$f" \
-                  {{ .Values.grafana.url }}/api/dashboards/import; \
-              done
-        volumeMounts:
-          - mountPath: /grafana/dashboards
-            name: grafana-dashboards
       restartPolicy: Never
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
 {{ end }}

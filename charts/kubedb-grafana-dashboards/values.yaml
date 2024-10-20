@@ -55,3 +55,53 @@ grafana:
 app:
   name: ""
   namespace: ""
+
+# Docker registry fqdn used to pull KubeDB related images
+# Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image}
+registryFQDN: ""
+image:
+  # Docker registry used to pull operator image
+  registry: curlimages
+  # Name of operator container image
+  repository: curl
+  # Operator container image tag
+  tag: "latest"
+  # Security options this container should run with
+  securityContext: # +doc-gen:break
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 65534
+    seccompProfile:
+      type: RuntimeDefault
+  # Compute Resources required by this container
+  resources: {}
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+# Specify an array of imagePullSecrets.
+# Secrets must be manually created in the namespace.
+#
+# Example:
+# helm template charts/stash \
+#   --set imagePullSecrets[0].name=sec0 \
+#   --set imagePullSecrets[1].name=sec1
+imagePullSecrets: []
+# Container image pull policy
+imagePullPolicy: Always
+# Annotations applied to operator deployment
+annotations: {}
+# Annotations passed to operator pod(s).
+podAnnotations: {}
+# Node labels for pod assignment
+nodeSelector: {}
+# Tolerations for pod assignment
+tolerations: []
+# Affinity rules for pod assignment
+affinity: {}
+# Security options the operator pod should run with.
+podSecurityContext: # +doc-gen:break
+  fsGroup: 65534
