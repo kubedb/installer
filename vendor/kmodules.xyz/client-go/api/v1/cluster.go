@@ -24,23 +24,21 @@ import (
 	"strings"
 )
 
-// +kubebuilder:validation:Enum=Aws;Azure;DigitalOcean;GoogleCloud;Linode;Packet;Scaleway;Vultr;BareMetal;KIND;Generic;Private
+// +kubebuilder:validation:Enum=AKS;DigitalOcean;EKS;Exoscale;Generic;GKE;Linode;Packet;Rancher;Scaleway;Vultr
 type HostingProvider string
 
 const (
-	HostingProviderAWS          HostingProvider = "Aws"
-	HostingProviderAzure        HostingProvider = "Azure"
+	HostingProviderAKS          HostingProvider = "AKS"
 	HostingProviderDigitalOcean HostingProvider = "DigitalOcean"
-	HostingProviderGoogleCloud  HostingProvider = "GoogleCloud"
+	HostingProviderEKS          HostingProvider = "EKS"
 	HostingProviderExoscale     HostingProvider = "Exoscale"
+	HostingProviderGeneric      HostingProvider = "Generic"
+	HostingProviderGKE          HostingProvider = "GKE"
 	HostingProviderLinode       HostingProvider = "Linode"
 	HostingProviderPacket       HostingProvider = "Packet"
+	HostingProviderRancher      HostingProvider = "Rancher"
 	HostingProviderScaleway     HostingProvider = "Scaleway"
 	HostingProviderVultr        HostingProvider = "Vultr"
-	HostingProviderBareMetal    HostingProvider = "BareMetal"
-	HostingProviderKIND         HostingProvider = "KIND"
-	HostingProviderGeneric      HostingProvider = "Generic"
-	HostingProviderPrivate      HostingProvider = "Private"
 )
 
 const (
@@ -52,19 +50,28 @@ const (
 )
 
 type ClusterMetadata struct {
-	UID         string          `json:"uid" protobuf:"bytes,1,opt,name=uid"`
-	Name        string          `json:"name,omitempty" protobuf:"bytes,2,opt,name=name"`
-	DisplayName string          `json:"displayName,omitempty" protobuf:"bytes,3,opt,name=displayName"`
-	Provider    HostingProvider `json:"provider,omitempty" protobuf:"bytes,4,opt,name=provider,casttype=HostingProvider"`
-	OwnerID     string          `json:"ownerID,omitempty"`
-	OwnerType   string          `json:"ownerType,omitempty"`
-	APIEndpoint string          `json:"apiEndpoint,omitempty"`
-	CABundle    string          `json:"caBundle,omitempty"`
+	UID          string          `json:"uid" protobuf:"bytes,1,opt,name=uid"`
+	Name         string          `json:"name,omitempty" protobuf:"bytes,2,opt,name=name"`
+	DisplayName  string          `json:"displayName,omitempty" protobuf:"bytes,3,opt,name=displayName"`
+	Provider     HostingProvider `json:"provider,omitempty" protobuf:"bytes,4,opt,name=provider,casttype=HostingProvider"`
+	OwnerID      string          `json:"ownerID,omitempty" protobuf:"bytes,5,opt,name=ownerID"`
+	OwnerType    string          `json:"ownerType,omitempty" protobuf:"bytes,6,opt,name=ownerType"`
+	APIEndpoint  string          `json:"apiEndpoint,omitempty" protobuf:"bytes,7,opt,name=apiEndpoint"`
+	CABundle     string          `json:"caBundle,omitempty" protobuf:"bytes,8,opt,name=caBundle"`
+	ManagerID    string          `json:"managerID,omitempty" protobuf:"bytes,9,opt,name=managerID"`
+	HubClusterID string          `json:"hubClusterID,omitempty" protobuf:"bytes,10,opt,name=hubClusterID"`
+}
+
+func (md ClusterMetadata) Manager() string {
+	if md.ManagerID != "" && md.ManagerID != "0" {
+		return md.ManagerID
+	}
+	return md.OwnerID
 }
 
 func (md ClusterMetadata) State() string {
 	hasher := hmac.New(sha256.New, []byte(md.UID))
-	state := fmt.Sprintf("%s,%s", md.APIEndpoint, md.OwnerID)
+	state := fmt.Sprintf("%s,%s", md.APIEndpoint, md.Manager())
 	hasher.Write([]byte(state))
 	return base64.URLEncoding.EncodeToString(hasher.Sum(nil))
 }
@@ -153,7 +160,26 @@ func (cm ClusterManager) String() string {
 }
 
 type CAPIClusterInfo struct {
-	Provider    string `json:"provider,omitempty"`
-	Namespace   string `json:"namespace,omitempty"`
-	ClusterName string `json:"clusterName,omitempty"`
+	Provider    CAPIProvider `json:"provider" protobuf:"bytes,1,opt,name=provider,casttype=CAPIProvider"`
+	Namespace   string       `json:"namespace" protobuf:"bytes,2,opt,name=namespace"`
+	ClusterName string       `json:"clusterName" protobuf:"bytes,3,opt,name=clusterName"`
 }
+
+// ClusterInfo used in ace-installer
+type ClusterInfo struct {
+	UID             string   `json:"uid" protobuf:"bytes,1,opt,name=uid"`
+	Name            string   `json:"name" protobuf:"bytes,2,opt,name=name"`
+	ClusterManagers []string `json:"clusterManagers" protobuf:"bytes,3,rep,name=clusterManagers"`
+	// +optional
+	CAPI *CAPIClusterInfo `json:"capi" protobuf:"bytes,4,opt,name=capi"`
+}
+
+// +kubebuilder:validation:Enum=capa;capg;capz
+type CAPIProvider string
+
+const (
+	CAPIProviderCAPA CAPIProvider = "capa"
+	CAPIProviderCAPG CAPIProvider = "capg"
+	CAPIProviderCAPZ CAPIProvider = "capz"
+	CAPIProviderCAPH CAPIProvider = "caph"
+)
