@@ -9,21 +9,19 @@ require (
 	github.com/Masterminds/sprig/v3 v3.2.3
 	github.com/google/go-containerregistry v0.19.1
 	github.com/google/gofuzz v1.2.0
-	github.com/olekukonko/tablewriter v0.0.5
 	github.com/spf13/pflag v1.0.5
 	github.com/yudai/gojsondiff v1.0.0
 	gomodules.xyz/go-sh v0.1.0
 	gomodules.xyz/semvers v0.0.2
 	k8s.io/api v0.30.2
 	k8s.io/apimachinery v0.30.2
-	k8s.io/klog/v2 v2.130.1
-	kmodules.xyz/client-go v0.30.14
+	kmodules.xyz/client-go v0.30.31
 	kmodules.xyz/go-containerregistry v0.0.12
-	kmodules.xyz/resource-metadata v0.18.14-0.20240924224747-e2ab11166f23
+	kmodules.xyz/resource-metadata v0.20.0
 	kmodules.xyz/schema-checker v0.4.1
-	kubeops.dev/scanner v0.0.18
+	kubeops.dev/scanner v0.0.19
 	sigs.k8s.io/yaml v1.4.0
-	stash.appscode.dev/installer v0.12.2-0.20240420190034-95f958de0f1e
+	stash.appscode.dev/installer v0.12.2-0.20241022221807-4ad4af690ae5
 )
 
 require (
@@ -61,7 +59,6 @@ require (
 	github.com/klauspost/compress v1.17.2 // indirect
 	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
-	github.com/mattn/go-runewidth v0.0.9 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
@@ -85,8 +82,8 @@ require (
 	github.com/zeebo/xxh3 v1.0.2 // indirect
 	golang.org/x/crypto v0.27.0 // indirect
 	golang.org/x/exp v0.0.0-20240506185415-9bf2ced13842 // indirect
-	golang.org/x/net v0.27.0 // indirect
-	golang.org/x/oauth2 v0.21.0 // indirect
+	golang.org/x/net v0.29.0 // indirect
+	golang.org/x/oauth2 v0.22.0 // indirect
 	golang.org/x/sync v0.8.0 // indirect
 	golang.org/x/sys v0.25.0 // indirect
 	golang.org/x/term v0.24.0 // indirect
@@ -103,6 +100,7 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	k8s.io/apiextensions-apiserver v0.30.2 // indirect
 	k8s.io/client-go v0.30.2 // indirect
+	k8s.io/klog/v2 v2.130.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20240703190633-0aa61b46e8c2 // indirect
 	k8s.io/utils v0.0.0-20240502163921-fe8a2dddb1d0 // indirect
 	sigs.k8s.io/controller-runtime v0.18.4 // indirect
