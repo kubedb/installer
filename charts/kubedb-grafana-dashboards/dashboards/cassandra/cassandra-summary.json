@@ -20,7 +20,7 @@
       }
     ]
   },
-  "description": "The dashboard is designed for KubeDB managed cassandra",
+  "description": "The dashboard is designed for KubeDB managed Cassandra",
   "editable": true,
   "gnetId": 9628,
   "graphTooltip": 0,
@@ -133,7 +133,7 @@
     {
       "cacheTimeout": null,
       "datasource": "${datasource}",
-      "description": "cassandra CR Name",
+      "description": "Cassandra CR Name",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -376,7 +376,7 @@
     },
     {
       "datasource": "${datasource}",
-      "description": "Total node count of cassandra cluster",
+      "description": "Total node count of Cassandra cluster",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -438,7 +438,7 @@
     },
     {
       "datasource": "${datasource}",
-      "description": "Initial Requested CPU amount by cassandra Instance",
+      "description": "Initial Requested CPU amount by Cassandra Instance",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -497,7 +497,7 @@
     },
     {
       "datasource": "${datasource}",
-      "description": "CPU Limit in core by cassandra instance",
+      "description": "CPU Limit in core by Cassandra instance",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -555,7 +555,7 @@
     },
     {
       "datasource": "${datasource}",
-      "description": "Initial Requested Memory amount by cassandra Instance",
+      "description": "Initial Requested Memory amount by Cassandra Instance",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -615,7 +615,7 @@
     },
     {
       "datasource": "${datasource}",
-      "description": "KubeDB cassandra Total Memory Limit",
+      "description": "KubeDB Cassandra Total Memory Limit",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -674,7 +674,7 @@
     },
     {
       "datasource": "${datasource}",
-      "description": "Total storage request by cassandra nodes",
+      "description": "Total storage request by Cassandra nodes",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -752,7 +752,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${datasource}",
-      "description": "CPU Usage by cassandra pods",
+      "description": "CPU Usage by Cassandra pods",
       "fieldConfig": {
         "defaults": {},
         "overrides": []
@@ -1153,7 +1153,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${datasource}",
-      "description": "Memory Usage by cassandra pods",
+      "description": "Memory Usage by Cassandra pods",
       "fieldConfig": {
         "defaults": {
           "unit": "bytes"
@@ -1540,7 +1540,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-brokers-\\\\d+$|$app-coordinators-\\\\d+$|$app-historicals-\\\\d+$|$app-middlemanagers-\\\\d+$|$app-routers-\\\\d+$|$app-overlords-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",container!=\"\", image!=\"\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1660,7 +1660,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${datasource}",
-      "description": "Disk usage by cassandra pods",
+      "description": "Disk usage by Cassandra pods",
       "fieldConfig": {
         "defaults": {
           "unit": "bytes"
@@ -1801,7 +1801,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(rate(container_fs_writes_total{namespace=\"$namespace\"}[5m]))by(pod)",
+          "expr": "sum(rate(container_fs_writes_total{namespace=\"$namespace\" }[5m]))by(pod)",
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
@@ -1810,7 +1810,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(rate(container_fs_reads_total{namespace=\"$namespace\"}[5m]))by(pod)",
+          "expr": "sum(rate(container_fs_reads_total{namespace=\"$namespace\" }[5m]))by(pod)",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -1909,7 +1909,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "ceil(sum by(pod) (rate(container_fs_reads_total{container!=\"\", namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_total{container!=\"\" ,namespace=~\"$namespace\"}[5m])))",
+          "expr": "ceil(sum by(pod) (rate(container_fs_reads_total{container!=\"\", namespace=~\"$namespace\" }[5m]) + rate(container_fs_writes_total{container!=\"\" ,namespace=~\"$namespace\" }[5m])))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -2010,7 +2010,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_bytes_total{container!=\"\" ,namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", namespace=~\"$namespace\" }[5m]) + rate(container_fs_writes_bytes_total{container!=\"\" ,namespace=~\"$namespace\" }[5m]))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -2303,7 +2303,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by(pod) (rate(container_fs_reads_total{container!=\"\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_total{container!=\"\" ,namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2314,7 +2314,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by(pod) (rate(container_fs_writes_total{container!=\"\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_writes_total{container!=\"\" ,namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2325,7 +2325,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by(pod) (rate(container_fs_reads_total{container!=\"\",namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_total{container!=\"\",pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_total{container!=\"\" ,namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_total{container!=\"\",pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2336,7 +2336,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\" ,namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2347,7 +2347,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by(pod) (rate(container_fs_writes_bytes_total{container!=\"\", namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_writes_bytes_total{container!=\"\" ,namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2358,7 +2358,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_bytes_total{container!=\"\",pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\" ,namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_bytes_total{container!=\"\",pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2380,6 +2380,239 @@
         }
       ],
       "type": "table"
+    },
+    {
+      "collapsed": false,
+      "datasource": "${datasource}",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 58
+      },
+      "id": 152,
+      "panels": [],
+      "title": "Persistent Storage Insight",
+      "type": "row"
+    },
+    {
+      "datasource": "${datasource}",
+      "description": "This panel describes allocated persistent storage in a table format\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "displayMode": "color-text",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 59
+      },
+      "id": 148,
+      "options": {
+        "showHeader": true
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "kubelet_volume_stats_capacity_bytes + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{  namespace=~\"$namespace\"}",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "Allocated Storage",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "endpoint": true,
+              "instance": true,
+              "job": true,
+              "metrics_path": true,
+              "namespace": true,
+              "node": true,
+              "persistentvolumeclaim": true,
+              "service": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "Value": "Volume",
+              "pod": "Pod"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": "${datasource}",
+      "description": "This panel shows the persistent volume usage in percentage. ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 59
+      },
+      "id": 146,
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "text": {}
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "(kubelet_volume_stats_used_bytes{job=\"kubelet\"} / on(persistentvolumeclaim) group_left(pod) (kubelet_volume_stats_capacity_bytes{job=\"kubelet\"} + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{})) * 100",
+          "instant": true,
+          "interval": "",
+          "legendFormat": {{ `"{{pod}}"` }},
+          "refId": "A"
+        }
+      ],
+      "title": "Persistent Volume Usage",
+      "transformations": [],
+      "type": "bargauge"
+    },
+    {
+      "datasource": "${datasource}",
+      "description": "This panel describes the persistent volume usage in a time series. ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMax": 5000,
+            "axisSoftMin": 0,
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "graph": false,
+              "legend": false,
+              "tooltip": false
+            },
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 65
+      },
+      "id": 150,
+      "options": {
+        "graph": {},
+        "legend": {
+          "calcs": [
+            "max",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltipOptions": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "(kubelet_volume_stats_used_bytes + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{  namespace=~\"$namespace\"}) ",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{pod}}"` }},
+          "refId": "A"
+        }
+      ],
+      "title": "Persistent Volume Usage History",
+      "type": "timeseries"
     },
     {
       "collapsed": false,
@@ -2443,7 +2676,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(irate(container_network_receive_bytes_total{namespace=~\"$namespace\"}[$__rate_interval])) by (pod)",
+          "expr": "sum(irate(container_network_receive_bytes_total{namespace=~\"$namespace\" }[$__rate_interval])) by (pod)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -2544,7 +2777,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(irate(container_network_transmit_bytes_total{namespace=~\"$namespace\"}[$__rate_interval])) by (pod)",
+          "expr": "sum(irate(container_network_transmit_bytes_total{namespace=~\"$namespace\" }[$__rate_interval])) by (pod)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -2628,8 +2861,8 @@
         "skipUrlSync": false,
         "type": "datasource"
       }
-       {{- if not $alerts }}
-      ,
+      {{- if not $alerts }}
+    ,
       {
         "allValue": "\".+\"",
         "current": {
@@ -2652,7 +2885,7 @@
           "query": "label_values(kube_namespace_created,namespace)",
           "refId": "Prometheus-namespace-Variable-Query"
         },
-       "type": "query",
+        "type": "query",
         {{- else }}
         "query": {{ $.Values.app.namespace | quote }},
         "type": "constant",
@@ -2680,11 +2913,11 @@
         "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": "cassandra",
+        "label": "Cassandra",
         "multi": false,
         "name": "app",
         "options": [],
-        {{- if $shared }}
+         {{- if $shared }}
         "query": {
           "query": "label_values(kubedb_com_cassandra_status_phase{namespace=~\"$namespace\"},app)",
           "refId": "Prometheus-app-Variable-Query"
@@ -2704,7 +2937,7 @@
         "type": "query",
         "useTags": false
       }
-      {{- end }}  
+      {{- end }}
     ]
   },
   "time": {
@@ -2737,7 +2970,7 @@
     ]
   },
   "timezone": "",
-   {{- if $shared }}
+  {{- if $shared }}
   "title": "KubeDB / Cassandra / Summary",
   {{- else }}
   "title": {{ printf "KubeDB / Cassandra / Summary / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
