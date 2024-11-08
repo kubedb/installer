@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.Druid }}
-
+{{ if or (not .Values.skipDeprecated) (has "30.0.0" .Values.enableVersions.Druid) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: DruidVersion
 metadata:
@@ -19,4 +19,6 @@ spec:
   securityContext:
     runAsUser: 1000
   version: 30.0.0
+  deprecated: {{ not (has "30.0.0" .Values.enableVersions.Druid) }}
+{{ end }}
 {{ end }}
