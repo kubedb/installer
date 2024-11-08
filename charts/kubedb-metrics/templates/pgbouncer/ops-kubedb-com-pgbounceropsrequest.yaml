@@ -1,0 +1,45 @@
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: ops-kubedb-com-pgbounceropsrequest
+spec:
+  targetRef:
+    apiVersion: ops.kubedb.com/v1alpha1
+    kind: PgBouncerOpsRequest
+  commonLabels:
+    - key: app
+      valuePath: .spec.serverRef.name
+    - key: app_namespace
+      valuePath: .metadata.namespace
+    - key: type
+      valuePath: .spec.type
+  metrics:
+    - name: type
+      help: "PgBouncer OpsRequest Type"
+      type: gauge
+      metricValue:
+        value: 1
+    - name: status_phase
+      help: "The current phase of PgBouncer OpsRequest."
+      type: gauge
+      field:
+        path: .status.phase
+        type: String
+      params:
+        - key: phase
+          valuePath: .status.phase
+      states:
+        labelKey: phase
+        values:
+          - labelValue: Progressing
+            metricValue:
+              valueFromExpression: "int(phase == 'Progressing')"
+          - labelValue: Failed
+            metricValue:
+              valueFromExpression: "int(phase == 'Failed')"
+          - labelValue: Pending
+            metricValue:
+              valueFromExpression: "int(phase == 'Pending')"
+          - labelValue: Successful
+            metricValue:
+              valueFromExpression: "int(phase == 'Successful')"
