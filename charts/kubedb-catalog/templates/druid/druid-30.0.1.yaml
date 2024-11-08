@@ -1,0 +1,22 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Druid }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: DruidVersion
+metadata:
+  name: '30.0.1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/druid") $) }}:30.0.1'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/druid-init") $) }}:30.0.1'
+  securityContext:
+    runAsUser: 1000
+  version: 30.0.1
+{{ end }}
