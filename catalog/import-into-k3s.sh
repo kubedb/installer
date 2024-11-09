@@ -188,7 +188,7 @@ k3s ctr images import images/appscode-images-solr-9.6.1.tar
 k3s ctr images import images/appscode-images-zookeeper-3.7.2.tar
 k3s ctr images import images/appscode-images-zookeeper-3.8.3.tar
 k3s ctr images import images/appscode-images-zookeeper-3.9.1.tar
-k3s ctr images import images/appscode-kube-rbac-proxy-v0.11.0.tar
+k3s ctr images import images/appscode-kube-rbac-proxy-v0.15.0.tar
 k3s ctr images import images/appscode-kubectl-nonroot-1.25.tar
 k3s ctr images import images/appscode-kubectl-nonroot-1.31.tar
 k3s ctr images import images/appscode-petset-v0.0.7.tar
@@ -209,8 +209,8 @@ k3s ctr images import images/kubedb-kubedb-manifest-plugin-v0.11.0.tar
 k3s ctr images import images/kubedb-kubedb-ops-manager-v0.35.2.tar
 k3s ctr images import images/kubedb-kubedb-provisioner-v0.48.3.tar
 k3s ctr images import images/kubedb-kubedb-schema-manager-v0.24.0.tar
-k3s ctr images import images/kubedb-kubedb-ui-server-v0.24.0.tar
-k3s ctr images import images/kubedb-kubedb-webhook-server-v0.24.1.tar
+k3s ctr images import images/kubedb-kubedb-ui-server-v0.24.1.tar
+k3s ctr images import images/kubedb-kubedb-webhook-server-v0.24.2.tar
 k3s ctr images import images/kubedb-mariadb-archiver-v0.4.0_10.10.7-jammy.tar
 k3s ctr images import images/kubedb-mariadb-archiver-v0.4.0_10.11.6-jammy.tar
 k3s ctr images import images/kubedb-mariadb-archiver-v0.4.0_10.4.32-focal.tar
@@ -280,8 +280,7 @@ k3s ctr images import images/kubedb-redis-coordinator-v0.27.0.tar
 k3s ctr images import images/kubedb-redis-init-0.9.0.tar
 k3s ctr images import images/kubedb-redis-restic-plugin-v0.11.0.tar
 k3s ctr images import images/kubedb-redis-4.0.11.tar
-k3s ctr images import images/kubedb-redis_exporter-1.58.0.tar
-k3s ctr images import images/kubedb-redis_exporter-v0.21.1.tar
+k3s ctr images import images/kubedb-redis_exporter-1.66.0.tar
 k3s ctr images import images/kubedb-replication-mode-detector-v0.35.0.tar
 k3s ctr images import images/kubedb-singlestore-coordinator-v0.3.0.tar
 k3s ctr images import images/kubedb-singlestore-init-8.1-v2.tar
