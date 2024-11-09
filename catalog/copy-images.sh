@@ -199,7 +199,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/so
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.7.2 $IMAGE_REGISTRY/appscode-images/zookeeper:3.7.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.8.3 $IMAGE_REGISTRY/appscode-images/zookeeper:3.8.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.9.1 $IMAGE_REGISTRY/appscode-images/zookeeper:3.9.1
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kube-rbac-proxy:v0.11.0 $IMAGE_REGISTRY/appscode/kube-rbac-proxy:v0.11.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kube-rbac-proxy:v0.15.0 $IMAGE_REGISTRY/appscode/kube-rbac-proxy:v0.15.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.25 $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.25
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.31 $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.31
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.7 $IMAGE_REGISTRY/appscode/petset:v0.0.7
@@ -220,8 +220,8 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-mani
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.35.2 $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.35.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-provisioner:v0.48.3 $IMAGE_REGISTRY/kubedb/kubedb-provisioner:v0.48.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-schema-manager:v0.24.0 $IMAGE_REGISTRY/kubedb/kubedb-schema-manager:v0.24.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ui-server:v0.24.0 $IMAGE_REGISTRY/kubedb/kubedb-ui-server:v0.24.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-webhook-server:v0.24.1 $IMAGE_REGISTRY/kubedb/kubedb-webhook-server:v0.24.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ui-server:v0.24.1 $IMAGE_REGISTRY/kubedb/kubedb-ui-server:v0.24.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-webhook-server:v0.24.2 $IMAGE_REGISTRY/kubedb/kubedb-webhook-server:v0.24.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.4.0_10.10.7-jammy $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.4.0_10.10.7-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.4.0_10.11.6-jammy $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.4.0_10.11.6-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.4.0_10.4.32-focal $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.4.0_10.4.32-focal
@@ -291,8 +291,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-coord
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.9.0 $IMAGE_REGISTRY/kubedb/redis-init:0.9.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.11.0 $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.11.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4.0.11 $IMAGE_REGISTRY/kubedb/redis:4.0.11
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis_exporter:1.58.0 $IMAGE_REGISTRY/kubedb/redis_exporter:1.58.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis_exporter:v0.21.1 $IMAGE_REGISTRY/kubedb/redis_exporter:v0.21.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis_exporter:1.66.0 $IMAGE_REGISTRY/kubedb/redis_exporter:1.66.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/replication-mode-detector:v0.35.0 $IMAGE_REGISTRY/kubedb/replication-mode-detector:v0.35.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-coordinator:v0.3.0 $IMAGE_REGISTRY/kubedb/singlestore-coordinator:v0.3.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-init:8.1-v2 $IMAGE_REGISTRY/kubedb/singlestore-init:8.1-v2
