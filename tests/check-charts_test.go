@@ -17,11 +17,16 @@ limitations under the License.
 package main
 
 import (
+	"errors"
 	"fmt"
+	"os"
+	"path/filepath"
+	"runtime"
 	"strings"
 	"testing"
 
-	"kubedb.dev/installer/cmd/lib"
+	"kmodules.xyz/image-packer/pkg/lib"
+	"sigs.k8s.io/yaml"
 )
 
 func Test_checkImages(t *testing.T) {
@@ -31,16 +36,24 @@ func Test_checkImages(t *testing.T) {
 }
 
 func checkImages() error {
-	images, err := lib.ListImages()
+	dir, err := rootDir()
+	if err != nil {
+		return err
+	}
+
+	data, err := os.ReadFile(filepath.Join(dir, "catalog", "imagelist.yaml"))
+	if err != nil {
+		return err
+	}
+
+	var images []string
+	err = yaml.Unmarshal(data, &images)
 	if err != nil {
 		return err
 	}
 
 	var missing []string
 	for _, img := range images {
-		if strings.Contains(img, "${") {
-			continue
-		}
 		_, found, err := lib.ImageDigest(img)
 		if err != nil {
 			return err
@@ -57,4 +70,13 @@ func checkImages() error {
 	}
 
 	return nil
+}
+
+func rootDir() (string, error) {
+	_, file, _, ok := runtime.Caller(1)
+	if !ok {
+		return "", errors.New("failed to locate root dir")
+	}
+
+	return filepath.Clean(filepath.Join(filepath.Dir(file), "..")), nil
 }
