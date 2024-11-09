@@ -1,11 +1,11 @@
 /*
 Copyright AppsCode Inc. and Contributors
 
-Licensed under the AppsCode Community License 1.0.0 (the "License");
+Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    https://github.com/appscode/licenses/raw/1.0.0/AppsCode-Community-1.0.0.md
+    http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,16 +17,18 @@ limitations under the License.
 package lib
 
 import (
-	"errors"
-	"path/filepath"
-	"runtime"
+	"os"
+
+	shell "gomodules.xyz/go-sh"
 )
 
-func RootDir() (string, error) {
-	_, file, _, ok := runtime.Caller(1)
-	if !ok {
-		return "", errors.New("failed to locate opscenter-features/values.yaml")
-	}
+func NewShell() *shell.Session {
+	sh := shell.NewSession()
+	sh.SetDir("/tmp")
+	sh.SetEnv("GITHUB_TOKEN", os.Getenv("GITHUB_TOKEN"))
 
-	return filepath.Clean(filepath.Join(filepath.Dir(file), "../..")), nil
+	sh.ShowCMD = true
+	sh.Stdout = os.Stdout
+	sh.Stderr = os.Stderr
+	return sh
 }
