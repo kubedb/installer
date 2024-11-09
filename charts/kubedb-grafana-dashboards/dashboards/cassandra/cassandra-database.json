@@ -1,0 +1,4027 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
+{
+
+
+
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "Prometheus",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Monitoring for Cassandra clusters",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.1.0",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "max(cassandra_stats{cluster=~\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",job=~\".*\",name=\"org:apache:cassandra:net:failuredetector:upendpointcount\"})",
+          "format": "time_series",
+          "instant": false,
+          "intervalFactor": 1,
+          "refId": "B"
+        }
+      ],
+      "title": "Total Nodes",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "All nodes down?"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#299c46",
+                "value": null
+              },
+              {
+                "color": "#e5ac0e",
+                "value": 1
+              },
+              {
+                "color": "#bf1b00",
+                "value": 2
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 0
+      },
+      "id": 6,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.1.0",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "max(cassandra_stats{cluster=~\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",job=~\".*\",name=\"org:apache:cassandra:net:failuredetector:downendpointcount\"})",
+          "format": "time_series",
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 1,
+          "refId": "A"
+        }
+      ],
+      "title": "Nodes down",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "max": 3000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#299c46",
+                "value": null
+              },
+              {
+                "color": "#e5ac0e",
+                "value": 1000
+              },
+              {
+                "color": "#bf1b00",
+                "value": 2000
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 6,
+        "y": 0
+      },
+      "id": 41,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": true,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.1.0",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "max(cassandra_stats{cluster=~\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",job=~\".*\",name=\"org:apache:cassandra:metrics:client:connectednativeclients:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "Native clients connected",
+      "transparent": true,
+      "type": "gauge"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "",
+      "gridPos": {
+        "h": 4,
+        "w": 11,
+        "x": 12,
+        "y": 0
+      },
+      "id": 12,
+      "links": [],
+      "options": {
+        "content": "<img src=\"https://upload.wikimedia.org/wikipedia/commons/5/5e/Cassandra_logo.svg\" width=\"150\" height=\"100\" style=\"background-color:white;/>\n<span style=\"font-family:verdana,geneva,sans-serif;\"><span style=\"font-size:28px;\"><span style=\"color:#ffffff;\">&nbsp;&nbsp;Cassandra cluster</span></span></span>\n",
+        "mode": "html"
+      },
+      "pluginVersion": "9.1.0",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "refId": "A"
+        }
+      ],
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": "Prometheus",
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 4
+      },
+      "id": 20,
+      "links": [],
+      "options": {
+        "content": "# Cluster operations",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.1.0",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "refId": "A"
+        }
+      ],
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "Total aggregated requests per second cluster-wise",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 5,
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 6
+      },
+      "id": 8,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",name=~\"org:apache:cassandra:metrics:clientrequest:(read|write|casread|caswrite|rangeslice|viewwrite):latency:oneminuterate\"})",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 1,
+          "legendFormat": "All",
+          "refId": "A"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",name=~\"org:apache:cassandra:metrics:clientrequest:read:latency:oneminuterate\"})",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 1,
+          "legendFormat": "Read",
+          "refId": "B"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",name=~\"org:apache:cassandra:metrics:clientrequest:write:latency:oneminuterate\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Write",
+          "refId": "C"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",name=~\"org:apache:cassandra:metrics:clientrequest:casread:latency:oneminuterate\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "CasRead",
+          "refId": "D"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",name=~\"org:apache:cassandra:metrics:clientrequest:caswrite:latency:oneminuterate\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "CasWrite",
+          "refId": "E"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",name=~\"org:apache:cassandra:metrics:clientrequest:rangeslice:latency:oneminuterate\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "RangeSlice",
+          "refId": "F"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",name=~\"org:apache:cassandra:metrics:clientrequest:viewwrite:latency:oneminuterate\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "ViewWrite",
+          "refId": "G"
+        }
+      ],
+      "title": "Cluster ops",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "Requests served by each instance of the cluster",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 5,
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 6
+      },
+      "id": 16,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "exemplar": true,
+          "expr": "label_replace(sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:(read|write|casread|caswrite|rangeslice|viewwrite):latency:oneminuterate\"}) by (instance), \"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}"` }},
+          "refId": "E"
+        }
+      ],
+      "title": "Operations per instance",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "id": 21,
+      "links": [],
+      "options": {
+        "content": "# Reads and Writes",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.1.0",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "refId": "A"
+        }
+      ],
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "Read operations per instance",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 5,
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 17
+      },
+      "id": 24,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:read:latency:oneminuterate\"}+0.00000001) by (instance),\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}"` }},
+          "refId": "D"
+        }
+      ],
+      "title": "Read operations",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "Write operations per instance",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 5,
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 17
+      },
+      "id": 26,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:write:latency:oneminuterate\"}+0.00000001) by (instance),\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}"` }},
+          "refId": "D"
+        }
+      ],
+      "title": "Write operations",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 26
+      },
+      "id": 22,
+      "links": [],
+      "options": {
+        "content": "# Latencies",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.1.0",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "refId": "A"
+        }
+      ],
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "50th percentile read latency per instance",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "µs"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 0,
+        "y": 28
+      },
+      "id": 28,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:read:latency:50thpercentile\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "instant": false,
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}"` }},
+          "refId": "D"
+        }
+      ],
+      "title": "50th percentile read latency per instance",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "75th percentile read latency per instance",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "links": [ ],
+          "mappings": [ ],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "µs"
+        },
+        "overrides": [ ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 8,
+        "y": 28
+      },
+      "id": 29,
+      "links": [ ],
+      "options": {
+        "legend": {
+          "calcs": [ ],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:read:latency:75thpercentile\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "instant": false,
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}"` }},
+          "refId": "D"
+        }
+      ],
+      "title": "75th percentile read latency per instance",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "99th percentile read latency per instance",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "µs"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 16,
+        "y": 28
+      },
+      "id": 30,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:read:latency:99thpercentile\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}"` }},
+          "refId": "D"
+        }
+      ],
+      "title": "99th percentile read latency per instance",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "75th percentile write latency per instance",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "µs"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 0,
+        "y": 35
+      },
+      "id": 31,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:write:latency:75thpercentile\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}"` }},
+          "refId": "D"
+        }
+      ],
+      "title": "75th percentile write latency per instance",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "75th percentile write latency per instance",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "links": [ ],
+          "mappings": [ ],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "µs"
+        },
+        "overrides": [ ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 8,
+        "y": 35
+      },
+      "id": 32,
+      "links": [ ],
+      "options": {
+        "legend": {
+          "calcs": [ ],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:write:latency:75thpercentile\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}"` }},
+          "refId": "D"
+        }
+      ],
+      "title": "75th percentile write latency per instance",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "99th percentile write latency per instance",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "µs"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 16,
+        "y": 35
+      },
+      "id": 33,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:write:latency:99thpercentile\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}"` }},
+          "refId": "D"
+        }
+      ],
+      "title": "99th percentile write latency per instance",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 42
+      },
+      "id": 27,
+      "links": [],
+      "options": {
+        "content": "# Timeouts and Unavailables",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.1.0",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "refId": "A"
+        }
+      ],
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "Timeouts for read and write for each instance",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 3,
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 44
+      },
+      "id": 14,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:.*:timeouts:oneminuterate\"}+0.00000001) by (instance),\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}_All"` }},
+          "refId": "B"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:read:timeouts:oneminuterate\"}+0.00000001) by (instance),\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}_R"` }},
+          "refId": "C"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:write:timeouts:oneminuterate\"}+0.00000001) by (instance),\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}_W"` }},
+          "refId": "E"
+        }
+      ],
+      "title": "Timeouts per instance rate",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "Unavailables operations per instance",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 3,
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 44
+      },
+      "id": 18,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",name=~\"org:apache:cassandra:metrics:clientrequest:.*:unavailables:oneminuterate\"}+0.00000001) by (instance),\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}_All"` }},
+          "refId": "B"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",name=~\"org:apache:cassandra:metrics:clientrequest:read:unavailables:oneminuterate\"}+0.00000001) by (instance),\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}_R"` }},
+          "refId": "C"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",name=~\"org:apache:cassandra:metrics:clientrequest:write:unavailables:oneminuterate\"}+0.00000001) by (instance),\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}_W"` }},
+          "refId": "F"
+        }
+      ],
+      "title": "Unavailables per instance rate",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 53
+      },
+      "id": 42,
+      "links": [],
+      "options": {
+        "content": "# Errors",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.1.0",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "refId": "A"
+        }
+      ],
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "Exceptions for each instance",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 55
+      },
+      "id": 43,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",name=~\"org:apache:cassandra:metrics:storage:exceptions:count\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}"` }},
+          "refId": "D"
+        }
+      ],
+      "title": "Exceptions per instance",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "Total connection timeouts in the cluster",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 3,
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 55
+      },
+      "id": 44,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".+\",name=\"org:apache:cassandra:metrics:connection:totaltimeouts:oneminuterate\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "ctt",
+          "refId": "A"
+        }
+      ],
+      "title": "Total connection timeouts",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 64
+      },
+      "id": 34,
+      "links": [],
+      "options": {
+        "content": "# Thread pools",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.1.0",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "refId": "A"
+        }
+      ],
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "Active tasks per thread type",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 0,
+        "y": 66
+      },
+      "id": 46,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:antientropystage:activetasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "AntiEntropyStage",
+          "refId": "A"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:cachecleanupexecutor:activetasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "CacheCleanupExecutor",
+          "refId": "B"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:compactionexecutor:activetasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "CompactionExecutor",
+          "refId": "C"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:gossipstage:activetasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "GossipStage",
+          "refId": "D"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:hintsdispatcher:activetasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "HintsDispatcher",
+          "refId": "E"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:internalresponsestage:activetasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "InternalResponseStage",
+          "refId": "F"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:memtableflushwriter:activetasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "MemtableFlushWriter",
+          "refId": "G"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:memtablepostflush:activetasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "MemtablePostFlush",
+          "refId": "H"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:memtablereclaimmemory:activetasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "MemtableReclaimMemory",
+          "refId": "I"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:migrationstage:activetasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "MigrationStage",
+          "refId": "J"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:miscstage:activetasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "MiscStage",
+          "refId": "K"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:pendingrangecalculator:activetasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "PendingRangeCalculator",
+          "refId": "L"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:perdiskmemtableflushwriter_0:activetasks:value\"})",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "PerDiskMemtableFlushWriter",
+          "refId": "M"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:sampler:activetasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Sampler",
+          "refId": "N"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:secondaryindexmanagement:activetasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "SecondaryIndexManagement",
+          "refId": "O"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:validationexecutor:activetasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "ValidationExecutor",
+          "refId": "P"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:countermutationstage:activetasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "CounterMutationStage",
+          "refId": "Q"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:mutationstage:activetasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "MutationStage",
+          "refId": "R"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:readrepairstage:activetasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "ReadRepairStage",
+          "refId": "S"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:requestresponsestage:activetasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "RequestResponseStage",
+          "refId": "T"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:viewmutationstage:activetasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "ViewMutationStage",
+          "refId": "U"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:transport:native-transport-requests:activetasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "NativeTransportRequest",
+          "refId": "V"
+        }
+      ],
+      "title": "Active tasks",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "Pending tasks per thread type",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 12,
+        "y": 66
+      },
+      "id": 47,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:antientropystage:pendingtasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "AntiEntropyStage",
+          "refId": "A"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:cachecleanupexecutor:pendingtasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "CacheCleanupExecutor",
+          "refId": "B"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:compactionexecutor:pendingtasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "CompactionExecutor",
+          "refId": "C"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:gossipstage:pendingtasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "GossipStage",
+          "refId": "D"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:hintsdispatcher:pendingtasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "HintsDispatcher",
+          "refId": "E"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:internalresponsestage:pendingtasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "InternalResponseStage",
+          "refId": "F"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:memtableflushwriter:pendingtasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "MemtableFlushWriter",
+          "refId": "G"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:memtablepostflush:pendingtasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "MemtablePostFlush",
+          "refId": "H"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:memtablereclaimmemory:pendingtasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "MemtableReclaimMemory",
+          "refId": "I"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:migrationstage:pendingtasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "MigrationStage",
+          "refId": "J"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:miscstage:pendingtasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "MiscStage",
+          "refId": "K"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:pendingrangecalculator:pendingtasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "PendingRangeCalculator",
+          "refId": "L"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:perdiskmemtableflushwriter_0:pendingtasks:value\"})",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "PerDiskMemtableFlushWriter",
+          "refId": "M"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:sampler:pendingtasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Sampler",
+          "refId": "N"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:secondaryindexmanagement:pendingtasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "SecondaryIndexManagement",
+          "refId": "O"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:validationexecutor:pendingtasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "ValidationExecutor",
+          "refId": "P"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:countermutationstage:pendingtasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "CounterMutationStage",
+          "refId": "Q"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:mutationstage:pendingtasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "MutationStage",
+          "refId": "R"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:readrepairstage:pendingtasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "ReadRepairStage",
+          "refId": "S"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:requestresponsestage:pendingtasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "RequestResponseStage",
+          "refId": "T"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:viewmutationstage:pendingtasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "ViewMutationStage",
+          "refId": "U"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:transport:native-transport-requests:pendingtasks:value\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "NativeTransportRequest",
+          "refId": "V"
+        }
+      ],
+      "title": "Pending tasks",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "Blocked tasks per thread type",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 0,
+        "y": 78
+      },
+      "id": 48,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:antientropystage:currentlyblockedtasks:count\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "AntiEntropyStage",
+          "refId": "A"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:cachecleanupexecutor:currentlyblockedtasks:count\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "CacheCleanupExecutor",
+          "refId": "B"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:compactionexecutor:currentlyblockedtasks:count\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "CompactionExecutor",
+          "refId": "C"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:gossipstage:currentlyblockedtasks:count\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "GossipStage",
+          "refId": "D"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:hintsdispatcher:currentlyblockedtasks:count\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "HintsDispatcher",
+          "refId": "E"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:internalresponsestage:currentlyblockedtasks:count\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "InternalResponseStage",
+          "refId": "F"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:memtableflushwriter:currentlyblockedtasks:count\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "MemtableFlushWriter",
+          "refId": "G"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:memtablepostflush:currentlyblockedtasks:count\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "MemtablePostFlush",
+          "refId": "H"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:memtablereclaimmemory:currentlyblockedtasks:count\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "MemtableReclaimMemory",
+          "refId": "I"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:migrationstage:currentlyblockedtasks:count\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "MigrationStage",
+          "refId": "J"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:miscstage:currentlyblockedtasks:count\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "MiscStage",
+          "refId": "K"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:pendingrangecalculator:currentlyblockedtasks:count\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "PendingRangeCalculator",
+          "refId": "L"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:perdiskmemtableflushwriter_0:currentlyblockedtasks:count\"})",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "PerDiskMemtableFlushWriter",
+          "refId": "M"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:sampler:currentlyblockedtasks:count\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Sampler",
+          "refId": "N"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:secondaryindexmanagement:currentlyblockedtasks:count\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "SecondaryIndexManagement",
+          "refId": "O"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:validationexecutor:currentlyblockedtasks:count\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "ValidationExecutor",
+          "refId": "P"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:countermutationstage:currentlyblockedtasks:count\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "CounterMutationStage",
+          "refId": "Q"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:mutationstage:currentlyblockedtasks:count\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "MutationStage",
+          "refId": "R"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:readrepairstage:currentlyblockedtasks:count\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "ReadRepairStage",
+          "refId": "S"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:requestresponsestage:currentlyblockedtasks:count\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "RequestResponseStage",
+          "refId": "T"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:viewmutationstage:currentlyblockedtasks:count\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "ViewMutationStage",
+          "refId": "U"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:transport:native-transport-requests:currentlyblockedtasks:count\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "NativeTransportRequest",
+          "refId": "V"
+        }
+      ],
+      "title": "Blocked tasks",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "Dropped messages rates by message type",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 3,
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 12,
+        "y": 78
+      },
+      "id": 49,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:droppedmessage:batch_remove:dropped:oneminuterate\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "BatchRemove",
+          "refId": "A"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:droppedmessage:batch_store:dropped:oneminuterate\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "BatchStore",
+          "refId": "B"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:droppedmessage:counter_mutation:dropped:oneminuterate\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "CounterMutation",
+          "refId": "C"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:droppedmessage:hint:dropped:oneminuterate\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Hint",
+          "refId": "D"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:droppedmessage:mutation:dropped:oneminuterate\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Mutation",
+          "refId": "E"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:droppedmessage:paged_range:dropped:oneminuterate\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "PagedRange",
+          "refId": "F"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:droppedmessage:range_slice:dropped:oneminuterate\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "RangeSlice",
+          "refId": "G"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:droppedmessage:read:dropped:oneminuterate\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Read",
+          "refId": "H"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:droppedmessage:read_repair:dropped:oneminuterate\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "ReadRepair",
+          "refId": "I"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:droppedmessage:request_response:dropped:oneminuterate\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "RequestResponse",
+          "refId": "J"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:droppedmessage:_trace:dropped:oneminuterate\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "_Trace",
+          "refId": "K"
+        }
+      ],
+      "title": "Dropped messages rates",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 90
+      },
+      "id": 50,
+      "links": [],
+      "options": {
+        "content": "# Compactions and SSTables",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.1.0",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "refId": "A"
+        }
+      ],
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "Pending and Running compactions per instance",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 0,
+        "y": 92
+      },
+      "id": 35,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "expr": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",name=~\"org:apache:cassandra:metrics:compaction:pendingtasks:value\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}_P"` }},
+          "refId": "B"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",name=~\"org:apache:cassandra:metrics:threadpools:internal:compactionexecutor:activetasks:value\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}_A"` }},
+          "refId": "C"
+        }
+      ],
+      "title": "Pending and Running compactions",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "Completed compactions per instance",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 8,
+        "y": 92
+      },
+      "id": 36,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",name=~\"org:apache:cassandra:metrics:compaction:completedtasks:value\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}"` }},
+          "refId": "B"
+        }
+      ],
+      "title": "Completed compactions",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "Total completed compactions per instance",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 16,
+        "y": 92
+      },
+      "id": 37,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:compaction:totalcompactionscompleted:count\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}"` }},
+          "refId": "B"
+        }
+      ],
+      "title": "Total completed compactions",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "Bytes compacted per instance",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cassandra_rec_gv2_01_docs"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cassandra_rec_gv2_02_docs"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cassandra_rec_nhp_01"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cassandra_rec_nhp_01_docs"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cassandra_rec_nhp_02_docs"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cassandra_rec_vdc_01_docs"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cassandra_rec_vdc_02"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "rgb(217, 225, 231)",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cassandra_rec_vdc_02_docs"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "rgb(99, 101, 101)",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 0,
+        "y": 99
+      },
+      "id": 38,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:compaction:bytescompacted:count\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}"` }},
+          "refId": "B"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\", name=~\"org:apache:cassandra:metrics:table:dfce:documents:compactionbyteswritten:count\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "hide": false,
+          "legendFormat": {{ `"{{short_instance}}_docs"` }},
+          "refId": "A"
+        }
+      ],
+      "title": "Bytes compacted",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "Live SSTables per instance",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 8,
+        "y": 99
+      },
+      "id": 39,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:table:livesstablecount:value\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}"` }},
+          "refId": "B"
+        }
+      ],
+      "title": "Live SSTables per instance",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "SSTables per read histogram percentiles",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 16,
+        "y": 99
+      },
+      "id": 40,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "avg(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".+\",name=~\"org:apache:cassandra:metrics:table:sstablesperreadhistogram:50thpercentile\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "p55",
+          "refId": "A"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "avg(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".+\",name=~\"org:apache:cassandra:metrics:table:sstablesperreadhistogram:75thpercentile\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "p75",
+          "refId": "B"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "avg(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".+\",name=~\"org:apache:cassandra:metrics:table:sstablesperreadhistogram:99thpercentile\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "p99",
+          "refId": "C"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "avg(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".+\",job=~\".+\",name=~\"org:apache:cassandra:metrics:table:sstablesperreadhistogram:mean\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "mean",
+          "refId": "D"
+        }
+      ],
+      "title": "SSTables per read histogram",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 106
+      },
+      "id": 45,
+      "links": [],
+      "options": {
+        "content": "# Cache",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.1.0",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "refId": "A"
+        }
+      ],
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "KeyCache one minute hit rate per instance",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 3,
+          "links": [],
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 0,
+        "y": 108
+      },
+      "id": 51,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:cache:keycache:oneminutehitrate:value\"}*100,\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}"` }},
+          "refId": "B"
+        }
+      ],
+      "title": "KeyCache one minute hit rate per instance",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "KeyCache size / entries per instance",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 8,
+        "y": 108
+      },
+      "id": 52,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "exemplar": true,
+          "expr": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:cache:keycache:size:value\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}_sz"` }},
+          "refId": "B"
+        },
+        {
+          "datasource": "Prometheus",
+          "exemplar": true,
+          "expr": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:cache:keycache:entries:value\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}_en"` }},
+          "refId": "C"
+        }
+      ],
+      "title": "KeyCache size / entries per instance",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "KeyCache hits / requests per instance",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 16,
+        "y": 108
+      },
+      "id": 53,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:cache:keycache:hits:count\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}_hits"` }},
+          "refId": "B"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:cache:keycache:requests:count\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}_reqs"` }},
+          "refId": "C"
+        }
+      ],
+      "title": "KeyCache hits / requests per instance",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 115
+      },
+      "id": 54,
+      "links": [],
+      "options": {
+        "content": "# Storage and health",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.1.0",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "refId": "A"
+        }
+      ],
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "Load per instance in bytes",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 117
+      },
+      "id": 55,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "expr": "label_replace(sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\"$datacenter\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:storage:load:count\"}) by (instance),\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{short_instance}}"` }},
+          "refId": "A"
+        }
+      ],
+      "title": "Load per instance",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 37,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {},
+        "datasource": "Prometheus",
+        "definition": "label_values(cassandra_stats{name=\"java:lang:memory:heapmemoryusage:max\"}, cluster)",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "cluster",
+        "options": [],
+        "query": {
+          "query": "label_values(cassandra_stats{name=\"java:lang:memory:heapmemoryusage:max\"}, cluster)",
+          "refId": "Prometheus-cluster-Variable-Query"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+      {{- if not $alerts }}
+      ,
+      {
+        "allValue": ".+",
+        "current": {},
+        "datasource": "Prometheus",
+        "definition": "label_values(cassandra_stats{name=\"java:lang:memory:heapmemoryusage:max\"},datacenter)",
+        "hide": 0,
+        "includeAll": true,
+        "multi": false,
+        "name": "datacenter",
+        "options": [],
+        {{- if $shared }}
+        "query": {
+          "query": "label_values(cassandra_stats{name=\"java:lang:memory:heapmemoryusage:max\"},datacenter)",
+          "refId": "Prometheus-datacenter-Variable-Query"
+        },
+        "type": "query",
+        {{- else }}
+        "query": {{ printf "%s-stats" $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+      {{- end }}
+    ]
+  },
+  "time": {
+    "from": "now-2d",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "",
+  {{- if $shared }}
+  "title": "KubeDB / Cassandra / Database",
+  {{- else }}
+  "title": {{ printf "KubeDB / Cassandra / Database / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
+  {{- end }}
+  "uid": "PbhrxMuiz",
+  "version": 1
+}
