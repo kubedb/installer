@@ -25,6 +25,7 @@ import (
 	"strings"
 	"testing"
 
+	"k8s.io/apimachinery/pkg/util/sets"
 	"kmodules.xyz/image-packer/pkg/lib"
 	"sigs.k8s.io/yaml"
 )
@@ -41,13 +42,9 @@ func checkImages() error {
 		return err
 	}
 
-	data, err := os.ReadFile(filepath.Join(dir, "catalog", "imagelist.yaml"))
-	if err != nil {
-		return err
-	}
-
-	var images []string
-	err = yaml.Unmarshal(data, &images)
+	images, err := ListImages([]string{
+		filepath.Join(dir, "catalog", "imagelist.yaml"),
+	})
 	if err != nil {
 		return err
 	}
@@ -55,21 +52,39 @@ func checkImages() error {
 	var missing []string
 	for _, img := range images {
 		_, found, err := lib.ImageDigest(img)
-		if err != nil {
-			return err
-		}
-		if !found {
+		if err != nil || !found {
 			missing = append(missing, img)
+			continue
 		}
+		fmt.Println("✔ " + img)
 	}
 
 	if len(missing) > 0 {
+		fmt.Println("----------------------------------------")
 		fmt.Println("Missing Images:")
 		fmt.Println(strings.Join(missing, "\n"))
 		return fmt.Errorf("missing %d images", len(missing))
 	}
 
 	return nil
+}
+
+func ListImages(files []string) ([]string, error) {
+	imgs := sets.New[string]()
+	for _, filename := range files {
+		data, err := os.ReadFile(filename)
+		if err != nil {
+			return nil, err
+		}
+
+		var images []string
+		err = yaml.Unmarshal(data, &images)
+		if err != nil {
+			return nil, err
+		}
+		imgs.Insert(images...)
+	}
+	return sets.List(imgs), nil
 }
 
 func rootDir() (string, error) {
