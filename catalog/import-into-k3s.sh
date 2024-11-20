@@ -115,6 +115,7 @@ k3s ctr images import images/appscode-images-mongo-5.0.26.tar
 k3s ctr images import images/appscode-images-mongo-6.0.12.tar
 k3s ctr images import images/appscode-images-mongo-7.0.5.tar
 k3s ctr images import images/appscode-images-mongo-7.0.8.tar
+k3s ctr images import images/appscode-images-mongo-8.0.3.tar
 k3s ctr images import images/appscode-images-mysql-5.7.42-debian.tar
 k3s ctr images import images/appscode-images-mysql-5.7.44-oracle.tar
 k3s ctr images import images/appscode-images-mysql-8.0.31-oracle.tar
