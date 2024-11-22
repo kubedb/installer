@@ -1,21 +1,21 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  name: xpack-8.15.0
+  name: xpack-8.16.0
 spec:
   authPlugin: X-Pack
   dashboard:
-    image: ghcr.io/appscode-images/kibana:8.15.0
+    image: ghcr.io/appscode-images/kibana:8.16.0
   dashboardInitContainer:
-    yqImage: ghcr.io/kubedb/elasticsearch-dashboard-init:8.15.0-xpack-v2024.08.21
+    yqImage: ghcr.io/kubedb/elasticsearch-dashboard-init:8.16.0-xpack-v2024.11.22
   db:
-    image: ghcr.io/appscode-images/elastic:8.15.0
+    image: ghcr.io/appscode-images/elastic:8.16.0
   distribution: ElasticStack
   exporter:
     image: prometheuscommunity/elasticsearch-exporter:v1.7.0
   initContainer:
-    image: tianon/toybox:0.8.11
-    yqImage: ghcr.io/kubedb/elasticsearch-init:8.15.0-xpack-v2024.08.21
+    image: tianon/toybox:0.8.4
+    yqImage: ghcr.io/kubedb/elasticsearch-init:8.16.0-xpack-v2024.11.22
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   securityContext:
@@ -26,14 +26,14 @@ spec:
       backupTask:
         name: elasticsearch-backup-8.2.0
         params:
-        - name: args
-          value: --match=^(?![.])(?!apm-agent-configuration)(?!kubedb-system).+
+          - name: args
+            value: --match=^(?![.])(?!apm-agent-configuration)(?!kubedb-system).+
       restoreTask:
         name: elasticsearch-restore-8.2.0
         params:
-        - name: args
-          value: --match=^(?![.])(?!apm-agent-configuration)(?!kubedb-system).+
+          - name: args
+            value: --match=^(?![.])(?!apm-agent-configuration)(?!kubedb-system).+
   updateConstraints:
     allowlist:
-    - '> 8.15.0, < 8.16.1'
-  version: 8.15.0
+      - '> 8.16.0, < 9.0.0'
+  version: 8.16.0

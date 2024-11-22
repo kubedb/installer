@@ -1,21 +1,21 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  name: opensearch-1.3.13
+  name: opensearch-2.17.1
 spec:
   authPlugin: OpenSearch
   dashboard:
-    image: ghcr.io/appscode-images/opensearch-dashboards:1.3.13
+    image: ghcr.io/appscode-images/opensearch-dashboards:2.17.1
   dashboardInitContainer:
-    yqImage: ghcr.io/kubedb/elasticsearch-dashboard-init:1.3.13-opensearch-v2023.12.07
+    yqImage: ghcr.io/kubedb/elasticsearch-dashboard-init:2.17.1-opensearch-v2024.11.22
   db:
-    image: ghcr.io/appscode-images/opensearch:1.3.13
+    image: ghcr.io/appscode-images/opensearch:2.17.1
   distribution: OpenSearch
   exporter:
     image: prometheuscommunity/elasticsearch-exporter:v1.7.0
   initContainer:
-    image: tianon/toybox:0.8.11
-    yqImage: ghcr.io/kubedb/elasticsearch-init:1.3.13-opensearch-v2023.12.07
+    image: tianon/toybox:0.8.4
+    yqImage: ghcr.io/kubedb/elasticsearch-init:2.17.1-opensearch-v2024.11.22
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   securityContext:
@@ -26,14 +26,14 @@ spec:
       backupTask:
         name: elasticsearch-backup-7.14.0
         params:
-        - name: args
-          value: --match=^(?![.])(?!security-auditlog)(?!kubedb-system).+
+          - name: args
+            value: --match=^(?![.])(?!security-auditlog)(?!kubedb-system).+
       restoreTask:
         name: elasticsearch-restore-7.14.0
         params:
-        - name: args
-          value: --match=^(?![.])(?!security-auditlog)(?!kubedb-system).+
+          - name: args
+            value: --match=^(?![.])(?!security-auditlog)(?!kubedb-system).+
   updateConstraints:
     allowlist:
-    - '> 1.3.13, < 1.3.20'
-  version: 1.3.13
+      - '> 2.17.1, < 2.18.1'
+  version: 2.17.1
