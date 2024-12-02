@@ -33,6 +33,38 @@ spec:
     volumeMounts:
     - name: kubestash-tmp-volume
       mountPath: /kubestash-tmp
+  - driver: Restic
+    executor: Job
+    function: mysql-xtra-backup
+    name: xtra-physical-backup
+    parameters:
+      - name: args
+        required: false
+        usage: Arguments to be passed to the dump command.
+      - default: "/var/lib/mysql"
+        name: datadir
+        required: false
+        usage: Arguments to be passed to the dump command.
+      - name: databases
+        required: false
+        usage: List of databases to backup.
+      - default: "true"
+        name: enableCache
+        required: false
+        usage: Enable or disable caching. Disabling caching may impact backup performance.
+      - default: /kubestash-tmp
+        name: scratchDir
+        required: false
+        usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+      - mountPath: /kubestash-tmp
+        name: kubestash-tmp-volume
+    volumeTemplate:
+      - name: kubestash-tmp-volume
+        source:
+          emptyDir: { }
+        usage: Holds temporary files and restic cache.
   - name: volume-snapshot
     function: mysql-csi-snapshotter
     driver: VolumeSnapshotter
@@ -90,6 +122,41 @@ spec:
     volumeMounts:
     - name: kubestash-tmp-volume
       mountPath: /kubestash-tmp
+  - driver: Restic
+    executor: Job
+    function: mysql-xtra-restore
+    name: xtra-physical-backup-restore
+    parameters:
+      - name: args
+        required: false
+        usage: Arguments to be passed to the dump command.
+      - default: "/var/lib/mysql"
+        name: datadir
+        required: false
+        usage: Arguments to be passed to the dump command.
+      - default: "true"
+        name: enableCache
+        required: false
+        usage: Enable or disable caching. Disabling caching may impact backup performance.
+      - default: /kubestash-tmp
+        name: scratchDir
+        required: false
+        usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+      - mountPath: /var/lib/mysql
+        name: kubestash-data-volume
+      - mountPath: /kubestash-tmp
+        name: kubestash-tmp-volume
+    volumeTemplate:
+      - name: kubestash-data-volume
+        source:
+          persistentVolumeClaim:
+            claimName: ${PVC_NAME}
+      - name: kubestash-tmp-volume
+        source:
+          emptyDir: { }
+        usage: Holds temporary files and restic cache.
   - name: manifest-restore
     function: kubedbmanifest-restore
     driver: Restic
