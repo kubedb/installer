@@ -52,4 +52,4 @@ k3s ctr images import images/kubedb-provider-azure-v0.11.0.tar
 k3s ctr images import images/kubedb-provider-gcp-v0.11.0.tar
 k3s ctr images import images/kubedb-redis-restic-plugin-v0.12.0.tar
 k3s ctr images import images/kubedb-zookeeper-restic-plugin-v0.5.0.tar
-k3s ctr images import images/tianon-toybox-0.8.4.tar
+k3s ctr images import images/tianon-toybox-0.8.11.tar

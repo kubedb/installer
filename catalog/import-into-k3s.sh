@@ -317,7 +317,7 @@ k3s ctr images import images/singlestore-cluster-in-a-box-alma-8.1.32-e3d3cde6da
 k3s ctr images import images/singlestore-cluster-in-a-box-alma-8.5.22-fe61f40cd1-4.1.0-1.17.11.tar
 k3s ctr images import images/singlestore-cluster-in-a-box-alma-8.5.7-bf633c1a54-4.0.17-1.17.8.tar
 k3s ctr images import images/singlestore-cluster-in-a-box-alma-8.7.10-95e2357384-4.1.0-1.17.14.tar
-k3s ctr images import images/tianon-toybox-0.8.4.tar
+k3s ctr images import images/tianon-toybox-0.8.11.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg13-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg14-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg15-oss.tar

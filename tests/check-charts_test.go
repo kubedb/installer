@@ -18,73 +18,61 @@ package main
 
 import (
 	"errors"
-	"fmt"
-	"os"
 	"path/filepath"
 	"runtime"
-	"strings"
 	"testing"
 
-	"k8s.io/apimachinery/pkg/util/sets"
 	"kmodules.xyz/image-packer/pkg/lib"
-	"sigs.k8s.io/yaml"
 )
 
-func Test_checkImages(t *testing.T) {
-	if err := checkImages(); err != nil {
-		t.Errorf("checkImages() error = %v", err)
-	}
-}
-
-func checkImages() error {
+func Test_CheckImageArchitectures(t *testing.T) {
 	dir, err := rootDir()
 	if err != nil {
-		return err
+		t.Error(err)
 	}
 
-	images, err := ListImages([]string{
+	if err := lib.CheckImageArchitectures([]string{
 		filepath.Join(dir, "catalog", "imagelist.yaml"),
-	})
-	if err != nil {
-		return err
+	}, []string{
+		"floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0",
+		"ghcr.io/appscode-images/druid:28.0.1",
+		"ghcr.io/appscode-images/druid:30.0.1",
+		"ghcr.io/appscode-images/elastic:6.8.23",
+		"ghcr.io/appscode-images/kibana:6.8.23",
+		"ghcr.io/appscode-images/mysql:5.7.42-debian",
+		"ghcr.io/appscode-images/mysql:5.7.44-oracle",
+		"ghcr.io/appscode-images/mysql:8.0.36-debian",
+		"ghcr.io/appscode-images/singlestore-node:alma-8.1.32-e3d3cde6da",
+		"ghcr.io/appscode-images/singlestore-node:alma-8.5.30-4f46ab16a5",
+		"ghcr.io/appscode-images/singlestore-node:alma-8.5.7-bf633c1a54",
+		"ghcr.io/appscode-images/singlestore-node:alma-8.7.10-95e2357384",
+		"ghcr.io/kubedb/mysql-archiver:v0.10.0_5.7.44",
+		"ghcr.io/kubedb/mysql-init:5.7-v4",
+		"ghcr.io/kubedb/proxysql-exporter:v1.1.0",
+		"mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04",
+		"mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04",
+		"mysql/mysql-router:8.0.31",
+		"percona/percona-server-mongodb:4.2.24",
+		"percona/percona-server-mongodb:4.4.26",
+		"percona/percona-server-mongodb:5.0.23",
+		"percona/percona-server-mongodb:6.0.12",
+		"percona/percona-server-mongodb:7.0.4",
+		"percona/percona-xtradb-cluster:8.0.26",
+		"percona/percona-xtradb-cluster:8.0.28",
+		"percona/percona-xtradb-cluster:8.0.31",
+		"postgis/postgis:11-3.3",
+		"postgis/postgis:12-3.4",
+		"postgis/postgis:13-3.4",
+		"postgis/postgis:14-3.4",
+		"postgis/postgis:15-3.4",
+		"postgis/postgis:16-3.4",
+		"singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6",
+		"singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11",
+		"singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8",
+		"singlestore/cluster-in-a-box:alma-8.7.10-95e2357384-4.1.0-1.17.14",
+	}); err != nil {
+		t.Errorf("CheckImageArchitectures() error = %v", err)
 	}
-
-	var missing []string
-	for _, img := range images {
-		_, found, err := lib.ImageDigest(img)
-		if err != nil || !found {
-			missing = append(missing, img)
-			continue
-		}
-		fmt.Println("✔ " + img)
-	}
-
-	if len(missing) > 0 {
-		fmt.Println("----------------------------------------")
-		fmt.Println("Missing Images:")
-		fmt.Println(strings.Join(missing, "\n"))
-		return fmt.Errorf("missing %d images", len(missing))
-	}
-
-	return nil
-}
-
-func ListImages(files []string) ([]string, error) {
-	imgs := sets.New[string]()
-	for _, filename := range files {
-		data, err := os.ReadFile(filename)
-		if err != nil {
-			return nil, err
-		}
-
-		var images []string
-		err = yaml.Unmarshal(data, &images)
-		if err != nil {
-			return nil, err
-		}
-		imgs.Insert(images...)
-	}
-	return sets.List(imgs), nil
 }
 
 func rootDir() (string, error) {
