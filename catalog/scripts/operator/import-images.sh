@@ -54,4 +54,4 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-a
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-gcp-v0.11.0.tar $IMAGE_REGISTRY/kubedb/provider-gcp:v0.11.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-restic-plugin-v0.12.0.tar $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.12.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-restic-plugin-v0.5.0.tar $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.5.0
-$CMD push --allow-nondistributable-artifacts --insecure images/tianon-toybox-0.8.4.tar $IMAGE_REGISTRY/tianon/toybox:0.8.4
+$CMD push --allow-nondistributable-artifacts --insecure images/tianon-toybox-0.8.11.tar $IMAGE_REGISTRY/tianon/toybox:0.8.11

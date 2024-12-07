@@ -60,6 +60,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-gcp:v0.11.0 images/kubedb-provider-gcp-v0.11.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.12.0 images/kubedb-redis-restic-plugin-v0.12.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.5.0 images/kubedb-zookeeper-restic-plugin-v0.5.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure tianon/toybox:0.8.4 images/tianon-toybox-0.8.4.tar
+$CMD pull --allow-nondistributable-artifacts --insecure tianon/toybox:0.8.11 images/tianon-toybox-0.8.11.tar
 
 tar -czvf images.tar.gz images
