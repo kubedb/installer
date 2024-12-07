@@ -17,6 +17,7 @@ limitations under the License.
 package lib
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -27,7 +28,6 @@ import (
 	"github.com/google/go-containerregistry/pkg/v1/remote/transport"
 	shell "gomodules.xyz/go-sh"
 	"kubeops.dev/scanner/apis/trivy"
-	"sigs.k8s.io/yaml"
 )
 
 // trivy image ubuntu --security-checks vuln --format json --quiet
@@ -85,18 +85,18 @@ func ImageManifest(ref string) (any, bool, error) {
 		return nil, false, err
 	}
 	var obj map[string]any
-	if err = yaml.Unmarshal(data, &obj); err != nil {
+	if err = json.Unmarshal(data, &obj); err != nil {
 		return nil, false, err
 	}
 	if _, ok := obj["manifests"]; ok {
 		var mf v1.IndexManifest
-		if err := yaml.Unmarshal(data, &mf); err != nil {
+		if err := json.Unmarshal(data, &mf); err != nil {
 			return nil, false, err
 		}
 		return &mf, true, nil
 	} else if _, ok := obj["layers"]; ok {
 		var mf v1.Manifest
-		if err := yaml.Unmarshal(data, &mf); err != nil {
+		if err := json.Unmarshal(data, &mf); err != nil {
 			return nil, false, err
 		}
 		return &mf, true, nil
