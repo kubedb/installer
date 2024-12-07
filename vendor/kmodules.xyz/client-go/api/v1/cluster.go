@@ -35,11 +35,20 @@ const (
 	HostingProviderGeneric      HostingProvider = "Generic"
 	HostingProviderGKE          HostingProvider = "GKE"
 	HostingProviderLinode       HostingProvider = "Linode"
+	HostingProviderAkamai       HostingProvider = "Akamai"
 	HostingProviderPacket       HostingProvider = "Packet"
 	HostingProviderRancher      HostingProvider = "Rancher"
 	HostingProviderScaleway     HostingProvider = "Scaleway"
 	HostingProviderVultr        HostingProvider = "Vultr"
 )
+
+func (h HostingProvider) ConvertToPreferredProvider() HostingProvider {
+	switch h {
+	case HostingProviderLinode:
+		return HostingProviderAkamai
+	}
+	return h
+}
 
 const (
 	AceInfoConfigMapName = "ace-info"
@@ -47,6 +56,15 @@ const (
 	ClusterNameKey         string = "cluster.appscode.com/name"
 	ClusterDisplayNameKey  string = "cluster.appscode.com/display-name"
 	ClusterProviderNameKey string = "cluster.appscode.com/provider"
+	ClusterProfileLabel    string = "cluster.appscode.com/profile"
+
+	AceOrgIDKey     string = "ace.appscode.com/org-id"
+	ClientOrgKey    string = "ace.appscode.com/client-org"
+	ClientKeyPrefix string = "client.ace.appscode.com/"
+
+	ClusterClaimKeyID       string = "id.k8s.io"
+	ClusterClaimKeyInfo     string = "cluster.ace.info"
+	ClusterClaimKeyFeatures string = "features.ace.info"
 )
 
 type ClusterMetadata struct {
@@ -183,3 +201,13 @@ const (
 	CAPIProviderCAPZ CAPIProvider = "capz"
 	CAPIProviderCAPH CAPIProvider = "caph"
 )
+
+type ClusterClaimInfo struct {
+	ClusterMetadata ClusterInfo `json:"clusterMetadata"`
+}
+
+type ClusterClaimFeatures struct {
+	EnabledFeatures           []string `json:"enabledFeatures,omitempty"`
+	ExternallyManagedFeatures []string `json:"externallyManagedFeatures,omitempty"`
+	DisabledFeatures          []string `json:"disabledFeatures,omitempty"`
+}

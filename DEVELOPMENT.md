@@ -5,5 +5,5 @@
 Uses [image-packer](https://github.com/kmodules/image-packer)
 
 ```bash
-./hack/scripts/generate-catalog.sh
+./hack/scripts/update-catalog.sh
 ```

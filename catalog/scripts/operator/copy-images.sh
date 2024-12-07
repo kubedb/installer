@@ -63,4 +63,4 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-az
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-gcp:v0.11.0 $IMAGE_REGISTRY/kubedb/provider-gcp:v0.11.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.12.0 $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.12.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.5.0 $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.5.0
-$CMD cp --allow-nondistributable-artifacts --insecure tianon/toybox:0.8.4 $IMAGE_REGISTRY/tianon/toybox:0.8.4
+$CMD cp --allow-nondistributable-artifacts --insecure tianon/toybox:0.8.11 $IMAGE_REGISTRY/tianon/toybox:0.8.11

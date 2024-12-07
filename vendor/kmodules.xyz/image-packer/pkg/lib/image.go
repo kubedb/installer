@@ -87,7 +87,7 @@ func MapImages(rootDir string) (map[string]string, error) {
 func collectImages(obj map[string]any, images map[string]string, srcGK string) {
 	for k, v := range obj {
 		if k == "image" {
-			if s, ok := v.(string); ok && s != "" {
+			if s, ok := v.(string); ok && strings.ContainsRune(s, ':') {
 				images[s] = srcGK
 			}
 		} else if m, ok := v.(map[string]any); ok {
