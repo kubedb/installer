@@ -16,7 +16,7 @@ require (
 	k8s.io/apimachinery v0.30.2
 	kmodules.xyz/client-go v0.30.40
 	kmodules.xyz/go-containerregistry v0.0.12
-	kmodules.xyz/image-packer v0.0.0-20241207122203-4cd11a16c36e
+	kmodules.xyz/image-packer v0.0.0-20241207204410-7a879392f877
 	kmodules.xyz/resource-metadata v0.23.0
 	kmodules.xyz/schema-checker v0.4.1
 	sigs.k8s.io/yaml v1.4.0
