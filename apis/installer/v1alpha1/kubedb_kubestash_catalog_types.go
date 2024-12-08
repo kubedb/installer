@@ -60,6 +60,7 @@ type KubedbKubestashCatalogSpec struct {
 	Postgres       StashPostgresSpec       `json:"postgres"`
 	Singlestore    StashSinglestoreSpec    `json:"singlestore"`
 	ZooKeeper      StashZooKeeperSpec      `json:"zookeeper"`
+	Kubedbverifier StashVerifierSpec       `json:"kubedbverifier"`
 }
 
 // StashDruidSpec is the schema for Stash Druid values file
@@ -235,6 +236,10 @@ type ZooKeeperBackup struct {
 type ZooKeeperRestore struct {
 	// +optional
 	Args string `json:"args"`
+}
+
+type StashVerifierSpec struct {
+	Enabled bool `json:"enabled"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
