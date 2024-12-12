@@ -8,23 +8,23 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  name: 'xpack-8.15.0'
+  name: 'xpack-7.17.25'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   authPlugin: X-Pack
   dashboard:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kibana") $) }}:8.15.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kibana") $) }}:7.17.25'
   dashboardInitContainer:
-    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-dashboard-init") $) }}:8.15.0-xpack-v2024.08.21'
+    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-dashboard-init") $) }}:7.17.25-xpack-v2024.11.22'
   db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/elastic") $) }}:8.15.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/elastic") $) }}:7.17.25'
   distribution: ElasticStack
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.7.0'
   initContainer:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "tianon/toybox") $) }}:0.8.11'
-    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-init") $) }}:8.15.0-xpack-v2024.08.21'
+    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-init") $) }}:7.17.25-xpack-v2024.11.22'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   securityContext:
@@ -33,17 +33,17 @@ spec:
   stash:
     addon:
       backupTask:
-        name: elasticsearch-backup-8.2.0
+        name: elasticsearch-backup-7.14.0
         params:
         - name: args
-          value: --match=^(?![.])(?!apm-agent-configuration)(?!kubedb-system).+
+          value: --match=^(?![.])(?!kubedb-system).+
       restoreTask:
-        name: elasticsearch-restore-8.2.0
+        name: elasticsearch-restore-7.14.0
         params:
         - name: args
-          value: --match=^(?![.])(?!apm-agent-configuration)(?!kubedb-system).+
+          value: --match=^(?![.])(?!kubedb-system).+
   updateConstraints:
     allowlist:
-    - '> 8.15.0, < 8.16.1'
-  version: 8.15.0
+    - '> 7.17.25, < 8.2.4'
+  version: 7.17.25
 {{ end }}
