@@ -1,9 +1,9 @@
 {{ $featureGates := .Values.featureGates }}
-  {{- if .Values.global }}
+{{- if .Values.global }}
   {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
-  {{- end }}
+{{- end }}
 
-  {{ if $featureGates.RabbitMQ }}
+{{ if $featureGates.RabbitMQ }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: RabbitMQVersion
@@ -15,7 +15,7 @@ spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/rabbitmq") $) }}:4.0.4-management-alpine'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/rabbitmq-init") $) }}:3.13.2'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/rabbitmq-init") $) }}:3.12.12'
   securityContext:
     runAsUser: 999
   version: 4.0.4
