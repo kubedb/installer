@@ -4,22 +4,24 @@
 {{- end }}
 
 {{ if $featureGates.Solr }}
-
+{{ if or (not .Values.skipDeprecated) (has "8.11.2" .Values.enableVersions.Solr) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: SolrVersion
 metadata:
-  name: '9.6.1'
+  name: '8.11.2'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/solr") $) }}:9.6.1'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/solr") $) }}:8.11.2'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/solr-init") $) }}:9.6.1'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/solr-init") $) }}:8.11.2'
   securityContext:
     runAsUser: 8983
   updateConstraints:
     allowlist:
-    - '> 9.6.1, < 9.7.1'
-  version: 9.6.1
+    - '> 8.11.2, < 8.11.5'
+  version: 8.11.2
+  deprecated: {{ not (has "8.11.2" .Values.enableVersions.Solr) }}
+{{ end }}
 {{ end }}
