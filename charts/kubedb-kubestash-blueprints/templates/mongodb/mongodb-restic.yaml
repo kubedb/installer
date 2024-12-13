@@ -1,0 +1,75 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.MongoDB }}
+apiVersion: core.kubestash.com/v1alpha1
+kind: BackupBlueprint
+metadata:
+  name: mongodb
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubedb-kubestash-blueprints.labels" . | nindent 4 }}
+spec:
+  usagePolicy:
+    allowedNamespaces:
+      from: All
+  backupConfigurationTemplate:
+    backends:
+      - name: mongodb-backend
+        storageRef:
+          name: {{ .Values.storageRef.name }}
+          namespace: {{ .Values.storageRef.namespace }}
+        retentionPolicy:
+          name: {{ .Values.retentionPolicy.name }}
+          namespace: {{ .Values.retentionPolicy.namespace }}
+    sessions:
+      - name: mongodb-restic-backup
+        scheduler:
+          failedJobsHistoryLimit: 4
+          jobTemplate:
+            backoffLimit: 2
+            template:
+              spec:
+                containerSecurityContext:
+                  allowPrivilegeEscalation: false
+                  capabilities:
+                    drop:
+                      - ALL
+                  runAsGroup: 0
+                  runAsNonRoot: true
+                  runAsUser: 999
+                  seccompProfile:
+                    type: RuntimeDefault
+                nodeSelector:
+                  kubernetes.io/os: linux
+          schedule: {{ .Values.schedule }}
+          successfulJobsHistoryLimit: 2
+        sessionHistoryLimit: 3
+        repositories:
+          - name: mongodb-repo
+            backend: mongodb-backend
+{{/*            directory: /mongo-repo*/}}
+            encryptionSecret:
+              name: {{ .Values.encryptionSecret.name }}
+              namespace: {{ .Values.encryptionSecret.namespace }}
+        addon:
+          name: mongodb-addon
+          tasks:
+            - name: logical-backup
+          jobTemplate:
+            spec:
+              containerSecurityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                runAsGroup: 0
+                runAsNonRoot: true
+                runAsUser: 999
+                seccompProfile:
+                  type: RuntimeDefault
+              nodeSelector:
+                kubernetes.io/os: linux
+{{- end }}

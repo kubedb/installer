@@ -1,0 +1,152 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Elasticsearch }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Addon
+metadata:
+  name: 'elasticsearch-addon'
+  labels:
+    {{- include "kubedb-kubestash-blueprints.labels" . | nindent 4 }}
+spec:
+  backupTasks:
+  - driver: Restic
+    executor: Job
+    function: elasticsearch-backup
+    name: logical-backup
+    parameters:
+    - default: --match=^(?![.])(?!apm-agent-configuration)(?!kubedb-system).+
+      name: args
+      required: false
+      usage: Arguments to be passed to the dump command.
+    - default: /kubestash-interim/data
+      name: interimDataDir
+      required: false
+      usage: Directory where data will be stored temporarily before uploading to the backend.
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-interim
+      name: kubestash-interim-volume
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-interim-volume
+      source:
+        emptyDir: {}
+      usage: Holds backed up data temporarily before uploading to the backend.
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+  - driver: Restic
+    executor: Job
+    function: elasticsearch-dashboard-backup
+    name: dashboard-backup
+    parameters:
+    - default: /kubestash-interim/data
+      name: interimDataDir
+      required: false
+      usage: Directory where data will be stored temporarily before uploading to the backend.
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-interim
+      name: kubestash-interim-volume
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-interim-volume
+      source:
+        emptyDir: {}
+      usage: Holds backed up data temporarily before uploading to the backend.
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+  restoreTasks:
+  - driver: Restic
+    executor: Job
+    function: elasticsearch-restore
+    name: logical-backup-restore
+    parameters:
+    - default: --match=^(?![.])(?!apm-agent-configuration)(?!kubedb-system).+
+      name: args
+      required: false
+      usage: Arguments to be passed to the dump command.
+    - default: /kubestash-interim/data
+      name: interimDataDir
+      required: false
+      usage: Specifies the directory where data will be stored temporarily before dumping to the database.
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-interim
+      name: kubestash-interim-volume
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-interim-volume
+      source:
+        emptyDir: {}
+      usage: Holds backed up data temporarily before dumping to the database.
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+  - driver: Restic
+    executor: Job
+    function: elasticsearch-dashboard-restore
+    name: dashboard-restore
+    parameters:
+    - default: /kubestash-interim/data
+      name: interimDataDir
+      required: false
+      usage: Specifies the directory where data will be stored temporarily before restoring to the dashboard.
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-interim
+      name: kubestash-interim-volume
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-interim-volume
+      source:
+        emptyDir: {}
+      usage: Holds backed up data temporarily before dumping to the database.
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+{{ end }}
