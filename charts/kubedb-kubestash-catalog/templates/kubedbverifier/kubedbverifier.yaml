@@ -1,0 +1,14 @@
+{{ if .Values.kubedbverifier.enabled }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'kubedbverifier'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  args:
+  - verify
+  - --namespace=${namespace:=default}
+  - --backupverificationsession=${backupVerificationSession:=}
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-verifier") $) }}:v0.1.0'
+{{ end }}
