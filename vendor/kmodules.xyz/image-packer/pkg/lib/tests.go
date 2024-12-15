@@ -105,9 +105,11 @@ func CheckImageArchitectures(files []string, archSkipList []string) error {
 		fmt.Println("----------------------------------------")
 		fmt.Println("Missing Architectures:")
 		for img, archs := range missingArchs {
-			fmt.Printf("%s %v\n", img, archs)
 			if !archSkipSet.Has(img) {
+				fmt.Printf("X %s %v\n", img, archs)
 				fail = true
+			} else {
+				fmt.Printf("[skipped] %s %v\n", img, archs)
 			}
 		}
 	}
