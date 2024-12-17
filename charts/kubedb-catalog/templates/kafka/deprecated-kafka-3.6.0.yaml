@@ -4,7 +4,7 @@
 {{- end }}
 
 {{ if $featureGates.Kafka }}
-
+{{ if or (not .Values.skipDeprecated) (has "3.6.0" .Values.enableVersions.Kafka) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: KafkaVersion
 metadata:
@@ -31,4 +31,6 @@ spec:
     denylist:
     - < 3.6.0
   version: 3.6.0
+  deprecated: {{ not (has "3.6.0" .Values.enableVersions.Kafka) }}
+{{ end }}
 {{ end }}
