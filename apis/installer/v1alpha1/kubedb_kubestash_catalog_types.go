@@ -27,7 +27,7 @@ const (
 	ResourceKubedbKubestashCatalogs    = "kubedbkubestashcatalogs"
 )
 
-// KubedbKubestashCatalog defines the schema for Stash Catalog chart.
+// KubedbKubestashCatalog defines the schema for KubeStash Catalog chart.
 
 // +genclient
 // +genclient:skipVerbs=updateStatus
@@ -45,72 +45,41 @@ type KubedbKubestashCatalog struct {
 // KubedbKubestashCatalogSpec is the schema for Stash Postgres values file
 type KubedbKubestashCatalogSpec struct {
 	//+optional
-	Proxies        shared.RegistryProxies  `json:"proxies"`
-	FeatureGates   map[string]bool         `json:"featureGates"`
-	WaitTimeout    int64                   `json:"waitTimeout"`
-	Druid          StashDruidSpec          `json:"druid"`
-	Elasticsearch  StashElasticsearchSpec  `json:"elasticsearch"`
-	Opensearch     StashOpensearchSpec     `json:"opensearch"`
-	Kubedbmanifest StashKubedbmanifestSpec `json:"kubedbmanifest"`
-	Mariadb        StashMariadbSpec        `json:"mariadb"`
-	Mongodb        StashMongodbSpec        `json:"mongodb"`
-	MSSQLServer    StashMongodbSpec        `json:"mssqlserver"`
-	Mysql          StashMysqlSpec          `json:"mysql"`
-	Redis          StashRedisSpec          `json:"redis"`
-	Postgres       StashPostgresSpec       `json:"postgres"`
-	Singlestore    StashSinglestoreSpec    `json:"singlestore"`
-	ZooKeeper      StashZooKeeperSpec      `json:"zookeeper"`
+	Proxies        shared.RegistryProxies      `json:"proxies"`
+	FeatureGates   map[string]bool             `json:"featureGates"`
+	WaitTimeout    int64                       `json:"waitTimeout"`
+	Druid          KubestashDatabaseSpec       `json:"druid"`
+	Elasticsearch  KubestashDatabaseSpec       `json:"elasticsearch"`
+	Opensearch     KubestashDatabaseSpec       `json:"opensearch"`
+	Kubedbmanifest KubestashKubedbmanifestSpec `json:"kubedbmanifest"`
+	Mariadb        KubestashDatabaseSpec       `json:"mariadb"`
+	Mongodb        KubestashMongodbSpec        `json:"mongodb"`
+	MSSQLServer    KubestashMongodbSpec        `json:"mssqlserver"`
+	Mysql          KubestashDatabaseSpec       `json:"mysql"`
+	Redis          KubestashDatabaseSpec       `json:"redis"`
+	Postgres       KubestashPostgresSpec       `json:"postgres"`
+	Singlestore    KubestashDatabaseSpec       `json:"singlestore"`
+	ZooKeeper      KubestashDatabaseSpec       `json:"zookeeper"`
+	Kubedbverifier KubestashVerifierSpec       `json:"kubedbverifier"`
 }
 
-// StashDruidSpec is the schema for Stash Druid values file
-type StashDruidSpec struct {
-	Backup  DruidBackup  `json:"backup"`
-	Restore DruidRestore `json:"restore"`
+// KubestashDatabaseSpec is the schema for DB values file
+type KubestashDatabaseSpec struct {
+	Backup  DatabaseBackup  `json:"backup"`
+	Restore DatabaseRestore `json:"restore"`
 }
 
-type DruidBackup struct {
+type DatabaseBackup struct {
 	//+optional
 	Args string `json:"args"`
 }
 
-type DruidRestore struct {
+type DatabaseRestore struct {
 	//+optional
 	Args string `json:"args"`
 }
 
-// StashElasticsearchSpec is the schema for Stash Elasticsearch values file
-type StashElasticsearchSpec struct {
-	Backup  ElasticsearchBackup  `json:"backup"`
-	Restore ElasticsearchRestore `json:"restore"`
-}
-
-type ElasticsearchBackup struct {
-	//+optional
-	Args string `json:"args"`
-}
-
-type ElasticsearchRestore struct {
-	//+optional
-	Args string `json:"args"`
-}
-
-// StashOpensearchSpec is the schema for Stash Opensearch values file
-type StashOpensearchSpec struct {
-	Backup  OpensearchBackup  `json:"backup"`
-	Restore OpensearchRestore `json:"restore"`
-}
-
-type OpensearchBackup struct {
-	//+optional
-	Args string `json:"args"`
-}
-
-type OpensearchRestore struct {
-	//+optional
-	Args string `json:"args"`
-}
-
-type StashKubedbmanifestSpec struct {
+type KubestashKubedbmanifestSpec struct {
 	Enabled bool `json:"enabled"`
 }
 
@@ -125,8 +94,8 @@ type KubeDumpBackup struct {
 	IncludeDependants bool   `json:"includeDependants"`
 }
 
-// StashMongodbSpec is the schema for Stash MongoDB values file
-type StashMongodbSpec struct {
+// KubestashMongodbSpec is the schema for KubeStash MongoDB values file
+type KubestashMongodbSpec struct {
 	MaxConcurrency int32          `json:"maxConcurrency"`
 	Backup         MongoDBBackup  `json:"backup"`
 	Restore        MongoDBRestore `json:"restore"`
@@ -142,55 +111,8 @@ type MongoDBRestore struct {
 	Args string `json:"args"`
 }
 
-// StashMysqlSpec is the schema for Stash MySQL values file
-type StashMysqlSpec struct {
-	Backup  MySQLBackup  `json:"backup"`
-	Restore MySQLRestore `json:"restore"`
-}
-
-type MySQLBackup struct {
-	// +optional
-	Args string `json:"args"`
-}
-
-type MySQLRestore struct {
-	// +optional
-	Args string `json:"args"`
-}
-
-type StashMariadbSpec struct {
-	Backup  MariaDBBackup  `json:"backup"`
-	Restore MariaDBRestore `json:"restore"`
-}
-
-type MariaDBBackup struct {
-	// +optional
-	Args string `json:"args"`
-}
-
-type MariaDBRestore struct {
-	// +optional
-	Args string `json:"args"`
-}
-
-// StashRedisSpec is the schema for Stash Redis values file
-type StashRedisSpec struct {
-	Backup  RedisBackup  `json:"backup"`
-	Restore RedisRestore `json:"restore"`
-}
-
-type RedisBackup struct {
-	// +optional
-	Args string `json:"args"`
-}
-
-type RedisRestore struct {
-	// +optional
-	Args string `json:"args"`
-}
-
-// StashPostgresSpec is the schema for Stash Postgres values file
-type StashPostgresSpec struct {
+// KubestashPostgresSpec is the schema for KubeStash Postgres values file
+type KubestashPostgresSpec struct {
 	Backup  PostgresBackup  `json:"backup"`
 	Restore PostgresRestore `json:"restore"`
 }
@@ -207,39 +129,13 @@ type PostgresRestore struct {
 	Args string `json:"args"`
 }
 
-type StashSinglestoreSpec struct {
-	Backup  SinglestoreBackup  `json:"backup"`
-	Restore SinglestoreRestore `json:"restore"`
-}
-
-type SinglestoreBackup struct {
-	// +optional
-	Args string `json:"args"`
-}
-
-type SinglestoreRestore struct {
-	// +optional
-	Args string `json:"args"`
-}
-
-type StashZooKeeperSpec struct {
-	Backup  ZooKeeperBackup  `json:"backup"`
-	Restore ZooKeeperRestore `json:"restore"`
-}
-
-type ZooKeeperBackup struct {
-	// +optional
-	Args string `json:"args"`
-}
-
-type ZooKeeperRestore struct {
-	// +optional
-	Args string `json:"args"`
+type KubestashVerifierSpec struct {
+	Enabled bool `json:"enabled"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KubedbKubestashCatalogList is a list of KubedbKubestashCatalogs
+// KubedbKubestashCatalogList is a list of KubedbKubestashCatalog
 type KubedbKubestashCatalogList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`

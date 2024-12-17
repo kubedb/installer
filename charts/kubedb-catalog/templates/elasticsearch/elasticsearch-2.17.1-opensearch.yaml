@@ -1,0 +1,49 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Elasticsearch }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: 'opensearch-2.17.1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: OpenSearch
+  dashboard:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/opensearch-dashboards") $) }}:2.17.1'
+  dashboardInitContainer:
+    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-dashboard-init") $) }}:2.17.1-opensearch-v2024.12.14'
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/opensearch") $) }}:2.17.1'
+  distribution: OpenSearch
+  exporter:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.7.0'
+  initContainer:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "tianon/toybox") $) }}:0.8.11'
+    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-init") $) }}:2.17.1-opensearch-v2024.12.14'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 1000
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.14.0
+        params:
+        - name: args
+          value: --match=^(?![.])(?!security-auditlog)(?!kubedb-system).+
+      restoreTask:
+        name: elasticsearch-restore-7.14.0
+        params:
+        - name: args
+          value: --match=^(?![.])(?!security-auditlog)(?!kubedb-system).+
+  updateConstraints:
+    allowlist:
+    - '> 2.17.1, < 2.18.1'
+  version: 2.17.1
+{{ end }}
