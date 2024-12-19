@@ -1,7 +1,16 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Postgres }}
+
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: "16.1"
+  name: '17.2'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   archiver:
     addon:
@@ -18,17 +27,17 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: ghcr.io/kubedb/postgres-archiver:(v0.10.0)_16.1-alpine
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.10.0_16.1-alpine'
   coordinator:
-    image: ghcr.io/kubedb/pg-coordinator:v0.33.0
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.33.0'
   db:
     baseOS: alpine
-    image: ghcr.io/appscode-images/postgres:16.1-alpine
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres") $) }}:17.2-alpine'
   distribution: Official
   exporter:
-    image: prometheuscommunity/postgres-exporter:v0.15.0
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.15.0'
   initContainer:
-    image: ghcr.io/kubedb/postgres-init:0.17.0
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.17.0'
   podSecurityPolicies:
     databasePolicyName: postgres-db
   securityContext:
@@ -45,14 +54,17 @@ spec:
     version: v2024.4.27
   updateConstraints:
     allowlist:
-    - "16.4"
-  version: "16.1"
+    - "17.2"
+  version: "17.2"
 
 ---
+
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: 16.1-bookworm
+  name: '17.2-bookworm'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   archiver:
     addon:
@@ -69,17 +81,17 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: ghcr.io/kubedb/postgres-archiver:(v0.10.0)_16.1-bookworm
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.10.0_16.1-bookworm'
   coordinator:
-    image: ghcr.io/kubedb/pg-coordinator:v0.33.0
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.33.0'
   db:
     baseOS: bookworm
-    image: ghcr.io/appscode-images/postgres:16.1-bookworm
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres") $) }}:17.2-bookworm'
   distribution: Official
   exporter:
-    image: prometheuscommunity/postgres-exporter:v0.15.0
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.15.0'
   initContainer:
-    image: ghcr.io/kubedb/postgres-init:0.17.0
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.17.0'
   podSecurityPolicies:
     databasePolicyName: postgres-db
   securityContext:
@@ -98,5 +110,6 @@ spec:
     version: v2024.4.27
   updateConstraints:
     allowlist:
-    - '>= 16.1'
-  version: "16.1"
+    - '>= 17.2'
+  version: "17.2"
+{{ end }}
