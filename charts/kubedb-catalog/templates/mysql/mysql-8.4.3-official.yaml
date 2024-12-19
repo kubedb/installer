@@ -8,7 +8,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
-  name: '9.0.1'
+  name: '8.4.3'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -23,18 +23,18 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-archiver") $) }}:v0.10.0_9.1.0'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-archiver") $) }}:v0.10.0_8.4.3'
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.27.0'
   db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql") $) }}:9.0.1-oracle'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql") $) }}:8.4.3-oracle'
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysqld-exporter") $) }}:v0.13.1'
   gitSyncer:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.2.1'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:9.0.1-v1'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:8.4.3-v3'
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
@@ -53,13 +53,13 @@ spec:
   updateConstraints:
     allowlist:
       groupReplication:
-      - '> 9.0.1, <= 9.0.1'
+      - '> 8.4.3, <= 8.4.3'
       standalone:
-      - '> 9.0.1, <= 9.0.1'
+      - '> 8.4.3, <= 8.4.3'
     denylist:
       groupReplication:
-      - < 9.0.1
+      - < 8.4.3
       standalone:
-      - < 9.0.1
-  version: 9.0.1
+      - < 8.4.3
+  version: 8.4.3
 {{ end }}
