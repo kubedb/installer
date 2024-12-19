@@ -296,7 +296,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlesto
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:8.11.2 images/kubedb-solr-init-8.11.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.4.1 images/kubedb-solr-init-9.4.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.6.1 images/kubedb-solr-init-9.6.1.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/wal-g:v2024.5.24_mongo images/kubedb-wal-g-v2024.5.24_mongo.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/wal-g:v2024.12.18_mongo images/kubedb-wal-g-v2024.5.24_mongo.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-init:3.7-v1 images/kubedb-zookeeper-init-3.7-v1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.5.0 images/kubedb-zookeeper-restic-plugin-v0.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04 images/mssql-server-2022-CU12-ubuntu-22.04.tar
