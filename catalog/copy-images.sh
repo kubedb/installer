@@ -299,7 +299,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:8.11.2 $IMAGE_REGISTRY/kubedb/solr-init:8.11.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.4.1 $IMAGE_REGISTRY/kubedb/solr-init:9.4.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.6.1 $IMAGE_REGISTRY/kubedb/solr-init:9.6.1
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/wal-g:v2024.5.24_mongo $IMAGE_REGISTRY/kubedb/wal-g:v2024.5.24_mongo
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/wal-g:v2024.12.18_mongo $IMAGE_REGISTRY/kubedb/wal-g:v2024.5.24_mongo
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-init:3.7-v1 $IMAGE_REGISTRY/kubedb/zookeeper-init:3.7-v1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.5.0 $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2022-CU12-ubuntu-22.04
