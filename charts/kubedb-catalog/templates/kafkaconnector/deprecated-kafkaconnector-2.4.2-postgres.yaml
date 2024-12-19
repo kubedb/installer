@@ -4,18 +4,20 @@
 {{- end }}
 
 {{ if $featureGates.Kafka }}
-
+{{ if or (not .Values.skipDeprecated) (has "postgres-2.4.2.final" .Values.enableVersions.Kafka) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: KafkaConnectorVersion
 metadata:
-  name: 'mysql-2.4.2.final'
+  name: 'postgres-2.4.2.final'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   connectorPlugin:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kafka-connector-mysql") $) }}:2.4.2.final'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kafka-connector-postgres") $) }}:2.4.2.final'
   securityContext:
     runAsUser: 1001
-  type: MySQL
+  type: Postgres
   version: 2.4.2
+  deprecated: {{ not (has "postgres-2.4.2.final" .Values.enableVersions.Kafka) }}
+{{ end }}
 {{ end }}
