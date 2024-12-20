@@ -1,7 +1,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: "16.1"
+  name: "13.18"
 spec:
   archiver:
     addon:
@@ -18,12 +18,12 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: ghcr.io/kubedb/postgres-archiver:(v0.10.0)_16.1-alpine
+      image: ghcr.io/kubedb/postgres-archiver:(v0.10.0)_13.13-alpine
   coordinator:
     image: ghcr.io/kubedb/pg-coordinator:v0.33.0
   db:
     baseOS: alpine
-    image: ghcr.io/appscode-images/postgres:16.1-alpine
+    image: ghcr.io/appscode-images/postgres:13.18-alpine
   distribution: Official
   exporter:
     image: prometheuscommunity/postgres-exporter:v0.15.0
@@ -37,22 +37,24 @@ spec:
   stash:
     addon:
       backupTask:
-        name: postgres-backup-16.1
+        name: postgres-backup-13.1
       restoreTask:
-        name: postgres-restore-16.1
+        name: postgres-restore-13.1
   ui:
   - name: pgadmin
     version: v2024.4.27
+  - name: dbgate
+    version: v2024.4.27
   updateConstraints:
     allowlist:
-    - "16.4"
-  version: "16.1"
+    - '>= 14.10, <= 16.4'
+  version: "13.18"
 
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: 16.1-bookworm
+  name: 13.18-bookworm
 spec:
   archiver:
     addon:
@@ -69,12 +71,12 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: ghcr.io/kubedb/postgres-archiver:(v0.10.0)_16.1-bookworm
+      image: ghcr.io/kubedb/postgres-archiver:(v0.10.0)_13.13-bookworm
   coordinator:
     image: ghcr.io/kubedb/pg-coordinator:v0.33.0
   db:
     baseOS: bookworm
-    image: ghcr.io/appscode-images/postgres:16.1-bookworm
+    image: ghcr.io/appscode-images/postgres:13.18-bookworm
   distribution: Official
   exporter:
     image: prometheuscommunity/postgres-exporter:v0.15.0
@@ -88,9 +90,9 @@ spec:
   stash:
     addon:
       backupTask:
-        name: postgres-backup-16.1
+        name: postgres-backup-13.1
       restoreTask:
-        name: postgres-restore-16.1
+        name: postgres-restore-13.1
   ui:
   - name: pgadmin
     version: v2024.4.27
@@ -98,5 +100,5 @@ spec:
     version: v2024.4.27
   updateConstraints:
     allowlist:
-    - '>= 16.1'
-  version: "16.1"
+    - '>= 14.10, <= 16.4'
+  version: "13.18"
