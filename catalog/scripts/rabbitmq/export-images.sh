@@ -34,7 +34,9 @@ CMD="./images/crane"
 
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/rabbitmq:3.12.12-management-alpine images/appscode-images-rabbitmq-3.12.12-management-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/rabbitmq:3.13.2-management-alpine images/appscode-images-rabbitmq-3.13.2-management-alpine.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/rabbitmq:4.0.4-management-alpine images/appscode-images-rabbitmq-4.0.4-management-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:3.12.12 images/kubedb-rabbitmq-init-3.12.12.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:3.13.2 images/kubedb-rabbitmq-init-3.13.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:4.0.4 images/kubedb-rabbitmq-init-4.0.4.tar
 
 tar -czvf images.tar.gz images

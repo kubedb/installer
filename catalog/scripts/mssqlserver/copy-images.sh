@@ -35,9 +35,10 @@ mv /tmp/crane .
 
 CMD="./crane"
 
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-coordinator:v0.4.0 $IMAGE_REGISTRY/kubedb/mssql-coordinator:v0.4.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-coordinator:v0.5.0 $IMAGE_REGISTRY/kubedb/mssql-coordinator:v0.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-exporter:1.1.0 $IMAGE_REGISTRY/kubedb/mssql-exporter:1.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-init:2022-ubuntu-22-v3 $IMAGE_REGISTRY/kubedb/mssql-init:2022-ubuntu-22-v3
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssqlserver-archiver:v0.3.0 $IMAGE_REGISTRY/kubedb/mssqlserver-archiver:v0.3.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssqlserver-archiver:v0.4.0 $IMAGE_REGISTRY/kubedb/mssqlserver-archiver:v0.4.0
 $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2022-CU12-ubuntu-22.04
 $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2022-CU14-ubuntu-22.04
+$CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU16-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2022-CU16-ubuntu-22.04

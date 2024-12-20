@@ -26,5 +26,7 @@ tar -zxvf $TARBALL
 
 k3s ctr images import images/appscode-images-rabbitmq-3.12.12-management-alpine.tar
 k3s ctr images import images/appscode-images-rabbitmq-3.13.2-management-alpine.tar
+k3s ctr images import images/appscode-images-rabbitmq-4.0.4-management-alpine.tar
 k3s ctr images import images/kubedb-rabbitmq-init-3.12.12.tar
 k3s ctr images import images/kubedb-rabbitmq-init-3.13.2.tar
+k3s ctr images import images/kubedb-rabbitmq-init-4.0.4.tar

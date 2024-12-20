@@ -34,5 +34,6 @@ CMD="./images/crane"
 
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.18.0 images/appscode-images-ferretdb-1.18.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.23.0 images/appscode-images-ferretdb-1.23.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.24.0 images/appscode-images-ferretdb-1.24.0.tar
 
 tar -czvf images.tar.gz images

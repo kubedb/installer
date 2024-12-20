@@ -34,9 +34,14 @@ CMD="./images/crane"
 
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-gcs:0.13.0 images/appscode-images-kafka-connector-gcs-0.13.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-jdbc:2.6.1.final images/appscode-images-kafka-connector-jdbc-2.6.1.final.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-mongodb:1.11.0 images/appscode-images-kafka-connector-mongodb-1.11.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-mysql:2.4.2.final images/appscode-images-kafka-connector-mysql-2.4.2.final.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-postgres:2.4.2.final images/appscode-images-kafka-connector-postgres-2.4.2.final.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-jdbc:2.7.4.final images/appscode-images-kafka-connector-jdbc-2.7.4.final.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-jdbc:3.0.5.final images/appscode-images-kafka-connector-jdbc-3.0.5.final.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-mongodb:1.13.1 images/appscode-images-kafka-connector-mongodb-1.13.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-mongodb:1.14.1 images/appscode-images-kafka-connector-mongodb-1.14.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-mysql:2.7.4.final images/appscode-images-kafka-connector-mysql-2.7.4.final.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-mysql:3.0.5.final images/appscode-images-kafka-connector-mysql-3.0.5.final.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-postgres:2.7.4.final images/appscode-images-kafka-connector-postgres-2.7.4.final.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-postgres:3.0.5.final images/appscode-images-kafka-connector-postgres-3.0.5.final.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-s3:2.15.0 images/appscode-images-kafka-connector-s3-2.15.0.tar
 
 tar -czvf images.tar.gz images

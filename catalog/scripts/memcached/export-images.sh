@@ -35,6 +35,7 @@ CMD="./images/crane"
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.5.22-alpine images/appscode-images-memcached-1.5.22-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.22-alpine images/appscode-images-memcached-1.6.22-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.29-alpine images/appscode-images-memcached-1.6.29-alpine.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.33-alpine images/appscode-images-memcached-1.6.33-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached_exporter:v0.14.3-ac images/appscode-images-memcached_exporter-v0.14.3-ac.tar
 $CMD pull --allow-nondistributable-artifacts --insecure prom/memcached-exporter:v0.14.2 images/prom-memcached-exporter-v0.14.2.tar
 

@@ -28,7 +28,12 @@ CMD="./crane"
 
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connector-gcs-0.13.0.tar $IMAGE_REGISTRY/appscode-images/kafka-connector-gcs:0.13.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connector-jdbc-2.6.1.final.tar $IMAGE_REGISTRY/appscode-images/kafka-connector-jdbc:2.6.1.final
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connector-mongodb-1.11.0.tar $IMAGE_REGISTRY/appscode-images/kafka-connector-mongodb:1.11.0
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connector-mysql-2.4.2.final.tar $IMAGE_REGISTRY/appscode-images/kafka-connector-mysql:2.4.2.final
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connector-postgres-2.4.2.final.tar $IMAGE_REGISTRY/appscode-images/kafka-connector-postgres:2.4.2.final
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connector-jdbc-2.7.4.final.tar $IMAGE_REGISTRY/appscode-images/kafka-connector-jdbc:2.7.4.final
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connector-jdbc-3.0.5.final.tar $IMAGE_REGISTRY/appscode-images/kafka-connector-jdbc:3.0.5.final
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connector-mongodb-1.13.1.tar $IMAGE_REGISTRY/appscode-images/kafka-connector-mongodb:1.13.1
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connector-mongodb-1.14.1.tar $IMAGE_REGISTRY/appscode-images/kafka-connector-mongodb:1.14.1
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connector-mysql-2.7.4.final.tar $IMAGE_REGISTRY/appscode-images/kafka-connector-mysql:2.7.4.final
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connector-mysql-3.0.5.final.tar $IMAGE_REGISTRY/appscode-images/kafka-connector-mysql:3.0.5.final
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connector-postgres-2.7.4.final.tar $IMAGE_REGISTRY/appscode-images/kafka-connector-postgres:2.7.4.final
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connector-postgres-3.0.5.final.tar $IMAGE_REGISTRY/appscode-images/kafka-connector-postgres:3.0.5.final
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connector-s3-2.15.0.tar $IMAGE_REGISTRY/appscode-images/kafka-connector-s3:2.15.0

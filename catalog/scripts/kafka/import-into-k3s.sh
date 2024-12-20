@@ -24,21 +24,18 @@ fi
 TARBALL=${1:-}
 tar -zxvf $TARBALL
 
-k3s ctr images import images/appscode-images-kafka-connect-cluster-3.3.2.tar
-k3s ctr images import images/appscode-images-kafka-connect-cluster-3.4.1.tar
-k3s ctr images import images/appscode-images-kafka-connect-cluster-3.5.1.tar
 k3s ctr images import images/appscode-images-kafka-connect-cluster-3.5.2.tar
-k3s ctr images import images/appscode-images-kafka-connect-cluster-3.6.0.tar
 k3s ctr images import images/appscode-images-kafka-connect-cluster-3.6.1.tar
-k3s ctr images import images/appscode-images-kafka-cruise-control-3.3.2.tar
-k3s ctr images import images/appscode-images-kafka-cruise-control-3.4.1.tar
-k3s ctr images import images/appscode-images-kafka-cruise-control-3.5.1.tar
+k3s ctr images import images/appscode-images-kafka-connect-cluster-3.7.2.tar
+k3s ctr images import images/appscode-images-kafka-connect-cluster-3.8.1.tar
+k3s ctr images import images/appscode-images-kafka-connect-cluster-3.9.0.tar
 k3s ctr images import images/appscode-images-kafka-cruise-control-3.5.2.tar
-k3s ctr images import images/appscode-images-kafka-cruise-control-3.6.0.tar
 k3s ctr images import images/appscode-images-kafka-cruise-control-3.6.1.tar
-k3s ctr images import images/appscode-images-kafka-kraft-3.3.2.tar
-k3s ctr images import images/appscode-images-kafka-kraft-3.4.1.tar
-k3s ctr images import images/appscode-images-kafka-kraft-3.5.1.tar
+k3s ctr images import images/appscode-images-kafka-cruise-control-3.7.2.tar
+k3s ctr images import images/appscode-images-kafka-cruise-control-3.8.1.tar
+k3s ctr images import images/appscode-images-kafka-cruise-control-3.9.0.tar
 k3s ctr images import images/appscode-images-kafka-kraft-3.5.2.tar
-k3s ctr images import images/appscode-images-kafka-kraft-3.6.0.tar
 k3s ctr images import images/appscode-images-kafka-kraft-3.6.1.tar
+k3s ctr images import images/appscode-images-kafka-kraft-3.7.2.tar
+k3s ctr images import images/appscode-images-kafka-kraft-3.8.1.tar
+k3s ctr images import images/appscode-images-kafka-kraft-3.9.0.tar

@@ -37,7 +37,12 @@ CMD="./crane"
 
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-gcs:0.13.0 $IMAGE_REGISTRY/appscode-images/kafka-connector-gcs:0.13.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-jdbc:2.6.1.final $IMAGE_REGISTRY/appscode-images/kafka-connector-jdbc:2.6.1.final
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-mongodb:1.11.0 $IMAGE_REGISTRY/appscode-images/kafka-connector-mongodb:1.11.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-mysql:2.4.2.final $IMAGE_REGISTRY/appscode-images/kafka-connector-mysql:2.4.2.final
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-postgres:2.4.2.final $IMAGE_REGISTRY/appscode-images/kafka-connector-postgres:2.4.2.final
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-jdbc:2.7.4.final $IMAGE_REGISTRY/appscode-images/kafka-connector-jdbc:2.7.4.final
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-jdbc:3.0.5.final $IMAGE_REGISTRY/appscode-images/kafka-connector-jdbc:3.0.5.final
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-mongodb:1.13.1 $IMAGE_REGISTRY/appscode-images/kafka-connector-mongodb:1.13.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-mongodb:1.14.1 $IMAGE_REGISTRY/appscode-images/kafka-connector-mongodb:1.14.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-mysql:2.7.4.final $IMAGE_REGISTRY/appscode-images/kafka-connector-mysql:2.7.4.final
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-mysql:3.0.5.final $IMAGE_REGISTRY/appscode-images/kafka-connector-mysql:3.0.5.final
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-postgres:2.7.4.final $IMAGE_REGISTRY/appscode-images/kafka-connector-postgres:2.7.4.final
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-postgres:3.0.5.final $IMAGE_REGISTRY/appscode-images/kafka-connector-postgres:3.0.5.final
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-s3:2.15.0 $IMAGE_REGISTRY/appscode-images/kafka-connector-s3:2.15.0

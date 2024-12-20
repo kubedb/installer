@@ -26,5 +26,7 @@ tar -zxvf $TARBALL
 
 k3s ctr images import images/appscode-images-druid-28.0.1.tar
 k3s ctr images import images/appscode-images-druid-30.0.1.tar
+k3s ctr images import images/appscode-images-druid-31.0.0.tar
 k3s ctr images import images/kubedb-druid-init-28.0.1.tar
 k3s ctr images import images/kubedb-druid-init-30.0.1.tar
+k3s ctr images import images/kubedb-druid-init-31.0.0.tar

@@ -32,23 +32,20 @@ mv /tmp/crane images
 
 CMD="./images/crane"
 
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.3.2 images/appscode-images-kafka-connect-cluster-3.3.2.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.4.1 images/appscode-images-kafka-connect-cluster-3.4.1.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.5.1 images/appscode-images-kafka-connect-cluster-3.5.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.5.2 images/appscode-images-kafka-connect-cluster-3.5.2.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.6.0 images/appscode-images-kafka-connect-cluster-3.6.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.6.1 images/appscode-images-kafka-connect-cluster-3.6.1.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:3.3.2 images/appscode-images-kafka-cruise-control-3.3.2.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:3.4.1 images/appscode-images-kafka-cruise-control-3.4.1.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:3.5.1 images/appscode-images-kafka-cruise-control-3.5.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.7.2 images/appscode-images-kafka-connect-cluster-3.7.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.8.1 images/appscode-images-kafka-connect-cluster-3.8.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.9.0 images/appscode-images-kafka-connect-cluster-3.9.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:3.5.2 images/appscode-images-kafka-cruise-control-3.5.2.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:3.6.0 images/appscode-images-kafka-cruise-control-3.6.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:3.6.1 images/appscode-images-kafka-cruise-control-3.6.1.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.3.2 images/appscode-images-kafka-kraft-3.3.2.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.4.1 images/appscode-images-kafka-kraft-3.4.1.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.5.1 images/appscode-images-kafka-kraft-3.5.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:3.7.2 images/appscode-images-kafka-cruise-control-3.7.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:3.8.1 images/appscode-images-kafka-cruise-control-3.8.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:3.9.0 images/appscode-images-kafka-cruise-control-3.9.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.5.2 images/appscode-images-kafka-kraft-3.5.2.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.6.0 images/appscode-images-kafka-kraft-3.6.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.6.1 images/appscode-images-kafka-kraft-3.6.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.7.2 images/appscode-images-kafka-kraft-3.7.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.8.1 images/appscode-images-kafka-kraft-3.8.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.9.0 images/appscode-images-kafka-kraft-3.9.0.tar
 
 tar -czvf images.tar.gz images

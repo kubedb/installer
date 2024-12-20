@@ -29,5 +29,6 @@ CMD="./crane"
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached-1.5.22-alpine.tar $IMAGE_REGISTRY/appscode-images/memcached:1.5.22-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached-1.6.22-alpine.tar $IMAGE_REGISTRY/appscode-images/memcached:1.6.22-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached-1.6.29-alpine.tar $IMAGE_REGISTRY/appscode-images/memcached:1.6.29-alpine
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached-1.6.33-alpine.tar $IMAGE_REGISTRY/appscode-images/memcached:1.6.33-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached_exporter-v0.14.3-ac.tar $IMAGE_REGISTRY/appscode-images/memcached_exporter:v0.14.3-ac
 $CMD push --allow-nondistributable-artifacts --insecure images/prom-memcached-exporter-v0.14.2.tar $IMAGE_REGISTRY/prom/memcached-exporter:v0.14.2

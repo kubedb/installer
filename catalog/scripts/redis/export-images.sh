@@ -35,12 +35,15 @@ CMD="./images/crane"
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:5.0.14-bullseye images/appscode-images-redis-5.0.14-bullseye.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:6.0.20-bookworm images/appscode-images-redis-6.0.20-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:6.2.14-bookworm images/appscode-images-redis-6.2.14-bookworm.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:6.2.16-bookworm images/appscode-images-redis-6.2.16-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.0.14-bookworm images/appscode-images-redis-7.0.14-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.0.15-bookworm images/appscode-images-redis-7.0.15-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.2.3-bookworm images/appscode-images-redis-7.2.3-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.2.4-bookworm images/appscode-images-redis-7.2.4-bookworm.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.2.6-bookworm images/appscode-images-redis-7.2.6-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.4.0-bookworm images/appscode-images-redis-7.4.0-bookworm.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-coordinator:v0.28.0 images/kubedb-redis-coordinator-v0.28.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.4.1-bookworm images/appscode-images-redis-7.4.1-bookworm.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-coordinator:v0.29.0 images/kubedb-redis-coordinator-v0.29.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.9.0 images/kubedb-redis-init-0.9.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4.0.11 images/kubedb-redis-4.0.11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis_exporter:1.66.0 images/kubedb-redis_exporter-1.66.0.tar
