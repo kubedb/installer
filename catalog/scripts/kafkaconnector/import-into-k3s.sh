@@ -26,7 +26,12 @@ tar -zxvf $TARBALL
 
 k3s ctr images import images/appscode-images-kafka-connector-gcs-0.13.0.tar
 k3s ctr images import images/appscode-images-kafka-connector-jdbc-2.6.1.final.tar
-k3s ctr images import images/appscode-images-kafka-connector-mongodb-1.11.0.tar
-k3s ctr images import images/appscode-images-kafka-connector-mysql-2.4.2.final.tar
-k3s ctr images import images/appscode-images-kafka-connector-postgres-2.4.2.final.tar
+k3s ctr images import images/appscode-images-kafka-connector-jdbc-2.7.4.final.tar
+k3s ctr images import images/appscode-images-kafka-connector-jdbc-3.0.5.final.tar
+k3s ctr images import images/appscode-images-kafka-connector-mongodb-1.13.1.tar
+k3s ctr images import images/appscode-images-kafka-connector-mongodb-1.14.1.tar
+k3s ctr images import images/appscode-images-kafka-connector-mysql-2.7.4.final.tar
+k3s ctr images import images/appscode-images-kafka-connector-mysql-3.0.5.final.tar
+k3s ctr images import images/appscode-images-kafka-connector-postgres-2.7.4.final.tar
+k3s ctr images import images/appscode-images-kafka-connector-postgres-3.0.5.final.tar
 k3s ctr images import images/appscode-images-kafka-connector-s3-2.15.0.tar

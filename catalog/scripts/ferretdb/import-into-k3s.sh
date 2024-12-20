@@ -26,3 +26,4 @@ tar -zxvf $TARBALL
 
 k3s ctr images import images/appscode-images-ferretdb-1.18.0.tar
 k3s ctr images import images/appscode-images-ferretdb-1.23.0.tar
+k3s ctr images import images/appscode-images-ferretdb-1.24.0.tar

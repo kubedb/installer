@@ -27,5 +27,6 @@ tar -zxvf $TARBALL
 k3s ctr images import images/appscode-images-memcached-1.5.22-alpine.tar
 k3s ctr images import images/appscode-images-memcached-1.6.22-alpine.tar
 k3s ctr images import images/appscode-images-memcached-1.6.29-alpine.tar
+k3s ctr images import images/appscode-images-memcached-1.6.33-alpine.tar
 k3s ctr images import images/appscode-images-memcached_exporter-v0.14.3-ac.tar
 k3s ctr images import images/prom-memcached-exporter-v0.14.2.tar

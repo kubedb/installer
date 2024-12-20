@@ -39,7 +39,9 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/si
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/singlestore-node:alma-8.5.30-4f46ab16a5 $IMAGE_REGISTRY/appscode-images/singlestore-node:alma-8.5.30-4f46ab16a5
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/singlestore-node:alma-8.5.7-bf633c1a54 $IMAGE_REGISTRY/appscode-images/singlestore-node:alma-8.5.7-bf633c1a54
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/singlestore-node:alma-8.7.10-95e2357384 $IMAGE_REGISTRY/appscode-images/singlestore-node:alma-8.7.10-95e2357384
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-coordinator:v0.4.0 $IMAGE_REGISTRY/kubedb/singlestore-coordinator:v0.4.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/singlestore-node:alma-8.7.21-f0b8de04d5 $IMAGE_REGISTRY/appscode-images/singlestore-node:alma-8.7.21-f0b8de04d5
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/singlestore-node:alma-8.9.3-bfa36a984a $IMAGE_REGISTRY/appscode-images/singlestore-node:alma-8.9.3-bfa36a984a
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-coordinator:v0.5.0 $IMAGE_REGISTRY/kubedb/singlestore-coordinator:v0.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-init:8.1-v2 $IMAGE_REGISTRY/kubedb/singlestore-init:8.1-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-init:8.5-v2 $IMAGE_REGISTRY/kubedb/singlestore-init:8.5-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-init:8.7.10-v1 $IMAGE_REGISTRY/kubedb/singlestore-init:8.7.10-v1

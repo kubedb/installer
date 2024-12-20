@@ -32,7 +32,7 @@ mv /tmp/crane images
 
 CMD="./images/crane"
 
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-coordinator:v0.22.0 images/kubedb-percona-xtradb-coordinator-v0.22.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-coordinator:v0.23.0 images/kubedb-percona-xtradb-coordinator-v0.23.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-init:0.2.1 images/kubedb-percona-xtradb-init-0.2.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-xtradb-cluster:8.0.26 images/percona-percona-xtradb-cluster-8.0.26.tar
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-xtradb-cluster:8.0.28 images/percona-percona-xtradb-cluster-8.0.28.tar
