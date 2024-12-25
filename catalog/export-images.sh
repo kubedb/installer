@@ -248,7 +248,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-pr
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-schema-manager:v0.26.0 images/kubedb-kubedb-schema-manager-v0.26.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ui-server:v0.26.0 images/kubedb-kubedb-ui-server-v0.26.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-verifier:v0.1.0 images/kubedb-kubedb-verifier-v0.1.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-webhook-server:v0.26.0 images/kubedb-kubedb-webhook-server-v0.26.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-webhook-server:v0.26.1 images/kubedb-kubedb-webhook-server-v0.26.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.10.0_10.10.7-jammy images/kubedb-mariadb-archiver-v0.10.0_10.10.7-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.10.0_10.11.6-jammy images/kubedb-mariadb-archiver-v0.10.0_10.11.6-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.10.0_10.4.32-focal images/kubedb-mariadb-archiver-v0.10.0_10.4.32-focal.tar

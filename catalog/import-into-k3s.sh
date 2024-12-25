@@ -240,7 +240,7 @@ k3s ctr images import images/kubedb-kubedb-provisioner-v0.50.0.tar
 k3s ctr images import images/kubedb-kubedb-schema-manager-v0.26.0.tar
 k3s ctr images import images/kubedb-kubedb-ui-server-v0.26.0.tar
 k3s ctr images import images/kubedb-kubedb-verifier-v0.1.0.tar
-k3s ctr images import images/kubedb-kubedb-webhook-server-v0.26.0.tar
+k3s ctr images import images/kubedb-kubedb-webhook-server-v0.26.1.tar
 k3s ctr images import images/kubedb-mariadb-archiver-v0.10.0_10.10.7-jammy.tar
 k3s ctr images import images/kubedb-mariadb-archiver-v0.10.0_10.11.6-jammy.tar
 k3s ctr images import images/kubedb-mariadb-archiver-v0.10.0_10.4.32-focal.tar
