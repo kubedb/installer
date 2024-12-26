@@ -35,8 +35,8 @@ k3s ctr images import images/kubedb-kubedb-autoscaler-v0.35.0.tar
 k3s ctr images import images/kubedb-kubedb-crd-manager-v0.5.0.tar
 k3s ctr images import images/kubedb-kubedb-kibana-v0.26.0.tar
 k3s ctr images import images/kubedb-kubedb-manifest-plugin-v0.13.0.tar
-k3s ctr images import images/kubedb-kubedb-ops-manager-v0.37.0.tar
-k3s ctr images import images/kubedb-kubedb-provisioner-v0.50.0.tar
+k3s ctr images import images/kubedb-kubedb-ops-manager-v0.37.1.tar
+k3s ctr images import images/kubedb-kubedb-provisioner-v0.50.1.tar
 k3s ctr images import images/kubedb-kubedb-schema-manager-v0.26.0.tar
 k3s ctr images import images/kubedb-kubedb-ui-server-v0.26.0.tar
 k3s ctr images import images/kubedb-kubedb-verifier-v0.1.0.tar
