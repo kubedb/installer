@@ -43,7 +43,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-au
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-crd-manager:v0.5.0 images/kubedb-kubedb-crd-manager-v0.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-kibana:v0.26.0 images/kubedb-kubedb-kibana-v0.26.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-manifest-plugin:v0.13.0 images/kubedb-kubedb-manifest-plugin-v0.13.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.37.1 images/kubedb-kubedb-ops-manager-v0.37.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.37.2 images/kubedb-kubedb-ops-manager-v0.37.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-provisioner:v0.50.1 images/kubedb-kubedb-provisioner-v0.50.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-schema-manager:v0.26.0 images/kubedb-kubedb-schema-manager-v0.26.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ui-server:v0.26.0 images/kubedb-kubedb-ui-server-v0.26.0.tar
@@ -55,7 +55,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-c
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssqlserver-walg-plugin:v0.0.1 images/kubedb-mssqlserver-walg-plugin-v0.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-csi-snapshotter-plugin:v0.11.0 images/kubedb-mysql-csi-snapshotter-plugin-v0.11.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.11.0 images/kubedb-postgres-csi-snapshotter-plugin-v0.11.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.13.0_16.1 images/kubedb-postgres-restic-plugin-v0.13.0_16.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.13.0_17.2 images/kubedb-postgres-restic-plugin-v0.13.0_17.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-aws:v0.12.0 images/kubedb-provider-aws-v0.12.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-azure:v0.12.0 images/kubedb-provider-azure-v0.12.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-gcp:v0.12.0 images/kubedb-provider-gcp-v0.12.0.tar
