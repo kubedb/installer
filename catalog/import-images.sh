@@ -315,7 +315,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-a
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.11.0_17.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.11.0_17.2-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-csi-snapshotter-plugin-v0.11.0.tar $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.11.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-init-0.17.0.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.17.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.13.0_17.2.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.13.0_17.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-aws-v0.12.0.tar $IMAGE_REGISTRY/kubedb/provider-aws:v0.12.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-azure-v0.12.0.tar $IMAGE_REGISTRY/kubedb/provider-azure:v0.12.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-gcp-v0.12.0.tar $IMAGE_REGISTRY/kubedb/provider-gcp:v0.12.0
