@@ -20,7 +20,7 @@ require (
 	kmodules.xyz/resource-metadata v0.23.0
 	kmodules.xyz/schema-checker v0.4.1
 	sigs.k8s.io/yaml v1.4.0
-	stash.appscode.dev/installer v0.12.2-0.20241022221807-4ad4af690ae5
+	stash.appscode.dev/installer v0.12.2-0.20241220054202-5dc9f8c554a5
 )
 
 require (
