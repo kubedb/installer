@@ -321,6 +321,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.11.0_17.2-bookworm images/kubedb-postgres-archiver-v0.11.0_17.2-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.11.0 images/kubedb-postgres-csi-snapshotter-plugin-v0.11.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.17.0 images/kubedb-postgres-init-0.17.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.13.0_17.2 images/kubedb-postgres-restic-plugin-v0.13.0_17.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-aws:v0.12.0 images/kubedb-provider-aws-v0.12.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-azure:v0.12.0 images/kubedb-provider-azure-v0.12.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-gcp:v0.12.0 images/kubedb-provider-gcp-v0.12.0.tar
