@@ -125,6 +125,7 @@ k3s ctr images import images/appscode-images-mongo-4.4.26.tar
 k3s ctr images import images/appscode-images-mongo-5.0.23.tar
 k3s ctr images import images/appscode-images-mongo-5.0.26.tar
 k3s ctr images import images/appscode-images-mongo-6.0.12.tar
+k3s ctr images import images/appscode-images-mongo-7.0.16.tar
 k3s ctr images import images/appscode-images-mongo-7.0.5.tar
 k3s ctr images import images/appscode-images-mongo-7.0.8.tar
 k3s ctr images import images/appscode-images-mongo-8.0.3.tar
@@ -291,7 +292,7 @@ k3s ctr images import images/kubedb-mysql-init-9.1.0-v1.tar
 k3s ctr images import images/kubedb-mysql-router-init-v0.28.0.tar
 k3s ctr images import images/kubedb-mysqld-exporter-v0.13.1.tar
 k3s ctr images import images/kubedb-percona-xtradb-coordinator-v0.23.0.tar
-k3s ctr images import images/kubedb-percona-xtradb-init-0.2.1.tar
+k3s ctr images import images/kubedb-percona-xtradb-init-0.2.2.tar
 k3s ctr images import images/kubedb-pg-coordinator-v0.34.0.tar
 k3s ctr images import images/kubedb-pgbouncer-1.17.0.tar
 k3s ctr images import images/kubedb-pgbouncer-1.18.0.tar
