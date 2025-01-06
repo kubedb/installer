@@ -29,6 +29,7 @@ k3s ctr images import images/appscode-images-mongo-4.4.26.tar
 k3s ctr images import images/appscode-images-mongo-5.0.23.tar
 k3s ctr images import images/appscode-images-mongo-5.0.26.tar
 k3s ctr images import images/appscode-images-mongo-6.0.12.tar
+k3s ctr images import images/appscode-images-mongo-7.0.16.tar
 k3s ctr images import images/appscode-images-mongo-7.0.5.tar
 k3s ctr images import images/appscode-images-mongo-7.0.8.tar
 k3s ctr images import images/appscode-images-mongo-8.0.3.tar

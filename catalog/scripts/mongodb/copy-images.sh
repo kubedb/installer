@@ -40,6 +40,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mo
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:5.0.23 $IMAGE_REGISTRY/appscode-images/mongo:5.0.23
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:5.0.26 $IMAGE_REGISTRY/appscode-images/mongo:5.0.26
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:6.0.12 $IMAGE_REGISTRY/appscode-images/mongo:6.0.12
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.16 $IMAGE_REGISTRY/appscode-images/mongo:7.0.16
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.5 $IMAGE_REGISTRY/appscode-images/mongo:7.0.5
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.8 $IMAGE_REGISTRY/appscode-images/mongo:7.0.8
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.3 $IMAGE_REGISTRY/appscode-images/mongo:8.0.3

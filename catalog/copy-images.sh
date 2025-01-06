@@ -136,6 +136,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mo
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:5.0.23 $IMAGE_REGISTRY/appscode-images/mongo:5.0.23
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:5.0.26 $IMAGE_REGISTRY/appscode-images/mongo:5.0.26
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:6.0.12 $IMAGE_REGISTRY/appscode-images/mongo:6.0.12
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.16 $IMAGE_REGISTRY/appscode-images/mongo:7.0.16
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.5 $IMAGE_REGISTRY/appscode-images/mongo:7.0.5
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.8 $IMAGE_REGISTRY/appscode-images/mongo:7.0.8
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.3 $IMAGE_REGISTRY/appscode-images/mongo:8.0.3
@@ -302,7 +303,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.28.0 $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.28.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.13.1 $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.13.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-coordinator:v0.23.0 $IMAGE_REGISTRY/kubedb/percona-xtradb-coordinator:v0.23.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-init:0.2.1 $IMAGE_REGISTRY/kubedb/percona-xtradb-init:0.2.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-init:0.2.2 $IMAGE_REGISTRY/kubedb/percona-xtradb-init:0.2.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pg-coordinator:v0.34.0 $IMAGE_REGISTRY/kubedb/pg-coordinator:v0.34.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.17.0 $IMAGE_REGISTRY/kubedb/pgbouncer:1.17.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.18.0 $IMAGE_REGISTRY/kubedb/pgbouncer:1.18.0

@@ -31,6 +31,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-5.0.23.tar $IMAGE_REGISTRY/appscode-images/mongo:5.0.23
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-5.0.26.tar $IMAGE_REGISTRY/appscode-images/mongo:5.0.26
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-6.0.12.tar $IMAGE_REGISTRY/appscode-images/mongo:6.0.12
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-7.0.16.tar $IMAGE_REGISTRY/appscode-images/mongo:7.0.16
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-7.0.5.tar $IMAGE_REGISTRY/appscode-images/mongo:7.0.5
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-7.0.8.tar $IMAGE_REGISTRY/appscode-images/mongo:7.0.8
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-8.0.3.tar $IMAGE_REGISTRY/appscode-images/mongo:8.0.3
