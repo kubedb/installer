@@ -14,13 +14,13 @@ require (
 	gomodules.xyz/semvers v0.0.2
 	k8s.io/api v0.30.2
 	k8s.io/apimachinery v0.30.2
-	kmodules.xyz/client-go v0.30.42
+	kmodules.xyz/client-go v0.30.44
 	kmodules.xyz/go-containerregistry v0.0.12
 	kmodules.xyz/image-packer v0.0.0-20241213044824-5b4eb7f75cf4
-	kmodules.xyz/resource-metadata v0.23.0
+	kmodules.xyz/resource-metadata v0.24.2
 	kmodules.xyz/schema-checker v0.4.1
 	sigs.k8s.io/yaml v1.4.0
-	stash.appscode.dev/installer v0.12.2-0.20241220054202-5dc9f8c554a5
+	stash.appscode.dev/installer v0.12.2-0.20250108183814-50ebd27eef9c
 )
 
 require (
@@ -81,7 +81,7 @@ require (
 	github.com/zeebo/xxh3 v1.0.2 // indirect
 	golang.org/x/crypto v0.31.0 // indirect
 	golang.org/x/exp v0.0.0-20240506185415-9bf2ced13842 // indirect
-	golang.org/x/net v0.29.0 // indirect
+	golang.org/x/net v0.33.0 // indirect
 	golang.org/x/oauth2 v0.22.0 // indirect
 	golang.org/x/sync v0.10.0 // indirect
 	golang.org/x/sys v0.28.0 // indirect
