@@ -32,7 +32,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-s
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-singlestore-node-alma-8.7.10-95e2357384.tar $IMAGE_REGISTRY/appscode-images/singlestore-node:alma-8.7.10-95e2357384
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-singlestore-node-alma-8.7.21-f0b8de04d5.tar $IMAGE_REGISTRY/appscode-images/singlestore-node:alma-8.7.21-f0b8de04d5
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-singlestore-node-alma-8.9.3-bfa36a984a.tar $IMAGE_REGISTRY/appscode-images/singlestore-node:alma-8.9.3-bfa36a984a
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-singlestore-coordinator-v0.5.0.tar $IMAGE_REGISTRY/kubedb/singlestore-coordinator:v0.5.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-singlestore-coordinator-v0.6.0.tar $IMAGE_REGISTRY/kubedb/singlestore-coordinator:v0.6.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-singlestore-init-8.1-v2.tar $IMAGE_REGISTRY/kubedb/singlestore-init:8.1-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-singlestore-init-8.5-v2.tar $IMAGE_REGISTRY/kubedb/singlestore-init:8.5-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-singlestore-init-8.7.10-v1.tar $IMAGE_REGISTRY/kubedb/singlestore-init:8.7.10-v1

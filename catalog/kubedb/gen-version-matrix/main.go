@@ -170,11 +170,11 @@ func main() {
 				updateData[i][0] = versions[i].Name
 				for j := range versions {
 					var uc UpdateConstraints
-					if versions[j].Spec.Constraints != nil && versions[j].Spec.Constraints.MySQLUpdateConstraints != nil {
-						uc.Allowlist = versions[j].Spec.Constraints.MySQLUpdateConstraints.Allowlist.Standalone
-						uc.Denylist = versions[j].Spec.Constraints.MySQLUpdateConstraints.Denylist.Standalone
+					if versions[i].Spec.Constraints != nil && versions[i].Spec.Constraints.MySQLUpdateConstraints != nil {
+						uc.Allowlist = versions[i].Spec.Constraints.MySQLUpdateConstraints.Allowlist.Standalone
+						uc.Denylist = versions[i].Spec.Constraints.MySQLUpdateConstraints.Denylist.Standalone
 					}
-					if dec, err := canUpdate(versions[i].Spec.Version, uc); err != nil {
+					if dec, err := canUpdate(versions[j].Spec.Version, uc); err != nil {
 						panic(err)
 					} else {
 						updateData[i][j+1] = string(dec)
@@ -194,11 +194,11 @@ func main() {
 				updateData[i][0] = versions[i].Name
 				for j := range versions {
 					var uc UpdateConstraints
-					if versions[j].Spec.Constraints != nil && versions[j].Spec.Constraints.MySQLUpdateConstraints != nil {
-						uc.Allowlist = versions[j].Spec.Constraints.MySQLUpdateConstraints.Allowlist.GroupReplication
-						uc.Denylist = versions[j].Spec.Constraints.MySQLUpdateConstraints.Denylist.GroupReplication
+					if versions[i].Spec.Constraints != nil && versions[i].Spec.Constraints.MySQLUpdateConstraints != nil {
+						uc.Allowlist = versions[i].Spec.Constraints.MySQLUpdateConstraints.Allowlist.GroupReplication
+						uc.Denylist = versions[i].Spec.Constraints.MySQLUpdateConstraints.Denylist.GroupReplication
 					}
-					if dec, err := canUpdate(versions[i].Spec.Version, uc); err != nil {
+					if dec, err := canUpdate(versions[j].Spec.Version, uc); err != nil {
 						panic(err)
 					} else {
 						updateData[i][j+1] = string(dec)
@@ -218,10 +218,10 @@ func main() {
 				updateData[i][0] = versions[i].Name
 				for j := range versions {
 					var uc UpdateConstraints
-					if versions[j].Spec.Constraints != nil && versions[j].Spec.Constraints.UpdateConstraints != nil {
-						uc = *versions[j].Spec.Constraints.UpdateConstraints
+					if versions[i].Spec.Constraints != nil && versions[i].Spec.Constraints.UpdateConstraints != nil {
+						uc = *versions[i].Spec.Constraints.UpdateConstraints
 					}
-					if dec, err := canUpdate(versions[i].Spec.Version, uc); err != nil {
+					if dec, err := canUpdate(versions[j].Spec.Version, uc); err != nil {
 						panic(err)
 					} else {
 						updateData[i][j+1] = string(dec)

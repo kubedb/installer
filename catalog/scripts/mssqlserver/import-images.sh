@@ -26,10 +26,10 @@ tar -zxvf $TARBALL
 
 CMD="./crane"
 
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-coordinator-v0.5.0.tar $IMAGE_REGISTRY/kubedb/mssql-coordinator:v0.5.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-coordinator-v0.6.0.tar $IMAGE_REGISTRY/kubedb/mssql-coordinator:v0.6.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-exporter-1.1.0.tar $IMAGE_REGISTRY/kubedb/mssql-exporter:1.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-init-2022-ubuntu-22-v3.tar $IMAGE_REGISTRY/kubedb/mssql-init:2022-ubuntu-22-v3
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssqlserver-archiver-v0.4.0.tar $IMAGE_REGISTRY/kubedb/mssqlserver-archiver:v0.4.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssqlserver-archiver-v0.5.0.tar $IMAGE_REGISTRY/kubedb/mssqlserver-archiver:v0.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU12-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU12-ubuntu-22.04
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU14-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU14-ubuntu-22.04
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU16-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU16-ubuntu-22.04
