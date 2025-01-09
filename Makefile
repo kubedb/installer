@@ -278,6 +278,7 @@ fmt: $(BUILD_DIRS)
 	    /bin/bash -c "                                          \
 	        set -eou pipefail;                                  \
 	        go run ./catalog/kubedb/fmt/main.go;                \
+	        go run ./catalog/kubedb/gen-version-matrix/main.go; \
 	        go run ./catalog/kubestash/fmt/main.go;             \
 	        REPO_PKG=$(GO_PKG)                                  \
 	        ./hack/fmt.sh $(SRC_DIRS)                           \
