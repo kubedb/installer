@@ -8,19 +8,20 @@ require (
 	github.com/Masterminds/semver/v3 v3.3.0
 	github.com/Masterminds/sprig/v3 v3.2.3
 	github.com/google/gofuzz v1.2.0
+	github.com/olekukonko/tablewriter v0.0.5
 	github.com/spf13/pflag v1.0.5
 	github.com/yudai/gojsondiff v1.0.0
 	gomodules.xyz/go-sh v0.1.0
 	gomodules.xyz/semvers v0.0.2
 	k8s.io/api v0.30.2
 	k8s.io/apimachinery v0.30.2
-	kmodules.xyz/client-go v0.30.42
+	kmodules.xyz/client-go v0.30.44
 	kmodules.xyz/go-containerregistry v0.0.12
 	kmodules.xyz/image-packer v0.0.0-20241213044824-5b4eb7f75cf4
-	kmodules.xyz/resource-metadata v0.23.0
+	kmodules.xyz/resource-metadata v0.24.2
 	kmodules.xyz/schema-checker v0.4.1
 	sigs.k8s.io/yaml v1.4.0
-	stash.appscode.dev/installer v0.12.2-0.20241220054202-5dc9f8c554a5
+	stash.appscode.dev/installer v0.12.2-0.20250108183814-50ebd27eef9c
 )
 
 require (
@@ -58,6 +59,7 @@ require (
 	github.com/klauspost/compress v1.17.4 // indirect
 	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
+	github.com/mattn/go-runewidth v0.0.13 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
@@ -72,6 +74,7 @@ require (
 	github.com/prometheus/client_model v0.6.1 // indirect
 	github.com/prometheus/common v0.48.0 // indirect
 	github.com/prometheus/procfs v0.15.0 // indirect
+	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/sergi/go-diff v1.2.0 // indirect
 	github.com/shopspring/decimal v1.4.0 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
@@ -81,7 +84,7 @@ require (
 	github.com/zeebo/xxh3 v1.0.2 // indirect
 	golang.org/x/crypto v0.31.0 // indirect
 	golang.org/x/exp v0.0.0-20240506185415-9bf2ced13842 // indirect
-	golang.org/x/net v0.29.0 // indirect
+	golang.org/x/net v0.33.0 // indirect
 	golang.org/x/oauth2 v0.22.0 // indirect
 	golang.org/x/sync v0.10.0 // indirect
 	golang.org/x/sys v0.28.0 // indirect

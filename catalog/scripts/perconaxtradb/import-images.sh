@@ -26,8 +26,8 @@ tar -zxvf $TARBALL
 
 CMD="./crane"
 
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-coordinator-v0.23.0.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-coordinator:v0.23.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-init-0.2.1.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-init:0.2.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-coordinator-v0.24.0.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-coordinator:v0.24.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-init-0.2.2.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-init:0.2.2
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-xtradb-cluster-8.0.26.tar $IMAGE_REGISTRY/percona/percona-xtradb-cluster:8.0.26
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-xtradb-cluster-8.0.28.tar $IMAGE_REGISTRY/percona/percona-xtradb-cluster:8.0.28
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-xtradb-cluster-8.0.31.tar $IMAGE_REGISTRY/percona/percona-xtradb-cluster:8.0.31
