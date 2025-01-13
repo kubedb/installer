@@ -139,7 +139,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mo
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.16 $IMAGE_REGISTRY/appscode-images/mongo:7.0.16
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.5 $IMAGE_REGISTRY/appscode-images/mongo:7.0.5
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.8 $IMAGE_REGISTRY/appscode-images/mongo:7.0.8
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.3 $IMAGE_REGISTRY/appscode-images/mongo:8.0.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.4 $IMAGE_REGISTRY/appscode-images/mongo:8.0.4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:5.7.42-debian $IMAGE_REGISTRY/appscode-images/mysql:5.7.42-debian
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:5.7.44-oracle $IMAGE_REGISTRY/appscode-images/mysql:5.7.44-oracle
@@ -245,7 +244,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zo
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kube-rbac-proxy:v0.15.0 $IMAGE_REGISTRY/appscode/kube-rbac-proxy:v0.15.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.31 $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.31
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.7 $IMAGE_REGISTRY/appscode/petset:v0.0.7
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.9 $IMAGE_REGISTRY/appscode/sidekick:v0.0.9
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.10 $IMAGE_REGISTRY/appscode/sidekick:v0.0.10
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6 $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0 $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1 $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1

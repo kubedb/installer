@@ -35,7 +35,7 @@ CMD="./images/crane"
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kube-rbac-proxy:v0.15.0 images/appscode-kube-rbac-proxy-v0.15.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.31 images/appscode-kubectl-nonroot-1.31.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.7 images/appscode-petset-v0.0.7.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.9 images/appscode-sidekick-v0.0.9.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.10 images/appscode-sidekick-v0.0.10.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.1.0 images/kubedb-dashboard-restic-plugin-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.9.0 images/kubedb-dashboard-restic-plugin-v0.9.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.14.0 images/kubedb-elasticsearch-restic-plugin-v0.14.0.tar

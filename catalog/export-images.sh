@@ -136,7 +136,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.16 images/appscode-images-mongo-7.0.16.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.5 images/appscode-images-mongo-7.0.5.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.8 images/appscode-images-mongo-7.0.8.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.3 images/appscode-images-mongo-8.0.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.4 images/appscode-images-mongo-8.0.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:5.7.42-debian images/appscode-images-mysql-5.7.42-debian.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:5.7.44-oracle images/appscode-images-mysql-5.7.44-oracle.tar
@@ -242,7 +241,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kube-rbac-proxy:v0.15.0 images/appscode-kube-rbac-proxy-v0.15.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.31 images/appscode-kubectl-nonroot-1.31.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.7 images/appscode-petset-v0.0.7.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.9 images/appscode-sidekick-v0.0.9.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.10 images/appscode-sidekick-v0.0.10.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6 images/kubedb-cassandra-init-4.1.6.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0 images/kubedb-cassandra-init-5.0.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1 images/kubedb-clickhouse-init-24.4.1.tar

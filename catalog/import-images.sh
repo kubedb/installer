@@ -130,7 +130,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-7.0.16.tar $IMAGE_REGISTRY/appscode-images/mongo:7.0.16
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-7.0.5.tar $IMAGE_REGISTRY/appscode-images/mongo:7.0.5
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-7.0.8.tar $IMAGE_REGISTRY/appscode-images/mongo:7.0.8
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-8.0.3.tar $IMAGE_REGISTRY/appscode-images/mongo:8.0.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-8.0.4.tar $IMAGE_REGISTRY/appscode-images/mongo:8.0.4
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-5.7.42-debian.tar $IMAGE_REGISTRY/appscode-images/mysql:5.7.42-debian
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-5.7.44-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:5.7.44-oracle
@@ -236,7 +235,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-z
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-kube-rbac-proxy-v0.15.0.tar $IMAGE_REGISTRY/appscode/kube-rbac-proxy:v0.15.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-kubectl-nonroot-1.31.tar $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.31
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.0.7.tar $IMAGE_REGISTRY/appscode/petset:v0.0.7
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.9.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.9
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.10.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.10
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-4.1.6.tar $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-5.0.0.tar $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-clickhouse-init-24.4.1.tar $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1

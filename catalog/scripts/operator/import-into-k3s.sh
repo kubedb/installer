@@ -27,7 +27,7 @@ tar -zxvf $TARBALL
 k3s ctr images import images/appscode-kube-rbac-proxy-v0.15.0.tar
 k3s ctr images import images/appscode-kubectl-nonroot-1.31.tar
 k3s ctr images import images/appscode-petset-v0.0.7.tar
-k3s ctr images import images/appscode-sidekick-v0.0.9.tar
+k3s ctr images import images/appscode-sidekick-v0.0.10.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.9.0.tar
 k3s ctr images import images/kubedb-elasticsearch-restic-plugin-v0.14.0.tar

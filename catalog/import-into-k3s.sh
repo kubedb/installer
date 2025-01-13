@@ -128,7 +128,6 @@ k3s ctr images import images/appscode-images-mongo-6.0.12.tar
 k3s ctr images import images/appscode-images-mongo-7.0.16.tar
 k3s ctr images import images/appscode-images-mongo-7.0.5.tar
 k3s ctr images import images/appscode-images-mongo-7.0.8.tar
-k3s ctr images import images/appscode-images-mongo-8.0.3.tar
 k3s ctr images import images/appscode-images-mongo-8.0.4.tar
 k3s ctr images import images/appscode-images-mysql-5.7.42-debian.tar
 k3s ctr images import images/appscode-images-mysql-5.7.44-oracle.tar
@@ -234,7 +233,7 @@ k3s ctr images import images/appscode-images-zookeeper-3.9.1.tar
 k3s ctr images import images/appscode-kube-rbac-proxy-v0.15.0.tar
 k3s ctr images import images/appscode-kubectl-nonroot-1.31.tar
 k3s ctr images import images/appscode-petset-v0.0.7.tar
-k3s ctr images import images/appscode-sidekick-v0.0.9.tar
+k3s ctr images import images/appscode-sidekick-v0.0.10.tar
 k3s ctr images import images/kubedb-cassandra-init-4.1.6.tar
 k3s ctr images import images/kubedb-cassandra-init-5.0.0.tar
 k3s ctr images import images/kubedb-clickhouse-init-24.4.1.tar

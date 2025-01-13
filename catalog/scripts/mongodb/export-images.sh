@@ -40,7 +40,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.16 images/appscode-images-mongo-7.0.16.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.5 images/appscode-images-mongo-7.0.5.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.8 images/appscode-images-mongo-7.0.8.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.3 images/appscode-images-mongo-8.0.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.4 images/appscode-images-mongo-8.0.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 images/kubedb-mongodb-init-4.2-v9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v10 images/kubedb-mongodb-init-6.0-v10.tar
