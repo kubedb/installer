@@ -34,7 +34,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-7.0.16.tar $IMAGE_REGISTRY/appscode-images/mongo:7.0.16
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-7.0.5.tar $IMAGE_REGISTRY/appscode-images/mongo:7.0.5
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-7.0.8.tar $IMAGE_REGISTRY/appscode-images/mongo:7.0.8
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-8.0.3.tar $IMAGE_REGISTRY/appscode-images/mongo:8.0.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-8.0.4.tar $IMAGE_REGISTRY/appscode-images/mongo:8.0.4
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-4.2-v9.tar $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-6.0-v10.tar $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v10
