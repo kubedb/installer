@@ -94,7 +94,14 @@ spec:
         {{- with $maxConcurrentReconciles }}
         - --max-concurrent-reconciles={{.}}
         {{- end }}
+        {{- with .Values.envFrom }}
+        envFrom:
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
         env:
+        {{- with .Values.env }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
         - name: POD_NAME
           valueFrom:
             fieldRef:

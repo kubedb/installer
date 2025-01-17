@@ -1197,6 +1197,20 @@ func (in *KubedbOpsManagerSpec) DeepCopyInto(out *KubedbOpsManagerSpec) {
 	in.Monitoring.DeepCopyInto(&out.Monitoring)
 	out.RecommendationEngine = in.RecommendationEngine
 	out.Psp = in.Psp
+	if in.EnvFrom != nil {
+		in, out := &in.EnvFrom, &out.EnvFrom
+		*out = make([]v1.EnvFromSource, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.Env != nil {
+		in, out := &in.Env, &out.Env
+		*out = make([]v1.EnvVar, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
 	return
 }
 
@@ -1706,6 +1720,20 @@ func (in *KubedbProvisionerSpec) DeepCopyInto(out *KubedbProvisionerSpec) {
 		copy(*out, *in)
 	}
 	out.Psp = in.Psp
+	if in.EnvFrom != nil {
+		in, out := &in.EnvFrom, &out.EnvFrom
+		*out = make([]v1.EnvFromSource, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.Env != nil {
+		in, out := &in.Env, &out.Env
+		*out = make([]v1.EnvVar, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
 	return
 }
 
