@@ -13,11 +13,13 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/cassandra") $) }}:5.0.0'
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "sabbir70/mgmt-api-sabbir-4.0") $) }}'
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/cassandra-exporter") $) }}:2.3.8'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/cassandra-init") $) }}:5.0.0-v1'
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "sabbir70/cass-init") $) }}:jan16'
+  initMedusaContainer:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "sabbir70/medusa-sabbir") $) }}'
   securityContext:
     runAsUser: 999
   version: 5.0.0
