@@ -1,0 +1,113 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/name: kubedb
+  name: proxysqlversions.catalog.kubedb.com
+spec:
+  group: catalog.kubedb.com
+  names:
+    categories:
+    - catalog
+    - kubedb
+    - appscode
+    kind: ProxySQLVersion
+    listKind: ProxySQLVersionList
+    plural: proxysqlversions
+    shortNames:
+    - prxversion
+    singular: proxysqlversion
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.version
+      name: Version
+      type: string
+    - jsonPath: .spec.proxysql.image
+      name: ProxySQL_IMAGE
+      type: string
+    - jsonPath: .spec.deprecated
+      name: Deprecated
+      type: boolean
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              deprecated:
+                type: boolean
+              exporter:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              podSecurityPolicies:
+                properties:
+                  databasePolicyName:
+                    type: string
+                required:
+                - databasePolicyName
+                type: object
+              proxysql:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              securityContext:
+                properties:
+                  runAsUser:
+                    format: int64
+                    type: integer
+                type: object
+              ui:
+                items:
+                  properties:
+                    disable:
+                      type: boolean
+                    name:
+                      type: string
+                    values:
+                      x-kubernetes-preserve-unknown-fields: true
+                    version:
+                      type: string
+                  required:
+                  - name
+                  type: object
+                type: array
+              updateConstraints:
+                properties:
+                  allowlist:
+                    items:
+                      type: string
+                    type: array
+                  denylist:
+                    items:
+                      type: string
+                    type: array
+                type: object
+              version:
+                type: string
+            required:
+            - podSecurityPolicies
+            - proxysql
+            - version
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources: {}
