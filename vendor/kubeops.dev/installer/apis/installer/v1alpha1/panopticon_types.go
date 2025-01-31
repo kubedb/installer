@@ -86,6 +86,9 @@ type PanopticonSpec struct {
 
 	// +optional
 	NetworkPolicy NetworkPolicy `json:"networkPolicy"`
+
+	//+optional
+	AceUserRoles AceUserRolesValues `json:"ace-user-roles"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

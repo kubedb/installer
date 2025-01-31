@@ -85,7 +85,8 @@ type KubeUiServerSpec struct {
 }
 
 type AceUserRolesValues struct {
-	Enabled bool `json:"enabled"`
+	Enabled            bool              `json:"enabled"`
+	EnableClusterRoles *UserClusterRoles `json:"enableClusterRoles,omitempty"`
 }
 
 type HelmRepositories struct {
