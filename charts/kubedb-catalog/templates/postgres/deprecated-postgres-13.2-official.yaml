@@ -27,7 +27,7 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "v0.12.0") $) }}'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.12.0_13.13-alpine'
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.35.0'
   db:
@@ -49,9 +49,14 @@ spec:
         name: postgres-backup-13.1
       restoreTask:
         name: postgres-restore-13.1
+  ui:
+  - name: pgadmin
+    version: v2024.4.27
+  - name: dbgate
+    version: v2024.4.27
   updateConstraints:
     allowlist:
-    - "13.5"
+    - '>= 13.2'
   version: "13.2"
   deprecated: {{ not (has "13.2" .Values.enableVersions.Postgres) }}
 {{ end }}
@@ -80,7 +85,7 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "v0.12.0") $) }}'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.12.0_13.13-bookworm'
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.35.0'
   db:
@@ -102,9 +107,14 @@ spec:
         name: postgres-backup-13.1
       restoreTask:
         name: postgres-restore-13.1
+  ui:
+  - name: pgadmin
+    version: v2024.4.27
+  - name: dbgate
+    version: v2024.4.27
   updateConstraints:
     allowlist:
-    - "13.5"
+    - '>= 13.2'
   version: "13.2"
   deprecated: {{ not (has "13.2-debian" .Values.enableVersions.Postgres) }}
 {{ end }}
