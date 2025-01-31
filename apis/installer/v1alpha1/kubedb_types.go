@@ -19,6 +19,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	kubeopsinstaller "kubeops.dev/installer/apis/installer/v1alpha1"
 )
 
 const (
@@ -76,6 +77,9 @@ type KubedbSpec struct {
 
 	//+optional
 	KubedbMetrics KubedbMetricsValues `json:"kubedb-metrics"`
+
+	//+optional
+	AceUserRoles AceUserRolesValues `json:"ace-user-roles"`
 }
 
 type PetsetValues struct {
@@ -132,6 +136,11 @@ type KubedbSchemaManagerValues struct {
 
 type KubedbMetricsValues struct {
 	Enabled bool `json:"enabled"`
+}
+
+type AceUserRolesValues struct {
+	Enabled            bool                               `json:"enabled"`
+	EnableClusterRoles *kubeopsinstaller.UserClusterRoles `json:"enableClusterRoles,omitempty"`
 }
 
 type GlobalValues struct {

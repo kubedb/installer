@@ -21,6 +21,7 @@ require (
 	kmodules.xyz/resource-metadata v0.24.2
 	kmodules.xyz/schema-checker v0.4.1
 	kubedb.dev/apimachinery v0.51.1-0.20250128115333-e5366d526068
+	kubeops.dev/installer v0.0.0-20250131085809-dbf8b46bec27
 	sigs.k8s.io/yaml v1.4.0
 	stash.appscode.dev/installer v0.12.2-0.20250108183814-50ebd27eef9c
 )
