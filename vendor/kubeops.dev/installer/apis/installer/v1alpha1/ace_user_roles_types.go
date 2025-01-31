@@ -58,6 +58,7 @@ type UserClusterRoles struct {
 	Kubedb             bool `json:"kubedb"`
 	KubedbUI           bool `json:"kubedb-ui"`
 	Kubestash          bool `json:"kubestash"`
+	Kubevault          bool `json:"kubevault"`
 	LicenseProxyserver bool `json:"license-proxyserver"`
 	Metrics            bool `json:"metrics"`
 	Prometheus         bool `json:"prometheus"`
