@@ -56,14 +56,12 @@ func (m MariaDBVersion) ValidateSpecs() error {
 	if m.Spec.Version == "" ||
 		m.Spec.DB.Image == "" ||
 		m.Spec.Exporter.Image == "" ||
-		m.Spec.Maxscale.Image == "" ||
 		m.Spec.InitContainer.Image == "" ||
 		m.Spec.Coordinator.Image == "" {
 		return fmt.Errorf(`atleast one of the following specs is not set for mariadbversion "%v":
 spec.version,
 spec.db.image,
 spec.exporter.image,
-spec.maxscale.image,
 spec.initContainer.image,
 spec.coordinator.image.`, m.Name)
 	}
