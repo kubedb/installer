@@ -1036,6 +1036,11 @@ func (in *ManifestOptions) DeepCopyInto(out *ManifestOptions) {
 		*out = new(apiv1.ObjectReference)
 		**out = **in
 	}
+	if in.InitScript != nil {
+		in, out := &in.InitScript, &out.InitScript
+		*out = new(bool)
+		**out = **in
+	}
 	return
 }
 
