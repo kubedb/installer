@@ -55,6 +55,7 @@ type MariaDBVersionSpec struct {
 	// Database Image
 	DB MariaDBVersionDatabase `json:"db"`
 	// Maxscale Image
+	// +optional
 	Maxscale MariaDBVersionMaxscale `json:"maxscale"`
 	// Exporter Image
 	Exporter MariaDBVersionExporter `json:"exporter"`

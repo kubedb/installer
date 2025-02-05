@@ -18,9 +18,9 @@ require (
 	kmodules.xyz/client-go v0.30.44
 	kmodules.xyz/go-containerregistry v0.0.12
 	kmodules.xyz/image-packer v0.0.0-20241213044824-5b4eb7f75cf4
-	kmodules.xyz/resource-metadata v0.24.2
+	kmodules.xyz/resource-metadata v0.24.3
 	kmodules.xyz/schema-checker v0.4.1
-	kubedb.dev/apimachinery v0.51.1-0.20250128115333-e5366d526068
+	kubedb.dev/apimachinery v0.51.1-0.20250205090719-b05f97094efd
 	kubeops.dev/installer v0.0.0-20250131122006-8354eb35b627
 	sigs.k8s.io/yaml v1.4.0
 	stash.appscode.dev/installer v0.12.2-0.20250108183814-50ebd27eef9c
@@ -98,7 +98,7 @@ require (
 	golang.org/x/sys v0.28.0 // indirect
 	golang.org/x/term v0.27.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
-	golang.org/x/time v0.5.0 // indirect
+	golang.org/x/time v0.6.0 // indirect
 	gomodules.xyz/encoding v0.0.8 // indirect
 	gomodules.xyz/jsonpatch/v2 v2.4.0 // indirect
 	gomodules.xyz/jsonpath v0.0.2 // indirect

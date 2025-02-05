@@ -252,4 +252,9 @@ type ManifestOptions struct {
 	// ArchiverRef specifies the new name and namespace of the Archiver yaml after restore
 	// +optional
 	ArchiverRef *kmapi.ObjectReference `json:"archiverRef,omitempty"`
+
+	// InitScript specifies whether to restore the InitScript or not
+	// +kubebuilder:default=false
+	// +optional
+	InitScript *bool `json:"initScript,omitempty"`
 }

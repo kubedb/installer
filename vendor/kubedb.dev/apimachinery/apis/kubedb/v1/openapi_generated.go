@@ -27202,6 +27202,13 @@ func schema_apimachinery_apis_kubedb_v1_ManifestOptions(ref common.ReferenceCall
 							Ref:         ref("kmodules.xyz/client-go/api/v1.ObjectReference"),
 						},
 					},
+					"initScript": {
+						SchemaProps: spec.SchemaProps{
+							Description: "InitScript specifies whether to restore the InitScript or not",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 				},
 			},
 		},
