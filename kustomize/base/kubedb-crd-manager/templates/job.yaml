@@ -1,0 +1,108 @@
+---
+# Source: kubedb/charts/kubedb-crd-manager/templates/job.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kubedb-kubedb-crd-manager
+  namespace: kubedb
+  labels:
+    helm.sh/chart: kubedb-crd-manager-v0.6.0
+    app.kubernetes.io/name: kubedb-crd-manager
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v0.6.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook-weight": "3"
+    "helm.sh/hook": pre-install,pre-upgrade,pre-rollback
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+spec:
+  backoffLimit: 3
+  ttlSecondsAfterFinished: 300
+  template:
+    metadata:
+    spec:
+      imagePullSecrets:
+        []
+      securityContext:
+        {}
+      serviceAccountName: kubedb-kubedb-crd-manager
+      initContainers:
+        - name: kubedb-crd-manager
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          image: "ghcr.io/kubedb/kubedb-crd-manager:v0.6.0"
+          imagePullPolicy: IfNotPresent
+          args:
+            - run
+            - --v=3
+            - --remove-unused-crds=false
+            - --feature-gates=Cassandra=false
+            - --feature-gates=ClickHouse=false
+            - --feature-gates=Druid=false
+            - --feature-gates=Elasticsearch=true
+            - --feature-gates=FerretDB=false
+            - --feature-gates=Kafka=true
+            - --feature-gates=MSSQLServer=false
+            - --feature-gates=MariaDB=true
+            - --feature-gates=Memcached=false
+            - --feature-gates=MongoDB=true
+            - --feature-gates=MySQL=true
+            - --feature-gates=PerconaXtraDB=false
+            - --feature-gates=PgBouncer=false
+            - --feature-gates=Pgpool=false
+            - --feature-gates=Postgres=true
+            - --feature-gates=ProxySQL=false
+            - --feature-gates=RabbitMQ=true
+            - --feature-gates=Redis=true
+            - --feature-gates=Singlestore=false
+            - --feature-gates=Solr=false
+            - --feature-gates=ZooKeeper=false
+          resources:
+            {}
+      containers:
+        - name: verifier
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          image: "ghcr.io/kubedb/kubedb-crd-manager:v0.6.0"
+          imagePullPolicy: IfNotPresent
+          args:
+            - verify
+            - --v=3
+            - --feature-gates=Cassandra=false
+            - --feature-gates=ClickHouse=false
+            - --feature-gates=Druid=false
+            - --feature-gates=Elasticsearch=true
+            - --feature-gates=FerretDB=false
+            - --feature-gates=Kafka=true
+            - --feature-gates=MSSQLServer=false
+            - --feature-gates=MariaDB=true
+            - --feature-gates=Memcached=false
+            - --feature-gates=MongoDB=true
+            - --feature-gates=MySQL=true
+            - --feature-gates=PerconaXtraDB=false
+            - --feature-gates=PgBouncer=false
+            - --feature-gates=Pgpool=false
+            - --feature-gates=Postgres=true
+            - --feature-gates=ProxySQL=false
+            - --feature-gates=RabbitMQ=true
+            - --feature-gates=Redis=true
+            - --feature-gates=Singlestore=false
+            - --feature-gates=Solr=false
+            - --feature-gates=ZooKeeper=false
+          resources:
+            {}
+      nodeSelector:
+        kubernetes.io/os: linux
+      restartPolicy: Never

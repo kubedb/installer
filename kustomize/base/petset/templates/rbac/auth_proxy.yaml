@@ -1,0 +1,33 @@
+---
+# Source: kubedb/charts/petset/templates/rbac/auth_proxy.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kubedb-petset-auth-proxy
+rules:
+  - apiGroups:
+      - authentication.k8s.io
+    resources:
+      - tokenreviews
+    verbs:
+      - create
+  - apiGroups:
+      - authorization.k8s.io
+    resources:
+      - subjectaccessreviews
+    verbs:
+      - create
+---
+# Source: kubedb/charts/petset/templates/rbac/auth_proxy.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubedb-petset-auth-proxy
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kubedb-petset-auth-proxy
+subjects:
+  - kind: ServiceAccount
+    name: kubedb-petset
+    namespace: kubedb

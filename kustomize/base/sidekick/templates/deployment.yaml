@@ -1,0 +1,64 @@
+---
+# Source: kubedb/charts/sidekick/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubedb-sidekick
+  namespace: kubedb
+  labels:
+    helm.sh/chart: sidekick-v2024.11.8
+    app.kubernetes.io/name: sidekick
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v0.0.10"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sidekick
+      app.kubernetes.io/instance: kubedb
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: sidekick
+        app.kubernetes.io/instance: kubedb
+    spec:
+      
+      serviceAccountName: kubedb-sidekick
+      securityContext:
+        {}
+      containers:
+        - name: sidekick
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 65534
+            seccompProfile:
+              type: RuntimeDefault
+          image: ghcr.io/appscode/sidekick:v0.0.10
+          imagePullPolicy: Always
+          args:
+            - run
+          ports:
+            - name: metrics
+              containerPort: 8080
+              protocol: TCP
+            - name: http
+              containerPort: 8081
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+          resources:
+            {}
+      nodeSelector:
+        kubernetes.io/os: linux

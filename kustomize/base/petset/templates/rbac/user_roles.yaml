@@ -1,0 +1,54 @@
+---
+# Source: kubedb/charts/petset/templates/rbac/user_roles.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: appscode:petset:admin
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-admin: "true"
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation
+rules:
+- apiGroups:
+  - apps.k8s.appscode.com
+  resources:
+  - petsets
+  - placementpolicies
+  verbs: ["*"]
+---
+# Source: kubedb/charts/petset/templates/rbac/user_roles.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: appscode:petset:edit
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-edit: "true"
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation
+rules:
+- apiGroups:
+  - apps.k8s.appscode.com
+  resources:
+  - petsets
+  - placementpolicies
+  verbs: ["create", "delete", "deletecollection", "patch", "update"]
+---
+# Source: kubedb/charts/petset/templates/rbac/user_roles.yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: appscode:petset:view
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-view: "true"
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation
+rules:
+- apiGroups:
+  - apps.k8s.appscode.com
+  resources:
+  - petsets
+  - placementpolicies
+  verbs: ["get", "list", "watch"]

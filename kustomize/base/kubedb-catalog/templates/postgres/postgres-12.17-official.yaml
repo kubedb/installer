@@ -1,0 +1,118 @@
+---
+# Source: kubedb/charts/kubedb-catalog/templates/postgres/postgres-12.17-official.yaml
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: '12.17'
+  labels:
+    helm.sh/chart: kubedb-catalog-v2025.1.9
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v2025.1.9"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        fullBackup:
+          name: physical-backup
+        fullBackupRestore:
+          name: physical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: 'ghcr.io/kubedb/postgres-archiver:v0.12.0_12.17-alpine'
+  coordinator:
+    image: 'ghcr.io/kubedb/pg-coordinator:v0.35.0'
+  db:
+    baseOS: alpine
+    image: 'ghcr.io/appscode-images/postgres:12.17-alpine'
+  distribution: Official
+  exporter:
+    image: 'prometheuscommunity/postgres-exporter:v0.15.0'
+  initContainer:
+    image: 'ghcr.io/kubedb/postgres-init:0.17.0'
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: false
+    runAsUser: 70
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-12.4
+      restoreTask:
+        name: postgres-restore-12.4
+  ui:
+  - name: pgadmin
+    version: v2024.4.27
+  - name: dbgate
+    version: v2024.4.27
+  updateConstraints:
+    allowlist:
+    - '>= 12.17'
+  version: "12.17"
+---
+# Source: kubedb/charts/kubedb-catalog/templates/postgres/postgres-12.17-official.yaml
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: '12.17-bookworm'
+  labels:
+    helm.sh/chart: kubedb-catalog-v2025.1.9
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v2025.1.9"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        fullBackup:
+          name: physical-backup
+        fullBackupRestore:
+          name: physical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: 'ghcr.io/kubedb/postgres-archiver:v0.12.0_12.17-bookworm'
+  coordinator:
+    image: 'ghcr.io/kubedb/pg-coordinator:v0.35.0'
+  db:
+    baseOS: bookworm
+    image: 'ghcr.io/appscode-images/postgres:12.17-bookworm'
+  distribution: Official
+  exporter:
+    image: 'prometheuscommunity/postgres-exporter:v0.15.0'
+  initContainer:
+    image: 'ghcr.io/kubedb/postgres-init:0.17.0'
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-12.4
+      restoreTask:
+        name: postgres-restore-12.4
+  ui:
+  - name: pgadmin
+    version: v2024.4.27
+  - name: dbgate
+    version: v2024.4.27
+  updateConstraints:
+    allowlist:
+    - '>= 12.17'
+  version: "12.17"

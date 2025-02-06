@@ -1,0 +1,25 @@
+---
+# Source: kubedb/charts/sidekick/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubedb-sidekick
+  namespace: kubedb
+  labels:
+    helm.sh/chart: sidekick-v2024.11.8
+    app.kubernetes.io/name: sidekick
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v0.0.10"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  ports:
+  # Port used to expose admission webhook apiserver
+  - name: api
+    port: 80
+    targetPort: 8081
+  - name: metrics
+    port: 8080
+    targetPort: 8080
+  selector:
+    app.kubernetes.io/name: sidekick
+    app.kubernetes.io/instance: kubedb

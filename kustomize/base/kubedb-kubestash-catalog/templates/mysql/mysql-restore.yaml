@@ -1,0 +1,28 @@
+---
+# Source: kubedb/charts/kubedb-kubestash-catalog/templates/mysql/mysql-restore.yaml
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'mysql-restore'
+  labels:
+    helm.sh/chart: kubedb-kubestash-catalog-v2025.1.9
+    app.kubernetes.io/name: kubedb-kubestash-catalog
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v2025.1.9"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  args:
+  - restore
+  - --namespace=${namespace:=default}
+  - --restoresession=${restoreSession:=}
+  - --snapshot=${snapshot:=}
+  - --enable-cache=${enableCache:=}
+  - --scratch-dir=${scratchDir:=}
+  - --wait-timeout=${waitTimeout:=300}
+  - --mysql-args=${args:=}
+  - --db-version=${dbVersion:=}
+  availableVersions:
+  - 5.7.25
+  - 8.0.3
+  - 8.0.21
+  image: 'ghcr.io/kubedb/mysql-restic-plugin:v0.14.0_${DB_VERSION}'

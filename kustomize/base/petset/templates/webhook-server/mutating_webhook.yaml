@@ -1,0 +1,34 @@
+---
+# Source: kubedb/charts/petset/templates/webhook-server/mutating_webhook.yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: kubedb-petset
+  labels:
+    helm.sh/chart: petset-v2024.9.30
+    app.kubernetes.io/name: petset
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v0.0.7"
+    app.kubernetes.io/managed-by: Helm
+webhooks:
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: kubedb-petset-webhook
+        namespace: kubedb
+        path: /mutate-apps-k8s-appscode-com-v1-petset
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURCVENDQWUyZ0F3SUJBZ0lRR3dQMVl4c1l0S3IrbXd6NGV3N20vekFOQmdrcWhraUc5dzBCQVFzRkFEQU4KTVFzd0NRWURWUVFERXdKallUQWVGdzB5TlRBeU1EUXhNVEF3TXpaYUZ3MHpOVEF5TURJeE1UQXdNelphTUEweApDekFKQmdOVkJBTVRBbU5oTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUE2MWY2ClZvK2g4ZFByczBqcnhDSEFyekVraGpwUi9UZEc3L2oxMHYxdXRWNGNhSU9aRGZyUk5uY1haUWVNZlYvcnQ0YjAKT0hhanpVL0pmSHlDTnhGQjBxTFdPTXBEeW1aWkdocjlnemhCWDU2TkZwR0Z6V3dTRzlqTWpNUWJXUnJYSWljNQpDODdpUzc2N0xlbEUzZnp3SytUYUNVWWpWdXRMdjI1ZE4xYUE0NTlZNXdVRFV5T0krMmNUd25MM1cwek85YUUxCjFhYzZXcGlLUXV3ZHl5aUJEaEk5Qmx4TCt6QkJKZHBObHd1c0Y1WmM0aHVpOWpJNmRwYTZ3c3RwS2lQdEE3disKNTdzMjZJQ2ZvV05RUFNWRy9hd1pZQWxDNWZ3QlpMNlA3WnE3Q2luZkE4ZW15ZGYrZENGSVJ2aDJhYmw5RlhuTgpObzdOYXdDV1dha0FvZmw5YVFJREFRQUJvMkV3WHpBT0JnTlZIUThCQWY4RUJBTUNBcVF3SFFZRFZSMGxCQll3CkZBWUlLd1lCQlFVSEF3RUdDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdIUVlEVlIwT0JCWUUKRkxzLzRsbm9OMmFRQ3Z3ekI3Slo5SG1NOVZQN01BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRRGloZXhnNzdNNwpvL0R2aWVyWkpkdDZsWVVaMUROM255MStQcGRZNGV3STJLRUFkOVU5dHdDMnU1c3RHTndzSUxIMHZ6ejRBa09wClovSGtQVzdJV2FFN1FLMDZqYnJ5Wmk1ci9yTG93U0I1b21JYWl1MGt2MXdmQktmMFByRmdNWVVTbk11U01iV2QKbXdEWnNzQ1dKUFFFVTVWMmlId2dNeUxXa3NZcFl0cW5xdlhvZ1cvNWdPeGZ3OXVqSGM4VXhHdHQrUUk1d052TApFVEpFQ0RVLzdNR3hLbmo1Ri9qR2xxWDFSdE1tN0puaGFtbCtkM1hZcjJFckF1NkxaaUMyajRNVmV3Z0RaTTNWCmQ2azBLeTZxVXNvZzNUeUgzcGxXWnE1b2JtNjRKaTAzaXk2L1g2a2NoNWRhbklEb08vYnk4OW5MQkVxazk0OUoKcGtxa2YxQXhYL3ZZCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    failurePolicy: Fail
+    name: petsets.apps.k8s.appscode.com
+    rules:
+      - apiGroups:
+          - apps.k8s.appscode.com
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - petsets
+    sideEffects: None

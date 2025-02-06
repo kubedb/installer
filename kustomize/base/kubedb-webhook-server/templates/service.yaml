@@ -1,0 +1,25 @@
+---
+# Source: kubedb/charts/kubedb-webhook-server/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubedb-kubedb-webhook-server
+  namespace: kubedb
+  labels:
+    helm.sh/chart: kubedb-webhook-server-v0.27.0
+    app.kubernetes.io/name: kubedb-webhook-server
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v0.27.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  publishNotReadyAddresses: true
+  ports:
+  - name: api
+    port: 443
+    targetPort: https
+  - name: crd
+    port: 9443
+    targetPort: crd
+  selector:
+    app.kubernetes.io/name: kubedb-webhook-server
+    app.kubernetes.io/instance: kubedb

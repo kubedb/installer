@@ -1,0 +1,23 @@
+---
+# Source: kubedb/charts/kubedb-kubestash-catalog/templates/redis/redis-restore.yaml
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'redis-restore'
+  labels:
+    helm.sh/chart: kubedb-kubestash-catalog-v2025.1.9
+    app.kubernetes.io/name: kubedb-kubestash-catalog
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v2025.1.9"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  args:
+  - restore
+  - --namespace=${namespace:=default}
+  - --restoresession=${restoreSession:=}
+  - --snapshot=${snapshot:=}
+  - --enable-cache=${enableCache:=}
+  - --scratch-dir=${scratchDir:=}
+  - --wait-timeout=${waitTimeout:=300}
+  - --redis-args=${args:=}
+  image: 'ghcr.io/kubedb/redis-restic-plugin:v0.14.0'

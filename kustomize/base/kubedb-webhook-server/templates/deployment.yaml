@@ -1,0 +1,88 @@
+---
+# Source: kubedb/charts/kubedb-webhook-server/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubedb-kubedb-webhook-server
+  namespace: kubedb
+  labels:
+    helm.sh/chart: kubedb-webhook-server-v0.27.0
+    app.kubernetes.io/name: kubedb-webhook-server
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v0.27.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kubedb-webhook-server
+      app.kubernetes.io/instance: kubedb
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kubedb-webhook-server
+        app.kubernetes.io/instance: kubedb
+      annotations:
+        reload: ZZlTYgsA
+    spec:
+      readinessGates:
+      - conditionType: "kubedb.com/conversion"
+      imagePullSecrets:
+        []
+      serviceAccountName: kubedb-kubedb-webhook-server
+      containers:
+      - name: operator
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 65534
+          seccompProfile:
+            type: RuntimeDefault
+        image: ghcr.io/kubedb/kubedb-webhook-server:v0.27.0
+        imagePullPolicy: IfNotPresent
+        args:
+        - run
+        - --v=3
+        - --secure-port=8443
+        - --audit-log-path=-
+        - --tls-cert-file=/var/serving-cert/tls.crt
+        - --tls-private-key-file=/var/serving-cert/tls.key
+        - --enable-mutating-webhook=true
+        - --enable-validating-webhook=true
+        - --use-kubeapiserver-fqdn-for-aks=true
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        ports:
+        - name: https
+          containerPort: 8443
+        - name: crd
+          containerPort: 9443
+        volumeMounts:
+        - mountPath: /tmp
+          name: tmpdir
+        - mountPath: /var/serving-cert
+          name: serving-cert
+        resources:
+          {}
+      volumes:
+      - name: tmpdir
+        emptyDir: {}
+      - name: serving-cert
+        secret:
+          defaultMode: 420
+          secretName: kubedb-kubedb-webhook-server-apiserver-cert
+      securityContext:
+        {}
+      nodeSelector:
+        kubernetes.io/os: linux

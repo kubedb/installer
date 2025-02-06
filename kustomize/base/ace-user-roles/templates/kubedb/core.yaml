@@ -1,0 +1,62 @@
+---
+# Source: kubedb/charts/ace-user-roles/templates/kubedb/core.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kubedb:core:admin
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-admin: "true"
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation
+rules:
+- apiGroups:
+  - kubedb.com
+  - archiver.kubedb.com
+  - catalog.kubedb.com
+  - elasticsearch.kubedb.com
+  - kafka.kubedb.com
+  resources:
+  - "*"
+  verbs: ["*"]
+---
+# Source: kubedb/charts/ace-user-roles/templates/kubedb/core.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kubedb:core:edit
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-edit: "true"
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation
+rules:
+- apiGroups:
+  - kubedb.com
+  - archiver.kubedb.com
+  - elasticsearch.kubedb.com
+  - kafka.kubedb.com
+  resources:
+  - "*"
+  verbs: ["create", "delete", "deletecollection", "patch", "update"]
+---
+# Source: kubedb/charts/ace-user-roles/templates/kubedb/core.yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: kubedb:core:view
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-view: "true"
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation
+rules:
+- apiGroups:
+  - kubedb.com
+  - archiver.kubedb.com
+  - catalog.kubedb.com
+  - elasticsearch.kubedb.com
+  - kafka.kubedb.com
+  resources:
+  - "*"
+  verbs: ["get", "list", "watch"]

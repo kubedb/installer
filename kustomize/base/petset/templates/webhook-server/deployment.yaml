@@ -1,0 +1,102 @@
+---
+# Source: kubedb/charts/petset/templates/webhook-server/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubedb-petset-webhook-server
+  namespace: kubedb
+  labels:
+    app.kubernetes.io/component: webhook-server
+    helm.sh/chart: petset-v2024.9.30
+    app.kubernetes.io/name: petset
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v0.0.7"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: webhook-server
+      app.kubernetes.io/name: petset
+      app.kubernetes.io/instance: kubedb
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: webhook-server
+        app.kubernetes.io/name: petset
+        app.kubernetes.io/instance: kubedb
+      annotations:
+        checksum/apiregistration.yaml: ac8701e62f23140a0ab0b91e7866e1925c89d90dcc1380c1aab4af1c9b146425
+    spec:
+      
+      serviceAccountName: kubedb-petset
+      containers:
+      - name: webhook-server
+        image: "ghcr.io/appscode/petset:v0.0.7"
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 65534
+          seccompProfile:
+            type: RuntimeDefault
+        args:
+          - webhook
+          - --webhook-name=kubedb-petset
+        ports:
+        - name: webhook-server
+          containerPort: 9443
+          protocol: TCP
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        resources:
+          requests:
+            cpu: 100m
+        volumeMounts:
+        - name: serving-cert
+          mountPath: /var/serving-cert
+          readOnly: true
+      - name: kube-rbac-proxy
+        image: "ghcr.io/appscode/kube-rbac-proxy:v0.15.0"
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 65534
+          seccompProfile:
+            type: RuntimeDefault
+        args:
+        - --secure-listen-address=0.0.0.0:8443
+        - --upstream=http://127.0.0.1:8080/
+        - --logtostderr=true
+        - --v=10
+        ports:
+        - containerPort: 8443
+          name: https
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 100m
+      volumes:
+      - name: serving-cert
+        secret:
+          defaultMode: 420
+          secretName: kubedb-petset-webhook-cert
+      securityContext:
+        fsGroup: 65535
+      nodeSelector:
+        kubernetes.io/os: linux

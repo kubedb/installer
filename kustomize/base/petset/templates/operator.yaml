@@ -1,0 +1,54 @@
+---
+# Source: kubedb/charts/petset/templates/operator.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubedb-petset-operator
+  namespace: kubedb
+  labels:
+    app.kubernetes.io/component: operator
+    helm.sh/chart: petset-v2024.9.30
+    app.kubernetes.io/name: petset
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v0.0.7"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: operator
+      app.kubernetes.io/name: petset
+      app.kubernetes.io/instance: kubedb
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: operator
+        app.kubernetes.io/name: petset
+        app.kubernetes.io/instance: kubedb
+      annotations:
+    spec:
+      
+      serviceAccountName: kubedb-petset
+      containers:
+      - name: operator
+        image: "ghcr.io/appscode/petset:v0.0.7"
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 65534
+          seccompProfile:
+            type: RuntimeDefault
+        args:
+          - operator
+        resources:
+          requests:
+            cpu: 100m
+      securityContext:
+        fsGroup: 65535
+      nodeSelector:
+        kubernetes.io/os: linux

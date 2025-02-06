@@ -1,0 +1,29 @@
+---
+# Source: kubedb/charts/kubedb-webhook-server/templates/dashboard/validating-webhook.yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: validators.elasticsearch.kubedb.com
+  labels:
+    app.kubernetes.io/component: kubedb-dashboard
+    helm.sh/chart: kubedb-webhook-server-v0.27.0
+    app.kubernetes.io/name: kubedb-webhook-server
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v0.27.0"
+    app.kubernetes.io/managed-by: Helm
+webhooks:
+- name: elasticsearchdashboardwebhook.validators.elasticsearch.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.elasticsearch.kubedb.com/v1alpha1/elasticsearchdashboardwebhooks
+    caBundle: dW5rbm93bg==
+  rules:
+  - apiGroups: ["elasticsearch.kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["elasticsearchdashboards"]
+    operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Ignore
+  sideEffects: None

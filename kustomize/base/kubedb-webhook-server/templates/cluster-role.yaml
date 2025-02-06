@@ -1,0 +1,94 @@
+---
+# Source: kubedb/charts/kubedb-webhook-server/templates/cluster-role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kubedb-kubedb-webhook-server
+  labels:
+    helm.sh/chart: kubedb-webhook-server-v0.27.0
+    app.kubernetes.io/name: kubedb-webhook-server
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v0.27.0"
+    app.kubernetes.io/managed-by: Helm
+rules:
+- apiGroups:
+  - kubedb.com
+  resources:
+  - "*"
+  verbs: ["create", "delete"]
+- apiGroups:
+  - admissionregistration.k8s.io
+  resources:
+  - mutatingwebhookconfigurations
+  - validatingwebhookconfigurations
+  verbs: ["get", "list", "watch", "patch"]
+- apiGroups:
+  - apiregistration.k8s.io
+  resources:
+    - apiservices
+  verbs: ["list", "get", "watch"]
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  - replicasets
+  verbs: ["get", "list", "watch"]
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - storageclasses
+  verbs: ["get"]
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs: ["create"]
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs: [ "get", "list", "watch"]
+- apiGroups:
+  - ""
+  resources:
+  - pods/status
+  verbs: ["get", "update"]
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  - namespaces
+  verbs: ["get", "list", "watch"]
+- apiGroups:
+    - ""
+  resources:
+    - secrets
+  verbs: ["get"]
+- apiGroups:
+  - kubedb.com
+  - catalog.kubedb.com
+  - ops.kubedb.com
+  - postgres.kubedb.com
+  - autoscaling.kubedb.com
+  - elasticsearch.kubedb.com
+  - schema.kubedb.com
+  - archiver.kubedb.com
+  - kafka.kubedb.com
+  resources:
+  - "*"
+  verbs: ["get", "list", "watch"]
+- apiGroups:
+  - appcatalog.appscode.com
+  resources:
+  - "*"
+  verbs: ["*"]
+- apiGroups:
+  - cert-manager.io
+  resources:
+  - "*"
+  verbs: ["get", "list", "watch"]
+- apiGroups:
+    - apiextensions.k8s.io
+  resources:
+    - "customresourcedefinitions"
+  verbs: ["get", "list", "watch", "update"]

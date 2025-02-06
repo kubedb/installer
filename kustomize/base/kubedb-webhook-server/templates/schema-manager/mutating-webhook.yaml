@@ -1,0 +1,44 @@
+---
+# Source: kubedb/charts/kubedb-webhook-server/templates/schema-manager/mutating-webhook.yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: mutators.schema.kubedb.com
+  labels:
+    app.kubernetes.io/component: kubedb-schema-manager
+    helm.sh/chart: kubedb-webhook-server-v0.27.0
+    app.kubernetes.io/name: kubedb-webhook-server
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v0.27.0"
+    app.kubernetes.io/managed-by: Helm
+webhooks:
+- name: mysqldatabasewebhook.mutators.schema.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/mutators.schema.kubedb.com/v1alpha1/mysqldatabasewebhooks
+    caBundle: dW5rbm93bg==
+  rules:
+  - apiGroups: ["schema.kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["mysqldatabases"]
+    operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Ignore
+  sideEffects: None
+- name: mongodbdatabasewebhook.mutators.schema.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/mutators.schema.kubedb.com/v1alpha1/mongodbdatabasewebhooks
+    caBundle: dW5rbm93bg==
+  rules:
+  - apiGroups: ["schema.kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["mongodbdatabases"]
+    operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Ignore
+  sideEffects: None

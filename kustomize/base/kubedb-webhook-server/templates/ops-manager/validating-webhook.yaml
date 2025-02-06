@@ -1,0 +1,164 @@
+---
+# Source: kubedb/charts/kubedb-webhook-server/templates/ops-manager/validating-webhook.yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: validators.ops.kubedb.com
+  labels:
+    app.kubernetes.io/component: kubedb-ops-manager
+    helm.sh/chart: kubedb-webhook-server-v0.27.0
+    app.kubernetes.io/name: kubedb-webhook-server
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v0.27.0"
+    app.kubernetes.io/managed-by: Helm
+webhooks:
+- name: elasticsearchopsrequestwebhook.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.ops.kubedb.com/v1alpha1/elasticsearchopsrequestwebhooks
+    caBundle: dW5rbm93bg==
+  rules:
+    - apiGroups: ["ops.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["elasticsearchopsrequests"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Ignore
+  sideEffects: None
+- name: kafkaopsrequestwebhook.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.ops.kubedb.com/v1alpha1/kafkaopsrequestwebhooks
+    caBundle: dW5rbm93bg==
+  rules:
+    - apiGroups: ["ops.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["kafkaopsrequests"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Fail
+  sideEffects: None
+- name: mariadbopsrequestwebhook.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.ops.kubedb.com/v1alpha1/mariadbopsrequestwebhooks
+    caBundle: dW5rbm93bg==
+  rules:
+  - apiGroups: ["ops.kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["mariadbopsrequests"]
+    operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Ignore
+  sideEffects: None
+- name: mongodbopsrequestwebhook.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.ops.kubedb.com/v1alpha1/mongodbopsrequestwebhooks
+    caBundle: dW5rbm93bg==
+  rules:
+  - apiGroups: ["ops.kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["mongodbopsrequests"]
+    operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Ignore
+  sideEffects: None
+- name: mysqlopsrequestwebhook.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.ops.kubedb.com/v1alpha1/mysqlopsrequestwebhooks
+    caBundle: dW5rbm93bg==
+  rules:
+  - apiGroups: ["ops.kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["mysqlopsrequests"]
+    operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Ignore
+  sideEffects: None
+- name: publisherwebhook.validators.postgres.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.postgres.kubedb.com/v1alpha1/publisherwebhooks
+    caBundle: dW5rbm93bg==
+  rules:
+    - apiGroups: ["postgres.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["publishers"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Ignore
+  sideEffects: None
+- name: subscriberwebhook.validators.postgres.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.postgres.kubedb.com/v1alpha1/subscriberwebhooks
+    caBundle: dW5rbm93bg==
+  rules:
+    - apiGroups: ["postgres.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["subscribers"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Ignore
+  sideEffects: None
+- name: rabbitmqopsrequestwebhook.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.ops.kubedb.com/v1alpha1/rabbitmqopsrequestwebhooks
+    caBundle: dW5rbm93bg==
+  rules:
+    - apiGroups: ["ops.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["rabbitmqopsrequests"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Ignore
+  sideEffects: None
+- name: redisopsrequestwebhook.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.ops.kubedb.com/v1alpha1/redisopsrequestwebhooks
+    caBundle: dW5rbm93bg==
+  rules:
+  - apiGroups: ["ops.kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["redisopsrequests"]
+    operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Ignore
+  sideEffects: None
+- name: redissentinelopsrequestwebhook.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/validators.ops.kubedb.com/v1alpha1/redissentinelopsrequestwebhooks
+    caBundle: dW5rbm93bg==
+  rules:
+  - apiGroups: ["ops.kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["redissentinelopsrequests"]
+    operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Ignore
+  sideEffects: None

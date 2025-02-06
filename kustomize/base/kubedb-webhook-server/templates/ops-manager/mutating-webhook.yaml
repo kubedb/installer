@@ -1,0 +1,29 @@
+---
+# Source: kubedb/charts/kubedb-webhook-server/templates/ops-manager/mutating-webhook.yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: mutators.ops.kubedb.com
+  labels:
+    app.kubernetes.io/component: kubedb-ops-manager
+    helm.sh/chart: kubedb-webhook-server-v0.27.0
+    app.kubernetes.io/name: kubedb-webhook-server
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v0.27.0"
+    app.kubernetes.io/managed-by: Helm
+webhooks:
+- name: mysqlopsrequestwebhook.mutators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: default
+      name: kubernetes
+      path: /apis/mutators.ops.kubedb.com/v1alpha1/mysqlopsrequestwebhooks
+    caBundle: dW5rbm93bg==
+  rules:
+  - apiGroups: ["ops.kubedb.com"]
+    apiVersions: ["*"]
+    resources: ["mysqlopsrequests"]
+    operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: Ignore
+  sideEffects: None

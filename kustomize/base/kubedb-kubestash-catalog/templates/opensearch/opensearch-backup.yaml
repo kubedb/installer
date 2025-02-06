@@ -1,0 +1,23 @@
+---
+# Source: kubedb/charts/kubedb-kubestash-catalog/templates/opensearch/opensearch-backup.yaml
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'opensearch-backup'
+  labels:
+    helm.sh/chart: kubedb-kubestash-catalog-v2025.1.9
+    app.kubernetes.io/name: kubedb-kubestash-catalog
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v2025.1.9"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  args:
+  - backup
+  - --namespace=${namespace:=default}
+  - --backupsession=${backupSession:=}
+  - --enable-cache=${enableCache:=}
+  - --scratch-dir=${scratchDir:=}
+  - --wait-timeout=${waitTimeout:=300}
+  - --es-args=${args:=}
+  - --interim-data-dir=${interimDataDir:=}
+  image: 'ghcr.io/kubedb/elasticsearch-restic-plugin:v0.14.0'

@@ -1,0 +1,43 @@
+---
+# Source: kubedb/charts/kubedb-webhook-server/templates/webhook-eas-rbac.yaml
+# to delegate authentication and authorization
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubedb-kubedb-webhook-server-apiserver-auth-delegator
+  labels:
+    helm.sh/chart: kubedb-webhook-server-v0.27.0
+    app.kubernetes.io/name: kubedb-webhook-server
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v0.27.0"
+    app.kubernetes.io/managed-by: Helm
+roleRef:
+  kind: ClusterRole
+  apiGroup: rbac.authorization.k8s.io
+  name: system:auth-delegator
+subjects:
+- kind: ServiceAccount
+  name: kubedb-kubedb-webhook-server
+  namespace: kubedb
+---
+# Source: kubedb/charts/kubedb-webhook-server/templates/webhook-eas-rbac.yaml
+# to read the config for terminating authentication
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: kubedb-kubedb-webhook-server-apiserver-extension-server-authentication-reader
+  namespace: kube-system
+  labels:
+    helm.sh/chart: kubedb-webhook-server-v0.27.0
+    app.kubernetes.io/name: kubedb-webhook-server
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v0.27.0"
+    app.kubernetes.io/managed-by: Helm
+roleRef:
+  kind: Role
+  apiGroup: rbac.authorization.k8s.io
+  name: extension-apiserver-authentication-reader
+subjects:
+- kind: ServiceAccount
+  name: kubedb-kubedb-webhook-server
+  namespace: kubedb

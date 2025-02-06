@@ -1,0 +1,24 @@
+---
+# Source: kubedb/charts/kubedb-crd-manager/templates/cluster-role-binding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubedb-kubedb-crd-manager
+  labels:
+    helm.sh/chart: kubedb-crd-manager-v0.6.0
+    app.kubernetes.io/name: kubedb-crd-manager
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v0.6.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook-weight": "2"
+    "helm.sh/hook": pre-install,pre-upgrade,pre-rollback
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kubedb-kubedb-crd-manager
+subjects:
+- kind: ServiceAccount
+  name: kubedb-kubedb-crd-manager
+  namespace: kubedb

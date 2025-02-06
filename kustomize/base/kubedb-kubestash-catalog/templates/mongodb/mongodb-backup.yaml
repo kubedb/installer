@@ -1,0 +1,32 @@
+---
+# Source: kubedb/charts/kubedb-kubestash-catalog/templates/mongodb/mongodb-backup.yaml
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'mongodb-backup'
+  labels:
+    helm.sh/chart: kubedb-kubestash-catalog-v2025.1.9
+    app.kubernetes.io/name: kubedb-kubestash-catalog
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v2025.1.9"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  args:
+  - backup
+  - --namespace=${namespace:=default}
+  - --backupsession=${backupSession:=}
+  - --enable-cache=${enableCache:=}
+  - --scratch-dir=${scratchDir:=}
+  - --wait-timeout=${waitTimeout:=300}
+  - --mongo-args=${args:=}
+  - --max-concurrency=${maxConcurrency:=3}
+  - --authentication-database=${authenticationDatabase:=admin}
+  - --db-version=${dbVersion:=}
+  availableVersions:
+  - 4.2.3
+  - 4.4.6
+  - 5.0.3
+  - 5.0.15
+  - 6.0.5
+  - 8.0.3
+  image: 'ghcr.io/kubedb/mongodb-restic-plugin:v0.14.0_${DB_VERSION}'

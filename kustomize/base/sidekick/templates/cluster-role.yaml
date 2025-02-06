@@ -1,0 +1,28 @@
+---
+# Source: kubedb/charts/sidekick/templates/cluster-role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kubedb-sidekick
+  labels:
+    helm.sh/chart: sidekick-v2024.11.8
+    app.kubernetes.io/name: sidekick
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v0.0.10"
+    app.kubernetes.io/managed-by: Helm
+rules:
+- apiGroups:
+    - apps.k8s.appscode.com
+  resources: ["*"]
+  verbs: ["*"]
+- apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - customresourcedefinitions
+  verbs: ["*"]
+- apiGroups: [""]
+  resources: ["nodes"]
+  verbs: ["list","watch"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["*"]

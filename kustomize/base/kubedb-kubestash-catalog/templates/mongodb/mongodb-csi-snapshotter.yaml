@@ -1,0 +1,19 @@
+---
+# Source: kubedb/charts/kubedb-kubestash-catalog/templates/mongodb/mongodb-csi-snapshotter.yaml
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'mongodb-csi-snapshotter'
+  labels:
+    helm.sh/chart: kubedb-kubestash-catalog-v2025.1.9
+    app.kubernetes.io/name: kubedb-kubestash-catalog
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/version: "v2025.1.9"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  args:
+  - backup
+  - --namespace=${namespace:=default}
+  - --volume-snapshot-class-name=${volumeSnapshotClassName:=}
+  - --backupsession=${backupSession:=}
+  image: 'ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.12.0'
