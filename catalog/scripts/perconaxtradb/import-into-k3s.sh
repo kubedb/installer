@@ -24,7 +24,7 @@ fi
 TARBALL=${1:-}
 tar -zxvf $TARBALL
 
-k3s ctr images import images/kubedb-percona-xtradb-coordinator-v0.24.0.tar
+k3s ctr images import images/kubedb-percona-xtradb-coordinator-v0.25.0-rc.0.tar
 k3s ctr images import images/kubedb-percona-xtradb-init-0.2.2.tar
 k3s ctr images import images/percona-percona-xtradb-cluster-8.0.26.tar
 k3s ctr images import images/percona-percona-xtradb-cluster-8.0.28.tar
