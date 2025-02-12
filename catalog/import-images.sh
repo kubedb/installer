@@ -236,8 +236,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-kube-rba
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-kubectl-nonroot-1.31.tar $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.31
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.0.7.tar $IMAGE_REGISTRY/appscode/petset:v0.0.7
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.10.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.10
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-4.1.6.tar $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-5.0.0.tar $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-4.1.6-v1.tar $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-5.0.0-v1.tar $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-clickhouse-init-24.4.1.tar $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.10.0-rc.0.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.10.0-rc.0
@@ -314,7 +314,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-a
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.13.0-rc.0_17.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.13.0-rc.0_17.2-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.13.0-rc.0_17.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.13.0-rc.0_17.2-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-csi-snapshotter-plugin-v0.13.0-rc.0.tar $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.13.0-rc.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-init-0.17.0.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.17.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-init-0.17.1.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.17.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.15.0-rc.0_16.1.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.15.0-rc.0_16.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-aws-v0.14.0-rc.0.tar $IMAGE_REGISTRY/kubedb/provider-aws:v0.14.0-rc.0

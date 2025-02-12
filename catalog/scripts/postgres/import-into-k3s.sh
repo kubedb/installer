@@ -71,7 +71,6 @@ k3s ctr images import images/kubedb-postgres-archiver-v0.13.0-rc.0_16.1-alpine.t
 k3s ctr images import images/kubedb-postgres-archiver-v0.13.0-rc.0_16.1-bookworm.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.13.0-rc.0_17.2-alpine.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.13.0-rc.0_17.2-bookworm.tar
-k3s ctr images import images/kubedb-postgres-init-0.17.0.tar
 k3s ctr images import images/kubedb-postgres-init-0.17.1.tar
 k3s ctr images import images/postgis-postgis-11-3.3.tar
 k3s ctr images import images/postgis-postgis-12-3.4.tar
