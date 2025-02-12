@@ -29,5 +29,5 @@ CMD="./crane"
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-exporter-2.3.8.tar $IMAGE_REGISTRY/appscode-images/cassandra-exporter:2.3.8
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-4.1.6.tar $IMAGE_REGISTRY/appscode-images/cassandra:4.1.6
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-5.0.0.tar $IMAGE_REGISTRY/appscode-images/cassandra:5.0.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-4.1.6.tar $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-5.0.0.tar $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-4.1.6-v1.tar $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-5.0.0-v1.tar $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v1
