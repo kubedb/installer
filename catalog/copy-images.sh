@@ -245,8 +245,8 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kube-rbac
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.31 $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.31
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.7 $IMAGE_REGISTRY/appscode/petset:v0.0.7
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.10 $IMAGE_REGISTRY/appscode/sidekick:v0.0.10
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6 $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0 $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6-v1 $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0-v1 $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1 $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.10.0-rc.0 $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.10.0-rc.0
@@ -323,7 +323,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-ar
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.13.0-rc.0_17.2-alpine $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.13.0-rc.0_17.2-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.13.0-rc.0_17.2-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.13.0-rc.0_17.2-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.13.0-rc.0 $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.13.0-rc.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.17.1 $IMAGE_REGISTRY/kubedb/postgres-init:0.17.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.17.1 $IMAGE_REGISTRY/kubedb/postgres-init:0.17.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.15.0-rc.0_16.1 $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.15.0-rc.0_16.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-aws:v0.14.0-rc.0 $IMAGE_REGISTRY/kubedb/provider-aws:v0.14.0-rc.0

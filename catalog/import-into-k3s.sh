@@ -234,8 +234,8 @@ k3s ctr images import images/appscode-kube-rbac-proxy-v0.15.0.tar
 k3s ctr images import images/appscode-kubectl-nonroot-1.31.tar
 k3s ctr images import images/appscode-petset-v0.0.7.tar
 k3s ctr images import images/appscode-sidekick-v0.0.10.tar
-k3s ctr images import images/kubedb-cassandra-init-4.1.6.tar
-k3s ctr images import images/kubedb-cassandra-init-5.0.0.tar
+k3s ctr images import images/kubedb-cassandra-init-4.1.6-v1.tar
+k3s ctr images import images/kubedb-cassandra-init-5.0.0-v1.tar
 k3s ctr images import images/kubedb-clickhouse-init-24.4.1.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.10.0-rc.0.tar
@@ -312,7 +312,6 @@ k3s ctr images import images/kubedb-postgres-archiver-v0.13.0-rc.0_16.1-bookworm
 k3s ctr images import images/kubedb-postgres-archiver-v0.13.0-rc.0_17.2-alpine.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.13.0-rc.0_17.2-bookworm.tar
 k3s ctr images import images/kubedb-postgres-csi-snapshotter-plugin-v0.13.0-rc.0.tar
-k3s ctr images import images/kubedb-postgres-init-0.17.0.tar
 k3s ctr images import images/kubedb-postgres-init-0.17.1.tar
 k3s ctr images import images/kubedb-postgres-restic-plugin-v0.15.0-rc.0_16.1.tar
 k3s ctr images import images/kubedb-provider-aws-v0.14.0-rc.0.tar

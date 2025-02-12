@@ -35,7 +35,7 @@ CMD="./images/crane"
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-exporter:2.3.8 images/appscode-images-cassandra-exporter-2.3.8.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra:4.1.6 images/appscode-images-cassandra-4.1.6.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra:5.0.0 images/appscode-images-cassandra-5.0.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6 images/kubedb-cassandra-init-4.1.6.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0 images/kubedb-cassandra-init-5.0.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6-v1 images/kubedb-cassandra-init-4.1.6-v1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0-v1 images/kubedb-cassandra-init-5.0.0-v1.tar
 
 tar -czvf images.tar.gz images
