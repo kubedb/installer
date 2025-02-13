@@ -296,6 +296,7 @@ k3s ctr images import images/kubedb-pg-coordinator-v0.36.0-rc.0.tar
 k3s ctr images import images/kubedb-pgbouncer-1.17.0.tar
 k3s ctr images import images/kubedb-pgbouncer-1.18.0.tar
 k3s ctr images import images/kubedb-pgbouncer-1.23.1.tar
+k3s ctr images import images/kubedb-pgbouncer-1.24.0.tar
 k3s ctr images import images/kubedb-pgbouncer_exporter-v0.1.1.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.13.0-rc.0_11.22-alpine.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.13.0-rc.0_11.22-bookworm.tar
