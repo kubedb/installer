@@ -174,6 +174,9 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.18.0 images/appscode-images-opensearch-2.18.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.5.0 images/appscode-images-opensearch-2.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.8.0 images/appscode-images-opensearch-2.8.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:5.7.44 images/appscode-images-percona-xtradb-cluster-5.7.44.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.0.40 images/appscode-images-percona-xtradb-cluster-8.0.40.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.4.3 images/appscode-images-percona-xtradb-cluster-8.4.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2:4.4.5 images/appscode-images-pgpool2-4.4.5.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2:4.4.8 images/appscode-images-pgpool2-4.4.8.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2:4.5.0 images/appscode-images-pgpool2-4.5.0.tar
@@ -361,9 +364,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-m
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:5.0.23 images/percona-percona-server-mongodb-5.0.23.tar
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:6.0.12 images/percona-percona-server-mongodb-6.0.12.tar
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:7.0.4 images/percona-percona-server-mongodb-7.0.4.tar
-$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-xtradb-cluster:8.0.26 images/percona-percona-xtradb-cluster-8.0.26.tar
-$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-xtradb-cluster:8.0.28 images/percona-percona-xtradb-cluster-8.0.28.tar
-$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-xtradb-cluster:8.0.31 images/percona-percona-xtradb-cluster-8.0.31.tar
 $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:11-3.3 images/postgis-postgis-11-3.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:12-3.4 images/postgis-postgis-12-3.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:13-3.4 images/postgis-postgis-13-3.4.tar
