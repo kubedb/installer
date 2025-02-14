@@ -27,4 +27,5 @@ tar -zxvf $TARBALL
 k3s ctr images import images/kubedb-pgbouncer-1.17.0.tar
 k3s ctr images import images/kubedb-pgbouncer-1.18.0.tar
 k3s ctr images import images/kubedb-pgbouncer-1.23.1.tar
+k3s ctr images import images/kubedb-pgbouncer-1.24.0.tar
 k3s ctr images import images/kubedb-pgbouncer_exporter-v0.1.1.tar

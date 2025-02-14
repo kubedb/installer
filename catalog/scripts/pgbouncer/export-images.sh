@@ -35,6 +35,7 @@ CMD="./images/crane"
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.17.0 images/kubedb-pgbouncer-1.17.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.18.0 images/kubedb-pgbouncer-1.18.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.23.1 images/kubedb-pgbouncer-1.23.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.24.0 images/kubedb-pgbouncer-1.24.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer_exporter:v0.1.1 images/kubedb-pgbouncer_exporter-v0.1.1.tar
 
 tar -czvf images.tar.gz images
