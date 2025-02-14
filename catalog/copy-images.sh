@@ -307,6 +307,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pg-coordina
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.17.0 $IMAGE_REGISTRY/kubedb/pgbouncer:1.17.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.18.0 $IMAGE_REGISTRY/kubedb/pgbouncer:1.18.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.23.1 $IMAGE_REGISTRY/kubedb/pgbouncer:1.23.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.24.0 $IMAGE_REGISTRY/kubedb/pgbouncer:1.24.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer_exporter:v0.1.1 $IMAGE_REGISTRY/kubedb/pgbouncer_exporter:v0.1.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.13.0-rc.0_11.22-alpine $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.13.0-rc.0_11.22-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.13.0-rc.0_11.22-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.13.0-rc.0_11.22-bookworm

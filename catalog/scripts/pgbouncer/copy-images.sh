@@ -38,4 +38,5 @@ CMD="./crane"
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.17.0 $IMAGE_REGISTRY/kubedb/pgbouncer:1.17.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.18.0 $IMAGE_REGISTRY/kubedb/pgbouncer:1.18.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.23.1 $IMAGE_REGISTRY/kubedb/pgbouncer:1.23.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.24.0 $IMAGE_REGISTRY/kubedb/pgbouncer:1.24.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer_exporter:v0.1.1 $IMAGE_REGISTRY/kubedb/pgbouncer_exporter:v0.1.1

@@ -304,6 +304,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pg-coordi
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.17.0 images/kubedb-pgbouncer-1.17.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.18.0 images/kubedb-pgbouncer-1.18.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.23.1 images/kubedb-pgbouncer-1.23.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.24.0 images/kubedb-pgbouncer-1.24.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer_exporter:v0.1.1 images/kubedb-pgbouncer_exporter-v0.1.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.13.0-rc.0_11.22-alpine images/kubedb-postgres-archiver-v0.13.0-rc.0_11.22-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.13.0-rc.0_11.22-bookworm images/kubedb-postgres-archiver-v0.13.0-rc.0_11.22-bookworm.tar
