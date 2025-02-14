@@ -4,18 +4,18 @@
 {{- end }}
 
 {{ if $featureGates.PerconaXtraDB }}
-
+{{ if or (not .Values.skipDeprecated) (has "8.0.31" .Values.enableVersions.PerconaXtraDB) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PerconaXtraDBVersion
 metadata:
-  name: '8.0.28'
+  name: '8.0.31'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/percona-xtradb-coordinator") $) }}:v0.25.0-rc.0'
   db:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "percona/percona-xtradb-cluster") $) }}:8.0.28'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/percona-xtradb-cluster") $) }}:8.0.31'
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prom/mysqld-exporter") $) }}:v0.13.0'
   initContainer:
@@ -27,11 +27,13 @@ spec:
   stash:
     addon:
       backupTask:
-        name: perconaxtradb-backup-5.7
+        name: perconaxtradb-backup-8.0
       restoreTask:
-        name: perconaxtradb-restore-5.7
+        name: perconaxtradb-restore-8.0
   updateConstraints:
     allowlist:
-    - '>= 8.0.28, <= 8.0.31'
-  version: 8.0.28
+    - '>= 8.0.31, <= 8.0.31'
+  version: 8.0.31
+  deprecated: {{ not (has "8.0.31" .Values.enableVersions.PerconaXtraDB) }}
+{{ end }}
 {{ end }}

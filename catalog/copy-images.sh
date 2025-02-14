@@ -177,6 +177,9 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/op
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.18.0 $IMAGE_REGISTRY/appscode-images/opensearch:2.18.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.5.0 $IMAGE_REGISTRY/appscode-images/opensearch:2.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.8.0 $IMAGE_REGISTRY/appscode-images/opensearch:2.8.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:5.7.44 $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:5.7.44
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.0.40 $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.0.40
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.4.3 $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.4.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2:4.4.5 $IMAGE_REGISTRY/appscode-images/pgpool2:4.4.5
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2:4.4.8 $IMAGE_REGISTRY/appscode-images/pgpool2:4.4.8
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2:4.5.0 $IMAGE_REGISTRY/appscode-images/pgpool2:4.5.0
@@ -364,9 +367,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure percona/percona-server-mon
 $CMD cp --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:5.0.23 $IMAGE_REGISTRY/percona/percona-server-mongodb:5.0.23
 $CMD cp --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:6.0.12 $IMAGE_REGISTRY/percona/percona-server-mongodb:6.0.12
 $CMD cp --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:7.0.4 $IMAGE_REGISTRY/percona/percona-server-mongodb:7.0.4
-$CMD cp --allow-nondistributable-artifacts --insecure percona/percona-xtradb-cluster:8.0.26 $IMAGE_REGISTRY/percona/percona-xtradb-cluster:8.0.26
-$CMD cp --allow-nondistributable-artifacts --insecure percona/percona-xtradb-cluster:8.0.28 $IMAGE_REGISTRY/percona/percona-xtradb-cluster:8.0.28
-$CMD cp --allow-nondistributable-artifacts --insecure percona/percona-xtradb-cluster:8.0.31 $IMAGE_REGISTRY/percona/percona-xtradb-cluster:8.0.31
 $CMD cp --allow-nondistributable-artifacts --insecure postgis/postgis:11-3.3 $IMAGE_REGISTRY/postgis/postgis:11-3.3
 $CMD cp --allow-nondistributable-artifacts --insecure postgis/postgis:12-3.4 $IMAGE_REGISTRY/postgis/postgis:12-3.4
 $CMD cp --allow-nondistributable-artifacts --insecure postgis/postgis:13-3.4 $IMAGE_REGISTRY/postgis/postgis:13-3.4

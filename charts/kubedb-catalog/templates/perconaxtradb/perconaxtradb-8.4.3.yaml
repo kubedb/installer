@@ -1,0 +1,37 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.PerconaXtraDB }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PerconaXtraDBVersion
+metadata:
+  name: '8.4.3'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/percona-xtradb-coordinator") $) }}:v0.25.0-rc.0'
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/percona-xtradb-cluster") $) }}:8.4.3'
+  exporter:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prom/mysqld-exporter") $) }}:v0.13.0'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/percona-xtradb-init") $) }}:0.2.2'
+  podSecurityPolicies:
+    databasePolicyName: percona-xtradb-db
+  securityContext:
+    runAsUser: 1001
+  stash:
+    addon:
+      backupTask:
+        name: perconaxtradb-backup-8.4
+      restoreTask:
+        name: perconaxtradb-restore-8.4
+  updateConstraints:
+    allowlist:
+    - '>= 8.4.3'
+  version: 8.4.3
+{{ end }}

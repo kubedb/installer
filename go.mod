@@ -23,7 +23,7 @@ require (
 	kubedb.dev/apimachinery v0.52.0-rc.0
 	kubeops.dev/installer v0.0.0-20250131122006-8354eb35b627
 	sigs.k8s.io/yaml v1.4.0
-	stash.appscode.dev/installer v0.12.2-0.20250108183814-50ebd27eef9c
+	stash.appscode.dev/installer v0.12.2-0.20250214215422-7dfae211fb34
 )
 
 require (
