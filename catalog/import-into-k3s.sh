@@ -166,6 +166,9 @@ k3s ctr images import images/appscode-images-opensearch-2.17.1.tar
 k3s ctr images import images/appscode-images-opensearch-2.18.0.tar
 k3s ctr images import images/appscode-images-opensearch-2.5.0.tar
 k3s ctr images import images/appscode-images-opensearch-2.8.0.tar
+k3s ctr images import images/appscode-images-percona-xtradb-cluster-5.7.44.tar
+k3s ctr images import images/appscode-images-percona-xtradb-cluster-8.0.40.tar
+k3s ctr images import images/appscode-images-percona-xtradb-cluster-8.4.3.tar
 k3s ctr images import images/appscode-images-pgpool2-4.4.5.tar
 k3s ctr images import images/appscode-images-pgpool2-4.4.8.tar
 k3s ctr images import images/appscode-images-pgpool2-4.5.0.tar
@@ -353,9 +356,6 @@ k3s ctr images import images/percona-percona-server-mongodb-4.4.26.tar
 k3s ctr images import images/percona-percona-server-mongodb-5.0.23.tar
 k3s ctr images import images/percona-percona-server-mongodb-6.0.12.tar
 k3s ctr images import images/percona-percona-server-mongodb-7.0.4.tar
-k3s ctr images import images/percona-percona-xtradb-cluster-8.0.26.tar
-k3s ctr images import images/percona-percona-xtradb-cluster-8.0.28.tar
-k3s ctr images import images/percona-percona-xtradb-cluster-8.0.31.tar
 k3s ctr images import images/postgis-postgis-11-3.3.tar
 k3s ctr images import images/postgis-postgis-12-3.4.tar
 k3s ctr images import images/postgis-postgis-13-3.4.tar

@@ -168,6 +168,9 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-o
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-2.18.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:2.18.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-2.5.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:2.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-2.8.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:2.8.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-percona-xtradb-cluster-5.7.44.tar $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:5.7.44
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-percona-xtradb-cluster-8.0.40.tar $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.0.40
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-percona-xtradb-cluster-8.4.3.tar $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.4.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-pgpool2-4.4.5.tar $IMAGE_REGISTRY/appscode-images/pgpool2:4.4.5
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-pgpool2-4.4.8.tar $IMAGE_REGISTRY/appscode-images/pgpool2:4.4.8
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-pgpool2-4.5.0.tar $IMAGE_REGISTRY/appscode-images/pgpool2:4.5.0
@@ -355,9 +358,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-s
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-5.0.23.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:5.0.23
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-6.0.12.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:6.0.12
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-7.0.4.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:7.0.4
-$CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-xtradb-cluster-8.0.26.tar $IMAGE_REGISTRY/percona/percona-xtradb-cluster:8.0.26
-$CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-xtradb-cluster-8.0.28.tar $IMAGE_REGISTRY/percona/percona-xtradb-cluster:8.0.28
-$CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-xtradb-cluster-8.0.31.tar $IMAGE_REGISTRY/percona/percona-xtradb-cluster:8.0.31
 $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-11-3.3.tar $IMAGE_REGISTRY/postgis/postgis:11-3.3
 $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-12-3.4.tar $IMAGE_REGISTRY/postgis/postgis:12-3.4
 $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-13-3.4.tar $IMAGE_REGISTRY/postgis/postgis:13-3.4

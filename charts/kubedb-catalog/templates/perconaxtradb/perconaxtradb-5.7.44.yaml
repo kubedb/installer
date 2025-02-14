@@ -8,14 +8,14 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PerconaXtraDBVersion
 metadata:
-  name: '8.0.31'
+  name: '5.7.44'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/percona-xtradb-coordinator") $) }}:v0.25.0-rc.0'
   db:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "percona/percona-xtradb-cluster") $) }}:8.0.31'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/percona-xtradb-cluster") $) }}:5.7.44'
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prom/mysqld-exporter") $) }}:v0.13.0'
   initContainer:
@@ -32,6 +32,6 @@ spec:
         name: perconaxtradb-restore-5.7
   updateConstraints:
     allowlist:
-    - '>= 8.0.31, <= 8.0.31'
-  version: 8.0.31
+    - '>= 5.7.44, <= 5.7.44'
+  version: 5.7.44
 {{ end }}
