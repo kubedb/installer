@@ -98,6 +98,7 @@ OPEN_VIZ_APIMACHINERY_TAG=${OPEN_VIZ_APIMACHINERY_TAG:-v0.0.8}
 
 crd-importer \
     --no-description \
+    --annotations 'config.kubernetes.io/local-config=true' \
     --input=https://github.com/kubestash/apimachinery/raw/${KUBESTASH_APIMACHINERY_TAG}/crds/addons.kubestash.com_addons.yaml \
     --input=https://github.com/kubestash/apimachinery/raw/${KUBESTASH_APIMACHINERY_TAG}/crds/addons.kubestash.com_functions.yaml \
     --out=./charts/kubedb-kubestash-catalog/crds
