@@ -71,10 +71,11 @@ type KubedbCrdManagerSpec struct {
 	Tolerations []core.Toleration `json:"tolerations"`
 	// If specified, the pod's scheduling constraints
 	// +optional
-	Affinity         *core.Affinity     `json:"affinity"`
-	ServiceAccount   ServiceAccountSpec `json:"serviceAccount"`
-	FeatureGates     map[string]bool    `json:"featureGates"`
-	RemoveUnusedCRDs bool               `json:"removeUnusedCRDs"`
+	Affinity                *core.Affinity     `json:"affinity"`
+	ServiceAccount          ServiceAccountSpec `json:"serviceAccount"`
+	FeatureGates            map[string]bool    `json:"featureGates"`
+	RemoveUnusedCRDs        bool               `json:"removeUnusedCRDs"`
+	TTLSecondsAfterFinished int                `json:"ttlSecondsAfterFinished"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
