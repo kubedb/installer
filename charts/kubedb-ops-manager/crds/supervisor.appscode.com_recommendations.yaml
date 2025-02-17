@@ -24,98 +24,47 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Recommendation is the Schema for the recommendations API
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation
-              of an object. Servers should convert recognized schemas to the latest
-              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this
-              object represents. Servers may infer this from the endpoint the client
-              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
             type: string
           metadata:
             type: object
           spec:
-            description: RecommendationSpec defines the desired state of Recommendation
             properties:
               backoffLimit:
-                description: BackoffLimit specifies the number of retries before marking
-                  this recommendation failed. By default set as five(5). If BackoffLimit
-                  is zero(0), the operation will be tried to executed only once.
                 format: int32
                 maximum: 10
                 minimum: 0
                 type: integer
               deadline:
-                description: The recommendation will be executed within the given
-                  Deadline. To maintain deadline, Parallelism can be compromised.
                 format: date-time
                 type: string
               description:
-                description: Description specifies the reason why this recommendation
-                  is generated.
                 type: string
               operation:
-                description: Operation holds a kubernetes object yaml which will be
-                  applied when this recommendation will be executed. It should be
-                  a valid kubernetes resource yaml containing apiVersion, kind and
-                  metadata fields.
                 type: object
                 x-kubernetes-embedded-resource: true
                 x-kubernetes-preserve-unknown-fields: true
               recommender:
-                description: Recommender holds the name and namespace of the component
-                  which generate this recommendation.
                 properties:
                   name:
-                    description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
                     type: string
                   namespace:
-                    description: 'Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/'
                     type: string
                 required:
                 - name
                 type: object
               requireExplicitApproval:
-                description: If RequireExplicitApproval is set to `true` then the
-                  Recommendation must be Approved manually. Recommendation won't be
-                  executed without manual approval and any kind of ApprovalPolicy
-                  will be ignored.
                 type: boolean
               rules:
-                description: 'Rules defines OperationPhaseRules. It contains three
-                  identification rules of successful execution of the operation, progressing
-                  execution of the operation & failed execution of the operation.
-                  Example: rules: success:    `has(self.status.phase) && self.status.phase
-                  == ''Successful''` inProgress: `has(self.status.phase) && self.status.phase
-                  == ''Progressing''` failed:     `has(self.status.phase) && self.status.phase
-                  == ''Failed''`'
                 properties:
                   failed:
-                    description: 'Failed defines a rule to identify that applied operation
-                      is failed. Example: inProgress: `has(self.status.phase) && self.status.phase
-                      == ''Failed''` Here self.status.phase is pointing to .status.phase
-                      field of the Operation object. When .status.phase field presents
-                      and becomes `Failed`, the Failed rule will satisfy.'
                     type: string
                   inProgress:
-                    description: 'InProgress defines a rule to identify that applied
-                      operation is progressing. Example: inProgress: `has(self.status.phase)
-                      && self.status.phase == ''Progressing''` Here self.status.phase
-                      is pointing to .status.phase field of the Operation object.
-                      When .status.phase field presents and becomes `Progressing`,
-                      the InProgress rule will satisfy.'
                     type: string
                   success:
-                    description: 'Success defines a rule to identify the successful
-                      execution of the operation. Example: success: `has(self.status.phase)
-                      && self.status.phase == ''Successful''` Here self.status.phase
-                      is pointing to .status.phase field of the Operation object.
-                      When .status.phase field presents and becomes `Successful`,
-                      the Success rule will satisfy.'
                     type: string
                 required:
                 - failed
@@ -123,20 +72,12 @@ spec:
                 - success
                 type: object
               target:
-                description: Target specifies the APIGroup, Kind & Name of the target
-                  resource for which the recommendation is generated
                 properties:
                   apiGroup:
-                    description: APIGroup is the group for the resource being referenced.
-                      If APIGroup is not specified, the specified Kind must be in
-                      the core API group. For any other third-party types, APIGroup
-                      is required.
                     type: string
                   kind:
-                    description: Kind is the type of resource being referenced
                     type: string
                   name:
-                    description: Name is the name of resource being referenced
                     type: string
                 required:
                 - kind
@@ -144,12 +85,8 @@ spec:
                 type: object
                 x-kubernetes-map-type: atomic
               vulnerabilityReport:
-                description: VulnerabilityReport specifies any kind vulnerability
-                  report like cve fixed information
                 properties:
                   fixed:
-                    description: Fixed represents the list of CVEs fixed if the recommendation
-                      is applied
                     properties:
                       count:
                         additionalProperties:
@@ -168,8 +105,6 @@ spec:
                         type: array
                     type: object
                   known:
-                    description: Known represents the list of CVEs known to exist
-                      after the recommendation is applied
                     properties:
                       count:
                         additionalProperties:
@@ -199,26 +134,17 @@ spec:
             - target
             type: object
           status:
-            description: RecommendationStatus defines the observed state of Recommendation
             properties:
               approvalStatus:
                 default: Pending
-                description: 'Specifies the Approval Status of the Recommendation.
-                  Possible values are `Pending`, `Approved`, `Rejected` Pending: Recommendation
-                  is yet to Approved or Rejected Approved: Recommendation is permitted
-                  to execute. Rejected: Recommendation is rejected and never be executed.'
                 enum:
                 - Pending
                 - Approved
                 - Rejected
                 type: string
               approvedWindow:
-                description: ApprovedWindow specifies the time window configuration
-                  for the Recommendation execution.
                 properties:
                   dates:
-                    description: Dates holds a list of DateWindow when Recommendation
-                      is permitted to execute
                     items:
                       properties:
                         end:
@@ -233,28 +159,19 @@ spec:
                       type: object
                     type: array
                   maintenanceWindow:
-                    description: MaintenanceWindow holds the reference of the MaintenanceWindow
-                      resource
                     properties:
                       apiGroup:
                         type: string
                       kind:
                         type: string
                       name:
-                        description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
                         type: string
                       namespace:
-                        description: 'Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/'
                         type: string
                     required:
                     - name
                     type: object
                   window:
-                    description: 'Window defines the ApprovedWindow type Possible
-                      values are: Immediate: Recommendation will be executed immediately
-                      NextAvailable: Recommendation will be executed in the next Available
-                      window SpecificDates: Recommendation will be executed in the
-                      given dates.'
                     enum:
                     - Immediate
                     - NextAvailable
@@ -262,52 +179,25 @@ spec:
                     type: string
                 type: object
               comments:
-                description: Specifies Reviewer's comment.
                 type: string
               conditions:
-                description: Conditions applied to the Recommendation.
                 items:
-                  description: Condition defines an observation of a object operational
-                    state.
                   properties:
                     lastTransitionTime:
-                      description: Last time the condition transitioned from one status
-                        to another. This should be when the underlying condition changed.
-                        If that is not known, then using the time when the API field
-                        changed is acceptable.
                       format: date-time
                       type: string
                     message:
-                      description: A human-readable message indicating details about
-                        the transition. This field may be empty.
                       type: string
                     observedGeneration:
-                      description: If set, this represents the .metadata.generation
-                        that the condition was set based upon. For instance, if .metadata.generation
-                        is currently 12, but the .status.condition[x].observedGeneration
-                        is 9, the condition is out of date with respect to the current
-                        state of the instance.
                       format: int64
                       type: integer
                     reason:
-                      description: The reason for the condition's last transition
-                        in CamelCase. The specific API may choose whether this field
-                        is considered a guaranteed API. This field may not be empty.
                       type: string
                     severity:
-                      description: Severity provides an explicit classification of
-                        Reason code, so the users or machines can immediately understand
-                        the current situation and act accordingly. The Severity field
-                        MUST be set only when Status=False.
                       type: string
                     status:
-                      description: Status of the condition, one of True, False, Unknown.
                       type: string
                     type:
-                      description: Type of condition in CamelCase or in foo.example.com/CamelCase.
-                        Many .condition.type values are consistent across resources
-                        like Available, but because arbitrary util can be useful (see
-                        .node.status.util), the ability to deconflict is important.
                       type: string
                   required:
                   - lastTransitionTime
@@ -316,58 +206,30 @@ spec:
                   type: object
                 type: array
               createdOperationRef:
-                description: CreatedOperationRef holds the created operation name.
                 properties:
                   name:
-                    description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-                      TODO: Add other useful fields. apiVersion, kind, uid?'
+                    default: ""
                     type: string
                 type: object
                 x-kubernetes-map-type: atomic
               failedAttempt:
                 default: 0
-                description: FailedAttempt holds the number of times the operation
-                  is failed.
                 format: int32
                 type: integer
               observedGeneration:
-                description: observedGeneration is the most recent generation observed
-                  for this resource. It corresponds to the resource's generation,
-                  which is updated on mutation by the API Server.
                 format: int64
                 type: integer
               outdated:
                 default: false
-                description: Outdated is indicating details whether the Recommendation
-                  is outdated or not. If the value is `true`, then Recommendation
-                  will not be executed. This indicates that after generating the Recommendation,
-                  the targeted resource is changed in such a way that the generated
-                  Recommendation has become outdated & can't be executed anymore.
                 type: boolean
               parallelism:
                 default: Namespace
-                description: 'Parallelism imposes some restriction to Recommendation
-                  execution. Possible values are: Namespace: Only one Recommendation
-                  can be executed at a time in a namespace. Target: Only one Recommendation
-                  for a given target can be executed at a time. TargetAndNamespace:
-                  Only one Recommendation for a given target can be executed at a
-                  time in a namespace.'
                 enum:
                 - Namespace
                 - Target
                 - TargetAndNamespace
                 type: string
               phase:
-                description: 'Specifies the Recommendation current phase. Possible
-                  values are: Pending : Recommendation misses at least one pre-requisite
-                  for executing the operation. It also tells that some user action
-                  is needed. Skipped : Operation is skipped because of Rejection ApprovalStatus.
-                  Waiting : Recommendation is waiting for the MaintenanceWindow to
-                  execute the operation or waiting for others Recommendation to complete
-                  far maintaining Parallelism. InProgress : The operation execution
-                  is successfully started and waiting for its final status. Succeeded
-                  : Operation has been successfully executed. Failed : Operation execution
-                  has not completed successfully i.e. encountered an error'
                 enum:
                 - Pending
                 - Skipped
@@ -378,34 +240,19 @@ spec:
                 type: string
               reason:
                 default: WaitingForApproval
-                description: A message indicating details about Recommendation current
-                  phase.
                 type: string
               reviewTimestamp:
-                description: Contains review timestamp
                 format: date-time
                 type: string
               reviewer:
-                description: Specifies Reviewer's details.
                 properties:
                   apiGroup:
-                    description: APIGroup holds the API group of the referenced subject.
-                      Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io"
-                      for User and Group subjects.
                     type: string
                   kind:
-                    description: Kind of object being referenced. Values defined by
-                      this API group are "User", "Group", and "ServiceAccount". If
-                      the Authorizer does not recognized the kind value, the Authorizer
-                      should report an error.
                     type: string
                   name:
-                    description: Name of the object being referenced.
                     type: string
                   namespace:
-                    description: Namespace of the referenced object.  If the object
-                      kind is non-namespace, such as "User" or "Group", and this value
-                      is not empty the Authorizer should report an error.
                     type: string
                 required:
                 - kind
