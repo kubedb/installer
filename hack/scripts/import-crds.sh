@@ -48,6 +48,7 @@ fi
 
 if [ "$update_kubedb_crds" = true ] && [ -d ${crd_dir} ]; then
     crd-importer \
+        --no-description \
         --input=${crd_dir} \
         --out=./charts/kubedb-crds/crds \
         --group=kubedb.com \
@@ -62,6 +63,7 @@ if [ "$update_kubedb_crds" = true ] && [ -d ${crd_dir} ]; then
         --group=schema.kubedb.com
 
     crd-importer \
+        --no-description \
         --input=${crd_dir} \
         --out=. --output-yaml=crds/kubedb-crds.yaml \
         --group=kubedb.com \
@@ -76,42 +78,47 @@ if [ "$update_kubedb_crds" = true ] && [ -d ${crd_dir} ]; then
         --group=schema.kubedb.com
 
     crd-importer \
+        --no-description \
         --input=${crd_dir} \
         --out=./charts/kubedb-catalog/crds \
         --group=catalog.kubedb.com
 
     crd-importer \
+        --no-description \
         --input=${crd_dir} \
         --out=. --output-yaml=crds/kubedb-catalog-crds.yaml \
         --group=catalog.kubedb.com
 fi
 
-KEDACORE_HTTP_ADD_ON_TAG=${KEDACORE_HTTP_ADD_ON_TAG:-v0.8.0}
-KMODULES_CUSTOM_RESOURCES_TAG=${KMODULES_CUSTOM_RESOURCES_TAG:-v0.30.0}
-KMODULES_RESOURCE_METADATA_TAG=${KMODULES_RESOURCE_METADATA_TAG:-v0.18.9}
-KUBEOPS_SUPERVISOR_TAG=${KUBEOPS_SUPERVISOR_TAG:-v0.0.5}
-KUBERNETES_SIGS_GATEWAY_API_TAG=${KUBERNETES_SIGS_GATEWAY_API_TAG:-v1.0.0}
-KUBESTASH_APIMACHINERY_TAG=${KUBESTASH_APIMACHINERY_TAG:-v0.10.0}
+KMODULES_CUSTOM_RESOURCES_TAG=${KMODULES_CUSTOM_RESOURCES_TAG:-v0.30.1}
+KMODULES_RESOURCE_METADATA_TAG=${KMODULES_RESOURCE_METADATA_TAG:-v0.25.1}
+KUBEOPS_SUPERVISOR_TAG=${KUBEOPS_SUPERVISOR_TAG:-v0.0.7}
+KUBESTASH_APIMACHINERY_TAG=${KUBESTASH_APIMACHINERY_TAG:-v0.16.0}
 OPEN_VIZ_APIMACHINERY_TAG=${OPEN_VIZ_APIMACHINERY_TAG:-v0.0.8}
 
 crd-importer \
+    --no-description \
     --input=https://github.com/kubestash/apimachinery/raw/${KUBESTASH_APIMACHINERY_TAG}/crds/addons.kubestash.com_addons.yaml \
     --input=https://github.com/kubestash/apimachinery/raw/${KUBESTASH_APIMACHINERY_TAG}/crds/addons.kubestash.com_functions.yaml \
     --out=./charts/kubedb-kubestash-catalog/crds
 
 crd-importer \
+    --no-description \
     --input=https://github.com/kmodules/resource-metadata/raw/${KMODULES_RESOURCE_METADATA_TAG}/crds/node.k8s.appscode.com_nodetopologies.yaml \
     --out=./charts/kubedb-autoscaler/crds
 
 crd-importer \
+    --no-description \
     --input=https://github.com/kmodules/custom-resources/raw/${KMODULES_CUSTOM_RESOURCES_TAG}/crds/metrics.appscode.com_metricsconfigurations.yaml \
     --out=./charts/kubedb-metrics/crds
 
 crd-importer \
+    --no-description \
     --input=https://github.com/open-viz/apimachinery/raw/${OPEN_VIZ_APIMACHINERY_TAG}/crds/openviz.dev_grafanadashboards.yaml \
     --out=./charts/kubedb-grafana-dashboards/crds
 
 crd-importer \
+    --no-description \
     --input=https://github.com/kubeops/supervisor/raw/${KUBEOPS_SUPERVISOR_TAG}/crds/supervisor.appscode.com_recommendations.yaml \
     --out=./charts/kubedb-ops-manager/crds
 
@@ -148,6 +155,7 @@ crd-importer \
 
     if [ "$update_aws_crds" = true ] && [ -d ${crd_dir} ]; then
         crd-importer \
+            --no-description \
             --input=${crd_dir} \
             --out=./charts/kubedb-provider-aws/crds
     fi
@@ -185,6 +193,7 @@ crd-importer \
 
     if [ "$update_azure_crds" = true ] && [ -d ${crd_dir} ]; then
         crd-importer \
+            --no-description \
             --input=${crd_dir} \
             --out=./charts/kubedb-provider-azure/crds
     fi
@@ -222,6 +231,7 @@ crd-importer \
 
     if [ "$update_gcp_crds" = true ] && [ -d ${crd_dir} ]; then
         crd-importer \
+            --no-description \
             --input=${crd_dir} \
             --out=./charts/kubedb-provider-gcp/crds
     fi
