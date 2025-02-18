@@ -296,7 +296,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-router-init-v0.30.0-rc.0.tar $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.30.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysqld-exporter-v0.13.1.tar $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.13.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-coordinator-v0.25.0-rc.0.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-coordinator:v0.25.0-rc.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-init-0.2.2.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-init:0.2.2
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-init-0.2.3.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-init:0.2.3
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pg-coordinator-v0.36.0-rc.0.tar $IMAGE_REGISTRY/kubedb/pg-coordinator:v0.36.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pgbouncer-1.17.0.tar $IMAGE_REGISTRY/kubedb/pgbouncer:1.17.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pgbouncer-1.18.0.tar $IMAGE_REGISTRY/kubedb/pgbouncer:1.18.0
