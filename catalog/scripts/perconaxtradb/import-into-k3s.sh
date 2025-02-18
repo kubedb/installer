@@ -28,5 +28,5 @@ k3s ctr images import images/appscode-images-percona-xtradb-cluster-5.7.44.tar
 k3s ctr images import images/appscode-images-percona-xtradb-cluster-8.0.40.tar
 k3s ctr images import images/appscode-images-percona-xtradb-cluster-8.4.3.tar
 k3s ctr images import images/kubedb-percona-xtradb-coordinator-v0.25.0-rc.0.tar
-k3s ctr images import images/kubedb-percona-xtradb-init-0.2.2.tar
+k3s ctr images import images/kubedb-percona-xtradb-init-0.2.3.tar
 k3s ctr images import images/prom-mysqld-exporter-v0.13.0.tar
