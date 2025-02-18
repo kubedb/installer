@@ -305,7 +305,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.30.0-rc.0 $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.30.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.13.1 $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.13.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-coordinator:v0.25.0-rc.0 $IMAGE_REGISTRY/kubedb/percona-xtradb-coordinator:v0.25.0-rc.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-init:0.2.2 $IMAGE_REGISTRY/kubedb/percona-xtradb-init:0.2.2
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-init:0.2.3 $IMAGE_REGISTRY/kubedb/percona-xtradb-init:0.2.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pg-coordinator:v0.36.0-rc.0 $IMAGE_REGISTRY/kubedb/pg-coordinator:v0.36.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.17.0 $IMAGE_REGISTRY/kubedb/pgbouncer:1.17.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.18.0 $IMAGE_REGISTRY/kubedb/pgbouncer:1.18.0
