@@ -35,7 +35,7 @@ k3s ctr images import images/appscode-images-redis-7.2.4-bookworm.tar
 k3s ctr images import images/appscode-images-redis-7.2.6-bookworm.tar
 k3s ctr images import images/appscode-images-redis-7.4.0-bookworm.tar
 k3s ctr images import images/appscode-images-redis-7.4.1-bookworm.tar
-k3s ctr images import images/kubedb-redis-coordinator-v0.31.0-rc.0.tar
+k3s ctr images import images/kubedb-redis-coordinator-v0.31.0.tar
 k3s ctr images import images/kubedb-redis-init-0.9.0.tar
 k3s ctr images import images/kubedb-redis-4.0.11.tar
 k3s ctr images import images/kubedb-redis_exporter-1.66.0.tar
