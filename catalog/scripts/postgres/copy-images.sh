@@ -78,17 +78,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/po
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.4-alpine $IMAGE_REGISTRY/appscode-images/postgres:17.4-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.4-bookworm $IMAGE_REGISTRY/appscode-images/postgres:17.4-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pg-coordinator:v0.36.0 $IMAGE_REGISTRY/kubedb/pg-coordinator:v0.36.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pg-coordinator:v0.36.0-rc.0 $IMAGE_REGISTRY/kubedb/pg-coordinator:v0.36.0-rc.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.13.0-rc.0_13.13-alpine $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.13.0-rc.0_13.13-alpine
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.13.0-rc.0_13.13-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.13.0-rc.0_13.13-bookworm
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.13.0-rc.0_14.10-alpine $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.13.0-rc.0_14.10-alpine
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.13.0-rc.0_14.10-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.13.0-rc.0_14.10-bookworm
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.13.0-rc.0_15.5-alpine $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.13.0-rc.0_15.5-alpine
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.13.0-rc.0_15.5-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.13.0-rc.0_15.5-bookworm
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.13.0-rc.0_16.1-alpine $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.13.0-rc.0_16.1-alpine
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.13.0-rc.0_16.1-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.13.0-rc.0_16.1-bookworm
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.13.0-rc.0_17.2-alpine $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.13.0-rc.0_17.2-alpine
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.13.0-rc.0_17.2-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.13.0-rc.0_17.2-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.13.0_11.22-alpine $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.13.0_11.22-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.13.0_11.22-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.13.0_11.22-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.13.0_12.17-alpine $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.13.0_12.17-alpine
