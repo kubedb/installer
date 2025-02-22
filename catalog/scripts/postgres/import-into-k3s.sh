@@ -67,17 +67,6 @@ k3s ctr images import images/appscode-images-postgres-17.2-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-17.4-alpine.tar
 k3s ctr images import images/appscode-images-postgres-17.4-bookworm.tar
 k3s ctr images import images/kubedb-pg-coordinator-v0.36.0.tar
-k3s ctr images import images/kubedb-pg-coordinator-v0.36.0-rc.0.tar
-k3s ctr images import images/kubedb-postgres-archiver-v0.13.0-rc.0_13.13-alpine.tar
-k3s ctr images import images/kubedb-postgres-archiver-v0.13.0-rc.0_13.13-bookworm.tar
-k3s ctr images import images/kubedb-postgres-archiver-v0.13.0-rc.0_14.10-alpine.tar
-k3s ctr images import images/kubedb-postgres-archiver-v0.13.0-rc.0_14.10-bookworm.tar
-k3s ctr images import images/kubedb-postgres-archiver-v0.13.0-rc.0_15.5-alpine.tar
-k3s ctr images import images/kubedb-postgres-archiver-v0.13.0-rc.0_15.5-bookworm.tar
-k3s ctr images import images/kubedb-postgres-archiver-v0.13.0-rc.0_16.1-alpine.tar
-k3s ctr images import images/kubedb-postgres-archiver-v0.13.0-rc.0_16.1-bookworm.tar
-k3s ctr images import images/kubedb-postgres-archiver-v0.13.0-rc.0_17.2-alpine.tar
-k3s ctr images import images/kubedb-postgres-archiver-v0.13.0-rc.0_17.2-bookworm.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.13.0_11.22-alpine.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.13.0_11.22-bookworm.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.13.0_12.17-alpine.tar
