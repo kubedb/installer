@@ -52,14 +52,14 @@ if [ "$update_kubedb_crds" = true ] && [ -d ${crd_dir} ]; then
         --input=${crd_dir} \
         --out=./charts/kubedb-crds/crds \
         --group=kubedb.com \
+        --group=archiver.kubedb.com \
+        --group=autoscaling.kubedb.com \
         --group=catalog.kubedb.com \
         --group=config.kubedb.com \
-        --group=ops.kubedb.com \
-        --group=autoscaling.kubedb.com \
         --group=elasticsearch.kubedb.com \
         --group=kafka.kubedb.com \
+        --group=ops.kubedb.com \
         --group=postgres.kubedb.com \
-        --group=archiver.kubedb.com \
         --group=schema.kubedb.com
 
     crd-importer \
@@ -67,14 +67,15 @@ if [ "$update_kubedb_crds" = true ] && [ -d ${crd_dir} ]; then
         --input=${crd_dir} \
         --out=. --output-yaml=crds/kubedb-crds.yaml \
         --group=kubedb.com \
+        --group=archiver.kubedb.com \
+        --group=autoscaling.kubedb.com \
         --group=catalog.kubedb.com \
         --group=config.kubedb.com \
-        --group=ops.kubedb.com \
-        --group=autoscaling.kubedb.com \
         --group=elasticsearch.kubedb.com \
+        --group=gitops.kubedb.com \
         --group=kafka.kubedb.com \
+        --group=ops.kubedb.com \
         --group=postgres.kubedb.com \
-        --group=archiver.kubedb.com \
         --group=schema.kubedb.com
 
     crd-importer \
