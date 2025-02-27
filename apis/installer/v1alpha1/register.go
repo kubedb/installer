@@ -62,6 +62,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&KubedbCrdManagerList{},
 		&KubedbDashboard{},
 		&KubedbDashboardList{},
+		&KubedbGitops{},
+		&KubedbGitopsList{},
 		&Kubedb{},
 		&KubedbList{},
 		&KubedbKubestashCatalog{},

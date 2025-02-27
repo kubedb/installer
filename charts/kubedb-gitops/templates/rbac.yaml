@@ -1,0 +1,136 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "kubedb-gitops.fullname" . }}:leader-election
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubedb-gitops.labels" . | nindent 4 }}
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "kubedb-gitops.fullname" . }}:manager
+  labels:
+    {{- include "kubedb-gitops.labels" . | nindent 4 }}
+rules:
+- apiGroups:
+  - "*"
+  resources:
+  - "*"
+  verbs:
+  - create
+  - get
+  - list
+  - patch
+  - update
+  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "kubedb-gitops.fullname" . }}:metrics-auth
+  labels:
+    {{- include "kubedb-gitops.labels" . | nindent 4 }}
+rules:
+- apiGroups:
+  - authentication.k8s.io
+  resources:
+  - tokenreviews
+  verbs:
+  - create
+- apiGroups:
+  - authorization.k8s.io
+  resources:
+  - subjectaccessreviews
+  verbs:
+  - create
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "kubedb-gitops.fullname" . }}:metrics-reader
+  labels:
+    {{- include "kubedb-gitops.labels" . | nindent 4 }}
+rules:
+- nonResourceURLs:
+  - /metrics
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "kubedb-gitops.fullname" . }}:leader-election
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubedb-gitops.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "kubedb-gitops.fullname" . }}:leader-election
+subjects:
+- kind: ServiceAccount
+  name: {{ include "kubedb-gitops.serviceAccountName" . }}
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "kubedb-gitops.fullname" . }}:manager
+  labels:
+    {{- include "kubedb-gitops.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "kubedb-gitops.fullname" . }}:manager
+subjects:
+- kind: ServiceAccount
+  name: {{ include "kubedb-gitops.serviceAccountName" . }}
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "kubedb-gitops.fullname" . }}:metrics-auth
+  labels:
+    {{- include "kubedb-gitops.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "kubedb-gitops.fullname" . }}:metrics-auth
+subjects:
+- kind: ServiceAccount
+  name: {{ include "kubedb-gitops.serviceAccountName" . }}
+  namespace: {{ .Release.Namespace }}
