@@ -25,8 +25,8 @@ import (
 const (
 	ResourceCodeHazelcastVersion     = "hzversion"
 	ResourceKindHazelcastVersion     = "HazelcastVersion"
-	ResourceSingularHazelcastVersion = "Hazelcastversion"
-	ResourcePluralHazelcastVersion   = "Hazelcastversions"
+	ResourceSingularHazelcastVersion = "hazelcastversion"
+	ResourcePluralHazelcastVersion   = "hazelcastversions"
 )
 
 // +genclient
