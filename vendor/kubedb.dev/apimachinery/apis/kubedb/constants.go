@@ -739,6 +739,24 @@ const (
 	ZooKeeperSuperUsername       = "super"
 	ZooKeeperSASLAuthLoginConfig = "-Djava.security.auth.login.config"
 	ZooKeeperJaasFilePath        = "/data/jaas.conf"
+
+	// ========================================== Hazelcast Constants =================================================//
+	HazelcastAdmin               = "admin"
+	HazelcastSecretKey           = "hazelcast.yaml"
+	HazelcastRestPort            = 5701
+	HazelcastPortName            = "hazelcast"
+	HazelcastConfigVolume        = "hzconfig"
+	HazelcastDefaultConfigVolume = "default-config"
+	HazelcastCustomConfigVolume  = "custom-config"
+	HazelcastCustomConfigDir     = "/data/custom"
+	HazelcastTempConfigDir       = "/data/temp"
+	HazelcastConfigFileName      = "hazelcast.yaml"
+	HazelcastVolumeData          = "data"
+	HazelcastDataDir             = "/data/persistence"
+	HazelcastContainerName       = "hazelcast"
+	HazelcastInitContainerName   = "hazelcast-init"
+	HazelcastConfigDir           = "/data/hazelcast"
+	HazelcastLicenseKey          = "licenseKey"
 )
 
 // List of possible condition types for a KubeDB object
