@@ -48,6 +48,8 @@ type AceUserRolesSpec struct {
 	//+optional
 	FullnameOverride   string           `json:"fullnameOverride"`
 	EnableClusterRoles UserClusterRoles `json:"enableClusterRoles"`
+	//+optional
+	Annotations map[string]string `json:"annotations"`
 }
 
 type UserClusterRoles struct {
@@ -62,7 +64,9 @@ type UserClusterRoles struct {
 	LicenseProxyserver bool `json:"license-proxyserver"`
 	Metrics            bool `json:"metrics"`
 	Prometheus         bool `json:"prometheus"`
+	SecretsStore       bool `json:"secrets-store"`
 	Stash              bool `json:"stash"`
+	VirtualSecrets     bool `json:"virtual-secrets"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
