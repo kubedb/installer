@@ -15,13 +15,13 @@ require (
 	gomodules.xyz/semvers v0.0.2
 	k8s.io/api v0.30.3
 	k8s.io/apimachinery v0.30.3
-	kmodules.xyz/client-go v0.30.45
+	kmodules.xyz/client-go v0.30.46
 	kmodules.xyz/go-containerregistry v0.0.12
-	kmodules.xyz/image-packer v0.0.0-20241213044824-5b4eb7f75cf4
-	kmodules.xyz/resource-metadata v0.25.1
+	kmodules.xyz/image-packer v0.0.0-20250302004653-f7cd2db94159
+	kmodules.xyz/resource-metadata v0.26.0
 	kmodules.xyz/schema-checker v0.4.1
 	kubedb.dev/apimachinery v0.52.0
-	kubeops.dev/installer v0.0.0-20250131122006-8354eb35b627
+	kubeops.dev/installer v0.0.0-20250308093011-b770967e36e9
 	sigs.k8s.io/yaml v1.4.0
 	stash.appscode.dev/installer v0.12.2-0.20250214215422-7dfae211fb34
 )
@@ -126,7 +126,7 @@ require (
 	sigs.k8s.io/gateway-api v1.1.0 // indirect
 	sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.4.1 // indirect
-	x-helm.dev/apimachinery v0.0.16 // indirect
+	x-helm.dev/apimachinery v0.0.17 // indirect
 )
 
 replace (
