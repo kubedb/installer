@@ -58,6 +58,8 @@ type KubedbProvisionerSpec struct {
 	// +optional
 	LogLevel int32 `json:"logLevel"`
 	// +optional
+	ShardConfig string `json:"shardConfig"`
+	// +optional
 	Annotations map[string]string `json:"annotations"`
 	//+optional
 	PodAnnotations map[string]string `json:"podAnnotations"`
