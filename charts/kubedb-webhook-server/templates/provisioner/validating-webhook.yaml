@@ -21,10 +21,11 @@ webhooks:
 - name: namespacewebhook.validators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/validators.kubedb.com/v1alpha1/namespacewebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-v1-namespace
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
   - apiGroups: [""]
     apiVersions: ["*"]
@@ -74,10 +75,11 @@ webhooks:
 - name: ferretdbwebhook.validators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/validators.kubedb.com/v1alpha1/ferretdbwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-ferretdb
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -197,10 +199,11 @@ webhooks:
 - name: etcdwebhook.validators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/validators.kubedb.com/v1alpha1/etcdwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1-etcd
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["*"]
@@ -268,10 +271,11 @@ webhooks:
 - name: zookeeperwebhook.validators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/validators.kubedb.com/v1alpha1/zookeeperwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-zookeeper
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -285,10 +289,11 @@ webhooks:
 - name: rabbitmqwebhook.validators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/validators.kubedb.com/v1alpha1/rabbitmqwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-rabbitmq
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -302,10 +307,11 @@ webhooks:
 - name: druidwebhook.validators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/validators.kubedb.com/v1alpha1/druidwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-druid
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -319,10 +325,11 @@ webhooks:
 - name: cassandrawebhook.validators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/validators.kubedb.com/v1alpha1/cassandrawebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-cassandra
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -336,10 +343,11 @@ webhooks:
 - name: clickhousewebhook.validators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/validators.kubedb.com/v1alpha1/clickhousewebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-clickhouse
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -353,10 +361,11 @@ webhooks:
 - name: kafkawebhook.validators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/validators.kubedb.com/v1alpha1/kafkawebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1-kafka
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["v1"]
@@ -368,10 +377,11 @@ webhooks:
 - name: connectclusterwebhook.validators.kafka.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/validators.kafka.kubedb.com/v1alpha1/connectclusterwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kafka-kubedb-com-v1alpha1-connectcluster
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["kafka.kubedb.com"]
       apiVersions: ["*"]
@@ -383,10 +393,11 @@ webhooks:
 - name: connectorwebhook.validators.kafka.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/validators.kafka.kubedb.com/v1alpha1/connectorwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kafka-kubedb-com-v1alpha1-connector
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["kafka.kubedb.com"]
       apiVersions: ["*"]
@@ -398,10 +409,11 @@ webhooks:
 - name: restproxywebhook.validators.kafka.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/validators.kafka.kubedb.com/v1alpha1/restproxywebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kafka-kubedb-com-v1alpha1-restproxy
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["kafka.kubedb.com"]
       apiVersions: ["*"]
@@ -413,10 +425,11 @@ webhooks:
 - name: schemaregistrywebhook.validators.kafka.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/validators.kafka.kubedb.com/v1alpha1/schemaregistrywebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kafka-kubedb-com-v1alpha1-schemaregistry
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["kafka.kubedb.com"]
       apiVersions: ["*"]
@@ -430,10 +443,11 @@ webhooks:
 - name: singlestorewebhook.validators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/validators.kubedb.com/v1alpha1/singlestorewebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-singlestore
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -447,10 +461,11 @@ webhooks:
 - name: solrwebhook.validators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/validators.kubedb.com/v1alpha1/solrwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-solr
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -464,10 +479,11 @@ webhooks:
 - name: pgpoolwebhook.validators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/validators.kubedb.com/v1alpha1/pgpoolwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-pgpool
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -481,10 +497,11 @@ webhooks:
 - name: mssqlserverwebhook.validators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/validators.kubedb.com/v1alpha1/mssqlserverwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-mssqlserver
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
