@@ -8,7 +8,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: '11.22'
+  name: '15.12'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -27,12 +27,12 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.13.0_11.22-alpine'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.13.0_15.5-alpine'
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.36.0'
   db:
     baseOS: alpine
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres") $) }}:11.22-alpine'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres") $) }}:15.12-alpine'
   distribution: Official
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.15.0'
@@ -46,9 +46,9 @@ spec:
   stash:
     addon:
       backupTask:
-        name: postgres-backup-11.9
+        name: postgres-backup-15.1
       restoreTask:
-        name: postgres-restore-11.9
+        name: postgres-restore-15.1
   ui:
   - name: pgadmin
     version: v2024.4.27
@@ -56,15 +56,15 @@ spec:
     version: v2024.4.27
   updateConstraints:
     allowlist:
-    - '>= 11.22, <= 16.8'
-  version: "11.22"
+    - '>= 15.12'
+  version: "15.12"
 
 ---
 
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: '11.22-bookworm'
+  name: '15.12-bookworm'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -83,12 +83,12 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.13.0_11.22-bookworm'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.13.0_15.5-bookworm'
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.36.0'
   db:
     baseOS: bookworm
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres") $) }}:11.22-bookworm'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres") $) }}:15.12-bookworm'
   distribution: Official
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.15.0'
@@ -102,9 +102,9 @@ spec:
   stash:
     addon:
       backupTask:
-        name: postgres-backup-11.9
+        name: postgres-backup-15.1
       restoreTask:
-        name: postgres-restore-11.9
+        name: postgres-restore-15.1
   ui:
   - name: pgadmin
     version: v2024.4.27
@@ -112,6 +112,6 @@ spec:
     version: v2024.4.27
   updateConstraints:
     allowlist:
-    - '>= 11.22, <= 16.8'
-  version: "11.22"
+    - '>= 15.12'
+  version: "15.12"
 {{ end }}
