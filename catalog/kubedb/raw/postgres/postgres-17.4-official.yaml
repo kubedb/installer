@@ -1,0 +1,104 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: "17.4"
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        fullBackup:
+          name: physical-backup
+        fullBackupRestore:
+          name: physical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: ghcr.io/kubedb/postgres-archiver:(v0.13.0)_17.2-alpine
+  coordinator:
+    image: ghcr.io/kubedb/pg-coordinator:v0.36.0
+  db:
+    baseOS: alpine
+    image: ghcr.io/appscode-images/postgres:17.4-alpine
+  distribution: Official
+  exporter:
+    image: prometheuscommunity/postgres-exporter:v0.15.0
+  initContainer:
+    image: ghcr.io/kubedb/postgres-init:0.17.1
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: false
+    runAsUser: 70
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-17.2
+      restoreTask:
+        name: postgres-restore-17.2
+  ui:
+  - name: pgadmin
+    version: v2024.4.27
+  - name: dbgate
+    version: v2024.4.27
+  updateConstraints:
+    allowlist:
+    - '>= 17.4'
+  version: "17.4"
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: 17.4-bookworm
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        fullBackup:
+          name: physical-backup
+        fullBackupRestore:
+          name: physical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: ghcr.io/kubedb/postgres-archiver:(v0.13.0)_17.2-bookworm
+  coordinator:
+    image: ghcr.io/kubedb/pg-coordinator:v0.36.0
+  db:
+    baseOS: bookworm
+    image: ghcr.io/appscode-images/postgres:17.4-bookworm
+  distribution: Official
+  exporter:
+    image: prometheuscommunity/postgres-exporter:v0.15.0
+  initContainer:
+    image: ghcr.io/kubedb/postgres-init:0.17.1
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-17.2
+      restoreTask:
+        name: postgres-restore-17.2
+  ui:
+  - name: pgadmin
+    version: v2024.4.27
+  - name: dbgate
+    version: v2024.4.27
+  updateConstraints:
+    allowlist:
+    - '>= 17.4'
+  version: "17.4"
