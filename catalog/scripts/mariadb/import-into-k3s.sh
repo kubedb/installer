@@ -45,4 +45,5 @@ k3s ctr images import images/kubedb-mariadb-archiver-v0.12.0_11.0.4-jammy.tar
 k3s ctr images import images/kubedb-mariadb-archiver-v0.12.0_11.1.3-jammy.tar
 k3s ctr images import images/kubedb-mariadb-archiver-v0.12.0_11.2.2-jammy.tar
 k3s ctr images import images/kubedb-mariadb-coordinator-v0.32.0.tar
-k3s ctr images import images/kubedb-mariadb-init-0.5.2.tar
+k3s ctr images import images/kubedb-mariadb-init-0.5.3.tar
+k3s ctr images import images/mariadb-maxscale-24.02.4.tar
