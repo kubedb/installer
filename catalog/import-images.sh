@@ -279,7 +279,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-ar
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.12.0_11.2.2-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.12.0_11.2.2-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-coordinator-v0.32.0.tar $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.32.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-csi-snapshotter-plugin-v0.12.0.tar $IMAGE_REGISTRY/kubedb/mariadb-csi-snapshotter-plugin:v0.12.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-init-0.5.2.tar $IMAGE_REGISTRY/kubedb/mariadb-init:0.5.2
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-init-0.5.3.tar $IMAGE_REGISTRY/kubedb/mariadb-init:0.5.3
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.10.0.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.10.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-csi-snapshotter-plugin-v0.13.0.tar $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.13.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-4.2-v9.tar $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
@@ -360,6 +360,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-init-
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-wal-g-v2024.12.18_mongo.tar $IMAGE_REGISTRY/kubedb/wal-g:v2024.12.18_mongo
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-init-3.7-v1.tar $IMAGE_REGISTRY/kubedb/zookeeper-init:3.7-v1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-restic-plugin-v0.8.0.tar $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.8.0
+$CMD push --allow-nondistributable-artifacts --insecure images/mariadb-maxscale-24.02.4.tar $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU12-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU12-ubuntu-22.04
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU14-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU14-ubuntu-22.04
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU16-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU16-ubuntu-22.04

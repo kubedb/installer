@@ -285,7 +285,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-a
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.12.0_11.2.2-jammy images/kubedb-mariadb-archiver-v0.12.0_11.2.2-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-coordinator:v0.32.0 images/kubedb-mariadb-coordinator-v0.32.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-csi-snapshotter-plugin:v0.12.0 images/kubedb-mariadb-csi-snapshotter-plugin-v0.12.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-init:0.5.2 images/kubedb-mariadb-init-0.5.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-init:0.5.3 images/kubedb-mariadb-init-0.5.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.10.0 images/kubedb-mariadb-restic-plugin-v0.10.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.13.0 images/kubedb-mongodb-csi-snapshotter-plugin-v0.13.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 images/kubedb-mongodb-init-4.2-v9.tar
@@ -366,6 +366,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/wal-g:v2024.12.18_mongo images/kubedb-wal-g-v2024.12.18_mongo.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-init:3.7-v1 images/kubedb-zookeeper-init-3.7-v1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.8.0 images/kubedb-zookeeper-restic-plugin-v0.8.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure mariadb/maxscale:24.02.4 images/mariadb-maxscale-24.02.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04 images/mssql-server-2022-CU12-ubuntu-22.04.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04 images/mssql-server-2022-CU14-ubuntu-22.04.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU16-ubuntu-22.04 images/mssql-server-2022-CU16-ubuntu-22.04.tar

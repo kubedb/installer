@@ -277,7 +277,7 @@ k3s ctr images import images/kubedb-mariadb-archiver-v0.12.0_11.1.3-jammy.tar
 k3s ctr images import images/kubedb-mariadb-archiver-v0.12.0_11.2.2-jammy.tar
 k3s ctr images import images/kubedb-mariadb-coordinator-v0.32.0.tar
 k3s ctr images import images/kubedb-mariadb-csi-snapshotter-plugin-v0.12.0.tar
-k3s ctr images import images/kubedb-mariadb-init-0.5.2.tar
+k3s ctr images import images/kubedb-mariadb-init-0.5.3.tar
 k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.10.0.tar
 k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.13.0.tar
 k3s ctr images import images/kubedb-mongodb-init-4.2-v9.tar
@@ -358,6 +358,7 @@ k3s ctr images import images/kubedb-solr-init-9.7.0.tar
 k3s ctr images import images/kubedb-wal-g-v2024.12.18_mongo.tar
 k3s ctr images import images/kubedb-zookeeper-init-3.7-v1.tar
 k3s ctr images import images/kubedb-zookeeper-restic-plugin-v0.8.0.tar
+k3s ctr images import images/mariadb-maxscale-24.02.4.tar
 k3s ctr images import images/mssql-server-2022-CU12-ubuntu-22.04.tar
 k3s ctr images import images/mssql-server-2022-CU14-ubuntu-22.04.tar
 k3s ctr images import images/mssql-server-2022-CU16-ubuntu-22.04.tar
