@@ -33,6 +33,7 @@ k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.10.0.tar
 k3s ctr images import images/kubedb-elasticsearch-restic-plugin-v0.15.0.tar
 k3s ctr images import images/kubedb-kubedb-autoscaler-v0.37.0.tar
 k3s ctr images import images/kubedb-kubedb-crd-manager-v0.7.0.tar
+k3s ctr images import images/kubedb-kubedb-gitops-v0.0.1.tar
 k3s ctr images import images/kubedb-kubedb-kibana-v0.28.0.tar
 k3s ctr images import images/kubedb-kubedb-manifest-plugin-v0.15.0.tar
 k3s ctr images import images/kubedb-kubedb-ops-manager-v0.39.0.tar

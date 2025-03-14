@@ -44,6 +44,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-r
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.15.0 $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.15.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-autoscaler:v0.37.0 $IMAGE_REGISTRY/kubedb/kubedb-autoscaler:v0.37.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-crd-manager:v0.7.0 $IMAGE_REGISTRY/kubedb/kubedb-crd-manager:v0.7.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-gitops:v0.0.1 $IMAGE_REGISTRY/kubedb/kubedb-gitops:v0.0.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-kibana:v0.28.0 $IMAGE_REGISTRY/kubedb/kubedb-kibana:v0.28.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-manifest-plugin:v0.15.0 $IMAGE_REGISTRY/kubedb/kubedb-manifest-plugin:v0.15.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.39.0 $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.39.0
