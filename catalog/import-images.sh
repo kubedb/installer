@@ -260,6 +260,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-elasticsearch-restic-plugin-v0.15.0.tar $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.15.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-autoscaler-v0.37.0.tar $IMAGE_REGISTRY/kubedb/kubedb-autoscaler:v0.37.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-crd-manager-v0.7.0.tar $IMAGE_REGISTRY/kubedb/kubedb-crd-manager:v0.7.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-gitops-v0.0.1.tar $IMAGE_REGISTRY/kubedb/kubedb-gitops:v0.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-kibana-v0.28.0.tar $IMAGE_REGISTRY/kubedb/kubedb-kibana:v0.28.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-manifest-plugin-v0.15.0.tar $IMAGE_REGISTRY/kubedb/kubedb-manifest-plugin:v0.15.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-ops-manager-v0.39.0.tar $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.39.0

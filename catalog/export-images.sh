@@ -266,6 +266,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-ini
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.15.0 images/kubedb-elasticsearch-restic-plugin-v0.15.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-autoscaler:v0.37.0 images/kubedb-kubedb-autoscaler-v0.37.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-crd-manager:v0.7.0 images/kubedb-kubedb-crd-manager-v0.7.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-gitops:v0.0.1 images/kubedb-kubedb-gitops-v0.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-kibana:v0.28.0 images/kubedb-kubedb-kibana-v0.28.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-manifest-plugin:v0.15.0 images/kubedb-kubedb-manifest-plugin-v0.15.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.39.0 images/kubedb-kubedb-ops-manager-v0.39.0.tar
