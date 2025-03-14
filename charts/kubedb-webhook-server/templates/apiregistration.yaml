@@ -177,39 +177,3 @@ spec:
   groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
   versionPriority: {{ .Values.apiserver.versionPriority }}
 {{- end }}
-{{- if list "kubedb-webhook-server" "kubedb-schema-manager" | has .Values.server.repository }}
----
-apiVersion: apiregistration.k8s.io/v1
-kind: APIService
-metadata:
-  name: v1alpha1.validators.schema.kubedb.com
-  labels:
-    app.kubernetes.io/component: kubedb-schema-manager
-    {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
-spec:
-  group: validators.schema.kubedb.com
-  version: v1alpha1
-  service:
-    namespace: {{ .Release.Namespace }}
-    name: {{ include "kubedb-webhook-server.fullname" . }}
-  caBundle: {{ $._caCrt }}
-  groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
-  versionPriority: {{ .Values.apiserver.versionPriority }}
----
-apiVersion: apiregistration.k8s.io/v1
-kind: APIService
-metadata:
-  name: v1alpha1.mutators.schema.kubedb.com
-  labels:
-    app.kubernetes.io/component: kubedb-schema-manager
-    {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
-spec:
-  group: mutators.schema.kubedb.com
-  version: v1alpha1
-  service:
-    namespace: {{ .Release.Namespace }}
-    name: {{ include "kubedb-webhook-server.fullname" . }}
-  caBundle: {{ $._caCrt }}
-  groupPriorityMinimum: {{ .Values.apiserver.groupPriorityMinimum }}
-  versionPriority: {{ .Values.apiserver.versionPriority }}
-{{- end }}
