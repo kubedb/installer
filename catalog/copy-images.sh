@@ -288,7 +288,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-arc
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.12.0_11.2.2-jammy $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.12.0_11.2.2-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-coordinator:v0.32.0 $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.32.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-csi-snapshotter-plugin:v0.12.0 $IMAGE_REGISTRY/kubedb/mariadb-csi-snapshotter-plugin:v0.12.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-init:0.5.2 $IMAGE_REGISTRY/kubedb/mariadb-init:0.5.2
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-init:0.5.3 $IMAGE_REGISTRY/kubedb/mariadb-init:0.5.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.10.0 $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.10.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.13.0 $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.13.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
@@ -369,6 +369,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/wal-g:v2024.12.18_mongo $IMAGE_REGISTRY/kubedb/wal-g:v2024.12.18_mongo
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-init:3.7-v1 $IMAGE_REGISTRY/kubedb/zookeeper-init:3.7-v1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.8.0 $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.8.0
+$CMD cp --allow-nondistributable-artifacts --insecure mariadb/maxscale:24.02.4 $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
 $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2022-CU12-ubuntu-22.04
 $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2022-CU14-ubuntu-22.04
 $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU16-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2022-CU16-ubuntu-22.04
