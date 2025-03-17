@@ -43,6 +43,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/el
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:7.17.15 $IMAGE_REGISTRY/appscode-images/elastic:7.17.15
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:7.17.23 $IMAGE_REGISTRY/appscode-images/elastic:7.17.23
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:7.17.25 $IMAGE_REGISTRY/appscode-images/elastic:7.17.25
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:7.17.27 $IMAGE_REGISTRY/appscode-images/elastic:7.17.27
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.11.1 $IMAGE_REGISTRY/appscode-images/elastic:8.11.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.11.4 $IMAGE_REGISTRY/appscode-images/elastic:8.11.4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.13.4 $IMAGE_REGISTRY/appscode-images/elastic:8.13.4
@@ -51,6 +52,8 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/el
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.15.0 $IMAGE_REGISTRY/appscode-images/elastic:8.15.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.15.4 $IMAGE_REGISTRY/appscode-images/elastic:8.15.4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.16.0 $IMAGE_REGISTRY/appscode-images/elastic:8.16.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.16.4 $IMAGE_REGISTRY/appscode-images/elastic:8.16.4
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.17.2 $IMAGE_REGISTRY/appscode-images/elastic:8.17.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.2.3 $IMAGE_REGISTRY/appscode-images/elastic:8.2.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.5.3 $IMAGE_REGISTRY/appscode-images/elastic:8.5.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.6.2 $IMAGE_REGISTRY/appscode-images/elastic:8.6.2
@@ -62,6 +65,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ki
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:7.17.15 $IMAGE_REGISTRY/appscode-images/kibana:7.17.15
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:7.17.23 $IMAGE_REGISTRY/appscode-images/kibana:7.17.23
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:7.17.25 $IMAGE_REGISTRY/appscode-images/kibana:7.17.25
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:7.17.27 $IMAGE_REGISTRY/appscode-images/kibana:7.17.27
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.11.1 $IMAGE_REGISTRY/appscode-images/kibana:8.11.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.11.4 $IMAGE_REGISTRY/appscode-images/kibana:8.11.4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.13.4 $IMAGE_REGISTRY/appscode-images/kibana:8.13.4
@@ -70,6 +74,8 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ki
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.15.0 $IMAGE_REGISTRY/appscode-images/kibana:8.15.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.15.4 $IMAGE_REGISTRY/appscode-images/kibana:8.15.4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.16.0 $IMAGE_REGISTRY/appscode-images/kibana:8.16.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.16.4 $IMAGE_REGISTRY/appscode-images/kibana:8.16.4
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.17.2 $IMAGE_REGISTRY/appscode-images/kibana:8.17.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.2.3 $IMAGE_REGISTRY/appscode-images/kibana:8.2.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.5.3 $IMAGE_REGISTRY/appscode-images/kibana:8.5.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.6.2 $IMAGE_REGISTRY/appscode-images/kibana:8.6.2
@@ -85,6 +91,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/op
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:2.16.0 $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.16.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:2.17.1 $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.17.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:2.18.0 $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.18.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:2.19.0 $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.19.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:2.5.0 $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:2.8.0 $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.8.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:1.1.0 $IMAGE_REGISTRY/appscode-images/opensearch:1.1.0
@@ -98,6 +105,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/op
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.16.0 $IMAGE_REGISTRY/appscode-images/opensearch:2.16.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.17.1 $IMAGE_REGISTRY/appscode-images/opensearch:2.17.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.18.0 $IMAGE_REGISTRY/appscode-images/opensearch:2.18.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.19.0 $IMAGE_REGISTRY/appscode-images/opensearch:2.19.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.5.0 $IMAGE_REGISTRY/appscode-images/opensearch:2.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.8.0 $IMAGE_REGISTRY/appscode-images/opensearch:2.8.0
 $CMD cp --allow-nondistributable-artifacts --insecure prometheuscommunity/elasticsearch-exporter:v1.7.0 $IMAGE_REGISTRY/prometheuscommunity/elasticsearch-exporter:v1.7.0

@@ -45,6 +45,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-e
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-7.17.15.tar $IMAGE_REGISTRY/appscode-images/elastic:7.17.15
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-7.17.23.tar $IMAGE_REGISTRY/appscode-images/elastic:7.17.23
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-7.17.25.tar $IMAGE_REGISTRY/appscode-images/elastic:7.17.25
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-7.17.27.tar $IMAGE_REGISTRY/appscode-images/elastic:7.17.27
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-8.11.1.tar $IMAGE_REGISTRY/appscode-images/elastic:8.11.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-8.11.4.tar $IMAGE_REGISTRY/appscode-images/elastic:8.11.4
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-8.13.4.tar $IMAGE_REGISTRY/appscode-images/elastic:8.13.4
@@ -53,6 +54,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-e
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-8.15.0.tar $IMAGE_REGISTRY/appscode-images/elastic:8.15.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-8.15.4.tar $IMAGE_REGISTRY/appscode-images/elastic:8.15.4
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-8.16.0.tar $IMAGE_REGISTRY/appscode-images/elastic:8.16.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-8.16.4.tar $IMAGE_REGISTRY/appscode-images/elastic:8.16.4
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-8.17.2.tar $IMAGE_REGISTRY/appscode-images/elastic:8.17.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-8.2.3.tar $IMAGE_REGISTRY/appscode-images/elastic:8.2.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-8.5.3.tar $IMAGE_REGISTRY/appscode-images/elastic:8.5.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-8.6.2.tar $IMAGE_REGISTRY/appscode-images/elastic:8.6.2
@@ -93,6 +96,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-k
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-7.17.15.tar $IMAGE_REGISTRY/appscode-images/kibana:7.17.15
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-7.17.23.tar $IMAGE_REGISTRY/appscode-images/kibana:7.17.23
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-7.17.25.tar $IMAGE_REGISTRY/appscode-images/kibana:7.17.25
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-7.17.27.tar $IMAGE_REGISTRY/appscode-images/kibana:7.17.27
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-8.11.1.tar $IMAGE_REGISTRY/appscode-images/kibana:8.11.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-8.11.4.tar $IMAGE_REGISTRY/appscode-images/kibana:8.11.4
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-8.13.4.tar $IMAGE_REGISTRY/appscode-images/kibana:8.13.4
@@ -101,6 +105,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-k
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-8.15.0.tar $IMAGE_REGISTRY/appscode-images/kibana:8.15.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-8.15.4.tar $IMAGE_REGISTRY/appscode-images/kibana:8.15.4
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-8.16.0.tar $IMAGE_REGISTRY/appscode-images/kibana:8.16.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-8.16.4.tar $IMAGE_REGISTRY/appscode-images/kibana:8.16.4
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-8.17.2.tar $IMAGE_REGISTRY/appscode-images/kibana:8.17.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-8.2.3.tar $IMAGE_REGISTRY/appscode-images/kibana:8.2.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-8.5.3.tar $IMAGE_REGISTRY/appscode-images/kibana:8.5.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-8.6.2.tar $IMAGE_REGISTRY/appscode-images/kibana:8.6.2
@@ -153,6 +159,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-o
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-2.16.0.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.16.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-2.17.1.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.17.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-2.18.0.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.18.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-2.19.0.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.19.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-2.5.0.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-2.8.0.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.8.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-1.1.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:1.1.0
@@ -166,6 +173,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-o
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-2.16.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:2.16.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-2.17.1.tar $IMAGE_REGISTRY/appscode-images/opensearch:2.17.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-2.18.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:2.18.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-2.19.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:2.19.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-2.5.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:2.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-2.8.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:2.8.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-percona-xtradb-cluster-5.7.44.tar $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:5.7.44
@@ -242,6 +250,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-s
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-solr-9.4.1.tar $IMAGE_REGISTRY/appscode-images/solr:9.4.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-solr-9.6.1.tar $IMAGE_REGISTRY/appscode-images/solr:9.6.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-solr-9.7.0.tar $IMAGE_REGISTRY/appscode-images/solr:9.7.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-solr-9.8.0.tar $IMAGE_REGISTRY/appscode-images/solr:9.8.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-zookeeper-3.7.2.tar $IMAGE_REGISTRY/appscode-images/zookeeper:3.7.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-zookeeper-3.8.3.tar $IMAGE_REGISTRY/appscode-images/zookeeper:3.8.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-zookeeper-3.9.1.tar $IMAGE_REGISTRY/appscode-images/zookeeper:3.9.1
@@ -357,6 +366,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-init-
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-init-9.4.1.tar $IMAGE_REGISTRY/kubedb/solr-init:9.4.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-init-9.6.1.tar $IMAGE_REGISTRY/kubedb/solr-init:9.6.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-init-9.7.0.tar $IMAGE_REGISTRY/kubedb/solr-init:9.7.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-init-9.8.0.tar $IMAGE_REGISTRY/kubedb/solr-init:9.8.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-wal-g-v2024.12.18_mongo.tar $IMAGE_REGISTRY/kubedb/wal-g:v2024.12.18_mongo
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-init-3.7-v1.tar $IMAGE_REGISTRY/kubedb/zookeeper-init:3.7-v1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-restic-plugin-v0.8.0.tar $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.8.0

@@ -51,6 +51,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:7.17.15 images/appscode-images-elastic-7.17.15.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:7.17.23 images/appscode-images-elastic-7.17.23.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:7.17.25 images/appscode-images-elastic-7.17.25.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:7.17.27 images/appscode-images-elastic-7.17.27.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.11.1 images/appscode-images-elastic-8.11.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.11.4 images/appscode-images-elastic-8.11.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.13.4 images/appscode-images-elastic-8.13.4.tar
@@ -59,6 +60,8 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.15.0 images/appscode-images-elastic-8.15.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.15.4 images/appscode-images-elastic-8.15.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.16.0 images/appscode-images-elastic-8.16.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.16.4 images/appscode-images-elastic-8.16.4.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.17.2 images/appscode-images-elastic-8.17.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.2.3 images/appscode-images-elastic-8.2.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.5.3 images/appscode-images-elastic-8.5.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.6.2 images/appscode-images-elastic-8.6.2.tar
@@ -99,6 +102,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:7.17.15 images/appscode-images-kibana-7.17.15.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:7.17.23 images/appscode-images-kibana-7.17.23.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:7.17.25 images/appscode-images-kibana-7.17.25.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:7.17.27 images/appscode-images-kibana-7.17.27.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.11.1 images/appscode-images-kibana-8.11.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.11.4 images/appscode-images-kibana-8.11.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.13.4 images/appscode-images-kibana-8.13.4.tar
@@ -107,6 +111,8 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.15.0 images/appscode-images-kibana-8.15.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.15.4 images/appscode-images-kibana-8.15.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.16.0 images/appscode-images-kibana-8.16.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.16.4 images/appscode-images-kibana-8.16.4.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.17.2 images/appscode-images-kibana-8.17.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.2.3 images/appscode-images-kibana-8.2.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.5.3 images/appscode-images-kibana-8.5.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.6.2 images/appscode-images-kibana-8.6.2.tar
@@ -159,6 +165,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:2.16.0 images/appscode-images-opensearch-dashboards-2.16.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:2.17.1 images/appscode-images-opensearch-dashboards-2.17.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:2.18.0 images/appscode-images-opensearch-dashboards-2.18.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:2.19.0 images/appscode-images-opensearch-dashboards-2.19.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:2.5.0 images/appscode-images-opensearch-dashboards-2.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:2.8.0 images/appscode-images-opensearch-dashboards-2.8.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:1.1.0 images/appscode-images-opensearch-1.1.0.tar
@@ -172,6 +179,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.16.0 images/appscode-images-opensearch-2.16.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.17.1 images/appscode-images-opensearch-2.17.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.18.0 images/appscode-images-opensearch-2.18.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.19.0 images/appscode-images-opensearch-2.19.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.5.0 images/appscode-images-opensearch-2.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.8.0 images/appscode-images-opensearch-2.8.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:5.7.44 images/appscode-images-percona-xtradb-cluster-5.7.44.tar
@@ -248,6 +256,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:9.4.1 images/appscode-images-solr-9.4.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:9.6.1 images/appscode-images-solr-9.6.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:9.7.0 images/appscode-images-solr-9.7.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:9.8.0 images/appscode-images-solr-9.8.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.7.2 images/appscode-images-zookeeper-3.7.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.8.3 images/appscode-images-zookeeper-3.8.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.9.1 images/appscode-images-zookeeper-3.9.1.tar
@@ -363,6 +372,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.4.1 images/kubedb-solr-init-9.4.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.6.1 images/kubedb-solr-init-9.6.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.7.0 images/kubedb-solr-init-9.7.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.8.0 images/kubedb-solr-init-9.8.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/wal-g:v2024.12.18_mongo images/kubedb-wal-g-v2024.12.18_mongo.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-init:3.7-v1 images/kubedb-zookeeper-init-3.7-v1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.8.0 images/kubedb-zookeeper-restic-plugin-v0.8.0.tar
