@@ -137,6 +137,7 @@ type ThanosRulerSpec struct {
 	// +optional
 	DNSConfig *PodDNSConfig `json:"dnsConfig,omitempty"`
 
+<<<<<<< HEAD
 	// Indicates whether information about services should be injected into pod's environment variables
 	// +optional
 	EnableServiceLinks *bool `json:"enableServiceLinks,omitempty"`
@@ -153,6 +154,11 @@ type ThanosRulerSpec struct {
 	// +kubebuilder:validation:MinLength=1
 	ServiceName *string `json:"serviceName,omitempty"`
 
+=======
+	// Priority class assigned to the Pods
+	PriorityClassName string `json:"priorityClassName,omitempty"`
+
+>>>>>>> fe1cf6907 (Add ferretdb version 2.0.0)
 	// ServiceAccountName is the name of the ServiceAccount to use to run the
 	// Thanos Ruler Pods.
 	ServiceAccountName string `json:"serviceAccountName,omitempty"`
