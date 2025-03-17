@@ -242,7 +242,11 @@ type CommonPrometheusFields struct {
 	// +optional
 	Replicas *int32 `json:"replicas,omitempty"`
 
+<<<<<<< HEAD
 	// Number of shards to distribute the scraped targets onto.
+=======
+	// Number of shards to distribute scraped targets onto.
+>>>>>>> fe1cf6907 (Add ferretdb version 2.0.0)
 	//
 	// `spec.replicas` multiplied by `spec.shards` is the total number of Pods
 	// being created.
@@ -252,11 +256,19 @@ type CommonPrometheusFields struct {
 	// Note that scaling down shards will not reshard data onto the remaining
 	// instances, it must be manually moved. Increasing shards will not reshard
 	// data either but it will continue to be available from the same
+<<<<<<< HEAD
 	// instances. To query globally, use either
 	// * Thanos sidecar + querier for query federation and Thanos Ruler for rules.
 	// * Remote-write to send metrics to a central location.
 	//
 	// By default, the sharding of targets is performed on:
+=======
+	// instances. To query globally, use Thanos sidecar and Thanos querier or
+	// remote write data to a central location.
+	// Alerting and recording rules
+	//
+	// By default, the sharding is performed on:
+>>>>>>> fe1cf6907 (Add ferretdb version 2.0.0)
 	// * The `__address__` target's metadata label for PodMonitor,
 	// ServiceMonitor and ScrapeConfig resources.
 	// * The `__param_target__` label for Probe resources.
@@ -1140,6 +1152,7 @@ type PrometheusSpec struct {
 	// For more information:
 	// https://prometheus.io/docs/prometheus/latest/querying/api/#tsdb-admin-apis
 	EnableAdminAPI bool `json:"enableAdminAPI,omitempty"`
+<<<<<<< HEAD
 }
 
 type WhenScaledRetentionType string
@@ -1158,6 +1171,8 @@ type ShardRetentionPolicy struct {
 	// +kubebuilder:validation:Enum=Retain;Delete
 	// +optional
 	WhenScaled *WhenScaledRetentionType `json:"whenScaled,omitempty"`
+=======
+>>>>>>> fe1cf6907 (Add ferretdb version 2.0.0)
 }
 
 type PrometheusTracingConfig struct {
