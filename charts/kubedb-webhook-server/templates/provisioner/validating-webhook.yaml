@@ -18,22 +18,60 @@ metadata:
     app.kubernetes.io/component: kubedb-provisioner
     {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
 webhooks:
-- name: namespacewebhook.validators.kubedb.com
+{{- if $featureGates.Cassandra }}
+- name: cassandrawebhook.validators.kubedb.com
   clientConfig:
     service:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /mutate-v1-namespace
+      path: /validate-kubedb-com-v1alpha2-cassandra
       port: 9443
     caBundle: {{ $._caCrt }}
   rules:
-  - apiGroups: [""]
-    apiVersions: ["*"]
-    resources: ["namespaces"]
-    operations: ["DELETE"]
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["cassandras"]
+      operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
-  failurePolicy: Ignore
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+{{- end }}
+{{- if $featureGates.ClickHouse }}
+- name: clickhousewebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-clickhouse
+      port: 9443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["clickhouses"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.Druid }}
+- name: druidwebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-druid
+      port: 9443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["druids"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
 {{- if $featureGates.Elasticsearch }}
 - name: elasticsearchwebhook.validators.kubedb.com
   clientConfig:
@@ -47,29 +85,28 @@ webhooks:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["v1"]
     resources: ["elasticsearches"]
-    operations: ["CREATE", "UPDATE", "DELETE"]
+    operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
-{{- if $featureGates.Postgres }}
-- name: postgreswebhook.validators.kubedb.com
+{{- if $featureGates.Etcd }}
+- name: etcdwebhook.validators.kubedb.com
   clientConfig:
     service:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kubedb-com-v1-postgres
+      path: /validate-kubedb-com-v1-etcd
       port: 9443
     caBundle: {{ $._caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
-    apiVersions: ["v1"]
-    resources: ["postgreses"]
-    operations: ["CREATE", "UPDATE", "DELETE"]
+    apiVersions: ["*"]
+    resources: ["etcds"]
+    operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
-  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.FerretDB }}
 - name: ferretdbwebhook.validators.kubedb.com
@@ -84,43 +121,125 @@ webhooks:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
       resources: ["ferretdbs"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
+      operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
-{{- if $featureGates.MySQL }}
-- name: mysqlwebhook.validators.kubedb.com
+{{- if $featureGates.Kafka }}
+- name: kafkawebhook.validators.kubedb.com
   clientConfig:
     service:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kubedb-com-v1-mysql
+      path: /validate-kubedb-com-v1-kafka
+      port: 9443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: [ "kubedb.com" ]
+      apiVersions: [ "v1" ]
+      resources: [ "kafkas" ]
+      operations: [ "CREATE", "UPDATE" ]
+  admissionReviewVersions: [ "v1beta1" ]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+- name: connectclusterwebhook.validators.kafka.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kafka-kubedb-com-v1alpha1-connectcluster
+      port: 9443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: [ "kafka.kubedb.com" ]
+      apiVersions: [ "*" ]
+      resources: [ "connectclusters" ]
+      operations: [ "CREATE", "UPDATE" ]
+  admissionReviewVersions: [ "v1beta1" ]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+- name: connectorwebhook.validators.kafka.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kafka-kubedb-com-v1alpha1-connector
+      port: 9443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: [ "kafka.kubedb.com" ]
+      apiVersions: [ "*" ]
+      resources: [ "connectors" ]
+      operations: [ "CREATE", "UPDATE" ]
+  admissionReviewVersions: [ "v1beta1" ]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+- name: restproxywebhook.validators.kafka.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kafka-kubedb-com-v1alpha1-restproxy
+      port: 9443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: [ "kafka.kubedb.com" ]
+      apiVersions: [ "*" ]
+      resources: [ "restproxies" ]
+      operations: [ "CREATE", "UPDATE" ]
+  admissionReviewVersions: [ "v1beta1" ]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+- name: schemaregistrywebhook.validators.kafka.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kafka-kubedb-com-v1alpha1-schemaregistry
+      port: 9443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: [ "kafka.kubedb.com" ]
+      apiVersions: [ "*" ]
+      resources: [ "schemaregistries" ]
+      operations: [ "CREATE", "UPDATE" ]
+  admissionReviewVersions: [ "v1beta1" ]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.MariaDB }}
+- name: mariadbwebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1-mariadb
       port: 9443
     caBundle: {{ $._caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["v1"]
-    resources: ["mysqls"]
-    operations: ["CREATE", "UPDATE", "DELETE"]
+    resources: ["mariadbs"]
+    operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
-{{- if $featureGates.PerconaXtraDB }}
-- name: perconaxtradbwebhook.validators.kubedb.com
+{{- if $featureGates.Memcached }}
+- name: memcachedwebhook.validators.kubedb.com
   clientConfig:
     service:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kubedb-com-v1-perconaxtradb
+      path: /validate-kubedb-com-v1-memcached
       port: 9443
     caBundle: {{ $._caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["v1"]
-    resources: ["perconaxtradbs"]
-    operations: ["CREATE", "UPDATE", "DELETE"]
+    resources: ["memcacheds"]
+    operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
@@ -138,8 +257,153 @@ webhooks:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["v1"]
     resources: ["mongodbs"]
-    operations: ["CREATE", "UPDATE", "DELETE"]
+    operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.MSSQLServer }}
+- name: mssqlserverwebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-mssqlserver
+      port: 9443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: [ "kubedb.com" ]
+      apiVersions: [ "*" ]
+      resources: [ "mssqlservers" ]
+      operations: [ "CREATE", "UPDATE" ]
+  admissionReviewVersions: [ "v1beta1" ]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.MySQL }}
+- name: mysqlwebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1-mysql
+      port: 9443
+    caBundle: {{ $._caCrt }}
+  rules:
+  - apiGroups: ["kubedb.com"]
+    apiVersions: ["v1"]
+    resources: ["mysqls"]
+    operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.PerconaXtraDB }}
+- name: perconaxtradbwebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1-perconaxtradb
+      port: 9443
+    caBundle: {{ $._caCrt }}
+  rules:
+  - apiGroups: ["kubedb.com"]
+    apiVersions: ["v1"]
+    resources: ["perconaxtradbs"]
+    operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.PgBouncer }}
+- name: pgbouncerwebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1-pgbouncer
+      port: 9443
+    caBundle: {{ $._caCrt }}
+  rules:
+  - apiGroups: ["kubedb.com"]
+    apiVersions: ["v1"]
+    resources: ["pgbouncers"]
+    operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.Pgpool }}
+- name: pgpoolwebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-pgpool
+      port: 9443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: [ "kubedb.com" ]
+      apiVersions: [ "*" ]
+      resources: [ "pgpools" ]
+      operations: [ "CREATE", "UPDATE" ]
+  admissionReviewVersions: [ "v1beta1" ]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.Postgres }}
+- name: postgreswebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1-postgres
+      port: 9443
+    caBundle: {{ $._caCrt }}
+  rules:
+  - apiGroups: ["kubedb.com"]
+    apiVersions: ["v1"]
+    resources: ["postgreses"]
+    operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  matchPolicy: Equivalent
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.ProxySQL }}
+- name: proxysqlwebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1-proxysql
+      port: 9443
+    caBundle: {{ $._caCrt }}
+  rules:
+  - apiGroups: ["kubedb.com"]
+    apiVersions: ["v1"]
+    resources: ["proxysqls"]
+    operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.RabbitMQ }}
+- name: rabbitmqwebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-rabbitmq
+      port: 9443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: [ "kubedb.com" ]
+      apiVersions: [ "*" ]
+      resources: [ "rabbitmqs" ]
+      operations: [ "CREATE", "UPDATE" ]
+  admissionReviewVersions: [ "v1beta1" ]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
@@ -156,7 +420,7 @@ webhooks:
   - apiGroups: ["kubedb.com"]
     apiVersions: ["v1"]
     resources: ["redises"]
-    operations: ["CREATE", "UPDATE", "DELETE"]
+    operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
@@ -177,93 +441,39 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
-{{- if $featureGates.Memcached }}
-- name: memcachedwebhook.validators.kubedb.com
+{{- if $featureGates.Singlestore }}
+- name: singlestorewebhook.validators.kubedb.com
   clientConfig:
     service:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kubedb-com-v1-memcached
+      path: /validate-kubedb-com-v1alpha2-singlestore
       port: 9443
     caBundle: {{ $._caCrt }}
   rules:
-  - apiGroups: ["kubedb.com"]
-    apiVersions: ["v1"]
-    resources: ["memcacheds"]
-    operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
+    - apiGroups: [ "kubedb.com" ]
+      apiVersions: [ "*" ]
+      resources: [ "singlestores" ]
+      operations: [ "CREATE", "UPDATE" ]
+  admissionReviewVersions: [ "v1beta1" ]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
-{{- if $featureGates.Etcd }}
-- name: etcdwebhook.validators.kubedb.com
+{{- if $featureGates.Solr }}
+- name: solrwebhook.validators.kubedb.com
   clientConfig:
     service:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kubedb-com-v1-etcd
+      path: /validate-kubedb-com-v1alpha2-solr
       port: 9443
     caBundle: {{ $._caCrt }}
   rules:
-  - apiGroups: ["kubedb.com"]
-    apiVersions: ["*"]
-    resources: ["etcds"]
-    operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
-{{- end }}
-{{- if $featureGates.PgBouncer }}
-- name: pgbouncerwebhook.validators.kubedb.com
-  clientConfig:
-    service:
-      namespace: {{ .Release.Namespace }}
-      name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kubedb-com-v1-pgbouncer
-      port: 9443
-    caBundle: {{ $._caCrt }}
-  rules:
-  - apiGroups: ["kubedb.com"]
-    apiVersions: ["v1"]
-    resources: ["pgbouncers"]
-    operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
-{{- end }}
-{{- if $featureGates.ProxySQL }}
-- name: proxysqlwebhook.validators.kubedb.com
-  clientConfig:
-    service:
-      namespace: {{ .Release.Namespace }}
-      name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kubedb-com-v1-proxysql
-      port: 9443
-    caBundle: {{ $._caCrt }}
-  rules:
-  - apiGroups: ["kubedb.com"]
-    apiVersions: ["v1"]
-    resources: ["proxysqls"]
-    operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
-{{- end }}
-{{- if $featureGates.MariaDB }}
-- name: mariadbwebhook.validators.kubedb.com
-  clientConfig:
-    service:
-      namespace: {{ .Release.Namespace }}
-      name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kubedb-com-v1-mariadb
-      port: 9443
-    caBundle: {{ $._caCrt }}
-  rules:
-    - apiGroups: ["kubedb.com"]
-      apiVersions: ["v1"]
-      resources: ["mariadbs"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
+    - apiGroups: [ "kubedb.com" ]
+      apiVersions: [ "*" ]
+      resources: [ "solrs" ]
+      operations: [ "CREATE", "UPDATE" ]
+  admissionReviewVersions: [ "v1beta1" ]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
@@ -285,231 +495,6 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
-{{- if $featureGates.RabbitMQ }}
-- name: rabbitmqwebhook.validators.kubedb.com
-  clientConfig:
-    service:
-      namespace: {{ .Release.Namespace }}
-      name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kubedb-com-v1alpha2-rabbitmq
-      port: 9443
-    caBundle: {{ $._caCrt }}
-  rules:
-    - apiGroups: ["kubedb.com"]
-      apiVersions: ["*"]
-      resources: ["rabbitmqs"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
-{{- end }}
-{{- if $featureGates.Druid }}
-- name: druidwebhook.validators.kubedb.com
-  clientConfig:
-    service:
-      namespace: {{ .Release.Namespace }}
-      name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kubedb-com-v1alpha2-druid
-      port: 9443
-    caBundle: {{ $._caCrt }}
-  rules:
-    - apiGroups: ["kubedb.com"]
-      apiVersions: ["*"]
-      resources: ["druids"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
-{{- end }}
-{{- if $featureGates.Cassandra }}
-- name: cassandrawebhook.validators.kubedb.com
-  clientConfig:
-    service:
-      namespace: {{ .Release.Namespace }}
-      name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kubedb-com-v1alpha2-cassandra
-      port: 9443
-    caBundle: {{ $._caCrt }}
-  rules:
-    - apiGroups: ["kubedb.com"]
-      apiVersions: ["*"]
-      resources: ["cassandras"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
-{{- end }}
-{{- if $featureGates.ClickHouse }}
-- name: clickhousewebhook.validators.kubedb.com
-  clientConfig:
-    service:
-      namespace: {{ .Release.Namespace }}
-      name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kubedb-com-v1alpha2-clickhouse
-      port: 9443
-    caBundle: {{ $._caCrt }}
-  rules:
-    - apiGroups: ["kubedb.com"]
-      apiVersions: ["*"]
-      resources: ["clickhouses"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
-{{- end }}
-{{- if $featureGates.Kafka }}
-- name: kafkawebhook.validators.kubedb.com
-  clientConfig:
-    service:
-      namespace: {{ .Release.Namespace }}
-      name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kubedb-com-v1-kafka
-      port: 9443
-    caBundle: {{ $._caCrt }}
-  rules:
-    - apiGroups: ["kubedb.com"]
-      apiVersions: ["v1"]
-      resources: ["kafkas"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
-- name: connectclusterwebhook.validators.kafka.kubedb.com
-  clientConfig:
-    service:
-      namespace: {{ .Release.Namespace }}
-      name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kafka-kubedb-com-v1alpha1-connectcluster
-      port: 9443
-    caBundle: {{ $._caCrt }}
-  rules:
-    - apiGroups: ["kafka.kubedb.com"]
-      apiVersions: ["*"]
-      resources: ["connectclusters"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
-- name: connectorwebhook.validators.kafka.kubedb.com
-  clientConfig:
-    service:
-      namespace: {{ .Release.Namespace }}
-      name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kafka-kubedb-com-v1alpha1-connector
-      port: 9443
-    caBundle: {{ $._caCrt }}
-  rules:
-    - apiGroups: ["kafka.kubedb.com"]
-      apiVersions: ["*"]
-      resources: ["connectors"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
-- name: restproxywebhook.validators.kafka.kubedb.com
-  clientConfig:
-    service:
-      namespace: {{ .Release.Namespace }}
-      name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kafka-kubedb-com-v1alpha1-restproxy
-      port: 9443
-    caBundle: {{ $._caCrt }}
-  rules:
-    - apiGroups: ["kafka.kubedb.com"]
-      apiVersions: ["*"]
-      resources: ["restproxies"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
-- name: schemaregistrywebhook.validators.kafka.kubedb.com
-  clientConfig:
-    service:
-      namespace: {{ .Release.Namespace }}
-      name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kafka-kubedb-com-v1alpha1-schemaregistry
-      port: 9443
-    caBundle: {{ $._caCrt }}
-  rules:
-    - apiGroups: ["kafka.kubedb.com"]
-      apiVersions: ["*"]
-      resources: ["schemaregistries"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
-{{- end }}
-{{- if $featureGates.Singlestore }}
-- name: singlestorewebhook.validators.kubedb.com
-  clientConfig:
-    service:
-      namespace: {{ .Release.Namespace }}
-      name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kubedb-com-v1alpha2-singlestore
-      port: 9443
-    caBundle: {{ $._caCrt }}
-  rules:
-    - apiGroups: ["kubedb.com"]
-      apiVersions: ["*"]
-      resources: ["singlestores"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
-{{- end }}
-{{- if $featureGates.Solr }}
-- name: solrwebhook.validators.kubedb.com
-  clientConfig:
-    service:
-      namespace: {{ .Release.Namespace }}
-      name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kubedb-com-v1alpha2-solr
-      port: 9443
-    caBundle: {{ $._caCrt }}
-  rules:
-    - apiGroups: ["kubedb.com"]
-      apiVersions: ["*"]
-      resources: ["solrs"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
-{{- end }}
-{{- if $featureGates.Pgpool }}
-- name: pgpoolwebhook.validators.kubedb.com
-  clientConfig:
-    service:
-      namespace: {{ .Release.Namespace }}
-      name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kubedb-com-v1alpha2-pgpool
-      port: 9443
-    caBundle: {{ $._caCrt }}
-  rules:
-    - apiGroups: ["kubedb.com"]
-      apiVersions: ["*"]
-      resources: ["pgpools"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
-{{- end }}
-{{- if $featureGates.MSSQLServer }}
-- name: mssqlserverwebhook.validators.kubedb.com
-  clientConfig:
-    service:
-      namespace: {{ .Release.Namespace }}
-      name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kubedb-com-v1alpha2-mssqlserver
-      port: 9443
-    caBundle: {{ $._caCrt }}
-  rules:
-    - apiGroups: ["kubedb.com"]
-      apiVersions: ["*"]
-      resources: ["mssqlservers"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
-{{- end }}
+
 {{- end }}
 {{- end }}
