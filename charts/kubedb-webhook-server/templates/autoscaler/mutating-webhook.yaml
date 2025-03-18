@@ -1,3 +1,5 @@
+{{ template "kubedb-webhook-server.prepare-certs" $ }}
+
 {{ $featureGates := .Values.featureGates }}
 {{- if .Values.global }}
   {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
@@ -16,19 +18,38 @@ metadata:
     app.kubernetes.io/component: kubedb-autoscaler
     {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
 webhooks:
-{{- if $featureGates.MongoDB }}
-- name: mongodbautoscalerwebhook.mutators.autoscaling.kubedb.com
+{{- if $featureGates.Cassandra }}
+- name: cassandraautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/mongodbautoscalerwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-cassandraautoscaler
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
-  - apiGroups: ["autoscaling.kubedb.com"]
-    apiVersions: ["*"]
-    resources: ["mongodbautoscalers"]
-    operations: ["CREATE", "UPDATE"]
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["cassandraautoscalers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.ClickHouse }}
+- name: clickhouseautoscalerwebhook.mutators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-clickhouseautoscaler
+      port: 9443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["clickhouseautoscalers"]
+      operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
@@ -37,10 +58,11 @@ webhooks:
 - name: druidautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/druidautoscalerwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-druidautoscaler
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -50,36 +72,38 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
-{{- if $featureGates.RabbitMQ }}
-- name: rabbitmqautoscalerwebhook.mutators.autoscaling.kubedb.com
+{{- if $featureGates.Elasticsearch }}
+- name: elasticsearchautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/rabbitmqautoscalerwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-elasticsearchautoscaler
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["rabbitmqautoscalers"]
+      resources: ["elasticsearchautoscalers"]
       operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
-{{- if $featureGates.Elasticsearch }}
-- name: elasticsearchautoscalerwebhook.mutators.autoscaling.kubedb.com
+{{- if $featureGates.FerretDB }}
+- name: ferretdbautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/elasticsearchautoscalerwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-ferretdbautoscaler
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
-  - apiGroups: ["autoscaling.kubedb.com"]
-    apiVersions: ["*"]
-    resources: ["elasticsearchautoscalers"]
-    operations: ["CREATE", "UPDATE"]
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["ferretdbautoscalers"]
+      operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
@@ -88,10 +112,11 @@ webhooks:
 - name: kafkaautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/kafkaautoscalerwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-kafkaautoscaler
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -105,10 +130,11 @@ webhooks:
 - name: mariadbautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/mariadbautoscalerwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-mariadbautoscaler
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -118,14 +144,51 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
+{{- if $featureGates.Memcached }}
+- name: memcachedautoscalerwebhook.mutators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-memcachedautoscaler
+      port: 9443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["memcachedautoscalers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.MongoDB }}
+- name: mongodbautoscalerwebhook.mutators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-mongodbautoscaler
+      port: 9443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["mongodbautoscalers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
 {{- if $featureGates.MSSQLServer }}
 - name: mssqlserverautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/mssqlserverautoscalerwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-mssqlserverautoscaler
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -139,10 +202,11 @@ webhooks:
 - name: mysqlautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/mysqlautoscalerwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-mysqlautoscaler
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -156,10 +220,11 @@ webhooks:
 - name: perconaxtradbautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/perconaxtradbautoscalerwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-perconaxtradbautoscaler
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -169,14 +234,33 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
+{{- if $featureGates.PgBouncer }}
+- name: pgbouncerautoscalerwebhook.mutators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-pgbouncerautoscaler
+      port: 9443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["pgbouncerautoscalers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
 {{- if $featureGates.Pgpool }}
 - name: pgpoolautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/pgpoolautoscalerwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-pgpoolautoscaler
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -190,10 +274,11 @@ webhooks:
 - name: postgresautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/postgresautoscalerwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-postgresautoscaler
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -203,31 +288,15 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
-{{- if $featureGates.PgBouncer }}
-- name: pgbouncerautoscalerwebhook.mutators.autoscaling.kubedb.com
-  clientConfig:
-    service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/pgbouncerautoscalerwebhooks
-    caBundle: {{ $caCrt }}
-  rules:
-    - apiGroups: ["autoscaling.kubedb.com"]
-      apiVersions: ["*"]
-      resources: ["pgbouncerautoscalers"]
-      operations: ["CREATE", "UPDATE"]
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
-{{- end }}
 {{- if $featureGates.ProxySQL }}
 - name: proxysqlautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/proxysqlautoscalerwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-proxysqlautoscaler
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -237,14 +306,33 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
+{{- if $featureGates.RabbitMQ }}
+- name: rabbitmqautoscalerwebhook.mutators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-rabbitmqautoscaler
+      port: 9443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["rabbitmqautoscalers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
 {{- if $featureGates.Redis }}
 - name: redisautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/redisautoscalerwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-redisautoscaler
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -256,10 +344,11 @@ webhooks:
 - name: redissentinelautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/redissentinelautoscalerwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-redissentinelautoscaler
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -273,10 +362,11 @@ webhooks:
 - name: singlestoreautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/singlestoreautoscalerwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-singlestoreautoscaler
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -290,10 +380,11 @@ webhooks:
 - name: solrautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.autoscaling.kubedb.com/v1alpha1/solrautoscalerwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-solrautoscaler
+      port: 9443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -303,6 +394,24 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
-{{- end }}
+{{- if $featureGates.ZooKeeper }}
+- name: zookeeperautoscalerwebhook.mutators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-zookeeperautoscaler
+      port: 9443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["zookeeperautoscalers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
 {{- end }}
 
+{{- end }}
+{{- end }}
