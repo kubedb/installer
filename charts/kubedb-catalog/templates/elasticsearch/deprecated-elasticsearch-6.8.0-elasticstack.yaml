@@ -23,6 +23,9 @@ spec:
     yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/yq") $) }}:2.4.0'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 1000
   version: 6.8.0
   deprecated: {{ not (has "6.8" .Values.enableVersions.Elasticsearch) }}
 {{ end }}
@@ -47,6 +50,9 @@ spec:
     yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/yq") $) }}:2.4.0'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 1000
   version: 6.8.0
   deprecated: {{ not (has "6.8.0" .Values.enableVersions.Elasticsearch) }}
 {{ end }}
