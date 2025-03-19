@@ -24,8 +24,6 @@ spec:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "mariadb/maxscale") $) }}:24.02.4'
     securityContext:
       runAsUser: 997
-  podSecurityPolicies:
-    databasePolicyName: maria-db
   securityContext:
     runAsUser: 999
   stash:
@@ -35,6 +33,8 @@ spec:
       restoreTask:
         name: mariadb-restore-10.5.8
   version: 10.5.8
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "maria-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "10.5.8" .Values.enableVersions.MariaDB) }}
 {{ end }}
 {{ end }}

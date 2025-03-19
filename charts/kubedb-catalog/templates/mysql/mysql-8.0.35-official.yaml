@@ -39,8 +39,6 @@ spec:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.2.1'
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:8.0.31-v4'
-  podSecurityPolicies:
-    databasePolicyName: mysql-db
   replicationModeDetector:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.39.0'
   securityContext:
@@ -66,4 +64,6 @@ spec:
       standalone:
       - < 8.0.35
   version: 8.0.35
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "mysql-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
 {{ end }}

@@ -14,13 +14,13 @@ metadata:
 spec:
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/proxysql-exporter") $) }}:v1.1.0'
-  podSecurityPolicies:
-    databasePolicyName: proxysql-db
   proxysql:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/proxysql") $) }}:2.3.2-debian'
   securityContext:
     runAsUser: 999
   version: 2.3.2
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "proxysql-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "2.3.2" .Values.enableVersions.ProxySQL) }}
 {{ end }}
 {{ end }}

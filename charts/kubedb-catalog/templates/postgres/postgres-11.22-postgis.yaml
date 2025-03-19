@@ -37,8 +37,6 @@ spec:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.15.0'
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.17.1'
-  podSecurityPolicies:
-    databasePolicyName: postgres-db
   securityContext:
     runAsAnyNonRoot: true
     runAsUser: 999
@@ -57,4 +55,6 @@ spec:
     allowlist:
     - '>= 11.22, <= 16.8'
   version: "11.22"
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "postgres-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
 {{ end }}
