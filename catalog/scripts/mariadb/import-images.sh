@@ -47,4 +47,5 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-ar
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.12.0_11.1.3-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.12.0_11.1.3-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.12.0_11.2.2-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.12.0_11.2.2-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-coordinator-v0.32.0.tar $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.32.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-init-0.5.2.tar $IMAGE_REGISTRY/kubedb/mariadb-init:0.5.2
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-init-0.5.3.tar $IMAGE_REGISTRY/kubedb/mariadb-init:0.5.3
+$CMD push --allow-nondistributable-artifacts --insecure images/mariadb-maxscale-24.02.4.tar $IMAGE_REGISTRY/mariadb/maxscale:24.02.4

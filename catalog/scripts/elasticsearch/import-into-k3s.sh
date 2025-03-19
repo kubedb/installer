@@ -32,6 +32,7 @@ k3s ctr images import images/appscode-images-elastic-7.16.3.tar
 k3s ctr images import images/appscode-images-elastic-7.17.15.tar
 k3s ctr images import images/appscode-images-elastic-7.17.23.tar
 k3s ctr images import images/appscode-images-elastic-7.17.25.tar
+k3s ctr images import images/appscode-images-elastic-7.17.27.tar
 k3s ctr images import images/appscode-images-elastic-8.11.1.tar
 k3s ctr images import images/appscode-images-elastic-8.11.4.tar
 k3s ctr images import images/appscode-images-elastic-8.13.4.tar
@@ -40,6 +41,8 @@ k3s ctr images import images/appscode-images-elastic-8.14.3.tar
 k3s ctr images import images/appscode-images-elastic-8.15.0.tar
 k3s ctr images import images/appscode-images-elastic-8.15.4.tar
 k3s ctr images import images/appscode-images-elastic-8.16.0.tar
+k3s ctr images import images/appscode-images-elastic-8.16.4.tar
+k3s ctr images import images/appscode-images-elastic-8.17.2.tar
 k3s ctr images import images/appscode-images-elastic-8.2.3.tar
 k3s ctr images import images/appscode-images-elastic-8.5.3.tar
 k3s ctr images import images/appscode-images-elastic-8.6.2.tar
@@ -51,6 +54,7 @@ k3s ctr images import images/appscode-images-kibana-7.16.3.tar
 k3s ctr images import images/appscode-images-kibana-7.17.15.tar
 k3s ctr images import images/appscode-images-kibana-7.17.23.tar
 k3s ctr images import images/appscode-images-kibana-7.17.25.tar
+k3s ctr images import images/appscode-images-kibana-7.17.27.tar
 k3s ctr images import images/appscode-images-kibana-8.11.1.tar
 k3s ctr images import images/appscode-images-kibana-8.11.4.tar
 k3s ctr images import images/appscode-images-kibana-8.13.4.tar
@@ -59,6 +63,8 @@ k3s ctr images import images/appscode-images-kibana-8.14.3.tar
 k3s ctr images import images/appscode-images-kibana-8.15.0.tar
 k3s ctr images import images/appscode-images-kibana-8.15.4.tar
 k3s ctr images import images/appscode-images-kibana-8.16.0.tar
+k3s ctr images import images/appscode-images-kibana-8.16.4.tar
+k3s ctr images import images/appscode-images-kibana-8.17.2.tar
 k3s ctr images import images/appscode-images-kibana-8.2.3.tar
 k3s ctr images import images/appscode-images-kibana-8.5.3.tar
 k3s ctr images import images/appscode-images-kibana-8.6.2.tar
@@ -74,6 +80,7 @@ k3s ctr images import images/appscode-images-opensearch-dashboards-2.14.0.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-2.16.0.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-2.17.1.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-2.18.0.tar
+k3s ctr images import images/appscode-images-opensearch-dashboards-2.19.0.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-2.5.0.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-2.8.0.tar
 k3s ctr images import images/appscode-images-opensearch-1.1.0.tar
@@ -87,6 +94,7 @@ k3s ctr images import images/appscode-images-opensearch-2.14.0.tar
 k3s ctr images import images/appscode-images-opensearch-2.16.0.tar
 k3s ctr images import images/appscode-images-opensearch-2.17.1.tar
 k3s ctr images import images/appscode-images-opensearch-2.18.0.tar
+k3s ctr images import images/appscode-images-opensearch-2.19.0.tar
 k3s ctr images import images/appscode-images-opensearch-2.5.0.tar
 k3s ctr images import images/appscode-images-opensearch-2.8.0.tar
 k3s ctr images import images/prometheuscommunity-elasticsearch-exporter-v1.7.0.tar
