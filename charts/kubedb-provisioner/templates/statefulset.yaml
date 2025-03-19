@@ -82,7 +82,7 @@ spec:
         - --use-kubeapiserver-fqdn-for-aks={{ .Values.apiserver.useKubeapiserverFqdnForAks }}
         - --metrics-bind-address=:{{ .Values.monitoring.bindPort }}
         - --health-probe-bind-address=:{{ .Values.apiserver.healthcheck.probePort }}
-        {{- if gt .Values.replicaCount 1 }}
+        {{- if gt (int .Values.replicaCount) 1 }}
         - --shard-config={{ include "kubedb-provisioner.name" . }}
         {{- end }}
         {{- include "docker.imagePullSecretFlags" . | nindent 8 }}
@@ -168,7 +168,7 @@ spec:
     {{- if $affinity }}
       affinity:
         {{- toYaml $ | nindent 8 }}
-    {{- else if gt .Values.replicaCount 1 }}
+    {{- else if gt (int .Values.replicaCount) 1 }}
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
