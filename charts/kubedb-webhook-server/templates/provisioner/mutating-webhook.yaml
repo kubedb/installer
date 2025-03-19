@@ -8,8 +8,6 @@
 {{- if .Values.apiserver.enableMutatingWebhook }}
 {{- if not (list "kubedb-autoscaler" "kubedb-dashboard" "kubedb-ops-manager" "kubedb-schema-manager" | has .Values.server.repository) }}
 
-{{- $caCrt := dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" .Release.Namespace "kube-root-ca.crt") | b64enc }}
-
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
@@ -25,7 +23,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-cassandra
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["kubedb.com"]
@@ -43,7 +41,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-clickhouse
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["kubedb.com"]
@@ -61,7 +59,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-druid
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["kubedb.com"]
@@ -79,7 +77,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-elasticsearch
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
@@ -97,7 +95,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-etcd
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
@@ -115,7 +113,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-ferretdb
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["kubedb.com"]
@@ -133,7 +131,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-kafka
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: [ "kubedb.com" ]
@@ -149,7 +147,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kafka-kubedb-com-v1alpha1-connectcluster
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: [ "kafka.kubedb.com" ]
@@ -165,7 +163,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kafka-kubedb-com-v1alpha1-connector
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: [ "kafka.kubedb.com" ]
@@ -181,7 +179,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kafka-kubedb-com-v1alpha1-restproxy
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: [ "kafka.kubedb.com" ]
@@ -197,7 +195,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kafka-kubedb-com-v1alpha1-schemaregistry
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: [ "kafka.kubedb.com" ]
@@ -215,7 +213,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-mariadb
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
@@ -233,7 +231,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-memcached
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
@@ -251,7 +249,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-mongodb
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
@@ -269,7 +267,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-mssqlserver
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: [ "kubedb.com" ]
@@ -287,7 +285,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-mysql
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
@@ -305,7 +303,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-perconaxtradb
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
@@ -323,7 +321,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-pgbouncer
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
@@ -341,7 +339,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-pgpool
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: [ "kubedb.com" ]
@@ -359,7 +357,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-postgres
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
@@ -378,7 +376,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-proxysql
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
@@ -396,7 +394,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-rabbitmq
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: [ "kubedb.com" ]
@@ -414,7 +412,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-redis
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
@@ -430,7 +428,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-redissentinel
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["kubedb.com"]
@@ -448,7 +446,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-singlestore
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: [ "kubedb.com" ]
@@ -466,7 +464,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-solr
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: [ "kubedb.com" ]
@@ -484,7 +482,7 @@ webhooks:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-zookeeper
-      port: 9443
+      port: 443
     caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: ["kubedb.com"]

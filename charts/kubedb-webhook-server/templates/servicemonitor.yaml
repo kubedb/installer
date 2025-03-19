@@ -18,13 +18,22 @@ spec:
     matchLabels:
       {{- include "kubedb-webhook-server.selectorLabels" . | nindent 6 }}
   endpoints:
-  - port: api
-    bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+  - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    path: /metrics
+    port: metrics
     scheme: https
     tlsConfig:
       ca:
         secret:
-          name: {{ include "kubedb-webhook-server.fullname" . }}-apiserver-cert
+          name: {{ include "kubedb-webhook-server.fullname" . }}-cert
           key: ca.crt
+      cert:
+        secret:
+          name: {{ include "kubedb-webhook-server.fullname" . }}-cert
+          key: tls.crt
+      insecureSkipVerify: false
+      keySecret:
+        name: {{ include "kubedb-webhook-server.fullname" . }}-cert
+        key: tls.key
       serverName: "{{ include "kubedb-webhook-server.fullname" . }}.{{ .Release.Namespace }}.svc"
 {{- end }}
