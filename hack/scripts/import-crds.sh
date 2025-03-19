@@ -91,9 +91,10 @@ if [ "$update_kubedb_crds" = true ] && [ -d ${crd_dir} ]; then
         --group=catalog.kubedb.com
 fi
 
-KMODULES_CUSTOM_RESOURCES_TAG=${KMODULES_CUSTOM_RESOURCES_TAG:-v0.30.1}
-KMODULES_RESOURCE_METADATA_TAG=${KMODULES_RESOURCE_METADATA_TAG:-v0.25.1}
-KUBEOPS_SUPERVISOR_TAG=${KUBEOPS_SUPERVISOR_TAG:-v0.0.7}
+KMODULES_CUSTOM_RESOURCES_TAG=${KMODULES_CUSTOM_RESOURCES_TAG:-v0.32.0}
+KMODULES_RESOURCE_METADATA_TAG=${KMODULES_RESOURCE_METADATA_TAG:-v0.26.0}
+KUBEOPS_OPERATOR_SHARD_MANAGER_TAG=${KUBEOPS_OPERATOR_SHARD_MANAGER_TAG:-v0.0.2}
+KUBEOPS_SUPERVISOR_TAG=${KUBEOPS_SUPERVISOR_TAG:-v0.0.8}
 KUBESTASH_APIMACHINERY_TAG=${KUBESTASH_APIMACHINERY_TAG:-v0.16.0}
 OPEN_VIZ_APIMACHINERY_TAG=${OPEN_VIZ_APIMACHINERY_TAG:-v0.0.8}
 
@@ -123,6 +124,11 @@ crd-importer \
     --no-description \
     --input=https://github.com/kubeops/supervisor/raw/${KUBEOPS_SUPERVISOR_TAG}/crds/supervisor.appscode.com_recommendations.yaml \
     --out=./charts/kubedb-ops-manager/crds
+
+crd-importer \
+    --no-description \
+    --input=https://github.com/kubeops/operator-shard-manager/raw/${KUBEOPS_OPERATOR_SHARD_MANAGER_TAG}/crds/operator.k8s.appscode.com_shardconfigurations.yaml \
+    --out=./charts/kubedb-provisioner/crds
 
 {
     crd_dir=${1:-}/provider-aws/package/crds

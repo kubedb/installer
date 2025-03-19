@@ -99,7 +99,6 @@ Returns the ServiceMonitor labels
 {{- end }}
 {{- end }}
 
-
 {{/*
 Prepare certs
 */}}

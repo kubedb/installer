@@ -23,25 +23,27 @@
 {{- end }}
 
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: {{ include "kubedb-ops-manager.fullname" . }}
+  name: {{ include "kubedb-provisioner.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "kubedb-ops-manager.labels" . | nindent 4 }}
+    {{- include "kubedb-provisioner.labels" . | nindent 4 }}
   {{- with .Values.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  podManagementPolicy: Parallel
+  serviceName: {{ include "kubedb-provisioner.fullname" . }}-headless
   selector:
     matchLabels:
-      {{- include "kubedb-ops-manager.selectorLabels" . | nindent 6 }}
+      {{- include "kubedb-provisioner.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "kubedb-ops-manager.selectorLabels" . | nindent 8 }}
+        {{- include "kubedb-provisioner.selectorLabels" . | nindent 8 }}
       annotations:
         reload: {{ randAlpha 8 }}
       {{- if $criticalAddon }}
@@ -52,7 +54,7 @@ spec:
       {{- end }}
     spec:
       {{- include "docker.imagePullSecrets" . | nindent 6 }}
-      serviceAccountName: {{ include "kubedb-ops-manager.serviceAccountName" . }}
+      serviceAccountName: {{ include "kubedb-provisioner.serviceAccountName" . }}
       {{- if and .Values.global .Values.global.waitForWebhook }}
       initContainers:
       - name: wait
@@ -80,11 +82,8 @@ spec:
         - --use-kubeapiserver-fqdn-for-aks={{ .Values.apiserver.useKubeapiserverFqdnForAks }}
         - --metrics-bind-address=:{{ .Values.monitoring.bindPort }}
         - --health-probe-bind-address=:{{ .Values.apiserver.healthcheck.probePort }}
-        {{- with .Values.recommendationEngine }}
-        - --recommendation-resync-period={{ .recommendationResyncPeriod }}
-        - --gen-rotate-tls-recommendation-before-expiry-year={{ .genRotateTLSRecommendationBeforeExpiryYear }}
-        - --gen-rotate-tls-recommendation-before-expiry-month={{ .genRotateTLSRecommendationBeforeExpiryMonth }}
-        - --gen-rotate-tls-recommendation-before-expiry-day={{ .genRotateTLSRecommendationBeforeExpiryDay }}
+        {{- if gt (int .Values.replicaCount) 1 }}
+        - --shard-config={{ include "kubedb-provisioner.name" . }}
         {{- end }}
         {{- include "docker.imagePullSecretFlags" . | nindent 8 }}
         {{- include "docker.insecureRegistries" .  | nindent 8 }}
@@ -93,6 +92,9 @@ spec:
         {{- end }}
         {{- with $maxConcurrentReconciles }}
         - --max-concurrent-reconciles={{.}}
+        {{- end }}
+        {{- if and .Values.global .Values.global.networkPolicy.enabled }}
+        - --enable-network-policy=true
         {{- end }}
         {{- with .Values.envFrom }}
         envFrom:
@@ -163,9 +165,17 @@ spec:
           operator: Exists
       {{- end -}}
     {{- end -}}
-    {{- with $affinity }}
+    {{- if $affinity }}
       affinity:
-        {{- toYaml . | nindent 8 }}
+        {{- toYaml $ | nindent 8 }}
+    {{- else if gt (int .Values.replicaCount) 1 }}
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                {{- include "kubedb-provisioner.selectorLabels" . | nindent 16 }}
+            topologyKey: "kubernetes.io/hostname"
     {{- end }}
     {{- with $nodeSelector }}
       nodeSelector:

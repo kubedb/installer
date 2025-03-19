@@ -12,3 +12,34 @@ subjects:
 - kind: ServiceAccount
   name: {{ include "kubedb-webhook-server.serviceAccountName" . }}
   namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "kubedb-webhook-server.fullname" . }}:metrics-auth
+  labels:
+    {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:auth-delegator
+subjects:
+- kind: ServiceAccount
+  name: {{ include "kubedb-webhook-server.serviceAccountName" . }}
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "kubedb-webhook-server.fullname" . }}:leader-election
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "kubedb-webhook-server.fullname" . }}:leader-election
+subjects:
+- kind: ServiceAccount
+  name: {{ include "kubedb-webhook-server.serviceAccountName" . }}
+  namespace: {{ .Release.Namespace }}

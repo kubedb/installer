@@ -80,7 +80,7 @@ spec:
               fieldPath: metadata.namespace
         ports:
         - containerPort: 8081
-          name: healthz
+          name: probes
           protocol: TCP
         - containerPort: 8443
           name: metrics
@@ -97,13 +97,13 @@ spec:
         readinessProbe:
           httpGet:
             path: /healthz
-            port: 8081
+            port: probes
           initialDelaySeconds: 15
           periodSeconds: 20
         livenessProbe:
           httpGet:
             path: /healthz
-            port: 8081
+            port: probes
           initialDelaySeconds: 5
           periodSeconds: 10
       {{- end }}
