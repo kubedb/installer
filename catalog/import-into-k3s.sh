@@ -43,6 +43,7 @@ k3s ctr images import images/appscode-images-elastic-7.16.3.tar
 k3s ctr images import images/appscode-images-elastic-7.17.15.tar
 k3s ctr images import images/appscode-images-elastic-7.17.23.tar
 k3s ctr images import images/appscode-images-elastic-7.17.25.tar
+k3s ctr images import images/appscode-images-elastic-7.17.27.tar
 k3s ctr images import images/appscode-images-elastic-8.11.1.tar
 k3s ctr images import images/appscode-images-elastic-8.11.4.tar
 k3s ctr images import images/appscode-images-elastic-8.13.4.tar
@@ -51,6 +52,8 @@ k3s ctr images import images/appscode-images-elastic-8.14.3.tar
 k3s ctr images import images/appscode-images-elastic-8.15.0.tar
 k3s ctr images import images/appscode-images-elastic-8.15.4.tar
 k3s ctr images import images/appscode-images-elastic-8.16.0.tar
+k3s ctr images import images/appscode-images-elastic-8.16.4.tar
+k3s ctr images import images/appscode-images-elastic-8.17.2.tar
 k3s ctr images import images/appscode-images-elastic-8.2.3.tar
 k3s ctr images import images/appscode-images-elastic-8.5.3.tar
 k3s ctr images import images/appscode-images-elastic-8.6.2.tar
@@ -91,6 +94,7 @@ k3s ctr images import images/appscode-images-kibana-7.16.3.tar
 k3s ctr images import images/appscode-images-kibana-7.17.15.tar
 k3s ctr images import images/appscode-images-kibana-7.17.23.tar
 k3s ctr images import images/appscode-images-kibana-7.17.25.tar
+k3s ctr images import images/appscode-images-kibana-7.17.27.tar
 k3s ctr images import images/appscode-images-kibana-8.11.1.tar
 k3s ctr images import images/appscode-images-kibana-8.11.4.tar
 k3s ctr images import images/appscode-images-kibana-8.13.4.tar
@@ -99,6 +103,8 @@ k3s ctr images import images/appscode-images-kibana-8.14.3.tar
 k3s ctr images import images/appscode-images-kibana-8.15.0.tar
 k3s ctr images import images/appscode-images-kibana-8.15.4.tar
 k3s ctr images import images/appscode-images-kibana-8.16.0.tar
+k3s ctr images import images/appscode-images-kibana-8.16.4.tar
+k3s ctr images import images/appscode-images-kibana-8.17.2.tar
 k3s ctr images import images/appscode-images-kibana-8.2.3.tar
 k3s ctr images import images/appscode-images-kibana-8.5.3.tar
 k3s ctr images import images/appscode-images-kibana-8.6.2.tar
@@ -151,6 +157,7 @@ k3s ctr images import images/appscode-images-opensearch-dashboards-2.14.0.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-2.16.0.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-2.17.1.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-2.18.0.tar
+k3s ctr images import images/appscode-images-opensearch-dashboards-2.19.0.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-2.5.0.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-2.8.0.tar
 k3s ctr images import images/appscode-images-opensearch-1.1.0.tar
@@ -164,6 +171,7 @@ k3s ctr images import images/appscode-images-opensearch-2.14.0.tar
 k3s ctr images import images/appscode-images-opensearch-2.16.0.tar
 k3s ctr images import images/appscode-images-opensearch-2.17.1.tar
 k3s ctr images import images/appscode-images-opensearch-2.18.0.tar
+k3s ctr images import images/appscode-images-opensearch-2.19.0.tar
 k3s ctr images import images/appscode-images-opensearch-2.5.0.tar
 k3s ctr images import images/appscode-images-opensearch-2.8.0.tar
 k3s ctr images import images/appscode-images-percona-xtradb-cluster-5.7.44.tar
@@ -240,6 +248,7 @@ k3s ctr images import images/appscode-images-solr-8.11.4.tar
 k3s ctr images import images/appscode-images-solr-9.4.1.tar
 k3s ctr images import images/appscode-images-solr-9.6.1.tar
 k3s ctr images import images/appscode-images-solr-9.7.0.tar
+k3s ctr images import images/appscode-images-solr-9.8.0.tar
 k3s ctr images import images/appscode-images-zookeeper-3.7.2.tar
 k3s ctr images import images/appscode-images-zookeeper-3.8.3.tar
 k3s ctr images import images/appscode-images-zookeeper-3.9.1.tar
@@ -277,7 +286,7 @@ k3s ctr images import images/kubedb-mariadb-archiver-v0.12.0_11.1.3-jammy.tar
 k3s ctr images import images/kubedb-mariadb-archiver-v0.12.0_11.2.2-jammy.tar
 k3s ctr images import images/kubedb-mariadb-coordinator-v0.32.0.tar
 k3s ctr images import images/kubedb-mariadb-csi-snapshotter-plugin-v0.12.0.tar
-k3s ctr images import images/kubedb-mariadb-init-0.5.2.tar
+k3s ctr images import images/kubedb-mariadb-init-0.5.3.tar
 k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.10.0.tar
 k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.13.0.tar
 k3s ctr images import images/kubedb-mongodb-init-4.2-v9.tar
@@ -355,9 +364,11 @@ k3s ctr images import images/kubedb-solr-init-8.11.4.tar
 k3s ctr images import images/kubedb-solr-init-9.4.1.tar
 k3s ctr images import images/kubedb-solr-init-9.6.1.tar
 k3s ctr images import images/kubedb-solr-init-9.7.0.tar
+k3s ctr images import images/kubedb-solr-init-9.8.0.tar
 k3s ctr images import images/kubedb-wal-g-v2024.12.18_mongo.tar
 k3s ctr images import images/kubedb-zookeeper-init-3.7-v1.tar
 k3s ctr images import images/kubedb-zookeeper-restic-plugin-v0.8.0.tar
+k3s ctr images import images/mariadb-maxscale-24.02.4.tar
 k3s ctr images import images/mssql-server-2022-CU12-ubuntu-22.04.tar
 k3s ctr images import images/mssql-server-2022-CU14-ubuntu-22.04.tar
 k3s ctr images import images/mssql-server-2022-CU16-ubuntu-22.04.tar

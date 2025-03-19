@@ -30,7 +30,9 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-s
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-solr-9.4.1.tar $IMAGE_REGISTRY/appscode-images/solr:9.4.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-solr-9.6.1.tar $IMAGE_REGISTRY/appscode-images/solr:9.6.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-solr-9.7.0.tar $IMAGE_REGISTRY/appscode-images/solr:9.7.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-solr-9.8.0.tar $IMAGE_REGISTRY/appscode-images/solr:9.8.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-init-8.11.4.tar $IMAGE_REGISTRY/kubedb/solr-init:8.11.4
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-init-9.4.1.tar $IMAGE_REGISTRY/kubedb/solr-init:9.4.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-init-9.6.1.tar $IMAGE_REGISTRY/kubedb/solr-init:9.6.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-init-9.7.0.tar $IMAGE_REGISTRY/kubedb/solr-init:9.7.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-init-9.8.0.tar $IMAGE_REGISTRY/kubedb/solr-init:9.8.0
