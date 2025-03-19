@@ -79,6 +79,9 @@ type KubedbSpec struct {
 	KubedbMetrics KubedbMetricsValues `json:"kubedb-metrics"`
 
 	//+optional
+	KubedbGitops KubedbGitopsValues `json:"kubedb-gitops"`
+
+	//+optional
 	AceUserRoles AceUserRolesValues `json:"ace-user-roles"`
 }
 
@@ -136,6 +139,11 @@ type KubedbSchemaManagerValues struct {
 
 type KubedbMetricsValues struct {
 	Enabled bool `json:"enabled"`
+}
+
+type KubedbGitopsValues struct {
+	Enabled           bool `json:"enabled"`
+	*KubedbGitopsSpec `json:",inline,omitempty"`
 }
 
 type AceUserRolesValues struct {
