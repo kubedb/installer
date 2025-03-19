@@ -1,3 +1,5 @@
+{{ template "kubedb-webhook-server.prepare-certs" $ }}
+
 {{ $featureGates := .Values.featureGates }}
 {{- if .Values.global }}
   {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
@@ -5,8 +7,6 @@
 
 {{- if .Values.apiserver.enableMutatingWebhook }}
 {{- if list "kubedb-webhook-server" "kubedb-schema-manager" | has .Values.server.repository }}
-
-{{- $caCrt := dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" .Release.Namespace "kube-root-ca.crt") | b64enc }}
 
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
@@ -16,19 +16,20 @@ metadata:
     app.kubernetes.io/component: kubedb-schema-manager
     {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
 webhooks:
-{{- if $featureGates.MySQL }}
-- name: mysqldatabasewebhook.mutators.schema.kubedb.com
+{{- if $featureGates.MariaDB }}
+- name: mariadbdatabasewebhook.mutators.schema.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.schema.kubedb.com/v1alpha1/mysqldatabasewebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-schema-kubedb-com-v1alpha1-mariadbdatabase
+      port: 443
+    caBundle: {{ $._caCrt }}
   rules:
-  - apiGroups: ["schema.kubedb.com"]
-    apiVersions: ["*"]
-    resources: ["mysqldatabases"]
-    operations: ["CREATE", "UPDATE"]
+    - apiGroups: ["schema.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["mariadbdatabases"]
+      operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
@@ -37,15 +38,52 @@ webhooks:
 - name: mongodbdatabasewebhook.mutators.schema.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.schema.kubedb.com/v1alpha1/mongodbdatabasewebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-schema-kubedb-com-v1alpha1-mongodbdatabase
+      port: 443
+    caBundle: {{ $._caCrt }}
   rules:
   - apiGroups: ["schema.kubedb.com"]
     apiVersions: ["*"]
     resources: ["mongodbdatabases"]
     operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.MySQL }}
+- name: mysqldatabasewebhook.mutators.schema.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-schema-kubedb-com-v1alpha1-mysqldatabase
+      port: 443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: ["schema.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["mysqldatabases"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.Postgres }}
+- name: postgresdatabasewebhook.mutators.schema.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-schema-kubedb-com-v1alpha1-postgresdatabase
+      port: 443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: ["schema.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["postgresdatabases"]
+      operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None

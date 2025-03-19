@@ -1,3 +1,5 @@
+{{ template "kubedb-webhook-server.prepare-certs" $ }}
+
 {{ $featureGates := .Values.featureGates }}
 {{- if .Values.global }}
   {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
@@ -5,8 +7,6 @@
 
 {{- if .Values.apiserver.enableMutatingWebhook }}
 {{- if list "kubedb-webhook-server" "kubedb-dashboard" | has .Values.server.repository }}
-
-{{- $caCrt := dig "data" "ca.crt" "unknown" (lookup "v1" "ConfigMap" .Release.Namespace "kube-root-ca.crt") | b64enc }}
 
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
@@ -20,10 +20,11 @@ webhooks:
 - name: elasticsearchdashboardwebhook.mutators.elasticsearch.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/mutators.elasticsearch.kubedb.com/v1alpha1/elasticsearchdashboardwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-elasticsearch-kubedb-com-v1alpha1-elasticsearchdashboard
+      port: 443
+    caBundle: {{ $._caCrt }}
   rules:
   - apiGroups: ["elasticsearch.kubedb.com"]
     apiVersions: ["*"]
