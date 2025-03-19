@@ -18,6 +18,8 @@ spec:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/operator") $) }}:0.8.0'
   podSecurityPolicies:
     databasePolicyName: memcached-db
+  securityContext:
+    runAsUser: 999
   version: "1.5"
   deprecated: {{ not (has "1.5" .Values.enableVersions.Memcached) }}
 {{ end }}
@@ -37,6 +39,8 @@ spec:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/memcached-exporter") $) }}:v0.4.1'
   podSecurityPolicies:
     databasePolicyName: memcached-db
+  securityContext:
+    runAsUser: 999
   version: "1.5"
   deprecated: {{ not (has "1.5-v1" .Values.enableVersions.Memcached) }}
 {{ end }}
