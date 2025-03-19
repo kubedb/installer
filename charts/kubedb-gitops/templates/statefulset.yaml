@@ -19,7 +19,7 @@
 {{- end }}
 
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "kubedb-gitops.fullname" . }}
   namespace: {{ .Release.Namespace }}
@@ -27,6 +27,8 @@ metadata:
     {{- include "kubedb-gitops.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  podManagementPolicy: Parallel
+  serviceName: {{ include "kubedb-gitops.fullname" . }}-headless
   selector:
     matchLabels:
       {{- include "kubedb-gitops.selectorLabels" . | nindent 6 }}
@@ -60,7 +62,9 @@ spec:
             - --feature-gates={{ $db }}={{ $enable }}
           {{- end }}
           ports:
-            - name: http
+            - name: metrics
+              containerPort: 8443
+            - name: probes
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           livenessProbe:
@@ -81,9 +85,17 @@ spec:
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with $affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
+      {{- if $affinity }}
+        affinity:
+          {{- toYaml $ | nindent 8 }}
+      {{- else if gt .Values.replicaCount 1 }}
+        affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  {{- include "kubedb-gitops.selectorLabels" . | nindent 18 }}
+              topologyKey: "kubernetes.io/hostname"
       {{- end }}
       {{- with $tolerations }}
       tolerations:

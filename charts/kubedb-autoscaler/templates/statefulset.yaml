@@ -23,7 +23,7 @@
 {{- end }}
 
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "kubedb-autoscaler.fullname" . }}
   namespace: {{ .Release.Namespace }}
@@ -35,6 +35,8 @@ metadata:
   {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  podManagementPolicy: Parallel
+  serviceName: {{ include "kubedb-autoscaler.fullname" . }}-headless
   selector:
     matchLabels:
       {{- include "kubedb-autoscaler.selectorLabels" . | nindent 6 }}
@@ -166,9 +168,17 @@ spec:
           operator: Exists
       {{- end -}}
     {{- end -}}
-    {{- with $affinity }}
+    {{- if $affinity }}
       affinity:
-        {{- toYaml . | nindent 8 }}
+        {{- toYaml $ | nindent 8 }}
+    {{- else if gt .Values.replicaCount 1 }}
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                {{- include "kubedb-autoscaler.selectorLabels" . | nindent 16 }}
+            topologyKey: "kubernetes.io/hostname"
     {{- end }}
     {{- with $nodeSelector }}
       nodeSelector:

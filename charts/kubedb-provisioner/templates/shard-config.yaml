@@ -1,0 +1,19 @@
+{{- if gt .Values.replicaCount 1 }}
+
+apiVersion: operator.k8s.appscode.com/v1alpha1
+kind: ShardConfiguration
+metadata:
+  name: {{ include "kubedb-provisioner.name" . }}
+spec:
+  controllers:
+  - apiGroup: apps
+    kind: StatefulSet
+    name: {{ include "kubedb-provisioner.fullname" . }}
+    namespace: {{ .Release.Namespace }}
+  resources:
+  - apiGroup: kubedb.com
+  - apiGroup: elasticsearch.kubedb.com
+  - apiGroup: kafka.kubedb.com
+  - apiGroup: postgres.kubedb.com
+
+{{- end }}
