@@ -40,8 +40,6 @@ spec:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "mariadb/maxscale") $) }}:24.02.4'
     securityContext:
       runAsUser: 997
-  podSecurityPolicies:
-    databasePolicyName: maria-db
   securityContext:
     runAsUser: 999
   stash:
@@ -57,4 +55,6 @@ spec:
     allowlist:
     - '>= 10.5.23, <= 11.6.2'
   version: 10.5.23
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "maria-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
 {{ end }}

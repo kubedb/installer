@@ -16,11 +16,11 @@ spec:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/memcached") $) }}:1.5.4'
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/operator") $) }}:0.8.0'
-  podSecurityPolicies:
-    databasePolicyName: memcached-db
   securityContext:
     runAsUser: 999
   version: 1.5.4
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "memcached-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "1.5.4" .Values.enableVersions.Memcached) }}
 {{ end }}
 
@@ -37,11 +37,11 @@ spec:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/memcached") $) }}:1.5.4-v1'
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/memcached-exporter") $) }}:v0.4.1'
-  podSecurityPolicies:
-    databasePolicyName: memcached-db
   securityContext:
     runAsUser: 999
   version: 1.5.4
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "memcached-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "1.5.4-v1" .Values.enableVersions.Memcached) }}
 {{ end }}
 {{ end }}
