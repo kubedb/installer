@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "kubedb-schema-manager.fullname" . }}-headless
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubedb-schema-manager.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+  - name: metrics
+    containerPort: {{ .Values.monitoring.bindPort }}
+  - name: probes
+    containerPort: {{ .Values.apiserver.healthcheck.probePort }}
+  selector:
+    {{- include "kubedb-schema-manager.selectorLabels" . | nindent 4 }}
