@@ -17,8 +17,6 @@ spec:
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres_exporter") $) }}:v0.4.7'
-  podSecurityPolicies:
-    databasePolicyName: postgres-db
   securityContext:
     runAsAnyNonRoot: true
     runAsUser: 999
@@ -29,6 +27,8 @@ spec:
       restoreTask:
         name: postgres-restore-11.9.0-v4
   version: "11.1"
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "postgres-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "11.1" .Values.enableVersions.Postgres) }}
 {{ end }}
 
@@ -46,8 +46,6 @@ spec:
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres_exporter") $) }}:v0.4.7'
-  podSecurityPolicies:
-    databasePolicyName: postgres-db
   securityContext:
     runAsAnyNonRoot: true
     runAsUser: 999
@@ -58,6 +56,8 @@ spec:
       restoreTask:
         name: postgres-restore-11.9.0-v4
   version: "11.1"
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "postgres-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "11.1-v1" .Values.enableVersions.Postgres) }}
 {{ end }}
 
@@ -75,8 +75,6 @@ spec:
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres_exporter") $) }}:v0.4.7'
-  podSecurityPolicies:
-    databasePolicyName: postgres-db
   securityContext:
     runAsAnyNonRoot: true
     runAsUser: 999
@@ -87,6 +85,8 @@ spec:
       restoreTask:
         name: postgres-restore-11.9.0-v4
   version: "11.1"
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "postgres-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "11.1-v2" .Values.enableVersions.Postgres) }}
 {{ end }}
 
@@ -104,8 +104,6 @@ spec:
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres_exporter") $) }}:v0.4.7'
-  podSecurityPolicies:
-    databasePolicyName: postgres-db
   securityContext:
     runAsAnyNonRoot: true
     runAsUser: 999
@@ -116,6 +114,8 @@ spec:
       restoreTask:
         name: postgres-restore-11.9.0-v4
   version: "11.1"
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "postgres-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "11.1-v3" .Values.enableVersions.Postgres) }}
 {{ end }}
 {{ end }}

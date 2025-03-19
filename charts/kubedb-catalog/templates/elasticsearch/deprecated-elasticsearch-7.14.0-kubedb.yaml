@@ -21,8 +21,6 @@ spec:
   initContainer:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "tianon/toybox") $) }}:0.8.11'
     yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch") $) }}:7.14.0-xpack-v2021.08.23'
-  podSecurityPolicies:
-    databasePolicyName: elasticsearch-db
   securityContext:
     runAsAnyNonRoot: true
     runAsUser: 1000
@@ -42,6 +40,8 @@ spec:
     allowlist:
     - < 7.18.0
   version: 7.14.0
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "elasticsearch-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "kubedb-xpack-7.14.0" .Values.enableVersions.Elasticsearch) }}
 {{ end }}
 {{ end }}

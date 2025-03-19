@@ -20,8 +20,6 @@ spec:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis_exporter") $) }}:1.66.0'
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-init") $) }}:0.9.0'
-  podSecurityPolicies:
-    databasePolicyName: redis-db
   securityContext:
     runAsUser: 999
   stash:
@@ -34,4 +32,6 @@ spec:
     allowlist:
     - '>= 7.4.0, < 7.4.2'
   version: 7.4.0
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "redis-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
 {{ end }}

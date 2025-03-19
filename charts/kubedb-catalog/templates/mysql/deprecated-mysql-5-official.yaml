@@ -21,8 +21,6 @@ spec:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.2.1'
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/busybox") $) }}'
-  podSecurityPolicies:
-    databasePolicyName: mysql-db
   replicationModeDetector:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.39.0'
   securityContext:
@@ -34,6 +32,8 @@ spec:
       standalone:
       - < 5.7.35
   version: "5"
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "mysql-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "5" .Values.enableVersions.MySQL) }}
 {{ end }}
 
@@ -55,8 +55,6 @@ spec:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.2.1'
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/busybox") $) }}'
-  podSecurityPolicies:
-    databasePolicyName: mysql-db
   replicationModeDetector:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.39.0'
   securityContext:
@@ -68,6 +66,8 @@ spec:
       standalone:
       - < 5.7.35
   version: "5"
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "mysql-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "5-v1" .Values.enableVersions.MySQL) }}
 {{ end }}
 {{ end }}

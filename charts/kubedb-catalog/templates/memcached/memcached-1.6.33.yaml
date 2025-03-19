@@ -16,12 +16,12 @@ spec:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/memcached") $) }}:1.6.33-alpine'
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/memcached_exporter") $) }}:v0.14.3-ac'
-  podSecurityPolicies:
-    databasePolicyName: memcached-db
   securityContext:
     runAsUser: 999
   updateConstraints:
     allowlist:
     - 1.6.33
   version: 1.6.33
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "memcached-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
 {{ end }}

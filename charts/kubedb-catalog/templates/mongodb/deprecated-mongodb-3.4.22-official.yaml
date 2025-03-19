@@ -21,14 +21,14 @@ spec:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.2.1'
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/busybox") $) }}'
-  podSecurityPolicies:
-    databasePolicyName: mongodb-db
   replicationModeDetector:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.39.0'
   securityContext:
     runAsGroup: 999
     runAsUser: 999
   version: 3.4.22
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "mongodb-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "3.4-v4" .Values.enableVersions.MongoDB) }}
 {{ end }}
 
@@ -50,14 +50,14 @@ spec:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.2.1'
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb-init") $) }}:0.1.0'
-  podSecurityPolicies:
-    databasePolicyName: mongodb-db
   replicationModeDetector:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.39.0'
   securityContext:
     runAsGroup: 999
     runAsUser: 999
   version: 3.4.22
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "mongodb-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "3.4-v5" .Values.enableVersions.MongoDB) }}
 {{ end }}
 
@@ -79,14 +79,14 @@ spec:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.2.1'
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/busybox") $) }}'
-  podSecurityPolicies:
-    databasePolicyName: mongodb-db
   replicationModeDetector:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.39.0'
   securityContext:
     runAsGroup: 999
     runAsUser: 999
   version: 3.4.22
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "mongodb-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "3.4.22" .Values.enableVersions.MongoDB) }}
 {{ end }}
 
@@ -124,8 +124,6 @@ spec:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.2.1'
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb-init") $) }}:4.1-v9'
-  podSecurityPolicies:
-    databasePolicyName: mongodb-db
   replicationModeDetector:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.39.0'
   securityContext:
@@ -141,6 +139,8 @@ spec:
     allowlist:
     - '>= 3.6.0, < 3.7.0'
   version: 3.4.22
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "mongodb-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "3.4.22-v1" .Values.enableVersions.MongoDB) }}
 {{ end }}
 {{ end }}

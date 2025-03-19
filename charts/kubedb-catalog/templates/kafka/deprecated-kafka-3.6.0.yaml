@@ -18,8 +18,6 @@ spec:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kafka-cruise-control") $) }}:3.6.0'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kafka-kraft") $) }}:3.6.0'
-  podSecurityPolicies:
-    databasePolicyName: kafka-db
   securityContext:
     runAsUser: 1001
   ui:
@@ -31,6 +29,8 @@ spec:
     denylist:
     - < 3.6.0
   version: 3.6.0
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "kafka-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "3.6.0" .Values.enableVersions.Kafka) }}
 {{ end }}
 {{ end }}

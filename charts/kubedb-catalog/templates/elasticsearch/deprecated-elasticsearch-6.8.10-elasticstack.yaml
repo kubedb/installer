@@ -21,8 +21,6 @@ spec:
   initContainer:
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "busybox") $) }}:1.32.0'
     yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-init") $) }}:6.8.10-xpack'
-  podSecurityPolicies:
-    databasePolicyName: elasticsearch-db
   securityContext:
     runAsAnyNonRoot: true
     runAsUser: 1000
@@ -33,6 +31,8 @@ spec:
       restoreTask:
         name: elasticsearch-restore-6.8.0
   version: 6.8.10
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "elasticsearch-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "xpack-6.8.10" .Values.enableVersions.Elasticsearch) }}
 {{ end }}
 
@@ -54,8 +54,6 @@ spec:
   initContainer:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "tianon/toybox") $) }}:0.8.11'
     yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-init") $) }}:6.8.10-xpack-v1'
-  podSecurityPolicies:
-    databasePolicyName: elasticsearch-db
   securityContext:
     runAsAnyNonRoot: true
     runAsUser: 1000
@@ -69,6 +67,8 @@ spec:
     allowlist:
     - < 7.5.0
   version: 6.8.10
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "elasticsearch-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "xpack-6.8.10-v1" .Values.enableVersions.Elasticsearch) }}
 {{ end }}
 {{ end }}

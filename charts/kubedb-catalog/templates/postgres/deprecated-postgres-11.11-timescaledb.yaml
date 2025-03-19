@@ -37,8 +37,6 @@ spec:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.15.0'
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.17.1'
-  podSecurityPolicies:
-    databasePolicyName: postgres-db
   securityContext:
     runAsAnyNonRoot: false
     runAsUser: 70
@@ -49,6 +47,8 @@ spec:
       restoreTask:
         name: postgres-restore-11.9
   version: "11.11"
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "postgres-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "timescaledb-2.1.0-pg11" .Values.enableVersions.Postgres) }}
 {{ end }}
 {{ end }}
