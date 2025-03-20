@@ -13,7 +13,7 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.31.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.32.0-rc.1'
   db:
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "redis") $) }}:6.2.5'
   exporter:
@@ -30,7 +30,7 @@ spec:
         name: redis-restore-6.2.5
   version: 6.2.5
   podSecurityPolicies:
-    databasePolicyName: {{ ternary "redis-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+    databasePolicyName: {{ ternary "redis-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "6.2.5" .Values.enableVersions.Redis) }}
 {{ end }}
 {{ end }}

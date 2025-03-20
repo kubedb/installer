@@ -13,7 +13,7 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/percona-xtradb-coordinator") $) }}:v0.25.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/percona-xtradb-coordinator") $) }}:v0.26.0-rc.1'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/percona-xtradb-cluster") $) }}:8.4.3'
   exporter:
@@ -33,5 +33,5 @@ spec:
     - '>= 8.4.3'
   version: 8.4.3
   podSecurityPolicies:
-    databasePolicyName: {{ ternary "percona-xtradb-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+    databasePolicyName: {{ ternary "percona-xtradb-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
 {{ end }}
