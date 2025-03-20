@@ -27,9 +27,9 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.13.0_12.17-alpine'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.14.0-rc.1_12.17-alpine'
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.36.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.37.0-rc.1'
   db:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "timescale/timescaledb") $) }}:2.1.0-pg12-oss'
   distribution: TimescaleDB
@@ -48,7 +48,7 @@ spec:
         name: postgres-restore-12.4
   version: "12.6"
   podSecurityPolicies:
-    databasePolicyName: {{ ternary "postgres-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+    databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "timescaledb-2.1.0-pg12" .Values.enableVersions.Postgres) }}
 {{ end }}
 {{ end }}

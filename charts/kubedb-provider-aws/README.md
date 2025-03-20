@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb-provider-aws --version=v2025.2.19
-$ helm upgrade -i kubedb-provider-aws appscode/kubedb-provider-aws -n crossplane-system --create-namespace --version=v2025.2.19
+$ helm search repo appscode/kubedb-provider-aws --version=v2025.3.20-rc.1
+$ helm upgrade -i kubedb-provider-aws appscode/kubedb-provider-aws -n crossplane-system --create-namespace --version=v2025.3.20-rc.1
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeDB AWS provider on a [Kubernetes](http://kubernetes.io)
 To install/upgrade the chart with the release name `kubedb-provider-aws`:
 
 ```bash
-$ helm upgrade -i kubedb-provider-aws appscode/kubedb-provider-aws -n crossplane-system --create-namespace --version=v2025.2.19
+$ helm upgrade -i kubedb-provider-aws appscode/kubedb-provider-aws -n crossplane-system --create-namespace --version=v2025.3.20-rc.1
 ```
 
 The command deploys a KubeDB AWS provider on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -74,12 +74,12 @@ The following table lists the configurable parameters of the `kubedb-provider-aw
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-provider-aws appscode/kubedb-provider-aws -n crossplane-system --create-namespace --version=v2025.2.19 --set replicaCount=1
+$ helm upgrade -i kubedb-provider-aws appscode/kubedb-provider-aws -n crossplane-system --create-namespace --version=v2025.3.20-rc.1 --set replicaCount=1
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-provider-aws appscode/kubedb-provider-aws -n crossplane-system --create-namespace --version=v2025.2.19 --values values.yaml
+$ helm upgrade -i kubedb-provider-aws appscode/kubedb-provider-aws -n crossplane-system --create-namespace --version=v2025.3.20-rc.1 --values values.yaml
 ```

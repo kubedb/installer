@@ -22,13 +22,13 @@ spec:
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/busybox") $) }}'
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.39.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.40.0-rc.1'
   securityContext:
     runAsGroup: 999
     runAsUser: 999
   version: 4.0.3
   podSecurityPolicies:
-    databasePolicyName: {{ ternary "mongodb-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+    databasePolicyName: {{ ternary "mongodb-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "4.0.3" .Values.enableVersions.MongoDB) }}
 {{ end }}
 
@@ -67,7 +67,7 @@ spec:
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb-init") $) }}:4.1-v9'
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.39.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.40.0-rc.1'
   securityContext:
     runAsGroup: 999
     runAsUser: 999
@@ -82,7 +82,7 @@ spec:
     - '>= 4.1.0, < 4.3.0'
   version: 4.0.3
   podSecurityPolicies:
-    databasePolicyName: {{ ternary "mongodb-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+    databasePolicyName: {{ ternary "mongodb-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "4.0.3-v1" .Values.enableVersions.MongoDB) }}
 {{ end }}
 {{ end }}

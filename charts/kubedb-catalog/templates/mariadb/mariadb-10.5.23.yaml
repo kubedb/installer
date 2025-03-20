@@ -27,9 +27,9 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-archiver") $) }}:v0.12.0_10.5.23-focal'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-archiver") $) }}:v0.13.0-rc.1_10.5.23-focal'
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-coordinator") $) }}:v0.32.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-coordinator") $) }}:v0.33.0-rc.1'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mariadb") $) }}:10.5.23-focal'
   exporter:
@@ -56,5 +56,5 @@ spec:
     - '>= 10.5.23, <= 11.6.2'
   version: 10.5.23
   podSecurityPolicies:
-    databasePolicyName: {{ ternary "maria-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+    databasePolicyName: {{ ternary "maria-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
 {{ end }}
