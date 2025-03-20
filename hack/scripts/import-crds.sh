@@ -57,6 +57,7 @@ if [ "$update_kubedb_crds" = true ] && [ -d ${crd_dir} ]; then
         --group=catalog.kubedb.com \
         --group=config.kubedb.com \
         --group=elasticsearch.kubedb.com \
+        --group=gitops.kubedb.com \
         --group=kafka.kubedb.com \
         --group=ops.kubedb.com \
         --group=postgres.kubedb.com \
