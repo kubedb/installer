@@ -32,36 +32,29 @@ mv /tmp/crane images
 
 CMD="./images/crane"
 
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kube-rbac-proxy:v0.15.0 images/appscode-kube-rbac-proxy-v0.15.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.31 images/appscode-kubectl-nonroot-1.31.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.7 images/appscode-petset-v0.0.7.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.10 images/appscode-sidekick-v0.0.10.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.1.0 images/kubedb-dashboard-restic-plugin-v0.1.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.10.0 images/kubedb-dashboard-restic-plugin-v0.10.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.15.0 images/kubedb-elasticsearch-restic-plugin-v0.15.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-autoscaler:v0.37.0 images/kubedb-kubedb-autoscaler-v0.37.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-crd-manager:v0.7.0 images/kubedb-kubedb-crd-manager-v0.7.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-gitops:v0.0.1 images/kubedb-kubedb-gitops-v0.0.1.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-kibana:v0.28.0 images/kubedb-kubedb-kibana-v0.28.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-manifest-plugin:v0.15.0 images/kubedb-kubedb-manifest-plugin-v0.15.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.39.0 images/kubedb-kubedb-ops-manager-v0.39.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-provisioner:v0.52.0 images/kubedb-kubedb-provisioner-v0.52.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-schema-manager:v0.28.0 images/kubedb-kubedb-schema-manager-v0.28.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ui-server:v0.28.0 images/kubedb-kubedb-ui-server-v0.28.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.11.0-rc.1 images/kubedb-dashboard-restic-plugin-v0.11.0-rc.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.16.0-rc.1 images/kubedb-elasticsearch-restic-plugin-v0.16.0-rc.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-crd-manager:v0.8.0-rc.1 images/kubedb-kubedb-crd-manager-v0.8.0-rc.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-kibana:v0.29.0-rc.1 images/kubedb-kubedb-kibana-v0.29.0-rc.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-manifest-plugin:v0.16.0-rc.1 images/kubedb-kubedb-manifest-plugin-v0.16.0-rc.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-provisioner:v0.53.0-rc.1 images/kubedb-kubedb-provisioner-v0.53.0-rc.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ui-server:v0.29.0-rc.1 images/kubedb-kubedb-ui-server-v0.29.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-verifier:v0.1.0 images/kubedb-kubedb-verifier-v0.1.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-webhook-server:v0.28.0 images/kubedb-kubedb-webhook-server-v0.28.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-csi-snapshotter-plugin:v0.12.0 images/kubedb-mariadb-csi-snapshotter-plugin-v0.12.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.10.0 images/kubedb-mariadb-restic-plugin-v0.10.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.13.0 images/kubedb-mongodb-csi-snapshotter-plugin-v0.13.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-webhook-server:v0.29.0-rc.1 images/kubedb-kubedb-webhook-server-v0.29.0-rc.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-csi-snapshotter-plugin:v0.13.0-rc.1 images/kubedb-mariadb-csi-snapshotter-plugin-v0.13.0-rc.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.11.0-rc.1 images/kubedb-mariadb-restic-plugin-v0.11.0-rc.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.14.0-rc.1 images/kubedb-mongodb-csi-snapshotter-plugin-v0.14.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssqlserver-walg-plugin:v0.0.1 images/kubedb-mssqlserver-walg-plugin-v0.0.1.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-csi-snapshotter-plugin:v0.13.0 images/kubedb-mysql-csi-snapshotter-plugin-v0.13.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.13.0 images/kubedb-postgres-csi-snapshotter-plugin-v0.13.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.15.0_16.1 images/kubedb-postgres-restic-plugin-v0.15.0_16.1.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-aws:v0.14.0 images/kubedb-provider-aws-v0.14.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-azure:v0.14.0 images/kubedb-provider-azure-v0.14.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-gcp:v0.14.0 images/kubedb-provider-gcp-v0.14.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.15.0 images/kubedb-redis-restic-plugin-v0.15.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.8.0 images/kubedb-zookeeper-restic-plugin-v0.8.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-csi-snapshotter-plugin:v0.14.0-rc.1 images/kubedb-mysql-csi-snapshotter-plugin-v0.14.0-rc.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.14.0-rc.1 images/kubedb-postgres-csi-snapshotter-plugin-v0.14.0-rc.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.16.0-rc.1_16.1 images/kubedb-postgres-restic-plugin-v0.16.0-rc.1_16.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-aws:v0.14.0-rc.1 images/kubedb-provider-aws-v0.14.0-rc.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-azure:v0.14.0-rc.1 images/kubedb-provider-azure-v0.14.0-rc.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-gcp:v0.14.0-rc.1 images/kubedb-provider-gcp-v0.14.0-rc.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.16.0-rc.1 images/kubedb-redis-restic-plugin-v0.16.0-rc.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.9.0-rc.1 images/kubedb-zookeeper-restic-plugin-v0.9.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure tianon/toybox:0.8.11 images/tianon-toybox-0.8.11.tar
 
 tar -czvf images.tar.gz images
