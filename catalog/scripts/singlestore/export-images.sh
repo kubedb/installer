@@ -38,7 +38,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/singlestore-node:alma-8.7.10-95e2357384 images/appscode-images-singlestore-node-alma-8.7.10-95e2357384.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/singlestore-node:alma-8.7.21-f0b8de04d5 images/appscode-images-singlestore-node-alma-8.7.21-f0b8de04d5.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/singlestore-node:alma-8.9.3-bfa36a984a images/appscode-images-singlestore-node-alma-8.9.3-bfa36a984a.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-coordinator:v0.7.0 images/kubedb-singlestore-coordinator-v0.7.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-coordinator:v0.8.0-rc.1 images/kubedb-singlestore-coordinator-v0.8.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-init:8.1-v2 images/kubedb-singlestore-init-8.1-v2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-init:8.5-v2 images/kubedb-singlestore-init-8.5-v2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-init:8.7.10-v1 images/kubedb-singlestore-init-8.7.10-v1.tar

@@ -20,7 +20,7 @@ BIN      := installer
 
 CRD_OPTIONS          ?= "crd:crdVersions={v1}"
 # https://github.com/appscodelabs/gengo-builder
-CODE_GENERATOR_IMAGE ?= ghcr.io/appscode/gengo:release-1.29
+CODE_GENERATOR_IMAGE ?= ghcr.io/appscode/gengo:release-1.32
 API_GROUPS           ?= installer:v1alpha1
 
 # This version-strategy uses git tags to set the version string

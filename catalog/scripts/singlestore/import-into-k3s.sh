@@ -30,7 +30,7 @@ k3s ctr images import images/appscode-images-singlestore-node-alma-8.5.7-bf633c1
 k3s ctr images import images/appscode-images-singlestore-node-alma-8.7.10-95e2357384.tar
 k3s ctr images import images/appscode-images-singlestore-node-alma-8.7.21-f0b8de04d5.tar
 k3s ctr images import images/appscode-images-singlestore-node-alma-8.9.3-bfa36a984a.tar
-k3s ctr images import images/kubedb-singlestore-coordinator-v0.7.0.tar
+k3s ctr images import images/kubedb-singlestore-coordinator-v0.8.0-rc.1.tar
 k3s ctr images import images/kubedb-singlestore-init-8.1-v2.tar
 k3s ctr images import images/kubedb-singlestore-init-8.5-v2.tar
 k3s ctr images import images/kubedb-singlestore-init-8.7.10-v1.tar

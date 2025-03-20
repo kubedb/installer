@@ -27,54 +27,54 @@ import (
 
 func main() {
 	r := configdata.LicenseRestrictions{
-		dbv1a2.ResourceKindDruid: {
+		dbv1a2.ResourceKindDruid: configdata.Restriction{
 			VersionConstraint: "*",
 		},
-		dbv1.ResourceKindElasticsearch: {
+		dbv1.ResourceKindElasticsearch: configdata.Restriction{
 			VersionConstraint: "*",
 			Distributions:     []string{"OpenSearch"},
 		},
-		dbv1a2.ResourceKindFerretDB: {
+		dbv1a2.ResourceKindFerretDB: configdata.Restriction{
 			VersionConstraint: "*",
 		},
-		dbv1.ResourceKindKafka: {
+		dbv1.ResourceKindKafka: configdata.Restriction{
 			VersionConstraint: "*",
 		},
-		dbv1.ResourceKindMariaDB: {
+		dbv1.ResourceKindMariaDB: configdata.Restriction{
 			VersionConstraint: "*",
 		},
-		dbv1.ResourceKindMemcached: {
+		dbv1.ResourceKindMemcached: configdata.Restriction{
 			VersionConstraint: "*",
 		},
-		dbv1.ResourceKindMySQL: {
+		dbv1.ResourceKindMySQL: configdata.Restriction{
 			VersionConstraint: "*",
 		},
-		dbv1.ResourceKindPerconaXtraDB: {
+		dbv1.ResourceKindPerconaXtraDB: configdata.Restriction{
 			VersionConstraint: "*",
 		},
-		dbv1.ResourceKindPgBouncer: {
+		dbv1.ResourceKindPgBouncer: configdata.Restriction{
 			VersionConstraint: "*",
 		},
-		dbv1a2.ResourceKindPgpool: {
+		dbv1a2.ResourceKindPgpool: configdata.Restriction{
 			VersionConstraint: "*",
 		},
-		dbv1.ResourceKindPostgres: {
+		dbv1.ResourceKindPostgres: configdata.Restriction{
 			VersionConstraint: "*",
 			Distributions:     []string{"Official"},
 		},
-		dbv1.ResourceKindProxySQL: {
+		dbv1.ResourceKindProxySQL: configdata.Restriction{
 			VersionConstraint: "*",
 		},
-		dbv1a2.ResourceKindRabbitmq: {
+		dbv1a2.ResourceKindRabbitmq: configdata.Restriction{
 			VersionConstraint: "*",
 		},
-		dbv1.ResourceKindRedis: {
+		dbv1.ResourceKindRedis: configdata.Restriction{
 			VersionConstraint: "<= 7.40",
 		},
-		dbv1a2.ResourceKindSolr: {
+		dbv1a2.ResourceKindSolr: configdata.Restriction{
 			VersionConstraint: "*",
 		},
-		dbv1a2.ResourceKindZooKeeper: {
+		dbv1a2.ResourceKindZooKeeper: configdata.Restriction{
 			VersionConstraint: "*",
 		},
 	}

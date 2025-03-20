@@ -46,7 +46,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/re
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.2.6-bookworm $IMAGE_REGISTRY/appscode-images/redis:7.2.6-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.4.0-bookworm $IMAGE_REGISTRY/appscode-images/redis:7.4.0-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.4.1-bookworm $IMAGE_REGISTRY/appscode-images/redis:7.4.1-bookworm
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-coordinator:v0.31.0 $IMAGE_REGISTRY/kubedb/redis-coordinator:v0.31.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-coordinator:v0.32.0-rc.1 $IMAGE_REGISTRY/kubedb/redis-coordinator:v0.32.0-rc.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.9.0 $IMAGE_REGISTRY/kubedb/redis-init:0.9.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4.0.11 $IMAGE_REGISTRY/kubedb/redis:4.0.11
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis_exporter:1.66.0 $IMAGE_REGISTRY/kubedb/redis_exporter:1.66.0

@@ -27,9 +27,9 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "v0.13.0") $) }}'
+      image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "v0.14.0-rc.1") $) }}'
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.36.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.37.0-rc.1'
   db:
     baseOS: alpine
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:12.9-alpine'
@@ -53,7 +53,7 @@ spec:
     - "14.1"
   version: "12.9"
   podSecurityPolicies:
-    databasePolicyName: {{ ternary "postgres-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+    databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "12.9" .Values.enableVersions.Postgres) }}
 {{ end }}
 
@@ -81,9 +81,9 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "v0.13.0") $) }}'
+      image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "v0.14.0-rc.1") $) }}'
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.36.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.37.0-rc.1'
   db:
     baseOS: bullseye
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:12.9-bullseye'
@@ -107,7 +107,7 @@ spec:
     - "14.1"
   version: "12.9"
   podSecurityPolicies:
-    databasePolicyName: {{ ternary "postgres-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+    databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "12.9-bullseye" .Values.enableVersions.Postgres) }}
 {{ end }}
 {{ end }}

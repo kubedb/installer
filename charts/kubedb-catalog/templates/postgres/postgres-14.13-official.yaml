@@ -27,9 +27,9 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.13.0_14.10-alpine'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.14.0-rc.1_14.10-alpine'
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.36.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.37.0-rc.1'
   db:
     baseOS: alpine
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres") $) }}:14.13-alpine'
@@ -59,7 +59,7 @@ spec:
     - '>= 14.13'
   version: "14.13"
   podSecurityPolicies:
-    databasePolicyName: {{ ternary "postgres-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+    databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
 
 ---
 
@@ -85,9 +85,9 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.13.0_14.10-bookworm'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.14.0-rc.1_14.10-bookworm'
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.36.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.37.0-rc.1'
   db:
     baseOS: bookworm
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres") $) }}:14.13-bookworm'
@@ -117,5 +117,5 @@ spec:
     - '>= 14.13'
   version: "14.13"
   podSecurityPolicies:
-    databasePolicyName: {{ ternary "postgres-db" "" (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+    databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
 {{ end }}
