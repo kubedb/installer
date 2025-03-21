@@ -56,6 +56,8 @@ type SidekickSpec struct {
 	ImagePullPolicy  string             `json:"imagePullPolicy"`
 	ServiceAccount   ServiceAccountSpec `json:"serviceAccount"`
 	//+optional
+	Annotations map[string]string `json:"annotations"`
+	//+optional
 	PodAnnotations map[string]string `json:"podAnnotations"`
 	// PodSecurityContext holds pod-level security attributes and common container settings.
 	// Optional: Defaults to empty.  See type description for default values of each field.

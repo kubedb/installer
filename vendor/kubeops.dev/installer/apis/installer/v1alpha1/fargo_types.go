@@ -22,12 +22,12 @@ import (
 )
 
 const (
-	ResourceKindOperatorShardManager = "OperatorShardManager"
-	ResourceOperatorShardManager     = "operatorshardmanager"
-	ResourceOperatorShardManagers    = "operatorshardmanagers"
+	ResourceKindFargocd = "Fargocd"
+	ResourceFargocd     = "fargocd"
+	ResourceFargocds    = "fargocds"
 )
 
-// OperatorShardManager defines the schama for Operator Shard Manager installer.
+// Fargocd defines the schama for Fargocd operator installer.
 
 // +genclient
 // +genclient:skipVerbs=updateStatus
@@ -35,34 +35,37 @@ const (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:path=operatorshardmanagers,singular=operatorshardmanager,categories={kubeops,appscode}
-type OperatorShardManager struct {
+// +kubebuilder:resource:path=aceshifters,singular=aceshifter,categories={kubeops,appscode}
+type Fargocd struct {
 	metav1.TypeMeta   `json:",inline,omitempty"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              OperatorShardManagerSpec `json:"spec,omitempty"`
+	Spec              FargocdSpec `json:"spec,omitempty"`
 }
 
-// OperatorShardManagerSpec is the schema for Identity Server values file
-type OperatorShardManagerSpec struct {
+// FargocdSpec is the schema for Identity Server values file
+type FargocdSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
-	FullnameOverride string    `json:"fullnameOverride"`
-	ReplicaCount     int       `json:"replicaCount"`
-	RegistryFQDN     string    `json:"registryFQDN"`
-	Image            Container `json:"image"`
+	FullnameOverride string `json:"fullnameOverride"`
 	//+optional
-	ImagePullSecrets []string           `json:"imagePullSecrets"`
-	ImagePullPolicy  string             `json:"imagePullPolicy"`
-	ServiceAccount   ServiceAccountSpec `json:"serviceAccount"`
+	RegistryFQDN string             `json:"registryFQDN"`
+	ReplicaCount int32              `json:"replicaCount"`
+	Image        HelmImageReference `json:"image"`
 	//+optional
-	Annotations map[string]string `json:"annotations"`
+	ImagePullSecrets []string `json:"imagePullSecrets"`
 	//+optional
 	PodAnnotations map[string]string `json:"podAnnotations"`
+	//+optional
+	PodLabels map[string]string `json:"podLabels"`
 	// PodSecurityContext holds pod-level security attributes and common container settings.
 	// Optional: Defaults to empty.  See type description for default values of each field.
 	// +optional
 	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext"`
+	//+optional
+	SecurityContext *core.SecurityContext `json:"securityContext"`
+	//+optional
+	Resources core.ResourceRequirements `json:"resources"`
 	//+optional
 	NodeSelector map[string]string `json:"nodeSelector"`
 	// If specified, the pod's tolerations.
@@ -70,31 +73,23 @@ type OperatorShardManagerSpec struct {
 	Tolerations []core.Toleration `json:"tolerations"`
 	// If specified, the pod's scheduling constraints
 	// +optional
-	Affinity   *core.Affinity `json:"affinity"`
-	Monitoring Monitoring     `json:"monitoring"`
-
+	Affinity *core.Affinity `json:"affinity"`
 	// +optional
-	NetworkPolicy NetworkPolicy `json:"networkPolicy"`
-}
-
-type ImageReference struct {
-	Registry   string `json:"registry"`
-	Repository string `json:"repository"`
-	Tag        string `json:"tag"`
-	PullPolicy string `json:"pullPolicy"`
-}
-
-type ServiceSpec struct {
-	Type string `json:"type"`
-	Port int    `json:"port"`
+	LivenessProbe *core.Probe `json:"livenessProbe"`
+	// +optional
+	ReadinessProbe *core.Probe        `json:"readinessProbe"`
+	Service        HelmServiceSpec    `json:"service"`
+	ServiceAccount ServiceAccountSpec `json:"serviceAccount"`
+	Volumes        []core.Volume      `json:"volumes"`
+	VolumeMounts   []core.VolumeMount `json:"volumeMounts"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// OperatorShardManagerList is a list of OperatorShardManagers
-type OperatorShardManagerList struct {
+// FargocdList is a list of Fargocds
+type FargocdList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of OperatorShardManager CRD objects
-	Items []OperatorShardManager `json:"items,omitempty"`
+	// Items is a list of Fargocd CRD objects
+	Items []Fargocd `json:"items,omitempty"`
 }

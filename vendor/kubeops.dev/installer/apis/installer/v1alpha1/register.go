@@ -64,6 +64,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&ExternalDnsOperatorList{},
 		&FalcoUiServer{},
 		&FalcoUiServerList{},
+		&Fargocd{},
+		&FargocdList{},
 		&GatekeeperGrafanaDashboards{},
 		&GatekeeperGrafanaDashboardsList{},
 		&KubeUiServer{},
