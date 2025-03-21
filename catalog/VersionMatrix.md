@@ -138,12 +138,13 @@
 | 1.24.0 | ❓     | ❓     | ❓     | ✅     |
 
 ## Pgpool
-|       | 4.4.5 | 4.4.8 | 4.5.0 | 4.5.3 |
-|-------|-------|-------|-------|-------|
-| 4.4.5 | ✅    | ✅    | ✅    | ✅    |
-| 4.4.8 | ❓    | ✅    | ✅    | ✅    |
-| 4.5.0 | ❓    | ❓    | ✅    | ✅    |
-| 4.5.3 | ❓    | ❓    | ❓    | ✅    |
+|       | 4.4.5 | 4.4.8 | 4.5.0 | 4.5.3 | 4.6.0 |
+|-------|-------|-------|-------|-------|-------|
+| 4.4.5 | ✅    | ✅    | ✅    | ✅    | ✅    |
+| 4.4.8 | ❓    | ✅    | ✅    | ✅    | ✅    |
+| 4.5.0 | ❓    | ❓    | ✅    | ✅    | ✅    |
+| 4.5.3 | ❓    | ❓    | ❓    | ✅    | ✅    |
+| 4.6.0 | ❓    | ❓    | ❓    | ❓    | ✅    |
 
 ## Postgres
 |                         | 10.23 | 10.23-BULLSEYE | 11-BULLSEYE-POSTGIS | 11.22 | 11.22-BOOKWORM | 12.17 | 12.17-BOOKWORM | 12-BULLSEYE-POSTGIS | 12.22 | 12.22-BOOKWORM | 13.13 | 13.13-BOOKWORM | 13-BULLSEYE-POSTGIS | TIMESCALEDB-2.14.2-PG13 | 13.18 | 13.18-BOOKWORM | 13.20 | 13.20-BOOKWORM | 14.10 | 14.10-BOOKWORM | 14-BULLSEYE-POSTGIS | TIMESCALEDB-2.14.2-PG14 | 14.13 | 14.13-BOOKWORM | 14.15 | 14.15-BOOKWORM | 14.17 | 14.17-BOOKWORM | 15.5 | 15.5-BOOKWORM | 15-BULLSEYE-POSTGIS | TIMESCALEDB-2.14.2-PG15 | 15.8 | 15.8-BOOKWORM | 15.10 | 15.10-BOOKWORM | 15.12 | 15.12-BOOKWORM | 15.12-DOCUMENTDB | 16.1 | 16.1-BOOKWORM | 16.2-BULLSEYE-POSTGIS | TIMESCALEDB-2.14.2-PG16 | 16.4 | 16.4-BOOKWORM | 16.6 | 16.6-BOOKWORM | 16.8 | 16.8-BOOKWORM | 16.8-DOCUMENTDB | 17.2 | 17.2-BOOKWORM | 17.4 | 17.4-BOOKWORM | 17.4-DOCUMENTDB |
