@@ -49,8 +49,7 @@ type PetsetSpec struct {
 	FullnameOverride string    `json:"fullnameOverride"`
 	RegistryFQDN     string    `json:"registryFQDN"`
 	ReplicaCount     int32     `json:"replicaCount"`
-	Operator         Container `json:"operator"`
-	RbacProxy        Container `json:"rbacproxy"`
+	Image            Container `json:"image"`
 	ImagePullPolicy  string    `json:"imagePullPolicy"`
 	//+optional
 	ImagePullSecrets []string `json:"imagePullSecrets"`
