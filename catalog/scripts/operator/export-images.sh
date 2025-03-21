@@ -32,14 +32,21 @@ mv /tmp/crane images
 
 CMD="./images/crane"
 
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kube-rbac-proxy:v0.15.0 images/appscode-kube-rbac-proxy-v0.15.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.31 images/appscode-kubectl-nonroot-1.31.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.7 images/appscode-petset-v0.0.7.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.10 images/appscode-sidekick-v0.0.10.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.1.0 images/kubedb-dashboard-restic-plugin-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.11.0-rc.1 images/kubedb-dashboard-restic-plugin-v0.11.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.16.0-rc.1 images/kubedb-elasticsearch-restic-plugin-v0.16.0-rc.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-autoscaler:v0.37.0-rc.1 images/kubedb-kubedb-autoscaler-v0.37.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-crd-manager:v0.8.0-rc.1 images/kubedb-kubedb-crd-manager-v0.8.0-rc.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-gitops:v0.1.0-rc.1 images/kubedb-kubedb-gitops-v0.1.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-kibana:v0.29.0-rc.1 images/kubedb-kubedb-kibana-v0.29.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-manifest-plugin:v0.16.0-rc.1 images/kubedb-kubedb-manifest-plugin-v0.16.0-rc.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.39.0-rc.1 images/kubedb-kubedb-ops-manager-v0.39.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-provisioner:v0.53.0-rc.1 images/kubedb-kubedb-provisioner-v0.53.0-rc.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-schema-manager:v0.29.0-rc.1 images/kubedb-kubedb-schema-manager-v0.29.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ui-server:v0.29.0-rc.1 images/kubedb-kubedb-ui-server-v0.29.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-verifier:v0.1.0 images/kubedb-kubedb-verifier-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-webhook-server:v0.29.0-rc.1 images/kubedb-kubedb-webhook-server-v0.29.0-rc.1.tar
