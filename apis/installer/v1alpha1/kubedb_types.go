@@ -47,6 +47,8 @@ type KubedbSpec struct {
 	//+optional
 	Petset PetsetValues `json:"petset"`
 	//+optional
+	OperatorShardManager OperatorShardManagerValues `json:"operator-shard-manager"`
+	//+optional
 	Sidekick SidekickValues `json:"sidekick"`
 	//+optional
 	Supervisor SupervisorValues `json:"supervisor"`
@@ -86,6 +88,10 @@ type KubedbSpec struct {
 }
 
 type PetsetValues struct {
+	Enabled bool `json:"enabled"`
+}
+
+type OperatorShardManagerValues struct {
 	Enabled bool `json:"enabled"`
 }
 
