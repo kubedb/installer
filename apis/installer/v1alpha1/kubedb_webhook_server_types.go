@@ -91,7 +91,6 @@ type WebhookAPIServerSpec struct {
 	CA                         string             `json:"ca"`
 	UseKubeapiserverFqdnForAks bool               `json:"useKubeapiserverFqdnForAks"`
 	Healthcheck                EASHealthcheckSpec `json:"healthcheck"`
-	Port                       int32              `json:"port"`
 	ServingCerts               ServingCerts       `json:"servingCerts"`
 	Webhook                    WebhookSpec        `json:"webhook"`
 }
