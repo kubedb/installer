@@ -193,7 +193,6 @@ type AlertmanagerSpec struct {
 	//
 	// +optional
 	DNSConfig *PodDNSConfig `json:"dnsConfig,omitempty"`
-<<<<<<< HEAD
 	// Indicates whether information about services should be injected into pod's environment variables
 	// +optional
 	EnableServiceLinks *bool `json:"enableServiceLinks,omitempty"`
@@ -205,8 +204,6 @@ type AlertmanagerSpec struct {
 	// +optional
 	// +kubebuilder:validation:MinLength=1
 	ServiceName *string `json:"serviceName,omitempty"`
-=======
->>>>>>> fe1cf6907 (Add ferretdb version 2.0.0)
 	// ServiceAccountName is the name of the ServiceAccount to use to run the
 	// Prometheus Pods.
 	ServiceAccountName string `json:"serviceAccountName,omitempty"`

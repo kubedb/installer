@@ -377,7 +377,6 @@ func (in *AlertmanagerSpec) DeepCopyInto(out *AlertmanagerSpec) {
 		*out = new(PodDNSConfig)
 		(*in).DeepCopyInto(*out)
 	}
-<<<<<<< HEAD
 	if in.EnableServiceLinks != nil {
 		in, out := &in.EnableServiceLinks, &out.EnableServiceLinks
 		*out = new(bool)
@@ -388,8 +387,6 @@ func (in *AlertmanagerSpec) DeepCopyInto(out *AlertmanagerSpec) {
 		*out = new(string)
 		**out = **in
 	}
-=======
->>>>>>> fe1cf6907 (Add ferretdb version 2.0.0)
 	if in.Containers != nil {
 		in, out := &in.Containers, &out.Containers
 		*out = make([]corev1.Container, len(*in))
@@ -911,14 +908,11 @@ func (in *CommonPrometheusFields) DeepCopyInto(out *CommonPrometheusFields) {
 		*out = new(PodDNSConfig)
 		(*in).DeepCopyInto(*out)
 	}
-<<<<<<< HEAD
 	if in.EnableServiceLinks != nil {
 		in, out := &in.EnableServiceLinks, &out.EnableServiceLinks
 		*out = new(bool)
 		**out = **in
 	}
-=======
->>>>>>> fe1cf6907 (Add ferretdb version 2.0.0)
 	if in.Containers != nil {
 		in, out := &in.Containers, &out.Containers
 		*out = make([]corev1.Container, len(*in))
@@ -3458,7 +3452,6 @@ func (in *ThanosRulerSpec) DeepCopyInto(out *ThanosRulerSpec) {
 		*out = new(PodDNSConfig)
 		(*in).DeepCopyInto(*out)
 	}
-<<<<<<< HEAD
 	if in.EnableServiceLinks != nil {
 		in, out := &in.EnableServiceLinks, &out.EnableServiceLinks
 		*out = new(bool)
@@ -3469,8 +3462,6 @@ func (in *ThanosRulerSpec) DeepCopyInto(out *ThanosRulerSpec) {
 		*out = new(string)
 		**out = **in
 	}
-=======
->>>>>>> fe1cf6907 (Add ferretdb version 2.0.0)
 	if in.Storage != nil {
 		in, out := &in.Storage, &out.Storage
 		*out = new(StorageSpec)
