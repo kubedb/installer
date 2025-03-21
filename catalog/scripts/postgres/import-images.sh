@@ -26,6 +26,9 @@ tar -zxvf $TARBALL
 
 CMD="./crane"
 
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-documentdb-15-0.102.0-ferretdb-2.0.0-rc.5.tar $IMAGE_REGISTRY/appscode-images/postgres-documentdb:15-0.102.0-ferretdb-2.0.0-rc.5
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-documentdb-16-0.102.0-ferretdb-2.0.0-rc.5.tar $IMAGE_REGISTRY/appscode-images/postgres-documentdb:16-0.102.0-ferretdb-2.0.0-rc.5
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-documentdb-17-0.102.0-ferretdb-2.0.0-rc.5.tar $IMAGE_REGISTRY/appscode-images/postgres-documentdb:17-0.102.0-ferretdb-2.0.0-rc.5
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-10.23-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:10.23-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-10.23-bullseye.tar $IMAGE_REGISTRY/appscode-images/postgres:10.23-bullseye
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-11.22-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:11.22-alpine

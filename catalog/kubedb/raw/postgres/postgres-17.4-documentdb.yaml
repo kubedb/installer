@@ -1,0 +1,51 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: 17.4-documentdb
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        fullBackup:
+          name: physical-backup
+        fullBackupRestore:
+          name: physical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: ghcr.io/kubedb/postgres-archiver:(v0.14.0-rc.1)_17.2-bookworm
+  coordinator:
+    image: ghcr.io/kubedb/pg-coordinator:v0.37.0-rc.1
+  db:
+    baseOS: bookworm
+    image: ghcr.io/appscode-images/postgres-documentdb:17-0.102.0-ferretdb-2.0.0-rc.5
+  distribution: DocumentDB
+  exporter:
+    image: prometheuscommunity/postgres-exporter:v0.15.0
+  initContainer:
+    image: ghcr.io/kubedb/postgres-init:0.17.1
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-17.2
+      restoreTask:
+        name: postgres-restore-17.2
+  ui:
+  - name: pgadmin
+    version: v2024.4.27
+  - name: dbgate
+    version: v2024.4.27
+  updateConstraints:
+    allowlist:
+    - "17.4"
+  version: "17.4"
