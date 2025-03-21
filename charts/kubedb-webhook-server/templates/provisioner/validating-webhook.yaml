@@ -498,10 +498,11 @@ webhooks:
 - name: hazelcastwebhook.validators.kubedb.com
   clientConfig:
     service:
-      namespace: default
-      name: kubernetes
-      path: /apis/validators.kubedb.com/v1alpha1/hazelcastwebhooks
-    caBundle: {{ $caCrt }}
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-hazelcast
+      port: 443
+    caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: [ "kubedb.com" ]
       apiVersions: [ "*" ]
