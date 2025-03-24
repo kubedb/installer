@@ -182,6 +182,9 @@ k3s ctr images import images/appscode-images-pgpool2-4.4.8.tar
 k3s ctr images import images/appscode-images-pgpool2-4.5.0.tar
 k3s ctr images import images/appscode-images-pgpool2-4.5.3.tar
 k3s ctr images import images/appscode-images-pgpool2_exporter-v1.2.2.tar
+k3s ctr images import images/appscode-images-postgres-documentdb-15-0.102.0-ferretdb-2.0.0-rc.5.tar
+k3s ctr images import images/appscode-images-postgres-documentdb-16-0.102.0-ferretdb-2.0.0-rc.5.tar
+k3s ctr images import images/appscode-images-postgres-documentdb-17-0.102.0-ferretdb-2.0.0-rc.5.tar
 k3s ctr images import images/appscode-images-postgres-10.23-alpine.tar
 k3s ctr images import images/appscode-images-postgres-10.23-bullseye.tar
 k3s ctr images import images/appscode-images-postgres-11.22-alpine.tar
@@ -252,7 +255,10 @@ k3s ctr images import images/appscode-images-solr-9.8.0.tar
 k3s ctr images import images/appscode-images-zookeeper-3.7.2.tar
 k3s ctr images import images/appscode-images-zookeeper-3.8.3.tar
 k3s ctr images import images/appscode-images-zookeeper-3.9.1.tar
+k3s ctr images import images/appscode-kube-rbac-proxy-v0.15.0.tar
 k3s ctr images import images/appscode-kubectl-nonroot-1.31.tar
+k3s ctr images import images/appscode-petset-v0.0.7.tar
+k3s ctr images import images/appscode-sidekick-v0.0.10.tar
 k3s ctr images import images/kubedb-cassandra-init-4.1.6-v1.tar
 k3s ctr images import images/kubedb-cassandra-init-5.0.0-v1.tar
 k3s ctr images import images/kubedb-clickhouse-init-24.4.1.tar
@@ -262,10 +268,14 @@ k3s ctr images import images/kubedb-druid-init-28.0.1.tar
 k3s ctr images import images/kubedb-druid-init-30.0.1.tar
 k3s ctr images import images/kubedb-druid-init-31.0.0.tar
 k3s ctr images import images/kubedb-elasticsearch-restic-plugin-v0.16.0-rc.1.tar
+k3s ctr images import images/kubedb-kubedb-autoscaler-v0.37.0-rc.1.tar
 k3s ctr images import images/kubedb-kubedb-crd-manager-v0.8.0-rc.1.tar
+k3s ctr images import images/kubedb-kubedb-gitops-v0.1.0-rc.1.tar
 k3s ctr images import images/kubedb-kubedb-kibana-v0.29.0-rc.1.tar
 k3s ctr images import images/kubedb-kubedb-manifest-plugin-v0.16.0-rc.1.tar
+k3s ctr images import images/kubedb-kubedb-ops-manager-v0.39.0-rc.1.tar
 k3s ctr images import images/kubedb-kubedb-provisioner-v0.53.0-rc.1.tar
+k3s ctr images import images/kubedb-kubedb-schema-manager-v0.29.0-rc.1.tar
 k3s ctr images import images/kubedb-kubedb-ui-server-v0.29.0-rc.1.tar
 k3s ctr images import images/kubedb-kubedb-verifier-v0.1.0.tar
 k3s ctr images import images/kubedb-kubedb-webhook-server-v0.29.0-rc.1.tar
