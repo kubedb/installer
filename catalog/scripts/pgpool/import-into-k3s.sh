@@ -28,4 +28,5 @@ k3s ctr images import images/appscode-images-pgpool2-4.4.5.tar
 k3s ctr images import images/appscode-images-pgpool2-4.4.8.tar
 k3s ctr images import images/appscode-images-pgpool2-4.5.0.tar
 k3s ctr images import images/appscode-images-pgpool2-4.5.3.tar
+k3s ctr images import images/appscode-images-pgpool2-4.6.0.tar
 k3s ctr images import images/appscode-images-pgpool2_exporter-v1.2.2.tar

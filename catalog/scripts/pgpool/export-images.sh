@@ -36,6 +36,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2:4.4.8 images/appscode-images-pgpool2-4.4.8.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2:4.5.0 images/appscode-images-pgpool2-4.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2:4.5.3 images/appscode-images-pgpool2-4.5.3.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2:4.6.0 images/appscode-images-pgpool2-4.6.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2_exporter:v1.2.2 images/appscode-images-pgpool2_exporter-v1.2.2.tar
 
 tar -czvf images.tar.gz images
