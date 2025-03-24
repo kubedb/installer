@@ -26,14 +26,21 @@ tar -zxvf $TARBALL
 
 CMD="./crane"
 
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-kube-rbac-proxy-v0.15.0.tar $IMAGE_REGISTRY/appscode/kube-rbac-proxy:v0.15.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-kubectl-nonroot-1.31.tar $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.31
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.0.7.tar $IMAGE_REGISTRY/appscode/petset:v0.0.7
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.10.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.10
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.11.0-rc.1.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.11.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-elasticsearch-restic-plugin-v0.16.0-rc.1.tar $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.16.0-rc.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-autoscaler-v0.37.0-rc.1.tar $IMAGE_REGISTRY/kubedb/kubedb-autoscaler:v0.37.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-crd-manager-v0.8.0-rc.1.tar $IMAGE_REGISTRY/kubedb/kubedb-crd-manager:v0.8.0-rc.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-gitops-v0.1.0-rc.1.tar $IMAGE_REGISTRY/kubedb/kubedb-gitops:v0.1.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-kibana-v0.29.0-rc.1.tar $IMAGE_REGISTRY/kubedb/kubedb-kibana:v0.29.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-manifest-plugin-v0.16.0-rc.1.tar $IMAGE_REGISTRY/kubedb/kubedb-manifest-plugin:v0.16.0-rc.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-ops-manager-v0.39.0-rc.1.tar $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.39.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-provisioner-v0.53.0-rc.1.tar $IMAGE_REGISTRY/kubedb/kubedb-provisioner:v0.53.0-rc.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-schema-manager-v0.29.0-rc.1.tar $IMAGE_REGISTRY/kubedb/kubedb-schema-manager:v0.29.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-ui-server-v0.29.0-rc.1.tar $IMAGE_REGISTRY/kubedb/kubedb-ui-server:v0.29.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-verifier-v0.1.0.tar $IMAGE_REGISTRY/kubedb/kubedb-verifier:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-webhook-server-v0.29.0-rc.1.tar $IMAGE_REGISTRY/kubedb/kubedb-webhook-server:v0.29.0-rc.1
