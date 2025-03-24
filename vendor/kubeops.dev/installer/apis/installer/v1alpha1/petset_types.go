@@ -77,21 +77,10 @@ type PetsetSpec struct {
 	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext"`
 	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount"`
 	// +optional
-	Apiserver  PetsetApiserver `json:"apiserver"`
-	Monitoring Monitoring      `json:"monitoring"`
+	Apiserver  SupervisorApiserver `json:"apiserver"`
+	Monitoring Monitoring          `json:"monitoring"`
 	// +optional
 	NetworkPolicy NetworkPolicy `json:"networkPolicy"`
-}
-
-type PetsetApiserver struct {
-	GroupPriorityMinimum        int             `json:"groupPriorityMinimum"`
-	VersionPriority             int             `json:"versionPriority"`
-	EnableMutatingWebhook       bool            `json:"enableMutatingWebhook"`
-	EnableValidatingWebhook     bool            `json:"enableValidatingWebhook"`
-	BypassValidatingWebhookXray bool            `json:"bypassValidatingWebhookXray"`
-	UseKubeapiserverFqdnForAks  bool            `json:"useKubeapiserverFqdnForAks"`
-	Healthcheck                 HealthcheckSpec `json:"healthcheck"`
-	ServingCerts                ServingCerts    `json:"servingCerts"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

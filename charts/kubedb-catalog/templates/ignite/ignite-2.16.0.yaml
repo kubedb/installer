@@ -1,0 +1,22 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Ignite }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: IgniteVersion
+metadata:
+  name: '2.16.0'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "apacheignite/ignite") $) }}:2.16.0-jdk11'
+  initContainer:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "evanraisul/e-6") $) }}:_linux_amd64'
+  securityContext:
+    runAsUser: 999
+  version: 2.16.0
+{{ end }}
