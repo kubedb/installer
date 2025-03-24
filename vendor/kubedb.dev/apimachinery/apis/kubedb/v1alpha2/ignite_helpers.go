@@ -30,11 +30,13 @@ import (
 	meta "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/klog/v2"
+	"kmodules.xyz/client-go/apiextensions"
 	coreutil "kmodules.xyz/client-go/core/v1"
 	meta_util "kmodules.xyz/client-go/meta"
 	"kmodules.xyz/client-go/policy/secomp"
 	appcat "kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1"
 	ofst "kmodules.xyz/offshoot-api/api/v2"
+	"kubedb.dev/apimachinery/crds"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -47,6 +49,14 @@ func SetDefaultClient(kc client.Client) {
 	once.Do(func() {
 		DefaultClient = kc
 	})
+}
+
+func (i *Ignite) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralIgnite))
+}
+
+func (i *Ignite) AsOwner() *meta.OwnerReference {
+	return meta.NewControllerRef(i, SchemeGroupVersion.WithKind(ResourceKindIgnite))
 }
 
 func (i *Ignite) ResourceKind() string {
