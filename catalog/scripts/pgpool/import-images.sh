@@ -30,4 +30,5 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-p
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-pgpool2-4.4.8.tar $IMAGE_REGISTRY/appscode-images/pgpool2:4.4.8
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-pgpool2-4.5.0.tar $IMAGE_REGISTRY/appscode-images/pgpool2:4.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-pgpool2-4.5.3.tar $IMAGE_REGISTRY/appscode-images/pgpool2:4.5.3
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-pgpool2-4.6.0.tar $IMAGE_REGISTRY/appscode-images/pgpool2:4.6.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-pgpool2_exporter-v1.2.2.tar $IMAGE_REGISTRY/appscode-images/pgpool2_exporter:v1.2.2

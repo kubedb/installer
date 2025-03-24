@@ -39,4 +39,5 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pg
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2:4.4.8 $IMAGE_REGISTRY/appscode-images/pgpool2:4.4.8
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2:4.5.0 $IMAGE_REGISTRY/appscode-images/pgpool2:4.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2:4.5.3 $IMAGE_REGISTRY/appscode-images/pgpool2:4.5.3
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2:4.6.0 $IMAGE_REGISTRY/appscode-images/pgpool2:4.6.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2_exporter:v1.2.2 $IMAGE_REGISTRY/appscode-images/pgpool2_exporter:v1.2.2
