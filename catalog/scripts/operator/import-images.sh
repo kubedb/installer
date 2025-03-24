@@ -26,10 +26,9 @@ tar -zxvf $TARBALL
 
 CMD="./crane"
 
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-kube-rbac-proxy-v0.15.0.tar $IMAGE_REGISTRY/appscode/kube-rbac-proxy:v0.15.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-kubectl-nonroot-1.31.tar $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.31
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.0.7.tar $IMAGE_REGISTRY/appscode/petset:v0.0.7
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.10.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.10
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.0.10.tar $IMAGE_REGISTRY/appscode/petset:v0.0.10
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.11.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.11
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.11.0-rc.1.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.11.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-elasticsearch-restic-plugin-v0.16.0-rc.1.tar $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.16.0-rc.1

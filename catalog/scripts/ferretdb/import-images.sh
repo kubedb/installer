@@ -29,3 +29,4 @@ CMD="./crane"
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-ferretdb-1.18.0.tar $IMAGE_REGISTRY/appscode-images/ferretdb:1.18.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-ferretdb-1.23.0.tar $IMAGE_REGISTRY/appscode-images/ferretdb:1.23.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-ferretdb-1.24.0.tar $IMAGE_REGISTRY/appscode-images/ferretdb:1.24.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-ferretdb-2.0.0.tar $IMAGE_REGISTRY/appscode-images/ferretdb:2.0.0
