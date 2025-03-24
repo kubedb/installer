@@ -38,3 +38,4 @@ CMD="./crane"
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.18.0 $IMAGE_REGISTRY/appscode-images/ferretdb:1.18.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.23.0 $IMAGE_REGISTRY/appscode-images/ferretdb:1.23.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.24.0 $IMAGE_REGISTRY/appscode-images/ferretdb:1.24.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:2.0.0 $IMAGE_REGISTRY/appscode-images/ferretdb:2.0.0

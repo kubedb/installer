@@ -72,6 +72,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/el
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.18.0 $IMAGE_REGISTRY/appscode-images/ferretdb:1.18.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.23.0 $IMAGE_REGISTRY/appscode-images/ferretdb:1.23.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.24.0 $IMAGE_REGISTRY/appscode-images/ferretdb:1.24.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:2.0.0 $IMAGE_REGISTRY/appscode-images/ferretdb:2.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.5.2 $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.5.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.6.1 $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.6.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.7.2 $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.7.2
@@ -192,6 +193,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pg
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2:4.4.8 $IMAGE_REGISTRY/appscode-images/pgpool2:4.4.8
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2:4.5.0 $IMAGE_REGISTRY/appscode-images/pgpool2:4.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2:4.5.3 $IMAGE_REGISTRY/appscode-images/pgpool2:4.5.3
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2:4.6.0 $IMAGE_REGISTRY/appscode-images/pgpool2:4.6.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2_exporter:v1.2.2 $IMAGE_REGISTRY/appscode-images/pgpool2_exporter:v1.2.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:15-0.102.0-ferretdb-2.0.0-rc.5 $IMAGE_REGISTRY/appscode-images/postgres-documentdb:15-0.102.0-ferretdb-2.0.0-rc.5
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:16-0.102.0-ferretdb-2.0.0-rc.5 $IMAGE_REGISTRY/appscode-images/postgres-documentdb:16-0.102.0-ferretdb-2.0.0-rc.5
@@ -266,10 +268,9 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/so
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.7.2 $IMAGE_REGISTRY/appscode-images/zookeeper:3.7.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.8.3 $IMAGE_REGISTRY/appscode-images/zookeeper:3.8.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.9.1 $IMAGE_REGISTRY/appscode-images/zookeeper:3.9.1
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kube-rbac-proxy:v0.15.0 $IMAGE_REGISTRY/appscode/kube-rbac-proxy:v0.15.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.31 $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.31
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.7 $IMAGE_REGISTRY/appscode/petset:v0.0.7
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.10 $IMAGE_REGISTRY/appscode/sidekick:v0.0.10
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.10 $IMAGE_REGISTRY/appscode/petset:v0.0.10
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.11 $IMAGE_REGISTRY/appscode/sidekick:v0.0.11
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6-v1 $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0-v1 $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1 $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1

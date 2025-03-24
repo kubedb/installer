@@ -63,6 +63,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-e
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-ferretdb-1.18.0.tar $IMAGE_REGISTRY/appscode-images/ferretdb:1.18.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-ferretdb-1.23.0.tar $IMAGE_REGISTRY/appscode-images/ferretdb:1.23.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-ferretdb-1.24.0.tar $IMAGE_REGISTRY/appscode-images/ferretdb:1.24.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-ferretdb-2.0.0.tar $IMAGE_REGISTRY/appscode-images/ferretdb:2.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connect-cluster-3.5.2.tar $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.5.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connect-cluster-3.6.1.tar $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.6.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connect-cluster-3.7.2.tar $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.7.2
@@ -183,6 +184,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-p
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-pgpool2-4.4.8.tar $IMAGE_REGISTRY/appscode-images/pgpool2:4.4.8
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-pgpool2-4.5.0.tar $IMAGE_REGISTRY/appscode-images/pgpool2:4.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-pgpool2-4.5.3.tar $IMAGE_REGISTRY/appscode-images/pgpool2:4.5.3
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-pgpool2-4.6.0.tar $IMAGE_REGISTRY/appscode-images/pgpool2:4.6.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-pgpool2_exporter-v1.2.2.tar $IMAGE_REGISTRY/appscode-images/pgpool2_exporter:v1.2.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-documentdb-15-0.102.0-ferretdb-2.0.0-rc.5.tar $IMAGE_REGISTRY/appscode-images/postgres-documentdb:15-0.102.0-ferretdb-2.0.0-rc.5
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-documentdb-16-0.102.0-ferretdb-2.0.0-rc.5.tar $IMAGE_REGISTRY/appscode-images/postgres-documentdb:16-0.102.0-ferretdb-2.0.0-rc.5
@@ -257,10 +259,9 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-s
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-zookeeper-3.7.2.tar $IMAGE_REGISTRY/appscode-images/zookeeper:3.7.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-zookeeper-3.8.3.tar $IMAGE_REGISTRY/appscode-images/zookeeper:3.8.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-zookeeper-3.9.1.tar $IMAGE_REGISTRY/appscode-images/zookeeper:3.9.1
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-kube-rbac-proxy-v0.15.0.tar $IMAGE_REGISTRY/appscode/kube-rbac-proxy:v0.15.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-kubectl-nonroot-1.31.tar $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.31
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.0.7.tar $IMAGE_REGISTRY/appscode/petset:v0.0.7
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.10.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.10
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.0.10.tar $IMAGE_REGISTRY/appscode/petset:v0.0.10
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.11.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.11
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-4.1.6-v1.tar $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-5.0.0-v1.tar $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-clickhouse-init-24.4.1.tar $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1
