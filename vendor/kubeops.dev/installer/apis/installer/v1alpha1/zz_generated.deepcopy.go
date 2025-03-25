@@ -1699,7 +1699,6 @@ func (in *OperatorShardManagerSpec) DeepCopyInto(out *OperatorShardManagerSpec) 
 		*out = make([]string, len(*in))
 		copy(*out, *in)
 	}
-	in.ServiceAccount.DeepCopyInto(&out.ServiceAccount)
 	if in.Annotations != nil {
 		in, out := &in.Annotations, &out.Annotations
 		*out = make(map[string]string, len(*in))
@@ -1714,10 +1713,12 @@ func (in *OperatorShardManagerSpec) DeepCopyInto(out *OperatorShardManagerSpec) 
 			(*out)[key] = val
 		}
 	}
-	if in.PodSecurityContext != nil {
-		in, out := &in.PodSecurityContext, &out.PodSecurityContext
-		*out = new(v1.PodSecurityContext)
-		(*in).DeepCopyInto(*out)
+	if in.PodLabels != nil {
+		in, out := &in.PodLabels, &out.PodLabels
+		*out = make(map[string]string, len(*in))
+		for key, val := range *in {
+			(*out)[key] = val
+		}
 	}
 	if in.NodeSelector != nil {
 		in, out := &in.NodeSelector, &out.NodeSelector
@@ -1743,6 +1744,8 @@ func (in *OperatorShardManagerSpec) DeepCopyInto(out *OperatorShardManagerSpec) 
 		*out = new(v1.Affinity)
 		(*in).DeepCopyInto(*out)
 	}
+	in.ServiceAccount.DeepCopyInto(&out.ServiceAccount)
+	out.Apiserver = in.Apiserver
 	in.Monitoring.DeepCopyInto(&out.Monitoring)
 	out.NetworkPolicy = in.NetworkPolicy
 }
@@ -2547,7 +2550,6 @@ func (in *SidekickSpec) DeepCopyInto(out *SidekickSpec) {
 		*out = make([]string, len(*in))
 		copy(*out, *in)
 	}
-	in.ServiceAccount.DeepCopyInto(&out.ServiceAccount)
 	if in.Annotations != nil {
 		in, out := &in.Annotations, &out.Annotations
 		*out = make(map[string]string, len(*in))
