@@ -61,8 +61,6 @@ type SidekickSpec struct {
 	//+optional
 	Annotations map[string]string `json:"annotations"`
 	//+optional
-	Annotations map[string]string `json:"annotations"`
-	//+optional
 	PodAnnotations map[string]string `json:"podAnnotations"`
 	//+optional
 	PodLabels map[string]string `json:"podLabels"`
