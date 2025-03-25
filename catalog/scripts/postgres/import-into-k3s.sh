@@ -24,9 +24,9 @@ fi
 TARBALL=${1:-}
 tar -zxvf $TARBALL
 
-k3s ctr images import images/appscode-images-postgres-documentdb-15-0.102.0-ferretdb-2.0.0-rc.5.tar
-k3s ctr images import images/appscode-images-postgres-documentdb-16-0.102.0-ferretdb-2.0.0-rc.5.tar
-k3s ctr images import images/appscode-images-postgres-documentdb-17-0.102.0-ferretdb-2.0.0-rc.5.tar
+k3s ctr images import images/appscode-images-postgres-documentdb-15-0.102.0-ferretdb-2.0.0.tar
+k3s ctr images import images/appscode-images-postgres-documentdb-16-0.102.0-ferretdb-2.0.0.tar
+k3s ctr images import images/appscode-images-postgres-documentdb-17-0.102.0-ferretdb-2.0.0.tar
 k3s ctr images import images/appscode-images-postgres-10.23-alpine.tar
 k3s ctr images import images/appscode-images-postgres-10.23-bullseye.tar
 k3s ctr images import images/appscode-images-postgres-11.22-alpine.tar

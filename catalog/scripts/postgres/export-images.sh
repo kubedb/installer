@@ -32,9 +32,9 @@ mv /tmp/crane images
 
 CMD="./images/crane"
 
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:15-0.102.0-ferretdb-2.0.0-rc.5 images/appscode-images-postgres-documentdb-15-0.102.0-ferretdb-2.0.0-rc.5.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:16-0.102.0-ferretdb-2.0.0-rc.5 images/appscode-images-postgres-documentdb-16-0.102.0-ferretdb-2.0.0-rc.5.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:17-0.102.0-ferretdb-2.0.0-rc.5 images/appscode-images-postgres-documentdb-17-0.102.0-ferretdb-2.0.0-rc.5.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:15-0.102.0-ferretdb-2.0.0 images/appscode-images-postgres-documentdb-15-0.102.0-ferretdb-2.0.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:16-0.102.0-ferretdb-2.0.0 images/appscode-images-postgres-documentdb-16-0.102.0-ferretdb-2.0.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:17-0.102.0-ferretdb-2.0.0 images/appscode-images-postgres-documentdb-17-0.102.0-ferretdb-2.0.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:10.23-alpine images/appscode-images-postgres-10.23-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:10.23-bullseye images/appscode-images-postgres-10.23-bullseye.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:11.22-alpine images/appscode-images-postgres-11.22-alpine.tar

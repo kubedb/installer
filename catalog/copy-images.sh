@@ -195,9 +195,9 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pg
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2:4.5.3 $IMAGE_REGISTRY/appscode-images/pgpool2:4.5.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2:4.6.0 $IMAGE_REGISTRY/appscode-images/pgpool2:4.6.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/pgpool2_exporter:v1.2.2 $IMAGE_REGISTRY/appscode-images/pgpool2_exporter:v1.2.2
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:15-0.102.0-ferretdb-2.0.0-rc.5 $IMAGE_REGISTRY/appscode-images/postgres-documentdb:15-0.102.0-ferretdb-2.0.0-rc.5
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:16-0.102.0-ferretdb-2.0.0-rc.5 $IMAGE_REGISTRY/appscode-images/postgres-documentdb:16-0.102.0-ferretdb-2.0.0-rc.5
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:17-0.102.0-ferretdb-2.0.0-rc.5 $IMAGE_REGISTRY/appscode-images/postgres-documentdb:17-0.102.0-ferretdb-2.0.0-rc.5
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:15-0.102.0-ferretdb-2.0.0 $IMAGE_REGISTRY/appscode-images/postgres-documentdb:15-0.102.0-ferretdb-2.0.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:16-0.102.0-ferretdb-2.0.0 $IMAGE_REGISTRY/appscode-images/postgres-documentdb:16-0.102.0-ferretdb-2.0.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:17-0.102.0-ferretdb-2.0.0 $IMAGE_REGISTRY/appscode-images/postgres-documentdb:17-0.102.0-ferretdb-2.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:10.23-alpine $IMAGE_REGISTRY/appscode-images/postgres:10.23-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:10.23-bullseye $IMAGE_REGISTRY/appscode-images/postgres:10.23-bullseye
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:11.22-alpine $IMAGE_REGISTRY/appscode-images/postgres:11.22-alpine
