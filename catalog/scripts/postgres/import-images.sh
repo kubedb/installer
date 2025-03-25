@@ -26,9 +26,9 @@ tar -zxvf $TARBALL
 
 CMD="./crane"
 
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-documentdb-15-0.102.0-ferretdb-2.0.0-rc.5.tar $IMAGE_REGISTRY/appscode-images/postgres-documentdb:15-0.102.0-ferretdb-2.0.0-rc.5
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-documentdb-16-0.102.0-ferretdb-2.0.0-rc.5.tar $IMAGE_REGISTRY/appscode-images/postgres-documentdb:16-0.102.0-ferretdb-2.0.0-rc.5
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-documentdb-17-0.102.0-ferretdb-2.0.0-rc.5.tar $IMAGE_REGISTRY/appscode-images/postgres-documentdb:17-0.102.0-ferretdb-2.0.0-rc.5
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-documentdb-15-0.102.0-ferretdb-2.0.0.tar $IMAGE_REGISTRY/appscode-images/postgres-documentdb:15-0.102.0-ferretdb-2.0.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-documentdb-16-0.102.0-ferretdb-2.0.0.tar $IMAGE_REGISTRY/appscode-images/postgres-documentdb:16-0.102.0-ferretdb-2.0.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-documentdb-17-0.102.0-ferretdb-2.0.0.tar $IMAGE_REGISTRY/appscode-images/postgres-documentdb:17-0.102.0-ferretdb-2.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-10.23-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:10.23-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-10.23-bullseye.tar $IMAGE_REGISTRY/appscode-images/postgres:10.23-bullseye
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-11.22-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:11.22-alpine
@@ -71,21 +71,21 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-p
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.2-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:17.2-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.4-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:17.4-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.4-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:17.4-bookworm
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pg-coordinator-v0.37.0-rc.1.tar $IMAGE_REGISTRY/kubedb/pg-coordinator:v0.37.0-rc.1
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0-rc.1_11.22-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0-rc.1_11.22-alpine
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0-rc.1_11.22-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0-rc.1_11.22-bookworm
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0-rc.1_12.17-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0-rc.1_12.17-alpine
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0-rc.1_12.17-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0-rc.1_12.17-bookworm
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0-rc.1_13.13-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0-rc.1_13.13-alpine
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0-rc.1_13.13-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0-rc.1_13.13-bookworm
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0-rc.1_14.10-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0-rc.1_14.10-alpine
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0-rc.1_14.10-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0-rc.1_14.10-bookworm
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0-rc.1_15.5-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0-rc.1_15.5-alpine
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0-rc.1_15.5-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0-rc.1_15.5-bookworm
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0-rc.1_16.1-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0-rc.1_16.1-alpine
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0-rc.1_16.1-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0-rc.1_16.1-bookworm
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0-rc.1_17.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0-rc.1_17.2-alpine
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0-rc.1_17.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0-rc.1_17.2-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pg-coordinator-v0.37.0.tar $IMAGE_REGISTRY/kubedb/pg-coordinator:v0.37.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0_11.22-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0_11.22-alpine
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0_11.22-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0_11.22-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0_12.17-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0_12.17-alpine
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0_12.17-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0_12.17-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0_13.13-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0_13.13-alpine
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0_13.13-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0_13.13-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0_14.10-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0_14.10-alpine
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0_14.10-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0_14.10-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0_15.5-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0_15.5-alpine
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0_15.5-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0_15.5-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0_16.1-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0_16.1-alpine
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0_16.1-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0_16.1-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0_17.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0_17.2-alpine
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.14.0_17.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.14.0_17.2-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-init-0.17.1.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.17.1
 $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-11-3.3.tar $IMAGE_REGISTRY/postgis/postgis:11-3.3
 $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-12-3.4.tar $IMAGE_REGISTRY/postgis/postgis:12-3.4
