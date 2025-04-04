@@ -24,6 +24,7 @@ import (
 	"kubedb.dev/apimachinery/apis"
 	catalog "kubedb.dev/apimachinery/apis/catalog/v1alpha1"
 	"kubedb.dev/apimachinery/apis/kubedb"
+	"kubedb.dev/apimachinery/crds"
 
 	"gomodules.xyz/pointer"
 	core "k8s.io/api/core/v1"
@@ -36,7 +37,6 @@ import (
 	"kmodules.xyz/client-go/policy/secomp"
 	appcat "kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1"
 	ofst "kmodules.xyz/offshoot-api/api/v2"
-	"kubedb.dev/apimachinery/crds"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -110,7 +110,7 @@ func (i *Ignite) Owner() *meta.OwnerReference {
 	return meta.NewControllerRef(i, SchemeGroupVersion.WithKind(i.ResourceKind()))
 }
 
-func (i *Ignite) SetDefaults() {
+func (i *Ignite) SetDefaults(kc client.Client) {
 	if i.Spec.Replicas == nil {
 		i.Spec.Replicas = pointer.Int32P(1)
 	}
@@ -124,7 +124,7 @@ func (i *Ignite) SetDefaults() {
 	}
 
 	var igVersion catalog.IgniteVersion
-	err := DefaultClient.Get(context.TODO(), types.NamespacedName{
+	err := kc.Get(context.TODO(), types.NamespacedName{
 		Name: i.Spec.Version,
 	}, &igVersion)
 	if err != nil {
