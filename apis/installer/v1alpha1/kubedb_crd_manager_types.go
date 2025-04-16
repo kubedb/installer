@@ -75,6 +75,7 @@ type KubedbCrdManagerSpec struct {
 	ServiceAccount          ServiceAccountSpec `json:"serviceAccount"`
 	FeatureGates            map[string]bool    `json:"featureGates"`
 	RemoveUnusedCRDs        bool               `json:"removeUnusedCRDs"`
+	InstallGitOpsCRDs       bool               `json:"installGitOpsCRDs"`
 	TTLSecondsAfterFinished int                `json:"ttlSecondsAfterFinished"`
 }
 
