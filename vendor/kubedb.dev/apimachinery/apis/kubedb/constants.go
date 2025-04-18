@@ -1469,6 +1469,31 @@ const (
 	FerretDBBackendConfigFile    = "user.conf"
 )
 
+// =========================== Ignite Constants ============================
+const (
+	IgniteInitContainerName         = "ignite-init"
+	IgniteVolumeNameInitScript      = "init-scripts"
+	IgniteVolumeMountPathInitScript = "/scripts"
+	IgniteConfigVolName             = "ignite-config"
+	IgniteWorkVolName               = "ignite-work"
+	IgniteConfigFileName            = "node-configuration.xml"
+	IgniteVolumeData                = "data"
+	IgniteDataDir                   = "/ignite/data"
+	IgniteContainerName             = "ignite"
+	IgniteConfigDir                 = "/ignite/config"
+	IgniteRestPortName              = "rest"
+	IgniteRestPort                  = 8080
+	IgniteThinPortName              = "thin"
+	IgniteThinPort                  = 10800
+	IgniteSPIPortName               = "spi"
+	IgniteSPIPort                   = 47100
+	IgniteTCPPortName               = "tcp"
+	IgniteTCPPort                   = 47500
+	IgniteJMXPortName               = "jmx"
+	IgniteJMXPort                   = 49112
+	IgniteUserName                  = "ignite"
+)
+
 // =========================== ClickHouse Constants ============================
 
 const (
