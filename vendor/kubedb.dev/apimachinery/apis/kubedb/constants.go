@@ -1471,6 +1471,10 @@ const (
 
 // =========================== Ignite Constants ============================
 const (
+	IgniteVolumeCustomConfig        = "custom-config"
+	IgniteCustomConfigDir           = "/tmp/config/custom_config/"
+	IgniteVolumeTempConfig          = "temp-config"
+	IgniteTempConfigDir             = "/tmp/config/"
 	IgniteInitContainerName         = "ignite-init"
 	IgniteVolumeNameInitScript      = "init-scripts"
 	IgniteVolumeMountPathInitScript = "/scripts"

@@ -20,7 +20,7 @@ require (
 	kmodules.xyz/image-packer v0.0.0-20250302004653-f7cd2db94159
 	kmodules.xyz/resource-metadata v0.26.1
 	kmodules.xyz/schema-checker v0.4.2
-	kubedb.dev/apimachinery v0.53.1-0.20250415065315-f0dd854a05f1
+	kubedb.dev/apimachinery v0.53.1-0.20250421054754-a4c9cc69b667
 	kubeops.dev/installer v0.0.0-20250324025022-f5f681a9cf96
 	sigs.k8s.io/yaml v1.4.0
 	stash.appscode.dev/installer v0.12.2-0.20250317171548-c1064c4022f2
@@ -92,7 +92,7 @@ require (
 	github.com/zeebo/xxh3 v1.0.2 // indirect
 	go.virtual-secrets.dev/apimachinery v0.0.1 // indirect
 	golang.org/x/crypto v0.36.0 // indirect
-	golang.org/x/net v0.37.0 // indirect
+	golang.org/x/net v0.38.0 // indirect
 	golang.org/x/oauth2 v0.27.0 // indirect
 	golang.org/x/sync v0.12.0 // indirect
 	golang.org/x/sys v0.31.0 // indirect
