@@ -136,7 +136,7 @@ func (i *Ignite) SetDefaults(kc client.Client) {
 
 	dbContainer := coreutil.GetContainerByName(i.Spec.PodTemplate.Spec.Containers, "ignite")
 	if dbContainer != nil && (dbContainer.Resources.Requests == nil || dbContainer.Resources.Limits == nil) {
-		apis.SetDefaultResourceLimits(&dbContainer.Resources, kubedb.DefaultResources)
+		apis.SetDefaultResourceLimits(&dbContainer.Resources, kubedb.IgniteDefaultResources)
 	}
 
 	i.SetHealthCheckerDefaults()

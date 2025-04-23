@@ -1471,31 +1471,31 @@ const (
 
 // =========================== Ignite Constants ============================
 const (
-	IgniteVolumeCustomConfig        = "custom-config"
-	IgniteCustomConfigDir           = "/tmp/config/custom_config/"
-	IgniteVolumeTempConfig          = "temp-config"
-	IgniteTempConfigDir             = "/tmp/config/"
-	IgniteInitContainerName         = "ignite-init"
-	IgniteVolumeNameInitScript      = "init-scripts"
-	IgniteVolumeMountPathInitScript = "/scripts"
-	IgniteConfigVolName             = "ignite-config"
-	IgniteWorkVolName               = "ignite-work"
-	IgniteConfigFileName            = "node-configuration.xml"
-	IgniteVolumeData                = "data"
-	IgniteDataDir                   = "/ignite/data"
-	IgniteContainerName             = "ignite"
-	IgniteConfigDir                 = "/ignite/config"
-	IgniteRestPortName              = "rest"
-	IgniteRestPort                  = 8080
-	IgniteThinPortName              = "thin"
-	IgniteThinPort                  = 10800
-	IgniteSPIPortName               = "spi"
-	IgniteSPIPort                   = 47100
-	IgniteTCPPortName               = "tcp"
-	IgniteTCPPort                   = 47500
-	IgniteJMXPortName               = "jmx"
-	IgniteJMXPort                   = 49112
-	IgniteUserName                  = "ignite"
+	IgniteCustomConfigVolName = "custom-config"
+	IgniteCustomConfigDir     = "/tmp/config/custom_config/"
+	IgniteTempConfigVolName   = "temp-config"
+	IgniteTempConfigDir       = "/tmp/config/"
+	IgniteInitContainerName   = "ignite-init"
+	IgniteInitScriptVolName   = "init-scripts"
+	IgniteInitScriptDir       = "/scripts"
+	IgniteConfigVolName       = "ignite-config"
+	IgniteWorkVolName         = "ignite-work"
+	IgniteConfigFileName      = "node-configuration.xml"
+	IgniteDataVolName         = "data"
+	IgniteDataDir             = "/ignite/data"
+	IgniteContainerName       = "ignite"
+	IgniteConfigDir           = "/ignite/config"
+	IgniteRestPortName        = "rest"
+	IgniteRestPort            = 8080
+	IgniteThinPortName        = "thin"
+	IgniteThinPort            = 10800
+	IgniteSPIPortName         = "spi"
+	IgniteSPIPort             = 47100
+	IgniteTCPPortName         = "tcp"
+	IgniteTCPPort             = 47500
+	IgniteJMXPortName         = "jmx"
+	IgniteJMXPort             = 49112
+	IgniteUserName            = "ignite"
 )
 
 // =========================== ClickHouse Constants ============================
@@ -1707,6 +1707,17 @@ var (
 			core.ResourceMemory: resource.MustParse("4Gi"),
 		},
 	}
+
+	IgniteDefaultResources = core.ResourceRequirements{
+		Requests: core.ResourceList{
+			core.ResourceCPU:    resource.MustParse("1"),
+			core.ResourceMemory: resource.MustParse("2Gi"),
+		},
+		Limits: core.ResourceList{
+			core.ResourceMemory: resource.MustParse("2Gi"),
+		},
+	}
+
 	// CoordinatorDefaultResources must be used for raft backed coordinators to avoid unintended leader switches
 	CoordinatorDefaultResources = core.ResourceRequirements{
 		Requests: core.ResourceList{
