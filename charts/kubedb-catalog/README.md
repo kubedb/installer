@@ -61,6 +61,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | featureGates.Druid                         |                                                 | <code>true</code>              |
 | featureGates.Elasticsearch                 |                                                 | <code>true</code>              |
 | featureGates.FerretDB                      |                                                 | <code>true</code>              |
+| featureGates.Ignite                        |                                                 | <code>true</code>              |
 | featureGates.Kafka                         |                                                 | <code>true</code>              |
 | featureGates.MariaDB                       |                                                 | <code>true</code>              |
 | featureGates.Memcached                     |                                                 | <code>true</code>              |
@@ -102,6 +103,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | enableVersions.Druid                       |                                                 | <code>[]</code>                |
 | enableVersions.Elasticsearch               |                                                 | <code>[]</code>                |
 | enableVersions.FerretDB                    |                                                 | <code>[]</code>                |
+| enableVersions.Ignite                      |                                                 | <code>[]</code>                |
 | enableVersions.Kafka                       |                                                 | <code>[]</code>                |
 | enableVersions.MariaDB                     |                                                 | <code>[]</code>                |
 | enableVersions.Memcached                   |                                                 | <code>[]</code>                |
