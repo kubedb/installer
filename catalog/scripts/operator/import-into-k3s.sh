@@ -35,12 +35,12 @@ k3s ctr images import images/kubedb-kubedb-crd-manager-v0.8.0.tar
 k3s ctr images import images/kubedb-kubedb-gitops-v0.1.0.tar
 k3s ctr images import images/kubedb-kubedb-kibana-v0.29.0.tar
 k3s ctr images import images/kubedb-kubedb-manifest-plugin-v0.16.0.tar
-k3s ctr images import images/kubedb-kubedb-ops-manager-v0.40.0.tar
-k3s ctr images import images/kubedb-kubedb-provisioner-v0.53.0.tar
+k3s ctr images import images/kubedb-kubedb-ops-manager-v0.40.1.tar
+k3s ctr images import images/kubedb-kubedb-provisioner-v0.53.1.tar
 k3s ctr images import images/kubedb-kubedb-schema-manager-v0.29.0.tar
 k3s ctr images import images/kubedb-kubedb-ui-server-v0.29.0.tar
 k3s ctr images import images/kubedb-kubedb-verifier-v0.1.0.tar
-k3s ctr images import images/kubedb-kubedb-webhook-server-v0.29.0.tar
+k3s ctr images import images/kubedb-kubedb-webhook-server-v0.29.1.tar
 k3s ctr images import images/kubedb-mariadb-csi-snapshotter-plugin-v0.13.0.tar
 k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.11.0.tar
 k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.14.0.tar

@@ -43,12 +43,12 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-cr
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-gitops:v0.1.0 images/kubedb-kubedb-gitops-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-kibana:v0.29.0 images/kubedb-kubedb-kibana-v0.29.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-manifest-plugin:v0.16.0 images/kubedb-kubedb-manifest-plugin-v0.16.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.40.0 images/kubedb-kubedb-ops-manager-v0.40.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-provisioner:v0.53.0 images/kubedb-kubedb-provisioner-v0.53.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.40.1 images/kubedb-kubedb-ops-manager-v0.40.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-provisioner:v0.53.1 images/kubedb-kubedb-provisioner-v0.53.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-schema-manager:v0.29.0 images/kubedb-kubedb-schema-manager-v0.29.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ui-server:v0.29.0 images/kubedb-kubedb-ui-server-v0.29.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-verifier:v0.1.0 images/kubedb-kubedb-verifier-v0.1.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-webhook-server:v0.29.0 images/kubedb-kubedb-webhook-server-v0.29.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-webhook-server:v0.29.1 images/kubedb-kubedb-webhook-server-v0.29.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-csi-snapshotter-plugin:v0.13.0 images/kubedb-mariadb-csi-snapshotter-plugin-v0.13.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.11.0 images/kubedb-mariadb-restic-plugin-v0.11.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.14.0 images/kubedb-mongodb-csi-snapshotter-plugin-v0.14.0.tar
