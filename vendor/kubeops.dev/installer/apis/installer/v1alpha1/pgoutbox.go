@@ -139,6 +139,8 @@ type HelmServiceAccount struct {
 type PgOutboxConfig struct {
 	Config           runtime.RawExtension `json:"config"`
 	ConfigSecretName string               `json:"configSecretName"`
+	NatsSecretName   string               `json:"natsSecretName"`
+	NatsMountPath    string               `json:"natsMountPath"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
