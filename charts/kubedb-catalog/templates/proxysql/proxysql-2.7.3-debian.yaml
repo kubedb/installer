@@ -8,20 +8,20 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ProxySQLVersion
 metadata:
-  name: '2.4.4-centos'
+  name: '2.7.3-debian'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/proxysql-exporter") $) }}:v1.1.0'
   proxysql:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/proxysql") $) }}:2.4.4-centos'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/proxysql") $) }}:2.7.3-debian'
   securityContext:
     runAsUser: 999
   updateConstraints:
     allowlist:
-    - '>= 2.4.4-centos, <= 2.7.3-debian'
-  version: 2.4.4-centos
+    - '>= 2.7.3-debian, <= 2.7.3-debian'
+  version: 2.7.3-debian
   podSecurityPolicies:
     databasePolicyName: {{ ternary "proxysql-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
 {{ end }}
