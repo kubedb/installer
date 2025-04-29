@@ -3,7 +3,7 @@ kind: CustomResourceDefinition
 metadata:
   labels:
     app.kubernetes.io/name: kubedb
-  name: cassandraversions.catalog.kubedb.com
+  name: igniteversions.catalog.kubedb.com
 spec:
   group: catalog.kubedb.com
   names:
@@ -11,12 +11,12 @@ spec:
     - catalog
     - kubedb
     - appscode
-    kind: CassandraVersion
-    listKind: CassandraVersionList
-    plural: cassandraversions
+    kind: IgniteVersion
+    listKind: IgniteVersionList
+    plural: igniteversions
     shortNames:
-    - casversion
-    singular: cassandraversion
+    - igversion
+    singular: igniteversion
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -51,13 +51,8 @@ spec:
                 required:
                 - image
                 type: object
-              exporter:
-                properties:
-                  image:
-                    type: string
-                required:
-                - image
-                type: object
+              deprecated:
+                type: boolean
               initContainer:
                 properties:
                   image:
@@ -65,23 +60,11 @@ spec:
                 required:
                 - image
                 type: object
-              medusa:
-                properties:
-                  image:
-                    type: string
-                  init:
-                    properties:
-                      image:
-                        type: string
-                    required:
-                    - image
-                    type: object
-                required:
-                - image
-                - init
-                type: object
               securityContext:
                 properties:
+                  runAsGroup:
+                    format: int64
+                    type: integer
                   runAsUser:
                     format: int64
                     type: integer
@@ -105,9 +88,6 @@ spec:
                 type: string
             required:
             - db
-            - exporter
-            - initContainer
-            - medusa
             - version
             type: object
         type: object
