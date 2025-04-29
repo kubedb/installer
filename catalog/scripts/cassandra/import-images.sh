@@ -27,7 +27,8 @@ tar -zxvf $TARBALL
 CMD="./crane"
 
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-exporter-2.3.8.tar $IMAGE_REGISTRY/appscode-images/cassandra-exporter:2.3.8
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-4.1.6.tar $IMAGE_REGISTRY/appscode-images/cassandra:4.1.6
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-5.0.0.tar $IMAGE_REGISTRY/appscode-images/cassandra:5.0.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-4.1.6-v1.tar $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v1
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-5.0.0-v1.tar $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v1
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-management-4.1.8.tar $IMAGE_REGISTRY/appscode-images/cassandra-management:4.1.8
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-management-5.0.3.tar $IMAGE_REGISTRY/appscode-images/cassandra-management:5.0.3
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-medusa-0.24.0.tar $IMAGE_REGISTRY/appscode-images/cassandra-medusa:0.24.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-4.1.6-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-5.0.0-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v2

@@ -32,3 +32,4 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2.4.4-centos.tar $IMAGE_REGISTRY/kubedb/proxysql:2.4.4-centos
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2.4.4-debian.tar $IMAGE_REGISTRY/kubedb/proxysql:2.4.4-debian
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2.6.3-debian.tar $IMAGE_REGISTRY/kubedb/proxysql:2.6.3-debian
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2.7.3-debian.tar $IMAGE_REGISTRY/kubedb/proxysql:2.7.3-debian

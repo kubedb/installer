@@ -39,8 +39,9 @@ $CMD pull --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-se
 $CMD pull --allow-nondistributable-artifacts --insecure floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0 images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/aiven-open/karapace:3.15.0 images/aiven-open-karapace-3.15.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-exporter:2.3.8 images/appscode-images-cassandra-exporter-2.3.8.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra:4.1.6 images/appscode-images-cassandra-4.1.6.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra:5.0.0 images/appscode-images-cassandra-5.0.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:4.1.8 images/appscode-images-cassandra-management-4.1.8.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:5.0.3 images/appscode-images-cassandra-management-5.0.3.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-medusa:0.24.0 images/appscode-images-cassandra-medusa-0.24.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:28.0.1 images/appscode-images-druid-28.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:30.0.1 images/appscode-images-druid-30.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:31.0.0 images/appscode-images-druid-31.0.0.tar
@@ -268,8 +269,8 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.31 images/appscode-kubectl-nonroot-1.31.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.10 images/appscode-petset-v0.0.10.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.11 images/appscode-sidekick-v0.0.11.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6-v1 images/kubedb-cassandra-init-4.1.6-v1.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0-v1 images/kubedb-cassandra-init-5.0.0-v1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6-v2 images/kubedb-cassandra-init-4.1.6-v2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0-v2 images/kubedb-cassandra-init-5.0.0-v2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1 images/kubedb-clickhouse-init-24.4.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.1.0 images/kubedb-dashboard-restic-plugin-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.11.0 images/kubedb-dashboard-restic-plugin-v0.11.0.tar
@@ -359,6 +360,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.4.4-centos images/kubedb-proxysql-2.4.4-centos.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.4.4-debian images/kubedb-proxysql-2.4.4-debian.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.6.3-debian images/kubedb-proxysql-2.6.3-debian.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.7.3-debian images/kubedb-proxysql-2.7.3-debian.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:3.12.12 images/kubedb-rabbitmq-init-3.12.12.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:3.13.2 images/kubedb-rabbitmq-init-3.13.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:4.0.4 images/kubedb-rabbitmq-init-4.0.4.tar
