@@ -81,9 +81,6 @@ type KubedbSpec struct {
 	KubedbMetrics KubedbMetricsValues `json:"kubedb-metrics"`
 
 	//+optional
-	KubedbGitops KubedbGitopsValues `json:"kubedb-gitops"`
-
-	//+optional
 	AceUserRoles AceUserRolesValues `json:"ace-user-roles"`
 }
 

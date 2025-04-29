@@ -2153,7 +2153,6 @@ func (in *KubedbSpec) DeepCopyInto(out *KubedbSpec) {
 	in.KubedbAutoscaler.DeepCopyInto(&out.KubedbAutoscaler)
 	in.KubedbSchemaManager.DeepCopyInto(&out.KubedbSchemaManager)
 	out.KubedbMetrics = in.KubedbMetrics
-	in.KubedbGitops.DeepCopyInto(&out.KubedbGitops)
 	in.AceUserRoles.DeepCopyInto(&out.AceUserRoles)
 	return
 }
