@@ -614,6 +614,8 @@ const (
 
 	EnvValkeyPassword          = "VALKEYCLI_AUTH"
 	EnvValkeyMajorRedisVersion = "MAJOR_VALKEY_VERSION"
+	ValkeyConfigVolumePath     = "/usr/local/etc/valkey/"
+	ValkeyConfigVolumeName     = "valkey-config"
 
 	// =========================== PgBouncer Constants ============================
 	PgBouncerUpstreamServerCA               = "upstream-server-ca.crt"
@@ -1472,9 +1474,9 @@ const (
 // =========================== Ignite Constants ============================
 const (
 	IgniteCustomConfigVolName = "custom-config"
-	IgniteCustomConfigDir     = "/tmp/config/custom_config/"
+	IgniteCustomConfigDir     = "/tmp/config/custom_config"
 	IgniteTempConfigVolName   = "temp-config"
-	IgniteTempConfigDir       = "/tmp/config/"
+	IgniteTempConfigDir       = "/tmp/config"
 	IgniteInitContainerName   = "ignite-init"
 	IgniteInitScriptVolName   = "init-scripts"
 	IgniteInitScriptDir       = "/scripts"
@@ -1593,7 +1595,7 @@ const (
 
 	CassandraUserAdmin = "admin"
 
-	CassandraAuthCommand       = "/tmp/sc/cassandra-auth.sh"
+	CassandraAuthCommand       = "/tmp/sc/cassandra-start-and-auth.sh"
 	CassandraMetadataName      = "metadata.name"
 	CassandraMetadataNamespace = "metadata.namespace"
 	CassandraStatusPodIP       = "status.podIP"
@@ -1613,16 +1615,18 @@ const (
 	CassandraVolumeCustomConfig   = "custom-config"
 	CassandraVolumeScript         = "script-volume"
 
-	CassandraVolumeData        = "data"
-	CassandraDataDir           = "/var/lib/cassandra"
-	CassandraServerLogDir      = "var/log/cassandra-server/cassandra-server.log"
-	CassandraServerErrorLogDir = "var/log/cassandra-server/cassandra-server.err.log"
-	CassandraContainerName     = "cassandra"
-	CassandraInitContainerName = "cassandra-init"
-	CassandraMainConfigFile    = "cassandra.yaml"
-	CassandraRackConfigFile    = "rack-config.yaml"
-	CassandraStandalone        = "standalone"
-	CassandraServerConfigFile  = "server-config.yaml"
+	CassandraVolumeData                  = "data"
+	CassandraDataDir                     = "/var/lib/cassandra"
+	CassandraServerLogFile               = "var/log/cassandra-server/cassandra-server.log"
+	CassandraServerErrorLogFile          = "var/log/cassandra-server/cassandra-server.err.log"
+	CassandraContainerName               = "cassandra"
+	CassandraMedusaInitContainerName     = "medusa-init"
+	CassandraMetricExporterContainerName = "exporter"
+	CassandraInitContainerName           = "cassandra-init"
+	CassandraMainConfigFile              = "cassandra.yaml"
+	CassandraRackConfigFile              = "rack-config.yaml"
+	CassandraStandalone                  = "standalone"
+	CassandraServerConfigFile            = "server-config.yaml"
 
 	EnvNameCassandraEndpointSnitch = "CASSANDRA_ENDPOINT_SNITCH"
 	EnvValCassandraEndpointSnitch  = "GossipingPropertyFileSnitch"
@@ -1645,6 +1649,15 @@ const (
 	EnvNameCassandraPodName          = "CASSANDRA_POD_NAME"
 	EnvNameCassandraUser             = "CASSANDRA_USER"
 	EnvNameCassandraPassword         = "CASSANDRA_PASSWORD"
+
+	EnvNameMgmtApiListenTcpPort = "MGMT_API_LISTEN_TCP_PORT"
+	EnvValMgmtApiListenTcpPort  = "8081"
+	EnvNameMedusaMode           = "MEDUSA_MODE"
+	EnvValMedusaModeRestore     = "RESTORE"
+	EnvNameMedusaDebugSleep     = "DEBUG_SLEEP"
+	EnvValMedusaDebugSleep      = "0s"
+	CassandraNodetoolDir        = "/opt/cassandra/temp/bin"
+	CassandraBackupBinary       = "nodetool"
 )
 
 // =========================== Virtual Secrets Constants ============================
@@ -1705,16 +1718,6 @@ var (
 		},
 		Limits: core.ResourceList{
 			core.ResourceMemory: resource.MustParse("4Gi"),
-		},
-	}
-
-	IgniteDefaultResources = core.ResourceRequirements{
-		Requests: core.ResourceList{
-			core.ResourceCPU:    resource.MustParse("1"),
-			core.ResourceMemory: resource.MustParse("2Gi"),
-		},
-		Limits: core.ResourceList{
-			core.ResourceMemory: resource.MustParse("2Gi"),
 		},
 	}
 

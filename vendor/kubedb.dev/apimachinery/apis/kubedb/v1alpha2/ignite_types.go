@@ -51,9 +51,6 @@ type Ignite struct {
 	Status IgniteStatus `json:"status,omitempty"`
 }
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
 // IgniteSpec defines the desired state of Ignite.
 type IgniteSpec struct {
 	// Version of Ignite to be deployed.
@@ -78,14 +75,10 @@ type IgniteSpec struct {
 	// +optional
 	AuthSecret *SecretReference `json:"authSecret,omitempty"`
 
-	// ConfigSecret is an optional field to provide custom configuration file for database (i.e config.properties).
+	// ConfigSecret is an optional field to provide custom configuration file for database (i.e node-configuration.xml).
 	// If specified, this file will be used as configuration file otherwise default configuration file will be used.
 	// +optional
 	ConfigSecret *core.LocalObjectReference `json:"configSecret,omitempty"`
-
-	// TLS contains tls configurations
-	// +optional
-	//	TLS *kmapi.TLSConfig `json:"tls,omitempty"`
 
 	// PodTemplate is an optional configuration for pods used to expose database
 	// +optional
@@ -98,10 +91,6 @@ type IgniteSpec struct {
 	// Indicates that the database is halted and all offshoot Kubernetes resources except PVCs are deleted.
 	// +optional
 	Halted bool `json:"halted,omitempty"`
-
-	// Monitor is used monitor database instance
-	// +optional
-	//	Monitor *mona.AgentSpec `json:"monitor,omitempty"`
 
 	// DeletionPolicy controls the delete operation for database
 	// +optional

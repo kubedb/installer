@@ -19,7 +19,6 @@ package v1alpha2
 import (
 	"context"
 	"fmt"
-	"sync"
 
 	"kubedb.dev/apimachinery/apis"
 	catalog "kubedb.dev/apimachinery/apis/catalog/v1alpha1"
@@ -30,7 +29,6 @@ import (
 	core "k8s.io/api/core/v1"
 	meta "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
-	"k8s.io/klog/v2"
 	"kmodules.xyz/client-go/apiextensions"
 	coreutil "kmodules.xyz/client-go/core/v1"
 	meta_util "kmodules.xyz/client-go/meta"
@@ -39,17 +37,6 @@ import (
 	ofst "kmodules.xyz/offshoot-api/api/v2"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
-
-var (
-	once          sync.Once
-	DefaultClient client.Client
-)
-
-func SetDefaultClient(kc client.Client) {
-	once.Do(func() {
-		DefaultClient = kc
-	})
-}
 
 func (i *Ignite) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
 	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralIgnite))
@@ -101,7 +88,9 @@ func (i *Ignite) GetAuthSecretName() string {
 
 func (i *Ignite) GetPersistentSecrets() []string {
 	var secrets []string
-	secrets = append(secrets, i.GetAuthSecretName())
+	if i.Spec.AuthSecret != nil {
+		secrets = append(secrets, i.GetAuthSecretName())
+	}
 	return secrets
 }
 
@@ -128,15 +117,14 @@ func (i *Ignite) SetDefaults(kc client.Client) {
 		Name: i.Spec.Version,
 	}, &igVersion)
 	if err != nil {
-		klog.Errorf("can't get the ignite version object %s for %s \n", err.Error(), i.Spec.Version)
 		return
 	}
 
 	i.setDefaultContainerSecurityContext(&igVersion, &i.Spec.PodTemplate)
 
-	dbContainer := coreutil.GetContainerByName(i.Spec.PodTemplate.Spec.Containers, "ignite")
+	dbContainer := coreutil.GetContainerByName(i.Spec.PodTemplate.Spec.Containers, kubedb.IgniteContainerName)
 	if dbContainer != nil && (dbContainer.Resources.Requests == nil || dbContainer.Resources.Limits == nil) {
-		apis.SetDefaultResourceLimits(&dbContainer.Resources, kubedb.IgniteDefaultResources)
+		apis.SetDefaultResourceLimits(&dbContainer.Resources, kubedb.DefaultResources)
 	}
 
 	i.SetHealthCheckerDefaults()
@@ -175,10 +163,10 @@ func (i *Ignite) setDefaultContainerSecurityContext(igVersion *catalog.IgniteVer
 		podTemplate.Spec.SecurityContext.FSGroup = igVersion.Spec.SecurityContext.RunAsUser
 	}
 
-	container := coreutil.GetContainerByName(podTemplate.Spec.Containers, "ignite")
+	container := coreutil.GetContainerByName(podTemplate.Spec.Containers, kubedb.IgniteContainerName)
 	if container == nil {
 		container = &core.Container{
-			Name: "ignite",
+			Name: kubedb.IgniteContainerName,
 		}
 		podTemplate.Spec.Containers = coreutil.UpsertContainer(podTemplate.Spec.Containers, *container)
 	}
@@ -188,10 +176,10 @@ func (i *Ignite) setDefaultContainerSecurityContext(igVersion *catalog.IgniteVer
 	}
 	i.assignDefaultContainerSecurityContext(igVersion, container.SecurityContext)
 
-	initContainer := coreutil.GetContainerByName(podTemplate.Spec.InitContainers, "ignite-init")
+	initContainer := coreutil.GetContainerByName(podTemplate.Spec.InitContainers, kubedb.IgniteInitContainerName)
 	if initContainer == nil {
 		initContainer = &core.Container{
-			Name: "ignite-init",
+			Name: kubedb.IgniteInitContainerName,
 		}
 		podTemplate.Spec.InitContainers = coreutil.UpsertContainer(podTemplate.Spec.InitContainers, *initContainer)
 	}
@@ -290,6 +278,5 @@ func (i *Ignite) PVCName(alias string) string {
 }
 
 func (i *Ignite) Address() string {
-	klog.Infof("%v.%v.svc", i.Name, i.Namespace)
 	return fmt.Sprintf("%v.%v.svc.cluster.local", i.Name, i.Namespace)
 }
