@@ -38,5 +38,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.4.4-centos images/kubedb-proxysql-2.4.4-centos.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.4.4-debian images/kubedb-proxysql-2.4.4-debian.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.6.3-debian images/kubedb-proxysql-2.6.3-debian.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.7.3-debian images/kubedb-proxysql-2.7.3-debian.tar
 
 tar -czvf images.tar.gz images

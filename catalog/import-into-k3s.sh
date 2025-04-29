@@ -31,8 +31,9 @@ k3s ctr images import images/clickhouse-clickhouse-server-24.4.1.tar
 k3s ctr images import images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar
 k3s ctr images import images/aiven-open-karapace-3.15.0.tar
 k3s ctr images import images/appscode-images-cassandra-exporter-2.3.8.tar
-k3s ctr images import images/appscode-images-cassandra-4.1.6.tar
-k3s ctr images import images/appscode-images-cassandra-5.0.0.tar
+k3s ctr images import images/appscode-images-cassandra-management-4.1.8.tar
+k3s ctr images import images/appscode-images-cassandra-management-5.0.3.tar
+k3s ctr images import images/appscode-images-cassandra-medusa-0.24.0.tar
 k3s ctr images import images/appscode-images-druid-28.0.1.tar
 k3s ctr images import images/appscode-images-druid-30.0.1.tar
 k3s ctr images import images/appscode-images-druid-31.0.0.tar
@@ -260,8 +261,8 @@ k3s ctr images import images/appscode-images-zookeeper-3.9.1.tar
 k3s ctr images import images/appscode-kubectl-nonroot-1.31.tar
 k3s ctr images import images/appscode-petset-v0.0.10.tar
 k3s ctr images import images/appscode-sidekick-v0.0.11.tar
-k3s ctr images import images/kubedb-cassandra-init-4.1.6-v1.tar
-k3s ctr images import images/kubedb-cassandra-init-5.0.0-v1.tar
+k3s ctr images import images/kubedb-cassandra-init-4.1.6-v2.tar
+k3s ctr images import images/kubedb-cassandra-init-5.0.0-v2.tar
 k3s ctr images import images/kubedb-clickhouse-init-24.4.1.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.11.0.tar
@@ -351,6 +352,7 @@ k3s ctr images import images/kubedb-proxysql-2.3.2-debian-v2.tar
 k3s ctr images import images/kubedb-proxysql-2.4.4-centos.tar
 k3s ctr images import images/kubedb-proxysql-2.4.4-debian.tar
 k3s ctr images import images/kubedb-proxysql-2.6.3-debian.tar
+k3s ctr images import images/kubedb-proxysql-2.7.3-debian.tar
 k3s ctr images import images/kubedb-rabbitmq-init-3.12.12.tar
 k3s ctr images import images/kubedb-rabbitmq-init-3.13.2.tar
 k3s ctr images import images/kubedb-rabbitmq-init-4.0.4.tar

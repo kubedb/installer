@@ -25,7 +25,8 @@ TARBALL=${1:-}
 tar -zxvf $TARBALL
 
 k3s ctr images import images/appscode-images-cassandra-exporter-2.3.8.tar
-k3s ctr images import images/appscode-images-cassandra-4.1.6.tar
-k3s ctr images import images/appscode-images-cassandra-5.0.0.tar
-k3s ctr images import images/kubedb-cassandra-init-4.1.6-v1.tar
-k3s ctr images import images/kubedb-cassandra-init-5.0.0-v1.tar
+k3s ctr images import images/appscode-images-cassandra-management-4.1.8.tar
+k3s ctr images import images/appscode-images-cassandra-management-5.0.3.tar
+k3s ctr images import images/appscode-images-cassandra-medusa-0.24.0.tar
+k3s ctr images import images/kubedb-cassandra-init-4.1.6-v2.tar
+k3s ctr images import images/kubedb-cassandra-init-5.0.0-v2.tar

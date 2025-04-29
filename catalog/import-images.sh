@@ -33,8 +33,9 @@ $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickh
 $CMD push --allow-nondistributable-artifacts --insecure images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar $IMAGE_REGISTRY/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/aiven-open-karapace-3.15.0.tar $IMAGE_REGISTRY/aiven-open/karapace:3.15.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-exporter-2.3.8.tar $IMAGE_REGISTRY/appscode-images/cassandra-exporter:2.3.8
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-4.1.6.tar $IMAGE_REGISTRY/appscode-images/cassandra:4.1.6
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-5.0.0.tar $IMAGE_REGISTRY/appscode-images/cassandra:5.0.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-management-4.1.8.tar $IMAGE_REGISTRY/appscode-images/cassandra-management:4.1.8
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-management-5.0.3.tar $IMAGE_REGISTRY/appscode-images/cassandra-management:5.0.3
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-medusa-0.24.0.tar $IMAGE_REGISTRY/appscode-images/cassandra-medusa:0.24.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-28.0.1.tar $IMAGE_REGISTRY/appscode-images/druid:28.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-30.0.1.tar $IMAGE_REGISTRY/appscode-images/druid:30.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-31.0.0.tar $IMAGE_REGISTRY/appscode-images/druid:31.0.0
@@ -262,8 +263,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-z
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-kubectl-nonroot-1.31.tar $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.31
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.0.10.tar $IMAGE_REGISTRY/appscode/petset:v0.0.10
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.11.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.11
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-4.1.6-v1.tar $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v1
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-5.0.0-v1.tar $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-4.1.6-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-5.0.0-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-clickhouse-init-24.4.1.tar $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.11.0.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.11.0
@@ -353,6 +354,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2.4.4-centos.tar $IMAGE_REGISTRY/kubedb/proxysql:2.4.4-centos
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2.4.4-debian.tar $IMAGE_REGISTRY/kubedb/proxysql:2.4.4-debian
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2.6.3-debian.tar $IMAGE_REGISTRY/kubedb/proxysql:2.6.3-debian
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2.7.3-debian.tar $IMAGE_REGISTRY/kubedb/proxysql:2.7.3-debian
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-rabbitmq-init-3.12.12.tar $IMAGE_REGISTRY/kubedb/rabbitmq-init:3.12.12
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-rabbitmq-init-3.13.2.tar $IMAGE_REGISTRY/kubedb/rabbitmq-init:3.13.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-rabbitmq-init-4.0.4.tar $IMAGE_REGISTRY/kubedb/rabbitmq-init:4.0.4

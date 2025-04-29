@@ -42,8 +42,9 @@ $CMD cp --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-serv
 $CMD cp --allow-nondistributable-artifacts --insecure floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0 $IMAGE_REGISTRY/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/aiven-open/karapace:3.15.0 $IMAGE_REGISTRY/aiven-open/karapace:3.15.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-exporter:2.3.8 $IMAGE_REGISTRY/appscode-images/cassandra-exporter:2.3.8
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra:4.1.6 $IMAGE_REGISTRY/appscode-images/cassandra:4.1.6
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra:5.0.0 $IMAGE_REGISTRY/appscode-images/cassandra:5.0.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:4.1.8 $IMAGE_REGISTRY/appscode-images/cassandra-management:4.1.8
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:5.0.3 $IMAGE_REGISTRY/appscode-images/cassandra-management:5.0.3
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-medusa:0.24.0 $IMAGE_REGISTRY/appscode-images/cassandra-medusa:0.24.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:28.0.1 $IMAGE_REGISTRY/appscode-images/druid:28.0.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:30.0.1 $IMAGE_REGISTRY/appscode-images/druid:30.0.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:31.0.0 $IMAGE_REGISTRY/appscode-images/druid:31.0.0
@@ -271,8 +272,8 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zo
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.31 $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.31
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.10 $IMAGE_REGISTRY/appscode/petset:v0.0.10
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.11 $IMAGE_REGISTRY/appscode/sidekick:v0.0.11
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6-v1 $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v1
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0-v1 $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6-v2 $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0-v2 $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1 $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.11.0 $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.11.0
@@ -362,6 +363,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.4.4-centos $IMAGE_REGISTRY/kubedb/proxysql:2.4.4-centos
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.4.4-debian $IMAGE_REGISTRY/kubedb/proxysql:2.4.4-debian
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.6.3-debian $IMAGE_REGISTRY/kubedb/proxysql:2.6.3-debian
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.7.3-debian $IMAGE_REGISTRY/kubedb/proxysql:2.7.3-debian
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:3.12.12 $IMAGE_REGISTRY/kubedb/rabbitmq-init:3.12.12
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:3.13.2 $IMAGE_REGISTRY/kubedb/rabbitmq-init:3.13.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:4.0.4 $IMAGE_REGISTRY/kubedb/rabbitmq-init:4.0.4
