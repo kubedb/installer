@@ -63,6 +63,8 @@ k3s ctr images import images/appscode-images-ferretdb-1.18.0.tar
 k3s ctr images import images/appscode-images-ferretdb-1.23.0.tar
 k3s ctr images import images/appscode-images-ferretdb-1.24.0.tar
 k3s ctr images import images/appscode-images-ferretdb-2.0.0.tar
+k3s ctr images import images/appscode-images-ignite-2.16.0.tar
+k3s ctr images import images/appscode-images-ignite-2.17.0.tar
 k3s ctr images import images/appscode-images-kafka-connect-cluster-3.5.2.tar
 k3s ctr images import images/appscode-images-kafka-connect-cluster-3.6.1.tar
 k3s ctr images import images/appscode-images-kafka-connect-cluster-3.7.2.tar
@@ -274,6 +276,7 @@ k3s ctr images import images/kubedb-druid-init-28.0.1.tar
 k3s ctr images import images/kubedb-druid-init-30.0.1.tar
 k3s ctr images import images/kubedb-druid-init-31.0.0.tar
 k3s ctr images import images/kubedb-elasticsearch-restic-plugin-v0.16.0.tar
+k3s ctr images import images/kubedb-ignite-init-2.17.0-v1.tar
 k3s ctr images import images/kubedb-kubedb-autoscaler-v0.38.0.tar
 k3s ctr images import images/kubedb-kubedb-crd-manager-v0.8.0.tar
 k3s ctr images import images/kubedb-kubedb-gitops-v0.1.0.tar
