@@ -74,6 +74,8 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/fe
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.23.0 $IMAGE_REGISTRY/appscode-images/ferretdb:1.23.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.24.0 $IMAGE_REGISTRY/appscode-images/ferretdb:1.24.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:2.0.0 $IMAGE_REGISTRY/appscode-images/ferretdb:2.0.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ignite:2.16.0 $IMAGE_REGISTRY/appscode-images/ignite:2.16.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ignite:2.17.0 $IMAGE_REGISTRY/appscode-images/ignite:2.17.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.5.2 $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.5.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.6.1 $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.6.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.7.2 $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.7.2
@@ -285,6 +287,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:30.0.1 $IMAGE_REGISTRY/kubedb/druid-init:30.0.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:31.0.0 $IMAGE_REGISTRY/kubedb/druid-init:31.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.16.0 $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.16.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/ignite-init:2.17.0-v1 $IMAGE_REGISTRY/kubedb/ignite-init:2.17.0-v1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-autoscaler:v0.38.0 $IMAGE_REGISTRY/kubedb/kubedb-autoscaler:v0.38.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-crd-manager:v0.8.0 $IMAGE_REGISTRY/kubedb/kubedb-crd-manager:v0.8.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-gitops:v0.1.0 $IMAGE_REGISTRY/kubedb/kubedb-gitops:v0.1.0
