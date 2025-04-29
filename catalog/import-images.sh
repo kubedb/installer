@@ -65,6 +65,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-f
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-ferretdb-1.23.0.tar $IMAGE_REGISTRY/appscode-images/ferretdb:1.23.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-ferretdb-1.24.0.tar $IMAGE_REGISTRY/appscode-images/ferretdb:1.24.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-ferretdb-2.0.0.tar $IMAGE_REGISTRY/appscode-images/ferretdb:2.0.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-ignite-2.16.0.tar $IMAGE_REGISTRY/appscode-images/ignite:2.16.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-ignite-2.17.0.tar $IMAGE_REGISTRY/appscode-images/ignite:2.17.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connect-cluster-3.5.2.tar $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.5.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connect-cluster-3.6.1.tar $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.6.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connect-cluster-3.7.2.tar $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.7.2
@@ -276,6 +278,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-30.0.1.tar $IMAGE_REGISTRY/kubedb/druid-init:30.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-31.0.0.tar $IMAGE_REGISTRY/kubedb/druid-init:31.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-elasticsearch-restic-plugin-v0.16.0.tar $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.16.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-ignite-init-2.17.0-v1.tar $IMAGE_REGISTRY/kubedb/ignite-init:2.17.0-v1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-autoscaler-v0.38.0.tar $IMAGE_REGISTRY/kubedb/kubedb-autoscaler:v0.38.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-crd-manager-v0.8.0.tar $IMAGE_REGISTRY/kubedb/kubedb-crd-manager:v0.8.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-gitops-v0.1.0.tar $IMAGE_REGISTRY/kubedb/kubedb-gitops:v0.1.0
