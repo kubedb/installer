@@ -255,6 +255,10 @@ k3s ctr images import images/appscode-images-solr-9.4.1.tar
 k3s ctr images import images/appscode-images-solr-9.6.1.tar
 k3s ctr images import images/appscode-images-solr-9.7.0.tar
 k3s ctr images import images/appscode-images-solr-9.8.0.tar
+k3s ctr images import images/appscode-images-valkey-7.2.5.tar
+k3s ctr images import images/appscode-images-valkey-7.2.9.tar
+k3s ctr images import images/appscode-images-valkey-8.0.3.tar
+k3s ctr images import images/appscode-images-valkey-8.1.1.tar
 k3s ctr images import images/appscode-images-zookeeper-3.7.2.tar
 k3s ctr images import images/appscode-images-zookeeper-3.8.3.tar
 k3s ctr images import images/appscode-images-zookeeper-3.9.1.tar
@@ -357,7 +361,7 @@ k3s ctr images import images/kubedb-rabbitmq-init-3.12.12.tar
 k3s ctr images import images/kubedb-rabbitmq-init-3.13.2.tar
 k3s ctr images import images/kubedb-rabbitmq-init-4.0.4.tar
 k3s ctr images import images/kubedb-redis-coordinator-v0.32.0.tar
-k3s ctr images import images/kubedb-redis-init-0.9.0.tar
+k3s ctr images import images/kubedb-redis-init-0.10.0.tar
 k3s ctr images import images/kubedb-redis-restic-plugin-v0.16.0.tar
 k3s ctr images import images/kubedb-redis-4.0.11.tar
 k3s ctr images import images/kubedb-redis_exporter-1.66.0.tar

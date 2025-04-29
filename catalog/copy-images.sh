@@ -266,6 +266,10 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/so
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:9.6.1 $IMAGE_REGISTRY/appscode-images/solr:9.6.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:9.7.0 $IMAGE_REGISTRY/appscode-images/solr:9.7.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:9.8.0 $IMAGE_REGISTRY/appscode-images/solr:9.8.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:7.2.5 $IMAGE_REGISTRY/appscode-images/valkey:7.2.5
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:7.2.9 $IMAGE_REGISTRY/appscode-images/valkey:7.2.9
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:8.0.3 $IMAGE_REGISTRY/appscode-images/valkey:8.0.3
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:8.1.1 $IMAGE_REGISTRY/appscode-images/valkey:8.1.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.7.2 $IMAGE_REGISTRY/appscode-images/zookeeper:3.7.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.8.3 $IMAGE_REGISTRY/appscode-images/zookeeper:3.8.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.9.1 $IMAGE_REGISTRY/appscode-images/zookeeper:3.9.1
@@ -368,7 +372,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-in
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:3.13.2 $IMAGE_REGISTRY/kubedb/rabbitmq-init:3.13.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:4.0.4 $IMAGE_REGISTRY/kubedb/rabbitmq-init:4.0.4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-coordinator:v0.32.0 $IMAGE_REGISTRY/kubedb/redis-coordinator:v0.32.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.9.0 $IMAGE_REGISTRY/kubedb/redis-init:0.9.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.10.0 $IMAGE_REGISTRY/kubedb/redis-init:0.10.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.16.0 $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.16.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4.0.11 $IMAGE_REGISTRY/kubedb/redis:4.0.11
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis_exporter:1.66.0 $IMAGE_REGISTRY/kubedb/redis_exporter:1.66.0
