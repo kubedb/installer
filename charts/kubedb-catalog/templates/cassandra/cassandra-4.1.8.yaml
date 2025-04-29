@@ -8,17 +8,21 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: CassandraVersion
 metadata:
-  name: '5.0.0'
+  name: '4.1.8'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/cassandra") $) }}:5.0.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/cassandra-management") $) }}:4.1.8'
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/cassandra-exporter") $) }}:2.3.8'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/cassandra-init") $) }}:5.0.0-v1'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/cassandra-init") $) }}:4.1.6-v2'
+  medusa:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/cassandra-medusa") $) }}:0.24.0'
+    init:
+      image: ghcr.io/appscode-images/cassandra-medusa:0.24.0
   securityContext:
     runAsUser: 999
-  version: 5.0.0
+  version: 4.1.8
 {{ end }}
