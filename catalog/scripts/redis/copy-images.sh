@@ -50,7 +50,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/va
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:7.2.9 $IMAGE_REGISTRY/appscode-images/valkey:7.2.9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:8.0.3 $IMAGE_REGISTRY/appscode-images/valkey:8.0.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:8.1.1 $IMAGE_REGISTRY/appscode-images/valkey:8.1.1
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-coordinator:v0.32.0 $IMAGE_REGISTRY/kubedb/redis-coordinator:v0.32.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-coordinator:v0.33.0 $IMAGE_REGISTRY/kubedb/redis-coordinator:v0.33.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.10.0 $IMAGE_REGISTRY/kubedb/redis-init:0.10.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4.0.11 $IMAGE_REGISTRY/kubedb/redis:4.0.11
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis_exporter:1.66.0 $IMAGE_REGISTRY/kubedb/redis_exporter:1.66.0
