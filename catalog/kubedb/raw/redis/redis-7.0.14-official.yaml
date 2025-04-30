@@ -1,0 +1,28 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: RedisVersion
+metadata:
+  name: 7.0.14
+spec:
+  coordinator:
+    image: ghcr.io/kubedb/redis-coordinator:v0.32.0
+  db:
+    image: ghcr.io/appscode-images/redis:7.0.14-bookworm
+  distribution: Official
+  exporter:
+    image: ghcr.io/kubedb/redis_exporter:1.66.0
+  initContainer:
+    image: ghcr.io/kubedb/redis-init:0.10.0
+  podSecurityPolicies:
+    databasePolicyName: redis-db
+  securityContext:
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: redis-backup-7.0.5
+      restoreTask:
+        name: redis-restore-7.0.5
+  updateConstraints:
+    allowlist:
+    - '>= 7.0.14, < 7.4.2'
+  version: 7.0.14
