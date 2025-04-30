@@ -41,7 +41,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-v
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-valkey-7.2.9.tar $IMAGE_REGISTRY/appscode-images/valkey:7.2.9
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-valkey-8.0.3.tar $IMAGE_REGISTRY/appscode-images/valkey:8.0.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-valkey-8.1.1.tar $IMAGE_REGISTRY/appscode-images/valkey:8.1.1
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-coordinator-v0.32.0.tar $IMAGE_REGISTRY/kubedb/redis-coordinator:v0.32.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-coordinator-v0.33.0.tar $IMAGE_REGISTRY/kubedb/redis-coordinator:v0.33.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-init-0.10.0.tar $IMAGE_REGISTRY/kubedb/redis-init:0.10.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-4.0.11.tar $IMAGE_REGISTRY/kubedb/redis:4.0.11
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis_exporter-1.66.0.tar $IMAGE_REGISTRY/kubedb/redis_exporter:1.66.0
