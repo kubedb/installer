@@ -74,7 +74,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/fe
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.23.0 $IMAGE_REGISTRY/appscode-images/ferretdb:1.23.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.24.0 $IMAGE_REGISTRY/appscode-images/ferretdb:1.24.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:2.0.0 $IMAGE_REGISTRY/appscode-images/ferretdb:2.0.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ignite:2.16.0 $IMAGE_REGISTRY/appscode-images/ignite:2.16.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ignite:2.17.0 $IMAGE_REGISTRY/appscode-images/ignite:2.17.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.5.2 $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.5.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.6.1 $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.6.1
