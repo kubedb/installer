@@ -65,7 +65,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-f
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-ferretdb-1.23.0.tar $IMAGE_REGISTRY/appscode-images/ferretdb:1.23.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-ferretdb-1.24.0.tar $IMAGE_REGISTRY/appscode-images/ferretdb:1.24.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-ferretdb-2.0.0.tar $IMAGE_REGISTRY/appscode-images/ferretdb:2.0.0
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-ignite-2.16.0.tar $IMAGE_REGISTRY/appscode-images/ignite:2.16.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-ignite-2.17.0.tar $IMAGE_REGISTRY/appscode-images/ignite:2.17.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connect-cluster-3.5.2.tar $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.5.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connect-cluster-3.6.1.tar $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.6.1
