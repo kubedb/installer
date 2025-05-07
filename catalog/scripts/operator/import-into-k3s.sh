@@ -40,7 +40,7 @@ k3s ctr images import images/kubedb-kubedb-provisioner-v0.54.0.tar
 k3s ctr images import images/kubedb-kubedb-schema-manager-v0.30.0.tar
 k3s ctr images import images/kubedb-kubedb-ui-server-v0.30.0.tar
 k3s ctr images import images/kubedb-kubedb-verifier-v0.1.0.tar
-k3s ctr images import images/kubedb-kubedb-webhook-server-v0.30.0.tar
+k3s ctr images import images/kubedb-kubedb-webhook-server-v0.30.1.tar
 k3s ctr images import images/kubedb-mariadb-csi-snapshotter-plugin-v0.14.0.tar
 k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.12.0.tar
 k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.15.0.tar
