@@ -1,0 +1,20 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Cassandra }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'cassandra-backup'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  args:
+  - backup
+  - --namespace=${namespace:=default}
+  - --backupsession=${backupSession:=}
+  - --wait-timeout=${waitTimeout:={{ .Values.waitTimeout}}}
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/singlestore-restic-plugin") $) }}'
+{{ end }}
