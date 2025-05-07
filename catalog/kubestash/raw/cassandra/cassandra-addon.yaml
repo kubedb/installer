@@ -1,0 +1,76 @@
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Addon
+metadata:
+  labels:
+    app.kubernetes.io/instance: kubedb
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-kubestash-catalog
+    app.kubernetes.io/version: v2024.2.14
+    helm.sh/chart: kubedb-kubestash-catalog-v2024.2.14
+  name: cassandra-addon
+spec:
+  backupTasks:
+    - driver: Medusa
+      executor: Job
+      function: cassandra-backup
+      name: logical-backup
+      parameters:
+        - name: args
+          required: false
+          usage: Arguments to be passed to the dump command.
+        - default: pg_dumpall
+          name: backupCmd
+          required: false
+          usage: Backup command to take a database dump (can only be pg_dumpall or pg_dump)
+        - default: cassandra
+          name: user
+          required: false
+          usage: Specifies database user (not applicable for basic authentication)
+        - default: "true"
+          name: enableCache
+          required: false
+          usage: Enable or disable caching. Disabling caching may impact backup performance.
+        - default: /kubestash-tmp
+          name: scratchDir
+          required: false
+          usage: Directory for holding temporary files and medusa cache.
+      singleton: true
+      volumeMounts:
+        - mountPath: /kubestash-tmp
+          name: kubestash-tmp-volume
+      volumeTemplate:
+        - name: kubestash-tmp-volume
+          source:
+            emptyDir: {}
+          usage: Holds temporary files and medusa cache.
+
+  restoreTasks:
+    - driver: Medusa
+      executor: Job
+      function: cassandra-restore
+      name: logical-backup-restore
+      parameters:
+        - name: args
+          required: false
+          usage: Arguments to be passed to the dump command.
+        - default: cassandra
+          name: user
+          required: false
+          usage: Specifies database user (not applicable for basic authentication)
+        - default: "true"
+          name: enableCache
+          required: false
+          usage: Enable or disable caching. Disabling caching may impact backup performance.
+        - default: /kubestash-tmp
+          name: scratchDir
+          required: false
+          usage: Directory for holding temporary files and medusa cache.
+      singleton: true
+      volumeMounts:
+        - mountPath: /kubestash-tmp
+          name: kubestash-tmp-volume
+      volumeTemplate:
+        - name: kubestash-tmp-volume
+          source:
+            emptyDir: {}
+          usage: Holds temporary files and medusa cache.
