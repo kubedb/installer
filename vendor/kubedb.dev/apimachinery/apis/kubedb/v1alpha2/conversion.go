@@ -470,6 +470,17 @@ func initializeMongoDBReplicationModeDetectorContainer(in *CoordinatorSpec, podT
 	return nil
 }
 
+func Convert_v1_MongoDBReplicaSet_To_v1alpha2_MongoDBReplicaSet(newRepl *v1.MongoDBReplicaSet, oldRepl *MongoDBReplicaSet, s conversion.Scope) error {
+	if newRepl == nil {
+		return nil
+	}
+	if oldRepl == nil {
+		oldRepl = &MongoDBReplicaSet{}
+	}
+	oldRepl.Name = newRepl.Name
+	return nil
+}
+
 func Convert_v1alpha2_MongoDBSpec_To_v1_MongoDBSpec(in *MongoDBSpec, out *v1.MongoDBSpec, s conversion.Scope) error {
 	if err := Convert_v1alpha2_AutoOpsSpec_To_v1_AutoOpsSpec(&in.AutoOps, &out.AutoOps, s); err != nil {
 		return err
