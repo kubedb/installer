@@ -283,12 +283,12 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-crd
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-gitops-v0.2.0.tar $IMAGE_REGISTRY/kubedb/kubedb-gitops:v0.2.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-kibana-v0.30.0.tar $IMAGE_REGISTRY/kubedb/kubedb-kibana:v0.30.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-manifest-plugin-v0.17.0.tar $IMAGE_REGISTRY/kubedb/kubedb-manifest-plugin:v0.17.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-ops-manager-v0.41.0.tar $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.41.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-provisioner-v0.54.0.tar $IMAGE_REGISTRY/kubedb/kubedb-provisioner:v0.54.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-ops-manager-v0.41.1.tar $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.41.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-provisioner-v0.54.1.tar $IMAGE_REGISTRY/kubedb/kubedb-provisioner:v0.54.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-schema-manager-v0.30.0.tar $IMAGE_REGISTRY/kubedb/kubedb-schema-manager:v0.30.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-ui-server-v0.30.0.tar $IMAGE_REGISTRY/kubedb/kubedb-ui-server:v0.30.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-verifier-v0.1.0.tar $IMAGE_REGISTRY/kubedb/kubedb-verifier:v0.1.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-webhook-server-v0.30.1.tar $IMAGE_REGISTRY/kubedb/kubedb-webhook-server:v0.30.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-webhook-server-v0.30.2.tar $IMAGE_REGISTRY/kubedb/kubedb-webhook-server:v0.30.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.14.0_10.10.7-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.14.0_10.10.7-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.14.0_10.11.6-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.14.0_10.11.6-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.14.0_10.4.32-focal.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.14.0_10.4.32-focal
