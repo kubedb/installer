@@ -37,12 +37,12 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-crd
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-gitops-v0.2.0.tar $IMAGE_REGISTRY/kubedb/kubedb-gitops:v0.2.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-kibana-v0.30.0.tar $IMAGE_REGISTRY/kubedb/kubedb-kibana:v0.30.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-manifest-plugin-v0.17.0.tar $IMAGE_REGISTRY/kubedb/kubedb-manifest-plugin:v0.17.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-ops-manager-v0.41.0.tar $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.41.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-provisioner-v0.54.0.tar $IMAGE_REGISTRY/kubedb/kubedb-provisioner:v0.54.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-ops-manager-v0.41.1.tar $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.41.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-provisioner-v0.54.1.tar $IMAGE_REGISTRY/kubedb/kubedb-provisioner:v0.54.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-schema-manager-v0.30.0.tar $IMAGE_REGISTRY/kubedb/kubedb-schema-manager:v0.30.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-ui-server-v0.30.0.tar $IMAGE_REGISTRY/kubedb/kubedb-ui-server:v0.30.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-verifier-v0.1.0.tar $IMAGE_REGISTRY/kubedb/kubedb-verifier:v0.1.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-webhook-server-v0.30.1.tar $IMAGE_REGISTRY/kubedb/kubedb-webhook-server:v0.30.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-webhook-server-v0.30.2.tar $IMAGE_REGISTRY/kubedb/kubedb-webhook-server:v0.30.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-csi-snapshotter-plugin-v0.14.0.tar $IMAGE_REGISTRY/kubedb/mariadb-csi-snapshotter-plugin:v0.14.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.12.0.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.12.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-csi-snapshotter-plugin-v0.15.0.tar $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.15.0
