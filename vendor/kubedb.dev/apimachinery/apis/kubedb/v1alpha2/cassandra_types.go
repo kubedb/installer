@@ -83,6 +83,17 @@ type CassandraSpec struct {
 	// +optional
 	ConfigSecret *core.LocalObjectReference `json:"configSecret,omitempty"`
 
+	// Keystore encryption secret
+	// +optional
+	KeystoreCredSecret *SecretReference `json:"keystoreCredSecret,omitempty"`
+
+	// To enable ssl for http layer
+	EnableSSL bool `json:"enableSSL,omitempty"`
+
+	// TLS contains tls configurations
+	// +optional
+	TLS *kmapi.TLSConfig `json:"tls,omitempty"`
+
 	// PodTemplate is an optional configuration for pods used to expose database
 	// +optional
 	PodTemplate *ofst.PodTemplateSpec `json:"podTemplate,omitempty"`
@@ -150,3 +161,11 @@ type CassandraList struct {
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []Cassandra `json:"items"`
 }
+
+// +kubebuilder:validation:Enum=server;client
+type CassandraCertificateAlias string
+
+const (
+	CassandraServerCert CassandraCertificateAlias = "server"
+	CassandraClientCert CassandraCertificateAlias = "client"
+)
