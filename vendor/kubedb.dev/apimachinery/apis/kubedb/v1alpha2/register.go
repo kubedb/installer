@@ -78,6 +78,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&MongoDBList{},
 		&MySQL{},
 		&MySQLList{},
+		&Oracle{},
+		&OracleList{},
 		&PerconaXtraDB{},
 		&PerconaXtraDBList{},
 		&PgBouncer{},
