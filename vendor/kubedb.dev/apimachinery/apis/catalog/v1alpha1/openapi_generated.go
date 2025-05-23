@@ -30355,13 +30355,6 @@ func schema_apimachinery_apis_catalog_v1alpha1_OracleVersionSpec(ref common.Refe
 							Format:      "",
 						},
 					},
-					"podSecurityPolicies": {
-						SchemaProps: spec.SchemaProps{
-							Description: "PSP names",
-							Default:     map[string]interface{}{},
-							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleVersionPodSecurityPolicy"),
-						},
-					},
 					"securityContext": {
 						SchemaProps: spec.SchemaProps{
 							Description: "SecurityContext is for the additional config for oracle DB container",
@@ -30390,11 +30383,11 @@ func schema_apimachinery_apis_catalog_v1alpha1_OracleVersionSpec(ref common.Refe
 						},
 					},
 				},
-				Required: []string{"version", "db", "exporter", "podSecurityPolicies"},
+				Required: []string{"version", "db", "exporter"},
 			},
 		},
 		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleDataGuard", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleSecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleVersionCoordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleVersionInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleVersionPodSecurityPolicy", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
+			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleDataGuard", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleSecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleVersionCoordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleVersionInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
 	}
 }
 

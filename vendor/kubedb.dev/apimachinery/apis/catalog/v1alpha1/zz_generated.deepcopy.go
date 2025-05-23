@@ -2602,7 +2602,6 @@ func (in *OracleVersionSpec) DeepCopyInto(out *OracleVersionSpec) {
 	out.Exporter = in.Exporter
 	out.Coordinator = in.Coordinator
 	out.DataGuard = in.DataGuard
-	out.PodSecurityPolicies = in.PodSecurityPolicies
 	in.SecurityContext.DeepCopyInto(&out.SecurityContext)
 	in.UpdateConstraints.DeepCopyInto(&out.UpdateConstraints)
 	if in.UI != nil {

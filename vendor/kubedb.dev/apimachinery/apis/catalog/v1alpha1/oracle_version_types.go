@@ -70,8 +70,6 @@ type OracleVersionSpec struct {
 	// Deprecated versions usable but regarded as obsolete and best avoided, typically due to having been superseded.
 	// +optional
 	Deprecated bool `json:"deprecated,omitempty"`
-	// PSP names
-	PodSecurityPolicies OracleVersionPodSecurityPolicy `json:"podSecurityPolicies"`
 
 	// SecurityContext is for the additional config for oracle DB container
 	// +optional
