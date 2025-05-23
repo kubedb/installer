@@ -1812,6 +1812,27 @@ var (
 		},
 	}
 
+	DefaultResourcesCoreAndMemoryIntensiveOracle = core.ResourceRequirements{
+		Requests: core.ResourceList{
+			core.ResourceCPU:    resource.MustParse("2"),
+			core.ResourceMemory: resource.MustParse("7Gi"),
+		},
+		Limits: core.ResourceList{
+			core.ResourceCPU:    resource.MustParse("4"),
+			core.ResourceMemory: resource.MustParse("10Gi"),
+		},
+	}
+	DefaultResourcesCoreAndMemoryIntensiveOracleObserver = core.ResourceRequirements{
+		Requests: core.ResourceList{
+			core.ResourceCPU:    resource.MustParse("500m"),
+			core.ResourceMemory: resource.MustParse("2Gi"),
+		},
+		Limits: core.ResourceList{
+			core.ResourceCPU:    resource.MustParse("1"),
+			core.ResourceMemory: resource.MustParse("3Gi"),
+		},
+	}
+
 	// DefaultResourcesMemoryIntensiveSDB must be used for Singlestore when enabled monitoring or version >= 8.5.x
 	DefaultResourcesMemoryIntensiveSDB = core.ResourceRequirements{
 		Requests: core.ResourceList{

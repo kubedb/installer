@@ -7,6 +7,7 @@ import (
 	"kubedb.dev/apimachinery/apis"
 	catalog "kubedb.dev/apimachinery/apis/catalog/v1alpha1"
 	"kubedb.dev/apimachinery/apis/kubedb"
+	"kubedb.dev/apimachinery/crds"
 
 	promapi "github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring/v1"
 	"gomodules.xyz/pointer"
@@ -16,6 +17,7 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/klog/v2"
 	"k8s.io/utils/ptr"
+	"kmodules.xyz/client-go/apiextensions"
 	metautil "kmodules.xyz/client-go/meta"
 	appcat "kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1"
 	mona "kmodules.xyz/monitoring-agent-api/api/v1"
@@ -24,28 +26,9 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-var (
-	DefaultOracleResources = core.ResourceRequirements{
-		Requests: core.ResourceList{
-			core.ResourceCPU:    resource.MustParse("2"),
-			core.ResourceMemory: resource.MustParse("10Gi"),
-		},
-		Limits: core.ResourceList{
-			core.ResourceCPU:    resource.MustParse("4"),
-			core.ResourceMemory: resource.MustParse("15Gi"),
-		},
-	}
-	DefaultOracleObserverResources = core.ResourceRequirements{
-		Requests: core.ResourceList{
-			core.ResourceCPU:    resource.MustParse("500m"),
-			core.ResourceMemory: resource.MustParse("2Gi"),
-		},
-		Limits: core.ResourceList{
-			core.ResourceCPU:    resource.MustParse("1"),
-			core.ResourceMemory: resource.MustParse("3Gi"),
-		},
-	}
-)
+func (_ Oracle) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralOracle))
+}
 
 func (o *Oracle) ResourceKind() string {
 	return ResourceKindOracle
@@ -413,7 +396,7 @@ func (o *Oracle) SetOracleContainerDefaults(podTemplate *ofst.PodTemplateSpec, o
 	container := ofstutil.EnsureContainerExists(podTemplate, kubedb.OracleContainerName)
 	o.setContainerDefaultSecurityContext(container, oraVersion)
 	// TODO: Change Default Resource
-	o.setContainerDefaultResources(container, *DefaultOracleResources.DeepCopy())
+	o.setContainerDefaultResources(container, *kubedb.DefaultResourcesCoreAndMemoryIntensiveOracle.DeepCopy())
 }
 
 func (o *Oracle) SetOracleObserverContainerDefaults(podTemplate *ofst.PodTemplateSpec, oraVersion *catalog.OracleVersion) {
@@ -423,7 +406,7 @@ func (o *Oracle) SetOracleObserverContainerDefaults(podTemplate *ofst.PodTemplat
 	container := ofstutil.EnsureContainerExists(podTemplate, kubedb.OracleObserverContainerName)
 	o.setContainerDefaultSecurityContext(container, oraVersion)
 	// TODO: Change Default Resource
-	o.setContainerDefaultResources(container, *DefaultOracleObserverResources.DeepCopy())
+	o.setContainerDefaultResources(container, *kubedb.DefaultResourcesCoreAndMemoryIntensiveOracleObserver.DeepCopy())
 }
 
 func (o *Oracle) SetCoordinatorContainerDefaults(podTemplate *ofst.PodTemplateSpec, oraVersion *catalog.OracleVersion) {
