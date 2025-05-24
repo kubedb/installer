@@ -102,6 +102,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&SolrList{},
 		&MSSQLServer{},
 		&MSSQLServerList{},
+		&Hazelcast{},
+		&HazelcastList{},
 	)
 
 	scheme.AddKnownTypes(SchemeGroupVersion,
