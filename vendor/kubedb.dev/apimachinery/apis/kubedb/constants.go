@@ -375,6 +375,7 @@ const (
 	MaxscaleDataVolumePath    = "/var/lib/maxscale"
 	MaxscaleUIPort            = 8989
 	MaxscaleUIPortName        = "ui"
+	MaxscaleCertMountPath     = "/etc/ssl/maxscale"
 
 	// =========================== SingleStore Constants ============================
 	SinglestoreDatabasePortName       = "db"
@@ -1511,7 +1512,7 @@ const (
 	ClickhousePromethues  = 9363
 	ClickHouseRaftPort    = 9234
 
-	ComponentCoOrdinator = "co-ordinator"
+	ComponentCoOrdinator = "coordinator"
 
 	ClickHousePromethusEndpoint           = "/metrics"
 	ClickHouseDataDir                     = "/var/lib/clickhouse"
@@ -1519,14 +1520,17 @@ const (
 	ClickHouseConfigDir                   = "/etc/clickhouse-server/config.d"
 	ClickHouseKeeperConfigDir             = "/etc/clickhouse-keeper"
 	ClickHouseCommonConfigDir             = "/etc/clickhouse-server/conf.d"
-	ClickHouseTempConfigDir               = "/ch-tmp"
 	ClickHouseInternalKeeperTempConfigDir = "/keeper"
-	ClickHouseTempDir                     = "/ch-tmp"
-	ClickHouseKeeperTempDir               = "/ch-tmp"
 	ClickHouseKeeperConfigPath            = "/etc/clickhouse-keeper"
 	ClickHouseUserConfigDir               = "/etc/clickhouse-server/user.d"
 	ClickHouseLogPath                     = "/var/log/clickhouse-server/clickhouse-server.log"
 	ClickHouseErrorLogPath                = "/var/log/clickhouse-server/clickhouse-server.err.log"
+
+	ClickHouseClientCertMountPath      = "/etc/clickhouse-server/certs"
+	ClickHouseClientCertVolumeName     = "certs"
+	ClickHouseTempClientCertVolumeName = "certs-tmp"
+	ClickHouseTempClientCertMountPath  = "/certs-tmp"
+	ClickHouseTempConfigDir            = "/config-tmp"
 
 	// keeper
 	ClickHouseKeeperDataPath     = "/var/lib/clickhouse_keeper"
@@ -1658,6 +1662,8 @@ const (
 	EnvValMedusaDebugSleep      = "0s"
 	CassandraNodetoolDir        = "/opt/cassandra/temp/bin"
 	CassandraBackupBinary       = "nodetool"
+
+	CassandraKeystoreSecretKey = "keystore-cred"
 )
 
 // =========================== Virtual Secrets Constants ============================
