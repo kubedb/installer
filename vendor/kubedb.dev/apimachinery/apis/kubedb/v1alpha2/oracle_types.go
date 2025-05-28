@@ -165,7 +165,7 @@ type OracleSpec struct {
 type OracleTLSConfig struct {
 	// UseWallet indicates enabling Oracle Wallet
 	// +optional
-	UseWallet bool `json:"useWallet,omitempty"`
+	UseWallet *bool `json:"useWallet,omitempty"`
 	// WalletSecret holds the secret containing wallet files (cwallet.sso, ewallet.p12)
 	// +optional
 	WalletSecret *core.LocalObjectReference `json:"walletSecret,omitempty"`
@@ -180,7 +180,7 @@ type ListenerSpec struct {
 	// +optional
 	Name string `json:"name,omitempty"`
 	// Port number // TODO: validate > 0
-	Port int32 `json:"port,omitempty"`
+	Port *int32 `json:"port,omitempty"`
 	// Database Service
 	Service *string `json:"service,omitempty"`
 	// Protocol (TCP, TCPS)
@@ -198,24 +198,16 @@ type DataGuardSpec struct {
 	// Oracle Failover Assistant
 	FastStartFailover *FastStartFailover `json:"fastStartFailover,omitempty"`
 	// ApplyLag allowed
-	ApplyLagThreshold int32 `json:"applyLagThreshold,omitempty"`
+	ApplyLagThreshold *int32 `json:"applyLagThreshold,omitempty"`
 	// Dataguard observer spec
 	Observer *ObserverSpec `json:"observer,omitempty"`
 	// Transport Lag
-	TransportLagThreshold int32 `json:"transportLagThreshold,omitempty"`
-	// Optional broker configuration
-	// +optional
-	Broker *DataGuardBrokerSpec `json:"broker,omitempty"`
+	TransportLagThreshold *int32 `json:"transportLagThreshold,omitempty"`
 }
 
 type FastStartFailover struct {
 	// Enabled   bool  `json:"enabled"`
-	FastStartFailoverThreshold int32 `json:"fastStartFailoverThreshold,omitempty"`
-}
-
-type DataGuardBrokerSpec struct {
-	// Broker config secret
-	ConfigSecret *core.LocalObjectReference `json:"configSecret,omitempty"`
+	FastStartFailoverThreshold *int32 `json:"fastStartFailoverThreshold,omitempty"`
 }
 
 type ObserverSpec struct {

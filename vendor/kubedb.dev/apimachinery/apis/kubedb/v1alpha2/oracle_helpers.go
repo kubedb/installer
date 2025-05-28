@@ -1,3 +1,19 @@
+/*
+Copyright AppsCode Inc. and Contributors
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
 package v1alpha2
 
 import (
@@ -330,7 +346,7 @@ func (o *Oracle) SetListenerDefaults() {
 	if o.Spec.Listener == nil {
 		o.Spec.Listener = &ListenerSpec{}
 	}
-	o.Spec.Listener.Port = kubedb.OracleDatabasePort
+	o.Spec.Listener.Port = ptr.To(int32(kubedb.OracleDatabasePort))
 	o.Spec.Listener.Protocol = OracleListenerProtocolTCP
 	o.Spec.Listener.Service = ptr.To(kubedb.OracleDatabaseServiceName)
 }
@@ -464,9 +480,22 @@ func (o *Oracle) SetDataGuardDefaults() {
 	if o.Spec.DataGuard.SyncMode == "" {
 		o.Spec.DataGuard.SyncMode = SyncModeSync
 	}
+	if o.Spec.DataGuard.StandbyType == "" {
+		o.Spec.DataGuard.StandbyType = StandbyTypePhysical
+	}
+
 	if o.Spec.DataGuard.FastStartFailover == nil {
 		o.Spec.DataGuard.FastStartFailover = &FastStartFailover{}
-		o.Spec.DataGuard.FastStartFailover.FastStartFailoverThreshold = 60
+		o.Spec.DataGuard.FastStartFailover.FastStartFailoverThreshold = ptr.To(int32(15))
+	}
+	if o.Spec.DataGuard.ApplyLagThreshold == nil {
+		o.Spec.DataGuard.ApplyLagThreshold = ptr.To(int32(0))
+	}
+	if o.Spec.DataGuard.TransportLagThreshold == nil {
+		o.Spec.DataGuard.TransportLagThreshold = ptr.To(int32(0))
+	}
+	if o.Spec.DataGuard.Observer == nil {
+		o.Spec.DataGuard.Observer = &ObserverSpec{}
 	}
 	if o.Spec.DataGuard.Observer.Storage == nil {
 		o.Spec.DataGuard.Observer.Storage = &core.PersistentVolumeClaimSpec{

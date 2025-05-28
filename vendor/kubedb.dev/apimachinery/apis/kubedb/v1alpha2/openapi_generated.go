@@ -528,7 +528,6 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ConnectionPoolConfig":                          schema_apimachinery_apis_kubedb_v1alpha2_ConnectionPoolConfig(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ConsumerNamespaces":                            schema_apimachinery_apis_kubedb_v1alpha2_ConsumerNamespaces(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.CoordinatorSpec":                               schema_apimachinery_apis_kubedb_v1alpha2_CoordinatorSpec(ref),
-		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DataGuardBrokerSpec":                           schema_apimachinery_apis_kubedb_v1alpha2_DataGuardBrokerSpec(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DataGuardSpec":                                 schema_apimachinery_apis_kubedb_v1alpha2_DataGuardSpec(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Database":                                      schema_apimachinery_apis_kubedb_v1alpha2_Database(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DeepStorageSpec":                               schema_apimachinery_apis_kubedb_v1alpha2_DeepStorageSpec(ref),
@@ -27167,26 +27166,6 @@ func schema_apimachinery_apis_kubedb_v1alpha2_CoordinatorSpec(ref common.Referen
 	}
 }
 
-func schema_apimachinery_apis_kubedb_v1alpha2_DataGuardBrokerSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
-				Properties: map[string]spec.Schema{
-					"configSecret": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Broker config secret",
-							Ref:         ref("k8s.io/api/core/v1.LocalObjectReference"),
-						},
-					},
-				},
-			},
-		},
-		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference"},
-	}
-}
-
 func schema_apimachinery_apis_kubedb_v1alpha2_DataGuardSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -27240,17 +27219,11 @@ func schema_apimachinery_apis_kubedb_v1alpha2_DataGuardSpec(ref common.Reference
 							Format:      "int32",
 						},
 					},
-					"broker": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Optional broker configuration",
-							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DataGuardBrokerSpec"),
-						},
-					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DataGuardBrokerSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.FastStartFailover", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ObserverSpec"},
+			"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.FastStartFailover", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ObserverSpec"},
 	}
 }
 
