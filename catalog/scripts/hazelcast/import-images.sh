@@ -24,6 +24,7 @@ fi
 TARBALL=${1:-}
 tar -zxvf $TARBALL
 
-k3s ctr images import images/clickhouse-clickhouse-keeper-24.4.1.tar
-k3s ctr images import images/clickhouse-clickhouse-server-24.4.1.tar
-k3s ctr images import images/kubedb-clickhouse-init-24.4.1-v1.tar
+CMD="./crane"
+
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-hazelcast-init-5.5.2.tar $IMAGE_REGISTRY/kubedb/hazelcast-init:5.5.2
+$CMD push --allow-nondistributable-artifacts --insecure images/hazelcast-hazelcast-enterprise-5.5.2.tar $IMAGE_REGISTRY/hazelcast/hazelcast-enterprise:5.5.2

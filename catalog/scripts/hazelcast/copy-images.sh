@@ -16,7 +16,10 @@
 
 set -x
 
-mkdir -p images
+if [ -z "${IMAGE_REGISTRY}" ]; then
+    echo "IMAGE_REGISTRY is not set"
+    exit 1
+fi
 
 OS=$(uname -o)
 if [ "${OS}" = "GNU/Linux" ]; then
@@ -28,12 +31,9 @@ if [ "${ARCH}" = "aarch64" ]; then
 fi
 curl -sL "https://github.com/google/go-containerregistry/releases/latest/download/go-containerregistry_${OS}_${ARCH}.tar.gz" >/tmp/go-containerregistry.tar.gz
 tar -zxvf /tmp/go-containerregistry.tar.gz -C /tmp/
-mv /tmp/crane images
+mv /tmp/crane .
 
-CMD="./images/crane"
+CMD="./crane"
 
-$CMD pull --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-keeper:24.4.1 images/clickhouse-clickhouse-keeper-24.4.1.tar
-$CMD pull --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-server:24.4.1 images/clickhouse-clickhouse-server-24.4.1.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1-v1 images/kubedb-clickhouse-init-24.4.1-v1.tar
-
-tar -czvf images.tar.gz images
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hazelcast-init:5.5.2 $IMAGE_REGISTRY/kubedb/hazelcast-init:5.5.2
+$CMD cp --allow-nondistributable-artifacts --insecure hazelcast/hazelcast-enterprise:5.5.2 $IMAGE_REGISTRY/hazelcast/hazelcast-enterprise:5.5.2

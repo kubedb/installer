@@ -280,13 +280,14 @@ k3s ctr images import images/appscode-sidekick-v0.0.11.tar
 k3s ctr images import images/kubedb-cassandra-init-4.1.6-v2.tar
 k3s ctr images import images/kubedb-cassandra-init-5.0.0-v2.tar
 k3s ctr images import images/kubedb-cassandra-medusa-plugin-v0.1.0.tar
-k3s ctr images import images/kubedb-clickhouse-init-24.4.1.tar
+k3s ctr images import images/kubedb-clickhouse-init-24.4.1-v1.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.12.0.tar
 k3s ctr images import images/kubedb-druid-init-28.0.1.tar
 k3s ctr images import images/kubedb-druid-init-30.0.1.tar
 k3s ctr images import images/kubedb-druid-init-31.0.0.tar
 k3s ctr images import images/kubedb-elasticsearch-restic-plugin-v0.17.0.tar
+k3s ctr images import images/kubedb-hazelcast-init-5.5.2.tar
 k3s ctr images import images/kubedb-ignite-init-2.17.0-v1.tar
 k3s ctr images import images/kubedb-kubedb-autoscaler-v0.39.0.tar
 k3s ctr images import images/kubedb-kubedb-crd-manager-v0.9.0.tar
@@ -362,7 +363,7 @@ k3s ctr images import images/kubedb-postgres-archiver-v0.15.0_16.1-bookworm.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.15.0_17.2-alpine.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.15.0_17.2-bookworm.tar
 k3s ctr images import images/kubedb-postgres-csi-snapshotter-plugin-v0.15.0.tar
-k3s ctr images import images/kubedb-postgres-init-0.17.1.tar
+k3s ctr images import images/kubedb-postgres-init-0.17.2.tar
 k3s ctr images import images/kubedb-postgres-restic-plugin-v0.17.0_16.1.tar
 k3s ctr images import images/kubedb-provider-aws-v0.15.0.tar
 k3s ctr images import images/kubedb-provider-azure-v0.15.0.tar
@@ -379,7 +380,7 @@ k3s ctr images import images/kubedb-rabbitmq-init-3.12.12.tar
 k3s ctr images import images/kubedb-rabbitmq-init-3.13.2.tar
 k3s ctr images import images/kubedb-rabbitmq-init-4.0.4.tar
 k3s ctr images import images/kubedb-redis-coordinator-v0.33.0.tar
-k3s ctr images import images/kubedb-redis-init-0.10.0.tar
+k3s ctr images import images/kubedb-redis-init-0.11.0.tar
 k3s ctr images import images/kubedb-redis-restic-plugin-v0.17.0.tar
 k3s ctr images import images/kubedb-redis-4.0.11.tar
 k3s ctr images import images/kubedb-redis_exporter-1.66.0.tar
@@ -396,6 +397,7 @@ k3s ctr images import images/kubedb-solr-init-9.8.0.tar
 k3s ctr images import images/kubedb-wal-g-v2024.12.18_mongo.tar
 k3s ctr images import images/kubedb-zookeeper-init-3.7-v1.tar
 k3s ctr images import images/kubedb-zookeeper-restic-plugin-v0.10.0.tar
+k3s ctr images import images/hazelcast-hazelcast-enterprise-5.5.2.tar
 k3s ctr images import images/mariadb-maxscale-24.02.4.tar
 k3s ctr images import images/mssql-server-2022-CU12-ubuntu-22.04.tar
 k3s ctr images import images/mssql-server-2022-CU14-ubuntu-22.04.tar

@@ -28,6 +28,7 @@ declare -a components=(
     druid
     elasticsearch
     ferretdb
+    hazelcast
     kafka
     kafkaconnector
     mariadb
