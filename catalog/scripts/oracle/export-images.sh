@@ -32,13 +32,9 @@ mv /tmp/crane images
 
 CMD="./images/crane"
 
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql-exporter:v1.1.0 images/kubedb-proxysql-exporter-v1.1.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.3.2-centos-v2 images/kubedb-proxysql-2.3.2-centos-v2.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.3.2-debian-v2 images/kubedb-proxysql-2.3.2-debian-v2.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.4.4-centos images/kubedb-proxysql-2.4.4-centos.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.4.4-debian images/kubedb-proxysql-2.4.4-debian.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.6.3-debian images/kubedb-proxysql-2.6.3-debian.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.7.3-debian images/kubedb-proxysql-2.7.3-debian.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:3.0.1-debian images/kubedb-proxysql-3.0.1-debian.tar
+$CMD pull --allow-nondistributable-artifacts --insecure busybox:1.36 images/library-busybox-1.36.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-coordinator:v0.1.0 images/kubedb-oracle-coordinator-v0.1.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-ee:21.3.0 images/kubedb-oracle-ee-21.3.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-init:v0.1.0 images/kubedb-oracle-init-v0.1.0.tar
 
 tar -czvf images.tar.gz images

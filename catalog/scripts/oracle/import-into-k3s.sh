@@ -24,11 +24,7 @@ fi
 TARBALL=${1:-}
 tar -zxvf $TARBALL
 
-k3s ctr images import images/kubedb-proxysql-exporter-v1.1.0.tar
-k3s ctr images import images/kubedb-proxysql-2.3.2-centos-v2.tar
-k3s ctr images import images/kubedb-proxysql-2.3.2-debian-v2.tar
-k3s ctr images import images/kubedb-proxysql-2.4.4-centos.tar
-k3s ctr images import images/kubedb-proxysql-2.4.4-debian.tar
-k3s ctr images import images/kubedb-proxysql-2.6.3-debian.tar
-k3s ctr images import images/kubedb-proxysql-2.7.3-debian.tar
-k3s ctr images import images/kubedb-proxysql-3.0.1-debian.tar
+k3s ctr images import images/library-busybox-1.36.tar
+k3s ctr images import images/kubedb-oracle-coordinator-v0.1.0.tar
+k3s ctr images import images/kubedb-oracle-ee-21.3.0.tar
+k3s ctr images import images/kubedb-oracle-init-v0.1.0.tar

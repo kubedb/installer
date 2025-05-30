@@ -314,6 +314,24 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
+{{- if $featureGates.MySQL }}
+- name: oraclewebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-oracle
+      port: 443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["v1alpha2"]
+      resources: ["oracles"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
 {{- if $featureGates.PerconaXtraDB }}
 - name: perconaxtradbwebhook.validators.kubedb.com
   clientConfig:

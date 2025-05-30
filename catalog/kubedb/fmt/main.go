@@ -347,7 +347,6 @@ func main() {
 			panic(err)
 		}
 	}
-
 	{
 		for k, v := range backupTaskStore {
 			versions := semvers.SortVersions(v, func(vi, vj string) bool {

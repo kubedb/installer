@@ -1,0 +1,33 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Oracle }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: OracleVersion
+metadata:
+  name: 'oracle-21.3.0'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/oracle-coordinator") $) }}:v0.1.0'
+  dataGuard:
+    initContainer:
+      image: busybox:1.36
+    observer:
+      image: ghcr.io/kubedb/oracle-ee:21.3.0
+  db:
+    baseOS: debian
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/oracle-ee") $) }}:21.3.0'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/oracle-init") $) }}:v0.1.0'
+  securityContext:
+    runAsUser: 54321
+  updateConstraints:
+    allowlist:
+    - 21.3.1
+  version: 21.3.0
+{{ end }}
