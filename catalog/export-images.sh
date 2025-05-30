@@ -288,13 +288,14 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekic
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6-v2 images/kubedb-cassandra-init-4.1.6-v2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0-v2 images/kubedb-cassandra-init-5.0.0-v2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-medusa-plugin:v0.1.0 images/kubedb-cassandra-medusa-plugin-v0.1.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1 images/kubedb-clickhouse-init-24.4.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1-v1 images/kubedb-clickhouse-init-24.4.1-v1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.1.0 images/kubedb-dashboard-restic-plugin-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.12.0 images/kubedb-dashboard-restic-plugin-v0.12.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:28.0.1 images/kubedb-druid-init-28.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:30.0.1 images/kubedb-druid-init-30.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:31.0.0 images/kubedb-druid-init-31.0.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.17.0 images/kubedb-elasticsearch-restic-plugin-v0.17.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hazelcast-init:5.5.2 images/kubedb-hazelcast-init-5.5.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/ignite-init:2.17.0-v1 images/kubedb-ignite-init-2.17.0-v1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-autoscaler:v0.39.0 images/kubedb-kubedb-autoscaler-v0.39.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-crd-manager:v0.9.0 images/kubedb-kubedb-crd-manager-v0.9.0.tar
@@ -370,7 +371,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.15.0_17.2-alpine images/kubedb-postgres-archiver-v0.15.0_17.2-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.15.0_17.2-bookworm images/kubedb-postgres-archiver-v0.15.0_17.2-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.15.0 images/kubedb-postgres-csi-snapshotter-plugin-v0.15.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.17.2 images/kubedb-postgres-init-0.17.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.17.2 images/kubedb-postgres-init-0.17.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.17.0_16.1 images/kubedb-postgres-restic-plugin-v0.17.0_16.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-aws:v0.15.0 images/kubedb-provider-aws-v0.15.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-azure:v0.15.0 images/kubedb-provider-azure-v0.15.0.tar
@@ -387,7 +388,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:3.13.2 images/kubedb-rabbitmq-init-3.13.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:4.0.4 images/kubedb-rabbitmq-init-4.0.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-coordinator:v0.33.0 images/kubedb-redis-coordinator-v0.33.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.10.0 images/kubedb-redis-init-0.10.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.11.0 images/kubedb-redis-init-0.11.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.17.0 images/kubedb-redis-restic-plugin-v0.17.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4.0.11 images/kubedb-redis-4.0.11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis_exporter:1.66.0 images/kubedb-redis_exporter-1.66.0.tar
@@ -404,6 +405,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/wal-g:v2024.12.18_mongo images/kubedb-wal-g-v2024.12.18_mongo.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-init:3.7-v1 images/kubedb-zookeeper-init-3.7-v1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.10.0 images/kubedb-zookeeper-restic-plugin-v0.10.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure hazelcast/hazelcast-enterprise:5.5.2 images/hazelcast-hazelcast-enterprise-5.5.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mariadb/maxscale:24.02.4 images/mariadb-maxscale-24.02.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04 images/mssql-server-2022-CU12-ubuntu-22.04.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04 images/mssql-server-2022-CU14-ubuntu-22.04.tar
