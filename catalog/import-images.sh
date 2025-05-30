@@ -329,6 +329,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-router-init-v0.32.0.tar $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.32.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysqld-exporter-v0.13.1.tar $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.13.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-coordinator-v0.1.0.tar $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.1.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-ee-21.3.0.tar $IMAGE_REGISTRY/kubedb/oracle-ee:21.3.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-init-v0.1.0.tar $IMAGE_REGISTRY/kubedb/oracle-init:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-coordinator-v0.27.0.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-coordinator:v0.27.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-init-0.2.3.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-init:0.2.3
@@ -412,7 +413,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/singlestore-clust
 $CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.5.22-fe61f40cd1-4.1.0-1.17.11.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11
 $CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.5.7-bf633c1a54-4.0.17-1.17.8.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8
 $CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.7.10-95e2357384-4.1.0-1.17.14.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.7.10-95e2357384-4.1.0-1.17.14
-$CMD push --allow-nondistributable-artifacts --insecure images/souravbiswassanto-oracle-flat-vim-21.3.0.tar $IMAGE_REGISTRY/souravbiswassanto/oracle-flat-vim:21.3.0
 $CMD push --allow-nondistributable-artifacts --insecure images/tianon-toybox-0.8.11.tar $IMAGE_REGISTRY/tianon/toybox:0.8.11
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg13-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg13-oss
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg14-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg14-oss

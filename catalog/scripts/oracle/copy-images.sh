@@ -37,5 +37,5 @@ CMD="./crane"
 
 $CMD cp --allow-nondistributable-artifacts --insecure busybox:1.36 $IMAGE_REGISTRY/busybox:1.36
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-coordinator:v0.1.0 $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.1.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-ee:21.3.0 $IMAGE_REGISTRY/kubedb/oracle-ee:21.3.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-init:v0.1.0 $IMAGE_REGISTRY/kubedb/oracle-init:v0.1.0
-$CMD cp --allow-nondistributable-artifacts --insecure souravbiswassanto/oracle-flat-vim:21.3.0 $IMAGE_REGISTRY/souravbiswassanto/oracle-flat-vim:21.3.0

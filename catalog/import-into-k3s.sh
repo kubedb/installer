@@ -327,6 +327,7 @@ k3s ctr images import images/kubedb-mysql-init-9.1.0-v2.tar
 k3s ctr images import images/kubedb-mysql-router-init-v0.32.0.tar
 k3s ctr images import images/kubedb-mysqld-exporter-v0.13.1.tar
 k3s ctr images import images/kubedb-oracle-coordinator-v0.1.0.tar
+k3s ctr images import images/kubedb-oracle-ee-21.3.0.tar
 k3s ctr images import images/kubedb-oracle-init-v0.1.0.tar
 k3s ctr images import images/kubedb-percona-xtradb-coordinator-v0.27.0.tar
 k3s ctr images import images/kubedb-percona-xtradb-init-0.2.3.tar
@@ -410,7 +411,6 @@ k3s ctr images import images/singlestore-cluster-in-a-box-alma-8.1.32-e3d3cde6da
 k3s ctr images import images/singlestore-cluster-in-a-box-alma-8.5.22-fe61f40cd1-4.1.0-1.17.11.tar
 k3s ctr images import images/singlestore-cluster-in-a-box-alma-8.5.7-bf633c1a54-4.0.17-1.17.8.tar
 k3s ctr images import images/singlestore-cluster-in-a-box-alma-8.7.10-95e2357384-4.1.0-1.17.14.tar
-k3s ctr images import images/souravbiswassanto-oracle-flat-vim-21.3.0.tar
 k3s ctr images import images/tianon-toybox-0.8.11.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg13-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg14-oss.tar

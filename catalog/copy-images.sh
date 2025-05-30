@@ -338,6 +338,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.32.0 $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.32.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.13.1 $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.13.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-coordinator:v0.1.0 $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.1.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-ee:21.3.0 $IMAGE_REGISTRY/kubedb/oracle-ee:21.3.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-init:v0.1.0 $IMAGE_REGISTRY/kubedb/oracle-init:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-coordinator:v0.27.0 $IMAGE_REGISTRY/kubedb/percona-xtradb-coordinator:v0.27.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-init:0.2.3 $IMAGE_REGISTRY/kubedb/percona-xtradb-init:0.2.3
@@ -421,7 +422,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-b
 $CMD cp --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11 $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11
 $CMD cp --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8 $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8
 $CMD cp --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.7.10-95e2357384-4.1.0-1.17.14 $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.7.10-95e2357384-4.1.0-1.17.14
-$CMD cp --allow-nondistributable-artifacts --insecure souravbiswassanto/oracle-flat-vim:21.3.0 $IMAGE_REGISTRY/souravbiswassanto/oracle-flat-vim:21.3.0
 $CMD cp --allow-nondistributable-artifacts --insecure tianon/toybox:0.8.11 $IMAGE_REGISTRY/tianon/toybox:0.8.11
 $CMD cp --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg13-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg13-oss
 $CMD cp --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg14-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg14-oss
