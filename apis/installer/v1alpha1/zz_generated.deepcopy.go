@@ -1201,6 +1201,7 @@ func (in *KubedbKubestashCatalogSpec) DeepCopyInto(out *KubedbKubestashCatalogSp
 			(*out)[key] = val
 		}
 	}
+	out.Cassandra = in.Cassandra
 	out.Druid = in.Druid
 	out.Elasticsearch = in.Elasticsearch
 	out.Opensearch = in.Opensearch
