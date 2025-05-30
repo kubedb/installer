@@ -205,6 +205,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-p
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-13.18-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:13.18-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-13.20-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:13.20-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-13.20-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:13.20-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-13.21-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:13.21-alpine
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-13.21-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:13.21-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-14.10-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:14.10-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-14.10-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:14.10-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-14.13-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:14.13-alpine
@@ -213,10 +215,14 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-p
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-14.15-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:14.15-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-14.17-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:14.17-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-14.17-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:14.17-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-14.18-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:14.18-alpine
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-14.18-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:14.18-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-15.10-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:15.10-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-15.10-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:15.10-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-15.12-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:15.12-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-15.12-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:15.12-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-15.13-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:15.13-alpine
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-15.13-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:15.13-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-15.5-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:15.5-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-15.5-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:15.5-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-15.8-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:15.8-alpine
@@ -229,10 +235,14 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-p
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.6-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:16.6-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.8-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:16.8-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.8-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:16.8-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.9-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:16.9-alpine
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.9-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:16.9-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.2-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:17.2-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.2-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:17.2-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.4-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:17.4-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.4-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:17.4-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.5-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:17.5-alpine
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.5-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:17.5-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-rabbitmq-3.12.12-management-alpine.tar $IMAGE_REGISTRY/appscode-images/rabbitmq:3.12.12-management-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-rabbitmq-3.13.2-management-alpine.tar $IMAGE_REGISTRY/appscode-images/rabbitmq:3.13.2-management-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-rabbitmq-4.0.4-management-alpine.tar $IMAGE_REGISTRY/appscode-images/rabbitmq:4.0.4-management-alpine
@@ -349,7 +359,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-a
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.15.0_17.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.15.0_17.2-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.15.0_17.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.15.0_17.2-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-csi-snapshotter-plugin-v0.15.0.tar $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.15.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-init-0.17.1.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.17.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-init-0.17.1.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.17.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.17.0_16.1.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.17.0_16.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-aws-v0.15.0.tar $IMAGE_REGISTRY/kubedb/provider-aws:v0.15.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-azure-v0.15.0.tar $IMAGE_REGISTRY/kubedb/provider-azure:v0.15.0
