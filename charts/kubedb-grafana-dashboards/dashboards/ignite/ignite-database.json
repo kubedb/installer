@@ -1,0 +1,2182 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "datasource",
+            "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": 29,
+    "iteration": 1747126735240,
+    "links": [],
+    "panels": [
+      {
+        "collapsed": false,
+        "datasource": "${datasource}",
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 32,
+        "panels": [],
+        "title": "General",
+        "type": "row"
+      },
+      {
+        "datasource": "${datasource}",
+        "description": "Ignite Status whether it is up or down",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [
+              {
+                "options": {
+                  "0": {
+                    "text": "Down"
+                  },
+                  "1": {
+                    "text": "Up"
+                  }
+                },
+                "type": "value"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "green",
+                  "value": 1
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 4,
+          "x": 0,
+          "y": 1
+        },
+        "hideTimeOverride": true,
+        "id": 2,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "auto",
+          "wideLayout": true
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": " avg (up{namespace=~\"demo\", pod=~\"$app-.+$\"})",
+            "interval": "",
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "10s",
+        "timeShift": "10s",
+        "title": "Status",
+        "type": "stat"
+      },
+      {
+        "datasource": "${datasource}",
+        "description": "Ignite uptime",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "h"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 4,
+          "x": 4,
+          "y": 1
+        },
+        "hideTimeOverride": true,
+        "id": 61,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "auto",
+          "wideLayout": true
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "hour ((ignite_uptime{namespace=\"demo\",pod=~\"$app-.+$\"}))",
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "10s",
+        "timeShift": "10s",
+        "title": "Uptime",
+        "type": "stat"
+      },
+      {
+        "datasource": "${datasource}",
+        "description": "Ignite cluster Total Baseline Nodes",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [
+              {
+                "options": {
+                  "0": {
+                    "text": "Down"
+                  },
+                  "1": {
+                    "text": "Up"
+                  }
+                },
+                "type": "value"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "green",
+                  "value": 1
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 4,
+          "x": 8,
+          "y": 1
+        },
+        "hideTimeOverride": true,
+        "id": 62,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "auto",
+          "wideLayout": true
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "avg (cluster_TotalBaselineNodes)",
+            "interval": "",
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "10s",
+        "timeShift": "10s",
+        "title": "Total Baseline Nodes",
+        "type": "stat"
+      },
+      {
+        "datasource": "${datasource}",
+        "description": "Topology snapshot",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 12,
+          "x": 12,
+          "y": 1
+        },
+        "hideTimeOverride": true,
+        "id": 34,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "name",
+          "wideLayout": true
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "up{job=\"${job}\"}",
+            "format": "heatmap",
+            "hide": false,
+            "instant": true,
+            "interval": "2",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "range": false,
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "10s",
+        "timeShift": "10s",
+        "title": "Topology",
+        "type": "stat"
+      },
+      {
+        "datasource": "${datasource}",
+        "description": "Active baseline nodes count",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "hideFrom": {
+                "graph": false,
+                "legend": false,
+                "tooltip": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 2,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": true
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 9,
+          "x": 0,
+          "y": 6
+        },
+        "id": 30,
+        "options": {
+          "graph": {},
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltipOptions": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": " avg (up{namespace=\"demo\", pod=~\"$app-.+$\"})",
+            "hide": false,
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "range": true,
+            "refId": "B"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "History of node restarts",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "max": 100,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "yellow",
+                  "value": 70
+                },
+                {
+                  "color": "red",
+                  "value": 85
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 8,
+          "x": 9,
+          "y": 6
+        },
+        "hideTimeOverride": true,
+        "id": 36,
+        "options": {
+          "minVizHeight": 75,
+          "minVizWidth": 75,
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "sizing": "auto",
+          "text": {}
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "100 - ((sys_memory_heap_max - sys_memory_heap_used)*100 / sys_memory_heap_max)",
+            "hide": false,
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "5s",
+        "timeShift": "5s",
+        "title": "Heap used",
+        "type": "gauge"
+      },
+      {
+        "datasource": "${datasource}",
+        "description": "Ignite system Cpu Load",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "max": 100,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "yellow",
+                  "value": 25
+                },
+                {
+                  "color": "red",
+                  "value": 50
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 7,
+          "x": 17,
+          "y": 6
+        },
+        "hideTimeOverride": true,
+        "id": 38,
+        "options": {
+          "minVizHeight": 75,
+          "minVizWidth": 75,
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "sizing": "auto",
+          "text": {}
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "sys_CpuLoad * 100",
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "5s",
+        "timeShift": "5s",
+        "title": "CPU load",
+        "type": "gauge"
+      },
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 1
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 24,
+          "x": 0,
+          "y": 14
+        },
+        "hideTimeOverride": true,
+        "id": 46,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "auto",
+          "wideLayout": true
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "threadPools_GridRebalanceExecutor_ActiveCount",
+            "format": "time_series",
+            "instant": false,
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "range": true,
+            "refId": "Scheduled Rebalance Tasks"
+          }
+        ],
+        "timeFrom": "5s",
+        "timeShift": "5s",
+        "title": "Rebalance tasks in progress",
+        "transformations": [],
+        "type": "stat"
+      },
+      {
+        "collapsed": false,
+        "datasource": "${datasource}",
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 22
+        },
+        "id": 44,
+        "panels": [],
+        "title": "Memory and CPU",
+        "type": "row"
+      },
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "hideFrom": {
+                "graph": false,
+                "legend": false,
+                "tooltip": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 2,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": true
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 24,
+          "x": 0,
+          "y": 23
+        },
+        "id": 26,
+        "options": {
+          "graph": {},
+          "legend": {
+            "calcs": [
+              "mean",
+              "lastNotNull",
+              "max",
+              "min",
+              "sum"
+            ],
+            "displayMode": "table",
+            "placement": "bottom"
+          },
+          "tooltipOptions": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "avg (sys_CpuLoad{namespace=\"demo\", pod=~\"$app-.+$\"}) * 100",
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "CPU Load",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "hideFrom": {
+                "graph": false,
+                "legend": false,
+                "tooltip": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": true
+            },
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 12,
+          "x": 0,
+          "y": 31
+        },
+        "id": 4,
+        "options": {
+          "graph": {},
+          "legend": {
+            "calcs": [
+              "mean",
+              "lastNotNull",
+              "max",
+              "min",
+              "sum"
+            ],
+            "displayMode": "table",
+            "placement": "bottom"
+          },
+          "tooltipOptions": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "sys_memory_heap_used{namespace=\"demo\", pod=~\"$app-.+$\"}",
+            "format": "time_series",
+            "instant": false,
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Heap memory used",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "hideFrom": {
+                "graph": false,
+                "legend": false,
+                "tooltip": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": true
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 12,
+          "x": 12,
+          "y": 31
+        },
+        "id": 42,
+        "options": {
+          "graph": {},
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          },
+          "tooltipOptions": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "io_dataregion_default_OffheapUsedSize{namespace=\"demo\", pod=~\"$app-.+$\"} / 1024 / 1024 / 1024 ",
+            "hide": false,
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "range": true,
+            "refId": "C"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "io_dataregion_default_OffHeapSize{namespace=\"demo\", pod=~\"$app-.+$\"} / 1024 / 1024 / 1024",
+            "format": "time_series",
+            "hide": false,
+            "instant": false,
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Data Region memory usage  history (GiB)",
+        "type": "timeseries"
+      },
+      {
+        "collapsed": false,
+        "datasource": "${datasource}",
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 41
+        },
+        "id": 74,
+        "panels": [],
+        "title": "Data Region",
+        "type": "row"
+      },
+      {
+        "datasource": "${datasource}",
+        "description": "Ignite io_dataregion default OffHeap Size",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "decgbytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 8,
+          "x": 0,
+          "y": 42
+        },
+        "hideTimeOverride": true,
+        "id": 54,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value_and_name",
+          "wideLayout": true
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "io_dataregion_default_OffHeapSize / 1024 / 1024 / 1024",
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "5s",
+        "timeShift": "5s",
+        "title": "Data region size (GB)",
+        "type": "stat"
+      },
+      {
+        "datasource": "${datasource}",
+        "description": "Ignite io_dataregion default OffHeap Size",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "decgbytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 8,
+          "x": 8,
+          "y": 42
+        },
+        "hideTimeOverride": true,
+        "id": 64,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value_and_name",
+          "wideLayout": true
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "io_dataregion_default_OffHeapSize / 1024 / 1024 / 1024",
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "5s",
+        "timeShift": "5s",
+        "title": "Data region off Heap Size",
+        "type": "stat"
+      },
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "decgbytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 8,
+          "x": 16,
+          "y": 42
+        },
+        "hideTimeOverride": true,
+        "id": 60,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "auto",
+          "wideLayout": true
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "io_dataregion_default_OffheapUsedSize / 1024 / 1024 / 1024",
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "5s",
+        "timeShift": "5s",
+        "title": "Data region offheap used (GB)",
+        "type": "stat"
+      },
+      {
+        "datasource": "${datasource}",
+        "description": "Ignite io_dataregion default Max Size",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "green",
+                  "value": 70
+                }
+              ]
+            },
+            "unit": "GB"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 8,
+          "x": 0,
+          "y": 49
+        },
+        "hideTimeOverride": true,
+        "id": 52,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value_and_name",
+          "wideLayout": true
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "io_dataregion_default_MaxSize / 1024 / 1024 / 1024\n",
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "5s",
+        "timeShift": "5s",
+        "title": "Data Region- Max Size",
+        "type": "stat"
+      },
+      {
+        "datasource": "${datasource}",
+        "description": "Ignite io_dataregion default no of Pages Read",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "green",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 8,
+          "x": 8,
+          "y": 49
+        },
+        "hideTimeOverride": true,
+        "id": 65,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value_and_name",
+          "wideLayout": true
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "io_dataregion_default_PagesRead\n",
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "5s",
+        "timeShift": "5s",
+        "title": "Data Region- No of PagesRead",
+        "type": "stat"
+      },
+      {
+        "datasource": "${datasource}",
+        "description": "Ignite io_dataregion default no of Pages Written",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "green",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 8,
+          "x": 16,
+          "y": 49
+        },
+        "hideTimeOverride": true,
+        "id": 66,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value_and_name",
+          "wideLayout": true
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "io_dataregion_default_PagesWritten\n",
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "5s",
+        "timeShift": "5s",
+        "title": "Data Region- No of PagesWritten",
+        "type": "stat"
+      },
+      {
+        "collapsed": false,
+        "datasource": "${datasource}",
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 56
+        },
+        "id": 24,
+        "panels": [],
+        "title": "Caches",
+        "type": "row"
+      },
+      {
+        "datasource": "${datasource}",
+        "description": "Cache Hits",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "bars",
+              "fillOpacity": 20,
+              "gradientMode": "none",
+              "hideFrom": {
+                "graph": false,
+                "legend": false,
+                "tooltip": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 2,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": true
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "%"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 6,
+          "x": 0,
+          "y": 57
+        },
+        "hideTimeOverride": true,
+        "id": 63,
+        "options": {
+          "graph": {},
+          "legend": {
+            "calcs": [],
+            "displayMode": "table",
+            "placement": "bottom"
+          },
+          "tooltipOptions": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "cache_${cacheName}_CacheHits",
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "5s",
+        "timeShift": "5s",
+        "title": "Cache Hits",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "${datasource}",
+        "description": "Cache Hits",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "bars",
+              "fillOpacity": 20,
+              "gradientMode": "none",
+              "hideFrom": {
+                "graph": false,
+                "legend": false,
+                "tooltip": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 2,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": true
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "%"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 6,
+          "x": 6,
+          "y": 57
+        },
+        "hideTimeOverride": true,
+        "id": 71,
+        "options": {
+          "graph": {},
+          "legend": {
+            "calcs": [],
+            "displayMode": "table",
+            "placement": "bottom"
+          },
+          "tooltipOptions": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "cache_${cacheName}_CacheHits",
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "5s",
+        "timeShift": "5s",
+        "title": "Cache Hits",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "${datasource}",
+        "description": "Cache Puts",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "bars",
+              "fillOpacity": 20,
+              "gradientMode": "none",
+              "hideFrom": {
+                "graph": false,
+                "legend": false,
+                "tooltip": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 2,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": true
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "%"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 6,
+          "x": 12,
+          "y": 57
+        },
+        "hideTimeOverride": true,
+        "id": 69,
+        "options": {
+          "graph": {},
+          "legend": {
+            "calcs": [],
+            "displayMode": "table",
+            "placement": "bottom"
+          },
+          "tooltipOptions": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "cache_${cacheName}_CachePuts",
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "5s",
+        "timeShift": "5s",
+        "title": "Cache Puts",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "${datasource}",
+        "description": "Cache Misses",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "bars",
+              "fillOpacity": 20,
+              "gradientMode": "none",
+              "hideFrom": {
+                "graph": false,
+                "legend": false,
+                "tooltip": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 2,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": true
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "%"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 6,
+          "x": 18,
+          "y": 57
+        },
+        "hideTimeOverride": true,
+        "id": 70,
+        "options": {
+          "graph": {},
+          "legend": {
+            "calcs": [],
+            "displayMode": "table",
+            "placement": "bottom"
+          },
+          "tooltipOptions": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "cache_${cacheName}_CacheMisses",
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "5s",
+        "timeShift": "5s",
+        "title": "Cache Misses",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "${datasource}",
+        "description": "Cache Size",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "%"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 6,
+          "x": 0,
+          "y": 64
+        },
+        "hideTimeOverride": true,
+        "id": 68,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "text": {}
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "cache_${cacheName}_CacheSize",
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "5s",
+        "timeShift": "5s",
+        "title": "Cache Size",
+        "type": "gauge"
+      },
+      {
+        "datasource": "${datasource}",
+        "description": "Cache Hits Ratio",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "hideFrom": {
+                "graph": false,
+                "legend": false,
+                "tooltip": false
+              },
+              "lineInterpolation": "linear",
+              "lineStyle": {
+                "fill": "solid"
+              },
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": true
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "%"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 6,
+          "x": 6,
+          "y": 64
+        },
+        "hideTimeOverride": true,
+        "id": 72,
+        "options": {
+          "graph": {},
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltipOptions": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "(cache_${cacheName}_CacheHits) / clamp_min((cache_${cacheName}_CacheHits) + (cache_${cacheName}_CacheMisses), 1)",
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "5s",
+        "timeShift": "5s",
+        "title": "Hit Ratio",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "${datasource}",
+        "description": "Ignite CacheGroups ignite_sys_cache LocalNode Moving Partitions Count",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "%"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 6,
+          "x": 12,
+          "y": 64
+        },
+        "hideTimeOverride": true,
+        "id": 67,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value_and_name",
+          "wideLayout": true
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "cacheGroups_ignite_sys_cache_LocalNodeMovingPartitionsCount ",
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "5s",
+        "timeShift": "5s",
+        "title": "Moving partitions",
+        "type": "stat"
+      },
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "decimals": 0,
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "green",
+                  "value": 1
+                }
+              ]
+            },
+            "unit": "%"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 6,
+          "x": 18,
+          "y": 64
+        },
+        "hideTimeOverride": true,
+        "id": 58,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value_and_name",
+          "wideLayout": true
+        },
+        "pluginVersion": "7.5.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "cacheGroups_ignite_sys_cache_LocalNodeOwningPartitionsCount",
+            "interval": "",
+            "legendFormat": {{ `"{{pod}}"` }},
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "timeFrom": "5s",
+        "timeShift": "5s",
+        "title": "Owning partitions",
+        "type": "stat"
+      }
+    ],
+    "refresh": "5s",
+    "schemaVersion": 27,
+    "style": "dark",
+    "tags": [
+      "ignite"
+    ],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "selected": false,
+            "text": "Prometheus",
+            "value": "Prometheus"
+          },
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": false,
+          "label": null,
+          "multi": false,
+          "name": "datasource",
+          "options": [],
+          "query": "prometheus",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "type": "datasource"
+        },
+        {
+          "allValue": null,
+          "current": {
+            "selected": false,
+            "text": "ignite-quickstart-stats",
+            "value": "ignite-quickstart-stats"
+          },
+          "datasource": "${datasource}",
+          "definition": "label_values(up, job)",
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": false,
+          "label": null,
+          "multi": false,
+          "name": "job",
+          "options": [],
+          {{- if $shared }}
+          "query": {
+            "query": "label_values(up, job)",
+            "refId": "StandardVariableQuery"
+          },
+          "type": "query",
+          {{- else }}
+          "query": {{ $.Values.app.namespace | quote }},
+          "type": "constant",
+          {{- end }}
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tags": [],
+          "tagsQuery": "",
+          "useTags": false
+        },
+        {
+          "allValue": null,
+          "current": {
+            "selected": false,
+            "text": "ignite-quickstart",
+            "value": "ignite-quickstart"
+          },
+          "datasource": "${datasource}",
+          "definition": "ignite-quickstart",
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": false,
+          "label": "app",
+          "multi": false,
+          "name": "app",
+          "options": [],
+          {{- if $shared }}
+          "query": {
+            "query": "",
+            "refId": "StandardVariableQuery"
+          },
+          "type": "query",
+          {{- else }}
+          "query": {{ $.Values.app.name | quote }},
+          "type": "constant",
+          {{- end }}
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tags": [],
+          "tagsQuery": "",
+          "useTags": false
+        },
+        {
+          "allValue": null,
+          "current": {
+            "selected": false,
+            "text": "PUBLIC",
+            "value": "PUBLIC"
+          },
+          "datasource": "${datasource}",
+          "definition": "",
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": false,
+          "label": "cacheName",
+          "multi": false,
+          "name": "cacheName",
+          "options": [
+            {
+              "isNone": true,
+              "selected": false,
+              "text": "None",
+              "value": ""
+            }
+          ],
+          "query": {
+            "query": "",
+            "refId": "StandardVariableQuery"
+          },
+          "refresh": 0,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tags": [],
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        }
+      ]
+    },
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "timepicker": {
+      "refresh_intervals": [
+        "5s",
+        "10s"
+      ]
+    },
+    "timezone": "",
+    {{- if $shared }}
+    "title": "KubeDB / Ignite / Database",
+    {{- else }}
+    "title": {{ printf "KubeDB / Ignite / Database / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
+    {{- end }}
+    "uid": "KTV2TJrGk2",
+    "version": 14
+  }
