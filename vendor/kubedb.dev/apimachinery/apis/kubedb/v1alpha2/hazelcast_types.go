@@ -25,11 +25,13 @@ import (
 )
 
 const (
-	ResourceKindCassandra     = "Cassandra"
-	ResourceSingularCassandra = "cassandra"
-	ResourcePluralCassandra   = "cassandras"
-	ResourceCodeCassandra     = "cas"
+	ResourceCodeHazelcast     = "hz"
+	ResourceKindHazelcast     = "Hazelcast"
+	ResourceSingularHazelcast = "hazelcast"
+	ResourcePluralHazelcast   = "hazelcasts"
 )
+
+// Hazelcast is the Schema for the hazelcasts API.
 
 // +genclient
 // +k8s:openapi-gen=true
@@ -37,63 +39,57 @@ const (
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:path=cassandras,singular=cassandra,shortName=cas,categories={datastore,kubedb,appscode,all}
+// +kubebuilder:resource:path=hazelcasts,singular=hazelcast,shortName=hz,categories={datastore,kubedb,appscode,all}
 // +kubebuilder:printcolumn:name="Type",type="string",JSONPath=".apiVersion"
 // +kubebuilder:printcolumn:name="Version",type="string",JSONPath=".spec.version"
 // +kubebuilder:printcolumn:name="Status",type="string",JSONPath=".status.phase"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
-type Cassandra struct {
+type Hazelcast struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   CassandraSpec   `json:"spec,omitempty"`
-	Status CassandraStatus `json:"status,omitempty"`
+	Spec   HazelcastSpec   `json:"spec,omitempty"`
+	Status HazelcastStatus `json:"status,omitempty"`
 }
-
-// CassandraSpec defines the desired state of Cassandra
-type CassandraSpec struct {
-	// Version of Cassandra to be deployed.
+type HazelcastSpec struct {
+	// Version of Hazelcast to be deployed
 	Version string `json:"version"`
 
-	// Number of replicas for  Cassandra database.
+	// lisence for hazelcast community edition
+	LicenseSecret *core.SecretReference `json:"licenseSecret,omitempty"`
+
+	// Number of instances to deploy for a Hazelcast database
 	// +optional
 	Replicas *int32 `json:"replicas,omitempty"`
 
-	// Cassandra Topology for Racks
-	// +optional
-	Topology *Topology `json:"topology,omitempty"`
-
-	// StorageType can be durable (default) or ephemeral
+	// StorageType van be durable (default) or ephemeral
 	StorageType StorageType `json:"storageType,omitempty"`
 
-	// Storage to specify how storage shall be used.
+	// Storage to specify how storage shall be used
 	Storage *core.PersistentVolumeClaimSpec `json:"storage,omitempty"`
 
-	// disable security. It disables authentication security of user.
+	// Custom java environment variables to be integrated
+	// +optional
+	JavaOpts []string `json:"javaOpts,omitempty"`
+
+	// Disable security. It disables authentication security of users.
 	// If unset, default is false
 	// +optional
 	DisableSecurity bool `json:"disableSecurity,omitempty"`
 
-	// Database authentication secret
-	// +optional
-	AuthSecret *SecretReference `json:"authSecret,omitempty"`
-
-	// ConfigSecret is an optional field to provide custom configuration file for database (i.e. config.properties).
-	// If specified, this file will be used as configuration file otherwise default configuration file will be used.
 	// +optional
 	ConfigSecret *core.LocalObjectReference `json:"configSecret,omitempty"`
 
+	// +optional
+	AuthSecret *SecretReference `json:"authSecret,omitempty"`
+
 	// PodTemplate is an optional configuration for pods used to expose database
 	// +optional
-	PodTemplate *ofst.PodTemplateSpec `json:"podTemplate,omitempty"`
+	PodTemplate ofst.PodTemplateSpec `json:"podTemplate,omitempty"`
 
 	// ServiceTemplates is an optional configuration for services used to expose database
 	// +optional
 	ServiceTemplates []NamedServiceTemplateSpec `json:"serviceTemplates,omitempty"`
-
-	// Monitor is used monitor database instance
-	// +optional
-	Monitor *mona.AgentSpec `json:"monitor,omitempty"`
 
 	// DeletionPolicy controls the delete operation for database
 	// +optional
@@ -103,33 +99,25 @@ type CassandraSpec struct {
 	// +optional
 	// +kubebuilder:default={periodSeconds: 20, timeoutSeconds: 10, failureThreshold: 3}
 	HealthChecker kmapi.HealthCheckSpec `json:"healthChecker"`
-}
 
-type Topology struct {
-	// cassandra rack structure
-	Rack []RackSpec `json:"rack,omitempty"`
-}
+	// To enable ssl for http layer
+	EnableSSL bool `json:"enableSSL,omitempty"`
 
-type RackSpec struct {
-	// rack Name
-	Name string `json:"name,omitempty"`
-	// Number of replica for each shard to deploy for a rack.
+	// TLS contains tls configurations for client and server.
 	// +optional
-	Replicas *int32 `json:"replicas,omitempty"`
+	TLS *kmapi.TLSConfig `json:"tls,omitempty"`
 
-	// PodTemplate is an optional configuration for pods used to expose database
+	// Keystore encryption secret
 	// +optional
-	PodTemplate *ofst.PodTemplateSpec `json:"podTemplate,omitempty"`
+	KeystoreSecret *core.LocalObjectReference `json:"keystoreSecret,omitempty"`
 
-	// Storage to specify how storage shall be used.
-	Storage *core.PersistentVolumeClaimSpec `json:"storage,omitempty"`
-
-	// StorageType can be durable (default) or ephemeral
-	StorageType StorageType `json:"storageType,omitempty"`
+	// Monitor is used monitor database instance
+	// +optional
+	Monitor *mona.AgentSpec `json:"monitor,omitempty"`
 }
 
-// CassandraStatus defines the observed state of Cassandra
-type CassandraStatus struct {
+// HazelcastStatus defines the observed state of Hazelcast.
+type HazelcastStatus struct {
 	// Specifies the current phase of the database
 	// +optional
 	Phase DatabasePhase `json:"phase,omitempty"`
@@ -142,11 +130,23 @@ type CassandraStatus struct {
 	Conditions []kmapi.Condition `json:"conditions,omitempty"`
 }
 
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:validation:Enum=ca;transport;http;client;server
+type HazelcastCertificateAlias string
 
-// CassandraList contains a list of Cassandra
-type CassandraList struct {
+const (
+	HazelcastCACert        HazelcastCertificateAlias = "ca"
+	HazelcastTransportCert HazelcastCertificateAlias = "transport"
+	HazelcastHTTPCert      HazelcastCertificateAlias = "http"
+	HazelcastClientCert    HazelcastCertificateAlias = "client"
+	HazelcastServerCert    HazelcastCertificateAlias = "server"
+)
+
+// HazelcastList contains a list of Hazelcast.
+
+// +kubebuilder:object:root=true
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+type HazelcastList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Cassandra `json:"items"`
+	Items           []Hazelcast `json:"items"`
 }
