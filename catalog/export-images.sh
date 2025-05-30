@@ -211,6 +211,8 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:13.18-bookworm images/appscode-images-postgres-13.18-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:13.20-alpine images/appscode-images-postgres-13.20-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:13.20-bookworm images/appscode-images-postgres-13.20-bookworm.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:13.21-alpine images/appscode-images-postgres-13.21-alpine.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:13.21-bookworm images/appscode-images-postgres-13.21-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:14.10-alpine images/appscode-images-postgres-14.10-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:14.10-bookworm images/appscode-images-postgres-14.10-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:14.13-alpine images/appscode-images-postgres-14.13-alpine.tar
@@ -219,10 +221,14 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:14.15-bookworm images/appscode-images-postgres-14.15-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:14.17-alpine images/appscode-images-postgres-14.17-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:14.17-bookworm images/appscode-images-postgres-14.17-bookworm.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:14.18-alpine images/appscode-images-postgres-14.18-alpine.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:14.18-bookworm images/appscode-images-postgres-14.18-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:15.10-alpine images/appscode-images-postgres-15.10-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:15.10-bookworm images/appscode-images-postgres-15.10-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:15.12-alpine images/appscode-images-postgres-15.12-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:15.12-bookworm images/appscode-images-postgres-15.12-bookworm.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:15.13-alpine images/appscode-images-postgres-15.13-alpine.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:15.13-bookworm images/appscode-images-postgres-15.13-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:15.5-alpine images/appscode-images-postgres-15.5-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:15.5-bookworm images/appscode-images-postgres-15.5-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:15.8-alpine images/appscode-images-postgres-15.8-alpine.tar
@@ -235,10 +241,14 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.6-bookworm images/appscode-images-postgres-16.6-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.8-alpine images/appscode-images-postgres-16.8-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.8-bookworm images/appscode-images-postgres-16.8-bookworm.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.9-alpine images/appscode-images-postgres-16.9-alpine.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.9-bookworm images/appscode-images-postgres-16.9-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.2-alpine images/appscode-images-postgres-17.2-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.2-bookworm images/appscode-images-postgres-17.2-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.4-alpine images/appscode-images-postgres-17.4-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.4-bookworm images/appscode-images-postgres-17.4-bookworm.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.5-alpine images/appscode-images-postgres-17.5-alpine.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.5-bookworm images/appscode-images-postgres-17.5-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/rabbitmq:3.12.12-management-alpine images/appscode-images-rabbitmq-3.12.12-management-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/rabbitmq:3.13.2-management-alpine images/appscode-images-rabbitmq-3.13.2-management-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/rabbitmq:4.0.4-management-alpine images/appscode-images-rabbitmq-4.0.4-management-alpine.tar
@@ -355,7 +365,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.15.0_17.2-alpine images/kubedb-postgres-archiver-v0.15.0_17.2-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.15.0_17.2-bookworm images/kubedb-postgres-archiver-v0.15.0_17.2-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.15.0 images/kubedb-postgres-csi-snapshotter-plugin-v0.15.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.17.1 images/kubedb-postgres-init-0.17.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.17.2 images/kubedb-postgres-init-0.17.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.17.0_16.1 images/kubedb-postgres-restic-plugin-v0.17.0_16.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-aws:v0.15.0 images/kubedb-provider-aws-v0.15.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-azure:v0.15.0 images/kubedb-provider-azure-v0.15.0.tar
