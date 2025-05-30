@@ -291,13 +291,14 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6-v2 $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0-v2 $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-medusa-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.1.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1 $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1-v1 $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1-v1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.12.0 $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.12.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:28.0.1 $IMAGE_REGISTRY/kubedb/druid-init:28.0.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:30.0.1 $IMAGE_REGISTRY/kubedb/druid-init:30.0.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:31.0.0 $IMAGE_REGISTRY/kubedb/druid-init:31.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.17.0 $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.17.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hazelcast-init:5.5.2 $IMAGE_REGISTRY/kubedb/hazelcast-init:5.5.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/ignite-init:2.17.0-v1 $IMAGE_REGISTRY/kubedb/ignite-init:2.17.0-v1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-autoscaler:v0.39.0 $IMAGE_REGISTRY/kubedb/kubedb-autoscaler:v0.39.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-crd-manager:v0.9.0 $IMAGE_REGISTRY/kubedb/kubedb-crd-manager:v0.9.0
@@ -390,7 +391,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-in
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:3.13.2 $IMAGE_REGISTRY/kubedb/rabbitmq-init:3.13.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:4.0.4 $IMAGE_REGISTRY/kubedb/rabbitmq-init:4.0.4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-coordinator:v0.33.0 $IMAGE_REGISTRY/kubedb/redis-coordinator:v0.33.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.10.0 $IMAGE_REGISTRY/kubedb/redis-init:0.10.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.11.0 $IMAGE_REGISTRY/kubedb/redis-init:0.11.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.17.0 $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.17.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4.0.11 $IMAGE_REGISTRY/kubedb/redis:4.0.11
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis_exporter:1.66.0 $IMAGE_REGISTRY/kubedb/redis_exporter:1.66.0
@@ -407,6 +408,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/wal-g:v2024.12.18_mongo $IMAGE_REGISTRY/kubedb/wal-g:v2024.12.18_mongo
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-init:3.7-v1 $IMAGE_REGISTRY/kubedb/zookeeper-init:3.7-v1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.10.0 $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.10.0
+$CMD cp --allow-nondistributable-artifacts --insecure hazelcast/hazelcast-enterprise:5.5.2 $IMAGE_REGISTRY/hazelcast/hazelcast-enterprise:5.5.2
 $CMD cp --allow-nondistributable-artifacts --insecure mariadb/maxscale:24.02.4 $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
 $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2022-CU12-ubuntu-22.04
 $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2022-CU14-ubuntu-22.04

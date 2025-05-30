@@ -282,13 +282,14 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-4.1.6-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-5.0.0-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-medusa-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.1.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-clickhouse-init-24.4.1.tar $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-clickhouse-init-24.4.1-v1.tar $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1-v1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.12.0.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.12.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-28.0.1.tar $IMAGE_REGISTRY/kubedb/druid-init:28.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-30.0.1.tar $IMAGE_REGISTRY/kubedb/druid-init:30.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-31.0.0.tar $IMAGE_REGISTRY/kubedb/druid-init:31.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-elasticsearch-restic-plugin-v0.17.0.tar $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.17.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-hazelcast-init-5.5.2.tar $IMAGE_REGISTRY/kubedb/hazelcast-init:5.5.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-ignite-init-2.17.0-v1.tar $IMAGE_REGISTRY/kubedb/ignite-init:2.17.0-v1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-autoscaler-v0.39.0.tar $IMAGE_REGISTRY/kubedb/kubedb-autoscaler:v0.39.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-crd-manager-v0.9.0.tar $IMAGE_REGISTRY/kubedb/kubedb-crd-manager:v0.9.0
@@ -364,7 +365,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-a
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.15.0_17.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.15.0_17.2-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.15.0_17.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.15.0_17.2-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-csi-snapshotter-plugin-v0.15.0.tar $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.15.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-init-0.17.1.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.17.2
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-init-0.17.2.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.17.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.17.0_16.1.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.17.0_16.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-aws-v0.15.0.tar $IMAGE_REGISTRY/kubedb/provider-aws:v0.15.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-azure-v0.15.0.tar $IMAGE_REGISTRY/kubedb/provider-azure:v0.15.0
@@ -381,7 +382,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-rabbitmq-i
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-rabbitmq-init-3.13.2.tar $IMAGE_REGISTRY/kubedb/rabbitmq-init:3.13.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-rabbitmq-init-4.0.4.tar $IMAGE_REGISTRY/kubedb/rabbitmq-init:4.0.4
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-coordinator-v0.33.0.tar $IMAGE_REGISTRY/kubedb/redis-coordinator:v0.33.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-init-0.10.0.tar $IMAGE_REGISTRY/kubedb/redis-init:0.10.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-init-0.11.0.tar $IMAGE_REGISTRY/kubedb/redis-init:0.11.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-restic-plugin-v0.17.0.tar $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.17.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-4.0.11.tar $IMAGE_REGISTRY/kubedb/redis:4.0.11
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis_exporter-1.66.0.tar $IMAGE_REGISTRY/kubedb/redis_exporter:1.66.0
@@ -398,6 +399,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-init-
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-wal-g-v2024.12.18_mongo.tar $IMAGE_REGISTRY/kubedb/wal-g:v2024.12.18_mongo
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-init-3.7-v1.tar $IMAGE_REGISTRY/kubedb/zookeeper-init:3.7-v1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-restic-plugin-v0.10.0.tar $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.10.0
+$CMD push --allow-nondistributable-artifacts --insecure images/hazelcast-hazelcast-enterprise-5.5.2.tar $IMAGE_REGISTRY/hazelcast/hazelcast-enterprise:5.5.2
 $CMD push --allow-nondistributable-artifacts --insecure images/mariadb-maxscale-24.02.4.tar $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU12-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU12-ubuntu-22.04
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU14-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU14-ubuntu-22.04
