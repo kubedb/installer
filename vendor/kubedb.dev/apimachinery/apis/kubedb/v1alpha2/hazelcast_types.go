@@ -18,20 +18,20 @@ package v1alpha2
 
 import (
 	core "k8s.io/api/core/v1"
-	meta "k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	kmapi "kmodules.xyz/client-go/api/v1"
 	mona "kmodules.xyz/monitoring-agent-api/api/v1"
 	ofst "kmodules.xyz/offshoot-api/api/v2"
 )
 
 const (
-	ResourceCodeIgnite     = "ig"
-	ResourceKindIgnite     = "Ignite"
-	ResourceSingularIgnite = "ignite"
-	ResourcePluralIgnite   = "ignites"
+	ResourceCodeHazelcast     = "hz"
+	ResourceKindHazelcast     = "Hazelcast"
+	ResourceSingularHazelcast = "hazelcast"
+	ResourcePluralHazelcast   = "hazelcasts"
 )
 
-// Ignite is the Schema for the Ignite API
+// Hazelcast is the Schema for the hazelcasts API.
 
 // +genclient
 // +k8s:openapi-gen=true
@@ -39,47 +39,49 @@ const (
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:path=ignites,singular=ignite,shortName=ig,categories={datastore,kubedb,appscode,all}
+// +kubebuilder:resource:path=hazelcasts,singular=hazelcast,shortName=hz,categories={datastore,kubedb,appscode,all}
 // +kubebuilder:printcolumn:name="Type",type="string",JSONPath=".apiVersion"
 // +kubebuilder:printcolumn:name="Version",type="string",JSONPath=".spec.version"
 // +kubebuilder:printcolumn:name="Status",type="string",JSONPath=".status.phase"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
-type Ignite struct {
-	meta.TypeMeta   `json:",inline"`
-	meta.ObjectMeta `json:"metadata,omitempty"`
+type Hazelcast struct {
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   IgniteSpec   `json:"spec,omitempty"`
-	Status IgniteStatus `json:"status,omitempty"`
+	Spec   HazelcastSpec   `json:"spec,omitempty"`
+	Status HazelcastStatus `json:"status,omitempty"`
 }
-
-// IgniteSpec defines the desired state of Ignite.
-type IgniteSpec struct {
-	// Version of Ignite to be deployed.
+type HazelcastSpec struct {
+	// Version of Hazelcast to be deployed
 	Version string `json:"version"`
 
-	// Number of instances to deploy for an Ignite database.
+	// lisence for hazelcast community edition
+	LicenseSecret *core.SecretReference `json:"licenseSecret,omitempty"`
+
+	// Number of instances to deploy for a Hazelcast database
 	// +optional
 	Replicas *int32 `json:"replicas,omitempty"`
 
-	// StorageType can be durable (default) or ephemeral
+	// StorageType van be durable (default) or ephemeral
 	StorageType StorageType `json:"storageType,omitempty"`
 
-	// Storage to specify how storage shall be used.
+	// Storage to specify how storage shall be used
 	Storage *core.PersistentVolumeClaimSpec `json:"storage,omitempty"`
 
-	// disable security. It disables authentication security of user.
+	// Custom java environment variables to be integrated
+	// +optional
+	JavaOpts []string `json:"javaOpts,omitempty"`
+
+	// Disable security. It disables authentication security of users.
 	// If unset, default is false
 	// +optional
 	DisableSecurity bool `json:"disableSecurity,omitempty"`
 
-	// Database authentication secret
-	// +optional
-	AuthSecret *SecretReference `json:"authSecret,omitempty"`
-
-	// ConfigSecret is an optional field to provide custom configuration file for database (i.e node-configuration.xml).
-	// If specified, this file will be used as configuration file otherwise default configuration file will be used.
 	// +optional
 	ConfigSecret *core.LocalObjectReference `json:"configSecret,omitempty"`
+
+	// +optional
+	AuthSecret *SecretReference `json:"authSecret,omitempty"`
 
 	// PodTemplate is an optional configuration for pods used to expose database
 	// +optional
@@ -89,26 +91,33 @@ type IgniteSpec struct {
 	// +optional
 	ServiceTemplates []NamedServiceTemplateSpec `json:"serviceTemplates,omitempty"`
 
-	// Indicates that the database is halted and all offshoot Kubernetes resources except PVCs are deleted.
-	// +optional
-	Halted bool `json:"halted,omitempty"`
-
 	// DeletionPolicy controls the delete operation for database
 	// +optional
 	DeletionPolicy DeletionPolicy `json:"deletionPolicy,omitempty"`
 
 	// HealthChecker defines attributes of the health checker
 	// +optional
-	// +kubebuilder:default={periodSeconds: 10, timeoutSeconds: 10, failureThreshold: 3}
+	// +kubebuilder:default={periodSeconds: 20, timeoutSeconds: 10, failureThreshold: 3}
 	HealthChecker kmapi.HealthCheckSpec `json:"healthChecker"`
 
-	// Monitor is used to monitor database instance
+	// To enable ssl for http layer
+	EnableSSL bool `json:"enableSSL,omitempty"`
+
+	// TLS contains tls configurations for client and server.
+	// +optional
+	TLS *kmapi.TLSConfig `json:"tls,omitempty"`
+
+	// Keystore encryption secret
+	// +optional
+	KeystoreSecret *core.LocalObjectReference `json:"keystoreSecret,omitempty"`
+
+	// Monitor is used monitor database instance
 	// +optional
 	Monitor *mona.AgentSpec `json:"monitor,omitempty"`
 }
 
-// IgniteStatus defines the observed state of Ignite.
-type IgniteStatus struct {
+// HazelcastStatus defines the observed state of Hazelcast.
+type HazelcastStatus struct {
 	// Specifies the current phase of the database
 	// +optional
 	Phase DatabasePhase `json:"phase,omitempty"`
@@ -121,11 +130,23 @@ type IgniteStatus struct {
 	Conditions []kmapi.Condition `json:"conditions,omitempty"`
 }
 
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:validation:Enum=ca;transport;http;client;server
+type HazelcastCertificateAlias string
 
-// IgniteList contains a list of Ignite.
-type IgniteList struct {
-	meta.TypeMeta `json:",inline"`
-	meta.ListMeta `json:"metadata,omitempty"`
-	Items         []Ignite `json:"items"`
+const (
+	HazelcastCACert        HazelcastCertificateAlias = "ca"
+	HazelcastTransportCert HazelcastCertificateAlias = "transport"
+	HazelcastHTTPCert      HazelcastCertificateAlias = "http"
+	HazelcastClientCert    HazelcastCertificateAlias = "client"
+	HazelcastServerCert    HazelcastCertificateAlias = "server"
+)
+
+// HazelcastList contains a list of Hazelcast.
+
+// +kubebuilder:object:root=true
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+type HazelcastList struct {
+	metav1.TypeMeta `json:",inline"`
+	metav1.ListMeta `json:"metadata,omitempty"`
+	Items           []Hazelcast `json:"items"`
 }

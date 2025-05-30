@@ -1,11 +1,11 @@
 apiVersion: metrics.appscode.com/v1alpha1
 kind: MetricsConfiguration
 metadata:
-  name: kubedb-com-memcached
+  name: kubedb-com-ignite
 spec:
   targetRef:
-    apiVersion: kubedb.com/v1
-    kind: Memcached
+    apiVersion: kubedb.com/v1alpha2
+    kind: Ignite
   commonLabels:
     - key: app
       valuePath: .metadata.name
@@ -22,7 +22,7 @@ spec:
         valueFromPath: .metadata.creationTimestamp
 
     - name: status_phase
-      help: "Memcached instance current phase"
+      help: "Ignite instance current phase"
       type: gauge
       field:
         path: .status.phase
@@ -53,7 +53,7 @@ spec:
               valueFromExpression: "int(phase == 'DataRestoring')"
 
     - name: info
-      help: "Memcached instance information"
+      help: "Ignite instance information"
       type: gauge
       labels:
         - key: deletionPolicy
@@ -64,7 +64,7 @@ spec:
         value: 1
 
     - name: status_conditions
-      help: "Memcached instance status condition"
+      help: "Ignite instance status condition"
       type: gauge
       field:
         path: .status.conditions
@@ -78,7 +78,7 @@ spec:
         value: 1
 
     - name: resource_request_cpu
-      help: "Requested CPU by Memcached in core"
+      help: "Requested CPU by Ignite in core"
       type: gauge
       labels:
         - key: unit
@@ -92,7 +92,7 @@ spec:
         valueFromExpression: total_resource_requests(obj, resourceType)
 
     - name: resource_request_memory
-      help: "Requested memory by Memcached in byte"
+      help: "Requested memory by Ignite in byte"
       type: gauge
       labels:
         - key: unit
@@ -106,7 +106,7 @@ spec:
         valueFromExpression: total_resource_requests(obj, resourceType)
 
     - name: resource_request_storage
-      help: "Requested storage by Memcached in byte"
+      help: "Requested storage by Ignite in byte"
       type: gauge
       labels:
         - key: unit
@@ -120,7 +120,7 @@ spec:
         valueFromExpression: total_resource_requests(obj, resourceType)
 
     - name: resource_limit_cpu
-      help: "CPU limit for Memcached in core"
+      help: "CPU limit for Ignite in core"
       type: gauge
       labels:
         - key: unit
@@ -134,7 +134,7 @@ spec:
         valueFromExpression: total_resource_limits(obj, resourceType)
 
     - name: resource_limit_memory
-      help: "Memory limit for Memcached in byte"
+      help: "Memory limit for Ignite in byte"
       type: gauge
       labels:
         - key: unit
@@ -148,7 +148,7 @@ spec:
         valueFromExpression: total_resource_limits(obj, resourceType)
 
     - name: resource_limit_storage
-      help: "Storage limit for Memcached in byte"
+      help: "Storage limit for Ignite in byte"
       type: gauge
       labels:
         - key: unit
@@ -162,7 +162,7 @@ spec:
         valueFromExpression: total_resource_limits(obj, resourceType)
 
     - name: replicas
-      help: "Number of replicas in the Memcached"
+      help: "Number of replicas in the Ignite"
       type: gauge
       field:
         path: .spec.replicas
