@@ -26,6 +26,7 @@ tar -zxvf $TARBALL
 
 k3s ctr images import images/apicurio-apicurio-registry-kafkasql-2.5.11.Final.tar
 k3s ctr images import images/apicurio-apicurio-registry-mem-2.5.11.Final.tar
+k3s ctr images import images/library-busybox-1.36.tar
 k3s ctr images import images/clickhouse-clickhouse-keeper-24.4.1.tar
 k3s ctr images import images/clickhouse-clickhouse-server-24.4.1.tar
 k3s ctr images import images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar
@@ -268,6 +269,7 @@ k3s ctr images import images/appscode-petset-v0.0.10.tar
 k3s ctr images import images/appscode-sidekick-v0.0.11.tar
 k3s ctr images import images/kubedb-cassandra-init-4.1.6-v2.tar
 k3s ctr images import images/kubedb-cassandra-init-5.0.0-v2.tar
+k3s ctr images import images/kubedb-cassandra-medusa-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-clickhouse-init-24.4.1.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.12.0.tar
@@ -324,6 +326,8 @@ k3s ctr images import images/kubedb-mysql-init-9.0.1-v2.tar
 k3s ctr images import images/kubedb-mysql-init-9.1.0-v2.tar
 k3s ctr images import images/kubedb-mysql-router-init-v0.32.0.tar
 k3s ctr images import images/kubedb-mysqld-exporter-v0.13.1.tar
+k3s ctr images import images/kubedb-oracle-coordinator-v0.1.0.tar
+k3s ctr images import images/kubedb-oracle-init-v0.1.0.tar
 k3s ctr images import images/kubedb-percona-xtradb-coordinator-v0.27.0.tar
 k3s ctr images import images/kubedb-percona-xtradb-init-0.2.3.tar
 k3s ctr images import images/kubedb-pg-coordinator-v0.38.0.tar
@@ -359,6 +363,7 @@ k3s ctr images import images/kubedb-proxysql-2.4.4-centos.tar
 k3s ctr images import images/kubedb-proxysql-2.4.4-debian.tar
 k3s ctr images import images/kubedb-proxysql-2.6.3-debian.tar
 k3s ctr images import images/kubedb-proxysql-2.7.3-debian.tar
+k3s ctr images import images/kubedb-proxysql-3.0.1-debian.tar
 k3s ctr images import images/kubedb-rabbitmq-init-3.12.12.tar
 k3s ctr images import images/kubedb-rabbitmq-init-3.13.2.tar
 k3s ctr images import images/kubedb-rabbitmq-init-4.0.4.tar
@@ -405,6 +410,7 @@ k3s ctr images import images/singlestore-cluster-in-a-box-alma-8.1.32-e3d3cde6da
 k3s ctr images import images/singlestore-cluster-in-a-box-alma-8.5.22-fe61f40cd1-4.1.0-1.17.11.tar
 k3s ctr images import images/singlestore-cluster-in-a-box-alma-8.5.7-bf633c1a54-4.0.17-1.17.8.tar
 k3s ctr images import images/singlestore-cluster-in-a-box-alma-8.7.10-95e2357384-4.1.0-1.17.14.tar
+k3s ctr images import images/souravbiswassanto-oracle-flat-vim-21.3.0.tar
 k3s ctr images import images/tianon-toybox-0.8.11.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg13-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg14-oss.tar

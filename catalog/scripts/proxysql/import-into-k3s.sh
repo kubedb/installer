@@ -31,3 +31,4 @@ k3s ctr images import images/kubedb-proxysql-2.4.4-centos.tar
 k3s ctr images import images/kubedb-proxysql-2.4.4-debian.tar
 k3s ctr images import images/kubedb-proxysql-2.6.3-debian.tar
 k3s ctr images import images/kubedb-proxysql-2.7.3-debian.tar
+k3s ctr images import images/kubedb-proxysql-3.0.1-debian.tar

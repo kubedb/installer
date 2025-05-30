@@ -34,6 +34,7 @@ CMD="./images/crane"
 
 $CMD pull --allow-nondistributable-artifacts --insecure apicurio/apicurio-registry-kafkasql:2.5.11.Final images/apicurio-apicurio-registry-kafkasql-2.5.11.Final.tar
 $CMD pull --allow-nondistributable-artifacts --insecure apicurio/apicurio-registry-mem:2.5.11.Final images/apicurio-apicurio-registry-mem-2.5.11.Final.tar
+$CMD pull --allow-nondistributable-artifacts --insecure busybox:1.36 images/library-busybox-1.36.tar
 $CMD pull --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-keeper:24.4.1 images/clickhouse-clickhouse-keeper-24.4.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-server:24.4.1 images/clickhouse-clickhouse-server-24.4.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0 images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar
@@ -276,6 +277,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.11 images/appscode-sidekick-v0.0.11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6-v2 images/kubedb-cassandra-init-4.1.6-v2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0-v2 images/kubedb-cassandra-init-5.0.0-v2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-medusa-plugin:v0.1.0 images/kubedb-cassandra-medusa-plugin-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1 images/kubedb-clickhouse-init-24.4.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.1.0 images/kubedb-dashboard-restic-plugin-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.12.0 images/kubedb-dashboard-restic-plugin-v0.12.0.tar
@@ -332,6 +334,8 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-ini
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:9.1.0-v2 images/kubedb-mysql-init-9.1.0-v2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.32.0 images/kubedb-mysql-router-init-v0.32.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.13.1 images/kubedb-mysqld-exporter-v0.13.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-coordinator:v0.1.0 images/kubedb-oracle-coordinator-v0.1.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-init:v0.1.0 images/kubedb-oracle-init-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-coordinator:v0.27.0 images/kubedb-percona-xtradb-coordinator-v0.27.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-init:0.2.3 images/kubedb-percona-xtradb-init-0.2.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pg-coordinator:v0.38.0 images/kubedb-pg-coordinator-v0.38.0.tar
@@ -367,6 +371,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.4.4-debian images/kubedb-proxysql-2.4.4-debian.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.6.3-debian images/kubedb-proxysql-2.6.3-debian.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.7.3-debian images/kubedb-proxysql-2.7.3-debian.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:3.0.1-debian images/kubedb-proxysql-3.0.1-debian.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:3.12.12 images/kubedb-rabbitmq-init-3.12.12.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:3.13.2 images/kubedb-rabbitmq-init-3.13.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:4.0.4 images/kubedb-rabbitmq-init-4.0.4.tar
@@ -413,6 +418,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a
 $CMD pull --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11 images/singlestore-cluster-in-a-box-alma-8.5.22-fe61f40cd1-4.1.0-1.17.11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8 images/singlestore-cluster-in-a-box-alma-8.5.7-bf633c1a54-4.0.17-1.17.8.tar
 $CMD pull --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.7.10-95e2357384-4.1.0-1.17.14 images/singlestore-cluster-in-a-box-alma-8.7.10-95e2357384-4.1.0-1.17.14.tar
+$CMD pull --allow-nondistributable-artifacts --insecure souravbiswassanto/oracle-flat-vim:21.3.0 images/souravbiswassanto-oracle-flat-vim-21.3.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure tianon/toybox:0.8.11 images/tianon-toybox-0.8.11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg13-oss images/timescale-timescaledb-2.14.2-pg13-oss.tar
 $CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg14-oss images/timescale-timescaledb-2.14.2-pg14-oss.tar

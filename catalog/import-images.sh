@@ -28,6 +28,7 @@ CMD="./crane"
 
 $CMD push --allow-nondistributable-artifacts --insecure images/apicurio-apicurio-registry-kafkasql-2.5.11.Final.tar $IMAGE_REGISTRY/apicurio/apicurio-registry-kafkasql:2.5.11.Final
 $CMD push --allow-nondistributable-artifacts --insecure images/apicurio-apicurio-registry-mem-2.5.11.Final.tar $IMAGE_REGISTRY/apicurio/apicurio-registry-mem:2.5.11.Final
+$CMD push --allow-nondistributable-artifacts --insecure images/library-busybox-1.36.tar $IMAGE_REGISTRY/busybox:1.36
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-keeper-24.4.1.tar $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:24.4.1
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-server-24.4.1.tar $IMAGE_REGISTRY/clickhouse/clickhouse-server:24.4.1
 $CMD push --allow-nondistributable-artifacts --insecure images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar $IMAGE_REGISTRY/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0
@@ -270,6 +271,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.11.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.11
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-4.1.6-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-5.0.0-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v2
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-medusa-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-clickhouse-init-24.4.1.tar $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.12.0.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.12.0
@@ -326,6 +328,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-9.1.0-v2.tar $IMAGE_REGISTRY/kubedb/mysql-init:9.1.0-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-router-init-v0.32.0.tar $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.32.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysqld-exporter-v0.13.1.tar $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.13.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-coordinator-v0.1.0.tar $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.1.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-init-v0.1.0.tar $IMAGE_REGISTRY/kubedb/oracle-init:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-coordinator-v0.27.0.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-coordinator:v0.27.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-init-0.2.3.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-init:0.2.3
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pg-coordinator-v0.38.0.tar $IMAGE_REGISTRY/kubedb/pg-coordinator:v0.38.0
@@ -361,6 +365,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2.4.4-debian.tar $IMAGE_REGISTRY/kubedb/proxysql:2.4.4-debian
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2.6.3-debian.tar $IMAGE_REGISTRY/kubedb/proxysql:2.6.3-debian
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2.7.3-debian.tar $IMAGE_REGISTRY/kubedb/proxysql:2.7.3-debian
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-3.0.1-debian.tar $IMAGE_REGISTRY/kubedb/proxysql:3.0.1-debian
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-rabbitmq-init-3.12.12.tar $IMAGE_REGISTRY/kubedb/rabbitmq-init:3.12.12
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-rabbitmq-init-3.13.2.tar $IMAGE_REGISTRY/kubedb/rabbitmq-init:3.13.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-rabbitmq-init-4.0.4.tar $IMAGE_REGISTRY/kubedb/rabbitmq-init:4.0.4
@@ -407,6 +412,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/singlestore-clust
 $CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.5.22-fe61f40cd1-4.1.0-1.17.11.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11
 $CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.5.7-bf633c1a54-4.0.17-1.17.8.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8
 $CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.7.10-95e2357384-4.1.0-1.17.14.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.7.10-95e2357384-4.1.0-1.17.14
+$CMD push --allow-nondistributable-artifacts --insecure images/souravbiswassanto-oracle-flat-vim-21.3.0.tar $IMAGE_REGISTRY/souravbiswassanto/oracle-flat-vim:21.3.0
 $CMD push --allow-nondistributable-artifacts --insecure images/tianon-toybox-0.8.11.tar $IMAGE_REGISTRY/tianon/toybox:0.8.11
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg13-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg13-oss
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg14-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg14-oss
