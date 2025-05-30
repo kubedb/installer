@@ -37,6 +37,7 @@ CMD="./crane"
 
 $CMD cp --allow-nondistributable-artifacts --insecure apicurio/apicurio-registry-kafkasql:2.5.11.Final $IMAGE_REGISTRY/apicurio/apicurio-registry-kafkasql:2.5.11.Final
 $CMD cp --allow-nondistributable-artifacts --insecure apicurio/apicurio-registry-mem:2.5.11.Final $IMAGE_REGISTRY/apicurio/apicurio-registry-mem:2.5.11.Final
+$CMD cp --allow-nondistributable-artifacts --insecure busybox:1.36 $IMAGE_REGISTRY/busybox:1.36
 $CMD cp --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-keeper:24.4.1 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:24.4.1
 $CMD cp --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-server:24.4.1 $IMAGE_REGISTRY/clickhouse/clickhouse-server:24.4.1
 $CMD cp --allow-nondistributable-artifacts --insecure floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0 $IMAGE_REGISTRY/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0
@@ -289,6 +290,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.11 $IMAGE_REGISTRY/appscode/sidekick:v0.0.11
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6-v2 $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0-v2 $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v2
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-medusa-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1 $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.12.0 $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.12.0
@@ -345,6 +347,9 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:9.1.0-v2 $IMAGE_REGISTRY/kubedb/mysql-init:9.1.0-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.32.0 $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.32.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.13.1 $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.13.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-coordinator:v0.1.0 $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.1.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-ee:21.3.0 $IMAGE_REGISTRY/kubedb/oracle-ee:21.3.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-init:v0.1.0 $IMAGE_REGISTRY/kubedb/oracle-init:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-coordinator:v0.27.0 $IMAGE_REGISTRY/kubedb/percona-xtradb-coordinator:v0.27.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-init:0.2.3 $IMAGE_REGISTRY/kubedb/percona-xtradb-init:0.2.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pg-coordinator:v0.38.0 $IMAGE_REGISTRY/kubedb/pg-coordinator:v0.38.0
@@ -380,6 +385,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.4.4-debian $IMAGE_REGISTRY/kubedb/proxysql:2.4.4-debian
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.6.3-debian $IMAGE_REGISTRY/kubedb/proxysql:2.6.3-debian
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.7.3-debian $IMAGE_REGISTRY/kubedb/proxysql:2.7.3-debian
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:3.0.1-debian $IMAGE_REGISTRY/kubedb/proxysql:3.0.1-debian
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:3.12.12 $IMAGE_REGISTRY/kubedb/rabbitmq-init:3.12.12
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:3.13.2 $IMAGE_REGISTRY/kubedb/rabbitmq-init:3.13.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:4.0.4 $IMAGE_REGISTRY/kubedb/rabbitmq-init:4.0.4

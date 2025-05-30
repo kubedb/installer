@@ -35,11 +35,7 @@ mv /tmp/crane .
 
 CMD="./crane"
 
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql-exporter:v1.1.0 $IMAGE_REGISTRY/kubedb/proxysql-exporter:v1.1.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.3.2-centos-v2 $IMAGE_REGISTRY/kubedb/proxysql:2.3.2-centos-v2
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.3.2-debian-v2 $IMAGE_REGISTRY/kubedb/proxysql:2.3.2-debian-v2
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.4.4-centos $IMAGE_REGISTRY/kubedb/proxysql:2.4.4-centos
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.4.4-debian $IMAGE_REGISTRY/kubedb/proxysql:2.4.4-debian
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.6.3-debian $IMAGE_REGISTRY/kubedb/proxysql:2.6.3-debian
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.7.3-debian $IMAGE_REGISTRY/kubedb/proxysql:2.7.3-debian
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:3.0.1-debian $IMAGE_REGISTRY/kubedb/proxysql:3.0.1-debian
+$CMD cp --allow-nondistributable-artifacts --insecure busybox:1.36 $IMAGE_REGISTRY/busybox:1.36
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-coordinator:v0.1.0 $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.1.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-ee:21.3.0 $IMAGE_REGISTRY/kubedb/oracle-ee:21.3.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-init:v0.1.0 $IMAGE_REGISTRY/kubedb/oracle-init:v0.1.0

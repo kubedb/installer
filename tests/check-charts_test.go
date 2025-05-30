@@ -57,6 +57,7 @@ func Test_CheckImageArchitectures(t *testing.T) {
 		"ghcr.io/appscode-images/singlestore-node:alma-8.9.3-bfa36a984a",
 		"ghcr.io/kubedb/mysql-archiver:v0.15.0_5.7.44",
 		"ghcr.io/kubedb/mysql-init:5.7-v6",
+		"ghcr.io/kubedb/oracle-ee:21.3.0",
 		"ghcr.io/kubedb/proxysql-exporter:v1.1.0",
 		"mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04",
 		"mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04",

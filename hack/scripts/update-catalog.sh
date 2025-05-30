@@ -35,6 +35,7 @@ declare -a components=(
     mongodb
     mssqlserver
     mysql
+    oracle
     operator
     perconaxtradb
     pgbouncer
