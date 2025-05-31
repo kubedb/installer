@@ -15,13 +15,13 @@ require (
 	gomodules.xyz/semvers v0.0.2
 	k8s.io/api v0.32.3
 	k8s.io/apimachinery v0.32.3
-	kmodules.xyz/client-go v0.32.1
+	kmodules.xyz/client-go v0.32.6
 	kmodules.xyz/go-containerregistry v0.0.14
-	kmodules.xyz/image-packer v0.0.0-20250416205511-125e742f0e3b
-	kmodules.xyz/resource-metadata v0.28.0
+	kmodules.xyz/image-packer v0.0.0-20250528193538-0cb00550d6b5
+	kmodules.xyz/resource-metadata v0.30.1
 	kmodules.xyz/schema-checker v0.4.2
-	kubedb.dev/apimachinery v0.54.1-0.20250529092411-5cb0354649fa
-	kubeops.dev/installer v0.0.0-20250428172304-64230eb785df
+	kubedb.dev/apimachinery v0.55.0
+	kubeops.dev/installer v0.0.0-20250529223915-fdb0edd13c4b
 	sigs.k8s.io/yaml v1.4.0
 	stash.appscode.dev/installer v0.12.2-0.20250317171548-c1064c4022f2
 )
@@ -120,7 +120,7 @@ require (
 	kubeops.dev/petset v0.0.10 // indirect
 	kubeops.dev/scanner v0.0.19 // indirect
 	kubeops.dev/sidekick v0.0.11 // indirect
-	sigs.k8s.io/controller-runtime v0.20.3 // indirect
+	sigs.k8s.io/controller-runtime v0.20.4 // indirect
 	sigs.k8s.io/gateway-api v1.1.0 // indirect
 	sigs.k8s.io/json v0.0.0-20241014173422-cfa47c3a1cc8 // indirect
 	sigs.k8s.io/randfill v1.0.0 // indirect
