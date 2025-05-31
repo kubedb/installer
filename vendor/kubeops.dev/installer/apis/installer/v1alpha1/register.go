@@ -82,6 +82,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&SidekickList{},
 		&Supervisor{},
 		&SupervisorList{},
+		&Taskqueue{},
+		&TaskqueueList{},
 	)
 
 	scheme.AddKnownTypes(SchemeGroupVersion,
