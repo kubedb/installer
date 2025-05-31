@@ -503,7 +503,7 @@ func main() {
 					templatizeRegistry := func(fields ...string) {
 						fieldList := append([]string{"spec", prop}, fields...)
 						img, ok, _ := unstructured.NestedString(objCopy.Object, fieldList...)
-						if ok {
+						if img != "" && ok {
 							decodedImg := decodeTag(img)
 							ref, err := name.ParseReference(decodedImg)
 							if err != nil {
