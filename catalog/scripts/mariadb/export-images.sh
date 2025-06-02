@@ -53,7 +53,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-a
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.15.0_11.1.3-jammy images/kubedb-mariadb-archiver-v0.15.0_11.1.3-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.15.0_11.2.2-jammy images/kubedb-mariadb-archiver-v0.15.0_11.2.2-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-coordinator:v0.35.0 images/kubedb-mariadb-coordinator-v0.35.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-init:0.5.3 images/kubedb-mariadb-init-0.5.3.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-init:0.6.0 images/kubedb-mariadb-init-0.6.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mariadb/maxscale:24.02.4 images/mariadb-maxscale-24.02.4.tar
 
 tar -czvf images.tar.gz images
