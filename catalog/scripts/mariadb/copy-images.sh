@@ -56,5 +56,5 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-arc
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.15.0_11.1.3-jammy $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.15.0_11.1.3-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.15.0_11.2.2-jammy $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.15.0_11.2.2-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-coordinator:v0.35.0 $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.35.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-init:0.5.3 $IMAGE_REGISTRY/kubedb/mariadb-init:0.5.3
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-init:0.6.0 $IMAGE_REGISTRY/kubedb/mariadb-init:0.6.0
 $CMD cp --allow-nondistributable-artifacts --insecure mariadb/maxscale:24.02.4 $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
