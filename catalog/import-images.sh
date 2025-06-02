@@ -312,7 +312,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-ar
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.15.0_11.2.2-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.15.0_11.2.2-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-coordinator-v0.35.0.tar $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.35.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-csi-snapshotter-plugin-v0.15.0.tar $IMAGE_REGISTRY/kubedb/mariadb-csi-snapshotter-plugin:v0.15.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-init-0.5.3.tar $IMAGE_REGISTRY/kubedb/mariadb-init:0.5.3
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-init-0.6.0.tar $IMAGE_REGISTRY/kubedb/mariadb-init:0.6.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.13.0.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.13.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-csi-snapshotter-plugin-v0.16.0.tar $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.16.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-4.2-v9.tar $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
