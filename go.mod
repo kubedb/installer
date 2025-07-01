@@ -17,13 +17,13 @@ require (
 	k8s.io/apimachinery v0.32.3
 	kmodules.xyz/client-go v0.32.6
 	kmodules.xyz/go-containerregistry v0.0.14
-	kmodules.xyz/image-packer v0.0.0-20250528193538-0cb00550d6b5
-	kmodules.xyz/resource-metadata v0.30.1
+	kmodules.xyz/image-packer v0.0.0-20250618195635-2d28be8a47e3
+	kmodules.xyz/resource-metadata v0.31.1-0.20250627044415-66d5cf92df53
 	kmodules.xyz/schema-checker v0.4.2
 	kubedb.dev/apimachinery v0.55.0
-	kubeops.dev/installer v0.0.0-20250529223915-fdb0edd13c4b
+	kubeops.dev/installer v0.0.0-20250630172252-60882a8ed9ab
 	sigs.k8s.io/yaml v1.4.0
-	stash.appscode.dev/installer v0.12.2-0.20250317171548-c1064c4022f2
+	stash.appscode.dev/installer v0.12.2-0.20250630171625-d3c674690e22
 )
 
 require (
