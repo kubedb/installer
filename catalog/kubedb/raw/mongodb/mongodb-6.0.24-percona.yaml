@@ -1,0 +1,50 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  name: percona-6.0.24
+spec:
+  archiver:
+    addon:
+      name: mongodb-addon
+      tasks:
+        fullBackup:
+          name: logical-backup
+        fullBackupRestore:
+          name: logical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: ghcr.io/kubedb/wal-g:v2024.12.18_mongo
+  db:
+    image: percona/percona-server-mongodb:6.0.24
+  distribution: Percona
+  exporter:
+    image: ghcr.io/kubedb/mongodb_exporter:v0.40.0
+  gitSyncer:
+    image: registry.k8s.io/git-sync/git-sync:v4.2.1
+  initContainer:
+    image: ghcr.io/kubedb/mongodb-init:6.0-v10
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+  replicationModeDetector:
+    image: ghcr.io/kubedb/replication-mode-detector:v0.42.0
+  securityContext:
+    runAsGroup: 0
+    runAsUser: 1001
+  stash:
+    addon:
+      backupTask:
+        name: mongodb-backup-6.0.5
+      restoreTask:
+        name: mongodb-restore-6.0.5
+  ui:
+  - name: mongo-ui
+    version: v2024.4.27
+  updateConstraints:
+    allowlist:
+    - '>= 6.0.24, < 8.0.0'
+  version: 6.0.24
