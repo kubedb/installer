@@ -34,5 +34,6 @@ CMD="./images/crane"
 
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hazelcast-init:5.5.2 images/kubedb-hazelcast-init-5.5.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure hazelcast/hazelcast-enterprise:5.5.2 images/hazelcast-hazelcast-enterprise-5.5.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure hazelcast/hazelcast-enterprise:5.5.6 images/hazelcast-hazelcast-enterprise-5.5.6.tar
 
 tar -czvf images.tar.gz images

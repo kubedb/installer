@@ -34,6 +34,6 @@ CMD="./images/crane"
 
 $CMD pull --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-keeper:24.4.1 images/clickhouse-clickhouse-keeper-24.4.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-server:24.4.1 images/clickhouse-clickhouse-server-24.4.1.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1-v1 images/kubedb-clickhouse-init-24.4.1-v1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1-v2 images/kubedb-clickhouse-init-24.4.1-v2.tar
 
 tar -czvf images.tar.gz images
