@@ -107,4 +107,39 @@ spec:
   securityContext:
     runAsUser: 10001
   version: "2022"
+
+---
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MSSQLServerVersion
+metadata:
+  name: '2022-cu19'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  archiver:
+    addon:
+      name: mssqlserver-addon
+      tasks:
+        fullBackup:
+          name: logical-backup
+        fullBackupRestore:
+          name: logical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+    walg:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mssqlserver-archiver") $) }}:v0.9.0'
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mssql-coordinator") $) }}:v0.10.0'
+  db:
+    image: '{{ include "image.microsoft" (merge (dict "_repo" "mssql/server") $) }}:2022-CU19-ubuntu-22.04'
+  exporter:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mssql-exporter") $) }}:1.1.0'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mssql-init") $) }}:2022-ubuntu-22-v3'
+  securityContext:
+    runAsUser: 10001
+  version: "2022"
 {{ end }}
