@@ -29,13 +29,17 @@ k3s ctr images import images/appscode-images-kafka-connect-cluster-3.6.1.tar
 k3s ctr images import images/appscode-images-kafka-connect-cluster-3.7.2.tar
 k3s ctr images import images/appscode-images-kafka-connect-cluster-3.8.1.tar
 k3s ctr images import images/appscode-images-kafka-connect-cluster-3.9.0.tar
+k3s ctr images import images/appscode-images-kafka-connect-cluster-4.0.0.tar
 k3s ctr images import images/appscode-images-kafka-cruise-control-3.5.2.tar
 k3s ctr images import images/appscode-images-kafka-cruise-control-3.6.1.tar
 k3s ctr images import images/appscode-images-kafka-cruise-control-3.7.2.tar
 k3s ctr images import images/appscode-images-kafka-cruise-control-3.8.1.tar
 k3s ctr images import images/appscode-images-kafka-cruise-control-3.9.0.tar
+k3s ctr images import images/appscode-images-kafka-cruise-control-4.0.0.tar
 k3s ctr images import images/appscode-images-kafka-kraft-3.5.2.tar
 k3s ctr images import images/appscode-images-kafka-kraft-3.6.1.tar
 k3s ctr images import images/appscode-images-kafka-kraft-3.7.2.tar
 k3s ctr images import images/appscode-images-kafka-kraft-3.8.1.tar
 k3s ctr images import images/appscode-images-kafka-kraft-3.9.0.tar
+k3s ctr images import images/appscode-images-kafka-4.0.0.tar
+k3s ctr images import images/kubedb-kafka-init-4.0-v1.tar

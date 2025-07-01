@@ -36,19 +36,27 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:4.4.26 images/appscode-images-mongo-4.4.26.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:5.0.23 images/appscode-images-mongo-5.0.23.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:5.0.26 images/appscode-images-mongo-5.0.26.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:5.0.31 images/appscode-images-mongo-5.0.31.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:6.0.12 images/appscode-images-mongo-6.0.12.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:6.0.24 images/appscode-images-mongo-6.0.24.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.16 images/appscode-images-mongo-7.0.16.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.21 images/appscode-images-mongo-7.0.21.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.5 images/appscode-images-mongo-7.0.5.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.8 images/appscode-images-mongo-7.0.8.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.10 images/appscode-images-mongo-8.0.10.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.4 images/appscode-images-mongo-8.0.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 images/kubedb-mongodb-init-4.2-v9.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v10 images/kubedb-mongodb-init-6.0-v10.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v11 images/kubedb-mongodb-init-6.0-v11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb_exporter:v0.40.0 images/kubedb-mongodb_exporter-v0.40.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/wal-g:v2024.12.18_mongo images/kubedb-wal-g-v2024.12.18_mongo.tar
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:4.2.24 images/percona-percona-server-mongodb-4.2.24.tar
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:4.4.26 images/percona-percona-server-mongodb-4.4.26.tar
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:5.0.23 images/percona-percona-server-mongodb-5.0.23.tar
+$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:5.0.29 images/percona-percona-server-mongodb-5.0.29.tar
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:6.0.12 images/percona-percona-server-mongodb-6.0.12.tar
+$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:6.0.24 images/percona-percona-server-mongodb-6.0.24.tar
+$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:7.0.18 images/percona-percona-server-mongodb-7.0.18.tar
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:7.0.4 images/percona-percona-server-mongodb-7.0.4.tar
+$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:8.0.8 images/percona-percona-server-mongodb-8.0.8.tar
 
 tar -czvf images.tar.gz images

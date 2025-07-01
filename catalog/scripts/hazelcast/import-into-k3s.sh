@@ -26,3 +26,4 @@ tar -zxvf $TARBALL
 
 k3s ctr images import images/kubedb-hazelcast-init-5.5.2.tar
 k3s ctr images import images/hazelcast-hazelcast-enterprise-5.5.2.tar
+k3s ctr images import images/hazelcast-hazelcast-enterprise-5.5.6.tar

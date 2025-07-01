@@ -28,4 +28,4 @@ CMD="./crane"
 
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-keeper-24.4.1.tar $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:24.4.1
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-server-24.4.1.tar $IMAGE_REGISTRY/clickhouse/clickhouse-server:24.4.1
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-clickhouse-init-24.4.1-v1.tar $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1-v1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-clickhouse-init-24.4.1-v2.tar $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1-v2

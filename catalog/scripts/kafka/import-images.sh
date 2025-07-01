@@ -31,13 +31,17 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-k
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connect-cluster-3.7.2.tar $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.7.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connect-cluster-3.8.1.tar $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.8.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connect-cluster-3.9.0.tar $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.9.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connect-cluster-4.0.0.tar $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:4.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-cruise-control-3.5.2.tar $IMAGE_REGISTRY/appscode-images/kafka-cruise-control:3.5.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-cruise-control-3.6.1.tar $IMAGE_REGISTRY/appscode-images/kafka-cruise-control:3.6.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-cruise-control-3.7.2.tar $IMAGE_REGISTRY/appscode-images/kafka-cruise-control:3.7.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-cruise-control-3.8.1.tar $IMAGE_REGISTRY/appscode-images/kafka-cruise-control:3.8.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-cruise-control-3.9.0.tar $IMAGE_REGISTRY/appscode-images/kafka-cruise-control:3.9.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-cruise-control-4.0.0.tar $IMAGE_REGISTRY/appscode-images/kafka-cruise-control:4.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-kraft-3.5.2.tar $IMAGE_REGISTRY/appscode-images/kafka-kraft:3.5.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-kraft-3.6.1.tar $IMAGE_REGISTRY/appscode-images/kafka-kraft:3.6.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-kraft-3.7.2.tar $IMAGE_REGISTRY/appscode-images/kafka-kraft:3.7.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-kraft-3.8.1.tar $IMAGE_REGISTRY/appscode-images/kafka-kraft:3.8.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-kraft-3.9.0.tar $IMAGE_REGISTRY/appscode-images/kafka-kraft:3.9.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-4.0.0.tar $IMAGE_REGISTRY/appscode-images/kafka:4.0.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kafka-init-4.0-v1.tar $IMAGE_REGISTRY/kubedb/kafka-init:4.0-v1

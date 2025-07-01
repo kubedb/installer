@@ -37,3 +37,4 @@ CMD="./crane"
 
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hazelcast-init:5.5.2 $IMAGE_REGISTRY/kubedb/hazelcast-init:5.5.2
 $CMD cp --allow-nondistributable-artifacts --insecure hazelcast/hazelcast-enterprise:5.5.2 $IMAGE_REGISTRY/hazelcast/hazelcast-enterprise:5.5.2
+$CMD cp --allow-nondistributable-artifacts --insecure hazelcast/hazelcast-enterprise:5.5.6 $IMAGE_REGISTRY/hazelcast/hazelcast-enterprise:5.5.6

@@ -40,6 +40,6 @@ k3s ctr images import images/appscode-images-valkey-7.2.9.tar
 k3s ctr images import images/appscode-images-valkey-8.0.3.tar
 k3s ctr images import images/appscode-images-valkey-8.1.1.tar
 k3s ctr images import images/kubedb-redis-coordinator-v0.34.0.tar
-k3s ctr images import images/kubedb-redis-init-0.11.0.tar
+k3s ctr images import images/kubedb-redis-init-0.12.0.tar
 k3s ctr images import images/kubedb-redis-4.0.11.tar
 k3s ctr images import images/kubedb-redis_exporter-1.66.0.tar

@@ -33,3 +33,4 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssqlserve
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU12-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU12-ubuntu-22.04
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU14-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU14-ubuntu-22.04
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU16-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU16-ubuntu-22.04
+$CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU19-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU19-ubuntu-22.04

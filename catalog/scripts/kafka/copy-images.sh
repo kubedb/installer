@@ -40,13 +40,17 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ka
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.7.2 $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.7.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.8.1 $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.8.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.9.0 $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.9.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:4.0.0 $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:4.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:3.5.2 $IMAGE_REGISTRY/appscode-images/kafka-cruise-control:3.5.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:3.6.1 $IMAGE_REGISTRY/appscode-images/kafka-cruise-control:3.6.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:3.7.2 $IMAGE_REGISTRY/appscode-images/kafka-cruise-control:3.7.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:3.8.1 $IMAGE_REGISTRY/appscode-images/kafka-cruise-control:3.8.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:3.9.0 $IMAGE_REGISTRY/appscode-images/kafka-cruise-control:3.9.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:4.0.0 $IMAGE_REGISTRY/appscode-images/kafka-cruise-control:4.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.5.2 $IMAGE_REGISTRY/appscode-images/kafka-kraft:3.5.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.6.1 $IMAGE_REGISTRY/appscode-images/kafka-kraft:3.6.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.7.2 $IMAGE_REGISTRY/appscode-images/kafka-kraft:3.7.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.8.1 $IMAGE_REGISTRY/appscode-images/kafka-kraft:3.8.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.9.0 $IMAGE_REGISTRY/appscode-images/kafka-kraft:3.9.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka:4.0.0 $IMAGE_REGISTRY/appscode-images/kafka:4.0.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kafka-init:4.0-v1 $IMAGE_REGISTRY/kubedb/kafka-init:4.0-v1
