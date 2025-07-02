@@ -4,7 +4,7 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/name: kubedb
-  name: redisopsrequests.ops.kubedb.com
+  name: igniteopsrequests.ops.kubedb.com
 spec:
   group: ops.kubedb.com
   names:
@@ -12,12 +12,12 @@ spec:
     - ops
     - kubedb
     - appscode
-    kind: RedisOpsRequest
-    listKind: RedisOpsRequestList
-    plural: redisopsrequests
+    kind: IgniteOpsRequest
+    listKind: IgniteOpsRequestList
+    plural: igniteopsrequests
     shortNames:
-    - rdops
-    singular: redisopsrequest
+    - igops
+    singular: igniteopsrequest
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
@@ -42,24 +42,6 @@ spec:
             type: object
           spec:
             properties:
-              announce:
-                properties:
-                  shards:
-                    items:
-                      properties:
-                        endpoints:
-                          items:
-                            type: string
-                          type: array
-                      type: object
-                    type: array
-                  type:
-                    default: hostname
-                    enum:
-                    - ip
-                    - hostname
-                    type: string
-                type: object
               apply:
                 default: IfReady
                 enum:
@@ -101,28 +83,11 @@ spec:
                 x-kubernetes-map-type: atomic
               horizontalScaling:
                 properties:
-                  replicas:
-                    format: int32
-                    type: integer
-                  shards:
+                  node:
                     format: int32
                     type: integer
                 type: object
               restart:
-                type: object
-              sentinel:
-                properties:
-                  ref:
-                    properties:
-                      name:
-                        type: string
-                      namespace:
-                        type: string
-                    type: object
-                  removeUnusedSentinel:
-                    type: boolean
-                required:
-                - ref
                 type: object
               timeout:
                 type: string
@@ -230,20 +195,6 @@ spec:
                     type: boolean
                   rotateCertificates:
                     type: boolean
-                  sentinel:
-                    properties:
-                      ref:
-                        properties:
-                          name:
-                            type: string
-                          namespace:
-                            type: string
-                        type: object
-                      removeUnusedSentinel:
-                        type: boolean
-                    required:
-                    - ref
-                    type: object
                 type: object
               type:
                 enum:
@@ -254,92 +205,16 @@ spec:
                 - Restart
                 - Reconfigure
                 - ReconfigureTLS
-                - ReplaceSentinel
                 - RotateAuth
-                - Announce
                 type: string
               updateVersion:
                 properties:
-                  readinessCriteria:
-                    type: object
                   targetVersion:
                     type: string
                 type: object
               verticalScaling:
                 properties:
-                  coordinator:
-                    properties:
-                      resources:
-                        properties:
-                          claims:
-                            items:
-                              properties:
-                                name:
-                                  type: string
-                                request:
-                                  type: string
-                              required:
-                              - name
-                              type: object
-                            type: array
-                            x-kubernetes-list-map-keys:
-                            - name
-                            x-kubernetes-list-type: map
-                          limits:
-                            additionalProperties:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                            type: object
-                          requests:
-                            additionalProperties:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                            type: object
-                        type: object
-                    type: object
-                  exporter:
-                    properties:
-                      resources:
-                        properties:
-                          claims:
-                            items:
-                              properties:
-                                name:
-                                  type: string
-                                request:
-                                  type: string
-                              required:
-                              - name
-                              type: object
-                            type: array
-                            x-kubernetes-list-map-keys:
-                            - name
-                            x-kubernetes-list-type: map
-                          limits:
-                            additionalProperties:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                            type: object
-                          requests:
-                            additionalProperties:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                            type: object
-                        type: object
-                    type: object
-                  redis:
+                  node:
                     properties:
                       nodeSelectionPolicy:
                         type: string
@@ -395,7 +270,7 @@ spec:
                     - Offline
                     - Online
                     type: string
-                  redis:
+                  node:
                     anyOf:
                     - type: integer
                     - type: string
