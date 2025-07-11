@@ -271,6 +271,7 @@ k3s ctr images import images/appscode-images-singlestore-node-alma-8.7.21-f0b8de
 k3s ctr images import images/appscode-images-singlestore-node-alma-8.9.3-bfa36a984a.tar
 k3s ctr images import images/appscode-images-solr-8.11.4.tar
 k3s ctr images import images/appscode-images-solr-9.4.1.tar
+k3s ctr images import images/appscode-images-solr-9.5.0.tar
 k3s ctr images import images/appscode-images-solr-9.6.1.tar
 k3s ctr images import images/appscode-images-solr-9.7.0.tar
 k3s ctr images import images/appscode-images-solr-9.8.0.tar
@@ -399,6 +400,7 @@ k3s ctr images import images/kubedb-singlestore-init-8.5-v2.tar
 k3s ctr images import images/kubedb-singlestore-init-8.7.10-v1.tar
 k3s ctr images import images/kubedb-solr-init-8.11.4.tar
 k3s ctr images import images/kubedb-solr-init-9.4.1.tar
+k3s ctr images import images/kubedb-solr-init-9.5.0.tar
 k3s ctr images import images/kubedb-solr-init-9.6.1.tar
 k3s ctr images import images/kubedb-solr-init-9.7.0.tar
 k3s ctr images import images/kubedb-solr-init-9.8.0.tar

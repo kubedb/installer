@@ -279,6 +279,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/singlestore-node:alma-8.9.3-bfa36a984a images/appscode-images-singlestore-node-alma-8.9.3-bfa36a984a.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:8.11.4 images/appscode-images-solr-8.11.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:9.4.1 images/appscode-images-solr-9.4.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:9.5.0 images/appscode-images-solr-9.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:9.6.1 images/appscode-images-solr-9.6.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:9.7.0 images/appscode-images-solr-9.7.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:9.8.0 images/appscode-images-solr-9.8.0.tar
@@ -407,6 +408,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlesto
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-init:8.7.10-v1 images/kubedb-singlestore-init-8.7.10-v1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:8.11.4 images/kubedb-solr-init-8.11.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.4.1 images/kubedb-solr-init-9.4.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.5.0 images/kubedb-solr-init-9.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.6.1 images/kubedb-solr-init-9.6.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.7.0 images/kubedb-solr-init-9.7.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.8.0 images/kubedb-solr-init-9.8.0.tar

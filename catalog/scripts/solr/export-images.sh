@@ -34,11 +34,13 @@ CMD="./images/crane"
 
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:8.11.4 images/appscode-images-solr-8.11.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:9.4.1 images/appscode-images-solr-9.4.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:9.5.0 images/appscode-images-solr-9.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:9.6.1 images/appscode-images-solr-9.6.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:9.7.0 images/appscode-images-solr-9.7.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:9.8.0 images/appscode-images-solr-9.8.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:8.11.4 images/kubedb-solr-init-8.11.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.4.1 images/kubedb-solr-init-9.4.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.5.0 images/kubedb-solr-init-9.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.6.1 images/kubedb-solr-init-9.6.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.7.0 images/kubedb-solr-init-9.7.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.8.0 images/kubedb-solr-init-9.8.0.tar

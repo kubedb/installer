@@ -282,6 +282,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/si
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/singlestore-node:alma-8.9.3-bfa36a984a $IMAGE_REGISTRY/appscode-images/singlestore-node:alma-8.9.3-bfa36a984a
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:8.11.4 $IMAGE_REGISTRY/appscode-images/solr:8.11.4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:9.4.1 $IMAGE_REGISTRY/appscode-images/solr:9.4.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:9.5.0 $IMAGE_REGISTRY/appscode-images/solr:9.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:9.6.1 $IMAGE_REGISTRY/appscode-images/solr:9.6.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:9.7.0 $IMAGE_REGISTRY/appscode-images/solr:9.7.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/solr:9.8.0 $IMAGE_REGISTRY/appscode-images/solr:9.8.0
@@ -410,6 +411,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-init:8.7.10-v1 $IMAGE_REGISTRY/kubedb/singlestore-init:8.7.10-v1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:8.11.4 $IMAGE_REGISTRY/kubedb/solr-init:8.11.4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.4.1 $IMAGE_REGISTRY/kubedb/solr-init:9.4.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.5.0 $IMAGE_REGISTRY/kubedb/solr-init:9.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.6.1 $IMAGE_REGISTRY/kubedb/solr-init:9.6.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.7.0 $IMAGE_REGISTRY/kubedb/solr-init:9.7.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.8.0 $IMAGE_REGISTRY/kubedb/solr-init:9.8.0
