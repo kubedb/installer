@@ -115,8 +115,19 @@ type KubedbOpsManagerList struct {
 }
 
 type RecommendationEngineConfig struct {
-	RecommendationResyncPeriod                  metav1.Duration `json:"recommendationResyncPeriod"`
-	GenRotateTLSRecommendationBeforeExpiryYear  int             `json:"genRotateTLSRecommendationBeforeExpiryYear"`
-	GenRotateTLSRecommendationBeforeExpiryMonth int             `json:"genRotateTLSRecommendationBeforeExpiryMonth"`
-	GenRotateTLSRecommendationBeforeExpiryDay   int             `json:"genRotateTLSRecommendationBeforeExpiryDay"`
+	ResyncPeriod metav1.Duration   `json:"resyncPeriod"`
+	Deadline     Deadline          `json:"deadline"`
+	RotateTLS    GenRecommendation `json:"rotateTLS"`
+	RotateAuth   GenRecommendation `json:"rotateAuth"`
+}
+
+type Deadline struct {
+	Enable              bool            `json:"enable"`
+	MaxEvaluationPeriod metav1.Duration `json:"maxEvaluationPeriod"`
+}
+
+type GenRecommendation struct {
+	GenRecommendationBeforeExpiryYear  int `json:"genRecommendationBeforeExpiryYear"`
+	GenRecommendationBeforeExpiryMonth int `json:"genRecommendationBeforeExpiryMonth"`
+	GenRecommendationBeforeExpiryDay   int `json:"genRecommendationBeforeExpiryDay"`
 }
