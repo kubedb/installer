@@ -8,17 +8,17 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ClickHouseVersion
 metadata:
-  name: '25.7.0'
+  name: '25.7.1'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   clickHouseKeeper:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "clickhouse/clickhouse-keeper") $) }}:25.7.0'
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "clickhouse/clickhouse-keeper") $) }}:25.7.1'
   db:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "clickhouse/clickhouse-server") $) }}:25.7.0'
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "clickhouse/clickhouse-server") $) }}:25.7.1'
   initContainer:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "shuvo14/ch-init") $) }}:july-28.3'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/clickhouse-init") $) }}:24.4.1-v3'
   securityContext:
     runAsUser: 101
-  version: 25.7.0
+  version: 25.7.1
 {{ end }}

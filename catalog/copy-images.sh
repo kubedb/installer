@@ -39,7 +39,9 @@ $CMD cp --allow-nondistributable-artifacts --insecure apicurio/apicurio-registry
 $CMD cp --allow-nondistributable-artifacts --insecure apicurio/apicurio-registry-mem:2.5.11.Final $IMAGE_REGISTRY/apicurio/apicurio-registry-mem:2.5.11.Final
 $CMD cp --allow-nondistributable-artifacts --insecure busybox:1.36 $IMAGE_REGISTRY/busybox:1.36
 $CMD cp --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-keeper:24.4.1 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:24.4.1
+$CMD cp --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-keeper:25.7.1 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:25.7.1
 $CMD cp --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-server:24.4.1 $IMAGE_REGISTRY/clickhouse/clickhouse-server:24.4.1
+$CMD cp --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-server:25.7.1 $IMAGE_REGISTRY/clickhouse/clickhouse-server:25.7.1
 $CMD cp --allow-nondistributable-artifacts --insecure floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0 $IMAGE_REGISTRY/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/aiven-open/karapace:3.15.0 $IMAGE_REGISTRY/aiven-open/karapace:3.15.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-exporter:2.3.8 $IMAGE_REGISTRY/appscode-images/cassandra-exporter:2.3.8
@@ -312,7 +314,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6-v2 $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0-v2 $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-medusa-plugin:v0.3.0 $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.3.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1-v2 $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1-v2
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1-v3 $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1-v3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.14.0 $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.14.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:28.0.1 $IMAGE_REGISTRY/kubedb/druid-init:28.0.1
