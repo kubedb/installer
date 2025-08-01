@@ -30,7 +30,9 @@ $CMD push --allow-nondistributable-artifacts --insecure images/apicurio-apicurio
 $CMD push --allow-nondistributable-artifacts --insecure images/apicurio-apicurio-registry-mem-2.5.11.Final.tar $IMAGE_REGISTRY/apicurio/apicurio-registry-mem:2.5.11.Final
 $CMD push --allow-nondistributable-artifacts --insecure images/library-busybox-1.36.tar $IMAGE_REGISTRY/busybox:1.36
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-keeper-24.4.1.tar $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:24.4.1
+$CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-keeper-25.7.1.tar $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:25.7.1
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-server-24.4.1.tar $IMAGE_REGISTRY/clickhouse/clickhouse-server:24.4.1
+$CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-server-25.7.1.tar $IMAGE_REGISTRY/clickhouse/clickhouse-server:25.7.1
 $CMD push --allow-nondistributable-artifacts --insecure images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar $IMAGE_REGISTRY/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/aiven-open-karapace-3.15.0.tar $IMAGE_REGISTRY/aiven-open/karapace:3.15.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-exporter-2.3.8.tar $IMAGE_REGISTRY/appscode-images/cassandra-exporter:2.3.8
@@ -303,7 +305,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-4.1.6-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-5.0.0-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-medusa-plugin-v0.3.0.tar $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.3.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-clickhouse-init-24.4.1-v2.tar $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1-v2
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-clickhouse-init-24.4.1-v3.tar $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1-v3
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.14.0.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.14.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-28.0.1.tar $IMAGE_REGISTRY/kubedb/druid-init:28.0.1

@@ -36,5 +36,7 @@ mv /tmp/crane .
 CMD="./crane"
 
 $CMD cp --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-keeper:24.4.1 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:24.4.1
+$CMD cp --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-keeper:25.7.1 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:25.7.1
 $CMD cp --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-server:24.4.1 $IMAGE_REGISTRY/clickhouse/clickhouse-server:24.4.1
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1-v2 $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1-v2
+$CMD cp --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-server:25.7.1 $IMAGE_REGISTRY/clickhouse/clickhouse-server:25.7.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1-v3 $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1-v3
