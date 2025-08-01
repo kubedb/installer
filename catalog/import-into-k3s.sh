@@ -298,7 +298,7 @@ k3s ctr images import images/appscode-images-zookeeper-3.7.2.tar
 k3s ctr images import images/appscode-images-zookeeper-3.8.3.tar
 k3s ctr images import images/appscode-images-zookeeper-3.9.1.tar
 k3s ctr images import images/appscode-kubectl-nonroot-1.31.tar
-k3s ctr images import images/appscode-petset-v0.0.10.tar
+k3s ctr images import images/appscode-petset-v0.0.11.tar
 k3s ctr images import images/appscode-sidekick-v0.0.11.tar
 k3s ctr images import images/kubedb-cassandra-init-4.1.6-v2.tar
 k3s ctr images import images/kubedb-cassandra-init-5.0.0-v2.tar
@@ -334,7 +334,7 @@ k3s ctr images import images/kubedb-mariadb-archiver-v0.16.0_11.1.3-jammy.tar
 k3s ctr images import images/kubedb-mariadb-archiver-v0.16.0_11.2.2-jammy.tar
 k3s ctr images import images/kubedb-mariadb-coordinator-v0.36.0.tar
 k3s ctr images import images/kubedb-mariadb-csi-snapshotter-plugin-v0.16.0.tar
-k3s ctr images import images/kubedb-mariadb-init-0.6.0.tar
+k3s ctr images import images/kubedb-mariadb-init-0.7.0.tar
 k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.14.0.tar
 k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.17.0.tar
 k3s ctr images import images/kubedb-mongodb-init-4.2-v9.tar
@@ -353,12 +353,12 @@ k3s ctr images import images/kubedb-mysql-archiver-v0.17.0_8.4.3.tar
 k3s ctr images import images/kubedb-mysql-archiver-v0.17.0_9.1.0.tar
 k3s ctr images import images/kubedb-mysql-coordinator-v0.34.0.tar
 k3s ctr images import images/kubedb-mysql-csi-snapshotter-plugin-v0.17.0.tar
-k3s ctr images import images/kubedb-mysql-init-5.7-v6.tar
-k3s ctr images import images/kubedb-mysql-init-8.0.31-v5.tar
-k3s ctr images import images/kubedb-mysql-init-8.4.2-v4.tar
-k3s ctr images import images/kubedb-mysql-init-8.4.3-v4.tar
-k3s ctr images import images/kubedb-mysql-init-9.0.1-v2.tar
-k3s ctr images import images/kubedb-mysql-init-9.1.0-v2.tar
+k3s ctr images import images/kubedb-mysql-init-5.7-v7.tar
+k3s ctr images import images/kubedb-mysql-init-8.0.31-v6.tar
+k3s ctr images import images/kubedb-mysql-init-8.4.2-v5.tar
+k3s ctr images import images/kubedb-mysql-init-8.4.3-v5.tar
+k3s ctr images import images/kubedb-mysql-init-9.0.1-v3.tar
+k3s ctr images import images/kubedb-mysql-init-9.1.0-v3.tar
 k3s ctr images import images/kubedb-mysql-router-init-v0.34.0.tar
 k3s ctr images import images/kubedb-mysqld-exporter-v0.13.1.tar
 k3s ctr images import images/kubedb-oracle-coordinator-v0.2.0.tar
