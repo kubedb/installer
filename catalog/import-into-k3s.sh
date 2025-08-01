@@ -28,7 +28,9 @@ k3s ctr images import images/apicurio-apicurio-registry-kafkasql-2.5.11.Final.ta
 k3s ctr images import images/apicurio-apicurio-registry-mem-2.5.11.Final.tar
 k3s ctr images import images/library-busybox-1.36.tar
 k3s ctr images import images/clickhouse-clickhouse-keeper-24.4.1.tar
+k3s ctr images import images/clickhouse-clickhouse-keeper-25.7.1.tar
 k3s ctr images import images/clickhouse-clickhouse-server-24.4.1.tar
+k3s ctr images import images/clickhouse-clickhouse-server-25.7.1.tar
 k3s ctr images import images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar
 k3s ctr images import images/aiven-open-karapace-3.15.0.tar
 k3s ctr images import images/appscode-images-cassandra-exporter-2.3.8.tar
@@ -301,7 +303,7 @@ k3s ctr images import images/appscode-sidekick-v0.0.11.tar
 k3s ctr images import images/kubedb-cassandra-init-4.1.6-v2.tar
 k3s ctr images import images/kubedb-cassandra-init-5.0.0-v2.tar
 k3s ctr images import images/kubedb-cassandra-medusa-plugin-v0.3.0.tar
-k3s ctr images import images/kubedb-clickhouse-init-24.4.1-v2.tar
+k3s ctr images import images/kubedb-clickhouse-init-24.4.1-v3.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.14.0.tar
 k3s ctr images import images/kubedb-druid-init-28.0.1.tar
