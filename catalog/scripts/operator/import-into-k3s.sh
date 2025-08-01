@@ -25,7 +25,7 @@ TARBALL=${1:-}
 tar -zxvf $TARBALL
 
 k3s ctr images import images/appscode-kubectl-nonroot-1.31.tar
-k3s ctr images import images/appscode-petset-v0.0.10.tar
+k3s ctr images import images/appscode-petset-v0.0.11.tar
 k3s ctr images import images/appscode-sidekick-v0.0.11.tar
 k3s ctr images import images/kubedb-cassandra-medusa-plugin-v0.3.0.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.1.0.tar
