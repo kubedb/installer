@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb-ops-manager --version=v0.43.0
-$ helm upgrade -i kubedb-ops-manager appscode/kubedb-ops-manager -n kubedb --create-namespace --version=v0.43.0
+$ helm search repo appscode/kubedb-ops-manager --version=v0.44.0-rc.0
+$ helm upgrade -i kubedb-ops-manager appscode/kubedb-ops-manager -n kubedb --create-namespace --version=v0.44.0-rc.0
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeDB Ops Manager operator on a [Kubernetes](http://kubern
 To install/upgrade the chart with the release name `kubedb-ops-manager`:
 
 ```bash
-$ helm upgrade -i kubedb-ops-manager appscode/kubedb-ops-manager -n kubedb --create-namespace --version=v0.43.0
+$ helm upgrade -i kubedb-ops-manager appscode/kubedb-ops-manager -n kubedb --create-namespace --version=v0.44.0-rc.0
 ```
 
 The command deploys a KubeDB Ops Manager operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -83,7 +83,7 @@ The following table lists the configurable parameters of the `kubedb-ops-manager
 | monitoring.serviceMonitor.labels                                   | Specify the labels for ServiceMonitor. Prometheus crd will select ServiceMonitor using these labels. Only usable when monitoring agent is `prometheus.io/operator`.                                                                                                                                                                                                            | <code>{"monitoring.appscode.com/prometheus":"auto"}</code>                                                                                                                                     |
 | recommendationEngine.resyncPeriod                                  | Recommendation will be generated after every given duration based on the resource status at that moment. Default value is one hour. The flag accepts a integer 64 bit value in nanosecond for time.Duration. Ref: https://pkg.go.dev/time#Duration                                                                                                                             | <code>1h0m0s</code>                                                                                                                                                                            |
 | recommendationEngine.deadline.enable                               | If enable is false, deadline will not be set in the generated recommendations                                                                                                                                                                                                                                                                                                  | <code>false</code>                                                                                                                                                                             |
-| recommendationEngine.deadline.maxEvaluationPeriod                  | If enable is true, maxEvaluationPeriod is the value to be used as deadline time.                                                                                                                                                                                                                                                                                               | <code>7d</code>                                                                                                                                                                                |
+| recommendationEngine.deadline.maxEvaluationPeriod                  | If enable is true, maxEvaluationPeriod is the value to be used as deadline time.                                                                                                                                                                                                                                                                                               | <code>168h0m0s</code>                                                                                                                                                                          |
 | recommendationEngine.rotateTLS.genRecommendationBeforeExpiryYear   | It also depends on gen-rotate-tls-recommendation-before-expiry-month and gen-rotate-tls-recommendation-before-expiry-year. Default values are 0(zero) for gen-rotate-tls-recommendation-before-expiry-year, 1(one) for gen-rotate-tls-recommendation-before-expiry-month, 0(zero) for gen-rotate-tls-recommendation-before-expiry-day flags.                                   | <code>0</code>                                                                                                                                                                                 |
 | recommendationEngine.rotateTLS.genRecommendationBeforeExpiryMonth  | Rotate TLS recommendation will be generated before given month of expiration. It also depends on gen-rotate-tls-recommendation-before-expiry-year and gen-rotate-tls-recommendation-before-expiry-day flag. By default it is set as 1(one).                                                                                                                                    | <code>1</code>                                                                                                                                                                                 |
 | recommendationEngine.rotateTLS.genRecommendationBeforeExpiryDay    | Rotate TLS recommendation will be generated before given day of expiration. It also depends on gen-rotate-tls-recommendation-before-expiry-year and gen-rotate-tls-recommendation-before-expiry-month flag. By default it is set as 0(zero).                                                                                                                                   | <code>0</code>                                                                                                                                                                                 |
@@ -99,12 +99,12 @@ The following table lists the configurable parameters of the `kubedb-ops-manager
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-ops-manager appscode/kubedb-ops-manager -n kubedb --create-namespace --version=v0.43.0 --set replicaCount=1
+$ helm upgrade -i kubedb-ops-manager appscode/kubedb-ops-manager -n kubedb --create-namespace --version=v0.44.0-rc.0 --set replicaCount=1
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-ops-manager appscode/kubedb-ops-manager -n kubedb --create-namespace --version=v0.43.0 --values values.yaml
+$ helm upgrade -i kubedb-ops-manager appscode/kubedb-ops-manager -n kubedb --create-namespace --version=v0.44.0-rc.0 --values values.yaml
 ```

@@ -55,8 +55,8 @@ func Test_CheckImageArchitectures(t *testing.T) {
 		"ghcr.io/appscode-images/singlestore-node:alma-8.7.10-95e2357384",
 		"ghcr.io/appscode-images/singlestore-node:alma-8.7.21-f0b8de04d5",
 		"ghcr.io/appscode-images/singlestore-node:alma-8.9.3-bfa36a984a",
-		"ghcr.io/kubedb/mysql-archiver:v0.17.0_5.7.44",
-		"ghcr.io/kubedb/mysql-init:5.7-v6",
+		"ghcr.io/kubedb/mysql-archiver:v0.18.0-rc.0_5.7.44",
+		"ghcr.io/kubedb/mysql-init:5.7-v7",
 		"ghcr.io/kubedb/oracle-ee:21.3.0",
 		"ghcr.io/kubedb/proxysql-exporter:v1.1.0",
 		"mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04",
@@ -80,7 +80,7 @@ func Test_CheckImageArchitectures(t *testing.T) {
 		"singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11",
 		"singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8",
 		"singlestore/cluster-in-a-box:alma-8.7.10-95e2357384-4.1.0-1.17.14",
-	}); err != nil {
+	}, nil); err != nil {
 		t.Errorf("CheckImageArchitectures() error = %v", err)
 	}
 }
