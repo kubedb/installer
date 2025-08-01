@@ -300,7 +300,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-z
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-zookeeper-3.8.3.tar $IMAGE_REGISTRY/appscode-images/zookeeper:3.8.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-zookeeper-3.9.1.tar $IMAGE_REGISTRY/appscode-images/zookeeper:3.9.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-kubectl-nonroot-1.31.tar $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.31
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.0.10.tar $IMAGE_REGISTRY/appscode/petset:v0.0.10
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.0.11.tar $IMAGE_REGISTRY/appscode/petset:v0.0.11
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.11.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.11
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-4.1.6-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-5.0.0-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v2
@@ -336,7 +336,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-ar
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.16.0_11.2.2-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.16.0_11.2.2-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-coordinator-v0.36.0.tar $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.36.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-csi-snapshotter-plugin-v0.16.0.tar $IMAGE_REGISTRY/kubedb/mariadb-csi-snapshotter-plugin:v0.16.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-init-0.6.0.tar $IMAGE_REGISTRY/kubedb/mariadb-init:0.6.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-init-0.7.0.tar $IMAGE_REGISTRY/kubedb/mariadb-init:0.7.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.14.0.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.14.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-csi-snapshotter-plugin-v0.17.0.tar $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.17.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-4.2-v9.tar $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
@@ -355,12 +355,12 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-arch
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-archiver-v0.17.0_9.1.0.tar $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.17.0_9.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-coordinator-v0.34.0.tar $IMAGE_REGISTRY/kubedb/mysql-coordinator:v0.34.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-csi-snapshotter-plugin-v0.17.0.tar $IMAGE_REGISTRY/kubedb/mysql-csi-snapshotter-plugin:v0.17.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-5.7-v6.tar $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v6
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-8.0.31-v5.tar $IMAGE_REGISTRY/kubedb/mysql-init:8.0.31-v5
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-8.4.2-v4.tar $IMAGE_REGISTRY/kubedb/mysql-init:8.4.2-v4
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-8.4.3-v4.tar $IMAGE_REGISTRY/kubedb/mysql-init:8.4.3-v4
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-9.0.1-v2.tar $IMAGE_REGISTRY/kubedb/mysql-init:9.0.1-v2
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-9.1.0-v2.tar $IMAGE_REGISTRY/kubedb/mysql-init:9.1.0-v2
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-5.7-v7.tar $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v7
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-8.0.31-v6.tar $IMAGE_REGISTRY/kubedb/mysql-init:8.0.31-v6
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-8.4.2-v5.tar $IMAGE_REGISTRY/kubedb/mysql-init:8.4.2-v5
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-8.4.3-v5.tar $IMAGE_REGISTRY/kubedb/mysql-init:8.4.3-v5
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-9.0.1-v3.tar $IMAGE_REGISTRY/kubedb/mysql-init:9.0.1-v3
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-9.1.0-v3.tar $IMAGE_REGISTRY/kubedb/mysql-init:9.1.0-v3
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-router-init-v0.34.0.tar $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.34.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysqld-exporter-v0.13.1.tar $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.13.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-coordinator-v0.2.0.tar $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.2.0
