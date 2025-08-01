@@ -83,10 +83,15 @@ spec:
         - --metrics-bind-address=:{{ .Values.monitoring.bindPort }}
         - --health-probe-bind-address=:{{ .Values.apiserver.healthcheck.probePort }}
         {{- with .Values.recommendationEngine }}
-        - --recommendation-resync-period={{ .recommendationResyncPeriod }}
-        - --gen-rotate-tls-recommendation-before-expiry-year={{ .genRotateTLSRecommendationBeforeExpiryYear }}
-        - --gen-rotate-tls-recommendation-before-expiry-month={{ .genRotateTLSRecommendationBeforeExpiryMonth }}
-        - --gen-rotate-tls-recommendation-before-expiry-day={{ .genRotateTLSRecommendationBeforeExpiryDay }}
+        - --recommendation-resync-period={{ .resyncPeriod }}
+        - --enable-deadline={{ .deadline.enable }}
+        - --max-evaluation-period-before-deadline={{ .deadline.maxEvaluationPeriod }}
+        - --gen-rotate-tls-recommendation-before-expiry-year={{ .rotateTLS.genRecommendationBeforeExpiryYear }}
+        - --gen-rotate-tls-recommendation-before-expiry-month={{ .rotateTLS.genRecommendationBeforeExpiryMonth }}
+        - --gen-rotate-tls-recommendation-before-expiry-day={{ .rotateTLS.genRecommendationBeforeExpiryDay }}
+        - --gen-rotate-auth-recommendation-before-expiry-year={{ .rotateAuth.genRecommendationBeforeExpiryYear }}
+        - --gen-rotate-auth-recommendation-before-expiry-month={{ .rotateAuth.genRecommendationBeforeExpiryMonth }}
+        - --gen-rotate-auth-recommendation-before-expiry-day={{ .rotateAuth.genRecommendationBeforeExpiryDay }}
         {{- end }}
         {{- include "docker.imagePullSecretFlags" . | nindent 8 }}
         {{- include "docker.insecureRegistries" .  | nindent 8 }}
