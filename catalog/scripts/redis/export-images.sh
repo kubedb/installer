@@ -47,7 +47,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:7.2.9 images/appscode-images-valkey-7.2.9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:8.0.3 images/appscode-images-valkey-8.0.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:8.1.1 images/appscode-images-valkey-8.1.1.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-coordinator:v0.35.0 images/kubedb-redis-coordinator-v0.35.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-coordinator:v0.36.0-rc.0 images/kubedb-redis-coordinator-v0.36.0-rc.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.12.0 images/kubedb-redis-init-0.12.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4.0.11 images/kubedb-redis-4.0.11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis_exporter:1.66.0 images/kubedb-redis_exporter-1.66.0.tar

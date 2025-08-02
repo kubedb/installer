@@ -1,8 +1,8 @@
 module kubedb.dev/installer
 
-go 1.23.3
+go 1.23.6
 
-toolchain go1.24.1
+toolchain go1.24.5
 
 require (
 	github.com/Masterminds/semver/v3 v3.3.1
@@ -15,12 +15,12 @@ require (
 	gomodules.xyz/semvers v0.0.2
 	k8s.io/api v0.32.3
 	k8s.io/apimachinery v0.32.3
-	kmodules.xyz/client-go v0.32.6
+	kmodules.xyz/client-go v0.32.7
 	kmodules.xyz/go-containerregistry v0.0.14
-	kmodules.xyz/image-packer v0.0.0-20250618195635-2d28be8a47e3
-	kmodules.xyz/resource-metadata v0.31.1-0.20250627044415-66d5cf92df53
+	kmodules.xyz/image-packer v0.0.0-20250709183414-f93633723666
+	kmodules.xyz/resource-metadata v0.32.1
 	kmodules.xyz/schema-checker v0.4.2
-	kubedb.dev/apimachinery v0.56.0
+	kubedb.dev/apimachinery v0.57.0-rc.0
 	kubeops.dev/installer v0.0.0-20250630172252-60882a8ed9ab
 	sigs.k8s.io/yaml v1.4.0
 	stash.appscode.dev/installer v0.12.2-0.20250630171625-d3c674690e22
@@ -30,7 +30,7 @@ require (
 	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
-	github.com/cert-manager/cert-manager v1.17.1 // indirect
+	github.com/cert-manager/cert-manager v1.18.2 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/codegangsta/inject v0.0.0-20150114235600-33e0aa1cb7c0 // indirect
 	github.com/containerd/stargz-snapshotter/estargz v0.16.3 // indirect
@@ -91,13 +91,13 @@ require (
 	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
 	github.com/zeebo/xxh3 v1.0.2 // indirect
 	go.virtual-secrets.dev/apimachinery v0.0.1 // indirect
-	golang.org/x/crypto v0.37.0 // indirect
+	golang.org/x/crypto v0.38.0 // indirect
 	golang.org/x/net v0.38.0 // indirect
-	golang.org/x/oauth2 v0.27.0 // indirect
-	golang.org/x/sync v0.13.0 // indirect
-	golang.org/x/sys v0.32.0 // indirect
-	golang.org/x/term v0.31.0 // indirect
-	golang.org/x/text v0.24.0 // indirect
+	golang.org/x/oauth2 v0.28.0 // indirect
+	golang.org/x/sync v0.14.0 // indirect
+	golang.org/x/sys v0.33.0 // indirect
+	golang.org/x/term v0.32.0 // indirect
+	golang.org/x/text v0.25.0 // indirect
 	golang.org/x/time v0.10.0 // indirect
 	gomodules.xyz/encoding v0.0.8 // indirect
 	gomodules.xyz/jsonpatch/v2 v2.5.0 // indirect
@@ -115,11 +115,12 @@ require (
 	k8s.io/utils v0.0.0-20241210054802-24370beab758 // indirect
 	kmodules.xyz/apiversion v0.2.0 // indirect
 	kmodules.xyz/custom-resources v0.32.0 // indirect
-	kmodules.xyz/monitoring-agent-api v0.32.0 // indirect
+	kmodules.xyz/monitoring-agent-api v0.32.1 // indirect
 	kmodules.xyz/offshoot-api v0.32.0 // indirect
-	kubeops.dev/petset v0.0.10 // indirect
+	kubeops.dev/petset v0.0.11 // indirect
 	kubeops.dev/scanner v0.0.19 // indirect
 	kubeops.dev/sidekick v0.0.11 // indirect
+	open-cluster-management.io/api v1.0.0 // indirect
 	sigs.k8s.io/controller-runtime v0.20.4 // indirect
 	sigs.k8s.io/gateway-api v1.1.0 // indirect
 	sigs.k8s.io/json v0.0.0-20241014173422-cfa47c3a1cc8 // indirect
