@@ -27,6 +27,6 @@ tar -zxvf $TARBALL
 CMD="./crane"
 
 $CMD push --allow-nondistributable-artifacts --insecure images/library-busybox-1.36.tar $IMAGE_REGISTRY/busybox:1.36
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-coordinator-v0.2.0.tar $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.2.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-coordinator-v0.3.0-rc.0.tar $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.3.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-ee-21.3.0.tar $IMAGE_REGISTRY/kubedb/oracle-ee:21.3.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-init-v0.1.0.tar $IMAGE_REGISTRY/kubedb/oracle-init:v0.1.0
