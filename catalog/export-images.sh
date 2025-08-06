@@ -350,7 +350,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-i
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb_exporter:v0.40.0 images/kubedb-mongodb_exporter-v0.40.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-coordinator:v0.12.0-rc.0 images/kubedb-mssql-coordinator-v0.12.0-rc.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-exporter:1.1.0 images/kubedb-mssql-exporter-1.1.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-init:2022-ubuntu-22-v3 images/kubedb-mssql-init-2022-ubuntu-22-v3.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-init:2022-ubuntu-22-v4 images/kubedb-mssql-init-2022-ubuntu-22-v4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssqlserver-archiver:v0.11.0-rc.0 images/kubedb-mssqlserver-archiver-v0.11.0-rc.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssqlserver-walg-plugin:v0.11.0-rc.0 images/kubedb-mssqlserver-walg-plugin-v0.11.0-rc.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.18.0-rc.0_5.7.44 images/kubedb-mysql-archiver-v0.18.0-rc.0_5.7.44.tar

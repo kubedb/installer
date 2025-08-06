@@ -342,7 +342,7 @@ k3s ctr images import images/kubedb-mongodb-init-6.0-v11.tar
 k3s ctr images import images/kubedb-mongodb_exporter-v0.40.0.tar
 k3s ctr images import images/kubedb-mssql-coordinator-v0.12.0-rc.0.tar
 k3s ctr images import images/kubedb-mssql-exporter-1.1.0.tar
-k3s ctr images import images/kubedb-mssql-init-2022-ubuntu-22-v3.tar
+k3s ctr images import images/kubedb-mssql-init-2022-ubuntu-22-v4.tar
 k3s ctr images import images/kubedb-mssqlserver-archiver-v0.11.0-rc.0.tar
 k3s ctr images import images/kubedb-mssqlserver-walg-plugin-v0.11.0-rc.0.tar
 k3s ctr images import images/kubedb-mysql-archiver-v0.18.0-rc.0_5.7.44.tar
