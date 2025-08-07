@@ -24,10 +24,10 @@ fi
 TARBALL=${1:-}
 tar -zxvf $TARBALL
 
-k3s ctr images import images/kubedb-mssql-coordinator-v0.12.0-rc.0.tar
+k3s ctr images import images/kubedb-mssql-coordinator-v0.12.0.tar
 k3s ctr images import images/kubedb-mssql-exporter-1.1.0.tar
 k3s ctr images import images/kubedb-mssql-init-2022-ubuntu-22-v4.tar
-k3s ctr images import images/kubedb-mssqlserver-archiver-v0.11.0-rc.0.tar
+k3s ctr images import images/kubedb-mssqlserver-archiver-v0.11.0.tar
 k3s ctr images import images/mssql-server-2022-CU12-ubuntu-22.04.tar
 k3s ctr images import images/mssql-server-2022-CU14-ubuntu-22.04.tar
 k3s ctr images import images/mssql-server-2022-CU16-ubuntu-22.04.tar
