@@ -177,7 +177,7 @@ type GlobalValues struct {
 	WaitForWebhook bool           `json:"waitForWebhook"`
 
 	// +optional
-	NetworkPolicy NetworkPolicy `json:"networkPolicy"`
+	NetworkPolicy NetworkPolicySpec `json:"networkPolicy"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

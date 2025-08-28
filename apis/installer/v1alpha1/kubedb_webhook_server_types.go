@@ -79,6 +79,7 @@ type KubedbWebhookServerSpec struct {
 	Apiserver          WebhookAPIServerSpec     `json:"apiserver"`
 	Monitoring         EASMonitoring            `json:"monitoring"`
 	HostNetwork        bool                     `json:"hostNetwork"`
+	NetworkPolicy      NetworkPolicySpec        `json:"networkPolicy"`
 	// +optional
 	DefaultSeccompProfileType string `json:"defaultSeccompProfileType"`
 }
