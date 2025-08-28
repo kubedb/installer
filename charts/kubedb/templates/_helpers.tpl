@@ -177,3 +177,10 @@ Returns the ServiceMonitor labels
 {{ $key }}: {{ $val }}
 {{- end }}
 {{- end }}
+
+{{/*
+Returns whether the NetworkPolicy should be enabled
+*/}}
+{{- define "security.enableNetworkPolicy" -}}
+{{- or .Values.global.networkPolicy.enabled (and .Values.networkPolicy .Values.networkPolicy.enabled) -}}
+{{- end }}

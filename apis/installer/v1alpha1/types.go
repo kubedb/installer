@@ -100,6 +100,6 @@ type PSPSpec struct {
 	Enabled bool `json:"enabled"`
 }
 
-type NetworkPolicy struct {
+type NetworkPolicySpec struct {
 	Enabled bool `json:"enabled"`
 }
