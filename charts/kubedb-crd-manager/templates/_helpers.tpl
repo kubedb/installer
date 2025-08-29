@@ -35,6 +35,7 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "kubedb-crd-manager.labels" -}}
+kubeslice.io/exclude: "true"
 helm.sh/chart: {{ include "kubedb-crd-manager.chart" . }}
 {{ include "kubedb-crd-manager.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
