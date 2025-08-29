@@ -54,3 +54,4 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-coord
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.12.0 $IMAGE_REGISTRY/kubedb/redis-init:0.12.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4.0.11 $IMAGE_REGISTRY/kubedb/redis:4.0.11
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis_exporter:1.66.0 $IMAGE_REGISTRY/kubedb/redis_exporter:1.66.0
+$CMD cp --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.4.2 $IMAGE_REGISTRY/git-sync/git-sync:v4.4.2

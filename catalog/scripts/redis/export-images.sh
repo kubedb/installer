@@ -51,5 +51,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-coo
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.12.0 images/kubedb-redis-init-0.12.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4.0.11 images/kubedb-redis-4.0.11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis_exporter:1.66.0 images/kubedb-redis_exporter-1.66.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.4.2 images/git-sync-git-sync-v4.4.2.tar
 
 tar -czvf images.tar.gz images

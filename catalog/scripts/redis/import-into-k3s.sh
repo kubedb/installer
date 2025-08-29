@@ -43,3 +43,4 @@ k3s ctr images import images/kubedb-redis-coordinator-v0.36.0.tar
 k3s ctr images import images/kubedb-redis-init-0.12.0.tar
 k3s ctr images import images/kubedb-redis-4.0.11.tar
 k3s ctr images import images/kubedb-redis_exporter-1.66.0.tar
+k3s ctr images import images/git-sync-git-sync-v4.4.2.tar
