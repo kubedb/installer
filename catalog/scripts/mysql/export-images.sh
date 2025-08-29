@@ -60,6 +60,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-rou
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.13.1 images/kubedb-mysqld-exporter-v0.13.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/replication-mode-detector:v0.44.0 images/kubedb-replication-mode-detector-v0.44.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mysql/mysql-router:8.0.31 images/mysql-mysql-router-8.0.31.tar
-$CMD pull --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.2.1 images/git-sync-git-sync-v4.2.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.4.2 images/git-sync-git-sync-v4.4.2.tar
 
 tar -czvf images.tar.gz images
