@@ -54,4 +54,4 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-rout
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysqld-exporter-v0.13.1.tar $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.13.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-replication-mode-detector-v0.44.0.tar $IMAGE_REGISTRY/kubedb/replication-mode-detector:v0.44.0
 $CMD push --allow-nondistributable-artifacts --insecure images/mysql-mysql-router-8.0.31.tar $IMAGE_REGISTRY/mysql/mysql-router:8.0.31
-$CMD push --allow-nondistributable-artifacts --insecure images/git-sync-git-sync-v4.2.1.tar $IMAGE_REGISTRY/git-sync/git-sync:v4.2.1
+$CMD push --allow-nondistributable-artifacts --insecure images/git-sync-git-sync-v4.4.2.tar $IMAGE_REGISTRY/git-sync/git-sync:v4.4.2
