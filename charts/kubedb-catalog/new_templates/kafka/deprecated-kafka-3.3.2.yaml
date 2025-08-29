@@ -1,0 +1,36 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Kafka }}
+{{ if or (not .Values.skipDeprecated) (has "3.3.2" .Values.enableVersions.Kafka) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: KafkaVersion
+metadata:
+  name: '3.3.2'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  connectCluster:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kafka-connect-cluster") $) }}:3.3.2'
+  cruiseControl:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kafka-cruise-control") $) }}:3.3.2'
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kafka-kraft") $) }}:3.3.2'
+  securityContext:
+    runAsUser: 1001
+  ui:
+  - name: kafka-ui
+    version: v2024.4.27
+  updateConstraints:
+    allowlist:
+    - '>= 3.3.2, <= 3.6.1'
+    denylist:
+    - < 3.3.2
+  version: 3.3.2
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "kafka-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+  deprecated: {{ not (has "3.3.2" .Values.enableVersions.Kafka) }}
+{{ end }}
+{{ end }}

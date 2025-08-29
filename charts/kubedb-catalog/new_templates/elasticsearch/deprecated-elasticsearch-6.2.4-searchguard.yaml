@@ -1,0 +1,59 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Elasticsearch }}
+{{ if or (not .Values.skipDeprecated) (has "6.2.4" .Values.enableVersions.Elasticsearch) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: '6.2.4'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: SearchGuard
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch") $) }}:6.2.4'
+  distribution: SearchGuard
+  exporter:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/operator") $) }}:0.8.0'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/busybox") $) }}'
+    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/yq") $) }}:2.4.0'
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 1000
+  version: 6.2.4
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "elasticsearch-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+  deprecated: {{ not (has "6.2.4" .Values.enableVersions.Elasticsearch) }}
+{{ end }}
+
+---
+{{ if or (not .Values.skipDeprecated) (has "6.2.4-v1" .Values.enableVersions.Elasticsearch) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  name: '6.2.4-v1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  authPlugin: SearchGuard
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch") $) }}:6.2.4-v1'
+  distribution: SearchGuard
+  exporter:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch_exporter") $) }}:1.0.2'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/busybox") $) }}'
+    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/yq") $) }}:2.4.0'
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 1000
+  version: 6.2.4
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "elasticsearch-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+  deprecated: {{ not (has "6.2.4-v1" .Values.enableVersions.Elasticsearch) }}
+{{ end }}
+{{ end }}
