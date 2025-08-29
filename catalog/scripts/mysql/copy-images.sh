@@ -63,4 +63,3 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-route
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.13.1 $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.13.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/replication-mode-detector:v0.44.0 $IMAGE_REGISTRY/kubedb/replication-mode-detector:v0.44.0
 $CMD cp --allow-nondistributable-artifacts --insecure mysql/mysql-router:8.0.31 $IMAGE_REGISTRY/mysql/mysql-router:8.0.31
-$CMD cp --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.4.2 $IMAGE_REGISTRY/git-sync/git-sync:v4.4.2
