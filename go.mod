@@ -1,6 +1,6 @@
 module kubedb.dev/installer
 
-go 1.23.6
+go 1.24.0
 
 toolchain go1.24.5
 
@@ -20,7 +20,7 @@ require (
 	kmodules.xyz/image-packer v0.0.0-20250709183414-f93633723666
 	kmodules.xyz/resource-metadata v0.32.1
 	kmodules.xyz/schema-checker v0.4.2
-	kubedb.dev/apimachinery v0.57.0
+	kubedb.dev/apimachinery v0.58.0
 	kubeops.dev/installer v0.0.0-20250630172252-60882a8ed9ab
 	sigs.k8s.io/yaml v1.4.0
 	stash.appscode.dev/installer v0.12.2-0.20250630171625-d3c674690e22
@@ -63,7 +63,7 @@ require (
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/compress v1.18.0 // indirect
-	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
+	github.com/klauspost/cpuid/v2 v2.2.5 // indirect
 	github.com/mailru/easyjson v0.9.0 // indirect
 	github.com/mattn/go-runewidth v0.0.13 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
@@ -117,7 +117,7 @@ require (
 	kmodules.xyz/custom-resources v0.32.0 // indirect
 	kmodules.xyz/monitoring-agent-api v0.32.1 // indirect
 	kmodules.xyz/offshoot-api v0.32.0 // indirect
-	kubeops.dev/petset v0.0.11 // indirect
+	kubeops.dev/petset v0.0.12 // indirect
 	kubeops.dev/scanner v0.0.19 // indirect
 	kubeops.dev/sidekick v0.0.11 // indirect
 	open-cluster-management.io/api v1.0.0 // indirect
