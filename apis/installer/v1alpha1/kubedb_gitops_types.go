@@ -83,6 +83,8 @@ type KubedbGitopsSpec struct {
 	Volumes        []core.Volume      `json:"volumes"`
 	VolumeMounts   []core.VolumeMount `json:"volumeMounts"`
 	FeatureGates   map[string]bool    `json:"featureGates"`
+	// +optional
+	Distro DistroSpec `json:"distro"`
 }
 
 type ImageReference struct {
