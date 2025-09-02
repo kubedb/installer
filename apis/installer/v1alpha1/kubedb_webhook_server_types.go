@@ -82,6 +82,8 @@ type KubedbWebhookServerSpec struct {
 	NetworkPolicy      NetworkPolicySpec        `json:"networkPolicy"`
 	// +optional
 	DefaultSeccompProfileType string `json:"defaultSeccompProfileType"`
+	// +optional
+	Distro DistroSpec `json:"distro"`
 }
 
 type WebhookAPIServerSpec struct {

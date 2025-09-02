@@ -138,3 +138,10 @@ Returns the ServiceMonitor labels
 {{ $key }}: {{ $val }}
 {{- end }}
 {{- end }}
+
+{{/*
+Returns whether the OpenShift distribution is used
+*/}}
+{{- define "distro.openshift" -}}
+{{- or (.Capabilities.APIVersions.Has "project.openshift.io/v1/Project") .Values.distro.openshift -}}
+{{- end }}

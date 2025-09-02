@@ -77,6 +77,8 @@ type KubedbUiServerSpec struct {
 	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount"`
 	Apiserver          EASSpec                  `json:"apiserver"`
 	Monitoring         EASMonitoring            `json:"monitoring"`
+	// +optional
+	Distro DistroSpec `json:"distro"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
