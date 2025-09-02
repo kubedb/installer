@@ -107,6 +107,13 @@ Returns whether the NetworkPolicy should be enabled
 {{- end }}
 
 {{/*
+Returns whether the OpenShift distribution is used
+*/}}
+{{- define "distro.openshift" -}}
+{{- or (.Capabilities.APIVersions.Has "project.openshift.io/v1/Project") .Values.distro.openshift -}}
+{{- end }}
+
+{{/*
 Prepare certs
 */}}
 {{- define "kubedb-webhook-server.prepare-certs" -}}

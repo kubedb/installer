@@ -102,6 +102,8 @@ type KubedbOpsManagerSpec struct {
 	// +listType=map
 	// +listMapKey=name
 	Env []core.EnvVar `json:"env"`
+	// +optional
+	Distro DistroSpec `json:"distro"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

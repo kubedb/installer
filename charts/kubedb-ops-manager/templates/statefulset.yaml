@@ -65,15 +65,25 @@ spec:
         - -c
         - kubectl wait --for=create -n {{ .Release.Namespace }} service -l 'app.kubernetes.io/name=kubedb-webhook-server' --timeout=5m &&
           kubectl wait --for=condition=kubedb.com/conversion=true -n {{ .Release.Namespace }} pods -l 'app.kubernetes.io/instance={{ .Release.Name }},app.kubernetes.io/name=kubedb-webhook-server' --timeout=5m
+        {{- if eq "true" ( include "distro.openshift" . ) }}
+        securityContext:
+          {{- toYaml (omit .Values.operator.securityContext "runAsUser" "runAsGroup" "fsGroup" "supplementalGroups") | nindent 10 }}
+        {{- else }}
         securityContext:
           {{- toYaml .Values.operator.securityContext | nindent 10 }}
+        {{- end }}
         resources:
           {{- toYaml .Values.operator.resources | nindent 10 }}
       {{- end }}
       containers:
       - name: operator
+        {{- if eq "true" ( include "distro.openshift" . ) }}
+        securityContext:
+          {{- toYaml (omit .Values.operator.securityContext "runAsUser" "runAsGroup" "fsGroup" "supplementalGroups") | nindent 10 }}
+        {{- else }}
         securityContext:
           {{- toYaml .Values.operator.securityContext | nindent 10 }}
+        {{- end }}
         image: {{ include "operator.registry" . }}/{{ .Values.operator.repository }}:{{ .Values.operator.tag | default .Chart.AppVersion }}
         imagePullPolicy: {{ .Values.imagePullPolicy  }}
         args:
@@ -160,8 +170,13 @@ spec:
           defaultMode: 420
           secretName: {{ include "appscode.licenseSecretName" . }}
       {{- end }}
+      {{- if eq "true" ( include "distro.openshift" . ) }}
+      securityContext:
+        {{- toYaml (omit .Values.podSecurityContext "runAsUser" "runAsGroup" "fsGroup" "supplementalGroups") | nindent 8 }}
+      {{- else }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- end }}
     {{- if or $tolerations $criticalAddon }}
       tolerations:
       {{- with $tolerations }}

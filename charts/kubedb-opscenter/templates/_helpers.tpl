@@ -114,3 +114,17 @@ Returns the ServiceMonitor labels
 {{- end }}
 {{- end }}
 {{- end }}
+
+{{/*
+Returns whether the NetworkPolicy should be enabled
+*/}}
+{{- define "security.enableNetworkPolicy" -}}
+{{- or .Values.global.networkPolicy.enabled (and .Values.networkPolicy .Values.networkPolicy.enabled) -}}
+{{- end }}
+
+{{/*
+Returns whether the OpenShift distribution is used
+*/}}
+{{- define "distro.openshift" -}}
+{{- or (.Capabilities.APIVersions.Has "project.openshift.io/v1/Project") .Values.global.distro.openshift (and .Values.distro .Values.distro.openshift) -}}
+{{- end }}

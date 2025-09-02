@@ -77,6 +77,8 @@ type KubedbCrdManagerSpec struct {
 	RemoveUnusedCRDs        bool               `json:"removeUnusedCRDs"`
 	InstallGitOpsCRDs       bool               `json:"installGitOpsCRDs"`
 	TTLSecondsAfterFinished int                `json:"ttlSecondsAfterFinished"`
+	// +optional
+	Distro DistroSpec `json:"distro"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
