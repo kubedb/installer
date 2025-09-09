@@ -253,6 +253,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-p
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-15.8-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:15.8-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.1-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:16.1-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.1-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:16.1-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.10-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:16.10-alpine
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.10-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:16.10-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.4-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:16.4-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.4-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:16.4-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.6-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:16.6-alpine
@@ -300,7 +302,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-z
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-zookeeper-3.8.3.tar $IMAGE_REGISTRY/appscode-images/zookeeper:3.8.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-zookeeper-3.9.1.tar $IMAGE_REGISTRY/appscode-images/zookeeper:3.9.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-kubectl-nonroot-1.31.tar $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.31
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.0.12.tar $IMAGE_REGISTRY/appscode/petset:v0.0.12
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.0.13.tar $IMAGE_REGISTRY/appscode/petset:v0.0.13
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.11.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.11
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-4.1.6-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-5.0.0-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v2
@@ -368,12 +370,15 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-ee-
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-init-v0.1.0.tar $IMAGE_REGISTRY/kubedb/oracle-init:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-coordinator-v0.31.0.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-coordinator:v0.31.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-init-0.2.3.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-init:0.2.3
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pg-coordinator-v0.41.0.tar $IMAGE_REGISTRY/kubedb/pg-coordinator:v0.41.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pg-coordinator-v0.42.0.tar $IMAGE_REGISTRY/kubedb/pg-coordinator:v0.42.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pgbouncer-1.17.0.tar $IMAGE_REGISTRY/kubedb/pgbouncer:1.17.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pgbouncer-1.18.0.tar $IMAGE_REGISTRY/kubedb/pgbouncer:1.18.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pgbouncer-1.23.1.tar $IMAGE_REGISTRY/kubedb/pgbouncer:1.23.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pgbouncer-1.24.0.tar $IMAGE_REGISTRY/kubedb/pgbouncer:1.24.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pgbouncer_exporter-v0.1.1.tar $IMAGE_REGISTRY/kubedb/pgbouncer_exporter:v0.1.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.18.0_16.1-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.18.0_16.1-alpine
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.18.0_16.1-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.18.0_16.1-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.19.0_11.22-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.19.0_11.22-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.19.0_11.22-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.19.0_11.22-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.19.0_12.17-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.19.0_12.17-alpine
