@@ -27,7 +27,7 @@ tar -zxvf $TARBALL
 CMD="./crane"
 
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-kubectl-nonroot-1.31.tar $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.31
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.0.13.tar $IMAGE_REGISTRY/appscode/petset:v0.0.13
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.0.14.tar $IMAGE_REGISTRY/appscode/petset:v0.0.14
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.11.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.11
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-medusa-plugin-v0.5.0.tar $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.1.0

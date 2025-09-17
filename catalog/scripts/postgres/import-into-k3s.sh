@@ -81,7 +81,6 @@ k3s ctr images import images/appscode-images-postgres-17.4-alpine.tar
 k3s ctr images import images/appscode-images-postgres-17.4-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-17.5-alpine.tar
 k3s ctr images import images/appscode-images-postgres-17.5-bookworm.tar
-k3s ctr images import images/kubedb-pg-coordinator-v0.41.0.tar
 k3s ctr images import images/kubedb-pg-coordinator-v0.42.0.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.18.0_16.1-alpine.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.18.0_16.1-bookworm.tar
