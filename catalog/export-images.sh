@@ -74,6 +74,8 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.6.2 images/appscode-images-elastic-8.6.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.8.2 images/appscode-images-elastic-8.8.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.0.2 images/appscode-images-elastic-9.0.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.1.3 images/appscode-images-elastic-9.1.3.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.1.4 images/appscode-images-elastic-9.1.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.18.0 images/appscode-images-ferretdb-1.18.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.23.0 images/appscode-images-ferretdb-1.23.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.24.0 images/appscode-images-ferretdb-1.24.0.tar
@@ -134,6 +136,8 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.6.2 images/appscode-images-kibana-8.6.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.8.2 images/appscode-images-kibana-8.8.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.0.2 images/appscode-images-kibana-9.0.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.1.3 images/appscode-images-kibana-9.1.3.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.1.4 images/appscode-images-kibana-9.1.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.10.7-jammy images/appscode-images-mariadb-10.10.7-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.11.6-jammy images/appscode-images-mariadb-10.11.6-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.4.32-focal images/appscode-images-mariadb-10.4.32-focal.tar
