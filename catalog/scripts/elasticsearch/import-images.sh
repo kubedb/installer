@@ -53,6 +53,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-e
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-8.6.2.tar $IMAGE_REGISTRY/appscode-images/elastic:8.6.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-8.8.2.tar $IMAGE_REGISTRY/appscode-images/elastic:8.8.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-9.0.2.tar $IMAGE_REGISTRY/appscode-images/elastic:9.0.2
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-9.1.3.tar $IMAGE_REGISTRY/appscode-images/elastic:9.1.3
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-9.1.4.tar $IMAGE_REGISTRY/appscode-images/elastic:9.1.4
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-6.8.23.tar $IMAGE_REGISTRY/appscode-images/kibana:6.8.23
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-7.13.4.tar $IMAGE_REGISTRY/appscode-images/kibana:7.13.4
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-7.14.2.tar $IMAGE_REGISTRY/appscode-images/kibana:7.14.2
@@ -79,6 +81,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-k
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-8.6.2.tar $IMAGE_REGISTRY/appscode-images/kibana:8.6.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-8.8.2.tar $IMAGE_REGISTRY/appscode-images/kibana:8.8.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-9.0.2.tar $IMAGE_REGISTRY/appscode-images/kibana:9.0.2
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-9.1.3.tar $IMAGE_REGISTRY/appscode-images/kibana:9.1.3
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-9.1.4.tar $IMAGE_REGISTRY/appscode-images/kibana:9.1.4
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-1.1.0.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:1.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-1.2.0.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:1.2.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-1.3.13.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:1.3.13

@@ -66,6 +66,8 @@ k3s ctr images import images/appscode-images-elastic-8.5.3.tar
 k3s ctr images import images/appscode-images-elastic-8.6.2.tar
 k3s ctr images import images/appscode-images-elastic-8.8.2.tar
 k3s ctr images import images/appscode-images-elastic-9.0.2.tar
+k3s ctr images import images/appscode-images-elastic-9.1.3.tar
+k3s ctr images import images/appscode-images-elastic-9.1.4.tar
 k3s ctr images import images/appscode-images-ferretdb-1.18.0.tar
 k3s ctr images import images/appscode-images-ferretdb-1.23.0.tar
 k3s ctr images import images/appscode-images-ferretdb-1.24.0.tar
@@ -126,6 +128,8 @@ k3s ctr images import images/appscode-images-kibana-8.5.3.tar
 k3s ctr images import images/appscode-images-kibana-8.6.2.tar
 k3s ctr images import images/appscode-images-kibana-8.8.2.tar
 k3s ctr images import images/appscode-images-kibana-9.0.2.tar
+k3s ctr images import images/appscode-images-kibana-9.1.3.tar
+k3s ctr images import images/appscode-images-kibana-9.1.4.tar
 k3s ctr images import images/appscode-images-mariadb-10.10.7-jammy.tar
 k3s ctr images import images/appscode-images-mariadb-10.11.6-jammy.tar
 k3s ctr images import images/appscode-images-mariadb-10.4.32-focal.tar
