@@ -51,6 +51,8 @@ k3s ctr images import images/appscode-images-elastic-8.5.3.tar
 k3s ctr images import images/appscode-images-elastic-8.6.2.tar
 k3s ctr images import images/appscode-images-elastic-8.8.2.tar
 k3s ctr images import images/appscode-images-elastic-9.0.2.tar
+k3s ctr images import images/appscode-images-elastic-9.1.3.tar
+k3s ctr images import images/appscode-images-elastic-9.1.4.tar
 k3s ctr images import images/appscode-images-kibana-6.8.23.tar
 k3s ctr images import images/appscode-images-kibana-7.13.4.tar
 k3s ctr images import images/appscode-images-kibana-7.14.2.tar
@@ -77,6 +79,8 @@ k3s ctr images import images/appscode-images-kibana-8.5.3.tar
 k3s ctr images import images/appscode-images-kibana-8.6.2.tar
 k3s ctr images import images/appscode-images-kibana-8.8.2.tar
 k3s ctr images import images/appscode-images-kibana-9.0.2.tar
+k3s ctr images import images/appscode-images-kibana-9.1.3.tar
+k3s ctr images import images/appscode-images-kibana-9.1.4.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-1.1.0.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-1.2.0.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-1.3.13.tar
