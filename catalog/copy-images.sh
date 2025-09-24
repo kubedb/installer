@@ -77,6 +77,8 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/el
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.6.2 $IMAGE_REGISTRY/appscode-images/elastic:8.6.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.8.2 $IMAGE_REGISTRY/appscode-images/elastic:8.8.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.0.2 $IMAGE_REGISTRY/appscode-images/elastic:9.0.2
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.1.3 $IMAGE_REGISTRY/appscode-images/elastic:9.1.3
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.1.4 $IMAGE_REGISTRY/appscode-images/elastic:9.1.4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.18.0 $IMAGE_REGISTRY/appscode-images/ferretdb:1.18.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.23.0 $IMAGE_REGISTRY/appscode-images/ferretdb:1.23.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.24.0 $IMAGE_REGISTRY/appscode-images/ferretdb:1.24.0
@@ -137,6 +139,8 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ki
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.6.2 $IMAGE_REGISTRY/appscode-images/kibana:8.6.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.8.2 $IMAGE_REGISTRY/appscode-images/kibana:8.8.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.0.2 $IMAGE_REGISTRY/appscode-images/kibana:9.0.2
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.1.3 $IMAGE_REGISTRY/appscode-images/kibana:9.1.3
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.1.4 $IMAGE_REGISTRY/appscode-images/kibana:9.1.4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.10.7-jammy $IMAGE_REGISTRY/appscode-images/mariadb:10.10.7-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.11.6-jammy $IMAGE_REGISTRY/appscode-images/mariadb:10.11.6-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.4.32-focal $IMAGE_REGISTRY/appscode-images/mariadb:10.4.32-focal
