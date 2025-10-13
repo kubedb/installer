@@ -37,6 +37,9 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-r
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-7.2.6-bookworm.tar $IMAGE_REGISTRY/appscode-images/redis:7.2.6-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-7.4.0-bookworm.tar $IMAGE_REGISTRY/appscode-images/redis:7.4.0-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-7.4.1-bookworm.tar $IMAGE_REGISTRY/appscode-images/redis:7.4.1-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-7.4.6-bookworm.tar $IMAGE_REGISTRY/appscode-images/redis:7.4.6-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-8.0.4-bookworm.tar $IMAGE_REGISTRY/appscode-images/redis:8.0.4-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-8.2.2-bookworm.tar $IMAGE_REGISTRY/appscode-images/redis:8.2.2-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-valkey-7.2.5.tar $IMAGE_REGISTRY/appscode-images/valkey:7.2.5
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-valkey-7.2.9.tar $IMAGE_REGISTRY/appscode-images/valkey:7.2.9
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-valkey-8.0.3.tar $IMAGE_REGISTRY/appscode-images/valkey:8.0.3
