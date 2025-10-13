@@ -50,6 +50,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.8.1 images/appscode-images-kafka-kraft-3.8.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.9.0 images/appscode-images-kafka-kraft-3.9.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka:4.0.0 images/appscode-images-kafka-4.0.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kafka-init:4.0-v1 images/kubedb-kafka-init-4.0-v1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kafka-init:4.0-v2 images/kubedb-kafka-init-4.0-v2.tar
 
 tar -czvf images.tar.gz images

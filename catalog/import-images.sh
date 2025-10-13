@@ -320,7 +320,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-elasticsearch-restic-plugin-v0.21.0.tar $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.21.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-hazelcast-init-5.5.2.tar $IMAGE_REGISTRY/kubedb/hazelcast-init:5.5.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-ignite-init-2.17.0-v2.tar $IMAGE_REGISTRY/kubedb/ignite-init:2.17.0-v2
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kafka-init-4.0-v1.tar $IMAGE_REGISTRY/kubedb/kafka-init:4.0-v1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kafka-init-4.0-v2.tar $IMAGE_REGISTRY/kubedb/kafka-init:4.0-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-autoscaler-v0.43.0.tar $IMAGE_REGISTRY/kubedb/kubedb-autoscaler:v0.43.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-crd-manager-v0.13.0.tar $IMAGE_REGISTRY/kubedb/kubedb-crd-manager:v0.13.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-gitops-v0.6.0.tar $IMAGE_REGISTRY/kubedb/kubedb-gitops:v0.6.0
