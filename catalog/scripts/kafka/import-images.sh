@@ -44,4 +44,4 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-k
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-kraft-3.8.1.tar $IMAGE_REGISTRY/appscode-images/kafka-kraft:3.8.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-kraft-3.9.0.tar $IMAGE_REGISTRY/appscode-images/kafka-kraft:3.9.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-4.0.0.tar $IMAGE_REGISTRY/appscode-images/kafka:4.0.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kafka-init-4.0-v1.tar $IMAGE_REGISTRY/kubedb/kafka-init:4.0-v1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kafka-init-4.0-v2.tar $IMAGE_REGISTRY/kubedb/kafka-init:4.0-v2

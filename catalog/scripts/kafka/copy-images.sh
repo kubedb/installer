@@ -53,4 +53,4 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ka
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.8.1 $IMAGE_REGISTRY/appscode-images/kafka-kraft:3.8.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.9.0 $IMAGE_REGISTRY/appscode-images/kafka-kraft:3.9.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka:4.0.0 $IMAGE_REGISTRY/appscode-images/kafka:4.0.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kafka-init:4.0-v1 $IMAGE_REGISTRY/kubedb/kafka-init:4.0-v1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kafka-init:4.0-v2 $IMAGE_REGISTRY/kubedb/kafka-init:4.0-v2
