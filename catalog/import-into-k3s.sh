@@ -318,7 +318,7 @@ k3s ctr images import images/kubedb-druid-init-31.0.0.tar
 k3s ctr images import images/kubedb-elasticsearch-restic-plugin-v0.21.0.tar
 k3s ctr images import images/kubedb-hazelcast-init-5.5.2.tar
 k3s ctr images import images/kubedb-ignite-init-2.17.0-v2.tar
-k3s ctr images import images/kubedb-kafka-init-4.0-v1.tar
+k3s ctr images import images/kubedb-kafka-init-4.0-v2.tar
 k3s ctr images import images/kubedb-kubedb-autoscaler-v0.43.0.tar
 k3s ctr images import images/kubedb-kubedb-crd-manager-v0.13.0.tar
 k3s ctr images import images/kubedb-kubedb-gitops-v0.6.0.tar
