@@ -35,6 +35,9 @@ k3s ctr images import images/appscode-images-redis-7.2.4-bookworm.tar
 k3s ctr images import images/appscode-images-redis-7.2.6-bookworm.tar
 k3s ctr images import images/appscode-images-redis-7.4.0-bookworm.tar
 k3s ctr images import images/appscode-images-redis-7.4.1-bookworm.tar
+k3s ctr images import images/appscode-images-redis-7.4.6-bookworm.tar
+k3s ctr images import images/appscode-images-redis-8.0.4-bookworm.tar
+k3s ctr images import images/appscode-images-redis-8.2.2-bookworm.tar
 k3s ctr images import images/appscode-images-valkey-7.2.5.tar
 k3s ctr images import images/appscode-images-valkey-7.2.9.tar
 k3s ctr images import images/appscode-images-valkey-8.0.3.tar
