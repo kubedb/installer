@@ -287,6 +287,9 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-r
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-7.2.6-bookworm.tar $IMAGE_REGISTRY/appscode-images/redis:7.2.6-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-7.4.0-bookworm.tar $IMAGE_REGISTRY/appscode-images/redis:7.4.0-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-7.4.1-bookworm.tar $IMAGE_REGISTRY/appscode-images/redis:7.4.1-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-7.4.6-bookworm.tar $IMAGE_REGISTRY/appscode-images/redis:7.4.6-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-8.0.4-bookworm.tar $IMAGE_REGISTRY/appscode-images/redis:8.0.4-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-8.2.2-bookworm.tar $IMAGE_REGISTRY/appscode-images/redis:8.2.2-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-singlestore-node-alma-8.1.32-e3d3cde6da.tar $IMAGE_REGISTRY/appscode-images/singlestore-node:alma-8.1.32-e3d3cde6da
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-singlestore-node-alma-8.5.30-4f46ab16a5.tar $IMAGE_REGISTRY/appscode-images/singlestore-node:alma-8.5.30-4f46ab16a5
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-singlestore-node-alma-8.5.7-bf633c1a54.tar $IMAGE_REGISTRY/appscode-images/singlestore-node:alma-8.5.7-bf633c1a54

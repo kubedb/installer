@@ -293,6 +293,9 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.2.6-bookworm images/appscode-images-redis-7.2.6-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.4.0-bookworm images/appscode-images-redis-7.4.0-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.4.1-bookworm images/appscode-images-redis-7.4.1-bookworm.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.4.6-bookworm images/appscode-images-redis-7.4.6-bookworm.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:8.0.4-bookworm images/appscode-images-redis-8.0.4-bookworm.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:8.2.2-bookworm images/appscode-images-redis-8.2.2-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/singlestore-node:alma-8.1.32-e3d3cde6da images/appscode-images-singlestore-node-alma-8.1.32-e3d3cde6da.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/singlestore-node:alma-8.5.30-4f46ab16a5 images/appscode-images-singlestore-node-alma-8.5.30-4f46ab16a5.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/singlestore-node:alma-8.5.7-bf633c1a54 images/appscode-images-singlestore-node-alma-8.5.7-bf633c1a54.tar

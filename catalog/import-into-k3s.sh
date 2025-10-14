@@ -285,6 +285,9 @@ k3s ctr images import images/appscode-images-redis-7.2.4-bookworm.tar
 k3s ctr images import images/appscode-images-redis-7.2.6-bookworm.tar
 k3s ctr images import images/appscode-images-redis-7.4.0-bookworm.tar
 k3s ctr images import images/appscode-images-redis-7.4.1-bookworm.tar
+k3s ctr images import images/appscode-images-redis-7.4.6-bookworm.tar
+k3s ctr images import images/appscode-images-redis-8.0.4-bookworm.tar
+k3s ctr images import images/appscode-images-redis-8.2.2-bookworm.tar
 k3s ctr images import images/appscode-images-singlestore-node-alma-8.1.32-e3d3cde6da.tar
 k3s ctr images import images/appscode-images-singlestore-node-alma-8.5.30-4f46ab16a5.tar
 k3s ctr images import images/appscode-images-singlestore-node-alma-8.5.7-bf633c1a54.tar
