@@ -4402,9 +4402,8 @@ func Convert_v1_ScriptSourceSpec_To_v1alpha2_ScriptSourceSpec(in *v1.ScriptSourc
 }
 
 func autoConvert_v1alpha2_SecretReference_To_v1_SecretReference(in *SecretReference, out *v1.SecretReference, s conversion.Scope) error {
-	out.ApiGroup = in.ApiGroup
 	out.SecretStoreName = in.SecretStoreName
-	out.LocalObjectReference = in.LocalObjectReference
+	out.TypedLocalObjectReference = in.TypedLocalObjectReference
 	out.RotateAfter = (*metav1.Duration)(unsafe.Pointer(in.RotateAfter))
 	out.ActiveFrom = (*metav1.Time)(unsafe.Pointer(in.ActiveFrom))
 	out.ExternallyManaged = in.ExternallyManaged
@@ -4417,9 +4416,8 @@ func Convert_v1alpha2_SecretReference_To_v1_SecretReference(in *SecretReference,
 }
 
 func autoConvert_v1_SecretReference_To_v1alpha2_SecretReference(in *v1.SecretReference, out *SecretReference, s conversion.Scope) error {
-	out.ApiGroup = in.ApiGroup
 	out.SecretStoreName = in.SecretStoreName
-	out.LocalObjectReference = in.LocalObjectReference
+	out.TypedLocalObjectReference = in.TypedLocalObjectReference
 	out.RotateAfter = (*metav1.Duration)(unsafe.Pointer(in.RotateAfter))
 	out.ActiveFrom = (*metav1.Time)(unsafe.Pointer(in.ActiveFrom))
 	out.ExternallyManaged = in.ExternallyManaged

@@ -585,7 +585,8 @@ const (
 	ProxySQLConfigSecretKey = "proxysql.cnf"
 
 	// =========================== Redis Constants ============================
-	RedisConfigKey = "redis.conf" // RedisConfigKey is going to create for the customize redis configuration
+	RedisConfigKey      = "redis.conf"    // RedisConfigKey is going to create for the customize redis configuration
+	RedisAclUserListKey = "acl_user.conf" // RedisAclUserListKey is going to create for the redis acl user list configuration
 	// DefaultConfigKey is going to create for the default redis configuration
 	RedisContainerName             = "redis"
 	RedisSentinelContainerName     = "redissentinel"
@@ -2037,4 +2038,17 @@ const (
 	OracleEnvPassword          = "ORACLE_PWD"
 	OracleEnvOracleSID         = "ORACLE_SID"
 	OracleEnvDataDir           = "ORADATA"
+)
+
+// =========================== Qdrant Constants ============================
+const (
+	QdrantContainerName     = "qdrant"
+	QdrantInitContainerName = "qdrant-init"
+	QdrantHTTPPortName      = "http"
+	QdrantHTTPPort          = 6333
+	QdrantGRPCPortName      = "grpc"
+	QdrantGRPCPort          = 6334
+	QdrantP2PPortName       = "p2p"
+	QdrantP2PPort           = 6335
+	QdrantConfigKey         = "config.yaml"
 )
