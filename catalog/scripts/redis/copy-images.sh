@@ -46,6 +46,9 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/re
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.2.6-bookworm $IMAGE_REGISTRY/appscode-images/redis:7.2.6-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.4.0-bookworm $IMAGE_REGISTRY/appscode-images/redis:7.4.0-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.4.1-bookworm $IMAGE_REGISTRY/appscode-images/redis:7.4.1-bookworm
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.4.6-bookworm $IMAGE_REGISTRY/appscode-images/redis:7.4.6-bookworm
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:8.0.4-bookworm $IMAGE_REGISTRY/appscode-images/redis:8.0.4-bookworm
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:8.2.2-bookworm $IMAGE_REGISTRY/appscode-images/redis:8.2.2-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:7.2.5 $IMAGE_REGISTRY/appscode-images/valkey:7.2.5
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:7.2.9 $IMAGE_REGISTRY/appscode-images/valkey:7.2.9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:8.0.3 $IMAGE_REGISTRY/appscode-images/valkey:8.0.3

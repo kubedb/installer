@@ -296,6 +296,9 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/re
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.2.6-bookworm $IMAGE_REGISTRY/appscode-images/redis:7.2.6-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.4.0-bookworm $IMAGE_REGISTRY/appscode-images/redis:7.4.0-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.4.1-bookworm $IMAGE_REGISTRY/appscode-images/redis:7.4.1-bookworm
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.4.6-bookworm $IMAGE_REGISTRY/appscode-images/redis:7.4.6-bookworm
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:8.0.4-bookworm $IMAGE_REGISTRY/appscode-images/redis:8.0.4-bookworm
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:8.2.2-bookworm $IMAGE_REGISTRY/appscode-images/redis:8.2.2-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/singlestore-node:alma-8.1.32-e3d3cde6da $IMAGE_REGISTRY/appscode-images/singlestore-node:alma-8.1.32-e3d3cde6da
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/singlestore-node:alma-8.5.30-4f46ab16a5 $IMAGE_REGISTRY/appscode-images/singlestore-node:alma-8.5.30-4f46ab16a5
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/singlestore-node:alma-8.5.7-bf633c1a54 $IMAGE_REGISTRY/appscode-images/singlestore-node:alma-8.5.7-bf633c1a54

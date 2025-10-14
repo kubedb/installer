@@ -43,6 +43,9 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.2.6-bookworm images/appscode-images-redis-7.2.6-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.4.0-bookworm images/appscode-images-redis-7.4.0-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.4.1-bookworm images/appscode-images-redis-7.4.1-bookworm.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:7.4.6-bookworm images/appscode-images-redis-7.4.6-bookworm.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:8.0.4-bookworm images/appscode-images-redis-8.0.4-bookworm.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:8.2.2-bookworm images/appscode-images-redis-8.2.2-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:7.2.5 images/appscode-images-valkey-7.2.5.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:7.2.9 images/appscode-images-valkey-7.2.9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:8.0.3 images/appscode-images-valkey-8.0.3.tar
