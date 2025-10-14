@@ -43,6 +43,7 @@ declare -a components=(
     pgpool
     postgres
     proxysql
+    qdrant
     rabbitmq
     redis
     schemaregistry

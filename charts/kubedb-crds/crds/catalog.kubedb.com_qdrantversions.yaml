@@ -1,0 +1,138 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.19.0
+  name: qdrantversions.catalog.kubedb.com
+spec:
+  group: catalog.kubedb.com
+  names:
+    categories:
+    - catalog
+    - kubedb
+    - appscode
+    kind: QdrantVersion
+    listKind: QdrantVersionList
+    plural: qdrantversions
+    shortNames:
+    - qdversion
+    singular: qdrantversion
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.version
+      name: Version
+      type: string
+    - jsonPath: .spec.db.image
+      name: DB_IMAGE
+      type: string
+    - jsonPath: .spec.deprecated
+      name: Deprecated
+      type: boolean
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: QdrantVersionSpec is the spec for Qdrant version
+            properties:
+              db:
+                description: Database Image
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              deprecated:
+                description: Deprecated versions usable but regarded as obsolete and
+                  best avoided, typically due to having been superseded.
+                type: boolean
+              initContainer:
+                description: Database Image
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              securityContext:
+                description: SecurityContext is for the additional config for the
+                  DB container
+                properties:
+                  runAsGroup:
+                    format: int64
+                    type: integer
+                  runAsUser:
+                    format: int64
+                    type: integer
+                type: object
+              ui:
+                items:
+                  properties:
+                    disable:
+                      description: Disable installing this chart
+                      type: boolean
+                    name:
+                      description: Name specifies the name of the chart
+                      type: string
+                    values:
+                      description: Values holds the values for this Helm release.
+                      x-kubernetes-preserve-unknown-fields: true
+                    version:
+                      description: Version specifies the version of the chart.
+                      type: string
+                  required:
+                  - name
+                  type: object
+                type: array
+              updateConstraints:
+                description: update constraints
+                properties:
+                  allowlist:
+                    description: |-
+                      List of all accepted versions for upgrade request.
+                      An empty list indicates all versions are accepted except the denylist.
+                    items:
+                      type: string
+                    type: array
+                  denylist:
+                    description: |-
+                      List of all rejected versions for upgrade request.
+                      An empty list indicates no version is rejected.
+                    items:
+                      type: string
+                    type: array
+                type: object
+              version:
+                description: Version
+                type: string
+            required:
+            - db
+            - version
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources: {}

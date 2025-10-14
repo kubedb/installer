@@ -271,6 +271,7 @@ k3s ctr images import images/appscode-images-postgres-17.4-alpine.tar
 k3s ctr images import images/appscode-images-postgres-17.4-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-17.5-alpine.tar
 k3s ctr images import images/appscode-images-postgres-17.5-bookworm.tar
+k3s ctr images import images/qdrant/qdrant:v1.15.4.tar
 k3s ctr images import images/appscode-images-rabbitmq-3.12.12-management-alpine.tar
 k3s ctr images import images/appscode-images-rabbitmq-3.13.2-management-alpine.tar
 k3s ctr images import images/appscode-images-rabbitmq-4.0.4-management-alpine.tar
