@@ -273,7 +273,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-p
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.4-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:17.4-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.5-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:17.5-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.5-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:17.5-bookworm
-$CMD push --allow-nondistributable-artifacts --insecure docker.io/qdrant/qdrant:v1.15.4 $IMAGE_REGISTRY/qdrant/qdrant:v1.15.4
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-rabbitmq-3.12.12-management-alpine.tar $IMAGE_REGISTRY/appscode-images/rabbitmq:3.12.12-management-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-rabbitmq-3.13.2-management-alpine.tar $IMAGE_REGISTRY/appscode-images/rabbitmq:3.13.2-management-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-rabbitmq-4.0.4-management-alpine.tar $IMAGE_REGISTRY/appscode-images/rabbitmq:4.0.4-management-alpine
@@ -469,3 +468,4 @@ $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timesca
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg14-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg14-oss
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg15-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg15-oss
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg16-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg16-oss
+$CMD push --allow-nondistributable-artifacts --insecure images/qdrant/qdrant:v1.15.4 $IMAGE_REGISTRY/qdrant/qdrant:v1.15.4
