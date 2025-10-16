@@ -29,6 +29,7 @@ declare -a components=(
     elasticsearch
     ferretdb
     hazelcast
+    hanadb
     kafka
     kafkaconnector
     mariadb
