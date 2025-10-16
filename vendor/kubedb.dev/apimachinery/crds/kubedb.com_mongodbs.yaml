@@ -1,9 +1,9 @@
+
+---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   creationTimestamp: null
-  labels:
-    app.kubernetes.io/name: kubedb
   name: mongodbs.kubedb.com
 spec:
   group: kubedb.com
@@ -40,11 +40,6 @@ spec:
           kind:
             type: string
           metadata:
-            properties:
-              name:
-                maxLength: 63
-                pattern: ^[a-z]([-a-z0-9]*[a-z0-9])?$
-                type: string
             type: object
           spec:
             properties:
@@ -3245,13 +3240,18 @@ spec:
                     type: string
                   externallyManaged:
                     type: boolean
+                  kind:
+                    default: Secret
+                    type: string
                   name:
-                    default: ""
                     type: string
                   rotateAfter:
                     type: string
                   secretStoreName:
                     type: string
+                required:
+                - kind
+                - name
                 type: object
                 x-kubernetes-map-type: atomic
               autoOps:
@@ -23524,13 +23524,18 @@ spec:
                     type: string
                   externallyManaged:
                     type: boolean
+                  kind:
+                    default: Secret
+                    type: string
                   name:
-                    default: ""
                     type: string
                   rotateAfter:
                     type: string
                   secretStoreName:
                     type: string
+                required:
+                - kind
+                - name
                 type: object
                 x-kubernetes-map-type: atomic
               autoOps:

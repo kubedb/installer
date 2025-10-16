@@ -20,7 +20,7 @@ require (
 	kmodules.xyz/image-packer v0.0.0-20250709183414-f93633723666
 	kmodules.xyz/resource-metadata v0.32.1
 	kmodules.xyz/schema-checker v0.4.2
-	kubedb.dev/apimachinery v0.58.0
+	kubedb.dev/apimachinery v0.58.3-0.20251009055302-ae08ad7f6546
 	kubeops.dev/installer v0.0.0-20250630172252-60882a8ed9ab
 	sigs.k8s.io/yaml v1.4.0
 	stash.appscode.dev/installer v0.12.2-0.20250630171625-d3c674690e22
@@ -114,7 +114,7 @@ require (
 	k8s.io/kube-openapi v0.0.0-20250318190949-c8a335a9a2ff // indirect
 	k8s.io/utils v0.0.0-20241210054802-24370beab758 // indirect
 	kmodules.xyz/apiversion v0.2.0 // indirect
-	kmodules.xyz/custom-resources v0.32.0 // indirect
+	kmodules.xyz/custom-resources v0.32.1 // indirect
 	kmodules.xyz/monitoring-agent-api v0.32.1 // indirect
 	kmodules.xyz/offshoot-api v0.32.0 // indirect
 	kubeops.dev/petset v0.0.12 // indirect

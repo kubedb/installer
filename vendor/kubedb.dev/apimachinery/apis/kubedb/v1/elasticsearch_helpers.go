@@ -40,6 +40,7 @@ import (
 	core_util "kmodules.xyz/client-go/core/v1"
 	meta_util "kmodules.xyz/client-go/meta"
 	"kmodules.xyz/client-go/policy/secomp"
+	app_api "kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1"
 	appcat "kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1"
 	mona "kmodules.xyz/monitoring-agent-api/api/v1"
 	ofstv2 "kmodules.xyz/offshoot-api/api/v2"
@@ -862,7 +863,8 @@ func (e *Elasticsearch) SetDefaultInternalUsersAndRoleMappings(esVersion *catalo
 					userSpec.SecretName = e.GetAuthSecretName()
 				}
 				e.Spec.AuthSecret = &SecretReference{
-					LocalObjectReference: core.LocalObjectReference{
+					TypedLocalObjectReference: app_api.TypedLocalObjectReference{
+						Kind: "Secret",
 						Name: userSpec.SecretName,
 					},
 				}
