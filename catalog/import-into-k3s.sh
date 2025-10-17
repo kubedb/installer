@@ -467,3 +467,4 @@ k3s ctr images import images/timescale-timescaledb-2.14.2-pg13-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg14-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg15-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg16-oss.tar
+k3s ctr images import images/qdrant-qdrant-v1.15.4.tar
