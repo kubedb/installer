@@ -60,9 +60,9 @@ ARCH := $(if $(GOARCH),$(GOARCH),$(shell go env GOARCH))
 BASEIMAGE_PROD   ?= gcr.io/distroless/static-debian12
 BASEIMAGE_DBG    ?= debian:12
 
-GO_VERSION       ?= 1.25
+GO_VERSION       ?= 1.24
 BUILD_IMAGE      ?= ghcr.io/appscode/golang-dev:$(GO_VERSION)
-CHART_TEST_IMAGE ?= quay.io/helmpack/chart-testing:v3.13.0
+CHART_TEST_IMAGE ?= quay.io/helmpack/chart-testing:v3.11.0
 
 OUTBIN = bin/$(OS)_$(ARCH)/$(BIN)
 ifeq ($(OS),windows)
@@ -208,14 +208,31 @@ gen-bindata:
 
 .PHONY: gen-values-schema
 gen-values-schema: $(BUILD_DIRS)
+	@echo "Generating values.openapiv3_schema.yaml for each chart..."
 	@for dir in charts/*/; do \
-		dir=$${dir%*/}; \
-		dir=$${dir##*/}; \
-		crd_file=.crds/installer.kubedb.com_$$(echo $$dir | tr -d '-')s.yaml; \
-		if [ ! -f $${crd_file} ]; then \
-			continue; \
-		fi; \
-		yq -y --indentless '.spec.versions[0].schema.openAPIV3Schema.properties.spec | del(.description)' $${crd_file} > charts/$${dir}/values.openapiv3_schema.yaml; \
+	    chart_name=$$(basename "$$dir"); \
+	    [ -z "$$chart_name" ] || [ ! -d "$$dir" ] && continue; \
+	    \
+	    kind="$$(echo "$$chart_name" | tr '[:upper:]' '[:lower:]')"; \
+	    plural="$${kind}s"; \
+	    crd_file=".crds/installer.kubedb.com_$${plural}.yaml"; \
+	    \
+	    [ -f "$$crd_file" ] || { \
+	        echo "Warning: CRD not found: $$crd_file (skipping $$chart_name)"; \
+	        continue; \
+	    }; \
+	    \
+	    output_file="$$dir/values.openapiv3_schema.yaml"; \
+	    echo "Generating $$output_file"; \
+	    \
+	    yq eval ' \
+	        (.spec.versions[0].schema.openAPIV3Schema.properties.spec // {}) \
+	        | del(.description) \
+	        | del(.. | .description?) \
+	    ' "$$crd_file" > "$$output_file" || { \
+	        echo "Error: Failed to generate $$output_file"; \
+	        rm -f "$$output_file"; \
+	    }; \
 	done
 
 .PHONY: gen-chart-doc
@@ -395,7 +412,7 @@ lint: $(BUILD_DIRS)
 	    --env GO111MODULE=on                                    \
 	    --env GOFLAGS="-mod=vendor"                             \
 	    $(BUILD_IMAGE)                                          \
-	    golangci-lint run --enable $(ADDTL_LINTERS) --max-same-issues=100 --timeout=10m --exclude-files="generated.*\.go$\" --exclude-dirs-use-default --exclude-dirs=client,vendor
+	    golangci-lint run --enable $(ADDTL_LINTERS) --max-same-issues=100 --timeout=10m --exclude-files='generated.*\.go$\' --exclude-dirs-use-default --exclude-dirs=client,vendor
 
 $(BUILD_DIRS):
 	@mkdir -p $@
