@@ -1,0 +1,19 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Milvus }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MilvusVersion
+metadata:
+  name: '2.6.1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  version: "2.6.1"
+  db:
+    image: milvusdb/milvus:v2.6.1
+  deprecated: false
+{{ end }}
