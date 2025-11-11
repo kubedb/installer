@@ -106,6 +106,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&MSSQLServerList{},
 		&Hazelcast{},
 		&HazelcastList{},
+		&Milvus{},
+		&MilvusList{},
 	)
 
 	scheme.AddKnownTypes(SchemeGroupVersion,

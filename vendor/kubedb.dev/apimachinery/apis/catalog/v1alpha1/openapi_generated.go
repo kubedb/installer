@@ -458,12 +458,15 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kmodules.xyz/monitoring-agent-api/api/v1.AgentSpec":                                         schema_kmodulesxyz_monitoring_agent_api_api_v1_AgentSpec(ref),
 		"kmodules.xyz/monitoring-agent-api/api/v1.AlertPreset":                                       schema_kmodulesxyz_monitoring_agent_api_api_v1_AlertPreset(ref),
 		"kmodules.xyz/monitoring-agent-api/api/v1.BasicAuth":                                         schema_kmodulesxyz_monitoring_agent_api_api_v1_BasicAuth(ref),
+		"kmodules.xyz/monitoring-agent-api/api/v1.ClientConfig":                                      schema_kmodulesxyz_monitoring_agent_api_api_v1_ClientConfig(ref),
+		"kmodules.xyz/monitoring-agent-api/api/v1.ConnectionSpec":                                    schema_kmodulesxyz_monitoring_agent_api_api_v1_ConnectionSpec(ref),
 		"kmodules.xyz/monitoring-agent-api/api/v1.DashboardSpec":                                     schema_kmodulesxyz_monitoring_agent_api_api_v1_DashboardSpec(ref),
 		"kmodules.xyz/monitoring-agent-api/api/v1.GrafanaConfig":                                     schema_kmodulesxyz_monitoring_agent_api_api_v1_GrafanaConfig(ref),
 		"kmodules.xyz/monitoring-agent-api/api/v1.GrafanaContext":                                    schema_kmodulesxyz_monitoring_agent_api_api_v1_GrafanaContext(ref),
 		"kmodules.xyz/monitoring-agent-api/api/v1.MonitoringPresets":                                 schema_kmodulesxyz_monitoring_agent_api_api_v1_MonitoringPresets(ref),
 		"kmodules.xyz/monitoring-agent-api/api/v1.MonitoringPresetsForm":                             schema_kmodulesxyz_monitoring_agent_api_api_v1_MonitoringPresetsForm(ref),
 		"kmodules.xyz/monitoring-agent-api/api/v1.MonitoringPresetsSpec":                             schema_kmodulesxyz_monitoring_agent_api_api_v1_MonitoringPresetsSpec(ref),
+		"kmodules.xyz/monitoring-agent-api/api/v1.Prometheus":                                        schema_kmodulesxyz_monitoring_agent_api_api_v1_Prometheus(ref),
 		"kmodules.xyz/monitoring-agent-api/api/v1.PrometheusConfig":                                  schema_kmodulesxyz_monitoring_agent_api_api_v1_PrometheusConfig(ref),
 		"kmodules.xyz/monitoring-agent-api/api/v1.PrometheusContext":                                 schema_kmodulesxyz_monitoring_agent_api_api_v1_PrometheusContext(ref),
 		"kmodules.xyz/monitoring-agent-api/api/v1.PrometheusExporterSpec":                            schema_kmodulesxyz_monitoring_agent_api_api_v1_PrometheusExporterSpec(ref),
@@ -597,6 +600,10 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.MemcachedVersionList":                         schema_apimachinery_apis_catalog_v1alpha1_MemcachedVersionList(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.MemcachedVersionPodSecurityPolicy":            schema_apimachinery_apis_catalog_v1alpha1_MemcachedVersionPodSecurityPolicy(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.MemcachedVersionSpec":                         schema_apimachinery_apis_catalog_v1alpha1_MemcachedVersionSpec(ref),
+		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusVersion":                                schema_apimachinery_apis_catalog_v1alpha1_MilvusVersion(ref),
+		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusVersionDatabase":                        schema_apimachinery_apis_catalog_v1alpha1_MilvusVersionDatabase(ref),
+		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusVersionList":                            schema_apimachinery_apis_catalog_v1alpha1_MilvusVersionList(ref),
+		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusVersionSpec":                            schema_apimachinery_apis_catalog_v1alpha1_MilvusVersionSpec(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.MongoDBSecurityContext":                       schema_apimachinery_apis_catalog_v1alpha1_MongoDBSecurityContext(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.MongoDBVersion":                               schema_apimachinery_apis_catalog_v1alpha1_MongoDBVersion(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.MongoDBVersionDatabase":                       schema_apimachinery_apis_catalog_v1alpha1_MongoDBVersionDatabase(ref),
@@ -23337,6 +23344,104 @@ func schema_kmodulesxyz_monitoring_agent_api_api_v1_BasicAuth(ref common.Referen
 	}
 }
 
+func schema_kmodulesxyz_monitoring_agent_api_api_v1_ClientConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "ClientConfig contains the information to make a connection with an app",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"url": {
+						SchemaProps: spec.SchemaProps{
+							Description: "`url` gives the location of the app, in standard URL form (`[scheme://]host:port/path`). Exactly one of `url` or `service` must be specified.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"insecureSkipTLSVerify": {
+						SchemaProps: spec.SchemaProps{
+							Description: "InsecureSkipTLSVerify disables TLS certificate verification when communicating with this app. This is strongly discouraged.  You should use the CABundle instead.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"caBundle": {
+						SchemaProps: spec.SchemaProps{
+							Description: "CABundle is a PEM encoded CA bundle which will be used to validate the serving certificate of this app.",
+							Type:        []string{"string"},
+							Format:      "byte",
+						},
+					},
+					"serverName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ServerName is used to verify the hostname on the returned certificates unless InsecureSkipVerify is given. It is also included in the client's handshake to support virtual hosting unless it is an IP address.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_kmodulesxyz_monitoring_agent_api_api_v1_ConnectionSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "ConnectionSpec is the spec for app",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"url": {
+						SchemaProps: spec.SchemaProps{
+							Description: "`url` gives the location of the app, in standard URL form (`[scheme://]host:port/path`). Exactly one of `url` or `service` must be specified.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"insecureSkipTLSVerify": {
+						SchemaProps: spec.SchemaProps{
+							Description: "InsecureSkipTLSVerify disables TLS certificate verification when communicating with this app. This is strongly discouraged.  You should use the CABundle instead.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"caBundle": {
+						SchemaProps: spec.SchemaProps{
+							Description: "CABundle is a PEM encoded CA bundle which will be used to validate the serving certificate of this app.",
+							Type:        []string{"string"},
+							Format:      "byte",
+						},
+					},
+					"serverName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ServerName is used to verify the hostname on the returned certificates unless InsecureSkipVerify is given. It is also included in the client's handshake to support virtual hosting unless it is an IP address.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"authSecret": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Secret is the name of the secret to create in the AppBinding's namespace that will hold the credentials associated with the AppBinding.",
+							Ref:         ref("kmodules.xyz/client-go/api/v1.ObjectReference"),
+						},
+					},
+					"tlsSecret": {
+						SchemaProps: spec.SchemaProps{
+							Description: "TLSSecret is the name of the secret that will hold the client certificate and private key associated with the AppBinding.",
+							Ref:         ref("kmodules.xyz/client-go/api/v1.ObjectReference"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"kmodules.xyz/client-go/api/v1.ObjectReference"},
+	}
+}
+
 func schema_kmodulesxyz_monitoring_agent_api_api_v1_DashboardSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -23506,6 +23611,66 @@ func schema_kmodulesxyz_monitoring_agent_api_api_v1_MonitoringPresetsSpec(ref co
 		},
 		Dependencies: []string{
 			"kmodules.xyz/monitoring-agent-api/api/v1.ServiceMonitorPreset"},
+	}
+}
+
+func schema_kmodulesxyz_monitoring_agent_api_api_v1_Prometheus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"appBindingRef": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kmodules.xyz/client-go/api/v1.ObjectReference"),
+						},
+					},
+					"url": {
+						SchemaProps: spec.SchemaProps{
+							Description: "`url` gives the location of the app, in standard URL form (`[scheme://]host:port/path`). Exactly one of `url` or `service` must be specified.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"insecureSkipTLSVerify": {
+						SchemaProps: spec.SchemaProps{
+							Description: "InsecureSkipTLSVerify disables TLS certificate verification when communicating with this app. This is strongly discouraged.  You should use the CABundle instead.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"caBundle": {
+						SchemaProps: spec.SchemaProps{
+							Description: "CABundle is a PEM encoded CA bundle which will be used to validate the serving certificate of this app.",
+							Type:        []string{"string"},
+							Format:      "byte",
+						},
+					},
+					"serverName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ServerName is used to verify the hostname on the returned certificates unless InsecureSkipVerify is given. It is also included in the client's handshake to support virtual hosting unless it is an IP address.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"authSecret": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Secret is the name of the secret to create in the AppBinding's namespace that will hold the credentials associated with the AppBinding.",
+							Ref:         ref("kmodules.xyz/client-go/api/v1.ObjectReference"),
+						},
+					},
+					"tlsSecret": {
+						SchemaProps: spec.SchemaProps{
+							Description: "TLSSecret is the name of the secret that will hold the client certificate and private key associated with the AppBinding.",
+							Ref:         ref("kmodules.xyz/client-go/api/v1.ObjectReference"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"kmodules.xyz/client-go/api/v1.ObjectReference"},
 	}
 }
 
@@ -29524,6 +29689,174 @@ func schema_apimachinery_apis_catalog_v1alpha1_MemcachedVersionSpec(ref common.R
 		},
 		Dependencies: []string{
 			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MemcachedVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MemcachedVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MemcachedVersionPodSecurityPolicy", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
+	}
+}
+
+func schema_apimachinery_apis_catalog_v1alpha1_MilvusVersion(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "Package v1alpha2 contains API Schema definitions for the  v1alpha2 API group.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusVersionSpec"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusVersionSpec"},
+	}
+}
+
+func schema_apimachinery_apis_catalog_v1alpha1_MilvusVersionDatabase(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"image": {
+						SchemaProps: spec.SchemaProps{
+							Default: "",
+							Type:    []string{"string"},
+							Format:  "",
+						},
+					},
+				},
+				Required: []string{"image"},
+			},
+		},
+	}
+}
+
+func schema_apimachinery_apis_catalog_v1alpha1_MilvusVersionList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Default: map[string]interface{}{},
+										Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusVersion"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"items"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusVersion"},
+	}
+}
+
+func schema_apimachinery_apis_catalog_v1alpha1_MilvusVersionSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Default: "",
+							Type:    []string{"string"},
+							Format:  "",
+						},
+					},
+					"db": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusVersionDatabase"),
+						},
+					},
+					"deprecated": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"securityContext": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext"),
+						},
+					},
+					"ui": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Default: map[string]interface{}{},
+										Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo"),
+									},
+								},
+							},
+						},
+					},
+					"updateConstraints": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"),
+						},
+					},
+				},
+				Required: []string{"version", "db"},
+			},
+		},
+		Dependencies: []string{
+			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
 	}
 }
 

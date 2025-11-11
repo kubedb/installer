@@ -886,6 +886,55 @@ const (
 )
 
 const (
+	MilvusUsernameKey = "username"
+	MilvusUsername    = "root"
+	MilvusPasswordKey = "password"
+	MilvusPassword    = "Milvus"
+
+	MilvusPrimaryServicePortName = "primary"
+	MilvusServicePort            = 19530
+
+	MilvusGrpcPortName = "grpc"
+	MilvusGrpcPort     = int32(19530)
+
+	MilvusMetricsPortName = "metrics"
+	MilvusMetricsPort     = int32(9091)
+
+	MilvusPVCName = "milvus-pvc"
+	MilvusPVCDir  = "/var/lib/milvus"
+
+	MilvusConfigVolName = "milvus-config"
+	MilvusConfigDir     = "/milvus/configs/milvus.yaml"
+
+	MilvusWritableVolName = "milvus-writable"
+	MilvusWritableDir     = "/milvus"
+
+	MilvusConfigFileName = "milvus.yaml"
+
+	MilvusStorageName = "milvus-storage"
+
+	MilvusDefaultImage = "milvusdb/milvus:v2.6.1"
+
+	MilvusContainerName = "milvus"
+
+	MilvusInitContainerName = "fix-permissions"
+
+	EtcdEndpointsName = "ETCD_ENDPOINTS"
+
+	MinioAddressName   = "MINIO_ADDRESS"
+	MinioAddressKey    = "address"
+	MinioAccessKeyName = "MINIO_ACCESS_KEY"
+	MinioAccessKey     = "accessKeyId"
+	MinioSecretKeyName = "MINIO_SECRET_KEY"
+	MinioSecretKey     = "secretAccessKey"
+
+	MilvusEnvUsername = "MILVUS_USERNAME"
+	MilvusEnvPassword = "MILVUS_PASSWORD"
+
+	MilvusPodName = "milvus-standalone-0"
+)
+
+const (
 	KafkaPortNameREST                  = "http"
 	KafkaPortNameController            = "controller"
 	KafkaPortNameCruiseControlListener = "cc-listener"
