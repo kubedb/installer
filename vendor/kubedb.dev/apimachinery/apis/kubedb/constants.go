@@ -909,6 +909,7 @@ const (
 	MilvusDefaultImage      = "milvusdb/milvus:v2.6.1"
 	MilvusContainerName     = "milvus"
 	MilvusInitContainerName = "fix-permissions"
+	MilvusWritableInitDir   = "/milvus-writable"
 
 	EtcdEndpointsName     = "ETCD_ENDPOINTS"
 	EtcdAPIVersion        = "operator.etcd.io/v1alpha1"

@@ -8,7 +8,6 @@ import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
-	ptr "k8s.io/utils/pointer"
 	"kmodules.xyz/client-go/apiextensions"
 	coreutil "kmodules.xyz/client-go/core/v1"
 	meta_util "kmodules.xyz/client-go/meta"
@@ -132,6 +131,62 @@ func (m *Milvus) PodLabels(extraLabels ...map[string]string) map[string]string {
 	return m.offshootLabels(meta_util.OverwriteKeys(m.OffshootSelectors(), extraLabels...), podTemplateLabels)
 }
 
+func (m *Milvus) GetGRPCAddress() string {
+	port := kubedb.MilvusGrpcPort
+	if m.Spec.Standalone.GRPCPort != nil {
+		port = *m.Spec.Standalone.GRPCPort
+	}
+	return fmt.Sprintf("localhost:%d", port)
+}
+
+func (m *Milvus) getAuthSecret(ctx context.Context, kc client.Client) (*core.Secret, error) {
+	if m.Spec.Standalone.DisableSecurity || m.Spec.Standalone.AuthSecret == nil {
+		return nil, nil
+	}
+	if m.Spec.Standalone.AuthSecret.Name == "" {
+		return nil, nil
+	}
+
+	secret := &core.Secret{}
+	err := kc.Get(ctx, types.NamespacedName{
+		Name:      m.Spec.Standalone.AuthSecret.Name,
+		Namespace: m.Namespace,
+	}, secret)
+	return secret, err
+}
+
+func (m *Milvus) GetUsername(ctx context.Context, kc client.Client) (string, error) {
+	secret, err := m.getAuthSecret(ctx, kc)
+	if err != nil {
+		return "", err
+	}
+	if secret == nil {
+		return "", nil // security disabled
+	}
+
+	data, ok := secret.Data[kubedb.MilvusUsernameKey]
+	if !ok || len(data) == 0 {
+		return "", fmt.Errorf("username key %q missing in secret %s", kubedb.MilvusUsernameKey, secret.Name)
+	}
+	return string(data), nil
+}
+
+func (m *Milvus) GetPassword(ctx context.Context, kc client.Client) (string, error) {
+	secret, err := m.getAuthSecret(ctx, kc)
+	if err != nil {
+		return "", err
+	}
+	if secret == nil {
+		return "", nil
+	}
+
+	data, ok := secret.Data[kubedb.MilvusPasswordKey]
+	if !ok || len(data) == 0 {
+		return "", fmt.Errorf("password key %q missing in secret %s", kubedb.MilvusPasswordKey, secret.Name)
+	}
+	return string(data), nil
+}
+
 func (m *Milvus) Finalizer() string {
 	return fmt.Sprintf("%s/%s", apis.Finalizer, m.ResourceSingular())
 }
@@ -230,21 +285,6 @@ func (m *Milvus) SetDefaults(kc client.Client) {
 	m.setDefaultContainerResourceLimits(&m.Spec.Standalone.PodTemplate)
 }
 
-func GetDefaultSecurityContext() *core.SecurityContext {
-	return &core.SecurityContext{
-		RunAsNonRoot:             ptr.Bool(true),
-		RunAsUser:                ptr.Int64(10001),
-		RunAsGroup:               ptr.Int64(10001),
-		AllowPrivilegeEscalation: ptr.Bool(false),
-		Capabilities: &core.Capabilities{
-			Drop: []core.Capability{"ALL"},
-		},
-		SeccompProfile: &core.SeccompProfile{
-			Type: core.SeccompProfileTypeRuntimeDefault,
-		},
-	}
-}
-
 func GetDefaultReadinessProbe() *core.Probe {
 	return &core.Probe{
 		ProbeHandler: core.ProbeHandler{
@@ -278,12 +318,12 @@ func (m *Milvus) setDefaultContainerSecurityContext(qdVersion *catalog.MilvusVer
 	if container.SecurityContext == nil {
 		container.SecurityContext = &core.SecurityContext{}
 	}
-	m.assignDefaultContainerSecurityContext(qdVersion, container.SecurityContext)
+	m.AssignDefaultContainerSecurityContext(qdVersion, container.SecurityContext)
 
 	podTemplate.Spec.Containers = coreutil.UpsertContainer(podTemplate.Spec.Containers, *container)
 }
 
-func (m *Milvus) assignDefaultContainerSecurityContext(mlvVersion *catalog.MilvusVersion, rc *core.SecurityContext) {
+func (m *Milvus) AssignDefaultContainerSecurityContext(mlvVersion *catalog.MilvusVersion, rc *core.SecurityContext) {
 	if rc.AllowPrivilegeEscalation == nil {
 		rc.AllowPrivilegeEscalation = pointer.BoolP(false)
 	}
