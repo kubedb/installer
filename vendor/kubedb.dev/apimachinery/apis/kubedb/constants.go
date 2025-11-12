@@ -893,33 +893,37 @@ const (
 
 	MilvusPrimaryServicePortName = "primary"
 	MilvusServicePort            = 19530
+	MilvusGrpcPortName           = "grpc"
+	MilvusGrpcPort               = int32(19530)
+	MilvusMetricsPortName        = "metrics"
+	MilvusMetricsPort            = int32(9091)
 
-	MilvusGrpcPortName = "grpc"
-	MilvusGrpcPort     = int32(19530)
-
-	MilvusMetricsPortName = "metrics"
-	MilvusMetricsPort     = int32(9091)
-
-	MilvusPVCName = "milvus-pvc"
-	MilvusPVCDir  = "/var/lib/milvus"
-
-	MilvusConfigVolName = "milvus-config"
-	MilvusConfigDir     = "/milvus/configs/milvus.yaml"
-
-	MilvusWritableVolName = "milvus-writable"
-	MilvusWritableDir     = "/milvus"
-
-	MilvusConfigFileName = "milvus.yaml"
-
-	MilvusStorageName = "milvus-storage"
-
-	MilvusDefaultImage = "milvusdb/milvus:v2.6.1"
-
-	MilvusContainerName = "milvus"
-
+	MilvusPVCName           = "milvus-pvc"
+	MilvusPVCDir            = "/var/lib/milvus"
+	MilvusConfigVolName     = "milvus-config"
+	MilvusConfigDir         = "/milvus/configs/milvus.yaml"
+	MilvusWritableVolName   = "milvus-writable"
+	MilvusWritableDir       = "/milvus"
+	MilvusConfigFileName    = "milvus.yaml"
+	MilvusStorageName       = "milvus-storage"
+	MilvusDefaultImage      = "milvusdb/milvus:v2.6.1"
+	MilvusContainerName     = "milvus"
 	MilvusInitContainerName = "fix-permissions"
 
-	EtcdEndpointsName = "ETCD_ENDPOINTS"
+	EtcdEndpointsName     = "ETCD_ENDPOINTS"
+	EtcdAPIVersion        = "operator.etcd.io/v1alpha1"
+	EtcdKind              = "EtcdCluster"
+	AnnotationCreatedBy   = "kubedb.dev/created-by"
+	AnnotationManaged     = "kubedb.dev/managed"
+	AnnotationTrue        = "true"
+	ControllerName        = "milvus-controller"
+	EtcdAppLabel          = "milvus-standalone-etcd"
+	EtcdPodTemplateSuffix = "milvus-standalone-etcd"
+	EtcdServiceSuffix     = "milvus-standalone-etcd"
+	EtcdName              = "etcd"
+	EtcdPort              = 2379
+	EtcdVersion           = "v3.5.21"
+	EtcdDefaultSize       = 3
 
 	MinioAddressName   = "MINIO_ADDRESS"
 	MinioAddressKey    = "address"
