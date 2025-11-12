@@ -41,29 +41,40 @@ const (
 type MilvusVersion struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
+	Spec              MilvusVersionSpec `json:"spec,omitempty"`
+}
 
-	Spec MilvusVersionSpec `json:"spec,omitempty"`
+// +k8s:deepcopy-gen=true
+type MilvusVersionSpec struct {
+	// Version
+	Version string `json:"version"`
+	// Database Image
+	DB MilvusVersionDatabase `json:"db"`
+	// Deprecated versions usable but regarded as obsolete and best avoided, typically due to having been superseded.
+	// +optional
+	Deprecated bool `json:"deprecated,omitempty"`
+	// SecurityContext is for the additional config for the DB container
+	// +optional
+	SecurityContext MilvusSecurityContext `json:"securityContext,omitempty"`
+	// +optional
+	UI []ChartInfo `json:"ui,omitempty"`
+	// update constraints
+	UpdateConstraints UpdateConstraints `json:"updateConstraints,omitempty"`
+}
+
+// MilvusSecurityContext is for the additional config for the DB container
+type MilvusSecurityContext struct {
+	RunAsUser *int64 `json:"runAsUser,omitempty"`
+}
+
+// +k8s:deepcopy-gen=true
+type MilvusVersionDatabase struct {
+	Image string `json:"image"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 type MilvusVersionList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-
-	Items []MilvusVersion `json:"items"`
-}
-
-// +k8s:deepcopy-gen=true
-type MilvusVersionSpec struct {
-	Version           string                `json:"version"`
-	DB                MilvusVersionDatabase `json:"db"`
-	Deprecated        bool                  `json:"deprecated,omitempty"`
-	SecurityContext   SecurityContext       `json:"securityContext,omitempty"`
-	UI                []ChartInfo           `json:"ui,omitempty"`
-	UpdateConstraints UpdateConstraints     `json:"updateConstraints,omitempty"`
-}
-
-// +k8s:deepcopy-gen=true
-type MilvusVersionDatabase struct {
-	Image string `json:"image"`
+	Items           []MilvusVersion `json:"items"`
 }
