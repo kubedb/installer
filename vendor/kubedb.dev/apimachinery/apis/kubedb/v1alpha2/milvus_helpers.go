@@ -26,7 +26,7 @@ type MilvusApp struct {
 }
 
 func (_ Milvus) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
-	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralMySQL))
+	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralMilvus))
 }
 
 func (m *Milvus) ResourceKind() string {
@@ -297,7 +297,7 @@ func GetDefaultReadinessProbe() *core.Probe {
 	}
 }
 
-func (m *Milvus) setDefaultContainerSecurityContext(qdVersion *catalog.MilvusVersion, podTemplate *ofstv2.PodTemplateSpec) {
+func (m *Milvus) setDefaultContainerSecurityContext(mlvVersion *catalog.MilvusVersion, podTemplate *ofstv2.PodTemplateSpec) {
 	if podTemplate == nil {
 		return
 	}
@@ -305,7 +305,7 @@ func (m *Milvus) setDefaultContainerSecurityContext(qdVersion *catalog.MilvusVer
 		podTemplate.Spec.SecurityContext = &core.PodSecurityContext{}
 	}
 	if podTemplate.Spec.SecurityContext.FSGroup == nil {
-		podTemplate.Spec.SecurityContext.FSGroup = qdVersion.Spec.SecurityContext.RunAsUser
+		podTemplate.Spec.SecurityContext.FSGroup = mlvVersion.Spec.SecurityContext.RunAsUser
 	}
 
 	container := coreutil.GetContainerByName(podTemplate.Spec.Containers, kubedb.MilvusContainerName)
@@ -313,14 +313,48 @@ func (m *Milvus) setDefaultContainerSecurityContext(qdVersion *catalog.MilvusVer
 		container = &core.Container{
 			Name: kubedb.MilvusContainerName,
 		}
+		podTemplate.Spec.Containers = coreutil.UpsertContainer(podTemplate.Spec.Containers, *container)
 	}
 
 	if container.SecurityContext == nil {
 		container.SecurityContext = &core.SecurityContext{}
 	}
-	m.AssignDefaultContainerSecurityContext(qdVersion, container.SecurityContext)
+	m.AssignDefaultContainerSecurityContext(mlvVersion, container.SecurityContext)
 
-	podTemplate.Spec.Containers = coreutil.UpsertContainer(podTemplate.Spec.Containers, *container)
+	initContainer := coreutil.GetContainerByName(podTemplate.Spec.InitContainers, kubedb.MilvusInitContainerName)
+	if initContainer == nil {
+		initContainer = &core.Container{
+			Name: kubedb.MilvusInitContainerName,
+		}
+		podTemplate.Spec.InitContainers = coreutil.UpsertContainer(podTemplate.Spec.InitContainers, *initContainer)
+	}
+	if initContainer.SecurityContext == nil {
+		initContainer.SecurityContext = &core.SecurityContext{}
+	}
+	m.AssignDefaultInitContainerSecurityContext(mlvVersion, initContainer.SecurityContext)
+}
+
+func (m *Milvus) AssignDefaultInitContainerSecurityContext(mlvVersion *catalog.MilvusVersion, rc *core.SecurityContext) {
+	if rc.AllowPrivilegeEscalation == nil {
+		rc.AllowPrivilegeEscalation = pointer.BoolP(false)
+	}
+	if rc.Capabilities == nil {
+		rc.Capabilities = &core.Capabilities{
+			Drop: []core.Capability{"ALL"},
+		}
+	}
+	if rc.RunAsNonRoot == nil {
+		rc.RunAsNonRoot = pointer.BoolP(true)
+	}
+	if rc.RunAsUser == nil {
+		rc.RunAsUser = mlvVersion.Spec.SecurityContext.RunAsUser
+	}
+	if rc.SeccompProfile == nil {
+		rc.SeccompProfile = secomp.DefaultSeccompProfile()
+	}
+	rc.RunAsUser = pointer.Int64P(0)
+	rc.RunAsNonRoot = pointer.BoolP(false)
+	rc.RunAsGroup = pointer.Int64P(0)
 }
 
 func (m *Milvus) AssignDefaultContainerSecurityContext(mlvVersion *catalog.MilvusVersion, rc *core.SecurityContext) {
