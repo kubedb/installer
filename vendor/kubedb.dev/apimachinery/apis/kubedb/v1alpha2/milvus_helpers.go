@@ -101,6 +101,7 @@ func (m *Milvus) GetPersistentSecrets() []string {
 	var secrets []string
 	if m.Spec.Standalone.AuthSecret != nil {
 		secrets = append(secrets, m.GetAuthSecretName())
+		secrets = append(secrets, m.ConfigSecretName())
 	}
 	return secrets
 }
@@ -185,10 +186,6 @@ func (m *Milvus) GetPassword(ctx context.Context, kc client.Client) (string, err
 		return "", fmt.Errorf("password key %q missing in secret %s", kubedb.MilvusPasswordKey, secret.Name)
 	}
 	return string(data), nil
-}
-
-func (m *Milvus) Finalizer() string {
-	return fmt.Sprintf("%s/%s", apis.Finalizer, m.ResourceSingular())
 }
 
 func (m *Milvus) SetHealthCheckerDefaults() {
@@ -313,25 +310,25 @@ func (m *Milvus) setDefaultContainerSecurityContext(mlvVersion *catalog.MilvusVe
 		container = &core.Container{
 			Name: kubedb.MilvusContainerName,
 		}
-		podTemplate.Spec.Containers = coreutil.UpsertContainer(podTemplate.Spec.Containers, *container)
-	}
 
+	}
 	if container.SecurityContext == nil {
 		container.SecurityContext = &core.SecurityContext{}
 	}
 	m.AssignDefaultContainerSecurityContext(mlvVersion, container.SecurityContext)
+	podTemplate.Spec.Containers = coreutil.UpsertContainer(podTemplate.Spec.Containers, *container)
 
 	initContainer := coreutil.GetContainerByName(podTemplate.Spec.InitContainers, kubedb.MilvusInitContainerName)
 	if initContainer == nil {
 		initContainer = &core.Container{
 			Name: kubedb.MilvusInitContainerName,
 		}
-		podTemplate.Spec.InitContainers = coreutil.UpsertContainer(podTemplate.Spec.InitContainers, *initContainer)
 	}
 	if initContainer.SecurityContext == nil {
 		initContainer.SecurityContext = &core.SecurityContext{}
 	}
 	m.AssignDefaultInitContainerSecurityContext(mlvVersion, initContainer.SecurityContext)
+	podTemplate.Spec.InitContainers = coreutil.UpsertContainer(podTemplate.Spec.InitContainers, *initContainer)
 }
 
 func (m *Milvus) AssignDefaultInitContainerSecurityContext(mlvVersion *catalog.MilvusVersion, rc *core.SecurityContext) {
