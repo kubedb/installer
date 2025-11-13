@@ -620,6 +620,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusList":                                    schema_apimachinery_apis_kubedb_v1alpha2_MilvusList(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusSpec":                                    schema_apimachinery_apis_kubedb_v1alpha2_MilvusSpec(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusStatus":                                  schema_apimachinery_apis_kubedb_v1alpha2_MilvusStatus(ref),
+		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusTopology":                                schema_apimachinery_apis_kubedb_v1alpha2_MilvusTopology(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Milvus_EtcdSpec":                               schema_apimachinery_apis_kubedb_v1alpha2_Milvus_EtcdSpec(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MinIOSpec":                                     schema_apimachinery_apis_kubedb_v1alpha2_MinIOSpec(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MongoArbiterNode":                              schema_apimachinery_apis_kubedb_v1alpha2_MongoArbiterNode(ref),
@@ -32079,10 +32080,10 @@ func schema_apimachinery_apis_kubedb_v1alpha2_MilvusSpec(ref common.ReferenceCal
 							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MinIOSpec"),
 						},
 					},
-					"standalone": {
+					"topology": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Milvus standalone configuration",
-							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.StandaloneSpec"),
+							Description: "Milvus cluster topology",
+							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusTopology"),
 						},
 					},
 					"deletionPolicy": {
@@ -32100,11 +32101,11 @@ func schema_apimachinery_apis_kubedb_v1alpha2_MilvusSpec(ref common.ReferenceCal
 						},
 					},
 				},
-				Required: []string{"version", "etcd", "minio", "standalone"},
+				Required: []string{"version", "etcd", "minio"},
 			},
 		},
 		Dependencies: []string{
-			"kmodules.xyz/client-go/api/v1.HealthCheckSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Milvus_EtcdSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MinIOSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.StandaloneSpec"},
+			"kmodules.xyz/client-go/api/v1.HealthCheckSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusTopology", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Milvus_EtcdSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MinIOSpec"},
 	}
 }
 
@@ -32148,6 +32149,34 @@ func schema_apimachinery_apis_kubedb_v1alpha2_MilvusStatus(ref common.ReferenceC
 		},
 		Dependencies: []string{
 			"kmodules.xyz/client-go/api/v1.Condition"},
+	}
+}
+
+func schema_apimachinery_apis_kubedb_v1alpha2_MilvusTopology(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"mode": {
+						SchemaProps: spec.SchemaProps{
+							Description: "If set to - \"Standalone\", Standalone is required, and Milvus will start a Standalone Mode \"Distributed\", DistributedSpec is required, and Milvus will start a Distributed Mode",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"standalone": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Milvus standalone configuration",
+							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.StandaloneSpec"),
+						},
+					},
+				},
+				Required: []string{"standalone"},
+			},
+		},
+		Dependencies: []string{
+			"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.StandaloneSpec"},
 	}
 }
 

@@ -31,10 +31,12 @@ const (
 	GroupName              = "kubedb.com"
 )
 
+// +kubebuilder:validation:Enum=Standalone;Distributed
+type MilvusMode string
+
 // Package v1alpha2 contains API Schema definitions for the  v1alpha2 API group.
 // +kubebuilder:object:generate=true
 // +groupName=kubedb.com
-// Milvus is the Schema for the milvuses API
 // +genclient
 // +k8s:openapi-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
@@ -65,8 +67,9 @@ type MilvusSpec struct {
 	// MinIO contains configuration for MinIO object storage
 	MinIO *MinIOSpec `json:"minio"`
 
-	// Milvus standalone configuration
-	Standalone *StandaloneSpec `json:"standalone"`
+	// Milvus cluster topology
+	// +optional
+	Topology *MilvusTopology `json:"topology,omitempty"`
 
 	// DeletionPolicy controls the delete operation for database
 	// +optional
@@ -76,6 +79,17 @@ type MilvusSpec struct {
 	// +optional
 	// +kubebuilder:default={periodSeconds: 10, timeoutSeconds: 10, failureThreshold: 3}
 	HealthChecker kmapi.HealthCheckSpec `json:"healthChecker"`
+}
+
+// +k8s:deepcopy-gen=true
+type MilvusTopology struct {
+	// If set to -
+	// "Standalone", Standalone is required, and Milvus will start a Standalone Mode
+	// "Distributed", DistributedSpec is required, and Milvus will start a Distributed Mode
+	Mode *MilvusMode `json:"mode,omitempty"`
+
+	// Milvus standalone configuration
+	Standalone *StandaloneSpec `json:"standalone"`
 }
 
 // +k8s:deepcopy-gen=true
