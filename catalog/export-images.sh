@@ -39,6 +39,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-ke
 $CMD pull --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-keeper:25.7.1 images/clickhouse-clickhouse-keeper-25.7.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-server:24.4.1 images/clickhouse-clickhouse-server-24.4.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-server:25.7.1 images/clickhouse-clickhouse-server-25.7.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure cr.weaviate.io/semitechnologies/weaviate:1.33.1 images/semitechnologies-weaviate-1.33.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0 images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/aiven-open/karapace:3.15.0 images/aiven-open-karapace-3.15.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-exporter:2.3.8 images/appscode-images-cassandra-exporter-2.3.8.tar
@@ -475,7 +476,5 @@ $CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.
 $CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg14-oss images/timescale-timescaledb-2.14.2-pg14-oss.tar
 $CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg15-oss images/timescale-timescaledb-2.14.2-pg15-oss.tar
 $CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg16-oss images/timescale-timescaledb-2.14.2-pg16-oss.tar
-$CMD pull --allow-nondistributable-artifacts --insecure cr.weaviate.io/semitechnologies/weaviate:1.33.1 images/semitechnologies-weaviate-1.33.1.tar
-
 
 tar -czvf images.tar.gz images
