@@ -45,7 +45,7 @@ The command removes all the Kubernetes components associated with the chart and 
 
 The following table lists the configurable parameters of the `kubedb-catalog` chart and their default values.
 
-| Parameter                                  |                   Description                   |            Default             |
+|                 Parameter                  |                   Description                   |            Default             |
 |--------------------------------------------|-------------------------------------------------|--------------------------------|
 | nameOverride                               | Overrides name template                         | <code>""</code>                |
 | fullnameOverride                           | Overrides fullname template                     | <code>""</code>                |
@@ -56,6 +56,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | proxies.kubernetes                         |                                                 | <code>registry.k8s.io</code>   |
 | proxies.microsoft                          |                                                 | <code>mcr.microsoft.com</code> |
 | proxies.appscode                           |                                                 | <code>r.appscode.com</code>    |
+| proxies.weaviate                           |                                                 | <code>cr.weaviate.io</code>    |
 | featureGates.Cassandra                     |                                                 | <code>true</code>              |
 | featureGates.ClickHouse                    |                                                 | <code>true</code>              |
 | featureGates.Druid                         |                                                 | <code>true</code>              |
@@ -79,6 +80,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | featureGates.Redis                         |                                                 | <code>true</code>              |
 | featureGates.Singlestore                   |                                                 | <code>true</code>              |
 | featureGates.Solr                          |                                                 | <code>true</code>              |
+| featureGates.Weaviate                      |                                                 | <code>true</code>              |
 | featureGates.ZooKeeper                     |                                                 | <code>true</code>              |
 | psp.enabled                                |                                                 | <code>false</code>             |
 | psp.elasticsearch.allowPrivilegeEscalation |                                                 | <code>true</code>              |
@@ -124,8 +126,8 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | enableVersions.Singlestore                 |                                                 | <code>[]</code>                |
 | enableVersions.Solr                        |                                                 | <code>[]</code>                |
 | enableVersions.ZooKeeper                   |                                                 | <code>[]</code>                |
+| enableVersions.Weaviate                    |                                                 | <code>[]</code>                |
 | customVersions                             |                                                 | <code>{}</code>                |
-| featureGates.Weaviate                      |                                                 | <code>true</code>              |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
