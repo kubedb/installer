@@ -31,6 +31,7 @@ k3s ctr images import images/clickhouse-clickhouse-keeper-24.4.1.tar
 k3s ctr images import images/clickhouse-clickhouse-keeper-25.7.1.tar
 k3s ctr images import images/clickhouse-clickhouse-server-24.4.1.tar
 k3s ctr images import images/clickhouse-clickhouse-server-25.7.1.tar
+k3s ctr images import images/semitechnologies-weaviate-1.33.1.tar
 k3s ctr images import images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar
 k3s ctr images import images/aiven-open-karapace-3.15.0.tar
 k3s ctr images import images/appscode-images-cassandra-exporter-2.3.8.tar
@@ -467,4 +468,3 @@ k3s ctr images import images/timescale-timescaledb-2.14.2-pg13-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg14-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg15-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg16-oss.tar
-k3s ctr images import images/semitechnologies-weaviate-1.33.1.tar
