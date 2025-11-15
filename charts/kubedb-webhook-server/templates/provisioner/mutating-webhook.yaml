@@ -296,19 +296,19 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
-{{- if $featureGates.MySQL }}
-- name: mysqlwebhook.mutators.kubedb.com
+{{- if $featureGates.Milvus }}
+- name: milvuswebhook.mutators.kubedb.com
   clientConfig:
     service:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /mutate-kubedb-com-v1-mysql
+      path: /mutate-kubedb-com-v1alpha2-milvus
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
   - apiGroups: ["kubedb.com"]
-    apiVersions: ["v1"]
-    resources: ["mysqls"]
+    apiVersions: ["*"]
+    resources: ["milvuses"]
     operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
