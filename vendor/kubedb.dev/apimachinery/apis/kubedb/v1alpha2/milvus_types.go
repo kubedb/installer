@@ -198,14 +198,6 @@ type StandaloneSpec struct {
 	// +optional
 	ConfigSecret *core.LocalObjectReference `json:"configSecret,omitempty"`
 
-	// VolumeMounts specifies the volume mounts for the Milvus standalone container
-	// +optional
-	VolumeMounts []core.VolumeMount `json:"volumeMounts,omitempty"`
-
-	// Volumes specifies the volumes for the Milvus standalone pod
-	// +optional
-	Volumes []core.Volume `json:"volumes,omitempty"`
-
 	// ServiceTemplates is an optional configuration for services used to expose database
 	// +optional
 	ServiceTemplates []NamedServiceTemplateSpec `json:"serviceTemplates,omitempty"`
