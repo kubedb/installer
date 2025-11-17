@@ -258,8 +258,8 @@ func (m *Milvus) SetDefaults(kc client.Client) {
 		m.Spec.Topology.Standalone.AuthSecret.Kind = kubedb.ResourceKindSecret
 	}
 
-	if len(m.Spec.Topology.Standalone.PodTemplate.Spec.Containers) == 0 {
-		m.Spec.Topology.Standalone.PodTemplate = ofstv2.PodTemplateSpec{}
+	if m.Spec.Topology.Standalone.PodTemplate == nil {
+		m.Spec.Topology.Standalone.PodTemplate = &ofstv2.PodTemplateSpec{}
 	}
 
 	var mlvVersion catalog.MilvusVersion
@@ -270,7 +270,7 @@ func (m *Milvus) SetDefaults(kc client.Client) {
 		return
 	}
 
-	m.setDefaultContainerSecurityContext(&mlvVersion, &m.Spec.Topology.Standalone.PodTemplate)
+	m.setDefaultContainerSecurityContext(&mlvVersion, m.Spec.Topology.Standalone.PodTemplate)
 
 	dbContainer := coreutil.GetContainerByName(m.Spec.Topology.Standalone.PodTemplate.Spec.Containers, kubedb.MilvusContainerName)
 	if dbContainer != nil && (dbContainer.Resources.Requests == nil || dbContainer.Resources.Limits == nil) {
@@ -279,7 +279,7 @@ func (m *Milvus) SetDefaults(kc client.Client) {
 
 	m.SetHealthCheckerDefaults()
 
-	m.setDefaultContainerResourceLimits(&m.Spec.Topology.Standalone.PodTemplate)
+	m.setDefaultContainerResourceLimits(m.Spec.Topology.Standalone.PodTemplate)
 }
 
 func GetDefaultReadinessProbe() *core.Probe {

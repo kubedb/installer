@@ -156,7 +156,7 @@ type StandaloneSpec struct {
 
 	// PodTemplate is an optional configuration for pods used to expose database
 	// +optional
-	PodTemplate ofstv2.PodTemplateSpec `json:"podTemplate,omitempty"`
+	PodTemplate *ofstv2.PodTemplateSpec `json:"podTemplate,omitempty"`
 
 	// GRPCPort is the gRPC port for Milvus RootCoord (optional, default 19530)
 	// +optional
@@ -173,10 +173,6 @@ type StandaloneSpec struct {
 	// Command is the entrypoint array for the Milvus standalone container
 	// +optional
 	Command []string `json:"command,omitempty"`
-
-	// Env specifies the environment variables for the Milvus standalone container
-	// +optional
-	Env []core.EnvVar `json:"env,omitempty"`
 
 	// StorageType can be durable (default) or ephemeral
 	StorageType StorageType `json:"storageType,omitempty"`
