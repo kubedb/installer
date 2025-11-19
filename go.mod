@@ -20,7 +20,7 @@ require (
 	kmodules.xyz/image-packer v0.0.0-20250709183414-f93633723666
 	kmodules.xyz/resource-metadata v0.32.1
 	kmodules.xyz/schema-checker v0.4.2
-	kubedb.dev/apimachinery v0.59.1-0.20251119052506-17e43e465893
+	kubedb.dev/apimachinery v0.59.1-0.20251119093352-84ea6669e4f7
 	kubeops.dev/installer v0.0.0-20250630172252-60882a8ed9ab
 	sigs.k8s.io/yaml v1.4.0
 	stash.appscode.dev/installer v0.12.2-0.20251027171826-e3a597044fd4
@@ -139,4 +139,4 @@ replace sigs.k8s.io/controller-runtime => github.com/kmodules/controller-runtime
 
 replace k8s.io/apiserver => github.com/kmodules/apiserver v0.32.3-0.20250221062720-35dc674c7dd6
 
-replace kubedb.dev/apimachinery v0.59.1-0.20251117070959-a38124c23201 => ../apimachinery
+replace kubedb.dev/apimachinery v0.59.1-0.20251119093352-84ea6669e4f7 => ../apimachinery

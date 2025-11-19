@@ -892,7 +892,7 @@ const (
 	MilvusGrpcPortName           = "grpc"
 	MilvusGrpcPort               = int32(19530)
 
-	MilvusDataName       = "milvus-pvc"
+	MilvusVolumeNameData = "data"
 	MilvusDataDir        = "/var/lib/milvus"
 	MilvusConfigVolName  = "milvus-config"
 	MilvusConfigDir      = "/milvus/configs/milvus.yaml"
@@ -911,6 +911,9 @@ const (
 	MinioAccessKey     = "accessKeyId"
 	MinioSecretKeyName = "MINIO_SECRET_KEY"
 	MinioSecretKey     = "secretAccessKey"
+
+	EnvMilvusUsername = "MILVUS_USERNAME"
+	EnvMilvusPassword = "MILVUS_PASSWORD"
 )
 
 const (

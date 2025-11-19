@@ -58,8 +58,8 @@ type MilvusSpec struct {
 	// Version of Milvus to be deployed
 	Version string `json:"version"`
 
-	// Metadata contains configuration for etcd metadata storage
-	MetadataStorage *MilvusMetadataStorage `json:"milvusmetadataStorage,omitempty"`
+	// Meta contains configuration for etcd meta storage
+	MetaStorage *MetaStorageSpec `json:"metaStorage,omitempty"`
 
 	// ObjectStorage contains specification for druid to connect to the object storage
 	ObjectStorage *ObjectStorageSpec `json:"objectStorage"`
@@ -119,8 +119,8 @@ type MilvusTopology struct {
 }
 
 // +k8s:deepcopy-gen=true
-// Metadata Storage defines the configuration for etcd metadata storage
-type MilvusMetadataStorage struct {
+// Meta Storage defines the configuration for etcd meta storage
+type MetaStorageSpec struct {
 	// ExternallyManaged indicates whether etcd is managed outside this operator.
 	// If true, only endpoints are used. If false, an EtcdCluster CR is created.
 	// +optional

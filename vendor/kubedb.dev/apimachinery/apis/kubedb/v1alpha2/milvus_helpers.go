@@ -4,6 +4,12 @@ import (
 	"context"
 	"fmt"
 
+	"k8s.io/klog/v2"
+	"kubedb.dev/apimachinery/apis"
+	catalog "kubedb.dev/apimachinery/apis/catalog/v1alpha1"
+	"kubedb.dev/apimachinery/apis/kubedb"
+	"kubedb.dev/apimachinery/crds"
+
 	"gomodules.xyz/pointer"
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -14,10 +20,6 @@ import (
 	"kmodules.xyz/client-go/policy/secomp"
 	appcat "kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1"
 	ofstv2 "kmodules.xyz/offshoot-api/api/v2"
-	"kubedb.dev/apimachinery/apis"
-	catalog "kubedb.dev/apimachinery/apis/catalog/v1alpha1"
-	"kubedb.dev/apimachinery/apis/kubedb"
-	"kubedb.dev/apimachinery/crds"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -179,19 +181,17 @@ func (m *Milvus) EtcdServiceName() string {
 	return fmt.Sprintf("%s-%s", m.Namespace, kubedb.EtcdName)
 }
 
-func (m *Milvus) MetadataEndpoints() []string {
-	if m.Spec.MetadataStorage.ExternallyManaged {
-		if len(m.Spec.MetadataStorage.Endpoints) == 0 {
-			panic("Metadata Storage is externally managed but no endpoints were provided")
+func (m *Milvus) MetaStorageEndpoints() []string {
+	if m.Spec.MetaStorage.ExternallyManaged {
+		if len(m.Spec.MetaStorage.Endpoints) == 0 {
+			klog.Errorf("metadata storage is externally managed but no endpoints were provided")
+			return []string{}
 		}
 		// Return user-provided endpoints
-		return m.Spec.MetadataStorage.Endpoints
+		return m.Spec.MetaStorage.Endpoints
 	}
 
-	size := 3
-	if m.Spec.MetadataStorage.Size > 0 {
-		size = m.Spec.MetadataStorage.Size
-	}
+	size := m.Spec.MetaStorage.Size
 
 	endpoints := make([]string, size)
 	for i := 0; i < size; i++ {
@@ -208,6 +208,10 @@ func (m *Milvus) MetadataEndpoints() []string {
 }
 
 func (m *Milvus) SetDefaults(kc client.Client) {
+	if m.Spec.Topology.Mode == nil {
+		mode := MilvusMode("Standalone")
+		m.Spec.Topology.Mode = &mode
+	}
 
 	if m.Spec.DeletionPolicy == "" {
 		m.Spec.DeletionPolicy = DeletionPolicyDelete
@@ -239,11 +243,6 @@ func (m *Milvus) SetDefaults(kc client.Client) {
 
 	m.setDefaultContainerSecurityContext(&mvVersion, m.Spec.PodTemplate)
 
-	dbContainer := coreutil.GetContainerByName(m.Spec.PodTemplate.Spec.Containers, kubedb.MilvusContainerName)
-	if dbContainer != nil && (dbContainer.Resources.Requests == nil || dbContainer.Resources.Limits == nil) {
-		apis.SetDefaultResourceLimits(&dbContainer.Resources, kubedb.DefaultResources)
-	}
-
 	m.SetHealthCheckerDefaults()
 
 	m.setDefaultContainerResourceLimits(m.Spec.PodTemplate)
@@ -265,7 +264,6 @@ func (m *Milvus) setDefaultContainerSecurityContext(mvVersion *catalog.MilvusVer
 		container = &core.Container{
 			Name: kubedb.MilvusContainerName,
 		}
-
 	}
 	if container.SecurityContext == nil {
 		container.SecurityContext = &core.SecurityContext{}
