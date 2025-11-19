@@ -58,7 +58,7 @@ func (m Milvus) Type() appcat.AppType {
 }
 
 func (m *Milvus) GetConnectionScheme() string {
-	scheme := "localhost"
+	scheme := "http"
 	return scheme
 }
 
@@ -87,10 +87,10 @@ func (m *Milvus) ServiceAccountName() string {
 }
 
 func (m *Milvus) GetAuthSecretName() string {
-	if m.Spec.Topology.Standalone.AuthSecret != nil && m.Spec.Topology.Standalone.AuthSecret.Name != "" {
-		return m.Spec.Topology.Standalone.AuthSecret.Name
+	if m.Spec.AuthSecret != nil && m.Spec.AuthSecret.Name != "" {
+		return m.Spec.AuthSecret.Name
 	}
-	return m.DefaultUserCredSecretName()
+	return meta_util.NameWithSuffix(m.OffshootName(), "auth")
 }
 
 func (m *Milvus) ConfigSecretName() string {
@@ -99,10 +99,10 @@ func (m *Milvus) ConfigSecretName() string {
 
 func (m *Milvus) GetPersistentSecrets() []string {
 	var secrets []string
-	if m.Spec.Topology.Standalone.AuthSecret != nil {
+	if m.Spec.AuthSecret != nil {
 		secrets = append(secrets, m.GetAuthSecretName())
-		secrets = append(secrets, m.ConfigSecretName())
 	}
+	secrets = append(secrets, m.ConfigSecretName())
 	return secrets
 }
 
@@ -126,64 +126,39 @@ func (m *Milvus) OffshootSelectors(extraSelectors ...map[string]string) map[stri
 
 func (m *Milvus) PodLabels(extraLabels ...map[string]string) map[string]string {
 	var podTemplateLabels map[string]string
-	if m.Spec.Topology.Standalone != nil && m.Spec.Topology.Standalone.PodTemplate.Labels != nil {
-		podTemplateLabels = m.Spec.Topology.Standalone.PodTemplate.Labels
+	if m.Spec.PodTemplate.Labels != nil {
+		podTemplateLabels = m.Spec.PodTemplate.Labels
 	}
 	return m.offshootLabels(meta_util.OverwriteKeys(m.OffshootSelectors(), extraLabels...), podTemplateLabels)
 }
 
-func (m *Milvus) GetGRPCAddress() string {
-	port := kubedb.MilvusGrpcPort
-	if m.Spec.Topology.Standalone.GRPCPort != nil {
-		port = *m.Spec.Topology.Standalone.GRPCPort
-	}
-	return fmt.Sprintf("localhost:%d", port)
+func (m *Milvus) ServiceDNS() string {
+	return fmt.Sprintf("%s.%s.svc.cluster.local:%d", m.ServiceName(), m.Namespace, kubedb.MilvusGrpcPort)
 }
 
 func (m *Milvus) getAuthSecret(ctx context.Context, kc client.Client) (*core.Secret, error) {
-	if m.Spec.Topology.Standalone.DisableSecurity || m.Spec.Topology.Standalone.AuthSecret == nil {
-		return nil, nil
-	}
-	if m.Spec.Topology.Standalone.AuthSecret.Name == "" {
-		return nil, nil
-	}
-
 	secret := &core.Secret{}
 	err := kc.Get(ctx, types.NamespacedName{
-		Name:      m.Spec.Topology.Standalone.AuthSecret.Name,
+		Name:      m.Spec.AuthSecret.Name,
 		Namespace: m.Namespace,
 	}, secret)
 	return secret, err
 }
 
 func (m *Milvus) GetUsername(ctx context.Context, kc client.Client) (string, error) {
-	secret, err := m.getAuthSecret(ctx, kc)
-	if err != nil {
-		return "", err
-	}
-	if secret == nil {
-		return "", nil // security disabled
-	}
-
-	data, ok := secret.Data[kubedb.MilvusUsernameKey]
+	secret, _ := m.getAuthSecret(ctx, kc)
+	data, ok := secret.Data[core.BasicAuthUsernameKey]
 	if !ok || len(data) == 0 {
-		return "", fmt.Errorf("username key %q missing in secret %s", kubedb.MilvusUsernameKey, secret.Name)
+		return "", fmt.Errorf("username key %q missing in secret %s", core.BasicAuthUsernameKey, secret.Name)
 	}
 	return string(data), nil
 }
 
 func (m *Milvus) GetPassword(ctx context.Context, kc client.Client) (string, error) {
-	secret, err := m.getAuthSecret(ctx, kc)
-	if err != nil {
-		return "", err
-	}
-	if secret == nil {
-		return "", nil
-	}
-
-	data, ok := secret.Data[kubedb.MilvusPasswordKey]
+	secret, _ := m.getAuthSecret(ctx, kc)
+	data, ok := secret.Data[core.BasicAuthPasswordKey]
 	if !ok || len(data) == 0 {
-		return "", fmt.Errorf("password key %q missing in secret %s", kubedb.MilvusPasswordKey, secret.Name)
+		return "", fmt.Errorf("password key %q missing in secret %s", core.BasicAuthPasswordKey, secret.Name)
 	}
 	return string(data), nil
 }
@@ -200,27 +175,22 @@ func (m *Milvus) SetHealthCheckerDefaults() {
 	}
 }
 
-func (m *Milvus) DefaultUserCredSecretName() string {
-	return meta_util.NameWithSuffix(m.OffshootName(), "auth")
+func (m *Milvus) EtcdServiceName() string {
+	return fmt.Sprintf("%s-%s", m.Namespace, kubedb.EtcdName)
 }
 
-func (m *Milvus) EtcdEndpoints() []string {
-	if m.Spec.Etcd == nil {
-		return nil
-	}
-
-	if m.Spec.Etcd.ExternallyManaged {
-		if len(m.Spec.Etcd.Endpoints) == 0 {
-			fmt.Println("Warning: Etcd is externally managed but no endpoints are provided")
-			return nil
+func (m *Milvus) MetadataEndpoints() []string {
+	if m.Spec.MetadataStorage.ExternallyManaged {
+		if len(m.Spec.MetadataStorage.Endpoints) == 0 {
+			panic("Metadata Storage is externally managed but no endpoints were provided")
 		}
 		// Return user-provided endpoints
-		return m.Spec.Etcd.Endpoints
+		return m.Spec.MetadataStorage.Endpoints
 	}
 
 	size := 3
-	if m.Spec.Etcd.Size > 0 {
-		size = m.Spec.Etcd.Size
+	if m.Spec.MetadataStorage.Size > 0 {
+		size = m.Spec.MetadataStorage.Size
 	}
 
 	endpoints := make([]string, size)
@@ -228,9 +198,9 @@ func (m *Milvus) EtcdEndpoints() []string {
 		// Use pod DNS names for the etcd cluster
 		endpoints[i] = fmt.Sprintf(
 			"http://%s-%d.%s.%s.svc.cluster.local:%d",
-			kubedb.EtcdPodTemplateSuffix, i,
-			kubedb.EtcdServiceSuffix, m.Namespace,
-			kubedb.EtcdPort,
+			m.EtcdServiceName(), i,
+			m.EtcdServiceName(), m.Namespace,
+			2379,
 		)
 	}
 
@@ -238,63 +208,48 @@ func (m *Milvus) EtcdEndpoints() []string {
 }
 
 func (m *Milvus) SetDefaults(kc client.Client) {
-	if m.Spec.Topology.Standalone.Replicas == nil {
-		m.Spec.Topology.Standalone.Replicas = pointer.Int32P(1)
-	}
 
 	if m.Spec.DeletionPolicy == "" {
 		m.Spec.DeletionPolicy = DeletionPolicyDelete
 	}
 
-	if m.Spec.Topology.Standalone.StorageType == "" {
-		m.Spec.Topology.Standalone.StorageType = StorageTypeDurable
+	if m.Spec.StorageType == "" {
+		m.Spec.StorageType = StorageTypeDurable
 	}
 
-	if m.Spec.Topology.Standalone.AuthSecret == nil {
-		m.Spec.Topology.Standalone.AuthSecret = &SecretReference{}
+	if m.Spec.AuthSecret == nil {
+		m.Spec.AuthSecret = &SecretReference{}
 	}
 
-	if m.Spec.Topology.Standalone.AuthSecret.Kind == "" {
-		m.Spec.Topology.Standalone.AuthSecret.Kind = kubedb.ResourceKindSecret
+	if m.Spec.AuthSecret.Kind == "" {
+		m.Spec.AuthSecret.Kind = kubedb.ResourceKindSecret
 	}
 
-	if m.Spec.Topology.Standalone.PodTemplate == nil {
-		m.Spec.Topology.Standalone.PodTemplate = &ofstv2.PodTemplateSpec{}
+	if m.Spec.PodTemplate == nil {
+		m.Spec.PodTemplate = &ofstv2.PodTemplateSpec{}
 	}
 
-	var mlvVersion catalog.MilvusVersion
+	var mvVersion catalog.MilvusVersion
 	err := kc.Get(context.TODO(), types.NamespacedName{
 		Name: m.Spec.Version,
-	}, &mlvVersion)
+	}, &mvVersion)
 	if err != nil {
 		return
 	}
 
-	m.setDefaultContainerSecurityContext(&mlvVersion, m.Spec.Topology.Standalone.PodTemplate)
+	m.setDefaultContainerSecurityContext(&mvVersion, m.Spec.PodTemplate)
 
-	dbContainer := coreutil.GetContainerByName(m.Spec.Topology.Standalone.PodTemplate.Spec.Containers, kubedb.MilvusContainerName)
+	dbContainer := coreutil.GetContainerByName(m.Spec.PodTemplate.Spec.Containers, kubedb.MilvusContainerName)
 	if dbContainer != nil && (dbContainer.Resources.Requests == nil || dbContainer.Resources.Limits == nil) {
 		apis.SetDefaultResourceLimits(&dbContainer.Resources, kubedb.DefaultResources)
 	}
 
 	m.SetHealthCheckerDefaults()
 
-	m.setDefaultContainerResourceLimits(m.Spec.Topology.Standalone.PodTemplate)
+	m.setDefaultContainerResourceLimits(m.Spec.PodTemplate)
 }
 
-func GetDefaultReadinessProbe() *core.Probe {
-	return &core.Probe{
-		ProbeHandler: core.ProbeHandler{
-			GRPC: &core.GRPCAction{Port: 19530},
-		},
-		InitialDelaySeconds: 60,
-		PeriodSeconds:       10,
-		TimeoutSeconds:      5,
-		FailureThreshold:    18,
-	}
-}
-
-func (m *Milvus) setDefaultContainerSecurityContext(mlvVersion *catalog.MilvusVersion, podTemplate *ofstv2.PodTemplateSpec) {
+func (m *Milvus) setDefaultContainerSecurityContext(mvVersion *catalog.MilvusVersion, podTemplate *ofstv2.PodTemplateSpec) {
 	if podTemplate == nil {
 		return
 	}
@@ -302,7 +257,7 @@ func (m *Milvus) setDefaultContainerSecurityContext(mlvVersion *catalog.MilvusVe
 		podTemplate.Spec.SecurityContext = &core.PodSecurityContext{}
 	}
 	if podTemplate.Spec.SecurityContext.FSGroup == nil {
-		podTemplate.Spec.SecurityContext.FSGroup = mlvVersion.Spec.SecurityContext.RunAsUser
+		podTemplate.Spec.SecurityContext.FSGroup = mvVersion.Spec.SecurityContext.RunAsUser
 	}
 
 	container := coreutil.GetContainerByName(podTemplate.Spec.Containers, kubedb.MilvusContainerName)
@@ -315,23 +270,11 @@ func (m *Milvus) setDefaultContainerSecurityContext(mlvVersion *catalog.MilvusVe
 	if container.SecurityContext == nil {
 		container.SecurityContext = &core.SecurityContext{}
 	}
-	m.AssignDefaultContainerSecurityContext(mlvVersion, container.SecurityContext)
+	m.AssignDefaultContainerSecurityContext(mvVersion, container.SecurityContext)
 	podTemplate.Spec.Containers = coreutil.UpsertContainer(podTemplate.Spec.Containers, *container)
-
-	initContainer := coreutil.GetContainerByName(podTemplate.Spec.InitContainers, kubedb.MilvusInitContainerName)
-	if initContainer == nil {
-		initContainer = &core.Container{
-			Name: kubedb.MilvusInitContainerName,
-		}
-	}
-	if initContainer.SecurityContext == nil {
-		initContainer.SecurityContext = &core.SecurityContext{}
-	}
-	m.AssignDefaultInitContainerSecurityContext(mlvVersion, initContainer.SecurityContext)
-	podTemplate.Spec.InitContainers = coreutil.UpsertContainer(podTemplate.Spec.InitContainers, *initContainer)
 }
 
-func (m *Milvus) AssignDefaultInitContainerSecurityContext(mlvVersion *catalog.MilvusVersion, rc *core.SecurityContext) {
+func (m *Milvus) AssignDefaultContainerSecurityContext(mvVersion *catalog.MilvusVersion, rc *core.SecurityContext) {
 	if rc.AllowPrivilegeEscalation == nil {
 		rc.AllowPrivilegeEscalation = pointer.BoolP(false)
 	}
@@ -344,33 +287,10 @@ func (m *Milvus) AssignDefaultInitContainerSecurityContext(mlvVersion *catalog.M
 		rc.RunAsNonRoot = pointer.BoolP(true)
 	}
 	if rc.RunAsUser == nil {
-		rc.RunAsUser = mlvVersion.Spec.SecurityContext.RunAsUser
-	}
-	if rc.SeccompProfile == nil {
-		rc.SeccompProfile = secomp.DefaultSeccompProfile()
-	}
-	rc.RunAsUser = pointer.Int64P(0)
-	rc.RunAsNonRoot = pointer.BoolP(false)
-	rc.RunAsGroup = pointer.Int64P(0)
-}
-
-func (m *Milvus) AssignDefaultContainerSecurityContext(mlvVersion *catalog.MilvusVersion, rc *core.SecurityContext) {
-	if rc.AllowPrivilegeEscalation == nil {
-		rc.AllowPrivilegeEscalation = pointer.BoolP(false)
-	}
-	if rc.Capabilities == nil {
-		rc.Capabilities = &core.Capabilities{
-			Drop: []core.Capability{"ALL"},
-		}
-	}
-	if rc.RunAsNonRoot == nil {
-		rc.RunAsNonRoot = pointer.BoolP(true)
-	}
-	if rc.RunAsUser == nil {
-		rc.RunAsUser = mlvVersion.Spec.SecurityContext.RunAsUser
+		rc.RunAsUser = mvVersion.Spec.SecurityContext.RunAsUser
 	}
 	if rc.RunAsGroup == nil {
-		rc.RunAsGroup = mlvVersion.Spec.SecurityContext.RunAsUser
+		rc.RunAsGroup = mvVersion.Spec.SecurityContext.RunAsUser
 	}
 	if rc.SeccompProfile == nil {
 		rc.SeccompProfile = secomp.DefaultSeccompProfile()

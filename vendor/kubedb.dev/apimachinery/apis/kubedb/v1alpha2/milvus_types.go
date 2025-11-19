@@ -24,25 +24,22 @@ import (
 )
 
 const (
-	ResourceCodeMilvus     = "mlv"
+	ResourceCodeMilvus     = "mv"
 	ResourceKindMilvus     = "Milvus"
-	ResourceSingularMilvus = "milvusclient"
+	ResourceSingularMilvus = "milvus"
 	ResourcePluralMilvus   = "milvuses"
-	GroupName              = "kubedb.com"
 )
 
 // +kubebuilder:validation:Enum=Standalone;Distributed
 type MilvusMode string
 
 // Package v1alpha2 contains API Schema definitions for the  v1alpha2 API group.
-// +kubebuilder:object:generate=true
-// +groupName=kubedb.com
 // +genclient
 // +k8s:openapi-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:path=milvuses,singular=milvusclient,shortName=mlv,categories={datastore,appscode,all}
+// +kubebuilder:resource:path=milvuses,singular=milvus,shortName=mv,categories={datastore,kubedb,appscode,all}
 // +kubebuilder:printcolumn:name="Version",type="string",JSONPath=".spec.version"
 // +kubebuilder:printcolumn:name="Status",type="string",JSONPath=".status.phase"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
@@ -61,118 +58,19 @@ type MilvusSpec struct {
 	// Version of Milvus to be deployed
 	Version string `json:"version"`
 
-	// Etcd contains configuration for etcd metadata storage
-	Etcd *Milvus_EtcdSpec `json:"etcd"`
+	// Metadata contains configuration for etcd metadata storage
+	MetadataStorage *MilvusMetadataStorage `json:"milvusmetadataStorage,omitempty"`
 
-	// MinIO contains configuration for MinIO object storage
-	MinIO *MinIOSpec `json:"minio"`
+	// ObjectStorage contains specification for druid to connect to the object storage
+	ObjectStorage *ObjectStorageSpec `json:"objectStorage"`
 
 	// Milvus cluster topology
 	// +optional
 	Topology *MilvusTopology `json:"topology,omitempty"`
 
-	// DeletionPolicy controls the delete operation for database
-	// +optional
-	DeletionPolicy DeletionPolicy `json:"deletionPolicy,omitempty"`
-
-	// HealthChecker defines attributes of the health checker
-	// +optional
-	// +kubebuilder:default={periodSeconds: 10, timeoutSeconds: 10, failureThreshold: 3}
-	HealthChecker kmapi.HealthCheckSpec `json:"healthChecker"`
-}
-
-// +k8s:deepcopy-gen=true
-type MilvusTopology struct {
-	// If set to -
-	// "Standalone", Standalone is required, and Milvus will start a Standalone Mode
-	// "Distributed", DistributedSpec is required, and Milvus will start a Distributed Mode
-	Mode *MilvusMode `json:"mode,omitempty"`
-
-	// Milvus standalone configuration
-	Standalone *StandaloneSpec `json:"standalone"`
-}
-
-// +k8s:deepcopy-gen=true
-// EtcdSpec defines the configuration for etcd metadata storage
-type Milvus_EtcdSpec struct {
-	// ExternallyManaged indicates whether etcd is managed outside this operator.
-	// If true, only endpoints are used. If false, an EtcdCluster CR is created.
-	// +optional
-	ExternallyManaged bool `json:"externallyManaged,omitempty"`
-
-	// Endpoints are the client endpoints of etcd (e.g., ["http://etcd-svc:2379"]).
-	// Required when ExternallyManaged=true.
-	// +kubebuilder:validation:MinItems=1
-	// +optional
-	Endpoints []string `json:"endpoints,omitempty"`
-
-	// Size is the expected size of the etcd cluster.
-	// Required when ExternallyManaged=false. Ignored otherwise.
-	// +kubebuilder:validation:Minimum=1
-	// +optional
-	Size int `json:"size,omitempty"`
-
-	// Version is the etcd container image tag.
-	// Required when ExternallyManaged=false.
-	// +kubebuilder:validation:Required
-	// +optional
-	Version string `json:"version,omitempty"`
-
-	// ImageRegistry specifies the container registry for etcd images.
-	// Optional. Defaults to "gcr.io/etcd-development/etcd" if not set.
-	// +optional
-	ImageRegistry string `json:"imageRegistry,omitempty"`
-
-	// StorageType can be durable (default) or ephemeral
-	StorageType StorageType `json:"storageType,omitempty"`
-
-	// Storage to specify how storage shall be used.
-	Storage *core.PersistentVolumeClaimSpec `json:"storage,omitempty"`
-
-	// EtcdOptions are extra command-line flags passed to etcd.
-	// +optional
-	EtcdOptions []string `json:"etcdOptions,omitempty"`
-
-	// PodTemplate is an optional configuration for pods used to expose database
-	// +optional
-	PodTemplate ofstv2.PodTemplateSpec `json:"podTemplate,omitempty"`
-}
-
-// +k8s:deepcopy-gen=true
-// MinIOSpec defines the configuration for MinIO object storage
-type MinIOSpec struct {
-	// ConfigSecret should contain the necessary data to connect to external MinIO
-	// +optional
-	ConfigSecret *core.LocalObjectReference `json:"configSecret,omitempty"`
-}
-
-// +k8s:deepcopy-gen=true
-// StandaloneSpec defines the configuration for Milvus standalone
-type StandaloneSpec struct {
-	// Replicas represents the number of Milvus standalone replicas
-	// +kubebuilder:default=1
-	// +optional
-	Replicas *int32 `json:"replicas,omitempty"`
-
 	// PodTemplate is an optional configuration for pods used to expose database
 	// +optional
 	PodTemplate *ofstv2.PodTemplateSpec `json:"podTemplate,omitempty"`
-
-	// GRPCPort is the gRPC port for Milvus RootCoord (optional, default 19530)
-	// +optional
-	GRPCPort *int32 `json:"grpcPort,omitempty"`
-
-	// MetricsPort is the metrics port for Milvus (optional, default 9091)
-	// +optional
-	MetricsPort *int32 `json:"metricsPort,omitempty"`
-
-	// Image is the container image to use for Milvus standalone
-	// +optional
-	Image string `json:"image,omitempty"`
-
-	// Command is the entrypoint array for the Milvus standalone container
-	// +optional
-	Command []string `json:"command,omitempty"`
 
 	// StorageType can be durable (default) or ephemeral
 	StorageType StorageType `json:"storageType,omitempty"`
@@ -197,6 +95,64 @@ type StandaloneSpec struct {
 	// ServiceTemplates is an optional configuration for services used to expose database
 	// +optional
 	ServiceTemplates []NamedServiceTemplateSpec `json:"serviceTemplates,omitempty"`
+
+	// DeletionPolicy controls the delete operation for database
+	// +optional
+	DeletionPolicy DeletionPolicy `json:"deletionPolicy,omitempty"`
+
+	// Indicates that the database is halted and all offshoot Kubernetes resources except PVCs are deleted.
+	// +optional
+	Halted bool `json:"halted,omitempty"`
+
+	// HealthChecker defines attributes of the health checker
+	// +optional
+	// +kubebuilder:default={periodSeconds: 10, timeoutSeconds: 10, failureThreshold: 3}
+	HealthChecker kmapi.HealthCheckSpec `json:"healthChecker"`
+}
+
+// +k8s:deepcopy-gen=true
+type MilvusTopology struct {
+	// If set to -
+	// "Standalone", Standalone is required, and Milvus will start a Standalone Mode
+	// "Distributed", DistributedSpec is required, and Milvus will start a Distributed Mode
+	Mode *MilvusMode `json:"mode,omitempty"`
+}
+
+// +k8s:deepcopy-gen=true
+// Metadata Storage defines the configuration for etcd metadata storage
+type MilvusMetadataStorage struct {
+	// ExternallyManaged indicates whether etcd is managed outside this operator.
+	// If true, only endpoints are used. If false, an EtcdCluster CR is created.
+	// +optional
+	ExternallyManaged bool `json:"externallyManaged,omitempty"`
+
+	// Endpoints are the client endpoints of etcd (e.g., ["http://etcd-svc:2379"]).
+	// Required when ExternallyManaged=true.
+	// +kubebuilder:validation:MinItems=1
+	// +optional
+	Endpoints []string `json:"endpoints,omitempty"`
+
+	// Size is the expected size of the cluster.
+	// Required when ExternallyManaged=false. Ignored otherwise.
+	// +kubebuilder:validation:Minimum=1
+	// +optional
+	Size int `json:"size,omitempty"`
+
+	// StorageType can be durable (default) or ephemeral
+	// +optional
+	StorageType StorageType `json:"storageType,omitempty"`
+
+	// Storage to specify how storage shall be used.
+	// +optional
+	Storage *core.PersistentVolumeClaimSpec `json:"storage,omitempty"`
+}
+
+// +k8s:deepcopy-gen=true
+// ObjectStorageStorageSpec defines the configuration for MinIO or S3 object storage
+type ObjectStorageSpec struct {
+	// ConfigSecret should contain the necessary data to connect to external MinIO
+	// +optional
+	ConfigSecret *core.LocalObjectReference `json:"configSecret,omitempty"`
 }
 
 // +k8s:deepcopy-gen=true

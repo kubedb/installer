@@ -600,9 +600,8 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.MemcachedVersionList":                         schema_apimachinery_apis_catalog_v1alpha1_MemcachedVersionList(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.MemcachedVersionPodSecurityPolicy":            schema_apimachinery_apis_catalog_v1alpha1_MemcachedVersionPodSecurityPolicy(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.MemcachedVersionSpec":                         schema_apimachinery_apis_catalog_v1alpha1_MemcachedVersionSpec(ref),
-		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusSecurityContext":                        schema_apimachinery_apis_catalog_v1alpha1_MilvusSecurityContext(ref),
+		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusDatabase":                               schema_apimachinery_apis_catalog_v1alpha1_MilvusDatabase(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusVersion":                                schema_apimachinery_apis_catalog_v1alpha1_MilvusVersion(ref),
-		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusVersionDatabase":                        schema_apimachinery_apis_catalog_v1alpha1_MilvusVersionDatabase(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusVersionList":                            schema_apimachinery_apis_catalog_v1alpha1_MilvusVersionList(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusVersionSpec":                            schema_apimachinery_apis_catalog_v1alpha1_MilvusVersionSpec(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.MongoDBSecurityContext":                       schema_apimachinery_apis_catalog_v1alpha1_MongoDBSecurityContext(ref),
@@ -29693,20 +29692,21 @@ func schema_apimachinery_apis_catalog_v1alpha1_MemcachedVersionSpec(ref common.R
 	}
 }
 
-func schema_apimachinery_apis_catalog_v1alpha1_MilvusSecurityContext(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apimachinery_apis_catalog_v1alpha1_MilvusDatabase(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "MilvusSecurityContext is for the additional config for the DB container",
-				Type:        []string{"object"},
+				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
-					"runAsUser": {
+					"image": {
 						SchemaProps: spec.SchemaProps{
-							Type:   []string{"integer"},
-							Format: "int64",
+							Default: "",
+							Type:    []string{"string"},
+							Format:  "",
 						},
 					},
 				},
+				Required: []string{"image"},
 			},
 		},
 	}
@@ -29750,26 +29750,6 @@ func schema_apimachinery_apis_catalog_v1alpha1_MilvusVersion(ref common.Referenc
 		},
 		Dependencies: []string{
 			"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusVersionSpec"},
-	}
-}
-
-func schema_apimachinery_apis_catalog_v1alpha1_MilvusVersionDatabase(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
-				Properties: map[string]spec.Schema{
-					"image": {
-						SchemaProps: spec.SchemaProps{
-							Default: "",
-							Type:    []string{"string"},
-							Format:  "",
-						},
-					},
-				},
-				Required: []string{"image"},
-			},
-		},
 	}
 }
 
@@ -29839,7 +29819,7 @@ func schema_apimachinery_apis_catalog_v1alpha1_MilvusVersionSpec(ref common.Refe
 						SchemaProps: spec.SchemaProps{
 							Description: "Database Image",
 							Default:     map[string]interface{}{},
-							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusVersionDatabase"),
+							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusDatabase"),
 						},
 					},
 					"deprecated": {
@@ -29853,7 +29833,7 @@ func schema_apimachinery_apis_catalog_v1alpha1_MilvusVersionSpec(ref common.Refe
 						SchemaProps: spec.SchemaProps{
 							Description: "SecurityContext is for the additional config for the DB container",
 							Default:     map[string]interface{}{},
-							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusSecurityContext"),
+							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext"),
 						},
 					},
 					"ui": {
@@ -29881,7 +29861,7 @@ func schema_apimachinery_apis_catalog_v1alpha1_MilvusVersionSpec(ref common.Refe
 			},
 		},
 		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusSecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
+			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
 	}
 }
 

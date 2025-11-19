@@ -21,19 +21,17 @@ import (
 )
 
 const (
-	ResourceCodeMilvusVersion     = "mlvversion"
+	ResourceCodeMilvusVersion     = "mvversion"
 	ResourceKindMilvusVersion     = "MilvusVersion"
 	ResourceSingularMilvusVersion = "milvusversion"
 	ResourcePluralMilvusVersion   = "milvusversions"
-	GroupName                     = "catalog.kubedb.com"
 )
 
 // Package v1alpha2 contains API Schema definitions for the  v1alpha2 API group.
-// +kubebuilder:object:generate=true
-// +groupName=catalog.kubedb.com
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:path=milvusversions,singular=milvusversion,scope=Cluster,shortName=mlvversion,categories={catalog,kubedb,appscode}
+// +genclient:nonNamespaced
+// +kubebuilder:resource:path=milvusversions,singular=milvusversion,scope=Cluster,shortName=mvversion,categories={catalog,kubedb,appscode}
 // +kubebuilder:printcolumn:name="Version",type="string",JSONPath=".spec.version"
 // +kubebuilder:printcolumn:name="DB_IMAGE",type="string",JSONPath=".spec.db.image"
 // +kubebuilder:printcolumn:name="Deprecated",type="boolean",JSONPath=".spec.deprecated"
@@ -48,27 +46,26 @@ type MilvusVersion struct {
 type MilvusVersionSpec struct {
 	// Version
 	Version string `json:"version"`
+
 	// Database Image
-	DB MilvusVersionDatabase `json:"db"`
+	DB MilvusDatabase `json:"db"`
+
 	// Deprecated versions usable but regarded as obsolete and best avoided, typically due to having been superseded.
 	// +optional
 	Deprecated bool `json:"deprecated,omitempty"`
+
 	// SecurityContext is for the additional config for the DB container
 	// +optional
-	SecurityContext MilvusSecurityContext `json:"securityContext,omitempty"`
+	SecurityContext SecurityContext `json:"securityContext"`
+
 	// +optional
 	UI []ChartInfo `json:"ui,omitempty"`
 	// update constraints
 	UpdateConstraints UpdateConstraints `json:"updateConstraints,omitempty"`
 }
 
-// MilvusSecurityContext is for the additional config for the DB container
-type MilvusSecurityContext struct {
-	RunAsUser *int64 `json:"runAsUser,omitempty"`
-}
-
 // +k8s:deepcopy-gen=true
-type MilvusVersionDatabase struct {
+type MilvusDatabase struct {
 	Image string `json:"image"`
 }
 
