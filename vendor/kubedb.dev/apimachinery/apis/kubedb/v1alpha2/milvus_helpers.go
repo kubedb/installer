@@ -187,7 +187,6 @@ func (m *Milvus) MetaStorageEndpoints() []string {
 			klog.Errorf("metadata storage is externally managed but no endpoints were provided")
 			return []string{}
 		}
-		// Return user-provided endpoints
 		return m.Spec.MetaStorage.Endpoints
 	}
 
