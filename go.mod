@@ -138,5 +138,3 @@ replace (
 replace sigs.k8s.io/controller-runtime => github.com/kmodules/controller-runtime v0.20.3-0.20250221050548-8eabe54e7dda
 
 replace k8s.io/apiserver => github.com/kmodules/apiserver v0.32.3-0.20250221062720-35dc674c7dd6
-
-replace kubedb.dev/apimachinery v0.59.1-0.20251120054024-1569ec600352 => ../apimachinery
