@@ -5483,7 +5483,11 @@ func (in *QdrantSpec) DeepCopyInto(out *QdrantSpec) {
 		*out = new(corev1.LocalObjectReference)
 		**out = **in
 	}
-	in.PodTemplate.DeepCopyInto(&out.PodTemplate)
+	if in.PodTemplate != nil {
+		in, out := &in.PodTemplate, &out.PodTemplate
+		*out = new(v2.PodTemplateSpec)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ServiceTemplates != nil {
 		in, out := &in.ServiceTemplates, &out.ServiceTemplates
 		*out = make([]NamedServiceTemplateSpec, len(*in))
