@@ -13,14 +13,14 @@ require (
 	github.com/yudai/gojsondiff v1.0.0
 	gomodules.xyz/go-sh v0.1.0
 	gomodules.xyz/semvers v0.0.2
-	k8s.io/api v0.32.3
-	k8s.io/apimachinery v0.32.3
-	kmodules.xyz/client-go v0.32.7
+	k8s.io/api v0.32.8
+	k8s.io/apimachinery v0.32.8
+	kmodules.xyz/client-go v0.32.9
 	kmodules.xyz/go-containerregistry v0.0.14
 	kmodules.xyz/image-packer v0.0.0-20250709183414-f93633723666
 	kmodules.xyz/resource-metadata v0.32.1
 	kmodules.xyz/schema-checker v0.4.2
-	kubedb.dev/apimachinery v0.59.0
+	kubedb.dev/apimachinery v0.59.1-0.20251120082417-ae9992367f4c
 	kubeops.dev/installer v0.0.0-20250630172252-60882a8ed9ab
 	sigs.k8s.io/yaml v1.4.0
 	stash.appscode.dev/installer v0.12.2-0.20251027171826-e3a597044fd4
@@ -92,7 +92,7 @@ require (
 	github.com/zeebo/xxh3 v1.0.2 // indirect
 	go.virtual-secrets.dev/apimachinery v0.0.1 // indirect
 	golang.org/x/crypto v0.38.0 // indirect
-	golang.org/x/net v0.38.0 // indirect
+	golang.org/x/net v0.40.0 // indirect
 	golang.org/x/oauth2 v0.28.0 // indirect
 	golang.org/x/sync v0.14.0 // indirect
 	golang.org/x/sys v0.33.0 // indirect
@@ -108,16 +108,16 @@ require (
 	gopkg.in/evanphx/json-patch.v4 v4.12.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	k8s.io/apiextensions-apiserver v0.32.3 // indirect
-	k8s.io/client-go v0.32.3 // indirect
+	k8s.io/apiextensions-apiserver v0.32.8 // indirect
+	k8s.io/client-go v0.32.8 // indirect
 	k8s.io/klog/v2 v2.130.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20250318190949-c8a335a9a2ff // indirect
 	k8s.io/utils v0.0.0-20241210054802-24370beab758 // indirect
 	kmodules.xyz/apiversion v0.2.0 // indirect
 	kmodules.xyz/custom-resources v0.32.2 // indirect
-	kmodules.xyz/monitoring-agent-api v0.32.1 // indirect
+	kmodules.xyz/monitoring-agent-api v0.32.4 // indirect
 	kmodules.xyz/offshoot-api v0.32.0 // indirect
-	kubeops.dev/petset v0.0.12 // indirect
+	kubeops.dev/petset v0.0.14 // indirect
 	kubeops.dev/scanner v0.0.19 // indirect
 	kubeops.dev/sidekick v0.0.11 // indirect
 	open-cluster-management.io/api v1.0.0 // indirect

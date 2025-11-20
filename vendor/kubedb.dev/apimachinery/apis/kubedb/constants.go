@@ -886,6 +886,35 @@ const (
 )
 
 const (
+	MilvusPrimaryServicePortName = "primary"
+	MilvusGrpcPortName           = "grpc"
+	MilvusGrpcPort               = int32(19530)
+
+	MilvusVolumeNameData = "data"
+	MilvusDataDir        = "/var/lib/milvus"
+	MilvusConfigVolName  = "milvus-config"
+	MilvusConfigDir      = "/milvus/configs/milvus.yaml"
+	MilvusConfigFileName = "milvus.yaml"
+	MilvusContainerName  = "milvus"
+
+	EtcdEndpointsName = "ETCD_ENDPOINTS"
+	EtcdAPIVersion    = "operator.etcd.io/v1alpha1"
+	EtcdKind          = "EtcdCluster"
+	ControllerName    = "milvus-controller"
+	EtcdName          = "etcd"
+
+	MinioAddressName   = "MINIO_ADDRESS"
+	MinioAddressKey    = "address"
+	MinioAccessKeyName = "MINIO_ACCESS_KEY"
+	MinioAccessKey     = "accessKeyId"
+	MinioSecretKeyName = "MINIO_SECRET_KEY"
+	MinioSecretKey     = "secretAccessKey"
+
+	EnvMilvusUsername = "MILVUS_USERNAME"
+	EnvMilvusPassword = "MILVUS_PASSWORD"
+)
+
+const (
 	KafkaPortNameREST                  = "http"
 	KafkaPortNameController            = "controller"
 	KafkaPortNameCruiseControlListener = "cc-listener"
