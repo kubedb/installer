@@ -12,8 +12,9 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
-  version: "2.6.1"
   db:
-    image: urmibiswas/milvus-nonroot:2.6.1
-  deprecated: false
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "urmibiswas/milvus-nonroot") $) }}:2.6.1'
+  securityContext:
+    runAsUser: 1000
+  version: 2.6.1
 {{ end }}
