@@ -886,8 +886,6 @@ const (
 )
 
 const (
-	MilvusUsername = "root"
-
 	MilvusPrimaryServicePortName = "primary"
 	MilvusGrpcPortName           = "grpc"
 	MilvusGrpcPort               = int32(19530)
