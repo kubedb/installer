@@ -213,7 +213,7 @@ func main() {
 					panic("unsupported registry for image " + img)
 				}
 				if found {
-					newimg += ":" + tag
+					newimg += ":" + tag + `{{ ternary "-ubi" "" (list "catalog" "all" | has .Values.distro.ubi) }}`
 				}
 				err = unstructured.SetNestedField(obj.UnstructuredContent(), newimg, "spec", "image")
 				if err != nil {

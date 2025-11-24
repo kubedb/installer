@@ -63,10 +63,17 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
-Returns the registry used for image docker image
+Returns the registry used for docker image
 */}}
 {{- define "image.registry" -}}
 {{- list .Values.registryFQDN .Values.image.registry | compact | join "/" }}
+{{- end }}
+
+{{/*
+Returns the image tag used for docker image
+*/}}
+{{- define "image.tag" -}}
+{{- .Values.image.tag | default .Chart.AppVersion }}{{ ternary "-ubi" "" (list "operator" "all" | has .Values.distro.ubi) }}
 {{- end }}
 
 {{- define "docker.imagePullSecrets" -}}

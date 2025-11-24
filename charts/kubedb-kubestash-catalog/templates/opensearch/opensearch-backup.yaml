@@ -20,5 +20,5 @@ spec:
   - --wait-timeout=${waitTimeout:={{ .Values.waitTimeout}}}
   - --es-args=${args:={{ .Values.opensearch.args }}}
   - --interim-data-dir=${interimDataDir:=}
-  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-restic-plugin") $) }}:v0.22.0'
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-restic-plugin") $) }}:v0.22.0{{ ternary "-ubi" "" (list "catalog" "all" | has .Values.distro.ubi) }}'
 {{ end }}

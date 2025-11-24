@@ -88,10 +88,24 @@ Returns the registry used for operator docker image
 {{- end }}
 
 {{/*
+Returns the image tag used for operator docker image
+*/}}
+{{- define "operator.tag" -}}
+{{- .Values.operator.tag | default .Chart.AppVersion }}{{ ternary "-ubi" "" (list "operator" "all" | has .Values.distro.ubi) }}
+{{- end }}
+
+{{/*
 Returns the registry used for waitfor docker image
 */}}
 {{- define "waitfor.registry" -}}
 {{- list .Values.registryFQDN .Values.waitfor.registry | compact | join "/" }}
+{{- end }}
+
+{{/*
+Returns the image tag used for waitfor docker image
+*/}}
+{{- define "waitfor.tag" -}}
+{{- .Values.waitfor.tag }}{{ ternary "-ubi" "" (list "operator" "all" | has .Values.distro.ubi) }}
 {{- end }}
 
 {{- define "docker.imagePullSecrets" -}}

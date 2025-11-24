@@ -69,6 +69,13 @@ Returns the registry used for operator docker image
 {{- list .Values.registryFQDN .Values.server.registry | compact | join "/" }}
 {{- end }}
 
+{{/*
+Returns the image tag used for operator docker image
+*/}}
+{{- define "server.tag" -}}
+{{- .Values.server.tag | default .Chart.AppVersion }}{{ ternary "-ubi" "" (list "operator" "all" | has .Values.distro.ubi) }}
+{{- end }}
+
 {{- define "docker.imagePullSecrets" -}}
 {{- with .Values.imagePullSecrets -}}
 imagePullSecrets:
