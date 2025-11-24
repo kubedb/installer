@@ -96,24 +96,10 @@ Returns the registry used for webhook server docker image
 {{- end }}
 
 {{/*
-Returns the registry used for cleaner docker image
-*/}}
-{{- define "cleaner.registry" -}}
-{{- list (default .Values.registryFQDN .Values.global.registryFQDN) (default .Values.cleaner.registry .Values.global.registry) | compact | join "/" }}
-{{- end }}
-
-{{/*
 Returns the registry used for image docker image
 */}}
 {{- define "image.registry" -}}
 {{- list (default .Values.registryFQDN .Values.global.registryFQDN) (default .Values.image.registry .Values.global.registry) | compact | join "/" }}
-{{- end }}
-
-{{/*
-Returns the registry used for rbacproxy docker rbacproxy
-*/}}
-{{- define "rbacproxy.registry" -}}
-{{- list (default .Values.registryFQDN .Values.global.registryFQDN) (default .Values.rbacproxy.registry .Values.global.registry) | compact | join "/" }}
 {{- end }}
 
 {{/*
@@ -190,4 +176,18 @@ Returns whether the OpenShift distribution is used
 */}}
 {{- define "distro.openshift" -}}
 {{- or (.Capabilities.APIVersions.Has "project.openshift.io/v1/Project") .Values.global.distro.openshift (and .Values.distro .Values.distro.openshift) -}}
+{{- end }}
+
+{{/*
+Returns if ubi images are to be used
+*/}}
+{{- define "operator.ubi" -}}
+{{ ternary "-ubi" "" (list "operator" "all" | has (default .Values.distro.ubi .Values.global.distro.ubi)) }}
+{{- end }}
+
+{{/*
+Returns if ubi images are to be used for catalog
+*/}}
+{{- define "catalog.ubi" -}}
+{{ ternary "-ubi" "" (list "catalog" "all" | has (default .Values.distro.ubi .Values.global.distro.ubi)) }}
 {{- end }}
