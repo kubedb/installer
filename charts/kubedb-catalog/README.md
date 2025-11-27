@@ -69,6 +69,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | featureGates.MongoDB                       |                                                 | <code>true</code>              |
 | featureGates.MSSQLServer                   |                                                 | <code>true</code>              |
 | featureGates.MySQL                         |                                                 | <code>true</code>              |
+| featureGates.Neo4j                         |                                                 | <code>true</code>              |
 | featureGates.Oracle                        |                                                 | <code>true</code>              |
 | featureGates.PerconaXtraDB                 |                                                 | <code>true</code>              |
 | featureGates.PgBouncer                     |                                                 | <code>true</code>              |
