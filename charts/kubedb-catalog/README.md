@@ -58,6 +58,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | proxies.appscode                           |                                                 | <code>r.appscode.com</code>    |
 | featureGates.Cassandra                     |                                                 | <code>true</code>              |
 | featureGates.ClickHouse                    |                                                 | <code>true</code>              |
+| featureGates.DB2                           |                                                 | <code>true</code>              |
 | featureGates.Druid                         |                                                 | <code>true</code>              |
 | featureGates.Elasticsearch                 |                                                 | <code>true</code>              |
 | featureGates.FerretDB                      |                                                 | <code>true</code>              |
