@@ -85,3 +85,7 @@ Create the name of the service account to use
 {{- define "image.appscode" -}}
 {{ list .Values.proxies.appscode ._repo | compact | join "/" }}
 {{- end }}
+
+{{- define "image.weaviate" -}}
+{{ list .Values.proxies.weaviate ._repo | compact | join "/" }}
+{{- end }}
