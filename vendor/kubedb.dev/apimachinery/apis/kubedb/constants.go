@@ -803,6 +803,7 @@ const (
 	HazelcastSecretKey            = "hazelcast.yaml"
 	HazelcastClientSecretKey      = "hazelcast-client.yaml"
 	HazelcastRestPort             = 5701
+	HazelcastUIPort               = 8443
 	HazelcastPortName             = "hazelcast"
 	HazelcastConfigVolume         = "hzconfig"
 	HazelcastDefaultConfigVolume  = "default-config"
@@ -883,6 +884,33 @@ const (
 	InternalUsersCredentialSyncFailed          = "InternalUsersCredentialsSyncFailed"
 	InternalUsersCredentialsSyncedSuccessfully = "InternalUsersCredentialsSyncedSuccessfully"
 	FailedToEnsureDependency                   = "FailedToEnsureDependency"
+)
+
+const (
+	MilvusUsername = "root"
+
+	MilvusGrpcPortName = "grpc"
+	MilvusGrpcPort     = int32(19530)
+
+	MilvusVolumeNameData = "data"
+	MilvusDataDir        = "/var/lib/milvus"
+	MilvusConfigVolName  = "milvus-config"
+	MilvusConfigDir      = "/milvus/configs/milvus.yaml"
+	MilvusConfigFileName = "milvus.yaml"
+	MilvusContainerName  = "milvus"
+
+	EtcdEndpointsName = "ETCD_ENDPOINTS"
+	EtcdAPIVersion    = "operator.etcd.io/v1alpha1"
+	EtcdKind          = "EtcdCluster"
+	ControllerName    = "milvus-controller"
+	EtcdName          = "etcd"
+
+	MinioAddressName   = "MINIO_ADDRESS"
+	MinioAddressKey    = "address"
+	MinioAccessKeyName = "MINIO_ACCESS_KEY"
+	MinioAccessKey     = "accessKeyId"
+	MinioSecretKeyName = "MINIO_SECRET_KEY"
+	MinioSecretKey     = "secretAccessKey"
 )
 
 const (
@@ -2067,4 +2095,26 @@ const (
 	OracleEnvPassword          = "ORACLE_PWD"
 	OracleEnvOracleSID         = "ORACLE_SID"
 	OracleEnvDataDir           = "ORADATA"
+)
+
+// =========================== Qdrant Constants ============================
+const (
+	QdrantContainerName = "qdrant"
+
+	QdrantHTTPPortName = "http"
+	QdrantHTTPPort     = 6333
+	QdrantGRPCPortName = "grpc"
+	QdrantGRPCPort     = 6334
+	QdrantP2PPortName  = "p2p"
+	QdrantP2PPort      = 6335
+
+	QdrantDataVolName   = "data"
+	QdrantDataDir       = "/qdrant/storage"
+	QdrantConfigVolName = "qdrant-config"
+	QdrantConfigDir     = "/qdrant/config"
+
+	QdrantConfigFileName = "config.yaml"
+
+	QdrantAPIKey         = "api-key"
+	QdrantReadOnlyAPIKey = "read-only-api-key"
 )
