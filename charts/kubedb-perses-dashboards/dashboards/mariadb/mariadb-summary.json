@@ -3,7 +3,7 @@
 {
   "kind": "Dashboard",
   "metadata": {
-    "name": "VnOgk2Hnky",
+    "name": "VnOgk2Hnk",
     "createdAt": "0001-01-01T00:00:00Z",
     "updatedAt": "0001-01-01T00:00:00Z",
     "version": 0,
@@ -11,16 +11,17 @@
   },
   "spec": {
     "display": {
-      "name": "KubeDB / Postgres / Summary"
+      "name": "KubeDB / MariaDB / Summary"
     },
     "variables": [
       {
         "kind": "ListVariable",
         "spec": {
           "display": {
+            "name": "Datasource",
             "hidden": false
           },
-          "defaultValue": "Prometheus",
+          "defaultValue": "default",
           "allowAllValue": false,
           "allowMultiple": false,
           "plugin": {
@@ -59,18 +60,20 @@
         "kind": "ListVariable",
         "spec": {
           "display": {
-            "name": "postgres",
+            "name": "Mariadb",
             "hidden": false
           },
-          "defaultValue": "coreos-prom-postgres",
+          "defaultValue": "mariadb-galera",
           "allowAllValue": false,
           "allowMultiple": false,
-          "sort": "alphabetical-asc",
+          "sort": "none",
           "plugin": {
-            "kind": "PrometheusPromQLVariable",
+            "kind": "PrometheusLabelValuesVariable",
             "spec": {
-              "expr": "kubedb_com_postgres_created{namespace=\"$namespace\"}",
-              "labelName": "app"
+              "labelName": "app",
+              "matchers": [
+                "kubedb_com_mariadb_status_phase{namespace=~\"$namespace\"}"
+              ]
             }
           },
           "name": "app"
@@ -82,59 +85,13 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Version",
-            "description": "Postgresql Version"
+            "name": "Database Status",
+            "description": "Represent database status"
           },
           "plugin": {
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
-              "format": {
-                "unit": "decimal"
-              },
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#ffffff",
-                    "value": 0
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "kubedb_com_postgres_info{namespace=\"$namespace\", app=\"$app\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "1": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Uptime",
-            "description": "Database uptime"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "format": {
-                "unit": "seconds"
-              },
-              "sparkline": {},
               "thresholds": {
                 "steps": [
                   {
@@ -153,7 +110,54 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "time() - kubedb_com_postgres_created{namespace=\"$namespace\", app=\"$app\"}",
+                    "query": "kubedb_com_mariadb_status_phase{namespace=\"$namespace\", app=\"$app\"} == 1\n",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Version",
+            "description": "MariaDB CR Name"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "mean",
+              "format": {
+                "unit": "decimal"
+              },
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              },
+              "valueFontSize": 50
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kubedb_com_mariadb_info{namespace=\"$namespace\", app=\"$app\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -166,246 +170,12 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Storage Request",
-            "description": "Intial Storage Request by Postgres Instance when deploying"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "format": {
-                "unit": "bytes"
-              },
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#ffffff",
-                    "value": 0
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "kubedb_com_postgres_resource_request_storage{namespace=\"$namespace\", app=\"$app\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "11": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Max Connections",
-            "description": "Maximum number of concurrent connections of the Postgres instance"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#ffffff",
-                    "value": 0
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "avg(pg_settings_max_connections{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"})",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "12": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Primary Pod FailOver Indicator",
-            "description": "The current active line shows the current primary pod"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "AVG(rate(pg_stat_replication_reply_time{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])) by (pod)",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "13": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Connnections",
-            "description": "Postgres connections information in real time"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum(pg_stat_activity_count{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"}) by (state)",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "14": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Postgres Replication Lag",
-            "description": "Shows the replication lag with primary"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "pg_stat_replication_pg_wal_lsn_diff{namespace=\"$namespace\",application_name=~\"$app-\\\\d+$\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "15": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Raft Primary Tracker",
-            "description": "Track the current Primary for Raft"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              },
-              "visual": {
-                "areaOpacity": 0.1,
-                "connectNulls": true,
-                "display": "line",
-                "lineWidth": 1
-              },
-              "yAxis": {
-                "format": {
-                  "unit": "decimal"
-                }
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "pg_coordinator_raft_primary{namespace=\"$namespace\", pod=~\"$app-.\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "16": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
             "name": "CPU Usage",
-            "description": "CPU Usage by Postgres pods"
+            "description": "CPU Usage by MariaDB pods"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              }
-            }
+            "spec": {}
           },
           "queries": [
             {
@@ -424,7 +194,7 @@
           ]
         }
       },
-      "17": {
+      "11": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -535,21 +305,16 @@
           ]
         }
       },
-      "18": {
+      "12": {
         "kind": "Panel",
         "spec": {
           "display": {
             "name": "Memory Usage",
-            "description": "Memory Usage by Postgres pods"
+            "description": "Memory Usage by MariaDB pods"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              },
               "yAxis": {
                 "format": {
                   "unit": "bytes"
@@ -574,7 +339,7 @@
           ]
         }
       },
-      "19": {
+      "13": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -735,63 +500,16 @@
           ]
         }
       },
-      "2": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Total Replicas",
-            "description": "Total replica count of the Postgres database"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  },
-                  {
-                    "color": "#f2495c",
-                    "value": 80
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "kubedb_com_postgres_replicas{namespace=\"$namespace\",app=\"$app\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "20": {
+      "14": {
         "kind": "Panel",
         "spec": {
           "display": {
             "name": "Disk Usage",
-            "description": "Disk usage by Postgres pods"
+            "description": "Disk usage by MariaDB pods"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              },
               "yAxis": {
                 "format": {
                   "unit": "bytes"
@@ -816,7 +534,7 @@
           ]
         }
       },
-      "21": {
+      "15": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -826,11 +544,6 @@
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              },
               "yAxis": {
                 "format": {
                   "unit": "decimal"
@@ -868,20 +581,15 @@
           ]
         }
       },
-      "22": {
+      "16": {
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "IOPS(Reads+Writes)"
+            "name": "IOPS (Reads+Writes)"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              },
               "yAxis": {
                 "format": {
                   "unit": "decimal"
@@ -906,20 +614,15 @@
           ]
         }
       },
-      "23": {
+      "17": {
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "ThroughPut(Read+Write)"
+            "name": "ThroughPut (Read+Write)"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              },
               "yAxis": {
                 "format": {
                   "unit": "bytes/sec"
@@ -944,7 +647,7 @@
           ]
         }
       },
-      "24": {
+      "18": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1071,7 +774,7 @@
           ]
         }
       },
-      "25": {
+      "19": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1101,7 +804,50 @@
           ]
         }
       },
-      "26": {
+      "2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Require Secure Transport",
+            "description": "When this option is enabled, connections attempted using insecure transport will be rejected."
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kubedb_com_mariadb_info{namespace=\"$namespace\", app=\"$app\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "20": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1134,7 +880,7 @@
           ]
         }
       },
-      "27": {
+      "21": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1185,7 +931,7 @@
           ]
         }
       },
-      "28": {
+      "22": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1193,18 +939,7 @@
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              },
-              "yAxis": {
-                "format": {
-                  "unit": "bytes/sec"
-                }
-              }
-            }
+            "spec": {}
           },
           "queries": [
             {
@@ -1223,7 +958,7 @@
           ]
         }
       },
-      "29": {
+      "23": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1232,11 +967,6 @@
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              },
               "yAxis": {
                 "format": {
                   "unit": "bytes/sec"
@@ -1265,8 +995,8 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Database Status",
-            "description": "Represent database status"
+            "name": "Deletion Policy",
+            "description": "KubeDB Database Resource deletionPolicy"
           },
           "plugin": {
             "kind": "StatChart",
@@ -1276,7 +1006,7 @@
               "thresholds": {
                 "steps": [
                   {
-                    "color": "#ffffff",
+                    "color": "#c4162a",
                     "value": 0
                   }
                 ]
@@ -1291,7 +1021,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "kubedb_com_postgres_status_phase{namespace=\"$namespace\", app=\"$app\"} == 1\n",
+                    "query": "kubedb_com_mariadb_info{namespace=\"$namespace\", app=\"$app\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -1304,19 +1034,22 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "SSL Mode",
-            "description": "KubeDB Postgres Current SSL Mode"
+            "name": "Total Nodes",
+            "description": "Total node count of MariaDB cluster"
           },
           "plugin": {
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
-              "sparkline": {},
               "thresholds": {
                 "steps": [
                   {
-                    "color": "#ffffff",
+                    "color": "#73bf69",
                     "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
                   }
                 ]
               }
@@ -1330,7 +1063,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "kubedb_com_postgres_info{namespace=\"$namespace\", app=\"$app\"}",
+                    "query": "kubedb_com_mariadb_replicas{namespace=\"$namespace\",app=\"$app\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -1343,8 +1076,8 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Deletion Policy",
-            "description": "KubeDB Postgres Resource deletionPolicy"
+            "name": "CPU Request (Core)",
+            "description": "Initial Requested CPU amount by MariaDB Instance"
           },
           "plugin": {
             "kind": "StatChart",
@@ -1354,7 +1087,7 @@
               "thresholds": {
                 "steps": [
                   {
-                    "color": "#ffffff",
+                    "color": "#73bf69",
                     "value": 0
                   }
                 ]
@@ -1369,7 +1102,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "kubedb_com_postgres_info{namespace=\"$namespace\", app=\"$app\"}",
+                    "query": "kubedb_com_mariadb_resource_request_cpu{namespace=\"$namespace\", app=\"$app\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -1382,8 +1115,8 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "CPU Request (Core)",
-            "description": "Initial Requested CPU amount by Postgres Instance"
+            "name": "CPU Limit (Core)",
+            "description": "CPU Limit in core by MariaDB instance"
           },
           "plugin": {
             "kind": "StatChart",
@@ -1393,7 +1126,7 @@
               "thresholds": {
                 "steps": [
                   {
-                    "color": "#ffffff",
+                    "color": "#73bf69",
                     "value": 0
                   }
                 ]
@@ -1408,7 +1141,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "kubedb_com_postgres_resource_request_cpu{namespace=\"$namespace\", app=\"$app\"}",
+                    "query": "kubedb_com_mariadb_resource_limit_cpu{namespace=\"$namespace\", app=\"$app\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -1421,18 +1154,21 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "CPU Limit(core)",
-            "description": "CPU Limit in core by Postgres instance"
+            "name": "Memory Request",
+            "description": "Initial Requested Memory amount by MariaDB Instance"
           },
           "plugin": {
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "format": {
+                "unit": "bytes"
+              },
               "sparkline": {},
               "thresholds": {
                 "steps": [
                   {
-                    "color": "#ffffff",
+                    "color": "#73bf69",
                     "value": 0
                   }
                 ]
@@ -1447,7 +1183,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "kubedb_com_postgres_resource_limit_cpu{namespace=\"$namespace\", app=\"$app\"}",
+                    "query": "kubedb_com_mariadb_resource_request_memory{namespace=\"$namespace\", app=\"$app\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -1460,8 +1196,8 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Memory Request",
-            "description": "Initial Requested Memory amount by Postgres Instance"
+            "name": "Memory Limit",
+            "description": "KubeDB MariaDB Total Memory Limit"
           },
           "plugin": {
             "kind": "StatChart",
@@ -1474,7 +1210,7 @@
               "thresholds": {
                 "steps": [
                   {
-                    "color": "#ffffff",
+                    "color": "#73bf69",
                     "value": 0
                   }
                 ]
@@ -1489,7 +1225,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "kubedb_com_postgres_resource_request_memory{namespace=\"$namespace\", app=\"$app\"}",
+                    "query": "kubedb_com_mariadb_resource_limit_memory{namespace=\"$namespace\", app=\"$app\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -1502,8 +1238,8 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Memory Limit",
-            "description": "KubeDB Postgres Total Memory Limit"
+            "name": "Storage Request",
+            "description": "Total storage request by MariaDB nodes"
           },
           "plugin": {
             "kind": "StatChart",
@@ -1516,7 +1252,7 @@
               "thresholds": {
                 "steps": [
                   {
-                    "color": "#ffffff",
+                    "color": "#73bf69",
                     "value": 0
                   }
                 ]
@@ -1531,7 +1267,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "kubedb_com_postgres_resource_limit_memory{namespace=\"$namespace\", app=\"$app\"}",
+                    "query": "kubedb_com_mariadb_resource_request_storage{namespace=\"$namespace\", app=\"$app\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -1552,23 +1288,23 @@
             {
               "x": 0,
               "y": 1,
-              "width": 4,
+              "width": 8,
               "height": 3,
               "content": {
                 "$ref": "#/spec/panels/0"
               }
             },
             {
-              "x": 4,
+              "x": 8,
               "y": 1,
-              "width": 4,
+              "width": 8,
               "height": 3,
               "content": {
                 "$ref": "#/spec/panels/1"
               }
             },
             {
-              "x": 8,
+              "x": 16,
               "y": 1,
               "width": 4,
               "height": 3,
@@ -1577,7 +1313,7 @@
               }
             },
             {
-              "x": 12,
+              "x": 20,
               "y": 1,
               "width": 4,
               "height": 3,
@@ -1586,30 +1322,12 @@
               }
             },
             {
-              "x": 16,
-              "y": 1,
-              "width": 4,
-              "height": 3,
-              "content": {
-                "$ref": "#/spec/panels/4"
-              }
-            },
-            {
-              "x": 20,
-              "y": 1,
-              "width": 4,
-              "height": 3,
-              "content": {
-                "$ref": "#/spec/panels/5"
-              }
-            },
-            {
               "x": 0,
               "y": 4,
               "width": 4,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/6"
+                "$ref": "#/spec/panels/4"
               }
             },
             {
@@ -1618,7 +1336,7 @@
               "width": 4,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/7"
+                "$ref": "#/spec/panels/5"
               }
             },
             {
@@ -1627,7 +1345,7 @@
               "width": 4,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/8"
+                "$ref": "#/spec/panels/6"
               }
             },
             {
@@ -1636,7 +1354,7 @@
               "width": 4,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/9"
+                "$ref": "#/spec/panels/7"
               }
             },
             {
@@ -1645,7 +1363,7 @@
               "width": 4,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/10"
+                "$ref": "#/spec/panels/8"
               }
             },
             {
@@ -1654,58 +1372,76 @@
               "width": 4,
               "height": 3,
               "content": {
+                "$ref": "#/spec/panels/9"
+              }
+            },
+            {
+              "x": 0,
+              "y": 8,
+              "width": 24,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/10"
+              }
+            },
+            {
+              "x": 0,
+              "y": 15,
+              "width": 24,
+              "height": 6,
+              "content": {
                 "$ref": "#/spec/panels/11"
               }
             },
             {
               "x": 0,
-              "y": 7,
-              "width": 12,
-              "height": 9,
+              "y": 22,
+              "width": 24,
+              "height": 6,
               "content": {
                 "$ref": "#/spec/panels/12"
               }
             },
             {
-              "x": 12,
-              "y": 7,
-              "width": 12,
-              "height": 9,
+              "x": 0,
+              "y": 28,
+              "width": 24,
+              "height": 6,
               "content": {
                 "$ref": "#/spec/panels/13"
               }
             },
             {
               "x": 0,
-              "y": 16,
-              "width": 24,
-              "height": 7,
+              "y": 35,
+              "width": 12,
+              "height": 9,
               "content": {
                 "$ref": "#/spec/panels/14"
               }
             },
             {
-              "x": 0,
-              "y": 16,
-              "width": 24,
-              "height": 8,
+              "x": 12,
+              "y": 35,
+              "width": 12,
+              "height": 9,
               "content": {
                 "$ref": "#/spec/panels/15"
               }
             },
             {
               "x": 0,
-              "y": 25,
-              "width": 24,
-              "height": 10,
+              "y": 44,
+              "width": 12,
+              "height": 7,
               "content": {
                 "$ref": "#/spec/panels/16"
               }
             },
             {
-              "x": 0,
-              "y": 35,
-              "width": 24,
+              "x": 12,
+              "y": 44,
+              "width": 12,
               "height": 7,
               "content": {
                 "$ref": "#/spec/panels/17"
@@ -1713,43 +1449,43 @@
             },
             {
               "x": 0,
-              "y": 43,
+              "y": 51,
               "width": 24,
-              "height": 10,
+              "height": 7,
               "content": {
                 "$ref": "#/spec/panels/18"
               }
             },
             {
               "x": 0,
-              "y": 53,
-              "width": 24,
-              "height": 7,
+              "y": 59,
+              "width": 12,
+              "height": 6,
               "content": {
                 "$ref": "#/spec/panels/19"
               }
             },
             {
-              "x": 0,
-              "y": 61,
+              "x": 12,
+              "y": 59,
               "width": 12,
-              "height": 9,
+              "height": 6,
               "content": {
                 "$ref": "#/spec/panels/20"
               }
             },
             {
-              "x": 12,
-              "y": 61,
-              "width": 12,
-              "height": 9,
+              "x": 0,
+              "y": 65,
+              "width": 24,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/21"
               }
             },
             {
               "x": 0,
-              "y": 70,
+              "y": 74,
               "width": 12,
               "height": 7,
               "content": {
@@ -1758,65 +1494,11 @@
             },
             {
               "x": 12,
-              "y": 70,
+              "y": 74,
               "width": 12,
               "height": 7,
               "content": {
                 "$ref": "#/spec/panels/23"
-              }
-            },
-            {
-              "x": 0,
-              "y": 77,
-              "width": 24,
-              "height": 7,
-              "content": {
-                "$ref": "#/spec/panels/24"
-              }
-            },
-            {
-              "x": 0,
-              "y": 85,
-              "width": 12,
-              "height": 6,
-              "content": {
-                "$ref": "#/spec/panels/25"
-              }
-            },
-            {
-              "x": 12,
-              "y": 85,
-              "width": 12,
-              "height": 6,
-              "content": {
-                "$ref": "#/spec/panels/26"
-              }
-            },
-            {
-              "x": 0,
-              "y": 91,
-              "width": 24,
-              "height": 8,
-              "content": {
-                "$ref": "#/spec/panels/27"
-              }
-            },
-            {
-              "x": 0,
-              "y": 100,
-              "width": 12,
-              "height": 7,
-              "content": {
-                "$ref": "#/spec/panels/28"
-              }
-            },
-            {
-              "x": 12,
-              "y": 100,
-              "width": 12,
-              "height": 7,
-              "content": {
-                "$ref": "#/spec/panels/29"
               }
             }
           ]

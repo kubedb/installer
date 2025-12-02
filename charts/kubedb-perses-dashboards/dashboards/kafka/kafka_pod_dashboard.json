@@ -1,9 +1,8 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
-{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "kind": "Dashboard",
   "metadata": {
-    "name": "6v_W_NNn_kl",
+    "name": "UwK-60AIk",
     "createdAt": "0001-01-01T00:00:00Z",
     "updatedAt": "0001-01-01T00:00:00Z",
     "version": 0,
@@ -11,7 +10,7 @@
   },
   "spec": {
     "display": {
-      "name": "KubeDB / Postgres / Database"
+      "name": "KubeDB / Kafka / Pod"
     },
     "variables": [
       {
@@ -36,13 +35,12 @@
         "kind": "ListVariable",
         "spec": {
           "display": {
-            "name": "Namespace",
             "hidden": false
           },
-          "defaultValue": "demo",
+          "defaultValue": "kafka",
           "allowAllValue": false,
           "allowMultiple": false,
-          "sort": "none",
+          "sort": "alphabetical-asc",
           "plugin": {
             "kind": "PrometheusLabelValuesVariable",
             "spec": {
@@ -59,18 +57,20 @@
         "kind": "ListVariable",
         "spec": {
           "display": {
-            "name": "postgres",
+            "name": "Kafka",
             "hidden": false
           },
-          "defaultValue": "ps-demo",
+          "defaultValue": "kafka-prod",
           "allowAllValue": false,
           "allowMultiple": false,
           "sort": "alphabetical-asc",
           "plugin": {
-            "kind": "PrometheusPromQLVariable",
+            "kind": "PrometheusLabelValuesVariable",
             "spec": {
-              "expr": "kubedb_com_postgres_created{namespace=\"$namespace\"}",
-              "labelName": "app"
+              "labelName": "app",
+              "matchers": [
+                "kubedb_com_kafka_status_phase{namespace=~\"$namespace\"}"
+              ]
             }
           },
           "name": "app"
@@ -80,46 +80,22 @@
         "kind": "ListVariable",
         "spec": {
           "display": {
-            "name": "pod",
             "hidden": false
           },
-          "defaultValue": "ps-demo-0",
+          "defaultValue": "kafka-prod-controller-1",
           "allowAllValue": false,
           "allowMultiple": false,
-          "sort": "none",
+          "sort": "alphabetical-asc",
           "plugin": {
             "kind": "PrometheusLabelValuesVariable",
             "spec": {
               "labelName": "pod",
               "matchers": [
-                "pg_up{namespace=~\"$namespace\",pod=~\"${app}-.*\"}"
+                "kafka_server_brokertopicmetrics_replicationbytesout_total{namespace=~\"$namespace\",pod=~\"$app.+$\"}"
               ]
             }
           },
           "name": "pod"
-        }
-      },
-      {
-        "kind": "ListVariable",
-        "spec": {
-          "display": {
-            "name": "Database",
-            "hidden": false
-          },
-          "defaultValue": [
-            "postgres"
-          ],
-          "allowAllValue": true,
-          "allowMultiple": true,
-          "sort": "alphabetical-asc",
-          "plugin": {
-            "kind": "PrometheusLabelValuesVariable",
-            "spec": {
-              "labelName": "datname",
-              "matchers": []
-            }
-          },
-          "name": "datname"
         }
       }
     ],
@@ -128,14 +104,12 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "QPS",
-            "description": "Query per second"
+            "name": "Status"
           },
           "plugin": {
             "kind": "StatChart",
             "spec": {
-              "calculation": "mean",
-              "sparkline": {},
+              "calculation": "last-number",
               "thresholds": {
                 "steps": [
                   {
@@ -158,7 +132,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(irate(pg_stat_database_xact_commit{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m])) + \nsum(irate(pg_stat_database_xact_rollback{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
+                    "query": "kube_pod_status_phase{namespace=~\"$namespace\",pod=~\"$pod\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -171,11 +145,25 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Transactions"
+            "name": "Uptime",
+            "description": "Pod uptime"
           },
           "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "seconds"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  }
+                ]
+              }
+            }
           },
           "queries": [
             {
@@ -185,20 +173,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "irate(pg_stat_database_xact_commit{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_database_xact_rollback{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
+                    "query": "time() - process_start_time_seconds{namespace=~\"$namespace\",pod=~\"$pod\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -211,7 +186,8 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Buffers (bgwriter)"
+            "name": "JVM memory used [non-heap]",
+            "description": "used non-heap memory in Mi"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -225,59 +201,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_buffers_backend{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_buffers_alloc{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_buffers_backend_fsync{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_buffers_checkpoint{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_buffers_clean{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
+                    "query": "jvm_memory_bytes_used{namespace=~\"$namespace\",pod=~\"$pod\",area=\"nonheap\"} / 1024 / 1024",
                     "seriesNameFormat": ""
                   }
                 }
@@ -290,7 +214,8 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Conflicts/Deadlocks"
+            "name": "JVM memory used [heap]",
+            "description": "used heap memory in Mi"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -304,20 +229,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "irate(pg_stat_database_conflicts{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_database_deadlocks{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
+                    "query": "jvm_memory_bytes_used{namespace=~\"$namespace\",pod=~\"$pod\",area=\"heap\"} / 1024 / 1024",
                     "seriesNameFormat": ""
                   }
                 }
@@ -330,7 +242,8 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Cache Hit Rate"
+            "name": "JVM pool bytes used",
+            "description": "JVM pool usage info"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -344,7 +257,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "pg_stat_database_blks_hit{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"} / (pg_stat_database_blks_read{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"} + pg_stat_database_blks_hit{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"})",
+                    "query": "jvm_memory_pool_bytes_used{namespace=~\"$namespace\",pod=\"$pod\"} / 1024 / 1024",
                     "seriesNameFormat": ""
                   }
                 }
@@ -357,8 +270,8 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Temp File (Bytes)",
-            "description": "Total amount of data written to temporary files by queries in this database. All temporary files are counted, regardless of why the temporary file was created, and regardless of the log_temp_files setting."
+            "name": "GC count increase",
+            "description": "GC count increase"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -372,7 +285,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "irate(pg_stat_database_temp_bytes{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
+                    "query": "increase(jvm_gc_collection_seconds_count{namespace=~\"$namespace\",pod=~\"$pod\"}[5m])",
                     "seriesNameFormat": ""
                   }
                 }
@@ -385,7 +298,8 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Checkpoint Stats"
+            "name": "GC time increase",
+            "description": "GC time increase"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -399,21 +313,8 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_checkpoint_write_time{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": "write_time - Total amount of time that has been spent in the portion of checkpoint processing where files are written to disk."
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_checkpoint_sync_time{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": "sync_time - Total amount of time that has been spent in the portion of checkpoint processing where files are synchronized to disk."
+                    "query": "increase(jvm_gc_collection_seconds_sum{namespace=~\"$namespace\",pod=~\"$pod\"}[5m])",
+                    "seriesNameFormat": ""
                   }
                 }
               }
@@ -425,23 +326,313 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Rows"
+            "name": "Average CPU Usage",
+            "description": "Average user and system CPU time spent in seconds."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(rate(container_cpu_usage_seconds_total{pod=~\"$pod\"}[5m])) / count(container_cpu_usage_seconds_total{pod=~\"$pod\",container=~\"kafka\"}) * 100",
+                    "seriesNameFormat": "CPU used (%)"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "16": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Total Memory Used",
+            "description": "Kafka pod's used memory"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(container_memory_working_set_bytes{pod=\"$pod\"}) / 1024 / 1024",
+                    "seriesNameFormat": "used memory"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Messages count",
+            "description": "Total messages in this pod"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_server_brokertopicmetrics_messagesin_total{namespace=~\"$namespace\",pod=~\"$pod\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Replica Manager Leader Count"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_server_replicamanager_leadercount{namespace=\"$namespace\",pod=\"$pod\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Offline Replica Count",
+            "description": "Number of offline replicas"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_server_replicamanager_offlinereplicacount{namespace=\"$namespace\",pod=\"$pod\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Local items Request time",
+            "description": "time of of  the requested item processed"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              },
-              "visual": {
-                "areaOpacity": 0.1,
-                "connectNulls": true,
-                "display": "line",
-                "lineStyle": "solid",
-                "lineWidth": 1
-              },
+              "yAxis": {
+                "format": {
+                  "unit": "milliseconds"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_network_requestmetrics_localtimems_count{namespace=\"$namespace\",pod=~\"$pod\"} != 0 ",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Local Items response time",
+            "description": "time of of  the response item processed"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "milliseconds"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_network_requestmetrics_responsequeuetimems_count{namespace=\"$namespace\",pod=~\"$pod\"} != 0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Network-I/O-rate",
+            "description": "The average number of network operations (reads or writes) on all connections per second."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_server_socket_server_metrics_network_io_rate{namespace=\"$namespace\",pod=~\"$pod\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "8": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Failed Authentication Rate",
+            "description": "Connections per second that failed authentication."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_server_socket_server_metrics_successful_authentication_rate{namespace=\"$namespace\",pod=~\"$pod\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "JVM Threads used",
+            "description": "JVM threads info"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
               "yAxis": {
                 "format": {
                   "unit": "decimal"
@@ -457,8 +648,8 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(irate(pg_stat_database_tup_fetched{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": "fetched"
+                    "query": "jvm_threads_current{namespace=~\"$namespace\",pod=\"$pod\"}",
+                    "seriesNameFormat": "Current"
                   }
                 }
               }
@@ -470,8 +661,8 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(irate(pg_stat_database_tup_returned{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": "returned"
+                    "query": " jvm_threads_daemon{namespace=~\"$namespace\",pod=\"$pod\"}",
+                    "seriesNameFormat": "Daemon"
                   }
                 }
               }
@@ -483,8 +674,8 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(irate(pg_stat_database_tup_inserted{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": "inserted"
+                    "query": " jvm_threads_peak{namespace=~\"$namespace\",pod=\"$pod\"}",
+                    "seriesNameFormat": "Peak"
                   }
                 }
               }
@@ -496,237 +687,8 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(irate(pg_stat_database_tup_updated{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": "updated"
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum(irate(pg_stat_database_tup_deleted{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": "deleted"
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "2": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Update data"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "pg_stat_database_tup_updated{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "3": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Active sessions"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "pg_stat_activity_count{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} !=0",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "4": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Insert data"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "pg_stat_database_tup_inserted{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "5": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Lock tables"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "pg_locks_count{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "6": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Fetch data (SELECT)"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "pg_stat_database_tup_fetched{datname=~\"$datname\",pod=\"$pod\", namespace=\"$namespace\"} != 0",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "7": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Idle sessions"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "pg_stat_activity_count{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\", state=~\"idle|idle in transaction|idle in transaction (aborted)\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "8": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Delete data"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "pg_stat_database_tup_deleted{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "9": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Return data"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "pg_stat_database_tup_returned{datname=~\"$datname\",pod=\"$pod\", namespace=\"$namespace\"} != 0",
-                    "seriesNameFormat": ""
+                    "query": " jvm_threads_deadlocked{namespace=~\"$namespace\",pod=\"$pod\"}",
+                    "seriesNameFormat": "Deadlocked"
                   }
                 }
               }
@@ -746,145 +708,154 @@
             {
               "x": 0,
               "y": 1,
-              "width": 8,
-              "height": 7,
+              "width": 5,
+              "height": 4,
               "content": {
                 "$ref": "#/spec/panels/0"
               }
             },
             {
-              "x": 8,
+              "x": 5,
               "y": 1,
-              "width": 8,
-              "height": 7,
+              "width": 5,
+              "height": 4,
               "content": {
                 "$ref": "#/spec/panels/1"
               }
             },
             {
-              "x": 16,
+              "x": 10,
               "y": 1,
-              "width": 8,
-              "height": 7,
+              "width": 5,
+              "height": 4,
               "content": {
                 "$ref": "#/spec/panels/2"
               }
             },
             {
-              "x": 0,
-              "y": 8,
-              "width": 8,
-              "height": 7,
+              "x": 15,
+              "y": 1,
+              "width": 4,
+              "height": 4,
               "content": {
                 "$ref": "#/spec/panels/3"
               }
             },
             {
-              "x": 8,
-              "y": 8,
-              "width": 8,
-              "height": 7,
+              "x": 19,
+              "y": 1,
+              "width": 5,
+              "height": 4,
               "content": {
                 "$ref": "#/spec/panels/4"
               }
             },
             {
-              "x": 16,
-              "y": 8,
-              "width": 8,
-              "height": 7,
+              "x": 0,
+              "y": 6,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/5"
               }
             },
             {
-              "x": 0,
-              "y": 15,
-              "width": 8,
-              "height": 7,
+              "x": 12,
+              "y": 6,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/6"
               }
             },
             {
-              "x": 8,
-              "y": 15,
-              "width": 8,
-              "height": 7,
+              "x": 0,
+              "y": 14,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/7"
               }
             },
             {
-              "x": 16,
-              "y": 15,
-              "width": 8,
-              "height": 7,
+              "x": 12,
+              "y": 14,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/8"
               }
             },
             {
               "x": 0,
-              "y": 22,
-              "width": 8,
-              "height": 7,
+              "y": 23,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/9"
               }
             },
             {
-              "x": 8,
-              "y": 22,
-              "width": 8,
-              "height": 7,
+              "x": 12,
+              "y": 23,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/10"
               }
             },
             {
-              "x": 16,
-              "y": 22,
-              "width": 8,
-              "height": 7,
+              "x": 0,
+              "y": 31,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/11"
               }
             },
             {
-              "x": 0,
-              "y": 29,
-              "width": 8,
-              "height": 7,
+              "x": 12,
+              "y": 31,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/12"
               }
             },
             {
-              "x": 8,
-              "y": 29,
-              "width": 8,
-              "height": 7,
+              "x": 0,
+              "y": 39,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/13"
               }
             },
             {
-              "x": 16,
-              "y": 29,
-              "width": 8,
-              "height": 7,
+              "x": 12,
+              "y": 39,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/14"
               }
             },
             {
               "x": 0,
-              "y": 36,
-              "width": 24,
-              "height": 10,
+              "y": 48,
+              "width": 11,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/15"
+              }
+            },
+            {
+              "x": 11,
+              "y": 48,
+              "width": 13,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/16"
               }
             }
           ]

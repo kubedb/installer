@@ -3,7 +3,7 @@
 {
   "kind": "Dashboard",
   "metadata": {
-    "name": "VnOgk2Hnky",
+    "name": "VsnOgk2212Hnk",
     "createdAt": "0001-01-01T00:00:00Z",
     "updatedAt": "0001-01-01T00:00:00Z",
     "version": 0,
@@ -11,7 +11,7 @@
   },
   "spec": {
     "display": {
-      "name": "KubeDB / Postgres / Summary"
+      "name": "KubeDB / Pgpool / Summary"
     },
     "variables": [
       {
@@ -39,7 +39,7 @@
             "name": "Namespace",
             "hidden": false
           },
-          "defaultValue": "demo",
+          "defaultValue": "pool",
           "allowAllValue": false,
           "allowMultiple": false,
           "sort": "none",
@@ -59,18 +59,20 @@
         "kind": "ListVariable",
         "spec": {
           "display": {
-            "name": "postgres",
+            "name": "pgpool",
             "hidden": false
           },
-          "defaultValue": "coreos-prom-postgres",
+          "defaultValue": "pgpool-monitoring",
           "allowAllValue": false,
           "allowMultiple": false,
-          "sort": "alphabetical-asc",
+          "sort": "none",
           "plugin": {
-            "kind": "PrometheusPromQLVariable",
+            "kind": "PrometheusLabelValuesVariable",
             "spec": {
-              "expr": "kubedb_com_postgres_created{namespace=\"$namespace\"}",
-              "labelName": "app"
+              "labelName": "app",
+              "matchers": [
+                "kubedb_com_pgpool_status_phase{namespace=~\"$namespace\"}"
+              ]
             }
           },
           "name": "app"
@@ -82,59 +84,13 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Version",
-            "description": "Postgresql Version"
+            "name": "Pgpool Status",
+            "description": "Represent Pgpool status"
           },
           "plugin": {
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
-              "format": {
-                "unit": "decimal"
-              },
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#ffffff",
-                    "value": 0
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "kubedb_com_postgres_info{namespace=\"$namespace\", app=\"$app\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "1": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Uptime",
-            "description": "Database uptime"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "format": {
-                "unit": "seconds"
-              },
-              "sparkline": {},
               "thresholds": {
                 "steps": [
                   {
@@ -153,7 +109,54 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "time() - kubedb_com_postgres_created{namespace=\"$namespace\", app=\"$app\"}",
+                    "query": "kubedb_com_pgpool_status_phase{namespace=\"$namespace\", app=\"$app\"} == 1\n",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Version",
+            "description": "Pgpool CR Name"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "mean",
+              "format": {
+                "unit": "decimal"
+              },
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              },
+              "valueFontSize": 50
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kubedb_com_pgpool_info{namespace=\"$namespace\", app=\"$app\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -166,246 +169,12 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Storage Request",
-            "description": "Intial Storage Request by Postgres Instance when deploying"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "format": {
-                "unit": "bytes"
-              },
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#ffffff",
-                    "value": 0
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "kubedb_com_postgres_resource_request_storage{namespace=\"$namespace\", app=\"$app\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "11": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Max Connections",
-            "description": "Maximum number of concurrent connections of the Postgres instance"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#ffffff",
-                    "value": 0
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "avg(pg_settings_max_connections{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"})",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "12": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Primary Pod FailOver Indicator",
-            "description": "The current active line shows the current primary pod"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "AVG(rate(pg_stat_replication_reply_time{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])) by (pod)",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "13": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Connnections",
-            "description": "Postgres connections information in real time"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum(pg_stat_activity_count{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"}) by (state)",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "14": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Postgres Replication Lag",
-            "description": "Shows the replication lag with primary"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "pg_stat_replication_pg_wal_lsn_diff{namespace=\"$namespace\",application_name=~\"$app-\\\\d+$\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "15": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Raft Primary Tracker",
-            "description": "Track the current Primary for Raft"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              },
-              "visual": {
-                "areaOpacity": 0.1,
-                "connectNulls": true,
-                "display": "line",
-                "lineWidth": 1
-              },
-              "yAxis": {
-                "format": {
-                  "unit": "decimal"
-                }
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "pg_coordinator_raft_primary{namespace=\"$namespace\", pod=~\"$app-.\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "16": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
             "name": "CPU Usage",
-            "description": "CPU Usage by Postgres pods"
+            "description": "CPU Usage by Pgpool pods"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              }
-            }
+            "spec": {}
           },
           "queries": [
             {
@@ -424,7 +193,7 @@
           ]
         }
       },
-      "17": {
+      "11": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -535,21 +304,16 @@
           ]
         }
       },
-      "18": {
+      "12": {
         "kind": "Panel",
         "spec": {
           "display": {
             "name": "Memory Usage",
-            "description": "Memory Usage by Postgres pods"
+            "description": "Memory Usage by Pgpool pods"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              },
               "yAxis": {
                 "format": {
                   "unit": "bytes"
@@ -574,7 +338,7 @@
           ]
         }
       },
-      "19": {
+      "13": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -735,63 +499,16 @@
           ]
         }
       },
-      "2": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Total Replicas",
-            "description": "Total replica count of the Postgres database"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  },
-                  {
-                    "color": "#f2495c",
-                    "value": 80
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "kubedb_com_postgres_replicas{namespace=\"$namespace\",app=\"$app\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "20": {
+      "14": {
         "kind": "Panel",
         "spec": {
           "display": {
             "name": "Disk Usage",
-            "description": "Disk usage by Postgres pods"
+            "description": "Disk usage by Pgpool pods"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              },
               "yAxis": {
                 "format": {
                   "unit": "bytes"
@@ -816,7 +533,7 @@
           ]
         }
       },
-      "21": {
+      "15": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -826,11 +543,6 @@
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              },
               "yAxis": {
                 "format": {
                   "unit": "decimal"
@@ -868,20 +580,15 @@
           ]
         }
       },
-      "22": {
+      "16": {
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "IOPS(Reads+Writes)"
+            "name": "IOPS (Reads+Writes)"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              },
               "yAxis": {
                 "format": {
                   "unit": "decimal"
@@ -906,20 +613,15 @@
           ]
         }
       },
-      "23": {
+      "17": {
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "ThroughPut(Read+Write)"
+            "name": "ThroughPut (Read+Write)"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              },
               "yAxis": {
                 "format": {
                   "unit": "bytes/sec"
@@ -944,248 +646,7 @@
           ]
         }
       },
-      "24": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Current Storage IO"
-          },
-          "plugin": {
-            "kind": "Table",
-            "spec": {
-              "columnSettings": [
-                {
-                  "header": "Time",
-                  "name": "timestamp"
-                },
-                {
-                  "header": "IOPS(Reads)",
-                  "name": "Value #A"
-                },
-                {
-                  "header": "IOPS(Writes)",
-                  "name": "Value #B"
-                },
-                {
-                  "header": "IOPS(Reads + Writes)",
-                  "name": "Value #C"
-                },
-                {
-                  "header": "Throughput(Read)",
-                  "name": "Value #D"
-                },
-                {
-                  "header": "Throughput(Write)",
-                  "name": "Value #E"
-                },
-                {
-                  "header": "Throughput(Read + Write)",
-                  "name": "Value #F"
-                },
-                {
-                  "header": "Pod",
-                  "name": "pod"
-                }
-              ]
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum by(pod) (rate(container_fs_reads_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum by(pod) (rate(container_fs_writes_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum by(pod) (rate(container_fs_reads_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_total{container!=\"\",pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum by(pod) (rate(container_fs_writes_bytes_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_bytes_total{container!=\"\",pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "25": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Allocated Storage",
-            "description": "This panel describes allocated persistent storage in a table format\n"
-          },
-          "plugin": {
-            "kind": "Table",
-            "spec": {
-              "columnSettings": []
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "kubelet_volume_stats_capacity_bytes + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "26": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Persistent Volume Usage",
-            "description": "This panel shows the persistent volume usage in percentage. "
-          },
-          "plugin": {
-            "kind": "BarChart",
-            "spec": {
-              "calculation": "last-number",
-              "format": {
-                "unit": "percent"
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "(kubelet_volume_stats_used_bytes / on(persistentvolumeclaim) group_left(pod) (kubelet_volume_stats_capacity_bytes + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}) )* 100",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "27": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Persistent Volume Usage History",
-            "description": "This panel describes the persistent volume usage in a time series. "
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {
-              "legend": {
-                "mode": "table",
-                "position": "right",
-                "values": [
-                  "max",
-                  "last-number"
-                ]
-              },
-              "visual": {
-                "areaOpacity": 0.1,
-                "connectNulls": true,
-                "display": "line",
-                "lineStyle": "solid",
-                "lineWidth": 1
-              },
-              "yAxis": {
-                "format": {
-                  "unit": "bytes"
-                },
-                "max": 5000,
-                "min": 0
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "(kubelet_volume_stats_used_bytes + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}) ",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "28": {
+      "18": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1193,18 +654,7 @@
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              },
-              "yAxis": {
-                "format": {
-                  "unit": "bytes/sec"
-                }
-              }
-            }
+            "spec": {}
           },
           "queries": [
             {
@@ -1223,7 +673,7 @@
           ]
         }
       },
-      "29": {
+      "19": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1232,11 +682,6 @@
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              },
               "yAxis": {
                 "format": {
                   "unit": "bytes/sec"
@@ -1261,12 +706,12 @@
           ]
         }
       },
-      "3": {
+      "2": {
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Database Status",
-            "description": "Represent database status"
+            "name": "Backend Server",
+            "description": "Backend Server Kind and Instance"
           },
           "plugin": {
             "kind": "StatChart",
@@ -1276,8 +721,55 @@
               "thresholds": {
                 "steps": [
                   {
-                    "color": "#ffffff",
+                    "color": "#73bf69",
                     "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              },
+              "valueFontSize": 25
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kubedb_com_pgpool_info{namespace=\"$namespace\", app=\"$app\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Frontend SSL",
+            "description": "Pgpool SSL"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
                   }
                 ]
               }
@@ -1291,7 +783,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "kubedb_com_postgres_status_phase{namespace=\"$namespace\", app=\"$app\"} == 1\n",
+                    "query": "kubedb_com_pgpool_info{namespace=\"$namespace\", app=\"$app\", ssl!~\"^$\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -1304,19 +796,22 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "SSL Mode",
-            "description": "KubeDB Postgres Current SSL Mode"
+            "name": "Total Nodes",
+            "description": "Total node count of Pgpool cluster"
           },
           "plugin": {
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
-              "sparkline": {},
               "thresholds": {
                 "steps": [
                   {
-                    "color": "#ffffff",
+                    "color": "#73bf69",
                     "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
                   }
                 ]
               }
@@ -1330,7 +825,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "kubedb_com_postgres_info{namespace=\"$namespace\", app=\"$app\"}",
+                    "query": "kubedb_com_pgpool_replicas{namespace=\"$namespace\",app=\"$app\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -1343,8 +838,8 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Deletion Policy",
-            "description": "KubeDB Postgres Resource deletionPolicy"
+            "name": "CPU Request (Core)",
+            "description": "Initial Requested CPU amount by Pgpool Instance"
           },
           "plugin": {
             "kind": "StatChart",
@@ -1354,7 +849,7 @@
               "thresholds": {
                 "steps": [
                   {
-                    "color": "#ffffff",
+                    "color": "#73bf69",
                     "value": 0
                   }
                 ]
@@ -1369,7 +864,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "kubedb_com_postgres_info{namespace=\"$namespace\", app=\"$app\"}",
+                    "query": "kubedb_com_pgpool_resource_request_cpu{namespace=\"$namespace\", app=\"$app\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -1382,8 +877,8 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "CPU Request (Core)",
-            "description": "Initial Requested CPU amount by Postgres Instance"
+            "name": "CPU Limit (Core)",
+            "description": "CPU Limit in core by Pgpool instance"
           },
           "plugin": {
             "kind": "StatChart",
@@ -1393,7 +888,7 @@
               "thresholds": {
                 "steps": [
                   {
-                    "color": "#ffffff",
+                    "color": "#73bf69",
                     "value": 0
                   }
                 ]
@@ -1408,7 +903,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "kubedb_com_postgres_resource_request_cpu{namespace=\"$namespace\", app=\"$app\"}",
+                    "query": "kubedb_com_pgpool_resource_limit_cpu{namespace=\"$namespace\", app=\"$app\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -1421,18 +916,21 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "CPU Limit(core)",
-            "description": "CPU Limit in core by Postgres instance"
+            "name": "Memory Limit",
+            "description": "KubeDB Pgpool Total Memory Limit"
           },
           "plugin": {
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "format": {
+                "unit": "bytes"
+              },
               "sparkline": {},
               "thresholds": {
                 "steps": [
                   {
-                    "color": "#ffffff",
+                    "color": "#73bf69",
                     "value": 0
                   }
                 ]
@@ -1447,7 +945,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "kubedb_com_postgres_resource_limit_cpu{namespace=\"$namespace\", app=\"$app\"}",
+                    "query": "kubedb_com_pgpool_resource_limit_memory{namespace=\"$namespace\", app=\"$app\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -1461,7 +959,7 @@
         "spec": {
           "display": {
             "name": "Memory Request",
-            "description": "Initial Requested Memory amount by Postgres Instance"
+            "description": "Initial Requested Memory amount by Pgpool Instance"
           },
           "plugin": {
             "kind": "StatChart",
@@ -1474,7 +972,7 @@
               "thresholds": {
                 "steps": [
                   {
-                    "color": "#ffffff",
+                    "color": "#73bf69",
                     "value": 0
                   }
                 ]
@@ -1489,7 +987,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "kubedb_com_postgres_resource_request_memory{namespace=\"$namespace\", app=\"$app\"}",
+                    "query": "kubedb_com_pgpool_resource_request_memory{namespace=\"$namespace\", app=\"$app\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -1502,21 +1000,18 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Memory Limit",
-            "description": "KubeDB Postgres Total Memory Limit"
+            "name": "Deletion Policy",
+            "description": "KubeDB Database Resource deletionPolicy"
           },
           "plugin": {
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
-              "format": {
-                "unit": "bytes"
-              },
               "sparkline": {},
               "thresholds": {
                 "steps": [
                   {
-                    "color": "#ffffff",
+                    "color": "#c4162a",
                     "value": 0
                   }
                 ]
@@ -1531,7 +1026,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "kubedb_com_postgres_resource_limit_memory{namespace=\"$namespace\", app=\"$app\"}",
+                    "query": "kubedb_com_pgpool_info{namespace=\"$namespace\", app=\"$app\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -1552,42 +1047,42 @@
             {
               "x": 0,
               "y": 1,
-              "width": 4,
+              "width": 6,
               "height": 3,
               "content": {
                 "$ref": "#/spec/panels/0"
               }
             },
             {
-              "x": 4,
+              "x": 6,
               "y": 1,
-              "width": 4,
+              "width": 6,
               "height": 3,
               "content": {
                 "$ref": "#/spec/panels/1"
               }
             },
             {
-              "x": 8,
+              "x": 12,
               "y": 1,
-              "width": 4,
+              "width": 6,
               "height": 3,
               "content": {
                 "$ref": "#/spec/panels/2"
               }
             },
             {
-              "x": 12,
+              "x": 18,
               "y": 1,
-              "width": 4,
+              "width": 6,
               "height": 3,
               "content": {
                 "$ref": "#/spec/panels/3"
               }
             },
             {
-              "x": 16,
-              "y": 1,
+              "x": 0,
+              "y": 4,
               "width": 4,
               "height": 3,
               "content": {
@@ -1595,8 +1090,8 @@
               }
             },
             {
-              "x": 20,
-              "y": 1,
+              "x": 4,
+              "y": 4,
               "width": 4,
               "height": 3,
               "content": {
@@ -1604,7 +1099,7 @@
               }
             },
             {
-              "x": 0,
+              "x": 8,
               "y": 4,
               "width": 4,
               "height": 3,
@@ -1613,7 +1108,7 @@
               }
             },
             {
-              "x": 4,
+              "x": 12,
               "y": 4,
               "width": 4,
               "height": 3,
@@ -1622,7 +1117,7 @@
               }
             },
             {
-              "x": 8,
+              "x": 16,
               "y": 4,
               "width": 4,
               "height": 3,
@@ -1631,7 +1126,7 @@
               }
             },
             {
-              "x": 12,
+              "x": 20,
               "y": 4,
               "width": 4,
               "height": 3,
@@ -1640,72 +1135,72 @@
               }
             },
             {
-              "x": 16,
-              "y": 4,
-              "width": 4,
-              "height": 3,
+              "x": 0,
+              "y": 8,
+              "width": 24,
+              "height": 7,
               "content": {
                 "$ref": "#/spec/panels/10"
               }
             },
             {
-              "x": 20,
-              "y": 4,
-              "width": 4,
-              "height": 3,
+              "x": 0,
+              "y": 15,
+              "width": 24,
+              "height": 6,
               "content": {
                 "$ref": "#/spec/panels/11"
               }
             },
             {
               "x": 0,
-              "y": 7,
-              "width": 12,
-              "height": 9,
+              "y": 22,
+              "width": 24,
+              "height": 6,
               "content": {
                 "$ref": "#/spec/panels/12"
               }
             },
             {
-              "x": 12,
-              "y": 7,
-              "width": 12,
-              "height": 9,
+              "x": 0,
+              "y": 28,
+              "width": 24,
+              "height": 6,
               "content": {
                 "$ref": "#/spec/panels/13"
               }
             },
             {
               "x": 0,
-              "y": 16,
-              "width": 24,
-              "height": 7,
+              "y": 35,
+              "width": 12,
+              "height": 9,
               "content": {
                 "$ref": "#/spec/panels/14"
               }
             },
             {
-              "x": 0,
-              "y": 16,
-              "width": 24,
-              "height": 8,
+              "x": 12,
+              "y": 35,
+              "width": 12,
+              "height": 9,
               "content": {
                 "$ref": "#/spec/panels/15"
               }
             },
             {
               "x": 0,
-              "y": 25,
-              "width": 24,
-              "height": 10,
+              "y": 44,
+              "width": 12,
+              "height": 7,
               "content": {
                 "$ref": "#/spec/panels/16"
               }
             },
             {
-              "x": 0,
-              "y": 35,
-              "width": 24,
+              "x": 12,
+              "y": 44,
+              "width": 12,
               "height": 7,
               "content": {
                 "$ref": "#/spec/panels/17"
@@ -1713,110 +1208,20 @@
             },
             {
               "x": 0,
-              "y": 43,
-              "width": 24,
-              "height": 10,
+              "y": 52,
+              "width": 12,
+              "height": 7,
               "content": {
                 "$ref": "#/spec/panels/18"
               }
             },
             {
-              "x": 0,
-              "y": 53,
-              "width": 24,
+              "x": 12,
+              "y": 52,
+              "width": 12,
               "height": 7,
               "content": {
                 "$ref": "#/spec/panels/19"
-              }
-            },
-            {
-              "x": 0,
-              "y": 61,
-              "width": 12,
-              "height": 9,
-              "content": {
-                "$ref": "#/spec/panels/20"
-              }
-            },
-            {
-              "x": 12,
-              "y": 61,
-              "width": 12,
-              "height": 9,
-              "content": {
-                "$ref": "#/spec/panels/21"
-              }
-            },
-            {
-              "x": 0,
-              "y": 70,
-              "width": 12,
-              "height": 7,
-              "content": {
-                "$ref": "#/spec/panels/22"
-              }
-            },
-            {
-              "x": 12,
-              "y": 70,
-              "width": 12,
-              "height": 7,
-              "content": {
-                "$ref": "#/spec/panels/23"
-              }
-            },
-            {
-              "x": 0,
-              "y": 77,
-              "width": 24,
-              "height": 7,
-              "content": {
-                "$ref": "#/spec/panels/24"
-              }
-            },
-            {
-              "x": 0,
-              "y": 85,
-              "width": 12,
-              "height": 6,
-              "content": {
-                "$ref": "#/spec/panels/25"
-              }
-            },
-            {
-              "x": 12,
-              "y": 85,
-              "width": 12,
-              "height": 6,
-              "content": {
-                "$ref": "#/spec/panels/26"
-              }
-            },
-            {
-              "x": 0,
-              "y": 91,
-              "width": 24,
-              "height": 8,
-              "content": {
-                "$ref": "#/spec/panels/27"
-              }
-            },
-            {
-              "x": 0,
-              "y": 100,
-              "width": 12,
-              "height": 7,
-              "content": {
-                "$ref": "#/spec/panels/28"
-              }
-            },
-            {
-              "x": 12,
-              "y": 100,
-              "width": 12,
-              "height": 7,
-              "content": {
-                "$ref": "#/spec/panels/29"
               }
             }
           ]

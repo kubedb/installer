@@ -1,9 +1,8 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
-{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "kind": "Dashboard",
   "metadata": {
-    "name": "6v_W_NNn_kl",
+    "name": "IgXOThN7ztest",
     "createdAt": "0001-01-01T00:00:00Z",
     "updatedAt": "0001-01-01T00:00:00Z",
     "version": 0,
@@ -11,7 +10,7 @@
   },
   "spec": {
     "display": {
-      "name": "KubeDB / Postgres / Database"
+      "name": "KubeDB / Postgres / Pod"
     },
     "variables": [
       {
@@ -83,7 +82,7 @@
             "name": "pod",
             "hidden": false
           },
-          "defaultValue": "ps-demo-0",
+          "defaultValue": "ps-demo-2",
           "allowAllValue": false,
           "allowMultiple": false,
           "sort": "none",
@@ -98,29 +97,6 @@
           },
           "name": "pod"
         }
-      },
-      {
-        "kind": "ListVariable",
-        "spec": {
-          "display": {
-            "name": "Database",
-            "hidden": false
-          },
-          "defaultValue": [
-            "postgres"
-          ],
-          "allowAllValue": true,
-          "allowMultiple": true,
-          "sort": "alphabetical-asc",
-          "plugin": {
-            "kind": "PrometheusLabelValuesVariable",
-            "spec": {
-              "labelName": "datname",
-              "matchers": []
-            }
-          },
-          "name": "datname"
-        }
       }
     ],
     "panels": {
@@ -128,14 +104,97 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "QPS",
-            "description": "Query per second"
+            "name": "Server Up",
+            "description": "Server Up"
           },
           "plugin": {
             "kind": "StatChart",
             "spec": {
               "calculation": "mean",
-              "sparkline": {},
+              "format": {
+                "unit": "decimal"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#ffffff",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "pg_up{namespace=\"$namespace\", pod=\"$pod\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Role",
+            "description": "Database Pod Role(Primary or Secondary)"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "bytes"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#ffffff",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "count(pg_stat_replication_reply_time{namespace = \"$namespace\", pod=\"$pod\"})",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "10": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Shared Buffers"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "bytes"
+              },
               "thresholds": {
                 "steps": [
                   {
@@ -158,126 +217,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(irate(pg_stat_database_xact_commit{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m])) + \nsum(irate(pg_stat_database_xact_rollback{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "1": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Transactions"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_database_xact_commit{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_database_xact_rollback{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "10": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Buffers (bgwriter)"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_buffers_backend{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_buffers_alloc{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_buffers_backend_fsync{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_buffers_checkpoint{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_buffers_clean{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
+                    "query": "pg_settings_shared_buffers_bytes{pod=\"$pod\", namespace=\"$namespace\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -290,11 +230,28 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Conflicts/Deadlocks"
+            "name": "Effective Cache"
           },
           "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "bytes"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
           },
           "queries": [
             {
@@ -304,20 +261,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "irate(pg_stat_database_conflicts{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_database_deadlocks{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
+                    "query": "pg_settings_effective_cache_size_bytes{pod=\"$pod\", namespace=\"$namespace\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -330,11 +274,28 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Cache Hit Rate"
+            "name": "Maintenance Work Mem"
           },
           "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "bytes"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
           },
           "queries": [
             {
@@ -344,7 +305,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "pg_stat_database_blks_hit{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"} / (pg_stat_database_blks_read{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"} + pg_stat_database_blks_hit{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"})",
+                    "query": "pg_settings_maintenance_work_mem_bytes{pod=\"$pod\", namespace=\"$namespace\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -357,12 +318,28 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Temp File (Bytes)",
-            "description": "Total amount of data written to temporary files by queries in this database. All temporary files are counted, regardless of why the temporary file was created, and regardless of the log_temp_files setting."
+            "name": "Work Mem"
           },
           "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "bytes"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
           },
           "queries": [
             {
@@ -372,7 +349,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "irate(pg_stat_database_temp_bytes{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
+                    "query": "pg_settings_work_mem_bytes{pod=\"$pod\", namespace=\"$namespace\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -385,11 +362,29 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Checkpoint Stats"
+            "name": "Max WAL Size"
           },
           "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "decimalPlaces": 1,
+                "unit": "bytes"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
           },
           "queries": [
             {
@@ -399,21 +394,8 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_checkpoint_write_time{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": "write_time - Total amount of time that has been spent in the portion of checkpoint processing where files are written to disk."
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_checkpoint_sync_time{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": "sync_time - Total amount of time that has been spent in the portion of checkpoint processing where files are synchronized to disk."
+                    "query": "pg_settings_max_wal_size_bytes{pod=\"$pod\", namespace=\"$namespace\"}",
+                    "seriesNameFormat": ""
                   }
                 }
               }
@@ -425,27 +407,26 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Rows"
+            "name": "Random Page Cost"
           },
           "plugin": {
-            "kind": "TimeSeriesChart",
+            "kind": "StatChart",
             "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
+              "calculation": "last-number",
+              "format": {
+                "unit": "decimal"
               },
-              "visual": {
-                "areaOpacity": 0.1,
-                "connectNulls": true,
-                "display": "line",
-                "lineStyle": "solid",
-                "lineWidth": 1
-              },
-              "yAxis": {
-                "format": {
-                  "unit": "decimal"
-                }
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
               }
             }
           },
@@ -457,12 +438,43 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(irate(pg_stat_database_tup_fetched{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": "fetched"
+                    "query": "pg_settings_random_page_cost{pod=\"$pod\", namespace=\"$namespace\"}",
+                    "seriesNameFormat": ""
                   }
                 }
               }
-            },
+            }
+          ]
+        }
+      },
+      "16": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Max Worker Processes"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "mean",
+              "format": {
+                "unit": "decimal"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
             {
               "kind": "TimeSeriesQuery",
               "spec": {
@@ -470,12 +482,43 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(irate(pg_stat_database_tup_returned{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": "returned"
+                    "query": "pg_settings_max_worker_processes{pod=\"$pod\", namespace=\"$namespace\"}",
+                    "seriesNameFormat": ""
                   }
                 }
               }
-            },
+            }
+          ]
+        }
+      },
+      "17": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Max Parallel Workers"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "decimal"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
             {
               "kind": "TimeSeriesQuery",
               "spec": {
@@ -483,34 +526,8 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(irate(pg_stat_database_tup_inserted{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": "inserted"
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum(irate(pg_stat_database_tup_updated{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": "updated"
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum(irate(pg_stat_database_tup_deleted{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": "deleted"
+                    "query": "pg_settings_max_parallel_workers{pod=\"$pod\", namespace=\"$namespace\"}",
+                    "seriesNameFormat": ""
                   }
                 }
               }
@@ -522,11 +539,22 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Update data"
+            "name": "Go Routines",
+            "description": "Number of goroutines that currently exist."
           },
           "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#ffffff",
+                    "value": 0
+                  }
+                ]
+              }
+            }
           },
           "queries": [
             {
@@ -536,7 +564,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "pg_stat_database_tup_updated{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
+                    "query": "go_goroutines{namespace=\"$namespace\", pod=\"$pod\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -549,11 +577,24 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Active sessions"
+            "name": "Current fetch data"
           },
           "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "bytes"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#ffffff",
+                    "value": 0
+                  }
+                ]
+              }
+            }
           },
           "queries": [
             {
@@ -563,7 +604,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "pg_stat_activity_count{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} !=0",
+                    "query": "SUM(pg_stat_database_tup_fetched{pod=\"$pod\", namespace=\"$namespace\"})",
                     "seriesNameFormat": ""
                   }
                 }
@@ -576,11 +617,24 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Insert data"
+            "name": "Current insert data"
           },
           "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "bytes"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#ffffff",
+                    "value": 0
+                  }
+                ]
+              }
+            }
           },
           "queries": [
             {
@@ -590,7 +644,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "pg_stat_database_tup_inserted{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
+                    "query": "SUM(pg_stat_database_tup_inserted{pod=\"$pod\", namespace=\"$namespace\"})",
                     "seriesNameFormat": ""
                   }
                 }
@@ -603,11 +657,24 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Lock tables"
+            "name": "Current update data"
           },
           "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "bytes"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#ffffff",
+                    "value": 0
+                  }
+                ]
+              }
+            }
           },
           "queries": [
             {
@@ -617,7 +684,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "pg_locks_count{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
+                    "query": "SUM(pg_stat_database_tup_updated{pod=\"$pod\", namespace=\"$namespace\"})",
                     "seriesNameFormat": ""
                   }
                 }
@@ -630,11 +697,24 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Fetch data (SELECT)"
+            "name": "Max Connections"
           },
           "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "mean",
+              "format": {
+                "unit": "decimal"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#ffffff",
+                    "value": 0
+                  }
+                ]
+              }
+            }
           },
           "queries": [
             {
@@ -644,7 +724,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "pg_stat_database_tup_fetched{datname=~\"$datname\",pod=\"$pod\", namespace=\"$namespace\"} != 0",
+                    "query": "pg_settings_max_connections{pod=\"$pod\", namespace=\"$namespace\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -657,7 +737,8 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Idle sessions"
+            "name": "Average CPU Usage",
+            "description": "Average user and system CPU time spent in seconds."
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -671,7 +752,20 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "pg_stat_activity_count{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\", state=~\"idle|idle in transaction|idle in transaction (aborted)\"}",
+                    "query": "avg(rate(process_cpu_seconds_total{pod=\"$pod\", namespace=\"$namespace\"}[5m]) * 1000)",
+                    "seriesNameFormat": "CPU Time"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "",
                     "seriesNameFormat": ""
                   }
                 }
@@ -684,7 +778,8 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Delete data"
+            "name": "Average Memory Usage",
+            "description": "Virtual and Resident memory size in bytes, averages over 5 min interval"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -698,8 +793,21 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "pg_stat_database_tup_deleted{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
-                    "seriesNameFormat": ""
+                    "query": "avg(rate(process_resident_memory_bytes{pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
+                    "seriesNameFormat": "Resident Mem"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "avg(rate(process_virtual_memory_bytes{pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
+                    "seriesNameFormat": "Virtual Mem"
                   }
                 }
               }
@@ -711,7 +819,8 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Return data"
+            "name": "Open File Descriptors",
+            "description": "Number of open file descriptors"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -725,8 +834,8 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "pg_stat_database_tup_returned{datname=~\"$datname\",pod=\"$pod\", namespace=\"$namespace\"} != 0",
-                    "seriesNameFormat": ""
+                    "query": "SUM(process_open_fds{pod=\"$pod\", namespace=\"$namespace\"}) by (pod)",
+                    "seriesNameFormat": "Open FD"
                   }
                 }
               }
@@ -746,69 +855,69 @@
             {
               "x": 0,
               "y": 1,
-              "width": 8,
-              "height": 7,
+              "width": 4,
+              "height": 3,
               "content": {
                 "$ref": "#/spec/panels/0"
               }
             },
             {
-              "x": 8,
+              "x": 4,
               "y": 1,
-              "width": 8,
-              "height": 7,
+              "width": 4,
+              "height": 3,
               "content": {
                 "$ref": "#/spec/panels/1"
               }
             },
             {
-              "x": 16,
+              "x": 8,
               "y": 1,
-              "width": 8,
-              "height": 7,
+              "width": 4,
+              "height": 3,
               "content": {
                 "$ref": "#/spec/panels/2"
               }
             },
             {
-              "x": 0,
-              "y": 8,
-              "width": 8,
-              "height": 7,
+              "x": 12,
+              "y": 1,
+              "width": 3,
+              "height": 3,
               "content": {
                 "$ref": "#/spec/panels/3"
               }
             },
             {
-              "x": 8,
-              "y": 8,
-              "width": 8,
-              "height": 7,
+              "x": 15,
+              "y": 1,
+              "width": 3,
+              "height": 3,
               "content": {
                 "$ref": "#/spec/panels/4"
               }
             },
             {
-              "x": 16,
-              "y": 8,
-              "width": 8,
-              "height": 7,
+              "x": 18,
+              "y": 1,
+              "width": 3,
+              "height": 3,
               "content": {
                 "$ref": "#/spec/panels/5"
               }
             },
             {
-              "x": 0,
-              "y": 15,
-              "width": 8,
-              "height": 7,
+              "x": 21,
+              "y": 1,
+              "width": 3,
+              "height": 3,
               "content": {
                 "$ref": "#/spec/panels/6"
               }
             },
             {
-              "x": 8,
-              "y": 15,
+              "x": 0,
+              "y": 4,
               "width": 8,
               "height": 7,
               "content": {
@@ -816,8 +925,8 @@
               }
             },
             {
-              "x": 16,
-              "y": 15,
+              "x": 8,
+              "y": 4,
               "width": 8,
               "height": 7,
               "content": {
@@ -825,8 +934,8 @@
               }
             },
             {
-              "x": 0,
-              "y": 22,
+              "x": 16,
+              "y": 4,
               "width": 8,
               "height": 7,
               "content": {
@@ -834,57 +943,75 @@
               }
             },
             {
-              "x": 8,
-              "y": 22,
-              "width": 8,
-              "height": 7,
+              "x": 0,
+              "y": 12,
+              "width": 3,
+              "height": 3,
               "content": {
                 "$ref": "#/spec/panels/10"
               }
             },
             {
-              "x": 16,
-              "y": 22,
-              "width": 8,
-              "height": 7,
+              "x": 3,
+              "y": 12,
+              "width": 3,
+              "height": 3,
               "content": {
                 "$ref": "#/spec/panels/11"
               }
             },
             {
-              "x": 0,
-              "y": 29,
-              "width": 8,
-              "height": 7,
+              "x": 6,
+              "y": 12,
+              "width": 3,
+              "height": 3,
               "content": {
                 "$ref": "#/spec/panels/12"
               }
             },
             {
-              "x": 8,
-              "y": 29,
-              "width": 8,
-              "height": 7,
+              "x": 9,
+              "y": 12,
+              "width": 3,
+              "height": 3,
               "content": {
                 "$ref": "#/spec/panels/13"
               }
             },
             {
-              "x": 16,
-              "y": 29,
-              "width": 8,
-              "height": 7,
+              "x": 12,
+              "y": 12,
+              "width": 3,
+              "height": 3,
               "content": {
                 "$ref": "#/spec/panels/14"
               }
             },
             {
-              "x": 0,
-              "y": 36,
-              "width": 24,
-              "height": 10,
+              "x": 15,
+              "y": 12,
+              "width": 3,
+              "height": 3,
               "content": {
                 "$ref": "#/spec/panels/15"
+              }
+            },
+            {
+              "x": 18,
+              "y": 12,
+              "width": 3,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/16"
+              }
+            },
+            {
+              "x": 21,
+              "y": 12,
+              "width": 3,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/17"
               }
             }
           ]
