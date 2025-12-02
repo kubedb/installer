@@ -1,0 +1,3121 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
+{
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "ohrahgv7T",
+    "createdAt": "0001-01-01T00:00:00Z",
+    "updatedAt": "0001-01-01T00:00:00Z",
+    "version": 0,
+    "project": "pp"
+  },
+  "spec": {
+    "display": {
+      "name": "KubeDB / ProxySQL / Database"
+    },
+    "variables": [
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Datasource",
+            "hidden": false
+          },
+          "defaultValue": "Prometheus",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "plugin": {
+            "kind": "DatasourceVariable",
+            "spec": {
+              "datasourcePluginKind": "PrometheusDatasource"
+            }
+          },
+          "name": "datasource"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Namespace",
+            "hidden": false
+          },
+          "defaultValue": "demo",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "namespace",
+              "matchers": [
+                "kube_namespace_created"
+              ]
+            }
+          },
+          "name": "namespace"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "ProxySQL",
+            "hidden": false
+          },
+          "defaultValue": "proxy-server-stats",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "service",
+              "matchers": [
+                "proxysql_uptime_seconds_total{namespace=~\"$namespace\"}"
+              ]
+            }
+          },
+          "name": "app"
+        }
+      }
+    ],
+    "panels": {
+      "0_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Service Status"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": []
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "proxysql_uptime_seconds_total{namespace=~\"$namespace\",service=~\"$app\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "0_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Service Uptime"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": []
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "proxysql_uptime_seconds_total{namespace=~\"$namespace\",service=~\"$app\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "10_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Client Active"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_stmt_client_active{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "10_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Unique Client Active"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_stmt_client_active_unique{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "10_2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Server Active"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_stmt_server_active{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "10_3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Unique Server Active"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_stmt_server_active_unique{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "10_4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Max STMT ID"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_stmt_max_stmt_id{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "10_5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Cached STMT"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_stmt_cached{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "10_6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Total Backend STMT"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(rate(proxysql_com_backend_stmt_total{namespace=~\"$namespace\",service=\"$app\"}[1m])) by(op)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "10_7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Total Frontend STMT"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(rate(proxysql_com_frontend_stmt_total{namespace=~\"$namespace\",service=\"$app\"}[1m])) by(op)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "11_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Users Table (bytes)"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_mysql_firewall_users_table_bytes{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "11_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Users Config (bytes)"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_mysql_firewall_users_config_bytes{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "11_2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Rules Table (bytes)"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_mysql_firewall_rules_table_bytes{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "11_3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Rules Config (bytes)"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_mysql_firewall_rules_config_bytes{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "12_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Connect Checks (ok)"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_mysql_monitor_connect_check_total{namespace=~\"$namespace\",service=\"$app\",status=\"ok\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "12_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Connect Checks (err)"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_mysql_monitor_connect_check_total{namespace=~\"$namespace\",service=\"$app\",status=\"err\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "12_2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Read-Only Check (ok)"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_mysql_monitor_read_only_check_total{namespace=~\"$namespace\",service=\"$app\",status=\"ok\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "12_3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Read-Only Check (err)"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_mysql_monitor_read_only_check_total{namespace=~\"$namespace\",service=\"$app\",status=\"err\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "12_4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Replication-Lag Checks (ok)"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_mysql_monitor_replication_lag_check_total{namespace=~\"$namespace\",service=\"$app\",status=\"ok\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "12_5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Replication-Lag Checks (err)"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_mysql_monitor_replication_lag_check_total{namespace=~\"$namespace\",service=\"$app\",status=\"err\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "12_6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Ping Checks (err)"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_mysql_monitor_ping_check_total{namespace=~\"$namespace\",service=\"$app\",status=\"err\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "12_7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Ping Checks (ok)"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_mysql_monitor_ping_check_total{namespace=~\"$namespace\",service=\"$app\",status=\"ok\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "ProxySQL Connections"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(rate(proxysql_connpool_conns{status=\"free\",namespace=~\"$namespace\",service=~\"$app\"}[1m]) ) by(pod)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(rate(proxysql_connpool_conns{status=\"used\",namespace=~\"$namespace\",service=~\"$app\"}[1m]) ) by(pod)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "ProxySQL network received vs sent"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_queries_frontends_bytes_total{traffic_flow=\"received\",namespace=~\"$namespace\",service=~\"$app\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_queries_frontends_bytes_total{traffic_flow=\"sent\",namespace=~\"$namespace\",service=~\"$app\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1_2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "ProxySQL Slow Queries"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_slow_queries_total{namespace=~\"$namespace\",service=~\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1_3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "ProxySQL Aborted Connections"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_server_connections_total{namespace=~\"$namespace\",service=~\"$app\",status=\"aborted\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_server_connections_total{namespace=~\"$namespace\",service=~\"$app\",status=\"aborted\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Total Questions"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_questions_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Slow Queries"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_slow_queries_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2_2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "GTID Session Collected"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_gtid_session_collected_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2_3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "GTID Consistent Queries"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_gtid_consistent_queries_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2_4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Error Packets"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_generated_error_packets_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2_5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Backend Lagging Queries"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_backend_lagging_during_query_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2_6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Backend Offline During Queries"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_backend_offline_during_query_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Get"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_query_cache_count_get_total{namespace=~\"$namespace\",service=\"$app\"}[5m]) ",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Set"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_query_cache_count_set_total{namespace=~\"$namespace\",service=\"$app\"}[5m]) ",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3_2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Bytes"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_query_cache_bytes_total{namespace=~\"$namespace\",service=\"$app\"}[5m]) ",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3_3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Memory Bytes"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_query_cache_memory_bytes{namespace=~\"$namespace\",service=\"$app\"}[5m]) ",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3_4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Entries"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_query_cache_entries_total{namespace=~\"$namespace\",service=\"$app\"}[5m]) ",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3_5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Purged"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_query_cache_purged_total{namespace=~\"$namespace\",service=\"$app\"}[5m]) ",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Unexpected Frontend Quits"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_mysql_unexpected_frontend_com_quit_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Unexpected Frontend Packets"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_mysql_unexpected_frontend_packets_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4_2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "SQL Injection"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_automatic_detected_sql_injection_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Cluster Pull"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(rate(proxysql_cluster_pulled_total{namespace=~\"$namespace\",service=\"$app\",module_name=~\"mysql_variables|admin_variables|proxysql_servers|mysql_servers\"}[1m])) by(module_name,status)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Cluster Sync Conflict"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(rate(proxysql_cluster_syn_conflict_total{namespace=~\"$namespace\",service=\"$app\",module_name=~\"mysql_variables|admin_variables|proxysql_servers|mysql_servers\"}[1m])) by(module_name)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Server Connections"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(rate(proxysql_server_connections_total{namespace=~\"$namespace\",service=\"$app\"}[1m])) by(status)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Client Connections"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(rate(proxysql_client_connections_total{namespace=~\"$namespace\",service=\"$app\"}[1m])) by(status)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_10": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Active Transactions"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "proxysql_active_transactions{namespace=~\"$namespace\",service=\"$app\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_11": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Client Connection Non Idle"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "proxysql_client_connections_non_idle{namespace=~\"$namespace\",service=\"$app\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_12": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "MySQL Thread Workers"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "proxysql_mysql_thread_workers{namespace=~\"$namespace\",service=\"$app\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_13": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "MySQL Session Internal Bytes"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_mysql_session_internal_bytes{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_14": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "MySQL Session Internal Bytes"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_connpool_memory_bytes{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_15": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Connection Pool Data Bytes"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(rate(proxysql_connpool_data_bytes_total{namespace=~\"$namespace\",service=\"$app\"}[1m])) by(hostgroup,traffic_flow)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_16": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "HG Connection Pool Connections"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(rate(proxysql_connpool_conns_total{namespace=~\"$namespace\",service=\"$app\"}[1m])) by(hostgroup)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_17": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "HG Connection Queries "
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(rate(proxysql_connpool_conns_queries_total{namespace=~\"$namespace\",service=\"$app\"}[1m])) by(hostgroup)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Server Connections Connected"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_server_connections_connected{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Client Connections Connected "
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_client_connections_connected{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Reader HG Conn Latency"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "proxysql_connpool_conns_latency_us{namespace=~\"$namespace\",service=\"$app\",hostgroup=\"3\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Writer HG Conn Latency"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "proxysql_connpool_conns_latency_us{namespace=~\"$namespace\",service=\"$app\",hostgroup=\"2\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Reader HG Connection Status"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "proxysql_connpool_conns_status{namespace=~\"$namespace\",service=\"$app\",hostgroup=\"3\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Writer HG Connection Status"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "proxysql_connpool_conns_status{namespace=~\"$namespace\",service=\"$app\",hostgroup=\"2\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_8": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Reader HG Connection Pool "
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(proxysql_connpool_conns{namespace=~\"$namespace\",service=\"$app\",hostgroup=\"3\"}) by(status,pod)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_9": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Writer HG Connection Pool "
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(proxysql_connpool_conns{namespace=~\"$namespace\",service=\"$app\",hostgroup=\"2\"}) by(status,pod)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Get"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_myhgm_myconnpool_get_total{namespace=~\"$namespace\",service=\"$app\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Get OK"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_myhgm_myconnpool_get_ok_total{namespace=~\"$namespace\",service=\"$app\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7_2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Get Ping"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_myhgm_myconnpool_get_ping_total{namespace=~\"$namespace\",service=\"$app\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7_3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Push"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_myhgm_myconnpool_push_total{namespace=~\"$namespace\",service=\"$app\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7_4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Reset"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_myhgm_myconnpool_reset_total{namespace=~\"$namespace\",service=\"$app\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7_5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Destroy"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_myhgm_myconnpool_destroy_total{namespace=~\"$namespace\",service=\"$app\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7_6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Auto Increment Multiplex"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_myhgm_auto_increment_multiplex_total{namespace=~\"$namespace\",service=\"$app\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "8_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Wrong Password"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_access_denied_wrong_password_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "8_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Max Connections"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_access_denied_max_connections_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "8_2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Max User Connections"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_access_denied_max_user_connections_total{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "MySQL Threads (bytes)"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_stack_memory_mysql_threads_bytes{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Admin Threads (bytes)"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_stack_memory_admin_threads_bytes{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9_2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Cluster Threads (bytes)"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_stack_memory_cluster_threads{namespace=~\"$namespace\",service=\"$app\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "layouts": [
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Service Status",
+            "collapse": {
+              "open": false
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 1,
+              "width": 12,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/0_0"
+              }
+            },
+            {
+              "x": 12,
+              "y": 1,
+              "width": 12,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/0_1"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Proxy Network",
+            "collapse": {
+              "open": false
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 9,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/1_0"
+              }
+            },
+            {
+              "x": 12,
+              "y": 9,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/1_1"
+              }
+            },
+            {
+              "x": 0,
+              "y": 18,
+              "width": 12,
+              "height": 11,
+              "content": {
+                "$ref": "#/spec/panels/1_2"
+              }
+            },
+            {
+              "x": 12,
+              "y": 18,
+              "width": 12,
+              "height": 11,
+              "content": {
+                "$ref": "#/spec/panels/1_3"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Query Stats",
+            "collapse": {
+              "open": false
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 30,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/2_0"
+              }
+            },
+            {
+              "x": 12,
+              "y": 30,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/2_1"
+              }
+            },
+            {
+              "x": 0,
+              "y": 38,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/2_2"
+              }
+            },
+            {
+              "x": 12,
+              "y": 38,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/2_3"
+              }
+            },
+            {
+              "x": 0,
+              "y": 46,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/2_4"
+              }
+            },
+            {
+              "x": 12,
+              "y": 46,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/2_5"
+              }
+            },
+            {
+              "x": 0,
+              "y": 54,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/2_6"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Query Cache",
+            "collapse": {
+              "open": false
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 4,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/3_0"
+              }
+            },
+            {
+              "x": 12,
+              "y": 4,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/3_1"
+              }
+            },
+            {
+              "x": 0,
+              "y": 13,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/3_2"
+              }
+            },
+            {
+              "x": 12,
+              "y": 13,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/3_3"
+              }
+            },
+            {
+              "x": 0,
+              "y": 22,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/3_4"
+              }
+            },
+            {
+              "x": 12,
+              "y": 22,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/3_5"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Unexpected Queries",
+            "collapse": {
+              "open": false
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 5,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/4_0"
+              }
+            },
+            {
+              "x": 12,
+              "y": 5,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/4_1"
+              }
+            },
+            {
+              "x": 0,
+              "y": 13,
+              "width": 24,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/4_2"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Cluster Synchronization ",
+            "collapse": {
+              "open": false
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 6,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/5_0"
+              }
+            },
+            {
+              "x": 12,
+              "y": 6,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/5_1"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Connection Pool Stats",
+            "collapse": {
+              "open": false
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 7,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/6_0"
+              }
+            },
+            {
+              "x": 12,
+              "y": 7,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/6_1"
+              }
+            },
+            {
+              "x": 0,
+              "y": 15,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/6_2"
+              }
+            },
+            {
+              "x": 12,
+              "y": 15,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/6_3"
+              }
+            },
+            {
+              "x": 0,
+              "y": 24,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/6_4"
+              }
+            },
+            {
+              "x": 12,
+              "y": 24,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/6_5"
+              }
+            },
+            {
+              "x": 0,
+              "y": 33,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/6_6"
+              }
+            },
+            {
+              "x": 12,
+              "y": 33,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/6_7"
+              }
+            },
+            {
+              "x": 0,
+              "y": 42,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/6_8"
+              }
+            },
+            {
+              "x": 12,
+              "y": 42,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/6_9"
+              }
+            },
+            {
+              "x": 0,
+              "y": 51,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/6_10"
+              }
+            },
+            {
+              "x": 12,
+              "y": 51,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/6_11"
+              }
+            },
+            {
+              "x": 0,
+              "y": 60,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/6_12"
+              }
+            },
+            {
+              "x": 12,
+              "y": 60,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/6_13"
+              }
+            },
+            {
+              "x": 0,
+              "y": 69,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/6_14"
+              }
+            },
+            {
+              "x": 12,
+              "y": 69,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/6_15"
+              }
+            },
+            {
+              "x": 0,
+              "y": 78,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/6_16"
+              }
+            },
+            {
+              "x": 12,
+              "y": 78,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/6_17"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Myhgm Connection Pool",
+            "collapse": {
+              "open": false
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 8,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7_0"
+              }
+            },
+            {
+              "x": 12,
+              "y": 8,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7_1"
+              }
+            },
+            {
+              "x": 0,
+              "y": 16,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7_2"
+              }
+            },
+            {
+              "x": 12,
+              "y": 16,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7_3"
+              }
+            },
+            {
+              "x": 0,
+              "y": 24,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7_4"
+              }
+            },
+            {
+              "x": 12,
+              "y": 24,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7_5"
+              }
+            },
+            {
+              "x": 0,
+              "y": 32,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7_6"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Access Denial",
+            "collapse": {
+              "open": false
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 9,
+              "width": 10,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/8_0"
+              }
+            },
+            {
+              "x": 10,
+              "y": 9,
+              "width": 7,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/8_1"
+              }
+            },
+            {
+              "x": 17,
+              "y": 9,
+              "width": 7,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/8_2"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Stack Memory Stats",
+            "collapse": {
+              "open": false
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 18,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/9_0"
+              }
+            },
+            {
+              "x": 12,
+              "y": 18,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/9_1"
+              }
+            },
+            {
+              "x": 0,
+              "y": 26,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/9_2"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "STMT Stats",
+            "collapse": {
+              "open": false
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 35,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/10_0"
+              }
+            },
+            {
+              "x": 12,
+              "y": 35,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/10_1"
+              }
+            },
+            {
+              "x": 0,
+              "y": 44,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/10_2"
+              }
+            },
+            {
+              "x": 12,
+              "y": 44,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/10_3"
+              }
+            },
+            {
+              "x": 0,
+              "y": 53,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/10_4"
+              }
+            },
+            {
+              "x": 12,
+              "y": 53,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/10_5"
+              }
+            },
+            {
+              "x": 0,
+              "y": 62,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/10_6"
+              }
+            },
+            {
+              "x": 12,
+              "y": 62,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/10_7"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Firewall Stats",
+            "collapse": {
+              "open": false
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 12,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/11_0"
+              }
+            },
+            {
+              "x": 12,
+              "y": 12,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/11_1"
+              }
+            },
+            {
+              "x": 0,
+              "y": 20,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/11_2"
+              }
+            },
+            {
+              "x": 12,
+              "y": 20,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/11_3"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Backend Monitoring Stats",
+            "collapse": {
+              "open": false
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 13,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/12_0"
+              }
+            },
+            {
+              "x": 12,
+              "y": 13,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/12_1"
+              }
+            },
+            {
+              "x": 0,
+              "y": 22,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/12_2"
+              }
+            },
+            {
+              "x": 12,
+              "y": 22,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/12_3"
+              }
+            },
+            {
+              "x": 0,
+              "y": 31,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/12_4"
+              }
+            },
+            {
+              "x": 12,
+              "y": 31,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/12_5"
+              }
+            },
+            {
+              "x": 0,
+              "y": 40,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/12_6"
+              }
+            },
+            {
+              "x": 12,
+              "y": 40,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/12_7"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "duration": "1h"
+  }
+}

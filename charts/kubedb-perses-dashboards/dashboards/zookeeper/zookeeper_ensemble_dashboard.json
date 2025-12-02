@@ -1,0 +1,4222 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "a1W-SoASk",
+    "createdAt": "0001-01-01T00:00:00Z",
+    "updatedAt": "0001-01-01T00:00:00Z",
+    "version": 0,
+    "project": "pp"
+  },
+  "spec": {
+    "display": {
+      "name": "KubeDB / ZooKeeper / Ensemble"
+    },
+    "variables": [
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Datasource",
+            "hidden": false
+          },
+          "defaultValue": "Prometheus",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "plugin": {
+            "kind": "DatasourceVariable",
+            "spec": {
+              "datasourcePluginKind": "PrometheusDatasource"
+            }
+          },
+          "name": "datasource"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Namespace",
+            "hidden": false
+          },
+          "defaultValue": "demo",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "namespace",
+              "matchers": [
+                "kube_namespace_created"
+              ]
+            }
+          },
+          "name": "namespace"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "ZooKeeper",
+            "hidden": false
+          },
+          "defaultValue": "zk-cluster",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "app",
+              "matchers": [
+                "kubedb_com_zookeeper_status_phase{namespace=~\"$namespace\"}"
+              ]
+            }
+          },
+          "name": "app"
+        }
+      }
+    ],
+    "panels": {
+      "0_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "znode_count"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "znode_count{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "ephemerals_count{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "0_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "znode_count_rate"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(znode_count{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(ephemerals_count{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "0_10": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "unrecoverable_error_count"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "unrecoverable_error_count{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "0_11": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "digest_mismatches_count"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "digest_mismatches_count{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "0_12": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "startup_snap_load_time"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "startup_snap_load_time",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "startup_snap_load_time_count",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "startup_snap_load_time_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "0_13": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "startup_txns_loaded"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "startup_txns_loaded",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "startup_txns_loaded_count",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "startup_txns_loaded_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "0_14": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "db_init_time"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "dbinittime",
+                    "seriesNameFormat": ""{instance}} dbinittime-{{quantile}}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "dbinittime_count",
+                    "seriesNameFormat": ""{instance}} dbinittime_count"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "dbinittime_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} db_init_time"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "0_2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "global_sessions"
+          },
+          "plugin": {
+            "kind": "BarChart",
+            "spec": {
+              "calculation": "last",
+              "format": {
+                "unit": "decimal"
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "global_sessions{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "0_3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "local_sessions "
+          },
+          "plugin": {
+            "kind": "BarChart",
+            "spec": {
+              "calculation": "last",
+              "format": {
+                "unit": "decimal"
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "local_sessions{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "0_4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "write_per_namespace"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "write_per_namespace_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} write_per_namespace:{{key}}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "0_5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "read_per_namespace"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "read_per_namespace_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} read_per_namespace:{{key}}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "0_6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "approximate_data_size"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "approximate_data_size{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} approximate_data_size"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "0_7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "packets_received"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "packets_received{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} packets_received"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "0_8": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "packets_sent"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "packets_sent{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} packets_sent"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "0_9": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "response_packet_cache"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "response_packet_cache_misses{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} response_packet_cache_misses"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "response_packet_cache_hits{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} response_packet_cache_hits"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "response_packet_get_children_cache_misses{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} response_packet_get_children_cache_misses"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "response_packet_get_children_cache_hits{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} response_packet_get_children_cache_hits"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "10_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "tls_handshake"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "tls_handshake_exceeded{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} tls_handshake_exceeded"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "outstanding_tls_handshake{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} outstanding_tls_handshake"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "10_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "ensemble_auth"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "ensemble_auth_fail{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} ensemble_auth_fail"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "ensemble_auth_success{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} ensemble_auth_success"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "ensemble_auth_skip{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} ensemble_auth_skip"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "11_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "jvm_classes_loaded"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "decimal"
+              },
+              "mappings": [
+                {
+                  "kind": "Misc",
+                  "spec": {
+                    "result": {
+                      "value": "N/A"
+                    },
+                    "value": "null"
+                  }
+                }
+              ],
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "max(jvm_classes_loaded{namespace=~\"$namespace\",service=~\"$app+-stats\"})",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "11_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "jvm_threads_current"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "decimal"
+              },
+              "mappings": [
+                {
+                  "kind": "Misc",
+                  "spec": {
+                    "result": {
+                      "value": "N/A"
+                    },
+                    "value": "null"
+                  }
+                }
+              ],
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "max(jvm_threads_current{namespace=~\"$namespace\",service=~\"$app+-stats\"})",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "11_2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "jvm_threads_deadlocked"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "decimal"
+              },
+              "mappings": [
+                {
+                  "kind": "Misc",
+                  "spec": {
+                    "result": {
+                      "value": "N/A"
+                    },
+                    "value": "null"
+                  }
+                }
+              ],
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "max(jvm_threads_deadlocked{namespace=~\"$namespace\",service=~\"$app+-stats\"})",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "11_3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "jvm_pause_time_ms"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(jvm_pause_time_ms_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} jvm_pause_time_ms"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "11_4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "jvm_gc_collection_seconds"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(jvm_gc_collection_seconds_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} gc:{{gc}}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "11_5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "jvm_threads_state"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "jvm_threads_state{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} state:{{state}}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "11_6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "jvm_memory_pool_bytes_used"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "jvm_memory_pool_bytes_used{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} pool:{{pool}}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "quorum_size"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "decimal"
+              },
+              "mappings": [
+                {
+                  "kind": "Misc",
+                  "spec": {
+                    "result": {
+                      "value": "N/A"
+                    },
+                    "value": "null"
+                  }
+                }
+              ],
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73BF69",
+                    "value": 0
+                  },
+                  {
+                    "color": "rgba(237, 129, 40, 0.89)",
+                    "value": 50
+                  },
+                  {
+                    "color": "#d44a3a",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "max(quorum_size{namespace=~\"$namespace\",service=~\"$app+-stats\"})",
+                    "seriesNameFormat": "" "quorum_size"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "leader"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "mean",
+              "format": {
+                "unit": "milliseconds"
+              },
+              "mappings": [
+                {
+                  "kind": "Misc",
+                  "spec": {
+                    "result": {
+                      "value": "N/A"
+                    },
+                    "value": "null"
+                  }
+                }
+              ],
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "leader_uptime{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1_10": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "follower_sync_time"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(follower_sync_time_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[1m])",
+                    "seriesNameFormat": ""{instance}} follower_sync_time"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1_11": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "learner_handler_qp_size"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "learner_handler_qp_size_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} learner_handler_qp_size_sum sid:{{key}}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1_12": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "quit_leading_due_to_disloyal_voter"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "quit_leading_due_to_disloyal_voter{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} quit_leading_due_to_disloyal_voter"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1_13": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Observer Master"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(om_commit_process_time_ms_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} om_commit_process_time"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(om_proposal_process_time_ms_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} om_proposal_process_time"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1_2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "leader_uptime"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "milliseconds"
+              },
+              "mappings": [
+                {
+                  "kind": "Misc",
+                  "spec": {
+                    "result": {
+                      "value": "N/A"
+                    },
+                    "value": "null"
+                  }
+                }
+              ],
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "leader_uptime{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} leader_uptime"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1_3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "learner/observer"
+          },
+          "plugin": {
+            "kind": "BarChart",
+            "spec": {
+              "calculation": "last"
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "max(learners{namespace=~\"$namespace\",service=~\"$app+-stats\"})",
+                    "seriesNameFormat": "" "learners"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "max(synced_non_voting_followers{namespace=~\"$namespace\",service=~\"$app+-stats\"})",
+                    "seriesNameFormat": "" "synced_non_voting_followers"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "max(synced_observers{namespace=~\"$namespace\",service=~\"$app+-stats\"})",
+                    "seriesNameFormat": "" "synced_observers"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1_4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "commit_count"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "commit_count{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} commit_count"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1_5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "snap_count"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "snap_count{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} snap_count"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1_6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "diff_count"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "diff_count{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} diff_count"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1_7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "looking_count"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "looking_count{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} looking_count"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1_8": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "proposal_count"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "proposal_count{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} proposal_count"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1_9": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "proposal_size"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "last_proposal_size{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} last_proposal_size"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "max_proposal_size{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} max_proposal_size"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "min_proposal_size{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} min_proposal_size"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "watch_count"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "watch_count{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} watch_count"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "node_changed_watch_count"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "node_changed_watch_count_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} node_changed_watch_count"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2_2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "node_children_watch_count"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "node_children_watch_count_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} node_children_watch_count"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2_3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "node_deleted_watch_count"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "node_deleted_watch_count_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} node_deleted_watch_count"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2_4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "node_created_watch_count"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "node_created_watch_count_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} node_created_watch_count"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2_5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "revalidate_count"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "revalidate_count{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} revalidate_count"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2_6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "stale_sessions_expired"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "stale_sessions_expired{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} stale_sessions_expired"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2_7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "dead_watchers"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "dead_watchers_cleared{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} dead_watchers_cleared"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "dead_watchers_queued{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} dead_watchers_queued"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(dead_watchers_cleaner_latency_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} dead_watchers_cleaner_latency"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2_8": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "add_dead_watcher_stall_time"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "add_dead_watcher_stall_time{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} add_dead_watcher_stall_time"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "outstanding_requests"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "outstanding_requests{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} outstanding_requests"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "client_response_size"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "last_client_response_size{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} last_client_response_size"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "min_client_response_size{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} min_client_response_size"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "max_client_response_size{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} max_client_response_size"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3_2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "bytes_received_count"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "bytes_received_count{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} bytes_received_count"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3_3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "connection_request_count"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "connection_request_count{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} connection_request_count"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3_4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "num_alive_connections"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "num_alive_connections{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} num_alive_connections"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3_5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "connection_rejected"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "connection_rejected{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} connection_rejected"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3_6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "connection_drop_count"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "connection_drop_count{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} connection_drop_count"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3_7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "connection_drop_probability"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "connection_drop_probability{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} connection_drop_probability"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3_8": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "sessionless_connections_expired"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sessionless_connections_expired{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} sessionless_connections_expired"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3_9": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "connection_token_deficit"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(connection_token_deficit_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} connection_token_deficit"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "open_file_descriptor"
+          },
+          "plugin": {
+            "kind": "GaugeChart",
+            "spec": {
+              "calculation": "last",
+              "format": {
+                "unit": "decimal"
+              },
+              "max": 1024,
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 800
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "open_file_descriptor_count{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "fsync_time"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "fsynctime{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} fsynctime"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "fsynctime_count{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} fsynctime_count"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "fsynctime_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} fsynctime_sum(ms)"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "fsynctime_sum * 1000 /fsynctime_count{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} fsynctime_avg(\u03bcs)"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "irate(fsynctime_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[1m])",
+                    "seriesNameFormat": ""{instance}} fsynctime_rate"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4_2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "snapshot_time"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(snapshottime_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} snapshot_time_rate"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "snapshottime_count{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} snapshottime_count"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "snapshottime_sum / snapshottime_count{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} snapshottime_avg(ms)"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "prep_process_time"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(prep_process_time_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} prep_process_time"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "prep_processor_queue_time"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(prep_processor_queue_time_ms_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} prep_processor_queue_time_ms"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5_2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "prep_processor_queue_size"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(prep_processor_queue_size_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} prep_processor_queue_size"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5_3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "prep_processor_request_queued"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "prep_processor_request_queued{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} prep_processor_request_queued"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5_4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "outstanding_changes_queued"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "outstanding_changes_queued{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} outstanding_changes_queued"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "outstanding_changes_removed{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} outstanding_changes_removed"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5_5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "close_session_prep_time"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(close_session_prep_time_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} close_session_prep_time"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "sync_process_time"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(sync_process_time_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} sync_process_time"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "sync_processor_queue_flush_time"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(sync_processor_queue_flush_time_ms_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} sync_processor_queue_flush_time"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "sync_processor_queue_size"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(sync_processor_queue_size_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} sync_processor_queue_size"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "sync_processor_request_queued"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sync_processor_request_queued{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} sync_processor_request_queued"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6_4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "sync_processor_batch_size"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(sync_processor_batch_size_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} sync_processor_batch_size"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "commit_process_time"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(commit_process_time_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} commit_process_time"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(read_commitproc_time_ms_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} read_commitproc_time"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(write_commitproc_time_ms_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} write_commitproc_time"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "commit_proc_req_queued"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(write_commit_proc_req_queued_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} write_commit_proc_req_queued"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(read_commit_proc_req_queued_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} read_commit_proc_req_queued"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(commit_commit_proc_req_queued_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} commit_commit_proc_req_queued"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7_10": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "reads_after_write_in_session_queue"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(reads_after_write_in_session_queue_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} reads_after_write_in_session_queue"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7_11": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "session_queues_drained"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(session_queues_drained_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} session_queues_drained"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7_12": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "reads_issued_from_session_queue"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(reads_issued_from_session_queue_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} reads_issued_from_session_queue"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7_13": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "request_commit_queued"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "request_commit_queued{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} request_commit_queued"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7_2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "requests_in_session_queue"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(requests_in_session_queue_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} requests_in_session_queue"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7_3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "commit_proc_issued"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(read_commit_proc_issued_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} read_commit_proc_issued"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(write_commit_proc_issued_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} write_commit_proc_issued"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7_4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "concurrent_request_processing_in_commit_processor"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(concurrent_request_processing_in_commit_processor_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} concurrent_request_processing_in_commit_processor"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7_5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "time_waiting_empty_pool_in_commit_processor_read"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(time_waiting_empty_pool_in_commit_processor_read_ms_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} time_waiting_empty_pool_in_commit_processor_read"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7_6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "pending_session_queue_size"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(pending_session_queue_size_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} pending_session_queue_size"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7_7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "local_write_committed_time"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(local_write_committed_time_ms_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} local_write_committed_time_ms"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7_8": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "server_write_committed_time"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(server_write_committed_time_ms_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} server_write_committed_time"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7_9": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "write_batch_time_in_commit_processor"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(write_batch_time_in_commit_processor_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} write_batch_time_in_commit_processor"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "8_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "write_final_proc_time_ms"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(write_final_proc_time_ms_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} write_final_proc_time_ms"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "8_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "read_final_proc_time_ms"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(read_final_proc_time_ms_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} read_final_proc_time_ms"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9_0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "read_latency"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(readlatency_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} readlatency"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9_1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "update_latency"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(updatelatency_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} updatelatency"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9_2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "max_min_avg_latency"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "max_latency{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} max_latency"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "min_latency{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} min_latency"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "avg_latency{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} avg_latency"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9_3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "proposal_latency"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(proposal_latency_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} proposal_latency"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9_4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "quorum_ack_latency"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(quorum_ack_latency_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} quorum_ack_latency"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9_5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "proposal_ack_creation_latency"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "proposal_ack_creation_latency{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
+                    "seriesNameFormat": ""{instance}} proposal_ack_creation_latency-{{quantile}}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9_6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "propagation_latency"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(propagation_latency_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} propagation_latency"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9_7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "commit_propagation_latency"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "rate(commit_propagation_latency_sum{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""{instance}} commit_propagation_latency"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "layouts": [
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Overall",
+            "collapse": {
+              "open": true
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 1,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/0_0"
+              }
+            },
+            {
+              "x": 12,
+              "y": 1,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/0_1"
+              }
+            },
+            {
+              "x": 0,
+              "y": 9,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/0_2"
+              }
+            },
+            {
+              "x": 12,
+              "y": 9,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/0_3"
+              }
+            },
+            {
+              "x": 0,
+              "y": 17,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/0_4"
+              }
+            },
+            {
+              "x": 12,
+              "y": 17,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/0_5"
+              }
+            },
+            {
+              "x": 0,
+              "y": 25,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/0_6"
+              }
+            },
+            {
+              "x": 8,
+              "y": 25,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/0_7"
+              }
+            },
+            {
+              "x": 16,
+              "y": 25,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/0_8"
+              }
+            },
+            {
+              "x": 0,
+              "y": 33,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/0_9"
+              }
+            },
+            {
+              "x": 8,
+              "y": 33,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/0_10"
+              }
+            },
+            {
+              "x": 16,
+              "y": 33,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/0_11"
+              }
+            },
+            {
+              "x": 0,
+              "y": 41,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/0_12"
+              }
+            },
+            {
+              "x": 8,
+              "y": 41,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/0_13"
+              }
+            },
+            {
+              "x": 16,
+              "y": 41,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/0_14"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Quorum/Leader Election",
+            "collapse": {
+              "open": true
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 50,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/1_0"
+              }
+            },
+            {
+              "x": 8,
+              "y": 50,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/1_1"
+              }
+            },
+            {
+              "x": 16,
+              "y": 50,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/1_2"
+              }
+            },
+            {
+              "x": 0,
+              "y": 58,
+              "width": 24,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/1_3"
+              }
+            },
+            {
+              "x": 0,
+              "y": 66,
+              "width": 6,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/1_4"
+              }
+            },
+            {
+              "x": 6,
+              "y": 66,
+              "width": 6,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/1_5"
+              }
+            },
+            {
+              "x": 12,
+              "y": 66,
+              "width": 6,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/1_6"
+              }
+            },
+            {
+              "x": 18,
+              "y": 66,
+              "width": 6,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/1_7"
+              }
+            },
+            {
+              "x": 0,
+              "y": 74,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/1_8"
+              }
+            },
+            {
+              "x": 8,
+              "y": 74,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/1_9"
+              }
+            },
+            {
+              "x": 16,
+              "y": 74,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/1_10"
+              }
+            },
+            {
+              "x": 0,
+              "y": 82,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/1_11"
+              }
+            },
+            {
+              "x": 8,
+              "y": 82,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/1_12"
+              }
+            },
+            {
+              "x": 16,
+              "y": 82,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/1_13"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Session/Watch",
+            "collapse": {
+              "open": true
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 91,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/2_0"
+              }
+            },
+            {
+              "x": 8,
+              "y": 91,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/2_1"
+              }
+            },
+            {
+              "x": 16,
+              "y": 91,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/2_2"
+              }
+            },
+            {
+              "x": 0,
+              "y": 99,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/2_3"
+              }
+            },
+            {
+              "x": 8,
+              "y": 99,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/2_4"
+              }
+            },
+            {
+              "x": 16,
+              "y": 99,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/2_5"
+              }
+            },
+            {
+              "x": 0,
+              "y": 107,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/2_6"
+              }
+            },
+            {
+              "x": 8,
+              "y": 107,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/2_7"
+              }
+            },
+            {
+              "x": 16,
+              "y": 107,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/2_8"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Client/Connection",
+            "collapse": {
+              "open": true
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 116,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/3_0"
+              }
+            },
+            {
+              "x": 8,
+              "y": 116,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/3_1"
+              }
+            },
+            {
+              "x": 16,
+              "y": 116,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/3_2"
+              }
+            },
+            {
+              "x": 0,
+              "y": 124,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/3_3"
+              }
+            },
+            {
+              "x": 8,
+              "y": 124,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/3_4"
+              }
+            },
+            {
+              "x": 16,
+              "y": 124,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/3_5"
+              }
+            },
+            {
+              "x": 0,
+              "y": 132,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/3_6"
+              }
+            },
+            {
+              "x": 8,
+              "y": 132,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/3_7"
+              }
+            },
+            {
+              "x": 16,
+              "y": 132,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/3_8"
+              }
+            },
+            {
+              "x": 0,
+              "y": 140,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/3_9"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Disk/Snapshot",
+            "collapse": {
+              "open": true
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 149,
+              "width": 24,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/4_0"
+              }
+            },
+            {
+              "x": 0,
+              "y": 157,
+              "width": 24,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/4_1"
+              }
+            },
+            {
+              "x": 0,
+              "y": 165,
+              "width": 24,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/4_2"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Prep_Processor",
+            "collapse": {
+              "open": true
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 174,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/5_0"
+              }
+            },
+            {
+              "x": 8,
+              "y": 174,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/5_1"
+              }
+            },
+            {
+              "x": 16,
+              "y": 174,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/5_2"
+              }
+            },
+            {
+              "x": 0,
+              "y": 182,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/5_3"
+              }
+            },
+            {
+              "x": 8,
+              "y": 182,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/5_4"
+              }
+            },
+            {
+              "x": 16,
+              "y": 182,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/5_5"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Sync_Processor",
+            "collapse": {
+              "open": true
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 191,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/6_0"
+              }
+            },
+            {
+              "x": 8,
+              "y": 191,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/6_1"
+              }
+            },
+            {
+              "x": 16,
+              "y": 191,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/6_2"
+              }
+            },
+            {
+              "x": 0,
+              "y": 199,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/6_3"
+              }
+            },
+            {
+              "x": 8,
+              "y": 199,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/6_4"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Commit_Processor",
+            "collapse": {
+              "open": true
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 208,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7_0"
+              }
+            },
+            {
+              "x": 8,
+              "y": 208,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7_1"
+              }
+            },
+            {
+              "x": 16,
+              "y": 208,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7_2"
+              }
+            },
+            {
+              "x": 0,
+              "y": 216,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7_3"
+              }
+            },
+            {
+              "x": 8,
+              "y": 216,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7_4"
+              }
+            },
+            {
+              "x": 16,
+              "y": 216,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7_5"
+              }
+            },
+            {
+              "x": 0,
+              "y": 224,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7_6"
+              }
+            },
+            {
+              "x": 8,
+              "y": 224,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7_7"
+              }
+            },
+            {
+              "x": 16,
+              "y": 224,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7_8"
+              }
+            },
+            {
+              "x": 0,
+              "y": 232,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7_9"
+              }
+            },
+            {
+              "x": 8,
+              "y": 232,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7_10"
+              }
+            },
+            {
+              "x": 16,
+              "y": 232,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7_11"
+              }
+            },
+            {
+              "x": 0,
+              "y": 240,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7_12"
+              }
+            },
+            {
+              "x": 8,
+              "y": 240,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7_13"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Final_Processor",
+            "collapse": {
+              "open": true
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 249,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/8_0"
+              }
+            },
+            {
+              "x": 12,
+              "y": 249,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/8_1"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Latency",
+            "collapse": {
+              "open": true
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 258,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/9_0"
+              }
+            },
+            {
+              "x": 12,
+              "y": 258,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/9_1"
+              }
+            },
+            {
+              "x": 0,
+              "y": 266,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/9_2"
+              }
+            },
+            {
+              "x": 12,
+              "y": 266,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/9_3"
+              }
+            },
+            {
+              "x": 0,
+              "y": 274,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/9_4"
+              }
+            },
+            {
+              "x": 12,
+              "y": 274,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/9_5"
+              }
+            },
+            {
+              "x": 0,
+              "y": 282,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/9_6"
+              }
+            },
+            {
+              "x": 12,
+              "y": 282,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/9_7"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Security",
+            "collapse": {
+              "open": true
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 291,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/10_0"
+              }
+            },
+            {
+              "x": 8,
+              "y": 291,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/10_1"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "JVM",
+            "collapse": {
+              "open": true
+            }
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 300,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/11_0"
+              }
+            },
+            {
+              "x": 8,
+              "y": 300,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/11_1"
+              }
+            },
+            {
+              "x": 16,
+              "y": 300,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/11_2"
+              }
+            },
+            {
+              "x": 0,
+              "y": 308,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/11_3"
+              }
+            },
+            {
+              "x": 8,
+              "y": 308,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/11_4"
+              }
+            },
+            {
+              "x": 16,
+              "y": 308,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/11_5"
+              }
+            },
+            {
+              "x": 0,
+              "y": 316,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/11_6"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "duration": "1h"
+  }
+}

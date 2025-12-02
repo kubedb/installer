@@ -1,9 +1,8 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
-{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "kind": "Dashboard",
   "metadata": {
-    "name": "6v_W_NNn_kl",
+    "name": "Zmva7c57k",
     "createdAt": "0001-01-01T00:00:00Z",
     "updatedAt": "0001-01-01T00:00:00Z",
     "version": 0,
@@ -11,13 +10,14 @@
   },
   "spec": {
     "display": {
-      "name": "KubeDB / Postgres / Database"
+      "name": "KubeDB / MySQL / Group-Replication-Summary"
     },
     "variables": [
       {
         "kind": "ListVariable",
         "spec": {
           "display": {
+            "name": "Datasource",
             "hidden": false
           },
           "defaultValue": "Prometheus",
@@ -59,67 +59,23 @@
         "kind": "ListVariable",
         "spec": {
           "display": {
-            "name": "postgres",
+            "name": "MySQL",
             "hidden": false
           },
-          "defaultValue": "ps-demo",
-          "allowAllValue": false,
-          "allowMultiple": false,
-          "sort": "alphabetical-asc",
-          "plugin": {
-            "kind": "PrometheusPromQLVariable",
-            "spec": {
-              "expr": "kubedb_com_postgres_created{namespace=\"$namespace\"}",
-              "labelName": "app"
-            }
-          },
-          "name": "app"
-        }
-      },
-      {
-        "kind": "ListVariable",
-        "spec": {
-          "display": {
-            "name": "pod",
-            "hidden": false
-          },
-          "defaultValue": "ps-demo-0",
+          "defaultValue": "old-mysql-stats",
           "allowAllValue": false,
           "allowMultiple": false,
           "sort": "none",
           "plugin": {
             "kind": "PrometheusLabelValuesVariable",
             "spec": {
-              "labelName": "pod",
+              "labelName": "app",
               "matchers": [
-                "pg_up{namespace=~\"$namespace\",pod=~\"${app}-.*\"}"
+                "kubedb_com_mysql_status_phase{namespace=~\"$namespace\"}"
               ]
             }
           },
-          "name": "pod"
-        }
-      },
-      {
-        "kind": "ListVariable",
-        "spec": {
-          "display": {
-            "name": "Database",
-            "hidden": false
-          },
-          "defaultValue": [
-            "postgres"
-          ],
-          "allowAllValue": true,
-          "allowMultiple": true,
-          "sort": "alphabetical-asc",
-          "plugin": {
-            "kind": "PrometheusLabelValuesVariable",
-            "spec": {
-              "labelName": "datname",
-              "matchers": []
-            }
-          },
-          "name": "datname"
+          "name": "app"
         }
       }
     ],
@@ -128,18 +84,57 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "QPS",
-            "description": "Query per second"
+            "name": "Group Replication Node Title"
           },
           "plugin": {
             "kind": "StatChart",
             "spec": {
-              "calculation": "mean",
-              "sparkline": {},
+              "calculation": "last-number",
               "thresholds": {
                 "steps": [
                   {
                     "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 2
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "avg by(member_host)(mysql_perf_schema_replication_group_member_info{namespace=~\"$namespace\",service=~\"$app+-stats\"})",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Primary Node"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#5794f2",
                     "value": 0
                   },
                   {
@@ -158,47 +153,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(irate(pg_stat_database_xact_commit{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m])) + \nsum(irate(pg_stat_database_xact_rollback{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "1": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Transactions"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_database_xact_commit{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_database_xact_rollback{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
+                    "query": "avg by(member_host)(mysql_perf_schema_replication_group_member_info{namespace=~\"$namespace\",service=~\"$app+-stats\", member_role=\"PRIMARY\"})",
                     "seriesNameFormat": ""
                   }
                 }
@@ -211,7 +166,7 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Buffers (bgwriter)"
+            "name": "Sent Transactions"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -225,59 +180,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_buffers_backend{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_buffers_alloc{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_buffers_backend_fsync{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_buffers_checkpoint{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_buffers_clean{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
+                    "query": "avg by (pod)(rate(mysql_perf_schema_transactions_local_proposed_total{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])) ",
                     "seriesNameFormat": ""
                   }
                 }
@@ -290,7 +193,7 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Conflicts/Deadlocks"
+            "name": "Received Transactions Queue"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -304,20 +207,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "irate(pg_stat_database_conflicts{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_database_deadlocks{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
+                    "query": "avg by (pod)(rate(mysql_perf_schema_transactions_remote_in_applier_queue{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])) ",
                     "seriesNameFormat": ""
                   }
                 }
@@ -330,7 +220,7 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Cache Hit Rate"
+            "name": "Rolled Back Transactions"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -344,7 +234,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "pg_stat_database_blks_hit{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"} / (pg_stat_database_blks_read{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"} + pg_stat_database_blks_hit{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"})",
+                    "query": "avg by (pod)(rate(mysql_perf_schema_transactions_local_rollback_total{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])) ",
                     "seriesNameFormat": ""
                   }
                 }
@@ -357,8 +247,7 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Temp File (Bytes)",
-            "description": "Total amount of data written to temporary files by queries in this database. All temporary files are counted, regardless of why the temporary file was created, and regardless of the log_temp_files setting."
+            "name": "Transactions in the Queue for Checking"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -372,7 +261,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "irate(pg_stat_database_temp_bytes{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
+                    "query": "avg by (pod)(rate(mysql_perf_schema_transactions_in_queue{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m]) or rate(mysql_perf_schema_5_transactions_in_queue{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])) ",
                     "seriesNameFormat": ""
                   }
                 }
@@ -385,7 +274,7 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Checkpoint Stats"
+            "name": "Transactions in the Queue for Checking"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -399,118 +288,8 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_checkpoint_write_time{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": "write_time - Total amount of time that has been spent in the portion of checkpoint processing where files are written to disk."
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_checkpoint_sync_time{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": "sync_time - Total amount of time that has been spent in the portion of checkpoint processing where files are synchronized to disk."
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "15": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Rows"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              },
-              "visual": {
-                "areaOpacity": 0.1,
-                "connectNulls": true,
-                "display": "line",
-                "lineStyle": "solid",
-                "lineWidth": 1
-              },
-              "yAxis": {
-                "format": {
-                  "unit": "decimal"
-                }
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum(irate(pg_stat_database_tup_fetched{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": "fetched"
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum(irate(pg_stat_database_tup_returned{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": "returned"
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum(irate(pg_stat_database_tup_inserted{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": "inserted"
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum(irate(pg_stat_database_tup_updated{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": "updated"
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum(irate(pg_stat_database_tup_deleted{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": "deleted"
+                    "query": "avg by (pod)(rate(mysql_perf_schema_conflicts_detected_total{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m]) or rate(mysql_perf_schema_5_conflicts_detected_total{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])) ",
+                    "seriesNameFormat": ""
                   }
                 }
               }
@@ -522,7 +301,7 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Update data"
+            "name": "Replication Lag"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -536,7 +315,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "pg_stat_database_tup_updated{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
+                    "query": "max by (pod)(max_over_time(mysql_perf_schema_replication_group_worker_lag_in_seconds{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m]))",
                     "seriesNameFormat": ""
                   }
                 }
@@ -549,7 +328,7 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Active sessions"
+            "name": "Transport TIme"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -563,7 +342,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "pg_stat_activity_count{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} !=0",
+                    "query": "max by (pod)(max_over_time(mysql_perf_schema_replication_group_worker_transport_time_seconds{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])) < 20000000",
                     "seriesNameFormat": ""
                   }
                 }
@@ -576,7 +355,7 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Insert data"
+            "name": "Replication Delay"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -590,7 +369,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "pg_stat_database_tup_inserted{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
+                    "query": "max by (pod)(max_over_time(mysql_perf_schema_replication_group_worker_apply_time_seconds{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])) < 20000000",
                     "seriesNameFormat": ""
                   }
                 }
@@ -603,7 +382,7 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Lock tables"
+            "name": "Transaction Apply Time"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -617,7 +396,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "pg_locks_count{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
+                    "query": "max by (pod)(max_over_time(mysql_perf_schema_replication_group_worker_apply_time_seconds{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])) < 20000000",
                     "seriesNameFormat": ""
                   }
                 }
@@ -630,7 +409,7 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Fetch data (SELECT)"
+            "name": "Transaction Time Inside the Local Queue"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -644,7 +423,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "pg_stat_database_tup_fetched{datname=~\"$datname\",pod=\"$pod\", namespace=\"$namespace\"} != 0",
+                    "query": "max by (pod)(max_over_time(mysql_perf_schema_replication_group_worker_time_RL_seconds{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])) < 20000000",
                     "seriesNameFormat": ""
                   }
                 }
@@ -657,7 +436,7 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Idle sessions"
+            "name": "Checked Transactions"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -671,7 +450,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "pg_stat_activity_count{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\", state=~\"idle|idle in transaction|idle in transaction (aborted)\"}",
+                    "query": "avg by (pod)(rate(mysql_perf_schema_transactions_checked_total{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m]) or rate(mysql_perf_schema_5_transactions_checked_total{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])) ",
                     "seriesNameFormat": ""
                   }
                 }
@@ -684,7 +463,7 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Delete data"
+            "name": "Transactions Row Validating"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -698,7 +477,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "pg_stat_database_tup_deleted{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
+                    "query": "avg by (pod)(rate(mysql_perf_schema_transactions_rows_validating_total{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m]) or rate(mysql_perf_schema_5_transactions_rows_validating_total{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])) ",
                     "seriesNameFormat": ""
                   }
                 }
@@ -711,7 +490,7 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Return data"
+            "name": "Applied Transactions"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -725,7 +504,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "pg_stat_database_tup_returned{datname=~\"$datname\",pod=\"$pod\", namespace=\"$namespace\"} != 0",
+                    "query": "avg by (pod)(rate(mysql_perf_schema_transactions_remote_applied_total{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])) ",
                     "seriesNameFormat": ""
                   }
                 }
@@ -745,80 +524,80 @@
           "items": [
             {
               "x": 0,
-              "y": 1,
-              "width": 8,
+              "y": 0,
+              "width": 24,
               "height": 7,
               "content": {
                 "$ref": "#/spec/panels/0"
               }
             },
             {
-              "x": 8,
-              "y": 1,
-              "width": 8,
-              "height": 7,
+              "x": 0,
+              "y": 7,
+              "width": 24,
+              "height": 3,
               "content": {
                 "$ref": "#/spec/panels/1"
               }
             },
             {
-              "x": 16,
-              "y": 1,
-              "width": 8,
-              "height": 7,
+              "x": 0,
+              "y": 11,
+              "width": 24,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/2"
               }
             },
             {
               "x": 0,
-              "y": 8,
-              "width": 8,
+              "y": 19,
+              "width": 12,
               "height": 7,
               "content": {
                 "$ref": "#/spec/panels/3"
               }
             },
             {
-              "x": 8,
-              "y": 8,
-              "width": 8,
+              "x": 12,
+              "y": 19,
+              "width": 12,
               "height": 7,
               "content": {
                 "$ref": "#/spec/panels/4"
               }
             },
             {
-              "x": 16,
-              "y": 8,
-              "width": 8,
+              "x": 0,
+              "y": 26,
+              "width": 12,
               "height": 7,
               "content": {
                 "$ref": "#/spec/panels/5"
               }
             },
             {
-              "x": 0,
-              "y": 15,
-              "width": 8,
+              "x": 12,
+              "y": 26,
+              "width": 12,
               "height": 7,
               "content": {
                 "$ref": "#/spec/panels/6"
               }
             },
             {
-              "x": 8,
-              "y": 15,
-              "width": 8,
+              "x": 0,
+              "y": 34,
+              "width": 12,
               "height": 7,
               "content": {
                 "$ref": "#/spec/panels/7"
               }
             },
             {
-              "x": 16,
-              "y": 15,
-              "width": 8,
+              "x": 12,
+              "y": 34,
+              "width": 12,
               "height": 7,
               "content": {
                 "$ref": "#/spec/panels/8"
@@ -826,65 +605,56 @@
             },
             {
               "x": 0,
-              "y": 22,
-              "width": 8,
+              "y": 41,
+              "width": 12,
               "height": 7,
               "content": {
                 "$ref": "#/spec/panels/9"
               }
             },
             {
-              "x": 8,
-              "y": 22,
-              "width": 8,
+              "x": 12,
+              "y": 41,
+              "width": 12,
               "height": 7,
               "content": {
                 "$ref": "#/spec/panels/10"
               }
             },
             {
-              "x": 16,
-              "y": 22,
-              "width": 8,
+              "x": 0,
+              "y": 48,
+              "width": 12,
               "height": 7,
               "content": {
                 "$ref": "#/spec/panels/11"
               }
             },
             {
-              "x": 0,
-              "y": 29,
-              "width": 8,
+              "x": 12,
+              "y": 48,
+              "width": 12,
               "height": 7,
               "content": {
                 "$ref": "#/spec/panels/12"
               }
             },
             {
-              "x": 8,
-              "y": 29,
-              "width": 8,
+              "x": 0,
+              "y": 55,
+              "width": 12,
               "height": 7,
               "content": {
                 "$ref": "#/spec/panels/13"
               }
             },
             {
-              "x": 16,
-              "y": 29,
-              "width": 8,
+              "x": 0,
+              "y": 63,
+              "width": 24,
               "height": 7,
               "content": {
                 "$ref": "#/spec/panels/14"
-              }
-            },
-            {
-              "x": 0,
-              "y": 36,
-              "width": 24,
-              "height": 10,
-              "content": {
-                "$ref": "#/spec/panels/15"
               }
             }
           ]

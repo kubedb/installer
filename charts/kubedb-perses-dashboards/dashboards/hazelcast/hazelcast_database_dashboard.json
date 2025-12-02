@@ -3,7 +3,7 @@
 {
   "kind": "Dashboard",
   "metadata": {
-    "name": "6v_W_NNn_kl",
+    "name": "LrqJZlxHz",
     "createdAt": "0001-01-01T00:00:00Z",
     "updatedAt": "0001-01-01T00:00:00Z",
     "version": 0,
@@ -11,7 +11,7 @@
   },
   "spec": {
     "display": {
-      "name": "KubeDB / Postgres / Database"
+      "name": "KubeDb / Hazelcast / Database"
     },
     "variables": [
       {
@@ -36,7 +36,6 @@
         "kind": "ListVariable",
         "spec": {
           "display": {
-            "name": "Namespace",
             "hidden": false
           },
           "defaultValue": "demo",
@@ -59,67 +58,23 @@
         "kind": "ListVariable",
         "spec": {
           "display": {
-            "name": "postgres",
+            "name": "app",
             "hidden": false
           },
-          "defaultValue": "ps-demo",
-          "allowAllValue": false,
-          "allowMultiple": false,
-          "sort": "alphabetical-asc",
-          "plugin": {
-            "kind": "PrometheusPromQLVariable",
-            "spec": {
-              "expr": "kubedb_com_postgres_created{namespace=\"$namespace\"}",
-              "labelName": "app"
-            }
-          },
-          "name": "app"
-        }
-      },
-      {
-        "kind": "ListVariable",
-        "spec": {
-          "display": {
-            "name": "pod",
-            "hidden": false
-          },
-          "defaultValue": "ps-demo-0",
+          "defaultValue": "hazelcast-sample",
           "allowAllValue": false,
           "allowMultiple": false,
           "sort": "none",
           "plugin": {
             "kind": "PrometheusLabelValuesVariable",
             "spec": {
-              "labelName": "pod",
+              "labelName": "app",
               "matchers": [
-                "pg_up{namespace=~\"$namespace\",pod=~\"${app}-.*\"}"
+                "kubedb_com_hazelcast_status_phase{namespace=~\"$namespace\"}"
               ]
             }
           },
-          "name": "pod"
-        }
-      },
-      {
-        "kind": "ListVariable",
-        "spec": {
-          "display": {
-            "name": "Database",
-            "hidden": false
-          },
-          "defaultValue": [
-            "postgres"
-          ],
-          "allowAllValue": true,
-          "allowMultiple": true,
-          "sort": "alphabetical-asc",
-          "plugin": {
-            "kind": "PrometheusLabelValuesVariable",
-            "spec": {
-              "labelName": "datname",
-              "matchers": []
-            }
-          },
-          "name": "datname"
+          "name": "app"
         }
       }
     ],
@@ -128,13 +83,16 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "QPS",
-            "description": "Query per second"
+            "name": "Active Members",
+            "description": "Total number of active members"
           },
           "plugin": {
             "kind": "StatChart",
             "spec": {
-              "calculation": "mean",
+              "calculation": "last-number",
+              "format": {
+                "unit": "decimal"
+              },
               "sparkline": {},
               "thresholds": {
                 "steps": [
@@ -158,8 +116,8 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(irate(pg_stat_database_xact_commit{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m])) + \nsum(irate(pg_stat_database_xact_rollback{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": ""
+                    "query": "count(com_hazelcast_Metrics_activeMembers{namespace=~\"$namespace\",service=~\"$app-stats\"})",
+                    "seriesNameFormat": "Member Count"
                   }
                 }
               }
@@ -171,11 +129,27 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Transactions"
+            "name": "Cluster Uptime(minutes)",
+            "description": "Cluster Uptime in minutes"
           },
           "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#73bf69",
+                    "value": 80
+                  }
+                ]
+              }
+            }
           },
           "queries": [
             {
@@ -185,20 +159,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "irate(pg_stat_database_xact_commit{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_database_xact_rollback{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
+                    "query": "max(com_hazelcast_Metrics_uptime{namespace=~\"$namespace\",service=~\"$app-stats\"})/(1000*60)",
                     "seriesNameFormat": ""
                   }
                 }
@@ -211,7 +172,8 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Buffers (bgwriter)"
+            "name": "PutLatency and PutCount",
+            "description": "PutLatency and PutCount"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -225,7 +187,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_buffers_backend{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
+                    "query": "com_hazelcast_Metrics_totalPutLatency{namespace=~\"$namespace\",service=~\"$app-stats\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -238,46 +200,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_buffers_alloc{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_buffers_backend_fsync{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_buffers_checkpoint{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_buffers_clean{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
+                    "query": "com_hazelcast_Metrics_putCount{namespace=~\"$namespace\",service=~\"$app-stats\"}\n",
                     "seriesNameFormat": ""
                   }
                 }
@@ -290,7 +213,7 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Conflicts/Deadlocks"
+            "name": "SetLatency and SetCount"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -304,7 +227,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "irate(pg_stat_database_conflicts{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
+                    "query": "com_hazelcast_Metrics_totalSetLatency{namespace=~\"$namespace\",service=~\"$app-stats\"}\n",
                     "seriesNameFormat": ""
                   }
                 }
@@ -317,7 +240,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "irate(pg_stat_database_deadlocks{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
+                    "query": "com_hazelcast_Metrics_setCount{namespace=~\"$namespace\",service=~\"$app-stats\"}\n",
                     "seriesNameFormat": ""
                   }
                 }
@@ -330,7 +253,8 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Cache Hit Rate"
+            "name": "RemoveLatency and RemoveCount",
+            "description": "RemoveLatency and RemoveCount"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -344,7 +268,20 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "pg_stat_database_blks_hit{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"} / (pg_stat_database_blks_read{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"} + pg_stat_database_blks_hit{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"})",
+                    "query": "com_hazelcast_Metrics_totalRemoveLatency{namespace=~\"$namespace\",service=~\"$app-stats\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "com_hazelcast_Metrics_removeCount{namespace=~\"$namespace\",service=~\"$app-stats\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -357,8 +294,8 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Temp File (Bytes)",
-            "description": "Total amount of data written to temporary files by queries in this database. All temporary files are counted, regardless of why the temporary file was created, and regardless of the log_temp_files setting."
+            "name": "Entry Counts",
+            "description": "Entry Counts"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -372,7 +309,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "irate(pg_stat_database_temp_bytes{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
+                    "query": "com_hazelcast_Metrics_entryCount{namespace=~\"$namespace\",service=~\"$app-stats\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -385,7 +322,8 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Checkpoint Stats"
+            "name": "Backup Entry Count",
+            "description": "Backup Entry Count"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
@@ -399,21 +337,8 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_checkpoint_write_time{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": "write_time - Total amount of time that has been spent in the portion of checkpoint processing where files are written to disk."
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "irate(pg_stat_bgwriter_checkpoint_sync_time{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": "sync_time - Total amount of time that has been spent in the portion of checkpoint processing where files are synchronized to disk."
+                    "query": "com_hazelcast_Metrics_backupEntryCount{namespace=~\"$namespace\",service=~\"$app-stats\"}",
+                    "seriesNameFormat": ""
                   }
                 }
               }
@@ -425,23 +350,293 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Rows"
+            "name": "Locked Entry Count",
+            "description": "Locked Entry Count"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "com_hazelcast_Metrics_lockedEntryCount{namespace=~\"$namespace\",service=~\"$app-stats\"}\n",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "16": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Dirty Entry Count",
+            "description": "Dirty Entry Count"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "com_hazelcast_Metrics_dirtyEntryCount{namespace=~\"$namespace\",service=~\"$app-stats\"}\n",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Client Count",
+            "description": "Total number of client"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "count(com_hazelcast_Metrics_clientCount{namespace=~\"$namespace\",service=\"$app-stats\"})",
+                    "seriesNameFormat": "Client Count"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Partition counts",
+            "description": "Total Number of Partitions"
+          },
+          "plugin": {
+            "kind": "BarChart",
+            "spec": {
+              "calculation": "last-number"
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "com_hazelcast_Metrics_activePartitionCount{namespace=~\"$namespace\",service=~\"$app-stats\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "System Load",
+            "description": "System Load"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "com_hazelcast_Metrics_systemLoadAverage{namespace=~\"$namespace\",service=~\"$app-stats\"}\n",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Heap Usage",
+            "description": "Heap Usage"
+          },
+          "plugin": {
+            "kind": "GaugeChart",
+            "spec": {
+              "calculation": "last-number",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "com_hazelcast_Metrics_usedHeap{namespace=~\"$namespace\",service=~\"$app-stats\"}/(com_hazelcast_Metrics_usedHeap{namespace=~\"$namespace\",service=~\"$app-stats\"}+com_hazelcast_Metrics_freeHeap{namespace=~\"$namespace\",service=~\"$app-stats\"})*100",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Owned Entry Memory Cost"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "com_hazelcast_Metrics_ownedEntryMemoryCost{namespace=~\"$namespace\",service=~\"$app-stats\"}/1000\n",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Backup Entry Memory Cost",
+            "description": "Backup Entry memory Cost"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "com_hazelcast_Metrics_backupEntryMemoryCost{namespace=~\"$namespace\",service=~\"$app-stats\"}/1000\n",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "8": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Heap Cost",
+            "description": "Total Heap Cost"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "com_hazelcast_Metrics_heapCost{namespace=~\"$namespace\",service=~\"$app-stats\"}/1000",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "GetLatency and GetCount"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              },
-              "visual": {
-                "areaOpacity": 0.1,
-                "connectNulls": true,
-                "display": "line",
-                "lineStyle": "solid",
-                "lineWidth": 1
-              },
               "yAxis": {
                 "format": {
                   "unit": "decimal"
@@ -457,8 +652,8 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(irate(pg_stat_database_tup_fetched{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": "fetched"
+                    "query": "com_hazelcast_Metrics_totalGetLatency{namespace=~\"$namespace\",service=~\"$app-stats\"}",
+                    "seriesNameFormat": ""
                   }
                 }
               }
@@ -470,262 +665,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(irate(pg_stat_database_tup_returned{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": "returned"
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum(irate(pg_stat_database_tup_inserted{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": "inserted"
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum(irate(pg_stat_database_tup_updated{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": "updated"
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum(irate(pg_stat_database_tup_deleted{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
-                    "seriesNameFormat": "deleted"
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "2": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Update data"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "pg_stat_database_tup_updated{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "3": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Active sessions"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "pg_stat_activity_count{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} !=0",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "4": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Insert data"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "pg_stat_database_tup_inserted{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "5": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Lock tables"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "pg_locks_count{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "6": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Fetch data (SELECT)"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "pg_stat_database_tup_fetched{datname=~\"$datname\",pod=\"$pod\", namespace=\"$namespace\"} != 0",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "7": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Idle sessions"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "pg_stat_activity_count{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\", state=~\"idle|idle in transaction|idle in transaction (aborted)\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "8": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Delete data"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "pg_stat_database_tup_deleted{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "9": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Return data"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "pg_stat_database_tup_returned{datname=~\"$datname\",pod=\"$pod\", namespace=\"$namespace\"} != 0",
+                    "query": "com_hazelcast_Metrics_getCount{namespace=~\"$namespace\",service=~\"$app-stats\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -746,79 +686,79 @@
             {
               "x": 0,
               "y": 1,
-              "width": 8,
-              "height": 7,
+              "width": 3,
+              "height": 6,
               "content": {
                 "$ref": "#/spec/panels/0"
               }
             },
             {
-              "x": 8,
+              "x": 3,
               "y": 1,
-              "width": 8,
-              "height": 7,
+              "width": 3,
+              "height": 6,
               "content": {
                 "$ref": "#/spec/panels/1"
               }
             },
             {
-              "x": 16,
+              "x": 6,
               "y": 1,
-              "width": 8,
-              "height": 7,
+              "width": 3,
+              "height": 6,
               "content": {
                 "$ref": "#/spec/panels/2"
               }
             },
             {
-              "x": 0,
-              "y": 8,
-              "width": 8,
-              "height": 7,
+              "x": 9,
+              "y": 1,
+              "width": 15,
+              "height": 6,
               "content": {
                 "$ref": "#/spec/panels/3"
               }
             },
             {
-              "x": 8,
+              "x": 0,
               "y": 8,
-              "width": 8,
-              "height": 7,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/4"
               }
             },
             {
-              "x": 16,
+              "x": 12,
               "y": 8,
-              "width": 8,
-              "height": 7,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/5"
               }
             },
             {
               "x": 0,
-              "y": 15,
-              "width": 8,
-              "height": 7,
+              "y": 16,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/6"
               }
             },
             {
-              "x": 8,
-              "y": 15,
-              "width": 8,
-              "height": 7,
+              "x": 12,
+              "y": 16,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/7"
               }
             },
             {
-              "x": 16,
-              "y": 15,
-              "width": 8,
+              "x": 0,
+              "y": 24,
+              "width": 24,
               "height": 7,
               "content": {
                 "$ref": "#/spec/panels/8"
@@ -826,65 +766,74 @@
             },
             {
               "x": 0,
-              "y": 22,
-              "width": 8,
-              "height": 7,
+              "y": 32,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/9"
               }
             },
             {
-              "x": 8,
-              "y": 22,
-              "width": 8,
-              "height": 7,
+              "x": 12,
+              "y": 32,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/10"
               }
             },
             {
-              "x": 16,
-              "y": 22,
-              "width": 8,
-              "height": 7,
+              "x": 0,
+              "y": 40,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/11"
               }
             },
             {
-              "x": 0,
-              "y": 29,
-              "width": 8,
-              "height": 7,
+              "x": 12,
+              "y": 40,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/12"
               }
             },
             {
-              "x": 8,
-              "y": 29,
-              "width": 8,
-              "height": 7,
+              "x": 0,
+              "y": 48,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/13"
               }
             },
             {
-              "x": 16,
-              "y": 29,
-              "width": 8,
-              "height": 7,
+              "x": 12,
+              "y": 48,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/14"
               }
             },
             {
               "x": 0,
-              "y": 36,
-              "width": 24,
-              "height": 10,
+              "y": 56,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/15"
+              }
+            },
+            {
+              "x": 12,
+              "y": 56,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/16"
               }
             }
           ]
