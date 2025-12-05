@@ -477,6 +477,24 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
+{{- if $featureGates.HanaDB }}
+- name: hanadbwebhook.mutators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-kubedb-com-v1alpha2-hanadb
+      port: 443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: [ "kubedb.com" ]
+      apiVersions: [ "*" ]
+      resources: [ "hanadbs" ]
+      operations: [ "CREATE", "UPDATE" ]
+  admissionReviewVersions: [ "v1beta1" ]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
 {{- if $featureGates.Singlestore }}
 - name: singlestorewebhook.mutators.kubedb.com
   clientConfig:

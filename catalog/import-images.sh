@@ -461,6 +461,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/prom-mysqld-expor
 $CMD push --allow-nondistributable-artifacts --insecure images/prometheuscommunity-elasticsearch-exporter-v1.7.0.tar $IMAGE_REGISTRY/prometheuscommunity/elasticsearch-exporter:v1.7.0
 $CMD push --allow-nondistributable-artifacts --insecure images/prometheuscommunity-postgres-exporter-v0.15.0.tar $IMAGE_REGISTRY/prometheuscommunity/postgres-exporter:v0.15.0
 $CMD push --allow-nondistributable-artifacts --insecure images/git-sync-git-sync-v4.4.2.tar $IMAGE_REGISTRY/git-sync/git-sync:v4.4.2
+$CMD push --allow-nondistributable-artifacts --insecure images/saplabs-hanaexpress-2.00.082.00.20250528.1.tar $IMAGE_REGISTRY/saplabs/hanaexpress:2.00.082.00.20250528.1
 $CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.1.32-e3d3cde6da-4.0.16-1.17.6.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6
 $CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.5.22-fe61f40cd1-4.1.0-1.17.11.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11
 $CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.5.7-bf633c1a54-4.0.17-1.17.8.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8
