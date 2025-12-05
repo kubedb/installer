@@ -172,12 +172,14 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		if gv.Group == "catalog.kubedb.com" {
+		switch gv.Group {
+		case "catalog.kubedb.com":
 			dbKind := strings.TrimSuffix(ri.Object.GetKind(), "Version")
 			deprecated, _, _ := unstructured.NestedBool(ri.Object.Object, "spec", "deprecated")
 
 			distro, _, _ := unstructured.NestedString(ri.Object.Object, "spec", "distribution")
-			if dbKind == "Elasticsearch" {
+			switch dbKind {
+			case "Elasticsearch":
 				authPlugin, _, _ := unstructured.NestedString(ri.Object.Object, "spec", "authPlugin")
 				if distro == "" {
 					distro = authPlugin
@@ -189,7 +191,7 @@ func main() {
 						panic(err)
 					}
 				}
-			} else if dbKind == "Postgres" {
+			case "Postgres":
 				if distro == "" {
 
 					distro = distroOfficial
@@ -201,7 +203,7 @@ func main() {
 						panic(err)
 					}
 				}
-			} else if dbKind == "MySQL" {
+			case "MySQL":
 				if distro == "" {
 					distro = distroOfficial
 					if strings.Contains(strings.ToLower(ri.Object.GetName()), "percona") {
@@ -221,7 +223,7 @@ func main() {
 						panic(err)
 					}
 				}
-			} else if dbKind == "MongoDB" {
+			case "MongoDB":
 				if distro == "" {
 					distro = distroOfficial
 					if strings.Contains(strings.ToLower(ri.Object.GetName()), "percona") {
@@ -232,12 +234,12 @@ func main() {
 						panic(err)
 					}
 				}
-			} else if dbKind == "KafkaConnector" {
+			case "KafkaConnector":
 				connectorType, _, _ := unstructured.NestedString(ri.Object.Object, "spec", "type")
 				if distro == "" {
 					distro = connectorType
 				}
-			} else if dbKind == "SchemaRegistry" {
+			case "SchemaRegistry":
 				distro, _, _ = unstructured.NestedString(ri.Object.Object, "spec", "distribution")
 			}
 
@@ -311,7 +313,7 @@ func main() {
 					restoreTaskStore[restoreTask] = append(restoreTaskStore[restoreTask], ri.Object.GetName())
 				}
 			}
-		} else if gv.Group == "policy" {
+		case "policy":
 			if _, ok := pspStore[ri.Object.GetName()]; ok {
 				panic("duplicate PSP name " + ri.Object.GetName())
 			}
@@ -570,7 +572,7 @@ func main() {
 			if dbKind == "KafkaConnector" || dbKind == "SchemaRegistry" {
 				tempKind = "Kafka"
 			}
-			data := map[string]interface{}{
+			data := map[string]any{
 				"kind":    tempKind,
 				"objects": copies,
 			}
@@ -624,7 +626,7 @@ func main() {
 				content := pspStore[pspName].DeepCopy().UnstructuredContent()
 				unstructured.RemoveNestedField(content, "spec", "allowPrivilegeEscalation")
 				unstructured.RemoveNestedField(content, "spec", "privileged")
-				data := map[string]interface{}{
+				data := map[string]any{
 					"kind":   dbKind,
 					"object": content,
 				}
@@ -790,7 +792,7 @@ func allDeprecated(objs []*unstructured.Unstructured) bool {
 // always return a string, even on marshal error (empty string).
 //
 // This is designed to be called from a template.
-func toYAML(v interface{}) string {
+func toYAML(v any) string {
 	data, err := yaml.Marshal(v)
 	if err != nil {
 		// Swallow errors inside of a template.
@@ -803,7 +805,7 @@ func toYAML(v interface{}) string {
 // always return a string, even on marshal error (empty string).
 //
 // This is designed to be called from a template.
-func toJSON(v interface{}) string {
+func toJSON(v any) string {
 	data, err := json.Marshal(v)
 	if err != nil {
 		// Swallow errors inside of a template.

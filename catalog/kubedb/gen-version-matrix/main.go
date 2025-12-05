@@ -303,7 +303,7 @@ func PrintTable(versions []string, updateData [][]string) string {
 	return buf.String()
 }
 
-func FromUnstructured(u map[string]interface{}, obj any) error {
+func FromUnstructured(u map[string]any, obj any) error {
 	data, err := json.Marshal(u)
 	if err != nil {
 		return err
