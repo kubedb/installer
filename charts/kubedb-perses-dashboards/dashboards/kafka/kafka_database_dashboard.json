@@ -1,0 +1,1281 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
+{
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "CpTnxT0Sz",
+    "createdAt": "0001-01-01T00:00:00Z",
+    "updatedAt": "0001-01-01T00:00:00Z",
+    "version": 0,
+    "project": "pp"
+  },
+  "spec": {
+    "display": {
+      "name": "KubeDB / Kafka / Database"
+    },
+    "variables": [
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "hidden": false
+          },
+          "defaultValue": "default",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "plugin": {
+            "kind": "DatasourceVariable",
+            "spec": {
+              "datasourcePluginKind": "PrometheusDatasource"
+            }
+          },
+          "name": "datasource"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "hidden": false
+          },
+          "defaultValue": "kafka",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "namespace",
+              "matchers": [
+                "kube_namespace_created"
+              ]
+            }
+          },
+          "name": "namespace"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Kafka",
+            "hidden": false
+          },
+          "defaultValue": "kafka-prod",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "app",
+              "matchers": [
+                "kubedb_com_kafka_status_phase{namespace=~\"$namespace\"}"
+              ]
+            }
+          },
+          "name": "app"
+        }
+      }
+    ],
+    "panels": {
+      "0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Status",
+            "description": "Status of Kafka Cluster"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kubedb_com_kafka_status_phase{namespace=\"$namespace\", app=\"$app\"} == 1",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Uptime",
+            "description": "Cluster Uptime"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "seconds"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "time() - process_start_time_seconds{namespace=~\"$namespace\",pod=~\"$app-.+$\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "10": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Underreplicated partitions"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [
+                {
+                  "name": "IsUnderreplicated"
+                }
+              ]
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_cluster_partition_underreplicated{namespace=\"$namespace\", pod=~\"$app-.+$\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "11": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Unknown Voter Connection",
+            "description": "Number of unknown voter connection"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": []
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_server_raft_metrics_number_unknown_voter_connections{namespace=~\"$namespace\",pod=~\"$app.+$\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "12": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "High Watermark",
+            "description": "The high watermark maintained on a member; -1 if it is unknown."
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": []
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_server_raft_metrics_high_watermark{namespace=~\"$namespace\",pod=~\"$app.+$\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "13": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Messages in topics",
+            "description": "Incoming message rate per topic. Omitting 'topic=(...)' will yield the all-topic rate."
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [],
+              "density": "compact"
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "${datasource}"
+                    },
+                    "minStep": "",
+                    "query": "kafka_server_brokertopicmetrics_messagesin_total{namespace=\"$namespace\",pod=~\"$app-.+$\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "14": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Fetch request rate",
+            "description": "Fetch request (from clients or followers) rate per topic."
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [],
+              "density": "compact"
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "${datasource}"
+                    },
+                    "minStep": "",
+                    "query": "kafka_server_brokertopicmetrics_totalfetchrequests_total{namespace=\"$namespace\",pod=~\"$app-.+$\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "15": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "First offset partitions",
+            "description": "The first offset in a partition."
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [],
+              "density": "compact"
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "${datasource}"
+                    },
+                    "minStep": "",
+                    "query": "kafka_log_log_logstartoffset{namespace=\"$namespace\",pod=~\"$app-.+$\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "16": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Last offset partitions",
+            "description": "The last offset in a partition."
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [],
+              "density": "compact"
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "${datasource}"
+                    },
+                    "minStep": "",
+                    "query": "kafka_log_log_logendoffset{namespace=\"$namespace\",pod=~\"$app-.+$\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "17": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Disk read",
+            "description": "Linux disk reads in MiB"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_server_kafkaserver_linux_disk_read_bytes{namespace=~\"$namespace\",pod=~\"$app.+$\"} / 1024 /1024",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "18": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Disk writes",
+            "description": "Linux disk write in MiB"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_server_kafkaserver_linux_disk_write_bytes{namespace=~\"$namespace\",pod=~\"$app.+$\"} / 1024 /1024",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "19": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Number of Messages",
+            "description": "Total number of messages per topic"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_server_brokertopicmetrics_messagesin_total{namespace=\"$namespace\", pod=~\"$app-.+$\", topic!~\"\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Controller Leader ID",
+            "description": "Current ID of the controller"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#fff899",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_server_raft_metrics_current_leader{namespace=~\"$namespace\",pod=~\"$app.+$\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "20": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Producer requests",
+            "description": "Producer request made in all the brokers"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_server_brokertopicmetrics_totalproducerequests_total{namespace=\"$namespace\", pod=~\"$app-.+$\"} != 0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "21": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Average Commit Latency",
+            "description": "The average time in milliseconds to commit an entry in the raft log."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_server_raft_metrics_commit_latency_avg{namespace=~\"$namespace\",pod=~\"$app.+$\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "22": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Quorum Epoch",
+            "description": "The current quorum epoch."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_server_raft_metrics_current_epoch{namespace=~\"$namespace\",pod=~\"$app.+$\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "23": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Byte in/out rate from clients",
+            "description": "Byte in/out (from the clients) rate per topic every 5m"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(rate(kafka_server_brokertopicmetrics_bytesin_total{pod=~\"$app-.+$\",namespace=~\"$namespace\",topic!~\"\"}[5m])) by (topic)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(rate(kafka_server_brokertopicmetrics_bytesout_total{pod=~\"$app-.+$\",namespace=~\"$namespace\",topic!~\"\"}[5m])) by (topic)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "24": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "The average fraction of time the request handler threads are idle",
+            "description": "between 0 and 1, ideally > 0.3"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "percent"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_server_kafkarequesthandlerpool_requesthandleravgidle_percent{namespace=\"$namespace\",pod=~\"$app-.+$\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "25": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Byte in/out total from clients",
+            "description": "Byte in (from the clients) rate per topic. Omitting 'topic=(...)' will yield the all-topic rate."
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [],
+              "density": "compact"
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "${datasource}"
+                    },
+                    "minStep": "",
+                    "query": "kafka_server_brokertopicmetrics_bytesin_total{namespace=\"$namespace\",pod=~\"$app-.+$\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_server_brokertopicmetrics_bytesin_total{namespace=\"$namespace\",pod=~\"$app-.+$\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "26": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Byte out rate to other brokers",
+            "description": "Byte out (to the other brokers) rate per topic."
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [],
+              "density": "compact"
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "${datasource}"
+                    },
+                    "minStep": "",
+                    "query": "kafka_server_brokertopicmetrics_replicationbytesout_total{namespace=\"$namespace\",pod=~\"$app-.+$\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Controller Leader",
+            "description": "Name of Controller leader"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_controller_kafkacontroller_activecontrollercount{namespace=~\"$namespace\",pod=~\"$app.+$\"} == 1 ",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "JVM Version",
+            "description": "JVM version of the cluster"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "label_join(jvm_info{namespace=\"$namespace\", pod=~\"$app-.+$\"}, \"jdk\", \", \", \"vendor\", \"runtime\", \"version\")",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Global Topic count",
+            "description": "The number of global topics as observed by this Controller."
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [],
+              "density": "compact"
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "kafka_controller_kafkacontroller_globaltopiccount{namespace=\"$namespace\", pod=~\"$app-.+$\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Global Partition Count\t",
+            "description": "The number of global partitions as observed by this Controller."
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [],
+              "density": "compact"
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "${datasource}"
+                    },
+                    "minStep": "",
+                    "query": "kafka_controller_kafkacontroller_globalpartitioncount{namespace=\"$namespace\", pod=~\"$app-.+$\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Offline Partition Count\t",
+            "description": "The number of offline topic partitions (non-internal) as observed by this Controller.\t"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [],
+              "density": "compact"
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "${datasource}"
+                    },
+                    "minStep": "",
+                    "query": "kafka_controller_kafkacontroller_offlinepartitionscount{namespace=\"$namespace\", pod=~\"$app-.+$\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "8": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Preferred Replica Imbalance Count\t",
+            "description": "The count of topic partitions for which the leader is not the preferred leader.\t"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [],
+              "density": "compact"
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "${datasource}"
+                    },
+                    "minStep": "",
+                    "query": "kafka_controller_kafkacontroller_preferredreplicaimbalancecount{namespace=\"$namespace\", pod=~\"$app-.+$\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Topic partition and replicas"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": []
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_cluster_partition_replicascount{namespace=\"$namespace\", pod=~\"$app-.+$\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "layouts": [
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Panel Group 1"
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 1,
+              "width": 4,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/0"
+              }
+            },
+            {
+              "x": 4,
+              "y": 1,
+              "width": 4,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/1"
+              }
+            },
+            {
+              "x": 8,
+              "y": 1,
+              "width": 3,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/2"
+              }
+            },
+            {
+              "x": 11,
+              "y": 1,
+              "width": 5,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/3"
+              }
+            },
+            {
+              "x": 16,
+              "y": 1,
+              "width": 8,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/4"
+              }
+            },
+            {
+              "x": 0,
+              "y": 5,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/5"
+              }
+            },
+            {
+              "x": 12,
+              "y": 5,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/6"
+              }
+            },
+            {
+              "x": 0,
+              "y": 13,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7"
+              }
+            },
+            {
+              "x": 12,
+              "y": 13,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/8"
+              }
+            },
+            {
+              "x": 0,
+              "y": 21,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/9"
+              }
+            },
+            {
+              "x": 12,
+              "y": 21,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/10"
+              }
+            },
+            {
+              "x": 0,
+              "y": 29,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/11"
+              }
+            },
+            {
+              "x": 12,
+              "y": 29,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/12"
+              }
+            },
+            {
+              "x": 0,
+              "y": 37,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/13"
+              }
+            },
+            {
+              "x": 12,
+              "y": 37,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/14"
+              }
+            },
+            {
+              "x": 0,
+              "y": 45,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/15"
+              }
+            },
+            {
+              "x": 12,
+              "y": 45,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/16"
+              }
+            },
+            {
+              "x": 0,
+              "y": 54,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/17"
+              }
+            },
+            {
+              "x": 12,
+              "y": 54,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/18"
+              }
+            },
+            {
+              "x": 0,
+              "y": 62,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/19"
+              }
+            },
+            {
+              "x": 12,
+              "y": 62,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/20"
+              }
+            },
+            {
+              "x": 0,
+              "y": 70,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/21"
+              }
+            },
+            {
+              "x": 12,
+              "y": 70,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/22"
+              }
+            },
+            {
+              "x": 0,
+              "y": 78,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/23"
+              }
+            },
+            {
+              "x": 12,
+              "y": 78,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/24"
+              }
+            },
+            {
+              "x": 0,
+              "y": 86,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/25"
+              }
+            },
+            {
+              "x": 12,
+              "y": 86,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/26"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "duration": "1h"
+  }
+}
