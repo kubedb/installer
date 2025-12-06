@@ -465,6 +465,8 @@ $CMD pull --allow-nondistributable-artifacts --insecure prom/memcached-exporter:
 $CMD pull --allow-nondistributable-artifacts --insecure prom/mysqld-exporter:v0.13.0 images/prom-mysqld-exporter-v0.13.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/elasticsearch-exporter:v1.7.0 images/prometheuscommunity-elasticsearch-exporter-v1.7.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/postgres-exporter:v0.15.0 images/prometheuscommunity-postgres-exporter-v0.15.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure qdrant/qdrant:v1.15.4-unprivileged images/qdrant-qdrant-v1.15.4-unprivileged.tar
+$CMD pull --allow-nondistributable-artifacts --insecure qdrant/qdrant:v1.16.2-unprivileged images/qdrant-qdrant-v1.16.2-unprivileged.tar
 $CMD pull --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.4.2 images/git-sync-git-sync-v4.4.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6 images/singlestore-cluster-in-a-box-alma-8.1.32-e3d3cde6da-4.0.16-1.17.6.tar
 $CMD pull --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11 images/singlestore-cluster-in-a-box-alma-8.5.22-fe61f40cd1-4.1.0-1.17.11.tar
