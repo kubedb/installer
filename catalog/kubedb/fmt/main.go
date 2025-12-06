@@ -49,6 +49,12 @@ const (
 	distroOfficial = "Official"
 )
 
+var ubiImageList = sets.NewString(
+	"ghcr.io/kubedb/mariadb-archiver",
+	"ghcr.io/kubedb/mysql-archiver",
+	"ghcr.io/kubedb/postgres-archiver",
+)
+
 type StashAddon struct {
 	DBType    string
 	DBVersion string
@@ -537,6 +543,10 @@ func main() {
 							}
 							if ref.Tag != "" && ref.Tag != "latest" {
 								newimg += ":" + ref.Tag
+								i2 := fmt.Sprintf("%s/%s", ref.Registry, ref.Repository)
+								if ubiImageList.Has(i2) {
+									newimg += `{{ include "catalog.ubi" $ }}`
+								}
 							}
 							err = unstructured.SetNestedField(objCopy.Object, newimg, fieldList...)
 							if err != nil {
