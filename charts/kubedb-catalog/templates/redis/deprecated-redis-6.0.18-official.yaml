@@ -1,9 +1,11 @@
 {{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
 {{- if .Values.global }}
   {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
 {{- end }}
 
-{{ if $featureGates.Redis }}
+{{ if and $featureGates.Redis (not (eq $ubi "operator")) }}
 {{ if or (not .Values.skipDeprecated) (has "6.0.18" .Values.enableVersions.Redis) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: RedisVersion
@@ -13,7 +15,7 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.38.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.38.0{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "redis") $) }}:6.0.18'
   distribution: Official

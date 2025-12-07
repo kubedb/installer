@@ -68,6 +68,13 @@ Returns the registry used for image docker image
 {{- list .Values.registryFQDN .Values.image.registry | compact | join "/" }}
 {{- end }}
 
+{{/*
+Returns if ubi images are to be used
+*/}}
+{{- define "operator.ubi" -}}
+{{ ternary "-ubi" "" (list "operator" "all" | has .Values.distro.ubi) }}
+{{- end }}
+
 {{- define "appscode.imagePullSecrets" -}}
 {{- with .Values.imagePullSecrets -}}
 imagePullSecrets:
