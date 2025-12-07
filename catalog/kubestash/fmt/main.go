@@ -213,7 +213,7 @@ func main() {
 					panic("unsupported registry for image " + img)
 				}
 				if found {
-					newimg += ":" + tag
+					newimg += ":" + tag + `{{ include "catalog.ubi" $ }}`
 				}
 				err = unstructured.SetNestedField(obj.UnstructuredContent(), newimg, "spec", "image")
 				if err != nil {

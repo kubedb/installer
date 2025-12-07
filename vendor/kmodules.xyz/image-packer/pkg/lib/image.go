@@ -17,6 +17,7 @@ limitations under the License.
 package lib
 
 import (
+	"io"
 	"os"
 	"path/filepath"
 	"sort"
@@ -29,15 +30,15 @@ import (
 	"k8s.io/klog/v2"
 )
 
-func ListDockerImages(rootDir string) ([]string, error) {
-	images, err := MapImages(rootDir)
+func ListDockerImages(rootDir string, values map[string]string) ([]string, error) {
+	images, err := MapImages(rootDir, values)
 	if err != nil {
 		return nil, err
 	}
 	return ListImages(images), nil
 }
 
-func MapImages(rootDir string) (map[string]string, error) {
+func MapImages(rootDir string, values map[string]string) (map[string]string, error) {
 	entries, err := os.ReadDir(rootDir)
 	if err != nil {
 		return nil, err
@@ -52,36 +53,62 @@ func MapImages(rootDir string) (map[string]string, error) {
 		if !entry.IsDir() {
 			continue
 		}
+		mapChartImages(rootDir, values, sh, entry, images)
+	}
+	return images, nil
+}
 
-		err := sh.SetDir(filepath.Join(rootDir, entry.Name())).Command("helm", "dependency", "update").Run()
+func mapChartImages(rootDir string, values map[string]string, sh *shell.Session, entry os.DirEntry, images map[string]string) {
+	err := sh.SetDir(filepath.Join(rootDir, entry.Name())).Command("helm", "dependency", "update").Run()
+	if err != nil {
+		panic(err)
+	}
+
+	args := []any{"template", entry.Name()}
+
+	content, ok := values[entry.Name()]
+	if ok {
+		tmpfile, err := os.CreateTemp("", entry.Name()+"-val-*.yaml")
+		if err != nil {
+			klog.Fatal(err)
+		}
+		defer os.Remove(tmpfile.Name()) // nolint:errcheck
+
+		if _, err := io.WriteString(tmpfile, content); err != nil {
+			tmpfile.Close() // nolint:errcheck
+			klog.Fatal(err)
+		}
+
+		// 4. Close the file handle
+		// We must close the file handle before attempting to read from it or before the defer os.Remove runs.
+		if err := tmpfile.Close(); err != nil {
+			klog.Fatal(err)
+		}
+
+		args = append(args, "--values="+tmpfile.Name())
+	}
+
+	if entry.Name() == "cluster-manager-spoke" {
+		args = append(args, "--dry-run=server")
+	} else {
+		if files, err := filepath.Glob(filepath.Join(rootDir, entry.Name(), "*.sample.yaml")); err == nil && len(files) > 0 {
+			for _, file := range files {
+				args = append(args, "--values="+entry.Name()+"/"+filepath.Base(file))
+			}
+		}
+	}
+	if out, err := sh.SetDir(rootDir).Command("helm", args...).Output(); err == nil {
+		helmout, err := parser.ListResources(out)
 		if err != nil {
 			panic(err)
 		}
 
-		args := []any{"template", entry.Name()}
-		if entry.Name() == "cluster-manager-spoke" {
-			args = append(args, "--dry-run=server")
-		} else {
-			if files, err := filepath.Glob(filepath.Join(rootDir, entry.Name(), "*.sample.yaml")); err == nil && len(files) > 0 {
-				for _, file := range files {
-					args = append(args, "--values="+entry.Name()+"/"+filepath.Base(file))
-				}
-			}
+		for _, ri := range helmout {
+			collectImages(ri.Object.UnstructuredContent(), images, ri.Object.GetObjectKind().GroupVersionKind().GroupKind().String())
 		}
-		if out, err := sh.SetDir(rootDir).Command("helm", args...).Output(); err == nil {
-			helmout, err := parser.ListResources(out)
-			if err != nil {
-				panic(err)
-			}
-
-			for _, ri := range helmout {
-				collectImages(ri.Object.UnstructuredContent(), images, ri.Object.GetObjectKind().GroupVersionKind().GroupKind().String())
-			}
-		} else {
-			klog.Infof("Skipping %s due to error: %v", entry.Name(), err)
-		}
+	} else {
+		klog.Infof("Skipping %s due to error: %v", entry.Name(), err)
 	}
-	return images, nil
 }
 
 func collectImages(obj map[string]any, images map[string]string, srcGK string) {

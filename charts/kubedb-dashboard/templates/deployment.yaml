@@ -35,7 +35,7 @@ spec:
       {{- if and .Values.global .Values.global.waitForWebhook }}
       initContainers:
       - name: wait
-        image: {{ include "waitfor.registry" . }}/{{ .Values.waitfor.repository }}:{{ .Values.waitfor.tag }}
+        image: {{ include "waitfor.registry" . }}/{{ .Values.waitfor.repository }}:{{ .Values.waitfor.tag }}{{ include "operator.ubi" . }}
         imagePullPolicy: {{ .Values.imagePullPolicy  }}
         command:
         - /bin/sh
@@ -61,7 +61,7 @@ spec:
         securityContext:
           {{- toYaml .Values.operator.securityContext | nindent 10 }}
         {{- end }}
-        image: {{ include "operator.registry" . }}/{{ .Values.operator.repository }}:{{ .Values.operator.tag | default .Chart.AppVersion }}
+        image: {{ include "operator.registry" . }}/{{ .Values.operator.repository }}:{{ .Values.operator.tag | default .Chart.AppVersion }}{{ include "operator.ubi" . }}
         imagePullPolicy: {{ .Values.imagePullPolicy  }}
         args:
         - operator

@@ -94,6 +94,13 @@ Returns the registry used for waitfor docker image
 {{- list .Values.registryFQDN .Values.waitfor.registry | compact | join "/" }}
 {{- end }}
 
+{{/*
+Returns if ubi images are to be used
+*/}}
+{{- define "operator.ubi" -}}
+{{ ternary "-ubi" "" (list "operator" "all" | has .Values.distro.ubi) }}
+{{- end }}
+
 {{- define "docker.imagePullSecrets" -}}
 {{- with .Values.imagePullSecrets -}}
 imagePullSecrets:

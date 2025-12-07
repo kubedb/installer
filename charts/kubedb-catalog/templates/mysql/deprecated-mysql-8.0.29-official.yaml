@@ -1,9 +1,11 @@
 {{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
 {{- if .Values.global }}
   {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
 {{- end }}
 
-{{ if $featureGates.MySQL }}
+{{ if and $featureGates.MySQL (not (eq $ubi "operator")) }}
 {{ if or (not .Values.skipDeprecated) (has "8.0.29" .Values.enableVersions.MySQL) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
@@ -13,7 +15,7 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.37.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.37.0{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql") $) }}:8.0.29-oracle'
   distribution: Official
@@ -24,7 +26,7 @@ spec:
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:8.0.31-v6'
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.46.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.46.0{{ include "catalog.ubi" $ }}'
   securityContext:
     runAsUser: 999
   stash:
