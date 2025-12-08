@@ -158,6 +158,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/me
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.29-alpine $IMAGE_REGISTRY/appscode-images/memcached:1.6.29-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.33-alpine $IMAGE_REGISTRY/appscode-images/memcached:1.6.33-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached_exporter:v0.14.3-ac $IMAGE_REGISTRY/appscode-images/memcached_exporter:v0.14.3-ac
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/milvus:2.6.7 $IMAGE_REGISTRY/appscode-images/milvus:2.6.7
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:4.2.24 $IMAGE_REGISTRY/appscode-images/mongo:4.2.24
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:4.4.26 $IMAGE_REGISTRY/appscode-images/mongo:4.4.26
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:5.0.23 $IMAGE_REGISTRY/appscode-images/mongo:5.0.23
@@ -478,4 +479,3 @@ $CMD cp --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14
 $CMD cp --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg14-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg14-oss
 $CMD cp --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg15-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg15-oss
 $CMD cp --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg16-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg16-oss
-$CMD cp --allow-nondistributable-artifacts --insecure urmibiswas/milvus-nonroot:2.6.7 $IMAGE_REGISTRY/urmibiswas/milvus-nonroot:2.6.7

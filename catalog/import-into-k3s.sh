@@ -147,6 +147,7 @@ k3s ctr images import images/appscode-images-memcached-1.6.22-alpine.tar
 k3s ctr images import images/appscode-images-memcached-1.6.29-alpine.tar
 k3s ctr images import images/appscode-images-memcached-1.6.33-alpine.tar
 k3s ctr images import images/appscode-images-memcached_exporter-v0.14.3-ac.tar
+k3s ctr images import images/appscode-images-milvus-2.6.7.tar
 k3s ctr images import images/appscode-images-mongo-4.2.24.tar
 k3s ctr images import images/appscode-images-mongo-4.4.26.tar
 k3s ctr images import images/appscode-images-mongo-5.0.23.tar
@@ -467,4 +468,3 @@ k3s ctr images import images/timescale-timescaledb-2.14.2-pg13-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg14-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg15-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg16-oss.tar
-k3s ctr images import images/urmibiswas-milvus-nonroot-2.6.7.tar

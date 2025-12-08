@@ -149,6 +149,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached-1.6.29-alpine.tar $IMAGE_REGISTRY/appscode-images/memcached:1.6.29-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached-1.6.33-alpine.tar $IMAGE_REGISTRY/appscode-images/memcached:1.6.33-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached_exporter-v0.14.3-ac.tar $IMAGE_REGISTRY/appscode-images/memcached_exporter:v0.14.3-ac
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-milvus-2.6.7.tar $IMAGE_REGISTRY/appscode-images/milvus:2.6.7
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-4.2.24.tar $IMAGE_REGISTRY/appscode-images/mongo:4.2.24
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-4.4.26.tar $IMAGE_REGISTRY/appscode-images/mongo:4.4.26
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-5.0.23.tar $IMAGE_REGISTRY/appscode-images/mongo:5.0.23
@@ -469,4 +470,3 @@ $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timesca
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg14-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg14-oss
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg15-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg15-oss
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg16-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg16-oss
-$CMD push --allow-nondistributable-artifacts --insecure images/urmibiswas-milvus-nonroot-2.6.7.tar $IMAGE_REGISTRY/urmibiswas/milvus-nonroot:2.6.7
