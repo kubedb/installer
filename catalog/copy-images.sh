@@ -320,8 +320,8 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zo
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.8.3 $IMAGE_REGISTRY/appscode-images/zookeeper:3.8.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.9.1 $IMAGE_REGISTRY/appscode-images/zookeeper:3.9.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.31 $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.31
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.14 $IMAGE_REGISTRY/appscode/petset:v0.0.14
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.11 $IMAGE_REGISTRY/appscode/sidekick:v0.0.11
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.15 $IMAGE_REGISTRY/appscode/petset:v0.0.15
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.12 $IMAGE_REGISTRY/appscode/sidekick:v0.0.12
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6-v2 $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0-v2 $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-medusa-plugin:v0.6.0 $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.6.0
@@ -473,6 +473,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure prom/memcached-exporter:v0
 $CMD cp --allow-nondistributable-artifacts --insecure prom/mysqld-exporter:v0.13.0 $IMAGE_REGISTRY/prom/mysqld-exporter:v0.13.0
 $CMD cp --allow-nondistributable-artifacts --insecure prometheuscommunity/elasticsearch-exporter:v1.7.0 $IMAGE_REGISTRY/prometheuscommunity/elasticsearch-exporter:v1.7.0
 $CMD cp --allow-nondistributable-artifacts --insecure prometheuscommunity/postgres-exporter:v0.15.0 $IMAGE_REGISTRY/prometheuscommunity/postgres-exporter:v0.15.0
+$CMD cp --allow-nondistributable-artifacts --insecure qdrant/qdrant:v1.15.4 $IMAGE_REGISTRY/qdrant/qdrant:v1.15.4
 $CMD cp --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.4.2 $IMAGE_REGISTRY/git-sync/git-sync:v4.4.2
 $CMD cp --allow-nondistributable-artifacts --insecure saplabs/hanaexpress:2.00.082.00.20250528.1 $IMAGE_REGISTRY/saplabs/hanaexpress:2.00.082.00.20250528.1
 $CMD cp --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6 $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6
@@ -484,4 +485,3 @@ $CMD cp --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14
 $CMD cp --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg14-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg14-oss
 $CMD cp --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg15-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg15-oss
 $CMD cp --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg16-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg16-oss
-$CMD cp --allow-nondistributable-artifacts --insecure docker.io/qdrant/qdrant:v1.15.4 $IMAGE_REGISTRY/qdrant/qdrant:v1.15.4
