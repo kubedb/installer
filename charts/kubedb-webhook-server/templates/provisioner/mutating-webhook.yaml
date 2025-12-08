@@ -441,8 +441,6 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
-
-
 {{- if $featureGates.Redis }}
 - name: rediswebhook.mutators.kubedb.com
   clientConfig:
@@ -549,25 +547,23 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
-
-{{- if $featureGates.Weaviate }}
-- name: weaviatewebhook.mutators.kubedb.com
+{{- if $featureGates.DB2 }}
+- name: db2webhook.mutators.kubedb.com
   clientConfig:
     service:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /mutate-kubedb-com-v1alpha2-weaviate
+      path: /mutate-kubedb-com-v1alpha2-db2
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: [ "kubedb.com" ]
       apiVersions: [ "*" ]
-      resources: [ "weaviates" ]
-      operations: [ "CREATE", "UPDATE" ]
+      resources: [ "db2s" ]
+      operations: [ "CREATE", "UPDATE", "DELETE" ]
   admissionReviewVersions: [ "v1beta1" ]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
-
 {{- end }}
 {{- end }}
