@@ -70,7 +70,6 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | featureGates.MongoDB                       |                                                 | <code>true</code>              |
 | featureGates.MSSQLServer                   |                                                 | <code>true</code>              |
 | featureGates.MySQL                         |                                                 | <code>true</code>              |
-| featureGates.Milvus                        |                                                 | <code>true</code>              |
 | featureGates.Oracle                        |                                                 | <code>true</code>              |
 | featureGates.PerconaXtraDB                 |                                                 | <code>true</code>              |
 | featureGates.PgBouncer                     |                                                 | <code>true</code>              |
@@ -116,7 +115,6 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | enableVersions.MSSQLServer                 |                                                 | <code>[]</code>                |
 | enableVersions.MongoDB                     |                                                 | <code>[]</code>                |
 | enableVersions.MySQL                       |                                                 | <code>[]</code>                |
-| enableVersions.Milvus                      |                                                 | <code>[]</code>                |
 | enableVersions.Oracle                      |                                                 | <code>[]</code>                |
 | enableVersions.PerconaXtraDB               |                                                 | <code>[]</code>                |
 | enableVersions.PgBouncer                   |                                                 | <code>[]</code>                |
