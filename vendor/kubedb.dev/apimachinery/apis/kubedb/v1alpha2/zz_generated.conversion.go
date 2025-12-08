@@ -24,6 +24,8 @@ package v1alpha2
 import (
 	unsafe "unsafe"
 
+	v1 "kubedb.dev/apimachinery/apis/kubedb/v1"
+
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	conversion "k8s.io/apimachinery/pkg/conversion"
@@ -33,7 +35,6 @@ import (
 	monitoringagentapiapiv1 "kmodules.xyz/monitoring-agent-api/api/v1"
 	apiv1 "kmodules.xyz/offshoot-api/api/v1"
 	v2 "kmodules.xyz/offshoot-api/api/v2"
-	v1 "kubedb.dev/apimachinery/apis/kubedb/v1"
 )
 
 func init() {
@@ -3718,6 +3719,7 @@ func autoConvert_v1alpha2_PostgresReplication_To_v1_PostgresReplication(in *Post
 	out.WalKeepSizeInMegaBytes = (*int32)(unsafe.Pointer(in.WalKeepSizeInMegaBytes))
 	out.WalKeepSegment = (*int32)(unsafe.Pointer(in.WalKeepSegment))
 	out.MaxSlotWALKeepSizeInMegaBytes = (*int32)(unsafe.Pointer(in.MaxSlotWALKeepSizeInMegaBytes))
+	out.ForceFailOverAcceptingDataLossAfter = (*metav1.Duration)(unsafe.Pointer(in.ForceFailOverAcceptingDataLossAfter))
 	return nil
 }
 
@@ -3731,6 +3733,7 @@ func autoConvert_v1_PostgresReplication_To_v1alpha2_PostgresReplication(in *v1.P
 	out.WalKeepSizeInMegaBytes = (*int32)(unsafe.Pointer(in.WalKeepSizeInMegaBytes))
 	out.WalKeepSegment = (*int32)(unsafe.Pointer(in.WalKeepSegment))
 	out.MaxSlotWALKeepSizeInMegaBytes = (*int32)(unsafe.Pointer(in.MaxSlotWALKeepSizeInMegaBytes))
+	out.ForceFailOverAcceptingDataLossAfter = (*metav1.Duration)(unsafe.Pointer(in.ForceFailOverAcceptingDataLossAfter))
 	return nil
 }
 
@@ -3808,6 +3811,7 @@ func autoConvert_v1_PostgresSpec_To_v1alpha2_PostgresSpec(in *v1.PostgresSpec, o
 	out.Archiver = (*Archiver)(unsafe.Pointer(in.Archiver))
 	out.Arbiter = (*ArbiterSpec)(unsafe.Pointer(in.Arbiter))
 	out.Replication = (*PostgresReplication)(unsafe.Pointer(in.Replication))
+	// WARNING: in.Tuning requires manual conversion: does not exist in peer-type
 	return nil
 }
 

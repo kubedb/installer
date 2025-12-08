@@ -39,7 +39,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func (r *Weaviate) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+func (*Weaviate) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
 	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralWeaviate))
 }
 
@@ -129,10 +129,6 @@ func (w *Weaviate) ServiceLabels(alias ServiceAlias, extraLabels ...map[string]s
 	return w.offshootLabels(meta_util.OverwriteKeys(w.OffshootSelectors(), extraLabels...), svcTemplate.Labels)
 }
 
-func (w *Weaviate) PVCName(alias string) string {
-	return meta_util.NameWithSuffix(w.Name, alias)
-}
-
 func (w *Weaviate) SetHealthCheckerDefaults() {
 	if w.Spec.HealthChecker.PeriodSeconds == nil {
 		w.Spec.HealthChecker.PeriodSeconds = pointer.Int32P(10)
@@ -157,11 +153,7 @@ func (w *Weaviate) GetAuthSecretName() string {
 	if w.Spec.AuthSecret != nil && w.Spec.AuthSecret.Name != "" {
 		return w.Spec.AuthSecret.Name
 	}
-	return w.DefaultUserCredSecretName()
-}
-
-func (m *Weaviate) DefaultUserCredSecretName() string {
-	return meta_util.NameWithSuffix(m.OffshootName(), "auth")
+	return meta_util.NameWithSuffix(w.OffshootName(), "auth")
 }
 
 func (w *Weaviate) Finalizer() string {
@@ -245,42 +237,25 @@ func (w *Weaviate) assignDefaultContainerSecurityContext(wvVersion *catalog.Weav
 	}
 }
 
-func (w *Weaviate) ServiceAccountName() string {
-	return w.OffshootName()
-}
-
-func (w *Weaviate) DefaultPodRoleName() string {
-	return meta_util.NameWithSuffix(w.OffshootName(), "role")
-}
-
-func (w *Weaviate) DefaultPodRoleBindingName() string {
-	return meta_util.NameWithSuffix(w.OffshootName(), "rolebinding")
-}
-
 func (w *Weaviate) GetAPIKey(ctx context.Context, kc client.Client) string {
-	var secretName string
-	if w.Spec.AuthSecret != nil {
-		secretName = w.GetAuthSecretName()
-	}
-
+	secretName := w.GetAuthSecretName()
 	var secret core.Secret
 	err := kc.Get(ctx, client.ObjectKey{Namespace: w.Namespace, Name: secretName}, &secret)
 	if err != nil {
 		return ""
 	}
-
 	apiKey, ok := secret.Data[kubedb.WeaviateAPIKey]
 	if !ok {
 		return ""
 	}
-
 	return string(apiKey)
 }
 
 func (w *Weaviate) GetConnectionScheme() string {
 	scheme := "http"
-	//if w.Spec.EnableSSL {
-	//	scheme = "https"
-	//}
 	return scheme
+}
+
+func (w *Weaviate) ConfigSecretName() string {
+	return fmt.Sprintf("%s-config", w.Name)
 }

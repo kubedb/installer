@@ -206,7 +206,7 @@ func (rs *RedisSentinel) SetDefaults(rdVersion *catalog.RedisVersion) error {
 	}
 
 	if rs.Spec.Replicas == nil {
-		rs.Spec.Replicas = pointer.Int32P(3)
+		rs.Spec.Replicas = pointer.Int32P(1)
 	}
 
 	if rs.Spec.StorageType == "" {
@@ -271,7 +271,7 @@ func (rs *RedisSentinel) GetPersistentSecrets() []string {
 	}
 
 	var secrets []string
-	if rs.Spec.AuthSecret != nil {
+	if !IsVirtualAuthSecretReferred(rs.Spec.AuthSecret) && rs.Spec.AuthSecret != nil && rs.Spec.AuthSecret.Name != "" {
 		secrets = append(secrets, rs.Spec.AuthSecret.Name)
 	}
 	return secrets
