@@ -39,6 +39,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-ke
 $CMD pull --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-keeper:25.7.1 images/clickhouse-clickhouse-keeper-25.7.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-server:24.4.1 images/clickhouse-clickhouse-server-24.4.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-server:25.7.1 images/clickhouse-clickhouse-server-25.7.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure cr.weaviate.io/semitechnologies/weaviate:1.33.1 images/semitechnologies-weaviate-1.33.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0 images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/aiven-open/karapace:3.15.0 images/aiven-open-karapace-3.15.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-exporter:2.3.8 images/appscode-images-cassandra-exporter-2.3.8.tar
@@ -353,7 +354,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-a
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-coordinator:v0.39.0 images/kubedb-mariadb-coordinator-v0.39.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-csi-snapshotter-plugin:v0.19.0 images/kubedb-mariadb-csi-snapshotter-plugin-v0.19.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-init:0.8.0 images/kubedb-mariadb-init-0.8.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.17.0 images/kubedb-mariadb-restic-plugin-v0.17.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.17.0_11.1.3-jammy images/kubedb-mariadb-restic-plugin-v0.17.0_11.1.3-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.20.0 images/kubedb-mongodb-csi-snapshotter-plugin-v0.20.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 images/kubedb-mongodb-init-4.2-v9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v11 images/kubedb-mongodb-init-6.0-v11.tar
