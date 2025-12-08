@@ -482,3 +482,4 @@ $CMD cp --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14
 $CMD cp --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg14-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg14-oss
 $CMD cp --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg15-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg15-oss
 $CMD cp --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg16-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg16-oss
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/qdrant/qdrant:v1.15.4 $IMAGE_REGISTRY/qdrant/qdrant:v1.15.4
