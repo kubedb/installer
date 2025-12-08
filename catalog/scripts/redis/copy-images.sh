@@ -54,7 +54,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/va
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:8.0.3 $IMAGE_REGISTRY/appscode-images/valkey:8.0.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:8.1.1 $IMAGE_REGISTRY/appscode-images/valkey:8.1.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-coordinator:v0.38.0 $IMAGE_REGISTRY/kubedb/redis-coordinator:v0.38.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.12.0 $IMAGE_REGISTRY/kubedb/redis-init:0.12.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.12.1 $IMAGE_REGISTRY/kubedb/redis-init:0.12.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4.0.11 $IMAGE_REGISTRY/kubedb/redis:4.0.11
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis_exporter:1.66.0 $IMAGE_REGISTRY/kubedb/redis_exporter:1.66.0
 $CMD cp --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.4.2 $IMAGE_REGISTRY/git-sync/git-sync:v4.4.2

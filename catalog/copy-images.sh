@@ -427,7 +427,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-in
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:3.13.2 $IMAGE_REGISTRY/kubedb/rabbitmq-init:3.13.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:4.0.4 $IMAGE_REGISTRY/kubedb/rabbitmq-init:4.0.4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-coordinator:v0.38.0 $IMAGE_REGISTRY/kubedb/redis-coordinator:v0.38.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.12.0 $IMAGE_REGISTRY/kubedb/redis-init:0.12.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.12.1 $IMAGE_REGISTRY/kubedb/redis-init:0.12.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.22.0 $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.22.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4.0.11 $IMAGE_REGISTRY/kubedb/redis:4.0.11
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis_exporter:1.66.0 $IMAGE_REGISTRY/kubedb/redis_exporter:1.66.0
@@ -473,6 +473,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure prom/mysqld-exporter:v0.13
 $CMD cp --allow-nondistributable-artifacts --insecure prometheuscommunity/elasticsearch-exporter:v1.7.0 $IMAGE_REGISTRY/prometheuscommunity/elasticsearch-exporter:v1.7.0
 $CMD cp --allow-nondistributable-artifacts --insecure prometheuscommunity/postgres-exporter:v0.15.0 $IMAGE_REGISTRY/prometheuscommunity/postgres-exporter:v0.15.0
 $CMD cp --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.4.2 $IMAGE_REGISTRY/git-sync/git-sync:v4.4.2
+$CMD cp --allow-nondistributable-artifacts --insecure saplabs/hanaexpress:2.00.082.00.20250528.1 $IMAGE_REGISTRY/saplabs/hanaexpress:2.00.082.00.20250528.1
 $CMD cp --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6 $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6
 $CMD cp --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11 $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11
 $CMD cp --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8 $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8
