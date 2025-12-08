@@ -601,23 +601,5 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
-{{- if $featureGates.DB2 }}
-- name: db2webhook.validators.kubedb.com
-  clientConfig:
-    service:
-      namespace: {{ .Release.Namespace }}
-      name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kubedb-com-v1alpha2-db2
-      port: 443
-    caBundle: {{ $._caCrt }}
-  rules:
-    - apiGroups: [ "kubedb.com" ]
-      apiVersions: [ "*" ]
-      resources: [ "db2s" ]
-      operations: [ "CREATE", "UPDATE", "DELETE" ]
-  admissionReviewVersions: [ "v1beta1" ]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
-{{- end }}
 {{- end }}
 {{- end }}

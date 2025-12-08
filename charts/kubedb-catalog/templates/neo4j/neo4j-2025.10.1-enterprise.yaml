@@ -1,0 +1,22 @@
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.Neo4j (not (eq $ubi "operator")) }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: Neo4jVersion
+metadata:
+  name: '2025.10.1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "neo4j") $) }}:2025.10.1-enterprise'
+  securityContext:
+    runAsUser: 7474
+  version: 2025.10.1-enterprise
+{{ end }}
