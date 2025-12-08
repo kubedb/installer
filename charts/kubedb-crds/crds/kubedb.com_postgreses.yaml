@@ -196,16 +196,22 @@ spec:
                     format: date-time
                     type: string
                   apiGroup:
+                    default: ""
                     type: string
                   externallyManaged:
                     type: boolean
+                  kind:
+                    default: Secret
+                    type: string
                   name:
-                    default: ""
                     type: string
                   rotateAfter:
                     type: string
                   secretStoreName:
                     type: string
+                required:
+                - kind
+                - name
                 type: object
                 x-kubernetes-map-type: atomic
               autoOps:
@@ -4665,6 +4671,8 @@ spec:
                 type: integer
               replication:
                 properties:
+                  forceFailOverAcceptingDataLossAfter:
+                    type: string
                   maxSlotWALKeepSize:
                     format: int32
                     type: integer
@@ -4962,6 +4970,40 @@ spec:
                     type: object
                     x-kubernetes-map-type: atomic
                 type: object
+              tuning:
+                properties:
+                  disableAutoTune:
+                    type: boolean
+                  maxConnections:
+                    format: int32
+                    type: integer
+                  resourcesOverride:
+                    properties:
+                      cpu:
+                        format: int32
+                        type: integer
+                      memory:
+                        anyOf:
+                        - type: integer
+                        - type: string
+                        pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                        x-kubernetes-int-or-string: true
+                    type: object
+                  storageType:
+                    enum:
+                    - ssd
+                    - hdd
+                    - san
+                    type: string
+                  tuningProfile:
+                    enum:
+                    - web
+                    - oltp
+                    - dw
+                    - mixed
+                    - desktop
+                    type: string
+                type: object
               version:
                 type: string
             required:
@@ -5190,16 +5232,22 @@ spec:
                     format: date-time
                     type: string
                   apiGroup:
+                    default: ""
                     type: string
                   externallyManaged:
                     type: boolean
+                  kind:
+                    default: Secret
+                    type: string
                   name:
-                    default: ""
                     type: string
                   rotateAfter:
                     type: string
                   secretStoreName:
                     type: string
+                required:
+                - kind
+                - name
                 type: object
                 x-kubernetes-map-type: atomic
               autoOps:
@@ -9320,6 +9368,8 @@ spec:
                 type: integer
               replication:
                 properties:
+                  forceFailOverAcceptingDataLossAfter:
+                    type: string
                   maxSlotWALKeepSize:
                     format: int32
                     type: integer

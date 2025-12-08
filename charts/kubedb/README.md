@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb --version=v2025.8.31
-$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2025.8.31
+$ helm search repo appscode/kubedb --version=v2025.10.17
+$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2025.10.17
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeDB operator on a [Kubernetes](http://kubernetes.io) clu
 To install/upgrade the chart with the release name `kubedb`:
 
 ```bash
-$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2025.8.31
+$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2025.10.17
 ```
 
 The command deploys a KubeDB operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -86,6 +86,7 @@ The following table lists the configurable parameters of the `kubedb` chart and 
 | global.waitForWebhook                                 |                                                                                                                                                                                                                                                                                                                                                                       | <code>true</code>                                          |
 | global.networkPolicy.enabled                          |                                                                                                                                                                                                                                                                                                                                                                       | <code>false</code>                                         |
 | global.distro.openshift                               |                                                                                                                                                                                                                                                                                                                                                                       | <code>false</code>                                         |
+| global.distro.ubi                                     |                                                                                                                                                                                                                                                                                                                                                                       | <code>""</code>                                            |
 | petset.enabled                                        | If enabled, installs the petset chart                                                                                                                                                                                                                                                                                                                                 | <code>true</code>                                          |
 | operator-shard-manager.enabled                        | If enabled, installs the operator-shard-manager chart                                                                                                                                                                                                                                                                                                                 | <code>false</code>                                         |
 | sidekick.enabled                                      | If enabled, installs the sidekick chart                                                                                                                                                                                                                                                                                                                               | <code>true</code>                                          |
@@ -119,12 +120,12 @@ The following table lists the configurable parameters of the `kubedb` chart and 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2025.8.31 --set global.registry=kubedb
+$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2025.10.17 --set global.registry=kubedb
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2025.8.31 --values values.yaml
+$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2025.10.17 --values values.yaml
 ```

@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb-kubestash-catalog --version=v2025.8.31
-$ helm upgrade -i kubedb-kubestash-catalog appscode/kubedb-kubestash-catalog -n stash --create-namespace --version=v2025.8.31
+$ helm search repo appscode/kubedb-kubestash-catalog --version=v2025.10.17
+$ helm upgrade -i kubedb-kubestash-catalog appscode/kubedb-kubestash-catalog -n stash --create-namespace --version=v2025.10.17
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys Stash catalog on a [Kubernetes](http://kubernetes.io) cluster
 To install/upgrade the chart with the release name `kubedb-kubestash-catalog`:
 
 ```bash
-$ helm upgrade -i kubedb-kubestash-catalog appscode/kubedb-kubestash-catalog -n stash --create-namespace --version=v2025.8.31
+$ helm upgrade -i kubedb-kubestash-catalog appscode/kubedb-kubestash-catalog -n stash --create-namespace --version=v2025.10.17
 ```
 
 The command deploys Stash catalog on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -104,17 +104,19 @@ The following table lists the configurable parameters of the `kubedb-kubestash-c
 | zookeeper.backup.args      | Arguments to pass to `zk-dump` command  during bakcup process                                                                                                                                                                                                                                                                                                                   | <code>""</code>                |
 | zookeeper.restore.args     | Arguments to pass to `zookeeper` command during restore process                                                                                                                                                                                                                                                                                                                 | <code>""</code>                |
 | kubedbverifier.enabled     |                                                                                                                                                                                                                                                                                                                                                                                 | <code>true</code>              |
+| distro.openshift           |                                                                                                                                                                                                                                                                                                                                                                                 | <code>false</code>             |
+| distro.ubi                 |                                                                                                                                                                                                                                                                                                                                                                                 | <code>""</code>                |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-kubestash-catalog appscode/kubedb-kubestash-catalog -n stash --create-namespace --version=v2025.8.31 --set proxies.ghcr=ghcr.io
+$ helm upgrade -i kubedb-kubestash-catalog appscode/kubedb-kubestash-catalog -n stash --create-namespace --version=v2025.10.17 --set proxies.ghcr=ghcr.io
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-kubestash-catalog appscode/kubedb-kubestash-catalog -n stash --create-namespace --version=v2025.8.31 --values values.yaml
+$ helm upgrade -i kubedb-kubestash-catalog appscode/kubedb-kubestash-catalog -n stash --create-namespace --version=v2025.10.17 --values values.yaml
 ```

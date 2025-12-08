@@ -1,9 +1,11 @@
 {{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
 {{- if .Values.global }}
   {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
 {{- end }}
 
-{{ if $featureGates.MariaDB }}
+{{ if and $featureGates.MariaDB (not (eq $ubi "operator")) }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MariaDBVersion
@@ -17,9 +19,9 @@ spec:
       name: mariadb-addon
       tasks:
         fullBackup:
-          name: logical-backup
+          name: physical-backup
         fullBackupRestore:
-          name: logical-backup-restore
+          name: physical-backup-restore
         manifestBackup:
           name: manifest-backup
         manifestRestore:
@@ -27,9 +29,9 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-archiver") $) }}:v0.18.0_10.5.23-focal'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-archiver") $) }}:v0.19.0_10.5.23-focal{{ include "catalog.ubi" $ }}'
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-coordinator") $) }}:v0.38.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-coordinator") $) }}:v0.39.0{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mariadb") $) }}:10.5.23-focal'
   exporter:
@@ -37,7 +39,7 @@ spec:
   gitSyncer:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.4.2'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-init") $) }}:0.7.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-init") $) }}:0.8.0'
   maxscale:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "mariadb/maxscale") $) }}:24.02.4'
     securityContext:
@@ -47,9 +49,9 @@ spec:
   stash:
     addon:
       backupTask:
-        name: mariadb-backup-10.5.8
+        name: mariadb-backup-10.6.23
       restoreTask:
-        name: mariadb-restore-10.5.8
+        name: mariadb-restore-10.6.23
   ui:
   - name: phpmyadmin
     version: v2024.4.27

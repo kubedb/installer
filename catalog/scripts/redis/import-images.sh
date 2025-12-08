@@ -37,11 +37,14 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-r
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-7.2.6-bookworm.tar $IMAGE_REGISTRY/appscode-images/redis:7.2.6-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-7.4.0-bookworm.tar $IMAGE_REGISTRY/appscode-images/redis:7.4.0-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-7.4.1-bookworm.tar $IMAGE_REGISTRY/appscode-images/redis:7.4.1-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-7.4.6-bookworm.tar $IMAGE_REGISTRY/appscode-images/redis:7.4.6-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-8.0.4-bookworm.tar $IMAGE_REGISTRY/appscode-images/redis:8.0.4-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-8.2.2-bookworm.tar $IMAGE_REGISTRY/appscode-images/redis:8.2.2-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-valkey-7.2.5.tar $IMAGE_REGISTRY/appscode-images/valkey:7.2.5
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-valkey-7.2.9.tar $IMAGE_REGISTRY/appscode-images/valkey:7.2.9
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-valkey-8.0.3.tar $IMAGE_REGISTRY/appscode-images/valkey:8.0.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-valkey-8.1.1.tar $IMAGE_REGISTRY/appscode-images/valkey:8.1.1
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-coordinator-v0.37.0.tar $IMAGE_REGISTRY/kubedb/redis-coordinator:v0.37.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-coordinator-v0.38.0.tar $IMAGE_REGISTRY/kubedb/redis-coordinator:v0.38.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-init-0.12.0.tar $IMAGE_REGISTRY/kubedb/redis-init:0.12.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-4.0.11.tar $IMAGE_REGISTRY/kubedb/redis:4.0.11
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis_exporter-1.66.0.tar $IMAGE_REGISTRY/kubedb/redis_exporter:1.66.0

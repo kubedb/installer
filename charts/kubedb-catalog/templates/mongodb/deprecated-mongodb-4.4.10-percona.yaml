@@ -1,9 +1,11 @@
 {{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
 {{- if .Values.global }}
   {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
 {{- end }}
 
-{{ if $featureGates.MongoDB }}
+{{ if and $featureGates.MongoDB (not (eq $ubi "operator")) }}
 {{ if or (not .Values.skipDeprecated) (has "percona-4.4.10" .Values.enableVersions.MongoDB) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
@@ -38,7 +40,7 @@ spec:
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb-init") $) }}:4.2-v9'
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.45.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.46.0{{ include "catalog.ubi" $ }}'
   securityContext:
     runAsGroup: 1001
     runAsUser: 0

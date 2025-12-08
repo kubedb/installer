@@ -15,15 +15,15 @@ require (
 	gomodules.xyz/semvers v0.0.2
 	k8s.io/api v0.32.3
 	k8s.io/apimachinery v0.32.3
-	kmodules.xyz/client-go v0.32.7
+	kmodules.xyz/client-go v0.32.10
 	kmodules.xyz/go-containerregistry v0.0.14
-	kmodules.xyz/image-packer v0.0.0-20250709183414-f93633723666
-	kmodules.xyz/resource-metadata v0.32.1
+	kmodules.xyz/image-packer v0.0.0-20251207101219-5eac37d8b469
+	kmodules.xyz/resource-metadata v0.39.0
 	kmodules.xyz/schema-checker v0.4.2
-	kubedb.dev/apimachinery v0.58.0
+	kubedb.dev/apimachinery v0.59.0
 	kubeops.dev/installer v0.0.0-20250630172252-60882a8ed9ab
 	sigs.k8s.io/yaml v1.4.0
-	stash.appscode.dev/installer v0.12.2-0.20250630171625-d3c674690e22
+	stash.appscode.dev/installer v0.12.2-0.20251027171826-e3a597044fd4
 )
 
 require (
@@ -91,13 +91,13 @@ require (
 	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
 	github.com/zeebo/xxh3 v1.0.2 // indirect
 	go.virtual-secrets.dev/apimachinery v0.0.1 // indirect
-	golang.org/x/crypto v0.38.0 // indirect
-	golang.org/x/net v0.38.0 // indirect
+	golang.org/x/crypto v0.45.0 // indirect
+	golang.org/x/net v0.47.0 // indirect
 	golang.org/x/oauth2 v0.28.0 // indirect
-	golang.org/x/sync v0.14.0 // indirect
-	golang.org/x/sys v0.33.0 // indirect
-	golang.org/x/term v0.32.0 // indirect
-	golang.org/x/text v0.25.0 // indirect
+	golang.org/x/sync v0.18.0 // indirect
+	golang.org/x/sys v0.38.0 // indirect
+	golang.org/x/term v0.37.0 // indirect
+	golang.org/x/text v0.31.0 // indirect
 	golang.org/x/time v0.10.0 // indirect
 	gomodules.xyz/encoding v0.0.8 // indirect
 	gomodules.xyz/jsonpatch/v2 v2.5.0 // indirect
@@ -114,7 +114,7 @@ require (
 	k8s.io/kube-openapi v0.0.0-20250318190949-c8a335a9a2ff // indirect
 	k8s.io/utils v0.0.0-20241210054802-24370beab758 // indirect
 	kmodules.xyz/apiversion v0.2.0 // indirect
-	kmodules.xyz/custom-resources v0.32.0 // indirect
+	kmodules.xyz/custom-resources v0.32.2 // indirect
 	kmodules.xyz/monitoring-agent-api v0.32.1 // indirect
 	kmodules.xyz/offshoot-api v0.32.0 // indirect
 	kubeops.dev/petset v0.0.12 // indirect

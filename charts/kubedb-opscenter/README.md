@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb-opscenter --version=v2025.8.31
-$ helm upgrade -i kubedb-opscenter appscode/kubedb-opscenter -n kubedb --create-namespace --version=v2025.8.31
+$ helm search repo appscode/kubedb-opscenter --version=v2025.10.17
+$ helm upgrade -i kubedb-opscenter appscode/kubedb-opscenter -n kubedb --create-namespace --version=v2025.10.17
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeDB Opscenter on a [Kubernetes](http://kubernetes.io) cl
 To install/upgrade the chart with the release name `kubedb-opscenter`:
 
 ```bash
-$ helm upgrade -i kubedb-opscenter appscode/kubedb-opscenter -n kubedb --create-namespace --version=v2025.8.31
+$ helm upgrade -i kubedb-opscenter appscode/kubedb-opscenter -n kubedb --create-namespace --version=v2025.10.17
 ```
 
 The command deploys a KubeDB Opscenter on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -56,6 +56,7 @@ The following table lists the configurable parameters of the `kubedb-opscenter` 
 | global.monitoring.serviceMonitor.labels               | Specify the labels for ServiceMonitor. Prometheus crd will select ServiceMonitor using these labels. Only usable when monitoring agent is `prometheus.io/operator`.                                                                                                                                                                                                   | <code>{"monitoring.appscode.com/prometheus":"auto"}</code> |
 | global.networkPolicy.enabled                          |                                                                                                                                                                                                                                                                                                                                                                       | <code>false</code>                                         |
 | global.distro.openshift                               |                                                                                                                                                                                                                                                                                                                                                                       | <code>false</code>                                         |
+| global.distro.ubi                                     |                                                                                                                                                                                                                                                                                                                                                                       | <code>""</code>                                            |
 | kubedb-metrics.enabled                                | If enabled, installs the kubedb-metrics chart                                                                                                                                                                                                                                                                                                                         | <code>true</code>                                          |
 | kubedb-ui-server.enabled                              | If enabled, installs the kubedb-ui-server chart                                                                                                                                                                                                                                                                                                                       | <code>true</code>                                          |
 | kubedb-grafana-dashboards.enabled                     | If enabled, installs the kubedb-grafana-dashboards chart                                                                                                                                                                                                                                                                                                              | <code>true</code>                                          |
@@ -79,12 +80,12 @@ The following table lists the configurable parameters of the `kubedb-opscenter` 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-opscenter appscode/kubedb-opscenter -n kubedb --create-namespace --version=v2025.8.31 --set global.registryFQDN=ghcr.io
+$ helm upgrade -i kubedb-opscenter appscode/kubedb-opscenter -n kubedb --create-namespace --version=v2025.10.17 --set global.registryFQDN=ghcr.io
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-opscenter appscode/kubedb-opscenter -n kubedb --create-namespace --version=v2025.8.31 --values values.yaml
+$ helm upgrade -i kubedb-opscenter appscode/kubedb-opscenter -n kubedb --create-namespace --version=v2025.10.17 --values values.yaml
 ```
