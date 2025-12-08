@@ -68,6 +68,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | featureGates.Kafka                         |                                                 | <code>true</code>              |
 | featureGates.MariaDB                       |                                                 | <code>true</code>              |
 | featureGates.Memcached                     |                                                 | <code>true</code>              |
+| featureGates.Milvus                        |                                                 | <code>true</code>              |
 | featureGates.MongoDB                       |                                                 | <code>true</code>              |
 | featureGates.MSSQLServer                   |                                                 | <code>true</code>              |
 | featureGates.MySQL                         |                                                 | <code>true</code>              |
@@ -113,6 +114,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | enableVersions.Kafka                       |                                                 | <code>[]</code>                |
 | enableVersions.MariaDB                     |                                                 | <code>[]</code>                |
 | enableVersions.Memcached                   |                                                 | <code>[]</code>                |
+| enableVersions.Milvus                      |                                                 | <code>[]</code>                |
 | enableVersions.MSSQLServer                 |                                                 | <code>[]</code>                |
 | enableVersions.MongoDB                     |                                                 | <code>[]</code>                |
 | enableVersions.MySQL                       |                                                 | <code>[]</code>                |

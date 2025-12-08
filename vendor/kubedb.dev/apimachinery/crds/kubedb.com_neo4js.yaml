@@ -4,17 +4,34 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/name: kubedb
-  name: weaviateversions.kubedb.com
+  name: neo4js.kubedb.com
 spec:
   group: kubedb.com
   names:
-    kind: WeaviateVersion
-    listKind: WeaviateVersionList
-    plural: weaviateversions
-    singular: weaviateversion
+    categories:
+    - datastore
+    - kubedb
+    - appscode
+    - all
+    kind: Neo4j
+    listKind: Neo4jList
+    plural: neo4js
+    shortNames:
+    - neo
+    singular: neo4j
   scope: Namespaced
   versions:
-  - name: v1alpha2
+  - additionalPrinterColumns:
+    - jsonPath: .spec.version
+      name: Version
+      type: string
+    - jsonPath: .status.phase
+      name: Status
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha2
     schema:
       openAPIV3Schema:
         properties:
@@ -57,8 +74,31 @@ spec:
                     type: string
                 type: object
                 x-kubernetes-map-type: atomic
+              deletionPolicy:
+                enum:
+                - Halt
+                - Delete
+                - WipeOut
+                - DoNotTerminate
+                type: string
               disableSecurity:
                 type: boolean
+              disabledProtocols:
+                items:
+                  enum:
+                  - tcp-bolt
+                  - neo4j
+                  - http
+                  - https
+                  - tcp-backup
+                  - graphite
+                  - prometheus
+                  - jmx
+                  - tcp-boltrouting
+                  - tcp-raft
+                  - tcp-tx
+                  type: string
+                type: array
               healthChecker:
                 default:
                   failureThreshold: 3
@@ -3344,8 +3384,49 @@ spec:
             required:
             - version
             type: object
-        required:
-        - spec
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                format: int64
+                type: integer
+              phase:
+                enum:
+                - Provisioning
+                - DataRestoring
+                - Ready
+                - Critical
+                - NotReady
+                - Halted
+                - Unknown
+                type: string
+            type: object
         type: object
     served: true
     storage: true
+    subresources:
+      status: {}
