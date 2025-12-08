@@ -416,7 +416,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-rabbitmq-i
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-rabbitmq-init-3.13.2.tar $IMAGE_REGISTRY/kubedb/rabbitmq-init:3.13.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-rabbitmq-init-4.0.4.tar $IMAGE_REGISTRY/kubedb/rabbitmq-init:4.0.4
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-coordinator-v0.38.0.tar $IMAGE_REGISTRY/kubedb/redis-coordinator:v0.38.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-init-0.12.0.tar $IMAGE_REGISTRY/kubedb/redis-init:0.12.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-init-0.12.1.tar $IMAGE_REGISTRY/kubedb/redis-init:0.12.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-restic-plugin-v0.22.0.tar $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.22.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-4.0.11.tar $IMAGE_REGISTRY/kubedb/redis:4.0.11
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis_exporter-1.66.0.tar $IMAGE_REGISTRY/kubedb/redis_exporter:1.66.0
