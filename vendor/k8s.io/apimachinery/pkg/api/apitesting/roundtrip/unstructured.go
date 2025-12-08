@@ -37,7 +37,7 @@ import (
 	jsonserializer "k8s.io/apimachinery/pkg/runtime/serializer/json"
 	"k8s.io/apimachinery/pkg/util/sets"
 
-	"github.com/google/go-cmp/cmp" //nolint:depguard
+	"github.com/google/go-cmp/cmp"
 )
 
 // RoundtripToUnstructured verifies the roundtrip faithfulness of all external types in a scheme
@@ -92,13 +92,13 @@ func RoundtripToUnstructured(t *testing.T, scheme *runtime.Scheme, funcs fuzzer.
 				}
 
 				if nointernal.Has(gvk) {
-					fuzzer.Fill(item)
+					fuzzer.Fuzz(item)
 				} else {
 					internalObj, err := scheme.New(gvk.GroupKind().WithVersion(runtime.APIVersionInternal))
 					if err != nil {
 						t.Fatalf("couldn't create internal object %v: %v", gvk.Kind, err)
 					}
-					fuzzer.Fill(internalObj)
+					fuzzer.Fuzz(internalObj)
 
 					if err := scheme.Convert(internalObj, item, nil); err != nil {
 						t.Fatalf("conversion for %v failed: %v", gvk.Kind, err)

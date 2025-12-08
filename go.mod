@@ -12,7 +12,7 @@ require (
 	gomodules.xyz/go-sh v0.1.0
 	gomodules.xyz/semvers v0.0.2
 	k8s.io/api v0.32.8
-	k8s.io/apimachinery v0.33.0
+	k8s.io/apimachinery v0.32.8
 	kmodules.xyz/client-go v0.32.10
 	kmodules.xyz/go-containerregistry v0.0.14
 	kmodules.xyz/image-packer v0.0.0-20251207101219-5eac37d8b469
