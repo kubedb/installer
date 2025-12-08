@@ -324,6 +324,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1-v3 images/kubedb-clickhouse-init-24.4.1-v3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.1.0 images/kubedb-dashboard-restic-plugin-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.17.0 images/kubedb-dashboard-restic-plugin-v0.17.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/db2-coordinator:v0.1.0 images/kubedb-db2-coordinator-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:28.0.1 images/kubedb-druid-init-28.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:30.0.1 images/kubedb-druid-init-30.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:31.0.0 images/kubedb-druid-init-31.0.0.tar
@@ -441,6 +442,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.15.0 images/kubedb-zookeeper-restic-plugin-v0.15.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure hazelcast/hazelcast-enterprise:5.5.2 images/hazelcast-hazelcast-enterprise-5.5.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure hazelcast/hazelcast-enterprise:5.5.6 images/hazelcast-hazelcast-enterprise-5.5.6.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ibmcom/db2:11.5.8.0 images/ibmcom-db2-11.5.8.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mariadb/maxscale:24.02.4 images/mariadb-maxscale-24.02.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04 images/mssql-server-2022-CU12-ubuntu-22.04.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04 images/mssql-server-2022-CU14-ubuntu-22.04.tar
