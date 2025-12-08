@@ -701,6 +701,10 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints":                            schema_apimachinery_apis_catalog_v1alpha1_UpdateConstraints(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.VolumeSnapshot":                               schema_apimachinery_apis_catalog_v1alpha1_VolumeSnapshot(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.WalgSpec":                                     schema_apimachinery_apis_catalog_v1alpha1_WalgSpec(ref),
+		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.WeaviateVersion":                              schema_apimachinery_apis_catalog_v1alpha1_WeaviateVersion(ref),
+		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.WeaviateVersionDatabase":                      schema_apimachinery_apis_catalog_v1alpha1_WeaviateVersionDatabase(ref),
+		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.WeaviateVersionList":                          schema_apimachinery_apis_catalog_v1alpha1_WeaviateVersionList(ref),
+		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.WeaviateVersionSpec":                          schema_apimachinery_apis_catalog_v1alpha1_WeaviateVersionSpec(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ZooKeeperVersion":                             schema_apimachinery_apis_catalog_v1alpha1_ZooKeeperVersion(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ZooKeeperVersionCoordinator":                  schema_apimachinery_apis_catalog_v1alpha1_ZooKeeperVersionCoordinator(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ZooKeeperVersionDatabase":                     schema_apimachinery_apis_catalog_v1alpha1_ZooKeeperVersionDatabase(ref),
@@ -33367,6 +33371,171 @@ func schema_apimachinery_apis_catalog_v1alpha1_WalgSpec(ref common.ReferenceCall
 				Required: []string{"image"},
 			},
 		},
+	}
+}
+
+func schema_apimachinery_apis_catalog_v1alpha1_WeaviateVersion(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.WeaviateVersionSpec"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.WeaviateVersionSpec"},
+	}
+}
+
+func schema_apimachinery_apis_catalog_v1alpha1_WeaviateVersionDatabase(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"image": {
+						SchemaProps: spec.SchemaProps{
+							Default: "",
+							Type:    []string{"string"},
+							Format:  "",
+						},
+					},
+				},
+				Required: []string{"image"},
+			},
+		},
+	}
+}
+
+func schema_apimachinery_apis_catalog_v1alpha1_WeaviateVersionList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "WeaviateVersionList contains a list of WeaviateVersion.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Default: map[string]interface{}{},
+										Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.WeaviateVersion"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"items"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.WeaviateVersion"},
+	}
+}
+
+func schema_apimachinery_apis_catalog_v1alpha1_WeaviateVersionSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "WeaviateVersionSpec defines the desired state of WeaviateVersion.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Default: "",
+							Type:    []string{"string"},
+							Format:  "",
+						},
+					},
+					"db": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.WeaviateVersionDatabase"),
+						},
+					},
+					"deprecated": {
+						SchemaProps: spec.SchemaProps{
+							Description: "InitContainer WeaviateVersionDatabase `json:\"initContainer\"` Deprecated versions usable but regarded as obsolete and best avoided, typically due to having been superseded.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"securityContext": {
+						SchemaProps: spec.SchemaProps{
+							Description: "SecurityContext is for the additional config for the DB container",
+							Default:     map[string]interface{}{},
+							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext"),
+						},
+					},
+					"ui": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Default: map[string]interface{}{},
+										Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"version", "db"},
+			},
+		},
+		Dependencies: []string{
+			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.WeaviateVersionDatabase"},
 	}
 }
 

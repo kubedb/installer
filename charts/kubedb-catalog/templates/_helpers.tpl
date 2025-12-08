@@ -85,3 +85,13 @@ Create the name of the service account to use
 {{- define "image.appscode" -}}
 {{ list .Values.proxies.appscode ._repo | compact | join "/" }}
 {{- end }}
+
+{{- define "image.weaviate" -}}
+{{ list .Values.proxies.weaviate ._repo | compact | join "/" }}
+{{- end }}
+{{/*
+Returns if ubi images are to be used
+*/}}
+{{- define "catalog.ubi" -}}
+{{ ternary "-ubi" "" (list "catalog" "all" | has .Values.distro.ubi) }}
+{{- end }}

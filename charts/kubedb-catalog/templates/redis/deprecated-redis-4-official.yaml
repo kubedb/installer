@@ -1,9 +1,11 @@
 {{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
 {{- if .Values.global }}
   {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
 {{- end }}
 
-{{ if $featureGates.Redis }}
+{{ if and $featureGates.Redis (not (eq $ubi "operator")) }}
 {{ if or (not .Values.skipDeprecated) (has "4" .Values.enableVersions.Redis) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: RedisVersion
@@ -13,7 +15,7 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.38.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.38.0{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis") $) }}:4'
   distribution: Official
@@ -22,7 +24,7 @@ spec:
   gitSyncer:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.4.2'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-init") $) }}:0.12.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-init") $) }}:0.12.1'
   securityContext:
     runAsUser: 999
   version: "4"
@@ -41,7 +43,7 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.38.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.38.0{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis") $) }}:4-v1'
   distribution: Official
@@ -50,7 +52,7 @@ spec:
   gitSyncer:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.4.2'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-init") $) }}:0.12.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-init") $) }}:0.12.1'
   securityContext:
     runAsUser: 999
   version: "4"
