@@ -479,5 +479,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.
 $CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg14-oss images/timescale-timescaledb-2.14.2-pg14-oss.tar
 $CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg15-oss images/timescale-timescaledb-2.14.2-pg15-oss.tar
 $CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg16-oss images/timescale-timescaledb-2.14.2-pg16-oss.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/qdrant/qdrant:v1.15.4 images/qdrant-qdrant-v1.15.4.tar
 
 tar -czvf images.tar.gz images

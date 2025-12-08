@@ -441,6 +441,24 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
+{{- if $featureGates.Qdrant }}
+- name: qdrantwebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-qdrant
+      port: 443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: [ "kubedb.com" ]
+      apiVersions: [ "*" ]
+      resources: [ "qdrants" ]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: [ "v1beta1" ]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
 {{- if $featureGates.RabbitMQ }}
 - name: rabbitmqwebhook.validators.kubedb.com
   clientConfig:
