@@ -475,6 +475,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.
 $CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg14-oss images/timescale-timescaledb-2.14.2-pg14-oss.tar
 $CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg15-oss images/timescale-timescaledb-2.14.2-pg15-oss.tar
 $CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg16-oss images/timescale-timescaledb-2.14.2-pg16-oss.tar
-$CMD pull --allow-nondistributable-artifacts --insecure urmibiswas/milvus-nonroot:2.6.1 images/urmibiswas-milvus-nonroot-2.6.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure urmibiswas/milvus-nonroot:2.6.7 images/urmibiswas-milvus-nonroot-2.6.7.tar
 
 tar -czvf images.tar.gz images

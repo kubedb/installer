@@ -478,4 +478,4 @@ $CMD cp --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14
 $CMD cp --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg14-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg14-oss
 $CMD cp --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg15-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg15-oss
 $CMD cp --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg16-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg16-oss
-$CMD cp --allow-nondistributable-artifacts --insecure urmibiswas/milvus-nonroot:2.6.1 $IMAGE_REGISTRY/urmibiswas/milvus-nonroot:2.6.1
+$CMD cp --allow-nondistributable-artifacts --insecure urmibiswas/milvus-nonroot:2.6.7 $IMAGE_REGISTRY/urmibiswas/milvus-nonroot:2.6.7
