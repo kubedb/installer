@@ -43,7 +43,7 @@ k3s ctr images import images/kubedb-kubedb-ui-server-v0.35.0.tar
 k3s ctr images import images/kubedb-kubedb-verifier-v0.1.0.tar
 k3s ctr images import images/kubedb-kubedb-webhook-server-v0.35.0.tar
 k3s ctr images import images/kubedb-mariadb-csi-snapshotter-plugin-v0.19.0.tar
-k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.17.0.tar
+k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.17.0_11.1.3-jammy.tar
 k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.20.0.tar
 k3s ctr images import images/kubedb-mssqlserver-walg-plugin-v0.13.0.tar
 k3s ctr images import images/kubedb-mysql-csi-snapshotter-plugin-v0.20.0.tar
