@@ -45,7 +45,7 @@ The command removes all the Kubernetes components associated with the chart and 
 
 The following table lists the configurable parameters of the `kubedb-catalog` chart and their default values.
 
-|                 Parameter                  |                   Description                   |            Default             |
+| Parameter                                  |                   Description                   |            Default             |
 |--------------------------------------------|-------------------------------------------------|--------------------------------|
 | nameOverride                               | Overrides name template                         | <code>""</code>                |
 | fullnameOverride                           | Overrides fullname template                     | <code>""</code>                |
@@ -59,14 +59,17 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | proxies.weaviate                           |                                                 | <code>cr.weaviate.io</code>    |
 | featureGates.Cassandra                     |                                                 | <code>true</code>              |
 | featureGates.ClickHouse                    |                                                 | <code>true</code>              |
+| featureGates.DB2                           |                                                 | <code>true</code>              |
 | featureGates.Druid                         |                                                 | <code>true</code>              |
 | featureGates.Elasticsearch                 |                                                 | <code>true</code>              |
 | featureGates.FerretDB                      |                                                 | <code>true</code>              |
+| featureGates.HanaDB                        |                                                 | <code>true</code>              |
 | featureGates.Hazelcast                     |                                                 | <code>true</code>              |
 | featureGates.Ignite                        |                                                 | <code>true</code>              |
 | featureGates.Kafka                         |                                                 | <code>true</code>              |
 | featureGates.MariaDB                       |                                                 | <code>true</code>              |
 | featureGates.Memcached                     |                                                 | <code>true</code>              |
+| featureGates.Milvus                        |                                                 | <code>true</code>              |
 | featureGates.MongoDB                       |                                                 | <code>true</code>              |
 | featureGates.MSSQLServer                   |                                                 | <code>true</code>              |
 | featureGates.MySQL                         |                                                 | <code>true</code>              |
@@ -77,6 +80,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | featureGates.Pgpool                        |                                                 | <code>true</code>              |
 | featureGates.Postgres                      |                                                 | <code>true</code>              |
 | featureGates.ProxySQL                      |                                                 | <code>true</code>              |
+| featureGates.Qdrant                        |                                                 | <code>true</code>              |
 | featureGates.RabbitMQ                      |                                                 | <code>true</code>              |
 | featureGates.Redis                         |                                                 | <code>true</code>              |
 | featureGates.Singlestore                   |                                                 | <code>true</code>              |
@@ -113,6 +117,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | enableVersions.Kafka                       |                                                 | <code>[]</code>                |
 | enableVersions.MariaDB                     |                                                 | <code>[]</code>                |
 | enableVersions.Memcached                   |                                                 | <code>[]</code>                |
+| enableVersions.Milvus                      |                                                 | <code>[]</code>                |
 | enableVersions.MSSQLServer                 |                                                 | <code>[]</code>                |
 | enableVersions.MongoDB                     |                                                 | <code>[]</code>                |
 | enableVersions.MySQL                       |                                                 | <code>[]</code>                |

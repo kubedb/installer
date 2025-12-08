@@ -150,6 +150,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached-1.6.29-alpine.tar $IMAGE_REGISTRY/appscode-images/memcached:1.6.29-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached-1.6.33-alpine.tar $IMAGE_REGISTRY/appscode-images/memcached:1.6.33-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached_exporter-v0.14.3-ac.tar $IMAGE_REGISTRY/appscode-images/memcached_exporter:v0.14.3-ac
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-milvus-2.6.7.tar $IMAGE_REGISTRY/appscode-images/milvus:2.6.7
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-4.2.24.tar $IMAGE_REGISTRY/appscode-images/mongo:4.2.24
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-4.4.26.tar $IMAGE_REGISTRY/appscode-images/mongo:4.4.26
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-5.0.23.tar $IMAGE_REGISTRY/appscode-images/mongo:5.0.23
@@ -318,6 +319,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-clickhouse-init-24.4.1-v3.tar $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1-v3
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.17.0.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.17.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-db2-coordinator-v0.1.0.tar $IMAGE_REGISTRY/kubedb/db2-coordinator:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-28.0.1.tar $IMAGE_REGISTRY/kubedb/druid-init:28.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-30.0.1.tar $IMAGE_REGISTRY/kubedb/druid-init:30.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-31.0.0.tar $IMAGE_REGISTRY/kubedb/druid-init:31.0.0
@@ -375,7 +377,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-rout
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysqld-exporter-v0.13.1.tar $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.13.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-coordinator-v0.5.0.tar $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-ee-21.3.0.tar $IMAGE_REGISTRY/kubedb/oracle-ee:21.3.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-init-v0.1.0.tar $IMAGE_REGISTRY/kubedb/oracle-init:v0.1.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-init-v0.2.0.tar $IMAGE_REGISTRY/kubedb/oracle-init:v0.2.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-coordinator-v0.32.0.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-coordinator:v0.32.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-init-0.2.3.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-init:0.2.3
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pg-coordinator-v0.43.0.tar $IMAGE_REGISTRY/kubedb/pg-coordinator:v0.43.0
@@ -399,7 +401,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-a
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.20.0_17.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.20.0_17.2-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.20.0_17.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.20.0_17.2-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-csi-snapshotter-plugin-v0.20.0.tar $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.20.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-init-0.17.2.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.17.2
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-init-0.18.0.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.18.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.22.0_16.1.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.22.0_16.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-aws-v0.20.0.tar $IMAGE_REGISTRY/kubedb/provider-aws:v0.20.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-azure-v0.20.0.tar $IMAGE_REGISTRY/kubedb/provider-azure:v0.20.0
@@ -416,7 +418,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-rabbitmq-i
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-rabbitmq-init-3.13.2.tar $IMAGE_REGISTRY/kubedb/rabbitmq-init:3.13.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-rabbitmq-init-4.0.4.tar $IMAGE_REGISTRY/kubedb/rabbitmq-init:4.0.4
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-coordinator-v0.38.0.tar $IMAGE_REGISTRY/kubedb/redis-coordinator:v0.38.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-init-0.12.0.tar $IMAGE_REGISTRY/kubedb/redis-init:0.12.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-init-0.12.1.tar $IMAGE_REGISTRY/kubedb/redis-init:0.12.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-restic-plugin-v0.22.0.tar $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.22.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-4.0.11.tar $IMAGE_REGISTRY/kubedb/redis:4.0.11
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis_exporter-1.66.0.tar $IMAGE_REGISTRY/kubedb/redis_exporter:1.66.0
@@ -435,6 +437,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-restic-plugin-v0.15.0.tar $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.15.0
 $CMD push --allow-nondistributable-artifacts --insecure images/hazelcast-hazelcast-enterprise-5.5.2.tar $IMAGE_REGISTRY/hazelcast/hazelcast-enterprise:5.5.2
 $CMD push --allow-nondistributable-artifacts --insecure images/hazelcast-hazelcast-enterprise-5.5.6.tar $IMAGE_REGISTRY/hazelcast/hazelcast-enterprise:5.5.6
+$CMD push --allow-nondistributable-artifacts --insecure images/ibmcom-db2-11.5.8.0.tar $IMAGE_REGISTRY/ibmcom/db2:11.5.8.0
 $CMD push --allow-nondistributable-artifacts --insecure images/mariadb-maxscale-24.02.4.tar $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU12-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU12-ubuntu-22.04
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU14-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU14-ubuntu-22.04
@@ -462,6 +465,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/prom-mysqld-expor
 $CMD push --allow-nondistributable-artifacts --insecure images/prometheuscommunity-elasticsearch-exporter-v1.7.0.tar $IMAGE_REGISTRY/prometheuscommunity/elasticsearch-exporter:v1.7.0
 $CMD push --allow-nondistributable-artifacts --insecure images/prometheuscommunity-postgres-exporter-v0.15.0.tar $IMAGE_REGISTRY/prometheuscommunity/postgres-exporter:v0.15.0
 $CMD push --allow-nondistributable-artifacts --insecure images/git-sync-git-sync-v4.4.2.tar $IMAGE_REGISTRY/git-sync/git-sync:v4.4.2
+$CMD push --allow-nondistributable-artifacts --insecure images/saplabs-hanaexpress-2.00.082.00.20250528.1.tar $IMAGE_REGISTRY/saplabs/hanaexpress:2.00.082.00.20250528.1
 $CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.1.32-e3d3cde6da-4.0.16-1.17.6.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6
 $CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.5.22-fe61f40cd1-4.1.0-1.17.11.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11
 $CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.5.7-bf633c1a54-4.0.17-1.17.8.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8
@@ -471,3 +475,4 @@ $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timesca
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg14-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg14-oss
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg15-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg15-oss
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg16-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg16-oss
+$CMD push --allow-nondistributable-artifacts --insecure images/qdrant-qdrant-v1.15.4.tar $IMAGE_REGISTRY/qdrant/qdrant:v1.15.4

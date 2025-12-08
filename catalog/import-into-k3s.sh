@@ -148,6 +148,7 @@ k3s ctr images import images/appscode-images-memcached-1.6.22-alpine.tar
 k3s ctr images import images/appscode-images-memcached-1.6.29-alpine.tar
 k3s ctr images import images/appscode-images-memcached-1.6.33-alpine.tar
 k3s ctr images import images/appscode-images-memcached_exporter-v0.14.3-ac.tar
+k3s ctr images import images/appscode-images-milvus-2.6.7.tar
 k3s ctr images import images/appscode-images-mongo-4.2.24.tar
 k3s ctr images import images/appscode-images-mongo-4.4.26.tar
 k3s ctr images import images/appscode-images-mongo-5.0.23.tar
@@ -316,6 +317,7 @@ k3s ctr images import images/kubedb-cassandra-medusa-plugin-v0.6.0.tar
 k3s ctr images import images/kubedb-clickhouse-init-24.4.1-v3.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.17.0.tar
+k3s ctr images import images/kubedb-db2-coordinator-v0.1.0.tar
 k3s ctr images import images/kubedb-druid-init-28.0.1.tar
 k3s ctr images import images/kubedb-druid-init-30.0.1.tar
 k3s ctr images import images/kubedb-druid-init-31.0.0.tar
@@ -373,7 +375,7 @@ k3s ctr images import images/kubedb-mysql-router-init-v0.37.0.tar
 k3s ctr images import images/kubedb-mysqld-exporter-v0.13.1.tar
 k3s ctr images import images/kubedb-oracle-coordinator-v0.5.0.tar
 k3s ctr images import images/kubedb-oracle-ee-21.3.0.tar
-k3s ctr images import images/kubedb-oracle-init-v0.1.0.tar
+k3s ctr images import images/kubedb-oracle-init-v0.2.0.tar
 k3s ctr images import images/kubedb-percona-xtradb-coordinator-v0.32.0.tar
 k3s ctr images import images/kubedb-percona-xtradb-init-0.2.3.tar
 k3s ctr images import images/kubedb-pg-coordinator-v0.43.0.tar
@@ -397,7 +399,7 @@ k3s ctr images import images/kubedb-postgres-archiver-v0.20.0_16.1-bookworm.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.20.0_17.2-alpine.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.20.0_17.2-bookworm.tar
 k3s ctr images import images/kubedb-postgres-csi-snapshotter-plugin-v0.20.0.tar
-k3s ctr images import images/kubedb-postgres-init-0.17.2.tar
+k3s ctr images import images/kubedb-postgres-init-0.18.0.tar
 k3s ctr images import images/kubedb-postgres-restic-plugin-v0.22.0_16.1.tar
 k3s ctr images import images/kubedb-provider-aws-v0.20.0.tar
 k3s ctr images import images/kubedb-provider-azure-v0.20.0.tar
@@ -414,7 +416,7 @@ k3s ctr images import images/kubedb-rabbitmq-init-3.12.12.tar
 k3s ctr images import images/kubedb-rabbitmq-init-3.13.2.tar
 k3s ctr images import images/kubedb-rabbitmq-init-4.0.4.tar
 k3s ctr images import images/kubedb-redis-coordinator-v0.38.0.tar
-k3s ctr images import images/kubedb-redis-init-0.12.0.tar
+k3s ctr images import images/kubedb-redis-init-0.12.1.tar
 k3s ctr images import images/kubedb-redis-restic-plugin-v0.22.0.tar
 k3s ctr images import images/kubedb-redis-4.0.11.tar
 k3s ctr images import images/kubedb-redis_exporter-1.66.0.tar
@@ -433,6 +435,7 @@ k3s ctr images import images/kubedb-zookeeper-init-3.7-v1.tar
 k3s ctr images import images/kubedb-zookeeper-restic-plugin-v0.15.0.tar
 k3s ctr images import images/hazelcast-hazelcast-enterprise-5.5.2.tar
 k3s ctr images import images/hazelcast-hazelcast-enterprise-5.5.6.tar
+k3s ctr images import images/ibmcom-db2-11.5.8.0.tar
 k3s ctr images import images/mariadb-maxscale-24.02.4.tar
 k3s ctr images import images/mssql-server-2022-CU12-ubuntu-22.04.tar
 k3s ctr images import images/mssql-server-2022-CU14-ubuntu-22.04.tar
@@ -460,6 +463,7 @@ k3s ctr images import images/prom-mysqld-exporter-v0.13.0.tar
 k3s ctr images import images/prometheuscommunity-elasticsearch-exporter-v1.7.0.tar
 k3s ctr images import images/prometheuscommunity-postgres-exporter-v0.15.0.tar
 k3s ctr images import images/git-sync-git-sync-v4.4.2.tar
+k3s ctr images import images/saplabs-hanaexpress-2.00.082.00.20250528.1.tar
 k3s ctr images import images/singlestore-cluster-in-a-box-alma-8.1.32-e3d3cde6da-4.0.16-1.17.6.tar
 k3s ctr images import images/singlestore-cluster-in-a-box-alma-8.5.22-fe61f40cd1-4.1.0-1.17.11.tar
 k3s ctr images import images/singlestore-cluster-in-a-box-alma-8.5.7-bf633c1a54-4.0.17-1.17.8.tar
@@ -469,3 +473,4 @@ k3s ctr images import images/timescale-timescaledb-2.14.2-pg13-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg14-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg15-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg16-oss.tar
+k3s ctr images import images/qdrant-qdrant-v1.15.4.tar

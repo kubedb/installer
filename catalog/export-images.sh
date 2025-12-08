@@ -156,6 +156,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.29-alpine images/appscode-images-memcached-1.6.29-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.33-alpine images/appscode-images-memcached-1.6.33-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached_exporter:v0.14.3-ac images/appscode-images-memcached_exporter-v0.14.3-ac.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/milvus:2.6.7 images/appscode-images-milvus-2.6.7.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:4.2.24 images/appscode-images-mongo-4.2.24.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:4.4.26 images/appscode-images-mongo-4.4.26.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:5.0.23 images/appscode-images-mongo-5.0.23.tar
@@ -324,6 +325,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1-v3 images/kubedb-clickhouse-init-24.4.1-v3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.1.0 images/kubedb-dashboard-restic-plugin-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.17.0 images/kubedb-dashboard-restic-plugin-v0.17.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/db2-coordinator:v0.1.0 images/kubedb-db2-coordinator-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:28.0.1 images/kubedb-druid-init-28.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:30.0.1 images/kubedb-druid-init-30.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:31.0.0 images/kubedb-druid-init-31.0.0.tar
@@ -381,7 +383,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-rou
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.13.1 images/kubedb-mysqld-exporter-v0.13.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-coordinator:v0.5.0 images/kubedb-oracle-coordinator-v0.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-ee:21.3.0 images/kubedb-oracle-ee-21.3.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-init:v0.1.0 images/kubedb-oracle-init-v0.1.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-init:v0.2.0 images/kubedb-oracle-init-v0.2.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-coordinator:v0.32.0 images/kubedb-percona-xtradb-coordinator-v0.32.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-init:0.2.3 images/kubedb-percona-xtradb-init-0.2.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pg-coordinator:v0.43.0 images/kubedb-pg-coordinator-v0.43.0.tar
@@ -405,7 +407,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.20.0_17.2-alpine images/kubedb-postgres-archiver-v0.20.0_17.2-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.20.0_17.2-bookworm images/kubedb-postgres-archiver-v0.20.0_17.2-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.20.0 images/kubedb-postgres-csi-snapshotter-plugin-v0.20.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.17.2 images/kubedb-postgres-init-0.17.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.18.0 images/kubedb-postgres-init-0.18.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.22.0_16.1 images/kubedb-postgres-restic-plugin-v0.22.0_16.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-aws:v0.20.0 images/kubedb-provider-aws-v0.20.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-azure:v0.20.0 images/kubedb-provider-azure-v0.20.0.tar
@@ -422,7 +424,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:3.13.2 images/kubedb-rabbitmq-init-3.13.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:4.0.4 images/kubedb-rabbitmq-init-4.0.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-coordinator:v0.38.0 images/kubedb-redis-coordinator-v0.38.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.12.0 images/kubedb-redis-init-0.12.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.12.1 images/kubedb-redis-init-0.12.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.22.0 images/kubedb-redis-restic-plugin-v0.22.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4.0.11 images/kubedb-redis-4.0.11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis_exporter:1.66.0 images/kubedb-redis_exporter-1.66.0.tar
@@ -441,6 +443,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.15.0 images/kubedb-zookeeper-restic-plugin-v0.15.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure hazelcast/hazelcast-enterprise:5.5.2 images/hazelcast-hazelcast-enterprise-5.5.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure hazelcast/hazelcast-enterprise:5.5.6 images/hazelcast-hazelcast-enterprise-5.5.6.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ibmcom/db2:11.5.8.0 images/ibmcom-db2-11.5.8.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mariadb/maxscale:24.02.4 images/mariadb-maxscale-24.02.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04 images/mssql-server-2022-CU12-ubuntu-22.04.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04 images/mssql-server-2022-CU14-ubuntu-22.04.tar
@@ -468,6 +471,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure prom/mysqld-exporter:v0.
 $CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/elasticsearch-exporter:v1.7.0 images/prometheuscommunity-elasticsearch-exporter-v1.7.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/postgres-exporter:v0.15.0 images/prometheuscommunity-postgres-exporter-v0.15.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.4.2 images/git-sync-git-sync-v4.4.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure saplabs/hanaexpress:2.00.082.00.20250528.1 images/saplabs-hanaexpress-2.00.082.00.20250528.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6 images/singlestore-cluster-in-a-box-alma-8.1.32-e3d3cde6da-4.0.16-1.17.6.tar
 $CMD pull --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11 images/singlestore-cluster-in-a-box-alma-8.5.22-fe61f40cd1-4.1.0-1.17.11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8 images/singlestore-cluster-in-a-box-alma-8.5.7-bf633c1a54-4.0.17-1.17.8.tar
@@ -477,5 +481,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.
 $CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg14-oss images/timescale-timescaledb-2.14.2-pg14-oss.tar
 $CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg15-oss images/timescale-timescaledb-2.14.2-pg15-oss.tar
 $CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg16-oss images/timescale-timescaledb-2.14.2-pg16-oss.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/qdrant/qdrant:v1.15.4 images/qdrant-qdrant-v1.15.4.tar
 
 tar -czvf images.tar.gz images
