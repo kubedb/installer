@@ -1,9 +1,11 @@
 {{ "{{ $featureGates := .Values.featureGates }}" }}
+{{ "{{ $ubi := .Values.distro.ubi }}" }}
 {{ "{{- if .Values.global }}" }}
 {{ "  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}" }}
+{{ "  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}" }}
 {{ "{{- end }}" }}
 
-{{ "{{ if $featureGates."}}{{ .kind }}{{" }}" }}
+{{"{{ if and $featureGates."}}{{ .kind }}{{" (not (eq $ubi \"operator\")) }}"}}
 {{- range $idx, $object := .objects }}
 {{ if gt $idx 0 }}
 ---

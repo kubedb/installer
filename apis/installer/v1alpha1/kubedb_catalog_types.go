@@ -53,6 +53,8 @@ type KubedbCatalogSpec struct {
 	SkipDeprecated bool                             `json:"skipDeprecated"`
 	EnableVersions map[string][]string              `json:"enableVersions"`
 	CustomVersions map[string]*runtime.RawExtension `json:"customVersions"`
+	// +optional
+	Distro DistroSpec `json:"distro"`
 }
 
 type PSP struct {

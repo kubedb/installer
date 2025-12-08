@@ -1,9 +1,11 @@
 {{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
 {{- if .Values.global }}
   {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
 {{- end }}
 
-{{ if $featureGates.Elasticsearch }}
+{{ if and $featureGates.Elasticsearch (not (eq $ubi "operator")) }}
 {{ if or (not .Values.skipDeprecated) (has "xpack-7.17.3" .Values.enableVersions.Elasticsearch) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion

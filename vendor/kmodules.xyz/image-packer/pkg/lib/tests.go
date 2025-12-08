@@ -32,7 +32,18 @@ func CheckImageExists(files []string) error {
 	if err != nil {
 		return err
 	}
+	return checkImageExists(images)
+}
 
+func CheckHelmChartImageExists(rootDir string, values map[string]string) error {
+	images, err := ListDockerImages(rootDir, values)
+	if err != nil {
+		return err
+	}
+	return checkImageExists(images)
+}
+
+func checkImageExists(images []string) error {
 	var missing []string
 	for _, img := range images {
 		_, found, err := ImageDigest(img)
@@ -56,13 +67,24 @@ func CheckImageExists(files []string) error {
 var desiredArchs = sets.New("amd64", "arm64")
 
 func CheckImageArchitectures(files []string, archSkipList, ignoreMissingList []string) error {
-	archSkipSet := sets.NewString(archSkipList...)
-	ignoreMissingSet := sets.NewString(ignoreMissingList...)
-
 	images, err := LoadImageList(files)
 	if err != nil {
 		return err
 	}
+	return checkImageArchitectures(images, archSkipList, ignoreMissingList)
+}
+
+func CheckHelmChartImageArchitectures(rootDir string, values map[string]string, archSkipList, ignoreMissingList []string) error {
+	images, err := ListDockerImages(rootDir, values)
+	if err != nil {
+		return err
+	}
+	return checkImageArchitectures(images, archSkipList, ignoreMissingList)
+}
+
+func checkImageArchitectures(images []string, archSkipList, ignoreMissingList []string) error {
+	archSkipSet := sets.NewString(archSkipList...)
+	ignoreMissingSet := sets.NewString(ignoreMissingList...)
 
 	var missing, ignored []string
 	missingArchs := map[string][]string{}

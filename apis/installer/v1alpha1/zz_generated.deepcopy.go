@@ -685,6 +685,7 @@ func (in *KubedbCatalogSpec) DeepCopyInto(out *KubedbCatalogSpec) {
 			(*out)[key] = outVal
 		}
 	}
+	out.Distro = in.Distro
 	return
 }
 
@@ -1269,6 +1270,7 @@ func (in *KubedbKubestashCatalogSpec) DeepCopyInto(out *KubedbKubestashCatalogSp
 	out.Singlestore = in.Singlestore
 	out.ZooKeeper = in.ZooKeeper
 	out.Kubedbverifier = in.Kubedbverifier
+	out.Distro = in.Distro
 	return
 }
 

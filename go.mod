@@ -11,12 +11,12 @@ require (
 	github.com/yudai/gojsondiff v1.0.0
 	gomodules.xyz/go-sh v0.1.0
 	gomodules.xyz/semvers v0.0.2
-	k8s.io/api v0.32.8
-	k8s.io/apimachinery v0.32.8
-	kmodules.xyz/client-go v0.32.9
+	k8s.io/api v0.34.8
+	k8s.io/apimachinery v0.33.0
+	kmodules.xyz/client-go v0.32.10
 	kmodules.xyz/go-containerregistry v0.0.14
-	kmodules.xyz/image-packer v0.0.0-20250709183414-f93633723666
-	kmodules.xyz/resource-metadata v0.32.1
+	kmodules.xyz/image-packer v0.0.0-20251207101219-5eac37d8b469
+	kmodules.xyz/resource-metadata v0.39.0
 	kmodules.xyz/schema-checker v0.4.2
 	kubedb.dev/apimachinery v0.59.1-0.20251206162050-0562e8d159a7
 	kubeops.dev/installer v0.0.0-20250630172252-60882a8ed9ab

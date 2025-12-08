@@ -376,8 +376,6 @@ ct: $(BUILD_DIRS)
 	      ct $(CT_COMMAND) --debug --validate-maintainers=false $(CT_ARGS) \
 	    "
 
-ADDTL_LINTERS   := gofmt,goimports,unparam
-
 .PHONY: lint
 lint: $(BUILD_DIRS)
 	@echo "running linter"
