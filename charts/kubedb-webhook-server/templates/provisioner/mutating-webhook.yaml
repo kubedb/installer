@@ -441,6 +441,8 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
+
+
 {{- if $featureGates.Redis }}
 - name: rediswebhook.mutators.kubedb.com
   clientConfig:
@@ -547,23 +549,42 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
+<<<<<<< HEAD
 {{- if $featureGates.Neo4j }}
 - name: neo4jwebhook.mutators.kubedb.com
+=======
+
+{{- if $featureGates.Weaviate }}
+- name: weaviatewebhook.mutators.kubedb.com
+>>>>>>> origin/master
   clientConfig:
     service:
       namespace: {{ .Release.Namespace }}
       name: {{ include "kubedb-webhook-server.fullname" . }}
+<<<<<<< HEAD
       path: /mutate-kubedb-com-v1alpha2-neo4j
+=======
+      path: /mutate-kubedb-com-v1alpha2-weaviate
+>>>>>>> origin/master
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
     - apiGroups: [ "kubedb.com" ]
       apiVersions: [ "*" ]
+<<<<<<< HEAD
       resources: [ "neo4js" ]
       operations: [ "CREATE", "UPDATE", "DELETE" ]
+=======
+      resources: [ "weaviates" ]
+      operations: [ "CREATE", "UPDATE" ]
+>>>>>>> origin/master
   admissionReviewVersions: [ "v1beta1" ]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 {{- end }}
 {{- end }}

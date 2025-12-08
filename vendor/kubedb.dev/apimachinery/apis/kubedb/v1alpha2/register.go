@@ -114,10 +114,19 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&SinglestoreList{},
 		&Solr{},
 		&SolrList{},
+<<<<<<< HEAD
 		&Weaviate{},
 		&WeaviateList{},
 		&ZooKeeper{},
 		&ZooKeeperList{},
+=======
+		&MSSQLServer{},
+		&MSSQLServerList{},
+		&Hazelcast{},
+		&HazelcastList{},
+		&Weaviate{},
+		&WeaviateList{},
+>>>>>>> origin/master
 	)
 
 	scheme.AddKnownTypes(SchemeGroupVersion,

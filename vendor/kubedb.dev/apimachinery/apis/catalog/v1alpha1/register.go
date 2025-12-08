@@ -118,8 +118,13 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&WeaviateVersionList{},
 		&ZooKeeperVersion{},
 		&ZooKeeperVersionList{},
+<<<<<<< HEAD
 		&MilvusVersion{},
 		&MilvusVersionList{},
+=======
+		&WeaviateVersion{},
+		&WeaviateVersionList{},
+>>>>>>> origin/master
 	)
 
 	scheme.AddKnownTypes(SchemeGroupVersion,

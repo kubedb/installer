@@ -52,6 +52,10 @@ type WeaviateVersion struct {
 type WeaviateVersionSpec struct {
 	Version string                  `json:"version"`
 	DB      WeaviateVersionDatabase `json:"db"`
+<<<<<<< HEAD
+=======
+	// InitContainer WeaviateVersionDatabase `json:"initContainer"`
+>>>>>>> origin/master
 	// Deprecated versions usable but regarded as obsolete and best avoided, typically due to having been superseded.
 	// +optional
 	Deprecated bool `json:"deprecated,omitempty"`

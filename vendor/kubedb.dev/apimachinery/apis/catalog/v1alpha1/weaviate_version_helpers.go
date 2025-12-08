@@ -18,7 +18,10 @@ package v1alpha1
 
 import (
 	"fmt"
+<<<<<<< HEAD
 	"strings"
+=======
+>>>>>>> origin/master
 
 	"kubedb.dev/apimachinery/apis"
 	"kubedb.dev/apimachinery/apis/catalog"
@@ -27,7 +30,11 @@ import (
 	"kmodules.xyz/client-go/apiextensions"
 )
 
+<<<<<<< HEAD
 func (WeaviateVersion) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+=======
+func (_ WeaviateVersion) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+>>>>>>> origin/master
 	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralWeaviateVersion))
 }
 
@@ -56,11 +63,17 @@ func (w WeaviateVersion) ResourcePlural() string {
 func (w WeaviateVersion) ValidateSpecs() error {
 	if w.Spec.Version == "" ||
 		w.Spec.DB.Image == "" {
+<<<<<<< HEAD
 		fields := []string{
 			"spec.version",
 			"spec.db.image",
 		}
 		return fmt.Errorf("atleast one of the following specs is not set for QdrantVersion %q: %s", w.Name, strings.Join(fields, ", "))
+=======
+		return fmt.Errorf(`atleast one of the following specs is not set for QdrantVersion "%v":
+spec.version,
+spec.db.image,`, w.Name)
+>>>>>>> origin/master
 	}
 	return nil
 }
