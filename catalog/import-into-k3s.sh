@@ -315,6 +315,7 @@ k3s ctr images import images/kubedb-cassandra-medusa-plugin-v0.6.0.tar
 k3s ctr images import images/kubedb-clickhouse-init-24.4.1-v3.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.17.0.tar
+k3s ctr images import images/kubedb-db2-coordinator-v0.1.0.tar
 k3s ctr images import images/kubedb-druid-init-28.0.1.tar
 k3s ctr images import images/kubedb-druid-init-30.0.1.tar
 k3s ctr images import images/kubedb-druid-init-31.0.0.tar
@@ -432,6 +433,7 @@ k3s ctr images import images/kubedb-zookeeper-init-3.7-v1.tar
 k3s ctr images import images/kubedb-zookeeper-restic-plugin-v0.15.0.tar
 k3s ctr images import images/hazelcast-hazelcast-enterprise-5.5.2.tar
 k3s ctr images import images/hazelcast-hazelcast-enterprise-5.5.6.tar
+k3s ctr images import images/ibmcom-db2-11.5.8.0.tar
 k3s ctr images import images/mariadb-maxscale-24.02.4.tar
 k3s ctr images import images/mssql-server-2022-CU12-ubuntu-22.04.tar
 k3s ctr images import images/mssql-server-2022-CU14-ubuntu-22.04.tar
