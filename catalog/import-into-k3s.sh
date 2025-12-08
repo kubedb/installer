@@ -372,7 +372,7 @@ k3s ctr images import images/kubedb-mysql-router-init-v0.37.0.tar
 k3s ctr images import images/kubedb-mysqld-exporter-v0.13.1.tar
 k3s ctr images import images/kubedb-oracle-coordinator-v0.5.0.tar
 k3s ctr images import images/kubedb-oracle-ee-21.3.0.tar
-k3s ctr images import images/kubedb-oracle-init-v0.1.0.tar
+k3s ctr images import images/kubedb-oracle-init-v0.2.0.tar
 k3s ctr images import images/kubedb-percona-xtradb-coordinator-v0.32.0.tar
 k3s ctr images import images/kubedb-percona-xtradb-init-0.2.3.tar
 k3s ctr images import images/kubedb-pg-coordinator-v0.43.0.tar

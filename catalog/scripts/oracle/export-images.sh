@@ -35,6 +35,6 @@ CMD="./images/crane"
 $CMD pull --allow-nondistributable-artifacts --insecure busybox:1.36 images/library-busybox-1.36.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-coordinator:v0.5.0 images/kubedb-oracle-coordinator-v0.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-ee:21.3.0 images/kubedb-oracle-ee-21.3.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-init:v0.1.0 images/kubedb-oracle-init-v0.1.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-init:v0.2.0 images/kubedb-oracle-init-v0.2.0.tar
 
 tar -czvf images.tar.gz images
