@@ -20,18 +20,25 @@ import (
 	core "k8s.io/api/core/v1"
 	meta "k8s.io/apimachinery/pkg/apis/meta/v1"
 	kmapi "kmodules.xyz/client-go/api/v1"
-	mona "kmodules.xyz/monitoring-agent-api/api/v1"
 	ofst "kmodules.xyz/offshoot-api/api/v2"
 )
 
 const (
-	ResourceCodeIgnite     = "ig"
-	ResourceKindIgnite     = "Ignite"
-	ResourceSingularIgnite = "ignite"
-	ResourcePluralIgnite   = "ignites"
+	ResourceCodeQdrant     = "qd"
+	ResourceKindQdrant     = "Qdrant"
+	ResourceSingularQdrant = "qdrant"
+	ResourcePluralQdrant   = "qdrants"
 )
 
-// Ignite is the Schema for the Ignite API
+// +kubebuilder:validation:Enum=Standalone;Distributed
+type QdrantMode string
+
+const (
+	QdrantStandalone  QdrantMode = "Standalone"
+	QdrantDistributed QdrantMode = "Distributed"
+)
+
+// Qdrant is the Schema for the Qdrant API
 
 // +genclient
 // +k8s:openapi-gen=true
@@ -39,30 +46,30 @@ const (
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:path=ignites,singular=ignite,shortName=ig,categories={datastore,kubedb,appscode,all}
+// +kubebuilder:resource:path=qdrants,singular=qdrant,shortName=qd,categories={datastore,kubedb,appscode,all}
 // +kubebuilder:printcolumn:name="Version",type="string",JSONPath=".spec.version"
 // +kubebuilder:printcolumn:name="Status",type="string",JSONPath=".status.phase"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
-type Ignite struct {
+type Qdrant struct {
 	meta.TypeMeta   `json:",inline"`
 	meta.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   IgniteSpec   `json:"spec,omitempty"`
-	Status IgniteStatus `json:"status,omitempty"`
+	Spec   QdrantSpec   `json:"spec,omitempty"`
+	Status QdrantStatus `json:"status,omitempty"`
 }
 
-// IgniteSpec defines the desired state of Ignite.
-type IgniteSpec struct {
-	// AutoOps contains configuration of automatic ops-request-recommendation generation
-	// +optional
-	AutoOps AutoOpsSpec `json:"autoOps,omitempty"`
-
-	// Version of Ignite to be deployed.
+// QdrantSpec defines the desired state of Qdrant.
+type QdrantSpec struct {
+	// Version of Qdrant to be deployed.
 	Version string `json:"version"`
 
-	// Number of instances to deploy for an Ignite database.
+	// Number of instances to deploy for a Qdrant database.
 	// +optional
 	Replicas *int32 `json:"replicas,omitempty"`
+
+	// Qdrant cluster mode
+	// +optional
+	Mode QdrantMode `json:"mode,omitempty"`
 
 	// StorageType can be durable (default) or ephemeral
 	StorageType StorageType `json:"storageType,omitempty"`
@@ -86,7 +93,7 @@ type IgniteSpec struct {
 
 	// PodTemplate is an optional configuration for pods used to expose database
 	// +optional
-	PodTemplate ofst.PodTemplateSpec `json:"podTemplate,omitempty"`
+	PodTemplate *ofst.PodTemplateSpec `json:"podTemplate,omitempty"`
 
 	// ServiceTemplates is an optional configuration for services used to expose database
 	// +optional
@@ -104,22 +111,10 @@ type IgniteSpec struct {
 	// +optional
 	// +kubebuilder:default={periodSeconds: 10, timeoutSeconds: 10, failureThreshold: 3}
 	HealthChecker kmapi.HealthCheckSpec `json:"healthChecker"`
-
-	// TLS contains tls configurations for client and server.
-	// +optional
-	TLS *kmapi.TLSConfig `json:"tls,omitempty"`
-
-	// Keystore encryption secret
-	// +optional
-	KeystoreCredSecret *SecretReference `json:"keystoreCredSecret,omitempty"`
-
-	// Monitor is used to monitor database instance
-	// +optional
-	Monitor *mona.AgentSpec `json:"monitor,omitempty"`
 }
 
-// IgniteStatus defines the observed state of Ignite.
-type IgniteStatus struct {
+// QdrantStatus defines the observed state of Qdrant.
+type QdrantStatus struct {
 	// Specifies the current phase of the database
 	// +optional
 	Phase DatabasePhase `json:"phase,omitempty"`
@@ -134,18 +129,9 @@ type IgniteStatus struct {
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// IgniteList contains a list of Ignite.
-type IgniteList struct {
+// QdrantList contains a list of Qdrant.
+type QdrantList struct {
 	meta.TypeMeta `json:",inline"`
 	meta.ListMeta `json:"metadata,omitempty"`
-	Items         []Ignite `json:"items"`
+	Items         []Qdrant `json:"items"`
 }
-
-// +kubebuilder:validation:Enum=ca;transport;http;client;server
-type IgniteCertificateAlias string
-
-const (
-	IgniteCACert     IgniteCertificateAlias = "ca"
-	IgniteClientCert IgniteCertificateAlias = "client"
-	IgniteServerCert IgniteCertificateAlias = "server"
-)
