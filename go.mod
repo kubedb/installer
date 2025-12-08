@@ -1,8 +1,6 @@
 module kubedb.dev/installer
 
-go 1.24.0
-
-toolchain go1.24.5
+go 1.25.5
 
 require (
 	github.com/Masterminds/semver/v3 v3.3.1
@@ -20,7 +18,7 @@ require (
 	kmodules.xyz/image-packer v0.0.0-20251207101219-5eac37d8b469
 	kmodules.xyz/resource-metadata v0.39.0
 	kmodules.xyz/schema-checker v0.4.2
-	kubedb.dev/apimachinery v0.59.1-0.20251206162050-0562e8d159a7
+	kubedb.dev/apimachinery v0.59.1-0.20251208114801-e58fe916a949
 	kubeops.dev/installer v0.0.0-20250630172252-60882a8ed9ab
 	sigs.k8s.io/yaml v1.4.0
 	stash.appscode.dev/installer v0.12.2-0.20251027171826-e3a597044fd4

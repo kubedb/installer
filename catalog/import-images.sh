@@ -33,6 +33,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickh
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-keeper-25.7.1.tar $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:25.7.1
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-server-24.4.1.tar $IMAGE_REGISTRY/clickhouse/clickhouse-server:24.4.1
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-server-25.7.1.tar $IMAGE_REGISTRY/clickhouse/clickhouse-server:25.7.1
+$CMD push --allow-nondistributable-artifacts --insecure images/semitechnologies-weaviate-1.33.1.tar $IMAGE_REGISTRY/semitechnologies/weaviate:1.33.1
 $CMD push --allow-nondistributable-artifacts --insecure images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar $IMAGE_REGISTRY/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/aiven-open-karapace-3.15.0.tar $IMAGE_REGISTRY/aiven-open/karapace:3.15.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-exporter-2.3.8.tar $IMAGE_REGISTRY/appscode-images/cassandra-exporter:2.3.8
@@ -318,6 +319,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-clickhouse-init-24.4.1-v3.tar $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1-v3
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.17.0.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.17.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-db2-coordinator-v0.1.0.tar $IMAGE_REGISTRY/kubedb/db2-coordinator:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-28.0.1.tar $IMAGE_REGISTRY/kubedb/druid-init:28.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-30.0.1.tar $IMAGE_REGISTRY/kubedb/druid-init:30.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-31.0.0.tar $IMAGE_REGISTRY/kubedb/druid-init:31.0.0
@@ -347,7 +349,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-ar
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-coordinator-v0.39.0.tar $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.39.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-csi-snapshotter-plugin-v0.19.0.tar $IMAGE_REGISTRY/kubedb/mariadb-csi-snapshotter-plugin:v0.19.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-init-0.8.0.tar $IMAGE_REGISTRY/kubedb/mariadb-init:0.8.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.17.0.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.17.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.17.0_11.1.3-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.17.0_11.1.3-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-csi-snapshotter-plugin-v0.20.0.tar $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.20.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-4.2-v9.tar $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-6.0-v11.tar $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v11
@@ -435,6 +437,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-restic-plugin-v0.15.0.tar $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.15.0
 $CMD push --allow-nondistributable-artifacts --insecure images/hazelcast-hazelcast-enterprise-5.5.2.tar $IMAGE_REGISTRY/hazelcast/hazelcast-enterprise:5.5.2
 $CMD push --allow-nondistributable-artifacts --insecure images/hazelcast-hazelcast-enterprise-5.5.6.tar $IMAGE_REGISTRY/hazelcast/hazelcast-enterprise:5.5.6
+$CMD push --allow-nondistributable-artifacts --insecure images/ibmcom-db2-11.5.8.0.tar $IMAGE_REGISTRY/ibmcom/db2:11.5.8.0
 $CMD push --allow-nondistributable-artifacts --insecure images/mariadb-maxscale-24.02.4.tar $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU12-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU12-ubuntu-22.04
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU14-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU14-ubuntu-22.04
