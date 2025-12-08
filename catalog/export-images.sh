@@ -424,7 +424,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:3.13.2 images/kubedb-rabbitmq-init-3.13.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:4.0.4 images/kubedb-rabbitmq-init-4.0.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-coordinator:v0.38.0 images/kubedb-redis-coordinator-v0.38.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.12.0 images/kubedb-redis-init-0.12.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.12.1 images/kubedb-redis-init-0.12.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.22.0 images/kubedb-redis-restic-plugin-v0.22.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4.0.11 images/kubedb-redis-4.0.11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis_exporter:1.66.0 images/kubedb-redis_exporter-1.66.0.tar
@@ -470,6 +470,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure prom/mysqld-exporter:v0.
 $CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/elasticsearch-exporter:v1.7.0 images/prometheuscommunity-elasticsearch-exporter-v1.7.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/postgres-exporter:v0.15.0 images/prometheuscommunity-postgres-exporter-v0.15.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.4.2 images/git-sync-git-sync-v4.4.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure saplabs/hanaexpress:2.00.082.00.20250528.1 images/saplabs-hanaexpress-2.00.082.00.20250528.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6 images/singlestore-cluster-in-a-box-alma-8.1.32-e3d3cde6da-4.0.16-1.17.6.tar
 $CMD pull --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11 images/singlestore-cluster-in-a-box-alma-8.5.22-fe61f40cd1-4.1.0-1.17.11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8 images/singlestore-cluster-in-a-box-alma-8.5.7-bf633c1a54-4.0.17-1.17.8.tar
