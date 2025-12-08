@@ -75,14 +75,11 @@ type WeaviateSpec struct {
 	// +optional
 	AuthSecret *SecretReference `json:"authSecret,omitempty"`
 
-<<<<<<< HEAD
 	// ConfigSecret is an optional field to provide custom configuration file for database (i.e conf.yaml).
 	// If specified, this file will be used as configuration file otherwise default configuration file will be used.
 	// +optional
 	ConfigSecret *core.LocalObjectReference `json:"configSecret,omitempty"`
 
-=======
->>>>>>> origin/master
 	// PodTemplate is an optional configuration for pods used to expose database
 	// +optional
 	PodTemplate ofstv2.PodTemplateSpec `json:"podTemplate,omitempty"`

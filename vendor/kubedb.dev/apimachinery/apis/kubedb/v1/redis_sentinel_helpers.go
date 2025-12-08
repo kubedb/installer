@@ -206,7 +206,7 @@ func (rs *RedisSentinel) SetDefaults(rdVersion *catalog.RedisVersion) error {
 	}
 
 	if rs.Spec.Replicas == nil {
-		rs.Spec.Replicas = pointer.Int32P(3)
+		rs.Spec.Replicas = pointer.Int32P(1)
 	}
 
 	if rs.Spec.StorageType == "" {
