@@ -42,7 +42,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func (_ Oracle) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+func (Oracle) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
 	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralOracle))
 }
 

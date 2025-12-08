@@ -36,16 +36,14 @@ import (
 	coreutil "kmodules.xyz/client-go/core/v1"
 	metautil "kmodules.xyz/client-go/meta"
 	"kmodules.xyz/client-go/policy/secomp"
-	_ "kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1"
 	appcat "kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1"
 	mona "kmodules.xyz/monitoring-agent-api/api/v1"
 	ofst "kmodules.xyz/offshoot-api/api/v2"
 	pslister "kubeops.dev/petset/client/listers/apps/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
-	_ "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func (_ HanaDB) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+func (HanaDB) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
 	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralHanaDB))
 }
 

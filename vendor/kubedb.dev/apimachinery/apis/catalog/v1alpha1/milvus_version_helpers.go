@@ -18,6 +18,7 @@ package v1alpha1
 
 import (
 	"fmt"
+	"strings"
 
 	"kubedb.dev/apimachinery/apis"
 	"kubedb.dev/apimachinery/apis/catalog"
@@ -26,7 +27,7 @@ import (
 	"kmodules.xyz/client-go/apiextensions"
 )
 
-func (_ MilvusVersion) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+func (MilvusVersion) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
 	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralMilvusVersion))
 }
 
@@ -55,9 +56,11 @@ func (m MilvusVersion) ResourcePlural() string {
 func (m MilvusVersion) ValidateSpecs() error {
 	if m.Spec.Version == "" ||
 		m.Spec.DB.Image == "" {
-		return fmt.Errorf(`atleast one of the following specs is not set for MilvusVersion "%v":
-spec.version,
-spec.db.image,`, m.Name)
+		fields := []string{
+			"spec.version",
+			"spec.db.image",
+		}
+		return fmt.Errorf("atleast one of the following specs is not set for MilvusVersion %q: %s", m.Name, strings.Join(fields, ", "))
 	}
 	return nil
 }

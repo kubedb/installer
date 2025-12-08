@@ -44,7 +44,7 @@ type MilvusApp struct {
 	*Milvus
 }
 
-func (_ Milvus) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+func (Milvus) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
 	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralMilvus))
 }
 

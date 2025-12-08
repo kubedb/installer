@@ -39,7 +39,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func (_ *Neo4j) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+func (*Neo4j) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
 	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralNeo4j))
 }
 

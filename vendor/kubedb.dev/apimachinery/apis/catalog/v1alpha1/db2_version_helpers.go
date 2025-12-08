@@ -26,7 +26,7 @@ import (
 	"kmodules.xyz/client-go/apiextensions"
 )
 
-func (_ DB2Version) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+func (DB2Version) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
 	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralDB2Version))
 }
 

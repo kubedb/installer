@@ -18,6 +18,7 @@ package v1alpha1
 
 import (
 	"fmt"
+	"strings"
 
 	"kubedb.dev/apimachinery/apis"
 	"kubedb.dev/apimachinery/apis/catalog"
@@ -26,7 +27,7 @@ import (
 	"kmodules.xyz/client-go/apiextensions"
 )
 
-func (_ Neo4jVersion) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+func (Neo4jVersion) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
 	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralNeo4jVersion))
 }
 
@@ -55,9 +56,11 @@ func (r Neo4jVersion) ResourcePlural() string {
 func (r Neo4jVersion) ValidateSpecs() error {
 	if r.Spec.Version == "" ||
 		r.Spec.DB.Image == "" {
-		return fmt.Errorf(`atleast one of the following specs is not set for Neo4jVersion "%v":
-							spec.version,
-							spec.db.image`, r.Name)
+		fields := []string{
+			"spec.version",
+			"spec.db.image",
+		}
+		return fmt.Errorf("atleast one of the following specs is not set for Neo4jVersion %q: %s", r.Name, strings.Join(fields, ", "))
 	}
 	return nil
 }
