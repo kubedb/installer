@@ -11,15 +11,9 @@ require (
 	github.com/yudai/gojsondiff v1.0.0
 	gomodules.xyz/go-sh v0.1.0
 	gomodules.xyz/semvers v0.0.2
-<<<<<<< Updated upstream
-	k8s.io/api v0.32.3
-	k8s.io/apimachinery v0.32.3
-	kmodules.xyz/client-go v0.32.10
-=======
 	k8s.io/api v0.32.8
 	k8s.io/apimachinery v0.32.8
-	kmodules.xyz/client-go v0.32.9
->>>>>>> Stashed changes
+	kmodules.xyz/client-go v0.32.10
 	kmodules.xyz/go-containerregistry v0.0.14
 	kmodules.xyz/image-packer v0.0.0-20251207101219-5eac37d8b469
 	kmodules.xyz/resource-metadata v0.39.0
@@ -119,11 +113,7 @@ require (
 	k8s.io/utils v0.0.0-20241210054802-24370beab758 // indirect
 	kmodules.xyz/apiversion v0.2.0 // indirect
 	kmodules.xyz/custom-resources v0.32.2 // indirect
-<<<<<<< Updated upstream
-	kmodules.xyz/monitoring-agent-api v0.32.1 // indirect
-=======
 	kmodules.xyz/monitoring-agent-api v0.32.4 // indirect
->>>>>>> Stashed changes
 	kmodules.xyz/offshoot-api v0.32.0 // indirect
 	kubeops.dev/petset v0.0.14 // indirect
 	kubeops.dev/scanner v0.0.19 // indirect
