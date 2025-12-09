@@ -311,8 +311,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-z
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-zookeeper-3.8.3.tar $IMAGE_REGISTRY/appscode-images/zookeeper:3.8.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-zookeeper-3.9.1.tar $IMAGE_REGISTRY/appscode-images/zookeeper:3.9.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-kubectl-nonroot-1.31.tar $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.31
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.0.14.tar $IMAGE_REGISTRY/appscode/petset:v0.0.14
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.11.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.11
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.0.15.tar $IMAGE_REGISTRY/appscode/petset:v0.0.15
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.12.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.12
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-4.1.6-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-5.0.0-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-medusa-plugin-v0.6.0.tar $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.6.0
@@ -464,6 +464,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/prom-memcached-ex
 $CMD push --allow-nondistributable-artifacts --insecure images/prom-mysqld-exporter-v0.13.0.tar $IMAGE_REGISTRY/prom/mysqld-exporter:v0.13.0
 $CMD push --allow-nondistributable-artifacts --insecure images/prometheuscommunity-elasticsearch-exporter-v1.7.0.tar $IMAGE_REGISTRY/prometheuscommunity/elasticsearch-exporter:v1.7.0
 $CMD push --allow-nondistributable-artifacts --insecure images/prometheuscommunity-postgres-exporter-v0.15.0.tar $IMAGE_REGISTRY/prometheuscommunity/postgres-exporter:v0.15.0
+$CMD push --allow-nondistributable-artifacts --insecure images/qdrant-qdrant-v1.15.4.tar $IMAGE_REGISTRY/qdrant/qdrant:v1.15.4
 $CMD push --allow-nondistributable-artifacts --insecure images/git-sync-git-sync-v4.4.2.tar $IMAGE_REGISTRY/git-sync/git-sync:v4.4.2
 $CMD push --allow-nondistributable-artifacts --insecure images/saplabs-hanaexpress-2.00.082.00.20250528.1.tar $IMAGE_REGISTRY/saplabs/hanaexpress:2.00.082.00.20250528.1
 $CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.1.32-e3d3cde6da-4.0.16-1.17.6.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6
@@ -475,4 +476,3 @@ $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timesca
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg14-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg14-oss
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg15-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg15-oss
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg16-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg16-oss
-$CMD push --allow-nondistributable-artifacts --insecure images/qdrant-qdrant-v1.15.4.tar $IMAGE_REGISTRY/qdrant/qdrant:v1.15.4
