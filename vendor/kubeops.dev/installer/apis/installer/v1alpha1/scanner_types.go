@@ -87,7 +87,8 @@ type ScannerSpec struct {
 	Nats               ScannerNATS              `json:"nats"`
 	// +optional
 	License string `json:"license"`
-
+	// +optional
+	Distro DistroSpec `json:"distro"`
 	// +optional
 	ScanRequestTTLAfterFinished metav1.Duration  `json:"scanRequestTTLAfterFinished"`
 	ScanReportTTLAfterOutdated  metav1.Duration  `json:"scanReportTTLAfterOutdated"`
