@@ -84,7 +84,9 @@ type SupervisorSpec struct {
 	Apiserver          SupervisorApiserver      `json:"apiserver"`
 	Monitoring         Monitoring               `json:"monitoring"`
 	// +optional
-	NetworkPolicy NetworkPolicy `json:"networkPolicy"`
+	NetworkPolicy NetworkPolicySpec `json:"networkPolicy"`
+	// +optional
+	Distro DistroSpec `json:"distro"`
 }
 
 type SupervisorApiserver struct {

@@ -18,10 +18,10 @@ require (
 	kmodules.xyz/image-packer v0.0.0-20251207101219-5eac37d8b469
 	kmodules.xyz/resource-metadata v0.39.0
 	kmodules.xyz/schema-checker v0.4.2
-	kubedb.dev/apimachinery v0.59.1-0.20251208114801-e58fe916a949
-	kubeops.dev/installer v0.0.0-20250630172252-60882a8ed9ab
+	kubedb.dev/apimachinery v0.60.0-rc.0
+	kubeops.dev/installer v0.0.0-20251209050607-64f09223e02c
 	sigs.k8s.io/yaml v1.4.0
-	stash.appscode.dev/installer v0.12.2-0.20251027171826-e3a597044fd4
+	stash.appscode.dev/installer v0.12.2-0.20251204172259-c724502d3955
 )
 
 require (
@@ -47,7 +47,7 @@ require (
 	github.com/go-openapi/jsonpointer v0.21.0 // indirect
 	github.com/go-openapi/jsonreference v0.21.0 // indirect
 	github.com/go-openapi/swag v0.23.0 // indirect
-	github.com/go-sql-driver/mysql v1.9.0 // indirect
+	github.com/go-sql-driver/mysql v1.9.1 // indirect
 	github.com/gobeam/stringy v0.0.5 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
@@ -96,13 +96,13 @@ require (
 	golang.org/x/sys v0.38.0 // indirect
 	golang.org/x/term v0.37.0 // indirect
 	golang.org/x/text v0.31.0 // indirect
-	golang.org/x/time v0.10.0 // indirect
+	golang.org/x/time v0.11.0 // indirect
 	gomodules.xyz/encoding v0.0.8 // indirect
 	gomodules.xyz/jsonpatch/v2 v2.5.0 // indirect
 	gomodules.xyz/jsonpath v0.0.2 // indirect
 	gomodules.xyz/mergo v0.3.13 // indirect
 	gomodules.xyz/pointer v0.1.0 // indirect
-	google.golang.org/protobuf v1.36.5 // indirect
+	google.golang.org/protobuf v1.36.6 // indirect
 	gopkg.in/evanphx/json-patch.v4 v4.12.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
@@ -115,9 +115,9 @@ require (
 	kmodules.xyz/custom-resources v0.32.2 // indirect
 	kmodules.xyz/monitoring-agent-api v0.32.4 // indirect
 	kmodules.xyz/offshoot-api v0.32.0 // indirect
-	kubeops.dev/petset v0.0.14 // indirect
+	kubeops.dev/petset v0.0.15 // indirect
 	kubeops.dev/scanner v0.0.19 // indirect
-	kubeops.dev/sidekick v0.0.11 // indirect
+	kubeops.dev/sidekick v0.0.12 // indirect
 	open-cluster-management.io/api v1.0.0 // indirect
 	sigs.k8s.io/controller-runtime v0.20.4 // indirect
 	sigs.k8s.io/gateway-api v1.1.0 // indirect
