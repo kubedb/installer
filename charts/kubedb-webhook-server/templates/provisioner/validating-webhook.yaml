@@ -29,10 +29,11 @@ webhooks:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
       resources: ["cassandras"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.ClickHouse }}
 - name: clickhousewebhook.validators.kubedb.com
@@ -47,10 +48,30 @@ webhooks:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
       resources: ["clickhouses"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
+{{- end }}
+{{- if $featureGates.DB2 }}
+- name: db2webhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-db2
+      port: 443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["db2s"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.Druid }}
 - name: druidwebhook.validators.kubedb.com
@@ -65,10 +86,11 @@ webhooks:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
       resources: ["druids"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.Elasticsearch }}
 - name: elasticsearchwebhook.validators.kubedb.com
@@ -80,31 +102,14 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-  - apiGroups: ["kubedb.com"]
-    apiVersions: ["v1"]
-    resources: ["elasticsearches"]
-    operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["v1"]
+      resources: ["elasticsearches"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
-{{- end }}
-{{- if $featureGates.Etcd }}
-- name: etcdwebhook.validators.kubedb.com
-  clientConfig:
-    service:
-      namespace: {{ .Release.Namespace }}
-      name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kubedb-com-v1-etcd
-      port: 443
-    caBundle: {{ $._caCrt }}
-  rules:
-  - apiGroups: ["kubedb.com"]
-    apiVersions: ["*"]
-    resources: ["etcds"]
-    operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.FerretDB }}
 - name: ferretdbwebhook.validators.kubedb.com
@@ -119,10 +124,49 @@ webhooks:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
       resources: ["ferretdbs"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
+{{- end }}
+{{- if $featureGates.HanaDB }}
+- name: hanadbwebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-hanadb
+      port: 443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["hanadbs"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+  matchPolicy: Equivalent
+{{- end }}
+{{- if $featureGates.Hazelcast }}
+- name: hazelcastwebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-hazelcast
+      port: 443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["hazelcasts"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.Ignite }}
 - name: ignitewebhook.validators.kubedb.com
@@ -134,13 +178,14 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-    - apiGroups: [ "kubedb.com" ]
-      apiVersions: [ "*" ]
-      resources: [ "ignites" ]
-      operations: [ "CREATE", "UPDATE", "DELETE" ]
-  admissionReviewVersions: [ "v1beta1" ]
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["ignites"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.Kafka }}
 - name: kafkawebhook.validators.kubedb.com
@@ -152,13 +197,16 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-    - apiGroups: [ "kubedb.com" ]
-      apiVersions: [ "v1" ]
-      resources: [ "kafkas" ]
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["v1"]
+      resources: ["kafkas"]
       operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: [ "v1beta1" ]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
+
+# Kafka ecosystem validators (kafka.kubedb.com group)
 - name: connectclusterwebhook.validators.kafka.kubedb.com
   clientConfig:
     service:
@@ -168,13 +216,15 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-    - apiGroups: [ "kafka.kubedb.com" ]
-      apiVersions: [ "*" ]
-      resources: [ "connectclusters" ]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: [ "v1beta1" ]
+    - apiGroups: ["kafka.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["connectclusters"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
+
 - name: connectorwebhook.validators.kafka.kubedb.com
   clientConfig:
     service:
@@ -184,13 +234,15 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-    - apiGroups: [ "kafka.kubedb.com" ]
-      apiVersions: [ "*" ]
-      resources: [ "connectors" ]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: [ "v1beta1" ]
+    - apiGroups: ["kafka.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["connectors"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
+
 - name: restproxywebhook.validators.kafka.kubedb.com
   clientConfig:
     service:
@@ -200,13 +252,15 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-    - apiGroups: [ "kafka.kubedb.com" ]
-      apiVersions: [ "*" ]
-      resources: [ "restproxies" ]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: [ "v1beta1" ]
+    - apiGroups: ["kafka.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["restproxies"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
+
 - name: schemaregistrywebhook.validators.kafka.kubedb.com
   clientConfig:
     service:
@@ -216,13 +270,14 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-    - apiGroups: [ "kafka.kubedb.com" ]
-      apiVersions: [ "*" ]
-      resources: [ "schemaregistries" ]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: [ "v1beta1" ]
+    - apiGroups: ["kafka.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["schemaregistries"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.MariaDB }}
 - name: mariadbwebhook.validators.kubedb.com
@@ -234,13 +289,14 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-  - apiGroups: ["kubedb.com"]
-    apiVersions: ["v1"]
-    resources: ["mariadbs"]
-    operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["v1"]
+      resources: ["mariadbs"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.Memcached }}
 - name: memcachedwebhook.validators.kubedb.com
@@ -252,13 +308,14 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-  - apiGroups: ["kubedb.com"]
-    apiVersions: ["v1"]
-    resources: ["memcacheds"]
-    operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["v1"]
+      resources: ["memcacheds"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.Milvus }}
 - name: milvuswebhook.validators.kubedb.com
@@ -270,13 +327,14 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-    - apiGroups: [ "kubedb.com" ]
-      apiVersions: [ "*" ]
-      resources: [ "milvuses" ]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: [ "v1beta1" ]
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["milvuses"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.MongoDB }}
 - name: mongodbwebhook.validators.kubedb.com
@@ -288,13 +346,14 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-  - apiGroups: ["kubedb.com"]
-    apiVersions: ["v1"]
-    resources: ["mongodbs"]
-    operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["v1"]
+      resources: ["mongodbs"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.MSSQLServer }}
 - name: mssqlserverwebhook.validators.kubedb.com
@@ -306,13 +365,14 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-    - apiGroups: [ "kubedb.com" ]
-      apiVersions: [ "*" ]
-      resources: [ "mssqlservers" ]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: [ "v1beta1" ]
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["mssqlservers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.MySQL }}
 - name: mysqlwebhook.validators.kubedb.com
@@ -324,15 +384,35 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-  - apiGroups: ["kubedb.com"]
-    apiVersions: ["v1"]
-    resources: ["mysqls"]
-    operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["v1"]
+      resources: ["mysqls"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
-{{- if $featureGates.MySQL }}
+{{- if $featureGates.Neo4j }}
+- name: neo4jwebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-neo4j
+      port: 443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["neo4js"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+  matchPolicy: Equivalent
+{{- end }}
+{{- if $featureGates.Oracle }}
 - name: oraclewebhook.validators.kubedb.com
   clientConfig:
     service:
@@ -345,10 +425,11 @@ webhooks:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["v1alpha2"]
       resources: ["oracles"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.PerconaXtraDB }}
 - name: perconaxtradbwebhook.validators.kubedb.com
@@ -360,13 +441,14 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-  - apiGroups: ["kubedb.com"]
-    apiVersions: ["v1"]
-    resources: ["perconaxtradbs"]
-    operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["v1"]
+      resources: ["perconaxtradbs"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.PgBouncer }}
 - name: pgbouncerwebhook.validators.kubedb.com
@@ -378,13 +460,14 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-  - apiGroups: ["kubedb.com"]
-    apiVersions: ["v1"]
-    resources: ["pgbouncers"]
-    operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["v1"]
+      resources: ["pgbouncers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.Pgpool }}
 - name: pgpoolwebhook.validators.kubedb.com
@@ -396,13 +479,14 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-    - apiGroups: [ "kubedb.com" ]
-      apiVersions: [ "*" ]
-      resources: [ "pgpools" ]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: [ "v1beta1" ]
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["pgpools"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.Postgres }}
 - name: postgreswebhook.validators.kubedb.com
@@ -414,14 +498,14 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-  - apiGroups: ["kubedb.com"]
-    apiVersions: ["v1"]
-    resources: ["postgreses"]
-    operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["v1"]
+      resources: ["postgreses"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  matchPolicy: Equivalent
   sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.ProxySQL }}
 - name: proxysqlwebhook.validators.kubedb.com
@@ -433,13 +517,14 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-  - apiGroups: ["kubedb.com"]
-    apiVersions: ["v1"]
-    resources: ["proxysqls"]
-    operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["v1"]
+      resources: ["proxysqls"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.Qdrant }}
 - name: qdrantwebhook.validators.kubedb.com
@@ -451,13 +536,14 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-    - apiGroups: [ "kubedb.com" ]
-      apiVersions: [ "*" ]
-      resources: [ "qdrants" ]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: [ "v1beta1" ]
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["qdrants"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.RabbitMQ }}
 - name: rabbitmqwebhook.validators.kubedb.com
@@ -469,13 +555,14 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-    - apiGroups: [ "kubedb.com" ]
-      apiVersions: [ "*" ]
-      resources: [ "rabbitmqs" ]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: [ "v1beta1" ]
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["rabbitmqs"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.Redis }}
 - name: rediswebhook.validators.kubedb.com
@@ -487,13 +574,15 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-  - apiGroups: ["kubedb.com"]
-    apiVersions: ["v1"]
-    resources: ["redises"]
-    operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["v1"]
+      resources: ["redises"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
+
 - name: redissentinelwebhook.validators.kubedb.com
   clientConfig:
     service:
@@ -506,28 +595,11 @@ webhooks:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["v1"]
       resources: ["redissentinels"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
-{{- end }}
-{{- if $featureGates.HanaDB }}
-- name: hanadbwebhook.validators.kubedb.com
-  clientConfig:
-    service:
-      namespace: {{ .Release.Namespace }}
-      name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kubedb-com-v1alpha2-hanadb
-      port: 443
-    caBundle: {{ $._caCrt }}
-  rules:
-    - apiGroups: [ "kubedb.com" ]
-      apiVersions: [ "*" ]
-      resources: [ "hanadbs" ]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: [ "v1beta1" ]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.Singlestore }}
 - name: singlestorewebhook.validators.kubedb.com
@@ -539,13 +611,14 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-    - apiGroups: [ "kubedb.com" ]
-      apiVersions: [ "*" ]
-      resources: [ "singlestores" ]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: [ "v1beta1" ]
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["singlestores"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.Solr }}
 - name: solrwebhook.validators.kubedb.com
@@ -557,13 +630,33 @@ webhooks:
       port: 443
     caBundle: {{ $._caCrt }}
   rules:
-    - apiGroups: [ "kubedb.com" ]
-      apiVersions: [ "*" ]
-      resources: [ "solrs" ]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: [ "v1beta1" ]
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["solrs"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
+  matchPolicy: Equivalent
+{{- end }}
+{{- if $featureGates.Weaviate }}
+- name: weaviatewebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-weaviate
+      port: 443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["weaviates"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- if $featureGates.ZooKeeper }}
 - name: zookeeperwebhook.validators.kubedb.com
@@ -579,27 +672,10 @@ webhooks:
       apiVersions: ["*"]
       resources: ["zookeepers"]
       operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: [ "v1beta1" ]
+  admissionReviewVersions: ["v1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
-{{- end }}
-{{- if $featureGates.Hazelcast }}
-- name: hazelcastwebhook.validators.kubedb.com
-  clientConfig:
-    service:
-      namespace: {{ .Release.Namespace }}
-      name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-kubedb-com-v1alpha2-hazelcast
-      port: 443
-    caBundle: {{ $._caCrt }}
-  rules:
-    - apiGroups: [ "kubedb.com" ]
-      apiVersions: [ "*" ]
-      resources: [ "hazelcasts" ]
-      operations: [ "CREATE", "UPDATE", "DELETE" ]
-  admissionReviewVersions: [ "v1beta1" ]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
+  matchPolicy: Equivalent
 {{- end }}
 {{- end }}
 {{- end }}
