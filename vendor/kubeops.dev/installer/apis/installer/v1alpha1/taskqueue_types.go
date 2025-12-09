@@ -79,9 +79,10 @@ type TaskqueueSpec struct {
 	ServiceAccount ServiceAccountSpec  `json:"serviceAccount"`
 	Apiserver      SupervisorApiserver `json:"apiserver"`
 	Monitoring     Monitoring          `json:"monitoring"`
-
 	// +optional
-	NetworkPolicy NetworkPolicy `json:"networkPolicy"`
+	NetworkPolicy NetworkPolicySpec `json:"networkPolicy"`
+	// +optional
+	Distro DistroSpec `json:"distro"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

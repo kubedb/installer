@@ -80,7 +80,27 @@ type PetsetSpec struct {
 	Apiserver  SupervisorApiserver `json:"apiserver"`
 	Monitoring Monitoring          `json:"monitoring"`
 	// +optional
-	NetworkPolicy NetworkPolicy `json:"networkPolicy"`
+	NetworkPolicy NetworkPolicySpec `json:"networkPolicy"`
+	// +optional
+	Features PetsetFeatures `json:"features"`
+	// +optional
+	Distro DistroSpec `json:"distro"`
+	// +optional
+	MaxConcurrentReconciles int `json:"maxConcurrentReconciles"`
+}
+
+type PetsetFeatures struct {
+	// +optional
+	Ocm OCMSpec `json:"ocm"`
+}
+type OCMSpec struct {
+	Enabled   bool         `json:"enabled"`
+	Placement OCMPlacement `json:"placement"`
+}
+
+type OCMPlacement struct {
+	Create bool   `json:"create"`
+	Name   string `json:"name"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

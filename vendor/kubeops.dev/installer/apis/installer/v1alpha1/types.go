@@ -121,6 +121,14 @@ type TLSConfig struct {
 	InsecureSkipTLSVerify bool   `json:"insecureSkipTLSVerify"`
 }
 
-type NetworkPolicy struct {
+type NetworkPolicySpec struct {
 	Enabled bool `json:"enabled"`
+}
+
+// +kubebuilder:validation:Enum=all;catalog;operator
+type UBIMode string
+
+type DistroSpec struct {
+	Openshift bool    `json:"openshift"`
+	UBI       UBIMode `json:"ubi"`
 }
