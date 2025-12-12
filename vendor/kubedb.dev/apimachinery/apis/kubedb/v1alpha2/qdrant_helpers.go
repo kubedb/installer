@@ -25,6 +25,7 @@ import (
 	"kubedb.dev/apimachinery/apis/kubedb"
 	"kubedb.dev/apimachinery/crds"
 
+	promapi "github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring/v1"
 	"gomodules.xyz/pointer"
 	core "k8s.io/api/core/v1"
 	meta "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -34,6 +35,7 @@ import (
 	meta_util "kmodules.xyz/client-go/meta"
 	"kmodules.xyz/client-go/policy/secomp"
 	appcat "kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1"
+	mona "kmodules.xyz/monitoring-agent-api/api/v1"
 	ofst "kmodules.xyz/offshoot-api/api/v2"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -180,6 +182,51 @@ func (q *Qdrant) OffshootSelectors(extraSelectors ...map[string]string) map[stri
 
 func (q *Qdrant) PodLabels(extraLabels ...map[string]string) map[string]string {
 	return q.offshootLabels(meta_util.OverwriteKeys(q.OffshootSelectors(), extraLabels...), q.Spec.PodTemplate.Labels)
+}
+
+func (q *Qdrant) ServiceLabels(alias ServiceAlias, extraLabels ...map[string]string) map[string]string {
+	svcTemplate := GetServiceTemplate(q.Spec.ServiceTemplates, alias)
+	return q.offshootLabels(meta_util.OverwriteKeys(q.OffshootSelectors(), extraLabels...), svcTemplate.Labels)
+}
+
+type qdrantStatsService struct {
+	*Qdrant
+}
+
+func (q qdrantStatsService) GetNamespace() string {
+	return q.Qdrant.GetNamespace()
+}
+
+func (q qdrantStatsService) ServiceName() string {
+	return q.OffshootName() + "-stats"
+}
+
+func (q qdrantStatsService) ServiceMonitorName() string {
+	return q.ServiceName()
+}
+
+func (q qdrantStatsService) ServiceMonitorAdditionalLabels() map[string]string {
+	return q.OffshootLabels()
+}
+
+func (q qdrantStatsService) Path() string {
+	return kubedb.DefaultStatsPath
+}
+
+func (q qdrantStatsService) Scheme() string {
+	return ""
+}
+
+func (q qdrantStatsService) TLSConfig() *promapi.TLSConfig {
+	return nil
+}
+
+func (q Qdrant) StatsService() mona.StatsAccessor {
+	return &qdrantStatsService{&q}
+}
+
+func (q Qdrant) StatsServiceLabels() map[string]string {
+	return q.ServiceLabels(StatsServiceAlias, map[string]string{kubedb.LabelRole: kubedb.RoleStats})
 }
 
 func (q *Qdrant) SetDefaults(kc client.Client) {
