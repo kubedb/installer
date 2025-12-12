@@ -28,7 +28,6 @@ k3s ctr images import images/appscode-kubectl-nonroot-1.31.tar
 k3s ctr images import images/appscode-petset-v0.0.15.tar
 k3s ctr images import images/appscode-sidekick-v0.0.12.tar
 k3s ctr images import images/kubedb-cassandra-medusa-plugin-v0.7.0-rc.0.tar
-k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.18.0-rc.0.tar
 k3s ctr images import images/kubedb-elasticsearch-restic-plugin-v0.23.0-rc.0.tar
 k3s ctr images import images/kubedb-kubedb-autoscaler-v0.45.0-rc.0.tar
@@ -40,10 +39,9 @@ k3s ctr images import images/kubedb-kubedb-ops-manager-v0.47.0-rc.0.tar
 k3s ctr images import images/kubedb-kubedb-provisioner-v0.60.0-rc.0.tar
 k3s ctr images import images/kubedb-kubedb-schema-manager-v0.36.0-rc.0.tar
 k3s ctr images import images/kubedb-kubedb-ui-server-v0.36.0-rc.0.tar
-k3s ctr images import images/kubedb-kubedb-verifier-v0.1.0.tar
+k3s ctr images import images/kubedb-kubedb-verifier-v0.11.0-rc.0.tar
 k3s ctr images import images/kubedb-kubedb-webhook-server-v0.36.0-rc.0.tar
 k3s ctr images import images/kubedb-mariadb-csi-snapshotter-plugin-v0.20.0-rc.0.tar
-k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.18.0-rc.0.tar
 k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.21.0-rc.0.tar
 k3s ctr images import images/kubedb-mssqlserver-walg-plugin-v0.14.0-rc.0.tar
 k3s ctr images import images/kubedb-mysql-csi-snapshotter-plugin-v0.21.0-rc.0.tar
