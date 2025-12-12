@@ -315,7 +315,6 @@ k3s ctr images import images/kubedb-cassandra-init-4.1.6-v2.tar
 k3s ctr images import images/kubedb-cassandra-init-5.0.0-v2.tar
 k3s ctr images import images/kubedb-cassandra-medusa-plugin-v0.7.0-rc.0.tar
 k3s ctr images import images/kubedb-clickhouse-init-24.4.1-v3.tar
-k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.18.0-rc.0.tar
 k3s ctr images import images/kubedb-db2-coordinator-v0.1.0-rc.0.tar
 k3s ctr images import images/kubedb-druid-init-28.0.1.tar
@@ -334,7 +333,7 @@ k3s ctr images import images/kubedb-kubedb-ops-manager-v0.47.0-rc.0.tar
 k3s ctr images import images/kubedb-kubedb-provisioner-v0.60.0-rc.0.tar
 k3s ctr images import images/kubedb-kubedb-schema-manager-v0.36.0-rc.0.tar
 k3s ctr images import images/kubedb-kubedb-ui-server-v0.36.0-rc.0.tar
-k3s ctr images import images/kubedb-kubedb-verifier-v0.1.0.tar
+k3s ctr images import images/kubedb-kubedb-verifier-v0.11.0-rc.0.tar
 k3s ctr images import images/kubedb-kubedb-webhook-server-v0.36.0-rc.0.tar
 k3s ctr images import images/kubedb-mariadb-archiver-v0.20.0-rc.0_10.10.7-jammy.tar
 k3s ctr images import images/kubedb-mariadb-archiver-v0.20.0-rc.0_10.11.6-jammy.tar
@@ -347,7 +346,6 @@ k3s ctr images import images/kubedb-mariadb-archiver-v0.20.0-rc.0_11.2.2-jammy.t
 k3s ctr images import images/kubedb-mariadb-coordinator-v0.40.0-rc.0.tar
 k3s ctr images import images/kubedb-mariadb-csi-snapshotter-plugin-v0.20.0-rc.0.tar
 k3s ctr images import images/kubedb-mariadb-init-0.8.0.tar
-k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.18.0-rc.0.tar
 k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.21.0-rc.0.tar
 k3s ctr images import images/kubedb-mongodb-init-4.2-v9.tar
 k3s ctr images import images/kubedb-mongodb-init-6.0-v11.tar

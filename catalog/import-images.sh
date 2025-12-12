@@ -317,7 +317,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-5.0.0-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-medusa-plugin-v0.7.0-rc.0.tar $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.7.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-clickhouse-init-24.4.1-v3.tar $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1-v3
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.18.0-rc.0.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.18.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-db2-coordinator-v0.1.0-rc.0.tar $IMAGE_REGISTRY/kubedb/db2-coordinator:v0.1.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-28.0.1.tar $IMAGE_REGISTRY/kubedb/druid-init:28.0.1
@@ -336,7 +335,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-ops
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-provisioner-v0.60.0-rc.0.tar $IMAGE_REGISTRY/kubedb/kubedb-provisioner:v0.60.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-schema-manager-v0.36.0-rc.0.tar $IMAGE_REGISTRY/kubedb/kubedb-schema-manager:v0.36.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-ui-server-v0.36.0-rc.0.tar $IMAGE_REGISTRY/kubedb/kubedb-ui-server:v0.36.0-rc.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-verifier-v0.1.0.tar $IMAGE_REGISTRY/kubedb/kubedb-verifier:v0.1.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-verifier-v0.11.0-rc.0.tar $IMAGE_REGISTRY/kubedb/kubedb-verifier:v0.11.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-webhook-server-v0.36.0-rc.0.tar $IMAGE_REGISTRY/kubedb/kubedb-webhook-server:v0.36.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.20.0-rc.0_10.10.7-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.20.0-rc.0_10.10.7-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.20.0-rc.0_10.11.6-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.20.0-rc.0_10.11.6-jammy
@@ -349,7 +348,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-ar
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-coordinator-v0.40.0-rc.0.tar $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.40.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-csi-snapshotter-plugin-v0.20.0-rc.0.tar $IMAGE_REGISTRY/kubedb/mariadb-csi-snapshotter-plugin:v0.20.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-init-0.8.0.tar $IMAGE_REGISTRY/kubedb/mariadb-init:0.8.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.18.0-rc.0.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.18.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-csi-snapshotter-plugin-v0.21.0-rc.0.tar $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.21.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-4.2-v9.tar $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-6.0-v11.tar $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v11

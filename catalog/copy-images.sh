@@ -326,7 +326,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-i
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0-v2 $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-medusa-plugin:v0.7.0-rc.0 $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.7.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1-v3 $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1-v3
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.18.0-rc.0 $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.18.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/db2-coordinator:v0.1.0-rc.0 $IMAGE_REGISTRY/kubedb/db2-coordinator:v0.1.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:28.0.1 $IMAGE_REGISTRY/kubedb/druid-init:28.0.1
@@ -345,7 +344,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-provisioner:v0.60.0-rc.0 $IMAGE_REGISTRY/kubedb/kubedb-provisioner:v0.60.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-schema-manager:v0.36.0-rc.0 $IMAGE_REGISTRY/kubedb/kubedb-schema-manager:v0.36.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ui-server:v0.36.0-rc.0 $IMAGE_REGISTRY/kubedb/kubedb-ui-server:v0.36.0-rc.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-verifier:v0.1.0 $IMAGE_REGISTRY/kubedb/kubedb-verifier:v0.1.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-verifier:v0.11.0-rc.0 $IMAGE_REGISTRY/kubedb/kubedb-verifier:v0.11.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-webhook-server:v0.36.0-rc.0 $IMAGE_REGISTRY/kubedb/kubedb-webhook-server:v0.36.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.20.0-rc.0_10.10.7-jammy $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.20.0-rc.0_10.10.7-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.20.0-rc.0_10.11.6-jammy $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.20.0-rc.0_10.11.6-jammy
@@ -358,7 +357,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-arc
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-coordinator:v0.40.0-rc.0 $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.40.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-csi-snapshotter-plugin:v0.20.0-rc.0 $IMAGE_REGISTRY/kubedb/mariadb-csi-snapshotter-plugin:v0.20.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-init:0.8.0 $IMAGE_REGISTRY/kubedb/mariadb-init:0.8.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.18.0-rc.0 $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.18.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.21.0-rc.0 $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.21.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v11 $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v11
