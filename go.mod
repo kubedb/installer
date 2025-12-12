@@ -24,6 +24,8 @@ require (
 	stash.appscode.dev/installer v0.12.2-0.20251204172259-c724502d3955
 )
 
+replace kubedb.dev/apimachinery => ../apimachinery
+
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/Masterminds/goutils v1.1.1 // indirect
