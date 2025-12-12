@@ -1,19 +1,19 @@
-# KubeDB Grafana Dashboards
+# KubeDB Perses Dashboards
 
-[KubeDB Grafana Dashboards by AppsCode](https://github.com/kubedb/installer) - KubeDB Grafana Dashboards for ByteBuilders
+[KubeDB Perses Dashboards by AppsCode](https://github.com/kubedb/installer) - KubeDB Perses Dashboards for ByteBuilders
 
 ## TL;DR;
 
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb-grafana-dashboards --version=v2025.10.17
-$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2025.10.17
+$ helm search repo appscode/kubedb-perses-dashboards --version=v2025.12.9-rc.0
+$ helm upgrade -i kubedb-perses-dashboards appscode/kubedb-perses-dashboards -n kubeops --create-namespace --version=v2025.12.9-rc.0
 ```
 
 ## Introduction
 
-This chart deploys a KubeDB Grafana Dashboards on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart deploys a KubeDB Perses Dashboards on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 ## Prerequisites
 
@@ -21,29 +21,29 @@ This chart deploys a KubeDB Grafana Dashboards on a [Kubernetes](http://kubernet
 
 ## Installing the Chart
 
-To install/upgrade the chart with the release name `kubedb-grafana-dashboards`:
+To install/upgrade the chart with the release name `kubedb-perses-dashboards`:
 
 ```bash
-$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2025.10.17
+$ helm upgrade -i kubedb-perses-dashboards appscode/kubedb-perses-dashboards -n kubeops --create-namespace --version=v2025.12.9-rc.0
 ```
 
-The command deploys a KubeDB Grafana Dashboards on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
+The command deploys a KubeDB Perses Dashboards on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
 
 > **Tip**: List all releases using `helm list`
 
 ## Uninstalling the Chart
 
-To uninstall the `kubedb-grafana-dashboards`:
+To uninstall the `kubedb-perses-dashboards`:
 
 ```bash
-$ helm uninstall kubedb-grafana-dashboards -n kubeops
+$ helm uninstall kubedb-perses-dashboards -n kubeops
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
 ## Configuration
 
-The following table lists the configurable parameters of the `kubedb-grafana-dashboards` chart and their default values.
+The following table lists the configurable parameters of the `kubedb-perses-dashboards` chart and their default values.
 
 |            Parameter            |                                                                                                            Description                                                                                                             |                                                                                            Default                                                                                             |
 |---------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -82,12 +82,12 @@ The following table lists the configurable parameters of the `kubedb-grafana-das
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2025.10.17 --set resources=["elasticsearch","kafka","mariadb","mongodb","mysql","postgres","redis"]
+$ helm upgrade -i kubedb-perses-dashboards appscode/kubedb-perses-dashboards -n kubeops --create-namespace --version=v2025.12.9-rc.0 --set resources=["elasticsearch","kafka","mariadb","mongodb","mysql","postgres","redis"]
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards -n kubeops --create-namespace --version=v2025.10.17 --values values.yaml
+$ helm upgrade -i kubedb-perses-dashboards appscode/kubedb-perses-dashboards -n kubeops --create-namespace --version=v2025.12.9-rc.0 --values values.yaml
 ```
