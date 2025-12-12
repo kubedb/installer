@@ -26566,6 +26566,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_CassandraVersionSpec(ref common.R
 							Format:      "",
 						},
 					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 					"db": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Database Image",
@@ -26846,6 +26854,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_ClickHouseVersionSpec(ref common.
 							Format:      "",
 						},
 					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 					"db": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Database Image",
@@ -27122,6 +27138,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_DB2VersionSpec(ref common.Referen
 							Format:      "",
 						},
 					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 					"db": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Database Image",
@@ -27321,6 +27345,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_DruidVersionSpec(ref common.Refer
 							Description: "Version",
 							Default:     "",
 							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
 							Format:      "",
 						},
 					},
@@ -27645,6 +27677,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_ElasticsearchVersionSpec(ref comm
 							Format:      "",
 						},
 					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 					"distribution": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Distribution",
@@ -27904,6 +27944,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_EtcdVersionSpec(ref common.Refere
 							Format:      "",
 						},
 					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 					"db": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Database Image",
@@ -28096,6 +28144,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_FerretDBVersionSpec(ref common.Re
 							Description: "Version",
 							Default:     "",
 							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
 							Format:      "",
 						},
 					},
@@ -28346,6 +28402,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_HanaDBVersionSpec(ref common.Refe
 							Format:      "",
 						},
 					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 					"db": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Database Image",
@@ -28559,6 +28623,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_HazelcastVersionSpec(ref common.R
 							Description: "Version",
 							Default:     "",
 							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
 							Format:      "",
 						},
 					},
@@ -28777,6 +28849,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_IgniteVersionSpec(ref common.Refe
 							Format:      "",
 						},
 					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 					"db": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Database Image",
@@ -28943,6 +29023,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_KafkaConnectorVersionSpec(ref com
 							Description: "Version of the connector plugins",
 							Default:     "",
 							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
 							Format:      "",
 						},
 					},
@@ -29140,6 +29228,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_KafkaVersionSpec(ref common.Refer
 							Description: "Version",
 							Default:     "",
 							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
 							Format:      "",
 						},
 					},
@@ -29413,6 +29509,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_MSSQLServerVersionSpec(ref common
 							Description: "Version",
 							Default:     "",
 							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
 							Format:      "",
 						},
 					},
@@ -29780,6 +29884,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_MariaDBVersionSpec(ref common.Ref
 							Format:      "",
 						},
 					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 					"db": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Database Image",
@@ -30052,6 +30164,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_MemcachedVersionSpec(ref common.R
 							Format:      "",
 						},
 					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 					"db": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Database Image",
@@ -30236,6 +30356,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_MilvusVersionSpec(ref common.Refe
 							Description: "Version",
 							Default:     "",
 							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
 							Format:      "",
 						},
 					},
@@ -30509,6 +30637,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_MongoDBVersionSpec(ref common.Ref
 							Description: "Version",
 							Default:     "",
 							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
 							Format:      "",
 						},
 					},
@@ -30980,6 +31116,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_MySQLVersionSpec(ref common.Refer
 							Format:      "",
 						},
 					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 					"distribution": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Distribution",
@@ -31227,6 +31371,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_Neo4jVersionSpec(ref common.Refer
 							Description: "Version",
 							Default:     "",
 							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
 							Format:      "",
 						},
 					},
@@ -31542,6 +31694,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_OracleVersionSpec(ref common.Refe
 							Format:      "",
 						},
 					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 					"distribution": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Distribution",
@@ -31836,6 +31996,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_PerconaXtraDBVersionSpec(ref comm
 							Format:      "",
 						},
 					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 					"db": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Database Image",
@@ -32121,6 +32289,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_PgBouncerVersionSpec(ref common.R
 							Format:      "",
 						},
 					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 					"pgBouncer": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Database Image",
@@ -32375,6 +32551,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_PgpoolVersionSpec(ref common.Refe
 							Description: "Version",
 							Default:     "",
 							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
 							Format:      "",
 						},
 					},
@@ -32682,6 +32866,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_PostgresVersionSpec(ref common.Re
 							Format:      "",
 						},
 					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 					"distribution": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Distribution",
@@ -32980,6 +33172,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_ProxySQLVersionSpec(ref common.Re
 							Format:      "",
 						},
 					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 					"proxysql": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Proxysql Image",
@@ -33166,6 +33366,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_QdrantVersionSpec(ref common.Refe
 							Description: "Version",
 							Default:     "",
 							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
 							Format:      "",
 						},
 					},
@@ -33362,6 +33570,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_RabbitMQVersionSpec(ref common.Re
 							Description: "Version",
 							Default:     "",
 							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
 							Format:      "",
 						},
 					},
@@ -33631,6 +33847,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_RedisVersionSpec(ref common.Refer
 							Format:      "",
 						},
 					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 					"distribution": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Distribution determines the type of the database(Valkey or Redis)",
@@ -33879,6 +34103,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_SchemaRegistryVersionSpec(ref com
 							Description: "Version",
 							Default:     "",
 							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
 							Format:      "",
 						},
 					},
@@ -34158,6 +34390,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_SinglestoreVersionSpec(ref common
 							Format:      "",
 						},
 					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 					"db": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Database Image",
@@ -34362,6 +34602,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_SolrVersionSpec(ref common.Refere
 							Description: "Version",
 							Default:     "",
 							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
 							Format:      "",
 						},
 					},
@@ -34614,6 +34862,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_WeaviateVersionSpec(ref common.Re
 							Format:  "",
 						},
 					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 					"db": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
@@ -34862,6 +35118,14 @@ func schema_apimachinery_apis_catalog_v1alpha1_ZooKeeperVersionSpec(ref common.R
 							Description: "Version",
 							Default:     "",
 							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"endOfLife": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
+							Default:     false,
+							Type:        []string{"boolean"},
 							Format:      "",
 						},
 					},

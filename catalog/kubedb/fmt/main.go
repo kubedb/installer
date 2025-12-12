@@ -726,7 +726,7 @@ func main() {
 		sh.SetDir(dir)
 		sh.ShowCMD = true
 
-		out, err := sh.Command("helm", "template", "charts/kubedb-catalog", "--api-versions", "policy/v1beta1/PodSecurityPolicy", "--set", "skipDeprecated=false", "--set", "psp.enabled=true").Output()
+		out, err := sh.Command("helm", "template", "charts/kubedb-catalog", "--api-versions", "policy/v1beta1/PodSecurityPolicy", "--set", "skipDeprecated=false", "--set", "skipEndOfLife=false", "--set", "psp.enabled=true").Output()
 		if err != nil {
 			panic(err)
 		}
