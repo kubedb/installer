@@ -29,14 +29,15 @@ spec:
           valuePath: .spec.version
         - key: storageType
           valuePath: .spec.storageType
-        - key: enableSSL
-          valuePath: .spec.enableSSL
         - key: deletionPolicy
           valuePath: .spec.deletionPolicy
         - key: storageClassName
           valuePath: .spec.storage.storageClassName
+      params:
+        - key: tls
+          valuePath: .spec.TLS
       metricValue:
-        value: 1
+        valueFromExpression: int(tls != nil)
 
     - name: replicas
       help: "Number of neo4j replicas in general mode"
@@ -92,14 +93,14 @@ spec:
             metricValue:
               valueFromExpression: "int(phase == 'DataRestoring')"
 
-    - name: ssl_enabled
-      help: "Neo4j ssl information"
+    - name: tls_enabled
+      help: "Neo4j tls information"
       type: gauge
       params:
-        - key: ssl
+        - key: tls
           valuePath: .spec.TLS
       metricValue:
-        valueFromExpression: int(ssl != nil)
+        valueFromExpression: int(tls != nil)
 
     - name: resource_request_cpu
       help: "Requested CPU by Neo4j in core"

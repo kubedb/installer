@@ -13,12 +13,12 @@ require (
 	gomodules.xyz/semvers v0.0.2
 	k8s.io/api v0.32.8
 	k8s.io/apimachinery v0.32.8
-	kmodules.xyz/client-go v0.32.10
+	kmodules.xyz/client-go v0.32.11
 	kmodules.xyz/go-containerregistry v0.0.14
 	kmodules.xyz/image-packer v0.0.0-20251207101219-5eac37d8b469
 	kmodules.xyz/resource-metadata v0.39.0
 	kmodules.xyz/schema-checker v0.4.2
-	kubedb.dev/apimachinery v0.60.0-rc.0
+	kubedb.dev/apimachinery v0.60.0-rc.0.0.20251212063702-bde14bf2e2c9
 	kubeops.dev/installer v0.0.0-20251209050607-64f09223e02c
 	sigs.k8s.io/yaml v1.4.0
 	stash.appscode.dev/installer v0.12.2-0.20251204172259-c724502d3955

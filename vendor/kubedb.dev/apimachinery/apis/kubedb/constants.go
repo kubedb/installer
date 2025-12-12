@@ -2113,6 +2113,16 @@ var (
 			core.ResourceMemory: resource.MustParse("10Gi"),
 		},
 	}
+
+	DefaultResourcesNeo4j = core.ResourceRequirements{
+		Requests: core.ResourceList{
+			core.ResourceCPU:    resource.MustParse(".500"),
+			core.ResourceMemory: resource.MustParse("2Gi"),
+		},
+		Limits: core.ResourceList{
+			core.ResourceMemory: resource.MustParse("2Gi"),
+		},
+	}
 )
 
 func DefaultArbiter(computeOnly bool) core.ResourceRequirements {
