@@ -51,6 +51,7 @@ type KubedbCatalogSpec struct {
 	FeatureGates   map[string]bool                  `json:"featureGates"`
 	Psp            PSP                              `json:"psp"`
 	SkipDeprecated bool                             `json:"skipDeprecated"`
+	SkipEndOfLife  bool                             `json:"skipEndOfLife"`
 	EnableVersions map[string][]string              `json:"enableVersions"`
 	CustomVersions map[string]*runtime.RawExtension `json:"customVersions"`
 	// +optional
