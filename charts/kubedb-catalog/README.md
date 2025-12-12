@@ -109,6 +109,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | psp.kafka.allowPrivilegeEscalation         |                                                 | <code>false</code>             |
 | psp.kafka.privileged                       |                                                 | <code>false</code>             |
 | skipDeprecated                             | Set true to avoid deploying deprecated versions | <code>true</code>              |
+| skipEndOfLife                              |                                                 | <code>true</code>              |
 | enableVersions.Druid                       |                                                 | <code>[]</code>                |
 | enableVersions.Elasticsearch               |                                                 | <code>[]</code>                |
 | enableVersions.FerretDB                    |                                                 | <code>[]</code>                |
