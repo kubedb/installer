@@ -478,6 +478,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure prom/mysqld-exporter:v0.
 $CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/elasticsearch-exporter:v1.7.0 images/prometheuscommunity-elasticsearch-exporter-v1.7.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/postgres-exporter:v0.18.1 images/prometheuscommunity-postgres-exporter-v0.18.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure qdrant/qdrant:v1.15.4 images/qdrant-qdrant-v1.15.4.tar
+$CMD pull --allow-nondistributable-artifacts --insecure qdrant/qdrant:v1.16.2 images/qdrant-qdrant-v1.16.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.4.2 images/git-sync-git-sync-v4.4.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure saplabs/hanaexpress:2.00.082.00.20250528.1 images/saplabs-hanaexpress-2.00.082.00.20250528.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6 images/singlestore-cluster-in-a-box-alma-8.1.32-e3d3cde6da-4.0.16-1.17.6.tar
