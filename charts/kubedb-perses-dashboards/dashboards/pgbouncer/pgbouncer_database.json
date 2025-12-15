@@ -1,0 +1,695 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
+{
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "KN5pOCn4g",
+    "createdAt": "0001-01-01T00:00:00Z",
+    "updatedAt": "0001-01-01T00:00:00Z",
+    "version": 0,
+    "project": "pp"
+  },
+  "spec": {
+    "display": {
+      "name": "KubeDB / PgBouncer / Database"
+    },
+    "variables": [
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Datasource",
+            "hidden": false
+          },
+          "defaultValue": "Prometheus",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "plugin": {
+            "kind": "DatasourceVariable",
+            "spec": {
+              "datasourcePluginKind": "PrometheusDatasource"
+            }
+          },
+          "name": "datasource"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Namespace",
+            "hidden": false
+          },
+          "defaultValue": "demo",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "namespace",
+              "matchers": [
+                "kube_namespace_created"
+              ]
+            }
+          },
+          "name": "namespace"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "PgBouncer",
+            "hidden": false
+          },
+          "defaultValue": "pb",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "app",
+              "matchers": [
+                "kubedb_com_pgbouncer_status_phase{namespace=~\"$namespace\"}"
+              ]
+            }
+          },
+          "name": "app"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Pod",
+            "hidden": false
+          },
+          "defaultValue": [
+            "pb-0"
+          ],
+          "allowAllValue": true,
+          "allowMultiple": true,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "pod",
+              "matchers": [
+                "pgbouncer_up{namespace=~\"$namespace\", service=~\"$app-stats\"}"
+              ]
+            }
+          },
+          "name": "pod"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "hidden": false
+          },
+          "allowAllValue": false,
+          "allowMultiple": true,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "hostname",
+              "matchers": [
+                "pgbouncer_pool_nodes_status{namespace=~\"$namespace\",pod=~\"$pod\"}"
+              ]
+            }
+          },
+          "name": "backend_nodes"
+        }
+      }
+    ],
+    "panels": {
+      "0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "PGBouncer Disabled",
+            "description": "For each PgBouncer it shows if the Database is disabled"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#73bf69",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "migration_from_grafana_not_supported"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "PGBouncer Status",
+            "description": "For each PgBouncer it shows if the Database is paused"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#73bf69",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "migration_from_grafana_not_supported"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "10": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Total Number Of Transaction",
+            "description": "Total Number of Transaction"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "list",
+                "position": "bottom",
+                "values": []
+              },
+              "visual": {
+                "areaOpacity": 0,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 1
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "migration_from_grafana_not_supported"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Active Connections Ratio",
+            "description": "Ratio of used child processes to total child processes (0.0 to 1.0)"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "list",
+                "position": "bottom",
+                "values": []
+              },
+              "visual": {
+                "areaOpacity": 0,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 1
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "migration_from_grafana_not_supported"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Active Database Connectios",
+            "description": "Number of total backend database connected"
+          },
+          "plugin": {
+            "kind": "PieChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "decimal"
+              },
+              "legend": {
+                "mode": "list",
+                "position": "right"
+              },
+              "radius": 50
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "migration_from_grafana_not_supported"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "migration_from_grafana_not_supported"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Error Message Counts",
+            "description": "Error message counts returned from backend PostgreSQL"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "list",
+                "position": "bottom",
+                "values": []
+              },
+              "visual": {
+                "areaOpacity": 0,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 1
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "migration_from_grafana_not_supported"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Query Count",
+            "description": "Total number of Query"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "list",
+                "position": "bottom",
+                "values": []
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "migration_from_grafana_not_supported"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Avg Query time in Microseconds",
+            "description": "Average Query Time in microseconds within stat period"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum by (pod) (pgbouncer_stats_avg_query_time_microseconds{namespace=~\"$namespace\",pod=~\"$pod\"})",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Query Timeout in Seconds",
+            "description": "Amount of Seconds for Timeout of an Query"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "pgbouncer_config_query_wait_timeout_seconds{namespace=~\"$namespace\",pod=~\"$pod\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "8": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Total Time Of Query Execution",
+            "description": "Total number of Microseconds Connecting Postgresql, Executing Query"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "migration_from_grafana_not_supported"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Average of Total Transaction",
+            "description": "Average Transaction Count"
+          },
+          "plugin": {
+            "kind": "GaugeChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "decimal"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "migration_from_grafana_not_supported"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "layouts": [
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Panel Group 1"
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 1,
+              "width": 12,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/0"
+              }
+            },
+            {
+              "x": 12,
+              "y": 1,
+              "width": 12,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/1"
+              }
+            },
+            {
+              "x": 0,
+              "y": 8,
+              "width": 12,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/2"
+              }
+            },
+            {
+              "x": 12,
+              "y": 8,
+              "width": 12,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/3"
+              }
+            },
+            {
+              "x": 0,
+              "y": 16,
+              "width": 9,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/4"
+              }
+            },
+            {
+              "x": 0,
+              "y": 25,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/5"
+              }
+            },
+            {
+              "x": 8,
+              "y": 25,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/6"
+              }
+            },
+            {
+              "x": 16,
+              "y": 25,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/7"
+              }
+            },
+            {
+              "x": 0,
+              "y": 32,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/8"
+              }
+            },
+            {
+              "x": 0,
+              "y": 40,
+              "width": 4,
+              "height": 5,
+              "content": {
+                "$ref": "#/spec/panels/9"
+              }
+            },
+            {
+              "x": 4,
+              "y": 40,
+              "width": 4,
+              "height": 5,
+              "content": {
+                "$ref": "#/spec/panels/10"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "duration": "1h"
+  }
+}

@@ -1,0 +1,306 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "Zmva7c57k",
+    "createdAt": "0001-01-01T00:00:00Z",
+    "updatedAt": "0001-01-01T00:00:00Z",
+    "version": 0,
+    "project": "pp"
+  },
+  "spec": {
+    "display": {
+      "name": "KubeDB / MariaDB / Galera-Cluster"
+    },
+    "variables": [
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Datasource",
+            "hidden": false
+          },
+          "defaultValue": "Prometheus",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "plugin": {
+            "kind": "DatasourceVariable",
+            "spec": {
+              "datasourcePluginKind": "PrometheusDatasource"
+            }
+          },
+          "name": "datasource"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Namespace",
+            "hidden": false
+          },
+          "defaultValue": "demo",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "namespace",
+              "matchers": [
+                "kube_namespace_created"
+              ]
+            }
+          },
+          "name": "namespace"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "MariaDB",
+            "hidden": false
+          },
+          "defaultValue": "sample-mariadb-stats",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "app",
+              "matchers": [
+                "kubedb_com_mariadb_status_phase{namespace=~\"$namespace\"}"
+              ]
+            }
+          },
+          "name": "app"
+        }
+      }
+    ],
+    "panels": {
+      "0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Cluster Name"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#5794f2",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "avg by(wsrep_cluster_name)(mysql_galera_variables_info{namespace=~\"$namespace\",service=~\"$app+-stats\"})",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Cluster Members"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 2
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "avg by(pod)(mysql_galera_variables_info{namespace=~\"$namespace\",service=~\"$app+-stats\"})",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Average: Galera Replication Latency"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "avg_over_time(mysql_galera_evs_repl_latency_avg_seconds{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Standard Deviation: Galera Replication Latency"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(mysql_galera_evs_repl_latency_stdev{namespace=~\"$namespace\",service=~\"$app+-stats\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Sample Size: Galera Replication Latency"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(mysql_galera_evs_repl_latency_sample_size{namespace=~\"$namespace\",service=~\"$app+-stats\"}[1m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "layouts": [
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Panel Group 1"
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 24,
+              "height": 3,
+              "content": {
+                "$ref": "#/spec/panels/0"
+              }
+            },
+            {
+              "x": 0,
+              "y": 3,
+              "width": 24,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/1"
+              }
+            },
+            {
+              "x": 0,
+              "y": 11,
+              "width": 24,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/2"
+              }
+            },
+            {
+              "x": 0,
+              "y": 19,
+              "width": 24,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/3"
+              }
+            },
+            {
+              "x": 0,
+              "y": 27,
+              "width": 24,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/4"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "duration": "1h"
+  }
+}

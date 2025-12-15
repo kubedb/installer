@@ -52,15 +52,15 @@ const (
 var ubiImageList = sets.NewString(
 	"ghcr.io/kubedb/db2-coordinator",
 	"ghcr.io/kubedb/hanadb-coordinator",
-	"ghcr.io/kubedb/mariadb-archiver",
+	// "ghcr.io/kubedb/mariadb-archiver",
 	"ghcr.io/kubedb/mariadb-coordinator",
 	"ghcr.io/kubedb/mssql-coordinator",
-	"ghcr.io/kubedb/mysql-archiver",
+	// "ghcr.io/kubedb/mysql-archiver",
 	"ghcr.io/kubedb/mysql-coordinator",
 	"ghcr.io/kubedb/oracle-coordinator",
 	"ghcr.io/kubedb/percona-xtradb-coordinator",
 	"ghcr.io/kubedb/pg-coordinator",
-	"ghcr.io/kubedb/postgres-archiver",
+	// "ghcr.io/kubedb/postgres-archiver",
 	"ghcr.io/kubedb/redis-coordinator",
 	"ghcr.io/kubedb/replication-mode-detector",
 	"ghcr.io/kubedb/singlestore-coordinator",
@@ -726,7 +726,7 @@ func main() {
 		sh.SetDir(dir)
 		sh.ShowCMD = true
 
-		out, err := sh.Command("helm", "template", "charts/kubedb-catalog", "--api-versions", "policy/v1beta1/PodSecurityPolicy", "--set", "skipDeprecated=false", "--set", "psp.enabled=true").Output()
+		out, err := sh.Command("helm", "template", "charts/kubedb-catalog", "--api-versions", "policy/v1beta1/PodSecurityPolicy", "--set", "skipDeprecated=false", "--set", "skipEndOfLife=false", "--set", "psp.enabled=true").Output()
 		if err != nil {
 			panic(err)
 		}

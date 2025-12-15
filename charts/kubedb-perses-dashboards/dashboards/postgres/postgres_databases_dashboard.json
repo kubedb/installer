@@ -1,0 +1,896 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
+{
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "6v_W_NNn_kl",
+    "createdAt": "0001-01-01T00:00:00Z",
+    "updatedAt": "0001-01-01T00:00:00Z",
+    "version": 0,
+    "project": "pp"
+  },
+  "spec": {
+    "display": {
+      "name": "KubeDB / Postgres / Database"
+    },
+    "variables": [
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "hidden": false
+          },
+          "defaultValue": "Prometheus",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "plugin": {
+            "kind": "DatasourceVariable",
+            "spec": {
+              "datasourcePluginKind": "PrometheusDatasource"
+            }
+          },
+          "name": "datasource"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Namespace",
+            "hidden": false
+          },
+          "defaultValue": "demo",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "namespace",
+              "matchers": [
+                "kube_namespace_created"
+              ]
+            }
+          },
+          "name": "namespace"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "postgres",
+            "hidden": false
+          },
+          "defaultValue": "ps-demo",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "alphabetical-asc",
+          "plugin": {
+            "kind": "PrometheusPromQLVariable",
+            "spec": {
+              "expr": "kubedb_com_postgres_created{namespace=\"$namespace\"}",
+              "labelName": "app"
+            }
+          },
+          "name": "app"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "pod",
+            "hidden": false
+          },
+          "defaultValue": "ps-demo-0",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "pod",
+              "matchers": [
+                "pg_up{namespace=~\"$namespace\",pod=~\"${app}-.*\"}"
+              ]
+            }
+          },
+          "name": "pod"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Database",
+            "hidden": false
+          },
+          "defaultValue": [
+            "postgres"
+          ],
+          "allowAllValue": true,
+          "allowMultiple": true,
+          "sort": "alphabetical-asc",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "datname",
+              "matchers": []
+            }
+          },
+          "name": "datname"
+        }
+      }
+    ],
+    "panels": {
+      "0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "QPS",
+            "description": "Query per second"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "mean",
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(irate(pg_stat_database_xact_commit{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m])) + \nsum(irate(pg_stat_database_xact_rollback{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Transactions"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "irate(pg_stat_database_xact_commit{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "irate(pg_stat_database_xact_rollback{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "10": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Buffers (bgwriter)"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "irate(pg_stat_bgwriter_buffers_backend{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "irate(pg_stat_bgwriter_buffers_alloc{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "irate(pg_stat_bgwriter_buffers_backend_fsync{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "irate(pg_stat_bgwriter_buffers_checkpoint{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "irate(pg_stat_bgwriter_buffers_clean{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "11": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Conflicts/Deadlocks"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "irate(pg_stat_database_conflicts{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "irate(pg_stat_database_deadlocks{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "12": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Cache Hit Rate"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "pg_stat_database_blks_hit{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"} / (pg_stat_database_blks_read{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"} + pg_stat_database_blks_hit{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"})",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "13": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Temp File (Bytes)",
+            "description": "Total amount of data written to temporary files by queries in this database. All temporary files are counted, regardless of why the temporary file was created, and regardless of the log_temp_files setting."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "irate(pg_stat_database_temp_bytes{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "14": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Checkpoint Stats"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "irate(pg_stat_bgwriter_checkpoint_write_time{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
+                    "seriesNameFormat": "write_time - Total amount of time that has been spent in the portion of checkpoint processing where files are written to disk."
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "irate(pg_stat_bgwriter_checkpoint_sync_time{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
+                    "seriesNameFormat": "sync_time - Total amount of time that has been spent in the portion of checkpoint processing where files are synchronized to disk."
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "15": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Rows"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "list",
+                "position": "bottom",
+                "values": []
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineStyle": "solid",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(irate(pg_stat_database_tup_fetched{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
+                    "seriesNameFormat": "fetched"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(irate(pg_stat_database_tup_returned{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
+                    "seriesNameFormat": "returned"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(irate(pg_stat_database_tup_inserted{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
+                    "seriesNameFormat": "inserted"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(irate(pg_stat_database_tup_updated{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
+                    "seriesNameFormat": "updated"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(irate(pg_stat_database_tup_deleted{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"}[5m]))",
+                    "seriesNameFormat": "deleted"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Update data"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "pg_stat_database_tup_updated{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Active sessions"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "pg_stat_activity_count{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} !=0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Insert data"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "pg_stat_database_tup_inserted{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Lock tables"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "pg_locks_count{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Fetch data (SELECT)"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "pg_stat_database_tup_fetched{datname=~\"$datname\",pod=\"$pod\", namespace=\"$namespace\"} != 0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Idle sessions"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "pg_stat_activity_count{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\", state=~\"idle|idle in transaction|idle in transaction (aborted)\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "8": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Delete data"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "pg_stat_database_tup_deleted{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Return data"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "pg_stat_database_tup_returned{datname=~\"$datname\",pod=\"$pod\", namespace=\"$namespace\"} != 0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "layouts": [
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Panel Group 1"
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 1,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/0"
+              }
+            },
+            {
+              "x": 8,
+              "y": 1,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/1"
+              }
+            },
+            {
+              "x": 16,
+              "y": 1,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/2"
+              }
+            },
+            {
+              "x": 0,
+              "y": 8,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/3"
+              }
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/4"
+              }
+            },
+            {
+              "x": 16,
+              "y": 8,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/5"
+              }
+            },
+            {
+              "x": 0,
+              "y": 15,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/6"
+              }
+            },
+            {
+              "x": 8,
+              "y": 15,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/7"
+              }
+            },
+            {
+              "x": 16,
+              "y": 15,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/8"
+              }
+            },
+            {
+              "x": 0,
+              "y": 22,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/9"
+              }
+            },
+            {
+              "x": 8,
+              "y": 22,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/10"
+              }
+            },
+            {
+              "x": 16,
+              "y": 22,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/11"
+              }
+            },
+            {
+              "x": 0,
+              "y": 29,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/12"
+              }
+            },
+            {
+              "x": 8,
+              "y": 29,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/13"
+              }
+            },
+            {
+              "x": 16,
+              "y": 29,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/14"
+              }
+            },
+            {
+              "x": 0,
+              "y": 36,
+              "width": 24,
+              "height": 10,
+              "content": {
+                "$ref": "#/spec/panels/15"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "duration": "1h"
+  }
+}
