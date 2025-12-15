@@ -63,7 +63,7 @@ type KubedbKubestashCatalogSpec struct {
 	ZooKeeper      KubestashDatabaseSpec       `json:"zookeeper"`
 	Kubedbverifier KubestashVerifierSpec       `json:"kubedbverifier"`
 	// +optional
-	Distro DistroSpec `json:"distro"`
+	Distro shared.DistroSpec `json:"distro"`
 }
 
 // KubestashDatabaseSpec is the schema for DB values file

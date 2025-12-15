@@ -103,11 +103,3 @@ type PSPSpec struct {
 type NetworkPolicySpec struct {
 	Enabled bool `json:"enabled"`
 }
-
-// +kubebuilder:validation:Enum=all;catalog;operator
-type UBIMode string
-
-type DistroSpec struct {
-	Openshift bool    `json:"openshift"`
-	UBI       UBIMode `json:"ubi"`
-}

@@ -19,6 +19,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"kmodules.xyz/resource-metadata/apis/shared"
 )
 
 const (
@@ -86,7 +87,7 @@ type PanopticonSpec struct {
 	// +optional
 	NetworkPolicy NetworkPolicySpec `json:"networkPolicy"`
 	// +optional
-	Distro DistroSpec `json:"distro"`
+	Distro shared.DistroSpec `json:"distro"`
 	//+optional
 	AceUserRoles AceUserRolesValues `json:"ace-user-roles"`
 }
