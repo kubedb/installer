@@ -19,6 +19,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"kmodules.xyz/resource-metadata/apis/shared"
 )
 
 const (
@@ -79,7 +80,7 @@ type KubeUiServerSpec struct {
 	Monitoring         Monitoring               `json:"monitoring"`
 	Prometheus         PrometheusConfig         `json:"prometheus"`
 	// +optional
-	Distro               DistroSpec         `json:"distro"`
+	Distro               shared.DistroSpec  `json:"distro"`
 	HelmRepositories     HelmRepositories   `json:"helmRepositories"`
 	KubeconfigSecretName string             `json:"kubeconfigSecretName"`
 	Platform             AcePlatformSpec    `json:"platform"`

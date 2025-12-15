@@ -55,7 +55,7 @@ type KubedbCatalogSpec struct {
 	EnableVersions map[string][]string              `json:"enableVersions"`
 	CustomVersions map[string]*runtime.RawExtension `json:"customVersions"`
 	// +optional
-	Distro DistroSpec `json:"distro"`
+	Distro shared.DistroSpec `json:"distro"`
 }
 
 type PSP struct {

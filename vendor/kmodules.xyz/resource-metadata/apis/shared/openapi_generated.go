@@ -39,6 +39,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kmodules.xyz/resource-metadata/apis/shared.Dashboard":            schema_kmodulesxyz_resource_metadata_apis_shared_Dashboard(ref),
 		"kmodules.xyz/resource-metadata/apis/shared.DashboardVar":         schema_kmodulesxyz_resource_metadata_apis_shared_DashboardVar(ref),
 		"kmodules.xyz/resource-metadata/apis/shared.DeploymentParameters": schema_kmodulesxyz_resource_metadata_apis_shared_DeploymentParameters(ref),
+		"kmodules.xyz/resource-metadata/apis/shared.DistroSpec":           schema_kmodulesxyz_resource_metadata_apis_shared_DistroSpec(ref),
 		"kmodules.xyz/resource-metadata/apis/shared.HelmInfo":             schema_kmodulesxyz_resource_metadata_apis_shared_HelmInfo(ref),
 		"kmodules.xyz/resource-metadata/apis/shared.HelmRelease":          schema_kmodulesxyz_resource_metadata_apis_shared_HelmRelease(ref),
 		"kmodules.xyz/resource-metadata/apis/shared.HelmRepository":       schema_kmodulesxyz_resource_metadata_apis_shared_HelmRepository(ref),
@@ -485,6 +486,33 @@ func schema_kmodulesxyz_resource_metadata_apis_shared_DeploymentParameters(ref c
 		},
 		Dependencies: []string{
 			"x-helm.dev/apimachinery/apis/releases/v1alpha1.ChartSourceRef"},
+	}
+}
+
+func schema_kmodulesxyz_resource_metadata_apis_shared_DistroSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"openshift": {
+						SchemaProps: spec.SchemaProps{
+							Default: false,
+							Type:    []string{"boolean"},
+							Format:  "",
+						},
+					},
+					"ubi": {
+						SchemaProps: spec.SchemaProps{
+							Default: "",
+							Type:    []string{"string"},
+							Format:  "",
+						},
+					},
+				},
+				Required: []string{"openshift", "ubi"},
+			},
+		},
 	}
 }
 

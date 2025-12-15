@@ -19,6 +19,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"kmodules.xyz/resource-metadata/apis/shared"
 )
 
 const (
@@ -84,7 +85,7 @@ type KubedbGitopsSpec struct {
 	VolumeMounts   []core.VolumeMount `json:"volumeMounts"`
 	FeatureGates   map[string]bool    `json:"featureGates"`
 	// +optional
-	Distro DistroSpec `json:"distro"`
+	Distro shared.DistroSpec `json:"distro"`
 }
 
 type ImageReference struct {

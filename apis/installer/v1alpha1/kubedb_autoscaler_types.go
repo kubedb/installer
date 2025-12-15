@@ -19,6 +19,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"kmodules.xyz/resource-metadata/apis/shared"
 )
 
 const (
@@ -88,7 +89,7 @@ type KubedbAutoscalerSpec struct {
 	// +optional
 	MaxConcurrentReconciles int `json:"maxConcurrentReconciles"`
 	// +optional
-	Distro DistroSpec `json:"distro"`
+	Distro shared.DistroSpec `json:"distro"`
 }
 
 type StorageAutoscalerSpec struct {
