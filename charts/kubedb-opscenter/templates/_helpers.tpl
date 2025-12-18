@@ -133,12 +133,12 @@ Returns whether the OpenShift distribution is used
 Returns if ubi images are to be used
 */}}
 {{- define "operator.ubi" -}}
-{{ ternary "-ubi" "" (list "operator" "all" | has (default .Values.distro.ubi .Values.global.distro.ubi)) }}
+{{ ternary "-ubi" "" (list "operator" "all" | has (default (dig "ubi" "" (default dict .Values.distro)) .Values.global.distro.ubi)) }}
 {{- end }}
 
 {{/*
 Returns if ubi images are to be used for catalog
 */}}
 {{- define "catalog.ubi" -}}
-{{ ternary "-ubi" "" (list "catalog" "all" | has (default .Values.distro.ubi .Values.global.distro.ubi)) }}
+{{ ternary "-ubi" "" (list "catalog" "all" | has (default (dig "ubi" "" (default dict .Values.distro)) .Values.global.distro.ubi)) }}
 {{- end }}
