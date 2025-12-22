@@ -1,0 +1,67 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: approvalpolicies.supervisor.appscode.com
+spec:
+  group: supervisor.appscode.com
+  names:
+    kind: ApprovalPolicy
+    listKind: ApprovalPolicyList
+    plural: approvalpolicies
+    singular: approvalpolicy
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          maintenanceWindowRef:
+            properties:
+              apiGroup:
+                type: string
+              kind:
+                type: string
+              name:
+                type: string
+              namespace:
+                type: string
+            required:
+            - name
+            type: object
+          metadata:
+            type: object
+          targets:
+            items:
+              properties:
+                group:
+                  type: string
+                kind:
+                  type: string
+                operations:
+                  items:
+                    properties:
+                      group:
+                        type: string
+                      kind:
+                        type: string
+                    required:
+                    - group
+                    - kind
+                    type: object
+                  type: array
+              required:
+              - group
+              - kind
+              type: object
+            type: array
+        required:
+        - maintenanceWindowRef
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
