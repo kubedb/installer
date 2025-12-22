@@ -2,6 +2,10 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+# This is to override the chart name.
+nameOverride: ""
+fullnameOverride: ""
+
 global:
   # License for the product.
   # Get a license by following the steps from [here](https://kubedb.com/docs/latest/setup/install/enterprise#get-a-trial-license).
@@ -159,3 +163,53 @@ ace-user-roles:
     secrets-store: false
     stash: false
     virtual-secrets: false
+
+# Docker registry fqdn used to pull KubeDB related images
+# Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image}
+registryFQDN: ghcr.io
+tester:
+  # Docker registry used to pull KubeDB enterprise kubectl-nonroot image
+  registry: appscode
+  # KubeDB enterprise kubectl-nonroot container image
+  repository: kubectl-nonroot
+  # KubeDB enterprise kubectl-nonroot container image tag
+  tag: "1.31"
+  # Security options this container should run with
+  securityContext: # +doc-gen:break
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 65534
+    seccompProfile:
+      type: RuntimeDefault
+  # Compute Resources required by this container
+  resources: {}
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+# Specify an array of imagePullSecrets.
+# Secrets must be manually created in the namespace.
+#
+# Example:
+# helm template charts/kubedb-autoscaler \
+#   --set imagePullSecrets[0].name=sec0 \
+#   --set imagePullSecrets[1].name=sec1
+imagePullSecrets: []
+# Container image pull policy
+imagePullPolicy: IfNotPresent
+
+# This is for setting Kubernetes Labels to a Pod.
+# For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+podLabels: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
