@@ -40,5 +40,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04 images/mssql-server-2022-CU14-ubuntu-22.04.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU16-ubuntu-22.04 images/mssql-server-2022-CU16-ubuntu-22.04.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU19-ubuntu-22.04 images/mssql-server-2022-CU19-ubuntu-22.04.tar
+$CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU22-ubuntu-22.04 images/mssql-server-2022-CU22-ubuntu-22.04.tar
+$CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2025-RTM-ubuntu-22.04 images/mssql-server-2025-RTM-ubuntu-22.04.tar
 
 tar -czvf images.tar.gz images
