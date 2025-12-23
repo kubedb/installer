@@ -1,0 +1,215 @@
+# Default values for kubedb.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# This is to override the chart name.
+nameOverride: ""
+fullnameOverride: ""
+
+global:
+  # License for the product.
+  # Get a license by following the steps from [here](https://kubedb.com/docs/latest/setup/install/enterprise#get-a-trial-license).
+  # Example:
+  # helm install appscode/kubedb \
+  #   --set-file global.license=/path/to/license/file
+  # or
+  # helm install appscode/kubedb \
+  #   --set global.license=<license file content>
+  license: ""
+
+  # Name of Secret with the license as key.txt key
+  licenseSecretName: ""
+
+  # Docker registry used to pull KubeDB related images
+  registry: ""
+
+  # Docker registry fqdn used to pull KubeDB related images.
+  # Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image}
+  registryFQDN: ""
+
+  # Specify an array of insecure registries.
+  #
+  # Example:
+  # helm template charts/kubedb-ops-manager \
+  #   --set global.insecureRegistries[0]=hub.company.com \
+  #   --set global.insecureRegistries[1]=reg.example.com
+  insecureRegistries: []
+
+  # Specify an array of imagePullSecrets.
+  # Secrets must be manually created in the namespace.
+  #
+  # Example:
+  # helm template charts/kubedb \
+  #   --set global.imagePullSecrets[0].name=sec0 \
+  #   --set global.imagePullSecrets[1].name=sec1
+  imagePullSecrets: []
+
+  featureGates:
+    Cassandra: false
+    ClickHouse: false
+    DB2: false
+    Druid: false
+    Elasticsearch: true
+    FerretDB: false
+    HanaDB: false
+    Hazelcast: false
+    Ignite: false
+    Kafka: true
+    MariaDB: true
+    Memcached: false
+    Milvus: false
+    MongoDB: true
+    MSSQLServer: false
+    MySQL: true
+    Neo4j: false
+    Oracle: false
+    PerconaXtraDB: false
+    PgBouncer: false
+    Pgpool: false
+    Postgres: true
+    ProxySQL: false
+    Qdrant: false
+    RabbitMQ: false
+    Redis: true
+    Singlestore: false
+    Solr: false
+    Weaviate: false
+    ZooKeeper: false
+
+  monitoring:
+    # Name of monitoring agent (one of "prometheus.io", "prometheus.io/operator", "prometheus.io/builtin")
+    agent: ""
+    serviceMonitor:
+      # Specify the labels for ServiceMonitor.
+      # Prometheus crd will select ServiceMonitor using these labels.
+      # Only usable when monitoring agent is `prometheus.io/operator`.
+      labels: # +doc-gen:break
+        monitoring.appscode.com/prometheus: auto
+
+  # The maximum number of concurrent reconciles which can be run
+  maxConcurrentReconciles: 0
+  # Node labels for pod assignment
+  nodeSelector: # +doc-gen:break
+    kubernetes.io/os: linux
+  # Tolerations for pod assignment
+  tolerations: []
+  # Affinity rules for pod assignment
+  affinity: {}
+
+  waitForWebhook: true
+
+  # Controls the network policy creation
+  networkPolicy:
+    enabled: false
+
+  distro:
+    openshift: false
+    ubi: ""
+
+petset:
+  # If enabled, installs the petset chart
+  enabled: true
+operator-shard-manager:
+  # If enabled, installs the operator-shard-manager chart
+  enabled: false
+sidekick:
+  # If enabled, installs the sidekick chart
+  enabled: true
+supervisor:
+  # If enabled, installs the supervisor chart
+  enabled: false
+kubedb-crd-manager:
+  # If enabled, installs the kubedb-crd-manager chart
+  enabled: true
+kubedb-provisioner:
+  # If enabled, installs the kubedb-provisioner chart
+  enabled: true
+kubedb-webhook-server:
+  # If enabled, installs the kubedb-webhook-server chart
+  enabled: true
+kubedb-ops-manager:
+  # If enabled, installs the kubedb-ops-manager chart
+  enabled: true
+kubedb-autoscaler:
+  # If enabled, installs the kubedb-autoscaler chart
+  enabled: true
+kubedb-schema-manager:
+  # If enabled, installs the kubedb-schema-manager chart
+  enabled: false
+kubedb-metrics:
+  # If enabled, installs the kubedb-metrics chart
+  enabled: false
+kubedb-catalog:
+  # If enabled, installs the kubedb-catalog chart
+  enabled: true
+kubedb-kubestash-catalog:
+  # If enabled, installs the kubedb-kubestash-catalog chart
+  enabled: true
+ace-user-roles:
+  # If enabled, installs the ace-user-roles chart
+  enabled: true
+  enableClusterRoles:
+    ace: false
+    appcatalog: true
+    catalog: false
+    cert-manager: false
+    kubedb-ui: false
+    kubedb: true
+    kubestash: false
+    kubevault: false
+    license-proxyserver: true
+    metrics: true
+    prometheus: false
+    secrets-store: false
+    stash: false
+    virtual-secrets: false
+
+# Docker registry fqdn used to pull KubeDB related images
+# Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image}
+registryFQDN: ghcr.io
+tester:
+  # Docker registry used to pull KubeDB enterprise kubectl-nonroot image
+  registry: appscode
+  # KubeDB enterprise kubectl-nonroot container image
+  repository: kubectl-nonroot
+  # KubeDB enterprise kubectl-nonroot container image tag
+  tag: "1.31"
+  # Security options this container should run with
+  securityContext: # +doc-gen:break
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 65534
+    seccompProfile:
+      type: RuntimeDefault
+  # Compute Resources required by this container
+  resources: {}
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+# Specify an array of imagePullSecrets.
+# Secrets must be manually created in the namespace.
+#
+# Example:
+# helm template charts/kubedb-autoscaler \
+#   --set imagePullSecrets[0].name=sec0 \
+#   --set imagePullSecrets[1].name=sec1
+imagePullSecrets: []
+# Container image pull policy
+imagePullPolicy: IfNotPresent
+
+# This is for setting Kubernetes Labels to a Pod.
+# For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+podLabels: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
