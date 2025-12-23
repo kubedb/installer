@@ -1,0 +1,68 @@
+{{- $nodeSelector := .Values.nodeSelector }}
+{{- if .Values.global }}
+  {{ $nodeSelector = default .Values.nodeSelector .Values.global.nodeSelector }}
+{{- end }}
+
+{{- $tolerations := .Values.tolerations }}
+{{- if .Values.global }}
+  {{ $tolerations = default .Values.tolerations .Values.global.tolerations }}
+{{- end }}
+
+{{- $affinity := .Values.affinity }}
+{{- if .Values.global }}
+  {{ $affinity = default .Values.affinity .Values.global.affinity }}
+{{- end }}
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "kubedb.fullname" . }}-test-connection"
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubedb.labels" . | nindent 4 }}
+    {{- with .Values.podLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  {{- include "docker.imagePullSecrets" . | nindent 2 }}
+  {{- if eq "true" ( include "distro.openshift" . ) }}
+  securityContext:
+    {{- toYaml (omit .Values.podSecurityContext "runAsUser" "runAsGroup" "fsGroup" "supplementalGroups") | nindent 4 }}
+  {{- else }}
+  securityContext:
+    {{- toYaml .Values.podSecurityContext | nindent 4 }}
+  {{- end }}
+  containers:
+    - name: tester
+      image: {{ include "tester.registry" . }}/{{ .Values.tester.repository }}:{{ .Values.tester.tag }}{{ include "operator.ubi" . }}
+      imagePullPolicy: {{ .Values.imagePullPolicy  }}
+      {{- if dig "kubedb-webhook-server" "enabled" false (.Values | toJson | fromJson) }}
+      command: ['curl']
+      args: ['--fail', '{{ include "kubedb.webhook-server-svc" . }}:8081/healthz']
+      {{- else }}
+      command: ["true"]
+      {{- end }}
+      {{- if eq "true" ( include "distro.openshift" . ) }}
+      securityContext:
+        {{- toYaml (omit .Values.tester.securityContext "runAsUser" "runAsGroup" "fsGroup" "supplementalGroups") | nindent 8 }}
+      {{- else }}
+      securityContext:
+        {{- toYaml .Values.tester.securityContext | nindent 8 }}
+      {{- end }}
+      resources:
+        {{- toYaml .Values.tester.resources | nindent 8 }}
+  {{- with $nodeSelector }}
+  nodeSelector:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with $affinity }}
+  affinity:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with $tolerations }}
+  tolerations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  restartPolicy: Never

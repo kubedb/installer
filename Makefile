@@ -339,6 +339,7 @@ unit-tests: $(BUILD_DIRS)
 	    "
 
 CT_COMMAND     ?= lint-and-install
+CT_CLEANUP     ?= true
 TEST_CHARTS    ?=
 KUBE_NAMESPACE ?=
 
@@ -372,7 +373,7 @@ ct: $(BUILD_DIRS)
 	    $(CHART_TEST_IMAGE)                                     \
 	    /bin/sh -c "                                            \
 	      set -x; \
-	      ./hack/scripts/cleanup.sh; \
+	      [ $(CT_CLEANUP) = true ] && ./hack/scripts/cleanup.sh; \
 	      ./hack/scripts/update-chart-dependencies.sh; \
 	      ct $(CT_COMMAND) --debug --validate-maintainers=false $(CT_ARGS) \
 	    "
