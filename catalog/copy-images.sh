@@ -450,6 +450,8 @@ $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/se
 $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2022-CU14-ubuntu-22.04
 $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU16-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2022-CU16-ubuntu-22.04
 $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU19-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2022-CU19-ubuntu-22.04
+$CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU22-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2022-CU22-ubuntu-22.04
+$CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2025-RTM-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2025-RTM-ubuntu-22.04
 $CMD cp --allow-nondistributable-artifacts --insecure mysql/mysql-router:8.0.31 $IMAGE_REGISTRY/mysql/mysql-router:8.0.31
 $CMD cp --allow-nondistributable-artifacts --insecure neo4j:2025.10.1-enterprise $IMAGE_REGISTRY/neo4j:2025.10.1-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:4.2.24 $IMAGE_REGISTRY/percona/percona-server-mongodb:4.2.24
