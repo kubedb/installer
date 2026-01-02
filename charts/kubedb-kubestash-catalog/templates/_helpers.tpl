@@ -89,6 +89,6 @@ Create the name of the service account to use
 {{/*
 Returns if ubi images are to be used
 */}}
-{{- define "catalog.ubi" -}}
-{{ ternary "-ubi" "" (list "catalog" "all" | has .Values.distro.ubi) }}
+{{- define "operator.ubi" -}}
+{{ ternary "-ubi" "" (list "operator" "all" | has .Values.distro.ubi) }}
 {{- end }}
