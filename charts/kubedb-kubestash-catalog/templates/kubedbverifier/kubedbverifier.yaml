@@ -1,4 +1,9 @@
-{{ if .Values.kubedbverifier.enabled }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and .Values.kubedbverifier.enabled (not (eq $ubi "operator")) }}
 apiVersion: addons.kubestash.com/v1alpha1
 kind: Function
 metadata:
