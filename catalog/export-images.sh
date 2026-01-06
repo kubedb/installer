@@ -317,8 +317,8 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.8.3 images/appscode-images-zookeeper-3.8.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.9.1 images/appscode-images-zookeeper-3.9.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.31 images/appscode-kubectl-nonroot-1.31.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.15 images/appscode-petset-v0.0.15.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.12 images/appscode-sidekick-v0.0.12.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.16 images/appscode-petset-v0.0.16.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.13 images/appscode-sidekick-v0.0.13.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6-v2 images/kubedb-cassandra-init-4.1.6-v2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0-v2 images/kubedb-cassandra-init-5.0.0-v2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-medusa-plugin:v0.7.0-rc.1 images/kubedb-cassandra-medusa-plugin-v0.7.0-rc.1.tar
