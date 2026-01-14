@@ -32,7 +32,7 @@ mv /tmp/crane images
 
 CMD="./images/crane"
 
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.31 images/appscode-kubectl-nonroot-1.31.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.34 images/appscode-kubectl-nonroot-1.34.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.16 images/appscode-petset-v0.0.16.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.13 images/appscode-sidekick-v0.0.13.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-medusa-plugin:v0.7.0-rc.1 images/kubedb-cassandra-medusa-plugin-v0.7.0-rc.1.tar

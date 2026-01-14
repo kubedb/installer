@@ -319,7 +319,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/va
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.7.2 $IMAGE_REGISTRY/appscode-images/zookeeper:3.7.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.8.3 $IMAGE_REGISTRY/appscode-images/zookeeper:3.8.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.9.1 $IMAGE_REGISTRY/appscode-images/zookeeper:3.9.1
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.31 $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.31
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.34 $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.34
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.16 $IMAGE_REGISTRY/appscode/petset:v0.0.16
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.13 $IMAGE_REGISTRY/appscode/sidekick:v0.0.13
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6-v2 $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
