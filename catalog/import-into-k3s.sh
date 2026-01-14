@@ -308,7 +308,7 @@ k3s ctr images import images/appscode-images-valkey-8.1.1.tar
 k3s ctr images import images/appscode-images-zookeeper-3.7.2.tar
 k3s ctr images import images/appscode-images-zookeeper-3.8.3.tar
 k3s ctr images import images/appscode-images-zookeeper-3.9.1.tar
-k3s ctr images import images/appscode-kubectl-nonroot-1.31.tar
+k3s ctr images import images/appscode-kubectl-nonroot-1.34.tar
 k3s ctr images import images/appscode-petset-v0.0.16.tar
 k3s ctr images import images/appscode-sidekick-v0.0.13.tar
 k3s ctr images import images/kubedb-cassandra-init-4.1.6-v2.tar
