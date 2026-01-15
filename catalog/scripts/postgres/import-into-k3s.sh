@@ -103,7 +103,7 @@ k3s ctr images import images/postgis-postgis-13-3.4.tar
 k3s ctr images import images/postgis-postgis-14-3.4.tar
 k3s ctr images import images/postgis-postgis-15-3.4.tar
 k3s ctr images import images/postgis-postgis-16-3.4.tar
-k3s ctr images import images/prometheuscommunity-postgres-exporter-v0.15.0.tar
+k3s ctr images import images/prometheuscommunity-postgres-exporter-v0.18.1.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg13-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg14-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg15-oss.tar

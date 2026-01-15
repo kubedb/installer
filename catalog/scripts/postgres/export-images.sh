@@ -111,7 +111,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:13-3.4 i
 $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:14-3.4 images/postgis-postgis-14-3.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:15-3.4 images/postgis-postgis-15-3.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:16-3.4 images/postgis-postgis-16-3.4.tar
-$CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/postgres-exporter:v0.15.0 images/prometheuscommunity-postgres-exporter-v0.15.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/postgres-exporter:v0.18.1 images/prometheuscommunity-postgres-exporter-v0.18.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg13-oss images/timescale-timescaledb-2.14.2-pg13-oss.tar
 $CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg14-oss images/timescale-timescaledb-2.14.2-pg14-oss.tar
 $CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg15-oss images/timescale-timescaledb-2.14.2-pg15-oss.tar

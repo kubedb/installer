@@ -467,7 +467,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:16-3.4 i
 $CMD pull --allow-nondistributable-artifacts --insecure prom/memcached-exporter:v0.14.2 images/prom-memcached-exporter-v0.14.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure prom/mysqld-exporter:v0.13.0 images/prom-mysqld-exporter-v0.13.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/elasticsearch-exporter:v1.7.0 images/prometheuscommunity-elasticsearch-exporter-v1.7.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/postgres-exporter:v0.15.0 images/prometheuscommunity-postgres-exporter-v0.15.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/postgres-exporter:v0.18.1 images/prometheuscommunity-postgres-exporter-v0.18.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure qdrant/qdrant:v1.15.4 images/qdrant-qdrant-v1.15.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.4.2 images/git-sync-git-sync-v4.4.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure saplabs/hanaexpress:2.00.082.00.20250528.1 images/saplabs-hanaexpress-2.00.082.00.20250528.1.tar
