@@ -105,7 +105,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-1
 $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-14-3.4.tar $IMAGE_REGISTRY/postgis/postgis:14-3.4
 $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-15-3.4.tar $IMAGE_REGISTRY/postgis/postgis:15-3.4
 $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-16-3.4.tar $IMAGE_REGISTRY/postgis/postgis:16-3.4
-$CMD push --allow-nondistributable-artifacts --insecure images/prometheuscommunity-postgres-exporter-v0.15.0.tar $IMAGE_REGISTRY/prometheuscommunity/postgres-exporter:v0.15.0
+$CMD push --allow-nondistributable-artifacts --insecure images/prometheuscommunity-postgres-exporter-v0.18.1.tar $IMAGE_REGISTRY/prometheuscommunity/postgres-exporter:v0.18.1
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg13-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg13-oss
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg14-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg14-oss
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg15-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg15-oss

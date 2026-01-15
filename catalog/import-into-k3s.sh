@@ -459,7 +459,7 @@ k3s ctr images import images/postgis-postgis-16-3.4.tar
 k3s ctr images import images/prom-memcached-exporter-v0.14.2.tar
 k3s ctr images import images/prom-mysqld-exporter-v0.13.0.tar
 k3s ctr images import images/prometheuscommunity-elasticsearch-exporter-v1.7.0.tar
-k3s ctr images import images/prometheuscommunity-postgres-exporter-v0.15.0.tar
+k3s ctr images import images/prometheuscommunity-postgres-exporter-v0.18.1.tar
 k3s ctr images import images/qdrant-qdrant-v1.15.4.tar
 k3s ctr images import images/git-sync-git-sync-v4.4.2.tar
 k3s ctr images import images/saplabs-hanaexpress-2.00.082.00.20250528.1.tar
