@@ -114,7 +114,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure postgis/postgis:13-3.4 $IM
 $CMD cp --allow-nondistributable-artifacts --insecure postgis/postgis:14-3.4 $IMAGE_REGISTRY/postgis/postgis:14-3.4
 $CMD cp --allow-nondistributable-artifacts --insecure postgis/postgis:15-3.4 $IMAGE_REGISTRY/postgis/postgis:15-3.4
 $CMD cp --allow-nondistributable-artifacts --insecure postgis/postgis:16-3.4 $IMAGE_REGISTRY/postgis/postgis:16-3.4
-$CMD cp --allow-nondistributable-artifacts --insecure prometheuscommunity/postgres-exporter:v0.15.0 $IMAGE_REGISTRY/prometheuscommunity/postgres-exporter:v0.15.0
+$CMD cp --allow-nondistributable-artifacts --insecure prometheuscommunity/postgres-exporter:v0.18.1 $IMAGE_REGISTRY/prometheuscommunity/postgres-exporter:v0.18.1
 $CMD cp --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg13-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg13-oss
 $CMD cp --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg14-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg14-oss
 $CMD cp --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg15-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg15-oss

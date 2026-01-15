@@ -461,7 +461,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-1
 $CMD push --allow-nondistributable-artifacts --insecure images/prom-memcached-exporter-v0.14.2.tar $IMAGE_REGISTRY/prom/memcached-exporter:v0.14.2
 $CMD push --allow-nondistributable-artifacts --insecure images/prom-mysqld-exporter-v0.13.0.tar $IMAGE_REGISTRY/prom/mysqld-exporter:v0.13.0
 $CMD push --allow-nondistributable-artifacts --insecure images/prometheuscommunity-elasticsearch-exporter-v1.7.0.tar $IMAGE_REGISTRY/prometheuscommunity/elasticsearch-exporter:v1.7.0
-$CMD push --allow-nondistributable-artifacts --insecure images/prometheuscommunity-postgres-exporter-v0.15.0.tar $IMAGE_REGISTRY/prometheuscommunity/postgres-exporter:v0.15.0
+$CMD push --allow-nondistributable-artifacts --insecure images/prometheuscommunity-postgres-exporter-v0.18.1.tar $IMAGE_REGISTRY/prometheuscommunity/postgres-exporter:v0.18.1
 $CMD push --allow-nondistributable-artifacts --insecure images/qdrant-qdrant-v1.15.4.tar $IMAGE_REGISTRY/qdrant/qdrant:v1.15.4
 $CMD push --allow-nondistributable-artifacts --insecure images/git-sync-git-sync-v4.4.2.tar $IMAGE_REGISTRY/git-sync/git-sync:v4.4.2
 $CMD push --allow-nondistributable-artifacts --insecure images/saplabs-hanaexpress-2.00.082.00.20250528.1.tar $IMAGE_REGISTRY/saplabs/hanaexpress:2.00.082.00.20250528.1

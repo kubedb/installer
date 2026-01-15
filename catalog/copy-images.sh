@@ -470,7 +470,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure postgis/postgis:16-3.4 $IM
 $CMD cp --allow-nondistributable-artifacts --insecure prom/memcached-exporter:v0.14.2 $IMAGE_REGISTRY/prom/memcached-exporter:v0.14.2
 $CMD cp --allow-nondistributable-artifacts --insecure prom/mysqld-exporter:v0.13.0 $IMAGE_REGISTRY/prom/mysqld-exporter:v0.13.0
 $CMD cp --allow-nondistributable-artifacts --insecure prometheuscommunity/elasticsearch-exporter:v1.7.0 $IMAGE_REGISTRY/prometheuscommunity/elasticsearch-exporter:v1.7.0
-$CMD cp --allow-nondistributable-artifacts --insecure prometheuscommunity/postgres-exporter:v0.15.0 $IMAGE_REGISTRY/prometheuscommunity/postgres-exporter:v0.15.0
+$CMD cp --allow-nondistributable-artifacts --insecure prometheuscommunity/postgres-exporter:v0.18.1 $IMAGE_REGISTRY/prometheuscommunity/postgres-exporter:v0.18.1
 $CMD cp --allow-nondistributable-artifacts --insecure qdrant/qdrant:v1.15.4 $IMAGE_REGISTRY/qdrant/qdrant:v1.15.4
 $CMD cp --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.4.2 $IMAGE_REGISTRY/git-sync/git-sync:v4.4.2
 $CMD cp --allow-nondistributable-artifacts --insecure saplabs/hanaexpress:2.00.082.00.20250528.1 $IMAGE_REGISTRY/saplabs/hanaexpress:2.00.082.00.20250528.1
