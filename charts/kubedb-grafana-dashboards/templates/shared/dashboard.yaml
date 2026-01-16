@@ -8,8 +8,9 @@
 
 {{- $gkr := .Files.Get "data/resources.yaml" | fromYaml -}}
 {{ range $r, $enabled := $featureGates }}
+{{ $singular := lower $r }}
 {{ if $enabled }}
-{{ range $path, $_ :=  $.Files.Glob (printf "dashboards/%s/**.json" $r) }}
+{{ range $path, $_ := $.Files.Glob (printf "dashboards/%s/**.json" $singular) }}
 
 {{- $dashtpl := $.Files.Get $path }}
 {{- range $k, $v := $.Values.dashboard.replacements }}
@@ -24,8 +25,8 @@ metadata:
   namespace: {{ $.Release.Namespace }}
   labels:
     k8s.io/group: kubedb.com
-    k8s.io/kind: {{ get (get $gkr $r) "kind" }}
-    k8s.io/resource: {{ get (get $gkr $r) "resource" }}
+    k8s.io/kind: {{ get (get $gkr $singular) "kind" }}
+    k8s.io/resource: {{ get (get $gkr $singular) "resource" }}
     {{- include "kubedb-grafana-dashboards.labels" $ | nindent 4 }}
 spec:
 {{- if or $.Values.grafana.name $.Values.grafana.namespace }}
