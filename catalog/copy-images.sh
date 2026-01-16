@@ -39,8 +39,10 @@ $CMD cp --allow-nondistributable-artifacts --insecure apicurio/apicurio-registry
 $CMD cp --allow-nondistributable-artifacts --insecure apicurio/apicurio-registry-mem:2.5.11.Final $IMAGE_REGISTRY/apicurio/apicurio-registry-mem:2.5.11.Final
 $CMD cp --allow-nondistributable-artifacts --insecure busybox:1.36 $IMAGE_REGISTRY/busybox:1.36
 $CMD cp --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-keeper:24.4.1 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:24.4.1
+$CMD cp --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-keeper:25.12.3 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:25.12.3
 $CMD cp --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-keeper:25.7.1 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:25.7.1
 $CMD cp --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-server:24.4.1 $IMAGE_REGISTRY/clickhouse/clickhouse-server:24.4.1
+$CMD cp --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-server:25.12.3 $IMAGE_REGISTRY/clickhouse/clickhouse-server:25.12.3
 $CMD cp --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-server:25.7.1 $IMAGE_REGISTRY/clickhouse/clickhouse-server:25.7.1
 $CMD cp --allow-nondistributable-artifacts --insecure cr.weaviate.io/semitechnologies/weaviate:1.33.1 $IMAGE_REGISTRY/semitechnologies/weaviate:1.33.1
 $CMD cp --allow-nondistributable-artifacts --insecure floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0 $IMAGE_REGISTRY/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0

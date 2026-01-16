@@ -36,8 +36,10 @@ $CMD pull --allow-nondistributable-artifacts --insecure apicurio/apicurio-regist
 $CMD pull --allow-nondistributable-artifacts --insecure apicurio/apicurio-registry-mem:2.5.11.Final images/apicurio-apicurio-registry-mem-2.5.11.Final.tar
 $CMD pull --allow-nondistributable-artifacts --insecure busybox:1.36 images/library-busybox-1.36.tar
 $CMD pull --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-keeper:24.4.1 images/clickhouse-clickhouse-keeper-24.4.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-keeper:25.12.3 images/clickhouse-clickhouse-keeper-25.12.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-keeper:25.7.1 images/clickhouse-clickhouse-keeper-25.7.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-server:24.4.1 images/clickhouse-clickhouse-server-24.4.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-server:25.12.3 images/clickhouse-clickhouse-server-25.12.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure clickhouse/clickhouse-server:25.7.1 images/clickhouse-clickhouse-server-25.7.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure cr.weaviate.io/semitechnologies/weaviate:1.33.1 images/semitechnologies-weaviate-1.33.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0 images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar
