@@ -175,7 +175,8 @@ jobs:
           kubectl create -f crds/kubedb-crds.yaml
           kubectl wait --for=condition=Established crds --all --timeout=5m
           kubectl wait --for=condition=NamesAccepted crds --all --timeout=5m
-          metrics-configuration-checker --content=./charts/kubedb-metrics/templates/
+          helm template kubedb-metrics charts/kubedb-metrics > /tmp/kubedb-metrics-manifests.yaml
+          metrics-configuration-checker --content=/tmp/kubedb-metrics-manifests.yaml
           kubectl delete crds -l 'app.kubernetes.io/name=kubedb'
 
       - name: Test Monitoring
