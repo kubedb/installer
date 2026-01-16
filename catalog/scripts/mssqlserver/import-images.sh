@@ -34,3 +34,5 @@ $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU14-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU14-ubuntu-22.04
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU16-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU16-ubuntu-22.04
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU19-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU19-ubuntu-22.04
+$CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU22-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU22-ubuntu-22.04
+$CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2025-RTM-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2025-RTM-ubuntu-22.04
