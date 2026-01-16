@@ -10,7 +10,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
-  name: '7.0.16'
+  name: 'percona-7.0.28'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -31,8 +31,8 @@ spec:
     walg:
       image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/wal-g") $) }}:v2024.12.18_mongo'
   db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mongo") $) }}:7.0.16'
-  distribution: Official
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "percona/percona-server-mongodb") $) }}:7.0.28'
+  distribution: Percona
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.47.2'
   gitSyncer:
@@ -42,8 +42,8 @@ spec:
   replicationModeDetector:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.47.0-rc.1{{ include "catalog.ubi" $ }}'
   securityContext:
-    runAsGroup: 999
-    runAsUser: 999
+    runAsGroup: 0
+    runAsUser: 1001
   stash:
     addon:
       backupTask:
@@ -55,8 +55,8 @@ spec:
     version: v2024.4.27
   updateConstraints:
     allowlist:
-    - '>= 7.0.16, < 9.0.0'
-  version: 7.0.16
+    - '>= 7.0.28, < 9.0.0'
+  version: 7.0.28
   podSecurityPolicies:
     databasePolicyName: {{ ternary "mongodb-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
 {{ end }}
