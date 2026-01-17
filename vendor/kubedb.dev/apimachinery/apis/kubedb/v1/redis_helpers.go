@@ -133,11 +133,8 @@ func (r Redis) GoverningServiceName() string {
 }
 
 func (r Redis) ConfigSecretName() string {
-	return meta_util.NameWithSuffix(r.OffshootName(), "config")
-}
-
-func (r Redis) CustomConfigSecretName() string {
-	return meta_util.NameWithSuffix(r.OffshootName(), "custom-config")
+	uid := string(r.UID)
+	return meta_util.NameWithSuffix(r.OffshootName(), uid[len(uid)-6:])
 }
 
 func (r Redis) BaseNameForShard() string {
@@ -193,7 +190,8 @@ func (r redisStatsService) Path() string {
 }
 
 func (r redisStatsService) Scheme() string {
-	return ""
+	sc := promapi.SchemeHTTP
+	return sc.String()
 }
 
 func (r redisStatsService) TLSConfig() *promapi.TLSConfig {
@@ -234,6 +232,8 @@ func (r *Redis) SetDefaults(rdVersion *catalog.RedisVersion) error {
 	if r.Spec.Replicas == nil && r.Spec.Mode != RedisModeCluster {
 		r.Spec.Replicas = pointer.Int32P(1)
 	}
+
+	r.Spec.Configuration = copyConfigurationField(r.Spec.Configuration, &r.Spec.ConfigSecret)
 
 	// perform defaulting
 	switch r.Spec.Mode {
