@@ -119,6 +119,8 @@ k3s ctr images import images/appscode-images-mariadb-11.3.2-jammy.tar
 k3s ctr images import images/appscode-images-mariadb-11.4.3-noble.tar
 k3s ctr images import images/appscode-images-mariadb-11.5.2-noble.tar
 k3s ctr images import images/appscode-images-mariadb-11.6.2-noble.tar
+k3s ctr images import images/appscode-images-mariadb-11.8.5-noble.tar
+k3s ctr images import images/appscode-images-mariadb-12.1.2-noble.tar
 k3s ctr images import images/appscode-images-memcached-1.5.22-alpine.tar
 k3s ctr images import images/appscode-images-memcached-1.6.22-alpine.tar
 k3s ctr images import images/appscode-images-memcached-1.6.29-alpine.tar

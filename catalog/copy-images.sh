@@ -130,6 +130,8 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ma
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.4.3-noble $IMAGE_REGISTRY/appscode-images/mariadb:11.4.3-noble
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.5.2-noble $IMAGE_REGISTRY/appscode-images/mariadb:11.5.2-noble
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.6.2-noble $IMAGE_REGISTRY/appscode-images/mariadb:11.6.2-noble
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.8.5-noble $IMAGE_REGISTRY/appscode-images/mariadb:11.8.5-noble
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:12.1.2-noble $IMAGE_REGISTRY/appscode-images/mariadb:12.1.2-noble
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.5.22-alpine $IMAGE_REGISTRY/appscode-images/memcached:1.5.22-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.22-alpine $IMAGE_REGISTRY/appscode-images/memcached:1.6.22-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.29-alpine $IMAGE_REGISTRY/appscode-images/memcached:1.6.29-alpine

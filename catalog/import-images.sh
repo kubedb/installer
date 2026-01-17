@@ -121,6 +121,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.4.3-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.4.3-noble
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.5.2-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.5.2-noble
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.6.2-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.6.2-noble
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.8.5-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.8.5-noble
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-12.1.2-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:12.1.2-noble
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached-1.5.22-alpine.tar $IMAGE_REGISTRY/appscode-images/memcached:1.5.22-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached-1.6.22-alpine.tar $IMAGE_REGISTRY/appscode-images/memcached:1.6.22-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached-1.6.29-alpine.tar $IMAGE_REGISTRY/appscode-images/memcached:1.6.29-alpine
