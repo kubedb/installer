@@ -3,7 +3,7 @@ module kubedb.dev/installer
 go 1.25.5
 
 require (
-	github.com/Masterminds/semver/v3 v3.3.1
+	github.com/Masterminds/semver/v3 v3.4.0
 	github.com/Masterminds/sprig/v3 v3.3.0
 	github.com/google/gofuzz v1.2.0
 	github.com/olekukonko/tablewriter v0.0.5
@@ -16,9 +16,9 @@ require (
 	kmodules.xyz/client-go v0.34.2
 	kmodules.xyz/go-containerregistry v0.0.15
 	kmodules.xyz/image-packer v0.0.0-20251207101219-5eac37d8b469
-	kmodules.xyz/resource-metadata v0.40.2
+	kmodules.xyz/resource-metadata v0.41.0
 	kmodules.xyz/schema-checker v0.4.2
-	kubedb.dev/apimachinery v0.60.0-rc.1
+	kubedb.dev/apimachinery v0.60.0-rc.1.0.20260116090448-eae49b09691f
 	kubeops.dev/installer v0.0.0-20251215120607-2679d0cb5864
 	sigs.k8s.io/yaml v1.6.0
 	stash.appscode.dev/installer v0.12.2-0.20251204172259-c724502d3955
@@ -111,7 +111,7 @@ require (
 	golang.org/x/sys v0.39.0 // indirect
 	golang.org/x/term v0.38.0 // indirect
 	golang.org/x/text v0.32.0 // indirect
-	golang.org/x/time v0.13.0 // indirect
+	golang.org/x/time v0.14.0 // indirect
 	gomodules.xyz/encoding v0.0.8 // indirect
 	gomodules.xyz/jsonpatch/v2 v2.5.0 // indirect
 	gomodules.xyz/jsonpath v0.0.2 // indirect
@@ -132,7 +132,7 @@ require (
 	kubeops.dev/petset v0.0.15 // indirect
 	kubeops.dev/scanner v0.0.19 // indirect
 	kubeops.dev/sidekick v0.0.12 // indirect
-	open-cluster-management.io/api v1.0.0 // indirect
+	open-cluster-management.io/api v1.1.1-0.20251222023835-510285203ee6 // indirect
 	sigs.k8s.io/controller-runtime v0.22.4 // indirect
 	sigs.k8s.io/gateway-api v1.4.0 // indirect
 	sigs.k8s.io/json v0.0.0-20250730193827-2d320260d730 // indirect

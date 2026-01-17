@@ -1,0 +1,26 @@
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.ClickHouse (not (eq $ubi "operator")) }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ClickHouseVersion
+metadata:
+  name: '25.12.3'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  clickHouseKeeper:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "clickhouse/clickhouse-keeper") $) }}:25.12.3'
+  db:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "clickhouse/clickhouse-server") $) }}:25.12.3'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/clickhouse-init") $) }}:24.4.1-v3'
+  securityContext:
+    runAsUser: 101
+  version: 25.12.3
+{{ end }}
