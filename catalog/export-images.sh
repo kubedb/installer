@@ -127,6 +127,8 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.4.3-noble images/appscode-images-mariadb-11.4.3-noble.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.5.2-noble images/appscode-images-mariadb-11.5.2-noble.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.6.2-noble images/appscode-images-mariadb-11.6.2-noble.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.8.5-noble images/appscode-images-mariadb-11.8.5-noble.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:12.1.2-noble images/appscode-images-mariadb-12.1.2-noble.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.5.22-alpine images/appscode-images-memcached-1.5.22-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.22-alpine images/appscode-images-memcached-1.6.22-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.29-alpine images/appscode-images-memcached-1.6.29-alpine.tar
@@ -413,7 +415,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:14-3.4 i
 $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:15-3.4 images/postgis-postgis-15-3.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:16-3.4 images/postgis-postgis-16-3.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure prom/memcached-exporter:v0.14.2 images/prom-memcached-exporter-v0.14.2.tar
-$CMD pull --allow-nondistributable-artifacts --insecure prom/mysqld-exporter:v0.13.0 images/prom-mysqld-exporter-v0.13.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure prom/mysqld-exporter:v0.18.0 images/prom-mysqld-exporter-v0.18.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/elasticsearch-exporter:v1.10.0 images/prometheuscommunity-elasticsearch-exporter-v1.10.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/postgres-exporter:v0.18.1 images/prometheuscommunity-postgres-exporter-v0.18.1.tar

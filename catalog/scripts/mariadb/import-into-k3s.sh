@@ -36,6 +36,8 @@ k3s ctr images import images/appscode-images-mariadb-11.3.2-jammy.tar
 k3s ctr images import images/appscode-images-mariadb-11.4.3-noble.tar
 k3s ctr images import images/appscode-images-mariadb-11.5.2-noble.tar
 k3s ctr images import images/appscode-images-mariadb-11.6.2-noble.tar
+k3s ctr images import images/appscode-images-mariadb-11.8.5-noble.tar
+k3s ctr images import images/appscode-images-mariadb-12.1.2-noble.tar
 k3s ctr images import images/kubedb-mariadb-archiver-v0.20.0-rc.1_10.10.7-jammy.tar
 k3s ctr images import images/kubedb-mariadb-archiver-v0.20.0-rc.1_10.11.6-jammy.tar
 k3s ctr images import images/kubedb-mariadb-archiver-v0.20.0-rc.1_10.4.32-focal.tar
@@ -47,4 +49,4 @@ k3s ctr images import images/kubedb-mariadb-archiver-v0.20.0-rc.1_11.2.2-jammy.t
 k3s ctr images import images/kubedb-mariadb-coordinator-v0.40.0-rc.1.tar
 k3s ctr images import images/kubedb-mariadb-init-0.8.0.tar
 k3s ctr images import images/mariadb-maxscale-24.02.4.tar
-k3s ctr images import images/prom-mysqld-exporter-v0.13.0.tar
+k3s ctr images import images/prom-mysqld-exporter-v0.18.0.tar

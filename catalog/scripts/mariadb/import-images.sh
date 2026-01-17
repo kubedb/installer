@@ -38,6 +38,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.4.3-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.4.3-noble
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.5.2-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.5.2-noble
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.6.2-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.6.2-noble
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.8.5-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.8.5-noble
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-12.1.2-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:12.1.2-noble
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.20.0-rc.1_10.10.7-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.20.0-rc.1_10.10.7-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.20.0-rc.1_10.11.6-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.20.0-rc.1_10.11.6-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.20.0-rc.1_10.4.32-focal.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.20.0-rc.1_10.4.32-focal
@@ -49,4 +51,4 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-ar
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-coordinator-v0.40.0-rc.1.tar $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.40.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-init-0.8.0.tar $IMAGE_REGISTRY/kubedb/mariadb-init:0.8.0
 $CMD push --allow-nondistributable-artifacts --insecure images/mariadb-maxscale-24.02.4.tar $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
-$CMD push --allow-nondistributable-artifacts --insecure images/prom-mysqld-exporter-v0.13.0.tar $IMAGE_REGISTRY/prom/mysqld-exporter:v0.13.0
+$CMD push --allow-nondistributable-artifacts --insecure images/prom-mysqld-exporter-v0.18.0.tar $IMAGE_REGISTRY/prom/mysqld-exporter:v0.18.0

@@ -121,6 +121,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.4.3-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.4.3-noble
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.5.2-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.5.2-noble
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.6.2-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.6.2-noble
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.8.5-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.8.5-noble
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-12.1.2-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:12.1.2-noble
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached-1.5.22-alpine.tar $IMAGE_REGISTRY/appscode-images/memcached:1.5.22-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached-1.6.22-alpine.tar $IMAGE_REGISTRY/appscode-images/memcached:1.6.22-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached-1.6.29-alpine.tar $IMAGE_REGISTRY/appscode-images/memcached:1.6.29-alpine
@@ -407,7 +409,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-1
 $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-15-3.4.tar $IMAGE_REGISTRY/postgis/postgis:15-3.4
 $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-16-3.4.tar $IMAGE_REGISTRY/postgis/postgis:16-3.4
 $CMD push --allow-nondistributable-artifacts --insecure images/prom-memcached-exporter-v0.14.2.tar $IMAGE_REGISTRY/prom/memcached-exporter:v0.14.2
-$CMD push --allow-nondistributable-artifacts --insecure images/prom-mysqld-exporter-v0.13.0.tar $IMAGE_REGISTRY/prom/mysqld-exporter:v0.13.0
 $CMD push --allow-nondistributable-artifacts --insecure images/prom-mysqld-exporter-v0.18.0.tar $IMAGE_REGISTRY/prom/mysqld-exporter:v0.18.0
 $CMD push --allow-nondistributable-artifacts --insecure images/prometheuscommunity-elasticsearch-exporter-v1.10.0.tar $IMAGE_REGISTRY/prometheuscommunity/elasticsearch-exporter:v1.10.0
 $CMD push --allow-nondistributable-artifacts --insecure images/prometheuscommunity-postgres-exporter-v0.18.1.tar $IMAGE_REGISTRY/prometheuscommunity/postgres-exporter:v0.18.1

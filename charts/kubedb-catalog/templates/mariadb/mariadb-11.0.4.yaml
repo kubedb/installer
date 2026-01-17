@@ -6,7 +6,7 @@
 {{- end }}
 
 {{ if and $featureGates.MariaDB (not (eq $ubi "operator")) }}
-
+{{ if or (not .Values.skipEndOfLife) (has "11.0.4" .Values.enableVersions.MariaDB) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MariaDBVersion
 metadata:
@@ -35,7 +35,7 @@ spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mariadb") $) }}:11.0.4-jammy'
   exporter:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prom/mysqld-exporter") $) }}:v0.13.0'
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prom/mysqld-exporter") $) }}:v0.18.0'
   gitSyncer:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.4.2'
   initContainer:
@@ -57,8 +57,10 @@ spec:
     version: v2024.4.27
   updateConstraints:
     allowlist:
-    - '>= 11.0.4, <= 11.6.2'
+    - '>= 11.0.4, <= 12.1.2'
   version: 11.0.4
   podSecurityPolicies:
     databasePolicyName: {{ ternary "maria-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+  endOfLife: {{ not (has "11.0.4" .Values.enableVersions.MariaDB) }}
+{{ end }}
 {{ end }}
