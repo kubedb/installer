@@ -407,7 +407,6 @@ k3s ctr images import images/postgis-postgis-14-3.4.tar
 k3s ctr images import images/postgis-postgis-15-3.4.tar
 k3s ctr images import images/postgis-postgis-16-3.4.tar
 k3s ctr images import images/prom-memcached-exporter-v0.14.2.tar
-k3s ctr images import images/prom-mysqld-exporter-v0.13.0.tar
 k3s ctr images import images/prom-mysqld-exporter-v0.18.0.tar
 k3s ctr images import images/prometheuscommunity-elasticsearch-exporter-v1.10.0.tar
 k3s ctr images import images/prometheuscommunity-postgres-exporter-v0.18.1.tar

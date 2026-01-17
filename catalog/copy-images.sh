@@ -418,7 +418,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure postgis/postgis:14-3.4 $IM
 $CMD cp --allow-nondistributable-artifacts --insecure postgis/postgis:15-3.4 $IMAGE_REGISTRY/postgis/postgis:15-3.4
 $CMD cp --allow-nondistributable-artifacts --insecure postgis/postgis:16-3.4 $IMAGE_REGISTRY/postgis/postgis:16-3.4
 $CMD cp --allow-nondistributable-artifacts --insecure prom/memcached-exporter:v0.14.2 $IMAGE_REGISTRY/prom/memcached-exporter:v0.14.2
-$CMD cp --allow-nondistributable-artifacts --insecure prom/mysqld-exporter:v0.13.0 $IMAGE_REGISTRY/prom/mysqld-exporter:v0.13.0
 $CMD cp --allow-nondistributable-artifacts --insecure prom/mysqld-exporter:v0.18.0 $IMAGE_REGISTRY/prom/mysqld-exporter:v0.18.0
 $CMD cp --allow-nondistributable-artifacts --insecure prometheuscommunity/elasticsearch-exporter:v1.10.0 $IMAGE_REGISTRY/prometheuscommunity/elasticsearch-exporter:v1.10.0
 $CMD cp --allow-nondistributable-artifacts --insecure prometheuscommunity/postgres-exporter:v0.18.1 $IMAGE_REGISTRY/prometheuscommunity/postgres-exporter:v0.18.1

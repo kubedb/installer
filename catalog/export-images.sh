@@ -415,7 +415,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:14-3.4 i
 $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:15-3.4 images/postgis-postgis-15-3.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:16-3.4 images/postgis-postgis-16-3.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure prom/memcached-exporter:v0.14.2 images/prom-memcached-exporter-v0.14.2.tar
-$CMD pull --allow-nondistributable-artifacts --insecure prom/mysqld-exporter:v0.13.0 images/prom-mysqld-exporter-v0.13.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure prom/mysqld-exporter:v0.18.0 images/prom-mysqld-exporter-v0.18.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/elasticsearch-exporter:v1.10.0 images/prometheuscommunity-elasticsearch-exporter-v1.10.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/postgres-exporter:v0.18.1 images/prometheuscommunity-postgres-exporter-v0.18.1.tar
