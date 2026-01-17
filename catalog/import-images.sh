@@ -147,6 +147,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-8.4.3-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:8.4.3-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-9.0.1-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:9.0.1-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-9.1.0-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:9.1.0-oracle
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-9.4.0-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:9.4.0-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-1.1.0.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:1.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-1.3.13.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:1.3.13
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-1.3.20.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:1.3.20
