@@ -23,7 +23,7 @@ spec:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/elastic") $) }}:8.18.2'
   distribution: ElasticStack
   exporter:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.7.0'
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.10.0'
   initContainer:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "tianon/toybox") $) }}:0.8.11'
     yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-init") $) }}:8.18.2-xpack-v2025.12.12'
@@ -44,7 +44,7 @@ spec:
           value: --match=^(?![.])(?!apm-agent-configuration)(?!kubedb-system).+
   updateConstraints:
     allowlist:
-    - '>= 8.18.2, < 9.0.0'
+    - '>= 8.18.2, < 9.2.4'
   version: 8.18.2
   podSecurityPolicies:
     databasePolicyName: {{ ternary "elasticsearch-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
