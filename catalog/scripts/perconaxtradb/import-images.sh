@@ -31,3 +31,4 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-p
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-percona-xtradb-cluster-8.4.3.tar $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.4.3
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-coordinator-v0.33.0-rc.1.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-coordinator:v0.33.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-init-0.2.3.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-init:0.2.3
+$CMD push --allow-nondistributable-artifacts --insecure images/prom-mysqld-exporter-v0.18.0.tar $IMAGE_REGISTRY/prom/mysqld-exporter:v0.18.0
