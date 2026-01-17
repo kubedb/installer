@@ -145,6 +145,7 @@ k3s ctr images import images/appscode-images-mysql-8.4.2-oracle.tar
 k3s ctr images import images/appscode-images-mysql-8.4.3-oracle.tar
 k3s ctr images import images/appscode-images-mysql-9.0.1-oracle.tar
 k3s ctr images import images/appscode-images-mysql-9.1.0-oracle.tar
+k3s ctr images import images/appscode-images-mysql-9.4.0-oracle.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-1.1.0.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-1.3.13.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-1.3.20.tar

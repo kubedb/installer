@@ -37,6 +37,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-8.4.3-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:8.4.3-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-9.0.1-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:9.0.1-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-9.1.0-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:9.1.0-oracle
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-9.4.0-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:9.4.0-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-archiver-v0.21.0-rc.1_5.7.44.tar $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.21.0-rc.1_5.7.44
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-archiver-v0.21.0-rc.1_8.0.35.tar $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.21.0-rc.1_8.0.35
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-archiver-v0.21.0-rc.1_8.1.0.tar $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.21.0-rc.1_8.1.0

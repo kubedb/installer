@@ -35,6 +35,7 @@ k3s ctr images import images/appscode-images-mysql-8.4.2-oracle.tar
 k3s ctr images import images/appscode-images-mysql-8.4.3-oracle.tar
 k3s ctr images import images/appscode-images-mysql-9.0.1-oracle.tar
 k3s ctr images import images/appscode-images-mysql-9.1.0-oracle.tar
+k3s ctr images import images/appscode-images-mysql-9.4.0-oracle.tar
 k3s ctr images import images/kubedb-mysql-archiver-v0.21.0-rc.1_5.7.44.tar
 k3s ctr images import images/kubedb-mysql-archiver-v0.21.0-rc.1_8.0.35.tar
 k3s ctr images import images/kubedb-mysql-archiver-v0.21.0-rc.1_8.1.0.tar

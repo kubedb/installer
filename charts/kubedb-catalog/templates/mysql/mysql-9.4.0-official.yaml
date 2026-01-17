@@ -6,11 +6,11 @@
 {{- end }}
 
 {{ if and $featureGates.MySQL (not (eq $ubi "operator")) }}
-{{ if or (not .Values.skipEndOfLife) (has "9.1.0" .Values.enableVersions.MySQL) }}
+{{ if or (not .Values.skipEndOfLife) (has "9.4.0" .Values.enableVersions.MySQL) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
-  name: '9.1.0'
+  name: '9.4.0'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -29,7 +29,7 @@ spec:
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.38.0-rc.1{{ include "catalog.ubi" $ }}'
   db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql") $) }}:9.1.0-oracle'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql") $) }}:9.4.0-oracle'
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysqld-exporter") $) }}:v0.13.1'
@@ -53,17 +53,17 @@ spec:
   updateConstraints:
     allowlist:
       groupReplication:
-      - '>= 9.1.0, <= 9.4.0'
+      - '>= 9.4.0'
       standalone:
-      - '>= 9.1.0, <= 9.4.0'
+      - '>= 9.4.0'
     denylist:
       groupReplication:
-      - < 9.1.0
+      - < 9.4.0
       standalone:
-      - < 9.1.0
-  version: 9.1.0
+      - < 9.4.0
+  version: 9.4.0
   podSecurityPolicies:
     databasePolicyName: {{ ternary "mysql-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
-  endOfLife: {{ not (has "9.1.0" .Values.enableVersions.MySQL) }}
+  endOfLife: {{ not (has "9.4.0" .Values.enableVersions.MySQL) }}
 {{ end }}
 {{ end }}

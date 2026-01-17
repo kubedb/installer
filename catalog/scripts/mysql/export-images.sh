@@ -43,6 +43,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:8.4.3-oracle images/appscode-images-mysql-8.4.3-oracle.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.0.1-oracle images/appscode-images-mysql-9.0.1-oracle.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.1.0-oracle images/appscode-images-mysql-9.1.0-oracle.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.4.0-oracle images/appscode-images-mysql-9.4.0-oracle.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.21.0-rc.1_5.7.44 images/kubedb-mysql-archiver-v0.21.0-rc.1_5.7.44.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.21.0-rc.1_8.0.35 images/kubedb-mysql-archiver-v0.21.0-rc.1_8.0.35.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.21.0-rc.1_8.1.0 images/kubedb-mysql-archiver-v0.21.0-rc.1_8.1.0.tar
