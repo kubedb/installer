@@ -32,6 +32,9 @@ mv /tmp/crane images
 
 CMD="./images/crane"
 
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:4.4.26 images/appscode-images-mongo-4.4.26.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:5.0.31 images/appscode-images-mongo-5.0.31.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:6.0.24 images/appscode-images-mongo-6.0.24.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.21 images/appscode-images-mongo-7.0.21.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.28 images/appscode-images-mongo-7.0.28.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.10 images/appscode-images-mongo-8.0.10.tar

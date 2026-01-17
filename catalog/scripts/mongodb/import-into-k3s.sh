@@ -24,6 +24,9 @@ fi
 TARBALL=${1:-}
 tar -zxvf $TARBALL
 
+k3s ctr images import images/appscode-images-mongo-4.4.26.tar
+k3s ctr images import images/appscode-images-mongo-5.0.31.tar
+k3s ctr images import images/appscode-images-mongo-6.0.24.tar
 k3s ctr images import images/appscode-images-mongo-7.0.21.tar
 k3s ctr images import images/appscode-images-mongo-7.0.28.tar
 k3s ctr images import images/appscode-images-mongo-8.0.10.tar

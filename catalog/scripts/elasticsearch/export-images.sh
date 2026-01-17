@@ -51,16 +51,22 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.15.4 images/appscode-images-elastic-8.15.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.16.0 images/appscode-images-elastic-8.16.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.16.4 images/appscode-images-elastic-8.16.4.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.17.10 images/appscode-images-elastic-8.17.10.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.17.2 images/appscode-images-elastic-8.17.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.17.6 images/appscode-images-elastic-8.17.6.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.18.2 images/appscode-images-elastic-8.18.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.18.8 images/appscode-images-elastic-8.18.8.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.19.9 images/appscode-images-elastic-8.19.9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.2.3 images/appscode-images-elastic-8.2.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.5.3 images/appscode-images-elastic-8.5.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.6.2 images/appscode-images-elastic-8.6.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:8.8.2 images/appscode-images-elastic-8.8.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.0.2 images/appscode-images-elastic-9.0.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.0.8 images/appscode-images-elastic-9.0.8.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.1.3 images/appscode-images-elastic-9.1.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.1.4 images/appscode-images-elastic-9.1.4.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.1.9 images/appscode-images-elastic-9.1.9.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.2.3 images/appscode-images-elastic-9.2.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:6.8.23 images/appscode-images-kibana-6.8.23.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:7.13.4 images/appscode-images-kibana-7.13.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:7.14.2 images/appscode-images-kibana-7.14.2.tar
@@ -79,16 +85,22 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.15.4 images/appscode-images-kibana-8.15.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.16.0 images/appscode-images-kibana-8.16.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.16.4 images/appscode-images-kibana-8.16.4.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.17.10 images/appscode-images-kibana-8.17.10.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.17.2 images/appscode-images-kibana-8.17.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.17.6 images/appscode-images-kibana-8.17.6.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.18.2 images/appscode-images-kibana-8.18.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.18.8 images/appscode-images-kibana-8.18.8.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.19.9 images/appscode-images-kibana-8.19.9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.2.3 images/appscode-images-kibana-8.2.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.5.3 images/appscode-images-kibana-8.5.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.6.2 images/appscode-images-kibana-8.6.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:8.8.2 images/appscode-images-kibana-8.8.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.0.2 images/appscode-images-kibana-9.0.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.0.8 images/appscode-images-kibana-9.0.8.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.1.3 images/appscode-images-kibana-9.1.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.1.4 images/appscode-images-kibana-9.1.4.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.1.9 images/appscode-images-kibana-9.1.9.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.2.3 images/appscode-images-kibana-9.2.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:1.1.0 images/appscode-images-opensearch-dashboards-1.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:1.2.0 images/appscode-images-opensearch-dashboards-1.2.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:1.3.13 images/appscode-images-opensearch-dashboards-1.3.13.tar
@@ -123,6 +135,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.5.0 images/appscode-images-opensearch-2.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.8.0 images/appscode-images-opensearch-2.8.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:3.1.0 images/appscode-images-opensearch-3.1.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/elasticsearch-exporter:v1.10.0 images/prometheuscommunity-elasticsearch-exporter-v1.10.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/elasticsearch-exporter:v1.7.0 images/prometheuscommunity-elasticsearch-exporter-v1.7.0.tar
 
 tar -czvf images.tar.gz images
