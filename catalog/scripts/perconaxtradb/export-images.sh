@@ -37,5 +37,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.4.3 images/appscode-images-percona-xtradb-cluster-8.4.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-coordinator:v0.33.0-rc.1 images/kubedb-percona-xtradb-coordinator-v0.33.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-init:0.2.3 images/kubedb-percona-xtradb-init-0.2.3.tar
+$CMD pull --allow-nondistributable-artifacts --insecure prom/mysqld-exporter:v0.18.0 images/prom-mysqld-exporter-v0.18.0.tar
 
 tar -czvf images.tar.gz images
