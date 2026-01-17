@@ -6,7 +6,7 @@
 {{- end }}
 
 {{ if and $featureGates.MongoDB (not (eq $ubi "operator")) }}
-
+{{ if or (not .Values.skipEndOfLife) (has "4.4.26" .Values.enableVersions.MongoDB) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
@@ -34,7 +34,7 @@ spec:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mongo") $) }}:4.4.26'
   distribution: Official
   exporter:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.40.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.47.2'
   gitSyncer:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.4.2'
   initContainer:
@@ -59,4 +59,6 @@ spec:
   version: 4.4.26
   podSecurityPolicies:
     databasePolicyName: {{ ternary "mongodb-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+  endOfLife: {{ not (has "4.4.26" .Values.enableVersions.MongoDB) }}
+{{ end }}
 {{ end }}

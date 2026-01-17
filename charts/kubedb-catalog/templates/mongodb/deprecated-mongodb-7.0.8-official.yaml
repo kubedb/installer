@@ -6,11 +6,11 @@
 {{- end }}
 
 {{ if and $featureGates.MongoDB (not (eq $ubi "operator")) }}
-
+{{ if or (not .Values.skipDeprecated) (has "7.0.8" .Values.enableVersions.MongoDB) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
-  name: 'percona-4.2.24'
+  name: '7.0.8'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -31,32 +31,34 @@ spec:
     walg:
       image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/wal-g") $) }}:v2024.12.18_mongo'
   db:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "percona/percona-server-mongodb") $) }}:4.2.24'
-  distribution: Percona
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mongo") $) }}:7.0.8'
+  distribution: Official
   exporter:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.40.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb_exporter") $) }}:v0.47.2'
   gitSyncer:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.4.2'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb-init") $) }}:4.2-v9'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb-init") $) }}:6.0-v11'
   replicationModeDetector:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.47.0-rc.1{{ include "catalog.ubi" $ }}'
   securityContext:
-    runAsGroup: 0
-    runAsUser: 1001
+    runAsGroup: 999
+    runAsUser: 999
   stash:
     addon:
       backupTask:
-        name: mongodb-backup-4.4.6
+        name: mongodb-backup-6.0.5
       restoreTask:
-        name: mongodb-restore-4.4.6
+        name: mongodb-restore-6.0.5
   ui:
   - name: mongo-ui
     version: v2024.4.27
   updateConstraints:
     allowlist:
-    - '>= 4.2.24, < 6.0.0'
-  version: 4.2.24
+    - '>= 7.0.8, < 9.0.0'
+  version: 7.0.8
   podSecurityPolicies:
     databasePolicyName: {{ ternary "mongodb-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+  deprecated: {{ not (has "7.0.8" .Values.enableVersions.MongoDB) }}
+{{ end }}
 {{ end }}
