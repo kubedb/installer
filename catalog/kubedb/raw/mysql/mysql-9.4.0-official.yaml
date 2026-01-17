@@ -1,16 +1,12 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
-  name: 8.0.36
+  name: 9.4.0
 spec:
   archiver:
     addon:
       name: mysql-addon
       tasks:
-        fullBackup:
-          name: physical-backup
-        fullBackupRestore:
-          name: physical-backup-restore
         manifestBackup:
           name: manifest-backup
         manifestRestore:
@@ -18,11 +14,11 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: ghcr.io/kubedb/mysql-archiver:(v0.21.0-rc.1)_8.0.35
+      image: ghcr.io/kubedb/mysql-archiver:(v0.21.0-rc.1)_9.1.0
   coordinator:
     image: ghcr.io/kubedb/mysql-coordinator:v0.38.0-rc.1
   db:
-    image: ghcr.io/appscode-images/mysql:8.0.36-debian
+    image: ghcr.io/appscode-images/mysql:9.4.0-oracle
   distribution: Official
   endOfLife: true
   exporter:
@@ -30,7 +26,7 @@ spec:
   gitSyncer:
     image: registry.k8s.io/git-sync/git-sync:v4.4.2
   initContainer:
-    image: ghcr.io/kubedb/mysql-init:8.0.31-v6
+    image: ghcr.io/kubedb/mysql-init:9.1.0-v3
   podSecurityPolicies:
     databasePolicyName: mysql-db
   replicationModeDetector:
@@ -49,12 +45,12 @@ spec:
   updateConstraints:
     allowlist:
       groupReplication:
-      - '>= 8.0.36, <= 9.1.0'
+      - '>= 9.4.0'
       standalone:
-      - '>= 8.0.36, <= 9.1.0'
+      - '>= 9.4.0'
     denylist:
       groupReplication:
-      - < 8.0.36
+      - < 9.4.0
       standalone:
-      - < 8.0.36
-  version: 8.0.36
+      - < 9.4.0
+  version: 9.4.0

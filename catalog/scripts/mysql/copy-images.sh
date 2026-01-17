@@ -46,6 +46,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/my
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:8.4.3-oracle $IMAGE_REGISTRY/appscode-images/mysql:8.4.3-oracle
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.0.1-oracle $IMAGE_REGISTRY/appscode-images/mysql:9.0.1-oracle
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.1.0-oracle $IMAGE_REGISTRY/appscode-images/mysql:9.1.0-oracle
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.4.0-oracle $IMAGE_REGISTRY/appscode-images/mysql:9.4.0-oracle
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.21.0-rc.1_5.7.44 $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.21.0-rc.1_5.7.44
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.21.0-rc.1_8.0.35 $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.21.0-rc.1_8.0.35
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.21.0-rc.1_8.1.0 $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.21.0-rc.1_8.1.0
