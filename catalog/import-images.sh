@@ -162,9 +162,11 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-6.0.24.tar $IMAGE_REGISTRY/appscode-images/mongo:6.0.24
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-7.0.16.tar $IMAGE_REGISTRY/appscode-images/mongo:7.0.16
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-7.0.21.tar $IMAGE_REGISTRY/appscode-images/mongo:7.0.21
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-7.0.28.tar $IMAGE_REGISTRY/appscode-images/mongo:7.0.28
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-7.0.5.tar $IMAGE_REGISTRY/appscode-images/mongo:7.0.5
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-7.0.8.tar $IMAGE_REGISTRY/appscode-images/mongo:7.0.8
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-8.0.10.tar $IMAGE_REGISTRY/appscode-images/mongo:8.0.10
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-8.0.17.tar $IMAGE_REGISTRY/appscode-images/mongo:8.0.17
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-8.0.4.tar $IMAGE_REGISTRY/appscode-images/mongo:8.0.4
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-5.7.42-debian.tar $IMAGE_REGISTRY/appscode-images/mysql:5.7.42-debian
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-5.7.44-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:5.7.44-oracle
@@ -354,6 +356,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-cs
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-4.2-v9.tar $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-6.0-v11.tar $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v11
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb_exporter-v0.40.0.tar $IMAGE_REGISTRY/kubedb/mongodb_exporter:v0.40.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb_exporter-v0.47.2.tar $IMAGE_REGISTRY/kubedb/mongodb_exporter:v0.47.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-coordinator-v0.15.0-rc.1.tar $IMAGE_REGISTRY/kubedb/mssql-coordinator:v0.15.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-exporter-1.2.0.tar $IMAGE_REGISTRY/kubedb/mssql-exporter:1.2.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-init-2022-ubuntu-22-v4.tar $IMAGE_REGISTRY/kubedb/mssql-init:2022-ubuntu-22-v4
@@ -454,7 +457,9 @@ $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-s
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-6.0.12.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:6.0.12
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-6.0.24.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:6.0.24
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-7.0.18.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:7.0.18
+$CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-7.0.28.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:7.0.28
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-7.0.4.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:7.0.4
+$CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-8.0.17.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:8.0.17
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-8.0.8.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:8.0.8
 $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-11-3.3.tar $IMAGE_REGISTRY/postgis/postgis:11-3.3
 $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-12-3.4.tar $IMAGE_REGISTRY/postgis/postgis:12-3.4

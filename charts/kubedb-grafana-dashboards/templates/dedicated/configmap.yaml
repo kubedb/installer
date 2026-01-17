@@ -1,9 +1,17 @@
 {{ $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") }}
 {{ if not $shared }}
 
-{{- if not (eq (len .Values.resources) 1) }}
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{- if not (eq (len (without (values $featureGates) false)) 1) }}
 {{- fail "Only one .Values.resources can be used when app name or namespace is set!" }}
 {{- end }}
+
+{{ $featureGates = merge $featureGates (dict "ConnectCluster" $featureGates.Kafka) }}
+{{ $featureGates = merge $featureGates (dict "RedisSentinel" $featureGates.Redis) }}
 
 apiVersion: v1
 kind: ConfigMap
@@ -13,8 +21,9 @@ metadata:
   labels:
     {{- include "kubedb-grafana-dashboards.labels" $ | nindent 4 }}
 data:
-{{- range $r := .Values.resources }}
-{{- range $path, $_ :=  $.Files.Glob (printf "dashboards/%s/**.json" $r) }}
+{{- range $r, $enabled := $featureGates }}
+{{- if $enabled }}
+{{- range $path, $_ :=  $.Files.Glob (printf "dashboards/%s/**.json" (lower $r)) }}
   {{- $dashtpl := $.Files.Get $path }}
   {{- range $k, $v := $.Values.dashboard.replacements }}
     {{- $dashtpl = $dashtpl | replace $k $v }}
@@ -29,6 +38,7 @@ data:
       "dashboard" $dashboard
       "folderId" $.Values.dashboard.folderID
       "overwrite" $.Values.dashboard.overwrite | toJson | nindent 4 -}}
+{{- end }}
 {{- end }}
 {{- end }}
 

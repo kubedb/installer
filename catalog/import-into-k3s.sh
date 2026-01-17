@@ -160,9 +160,11 @@ k3s ctr images import images/appscode-images-mongo-6.0.12.tar
 k3s ctr images import images/appscode-images-mongo-6.0.24.tar
 k3s ctr images import images/appscode-images-mongo-7.0.16.tar
 k3s ctr images import images/appscode-images-mongo-7.0.21.tar
+k3s ctr images import images/appscode-images-mongo-7.0.28.tar
 k3s ctr images import images/appscode-images-mongo-7.0.5.tar
 k3s ctr images import images/appscode-images-mongo-7.0.8.tar
 k3s ctr images import images/appscode-images-mongo-8.0.10.tar
+k3s ctr images import images/appscode-images-mongo-8.0.17.tar
 k3s ctr images import images/appscode-images-mongo-8.0.4.tar
 k3s ctr images import images/appscode-images-mysql-5.7.42-debian.tar
 k3s ctr images import images/appscode-images-mysql-5.7.44-oracle.tar
@@ -352,6 +354,7 @@ k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.21.0-rc.1.
 k3s ctr images import images/kubedb-mongodb-init-4.2-v9.tar
 k3s ctr images import images/kubedb-mongodb-init-6.0-v11.tar
 k3s ctr images import images/kubedb-mongodb_exporter-v0.40.0.tar
+k3s ctr images import images/kubedb-mongodb_exporter-v0.47.2.tar
 k3s ctr images import images/kubedb-mssql-coordinator-v0.15.0-rc.1.tar
 k3s ctr images import images/kubedb-mssql-exporter-1.2.0.tar
 k3s ctr images import images/kubedb-mssql-init-2022-ubuntu-22-v4.tar
@@ -452,7 +455,9 @@ k3s ctr images import images/percona-percona-server-mongodb-5.0.29.tar
 k3s ctr images import images/percona-percona-server-mongodb-6.0.12.tar
 k3s ctr images import images/percona-percona-server-mongodb-6.0.24.tar
 k3s ctr images import images/percona-percona-server-mongodb-7.0.18.tar
+k3s ctr images import images/percona-percona-server-mongodb-7.0.28.tar
 k3s ctr images import images/percona-percona-server-mongodb-7.0.4.tar
+k3s ctr images import images/percona-percona-server-mongodb-8.0.17.tar
 k3s ctr images import images/percona-percona-server-mongodb-8.0.8.tar
 k3s ctr images import images/postgis-postgis-11-3.3.tar
 k3s ctr images import images/postgis-postgis-12-3.4.tar
