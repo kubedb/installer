@@ -1,3 +1,10 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Cassandra }}
+
 apiVersion: metrics.appscode.com/v1alpha1
 kind: MetricsConfiguration
 metadata:
@@ -24,3 +31,5 @@ spec:
           valuePath: .spec.db.image
       metricValue:
         value: 1
+
+{{ end }}
