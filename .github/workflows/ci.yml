@@ -47,59 +47,172 @@ jobs:
       - name: Test Grafana Dashboards
         run: |
           echo "all db dashboards"
-          helm template charts/kubedb-grafana-dashboards
+          helm template charts/kubedb-grafana-dashboards > /tmp/kubedb-grafana-dashboards-manifests.yaml
+          echo "-----------------------------------------"
+          echo "cassandra dashboard with alerts"
+          helm template charts/kubedb-grafana-dashboards \
+          -f charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+          --set featureGates.Cassandra=true \
+          --set app.name=mydb \
+          --set app.namespace=demo
+
+          echo "-----------------------------------------"
+          echo "druid dashboard with alerts"
+          helm template charts/kubedb-grafana-dashboards \
+          -f charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+          --set featureGates.Druid=true \
+          --set app.name=mydb \
+          --set app.namespace=demo
+
           echo "-----------------------------------------"
           echo "elasticsearch dashboard with alerts"
           helm template charts/kubedb-grafana-dashboards \
-          --set resources[0]=elasticsearch \
+          -f charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+          --set featureGates.Elasticsearch=true \
           --set app.name=mydb \
           --set app.namespace=demo
+
+          echo "-----------------------------------------"
+          echo "ferretdb dashboard with alerts"
+          helm template charts/kubedb-grafana-dashboards \
+          -f charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+          --set featureGates.FerretDB=true \
+          --set app.name=mydb \
+          --set app.namespace=demo
+
+          echo "-----------------------------------------"
+          echo "hazelcast dashboard with alerts"
+          helm template charts/kubedb-grafana-dashboards \
+          -f charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+          --set featureGates.Hazelcast=true \
+          --set app.name=mydb \
+          --set app.namespace=demo
+
+          echo "-----------------------------------------"
+          echo "ignite dashboard with alerts"
+          helm template charts/kubedb-grafana-dashboards \
+          -f charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+          --set featureGates.Ignite=true \
+          --set app.name=mydb \
+          --set app.namespace=demo
+
           echo "-----------------------------------------"
           echo "kafka dashboard with alerts"
           helm template charts/kubedb-grafana-dashboards \
-          --set resources[0]=kafka \
+          -f charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+          --set featureGates.Kafka=true \
           --set app.name=mydb \
           --set app.namespace=demo
+
           echo "-----------------------------------------"
           echo "mariadb dashboard with alerts"
           helm template charts/kubedb-grafana-dashboards \
-          --set resources[0]=mariadb \
+          -f charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+          --set featureGates.MariaDB=true \
           --set app.name=mydb \
           --set app.namespace=demo
+
+          echo "-----------------------------------------"
+          echo "memcached dashboard with alerts"
+          helm template charts/kubedb-grafana-dashboards \
+          -f charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+          --set featureGates.Memcached=true \
+          --set app.name=mydb \
+          --set app.namespace=demo
+
           echo "-----------------------------------------"
           echo "mongodb dashboard with alerts"
           helm template charts/kubedb-grafana-dashboards \
-          --set resources[0]=mongodb \
+          -f charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+          --set featureGates.MongoDB=true \
           --set app.name=mydb \
           --set app.namespace=demo
+
+          echo "-----------------------------------------"
+          echo "mssqlserver dashboard with alerts"
+          helm template charts/kubedb-grafana-dashboards \
+          -f charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+          --set featureGates.MSSQLserver=true \
+          --set app.name=mydb \
+          --set app.namespace=demo
+
           echo "-----------------------------------------"
           echo "mysql dashboard with alerts"
           helm template charts/kubedb-grafana-dashboards \
-          --set resources[0]=mysql \
+          -f charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+          --set featureGates.MySQL=true \
           --set app.name=mydb \
           --set app.namespace=demo
+
+          echo "-----------------------------------------"
+          echo "pgpool dashboard with alerts"
+          helm template charts/kubedb-grafana-dashboards \
+          -f charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+          --set featureGates.Pgpool=true \
+          --set app.name=mydb \
+          --set app.namespace=demo
+
           echo "-----------------------------------------"
           echo "perconaxtradb dashboard with alerts"
           helm template charts/kubedb-grafana-dashboards \
-          --set resources[0]=perconaxtradb \
+          -f charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+          --set featureGates.PerconaXtraDB=true \
           --set app.name=mydb \
           --set app.namespace=demo
+
           echo "-----------------------------------------"
           echo "postgres dashboard with alerts"
           helm template charts/kubedb-grafana-dashboards \
-          --set resources[0]=postgres \
+          -f charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+          --set featureGates.Postgres=true \
           --set app.name=mydb \
           --set app.namespace=demo
+
           echo "-----------------------------------------"
           echo "proxysql dashboard with alerts"
           helm template charts/kubedb-grafana-dashboards \
-          --set resources[0]=proxysql \
+          -f charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+          --set featureGates.ProxySQL=true \
           --set app.name=mydb \
           --set app.namespace=demo
+
+          echo "-----------------------------------------"
+          echo "rabbitmq dashboard with alerts"
+          helm template charts/kubedb-grafana-dashboards \
+          -f charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+          --set featureGates.RabbitMQ=true \
+          --set app.name=mydb \
+          --set app.namespace=demo
+
           echo "-----------------------------------------"
           echo "redis dashboard with alerts"
           helm template charts/kubedb-grafana-dashboards \
-          --set resources[0]=redis \
+          -f charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+          --set featureGates.Redis=true \
+          --set app.name=mydb \
+          --set app.namespace=demo
+
+          echo "-----------------------------------------"
+          echo "singlestore dashboard with alerts"
+          helm template charts/kubedb-grafana-dashboards \
+          -f charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+          --set featureGates.SingleStore=true \
+          --set app.name=mydb \
+          --set app.namespace=demo
+
+          echo "-----------------------------------------"
+          echo "solr dashboard with alerts"
+          helm template charts/kubedb-grafana-dashboards \
+          -f charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+          --set featureGates.Solr=true \
+          --set app.name=mydb \
+          --set app.namespace=demo
+
+          echo "-----------------------------------------"
+          echo "zookeeper dashboard with alerts"
+          helm template charts/kubedb-grafana-dashboards \
+          -f charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+          --set featureGates.Zookeeper=true \
           --set app.name=mydb \
           --set app.namespace=demo
 
@@ -175,7 +288,8 @@ jobs:
           kubectl create -f crds/kubedb-crds.yaml
           kubectl wait --for=condition=Established crds --all --timeout=5m
           kubectl wait --for=condition=NamesAccepted crds --all --timeout=5m
-          metrics-configuration-checker --content=./charts/kubedb-metrics/templates/
+          helm template kubedb-metrics charts/kubedb-metrics > /tmp/kubedb-metrics-manifests.yaml
+          metrics-configuration-checker --content=/tmp/kubedb-metrics-manifests.yaml
           kubectl delete crds -l 'app.kubernetes.io/name=kubedb'
 
       - name: Test Monitoring
