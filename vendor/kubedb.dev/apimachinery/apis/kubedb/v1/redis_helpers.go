@@ -233,7 +233,7 @@ func (r *Redis) SetDefaults(rdVersion *catalog.RedisVersion) error {
 		r.Spec.Replicas = pointer.Int32P(1)
 	}
 
-	r.Spec.Configuration = copyConfigurationField(r.Spec.Configuration, &r.Spec.ConfigSecret)
+	r.copyRedisConfigurationField()
 
 	// perform defaulting
 	switch r.Spec.Mode {
@@ -294,6 +294,27 @@ func (r *Redis) SetDefaults(rdVersion *catalog.RedisVersion) error {
 	}
 
 	return nil
+}
+
+func (r *Redis) copyRedisConfigurationField() {
+	// Skip if there are no deprecated fields to copy
+	if r.Spec.ConfigSecret == nil && r.Spec.Acl == nil {
+		return
+	}
+
+	// Initialize Configuration if nil
+	if r.Spec.Configuration == nil {
+		r.Spec.Configuration = &RedisConfiguration{}
+	}
+
+	// Copy deprecated ConfigSecret to Configuration.SecretName
+	r.Spec.Configuration.ConfigurationSpec = *copyConfigurationField(&r.Spec.Configuration.ConfigurationSpec, &r.Spec.ConfigSecret)
+
+	// Copy deprecated Acl to Configuration.Acl
+	if r.Spec.Configuration.Acl == nil && r.Spec.Acl != nil {
+		r.Spec.Configuration.Acl = r.Spec.Acl
+		r.Spec.Acl = nil
+	}
 }
 
 func (r *Redis) SetHealthCheckerDefaults() {
