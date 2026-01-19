@@ -49,4 +49,4 @@ k3s ctr images import images/kubedb-mariadb-archiver-v0.20.0-rc.1_11.2.2-jammy.t
 k3s ctr images import images/kubedb-mariadb-coordinator-v0.40.0-rc.1.tar
 k3s ctr images import images/kubedb-mariadb-init-0.8.0.tar
 k3s ctr images import images/mariadb-maxscale-24.02.4.tar
-k3s ctr images import images/prom-mysqld-exporter-v0.13.0.tar
+k3s ctr images import images/prom-mysqld-exporter-v0.18.0.tar
