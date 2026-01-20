@@ -422,8 +422,8 @@ $CMD cp --allow-nondistributable-artifacts --insecure prom/memcached-exporter:v0
 $CMD cp --allow-nondistributable-artifacts --insecure prom/mysqld-exporter:v0.18.0 $IMAGE_REGISTRY/prom/mysqld-exporter:v0.18.0
 $CMD cp --allow-nondistributable-artifacts --insecure prometheuscommunity/elasticsearch-exporter:v1.10.0 $IMAGE_REGISTRY/prometheuscommunity/elasticsearch-exporter:v1.10.0
 $CMD cp --allow-nondistributable-artifacts --insecure prometheuscommunity/postgres-exporter:v0.18.1 $IMAGE_REGISTRY/prometheuscommunity/postgres-exporter:v0.18.1
-$CMD cp --allow-nondistributable-artifacts --insecure qdrant/qdrant:v1.15.4 $IMAGE_REGISTRY/qdrant/qdrant:v1.15.4
-$CMD cp --allow-nondistributable-artifacts --insecure qdrant/qdrant:v1.16.2 $IMAGE_REGISTRY/qdrant/qdrant:v1.16.2
+$CMD cp --allow-nondistributable-artifacts --insecure qdrant/qdrant:v1.15.4-unprivileged $IMAGE_REGISTRY/qdrant/qdrant:v1.15.4-unprivileged
+$CMD cp --allow-nondistributable-artifacts --insecure qdrant/qdrant:v1.16.2-unprivileged $IMAGE_REGISTRY/qdrant/qdrant:v1.16.2-unprivileged
 $CMD cp --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.4.2 $IMAGE_REGISTRY/git-sync/git-sync:v4.4.2
 $CMD cp --allow-nondistributable-artifacts --insecure saplabs/hanaexpress:2.00.082.00.20250528.1 $IMAGE_REGISTRY/saplabs/hanaexpress:2.00.082.00.20250528.1
 $CMD cp --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6 $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6
