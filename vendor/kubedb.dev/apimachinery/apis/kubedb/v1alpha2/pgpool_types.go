@@ -17,7 +17,6 @@ limitations under the License.
 package v1alpha2
 
 import (
-	core "k8s.io/api/core/v1"
 	meta "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	kmapi "kmodules.xyz/client-go/api/v1"
@@ -75,10 +74,6 @@ type PgpoolSpec struct {
 	// +optional
 	AuthSecret *SecretReference `json:"authSecret,omitempty"`
 
-	// ConfigSecret is a configuration secret which will be created with default and InitConfiguration
-	// +optional
-	ConfigSecret *core.LocalObjectReference `json:"configSecret,omitempty"`
-
 	// +optional
 	Configuration *ConfigurationSpec `json:"configuration,omitempty"`
 
@@ -89,10 +84,6 @@ type PgpoolSpec struct {
 	// PodTemplate is an optional configuration for pods used to expose Pgpool
 	// +optional
 	PodTemplate *ofst.PodTemplateSpec `json:"podTemplate,omitempty"`
-
-	// InitConfiguration contains information with which the Pgpool will bootstrap
-	// +optional
-	InitConfiguration *PgpoolConfiguration `json:"initConfig,omitempty"`
 
 	// ServiceTemplates is an optional configuration for services used to expose Pgpool
 	// +optional

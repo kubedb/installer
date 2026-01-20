@@ -5589,11 +5589,6 @@ func (in *PgpoolSpec) DeepCopyInto(out *PgpoolSpec) {
 		*out = new(SecretReference)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.ConfigSecret != nil {
-		in, out := &in.ConfigSecret, &out.ConfigSecret
-		*out = new(corev1.LocalObjectReference)
-		**out = **in
-	}
 	if in.Configuration != nil {
 		in, out := &in.Configuration, &out.Configuration
 		*out = new(ConfigurationSpec)
@@ -5607,11 +5602,6 @@ func (in *PgpoolSpec) DeepCopyInto(out *PgpoolSpec) {
 	if in.PodTemplate != nil {
 		in, out := &in.PodTemplate, &out.PodTemplate
 		*out = new(v2.PodTemplateSpec)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.InitConfiguration != nil {
-		in, out := &in.InitConfiguration, &out.InitConfiguration
-		*out = new(PgpoolConfiguration)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.ServiceTemplates != nil {
