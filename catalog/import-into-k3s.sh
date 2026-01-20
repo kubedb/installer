@@ -411,8 +411,8 @@ k3s ctr images import images/prom-memcached-exporter-v0.14.2.tar
 k3s ctr images import images/prom-mysqld-exporter-v0.18.0.tar
 k3s ctr images import images/prometheuscommunity-elasticsearch-exporter-v1.10.0.tar
 k3s ctr images import images/prometheuscommunity-postgres-exporter-v0.18.1.tar
-k3s ctr images import images/qdrant-qdrant-v1.15.4.tar
-k3s ctr images import images/qdrant-qdrant-v1.16.2.tar
+k3s ctr images import images/qdrant-qdrant-v1.15.4-unprivileged.tar
+k3s ctr images import images/qdrant-qdrant-v1.16.2-unprivileged.tar
 k3s ctr images import images/git-sync-git-sync-v4.4.2.tar
 k3s ctr images import images/saplabs-hanaexpress-2.00.082.00.20250528.1.tar
 k3s ctr images import images/singlestore-cluster-in-a-box-alma-8.1.32-e3d3cde6da-4.0.16-1.17.6.tar
