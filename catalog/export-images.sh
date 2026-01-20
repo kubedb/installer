@@ -402,6 +402,8 @@ $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2025-RTM-ubuntu-22.04 images/mssql-server-2025-RTM-ubuntu-22.04.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mysql/mysql-router:8.0.31 images/mysql-mysql-router-8.0.31.tar
 $CMD pull --allow-nondistributable-artifacts --insecure neo4j:2025.10.1-enterprise images/library-neo4j-2025.10.1-enterprise.tar
+$CMD pull --allow-nondistributable-artifacts --insecure neo4j:2025.11.2-enterprise images/library-neo4j-2025.11.2-enterprise.tar
+$CMD pull --allow-nondistributable-artifacts --insecure neo4j:2025.12.1-enterprise images/library-neo4j-2025.12.1-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:4.4.26 images/percona-percona-server-mongodb-4.4.26.tar
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:5.0.29 images/percona-percona-server-mongodb-5.0.29.tar
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:6.0.24 images/percona-percona-server-mongodb-6.0.24.tar
