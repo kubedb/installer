@@ -396,6 +396,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2025-RTM-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2025-RTM-ubuntu-22.04
 $CMD push --allow-nondistributable-artifacts --insecure images/mysql-mysql-router-8.0.31.tar $IMAGE_REGISTRY/mysql/mysql-router:8.0.31
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2025.10.1-enterprise.tar $IMAGE_REGISTRY/neo4j:2025.10.1-enterprise
+$CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2025.11.2-enterprise.tar $IMAGE_REGISTRY/neo4j:2025.11.2-enterprise
+$CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2025.12.1-enterprise.tar $IMAGE_REGISTRY/neo4j:2025.12.1-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-4.4.26.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:4.4.26
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-5.0.29.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:5.0.29
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-6.0.24.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:6.0.24
