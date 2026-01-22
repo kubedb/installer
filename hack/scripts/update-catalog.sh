@@ -36,6 +36,7 @@ declare -a components=(
     mongodb
     mssqlserver
     mysql
+    neo4j
     oracle
     operator
     perconaxtradb
