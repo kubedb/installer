@@ -35,8 +35,11 @@ spec:
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mssql-exporter") $) }}:1.2.0{{ include "catalog.ubi" $ }}'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mssql-init") $) }}:2022-ubuntu-22-v4'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mssql-init") $) }}:v2026.1.19'
   securityContext:
     runAsUser: 10001
+  updateConstraints:
+    allowlist:
+    - '>= 2025-cu0, < 2025-cu1'
   version: "2025"
 {{ end }}
