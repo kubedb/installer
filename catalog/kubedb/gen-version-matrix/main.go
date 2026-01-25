@@ -262,8 +262,8 @@ func canUpdate(src string, upc UpdateConstraints) (Decision, error) {
 			return DecisionNo, nil
 		}
 	}
-	for _, deny := range upc.Allowlist {
-		cc, err := semver.NewConstraint(deny)
+	for _, allow := range upc.Allowlist {
+		cc, err := semver.NewConstraint(allow)
 		if err != nil {
 			return DecisionUnknown, err
 		}
