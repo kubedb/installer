@@ -28,7 +28,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["cassandraopsrequests"]
+      resources: ["cassandraopsrequests","cassandraopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -46,7 +46,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["clickhouseopsrequests"]
+      resources: ["clickhouseopsrequests","clickhouseopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -64,7 +64,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["druidopsrequests"]
+      resources: ["druidopsrequests","druidopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -82,7 +82,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["elasticsearchopsrequests"]
+      resources: ["elasticsearchopsrequests","elasticsearchopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -100,7 +100,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["ferretdbopsrequests"]
+      resources: ["ferretdbopsrequests","ferretdbopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -118,7 +118,25 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["hazelcastopsrequests"]
+      resources: ["hazelcastopsrequests","hazelcastopsrequests/status"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.Ignite }}
+- name: igniteopsrequestwebhook.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-ops-kubedb-com-v1alpha1-igniteopsrequest
+      port: 443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: ["ops.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["igniteopsrequests","igniteopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -136,7 +154,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["kafkaopsrequests"]
+      resources: ["kafkaopsrequests","kafkaopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -154,7 +172,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["mariadbopsrequests"]
+      resources: ["mariadbopsrequests","mariadbopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -172,7 +190,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["memcachedopsrequests"]
+      resources: ["memcachedopsrequests","memcachedopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -190,7 +208,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["mongodbopsrequests"]
+      resources: ["mongodbopsrequests","mongodbopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -208,7 +226,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["mssqlserveropsrequests"]
+      resources: ["mssqlserveropsrequests","mssqlserveropsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -226,7 +244,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["mysqlopsrequests"]
+      resources: ["mysqlopsrequests","mysqlopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -244,7 +262,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["perconaxtradbopsrequests"]
+      resources: ["perconaxtradbopsrequests","perconaxtradbopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -262,7 +280,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["pgbounceropsrequests"]
+      resources: ["pgbounceropsrequests","pgbounceropsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -280,7 +298,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["pgpoolopsrequests"]
+      resources: ["pgpoolopsrequests","pgpoolopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -298,7 +316,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["postgresopsrequests"]
+      resources: ["postgresopsrequests","postgresopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -315,7 +333,7 @@ webhooks:
   rules:
     - apiGroups: ["postgres.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["publishers"]
+      resources: ["publishers","publishers/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -331,7 +349,7 @@ webhooks:
   rules:
     - apiGroups: ["postgres.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["subscribers"]
+      resources: ["subscribers","subscribers/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -349,7 +367,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["proxysqlopsrequests"]
+      resources: ["proxysqlopsrequests","proxysqlopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -367,7 +385,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["rabbitmqopsrequests"]
+      resources: ["rabbitmqopsrequests","rabbitmqopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -385,7 +403,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["redisopsrequests"]
+      resources: ["redisopsrequests","redisopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -401,7 +419,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["redissentinelopsrequests"]
+      resources: ["redissentinelopsrequests","redissentinelopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -419,7 +437,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["singlestoreopsrequests"]
+      resources: ["singlestoreopsrequests","singlestoreopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -437,7 +455,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["solropsrequests"]
+      resources: ["solropsrequests","solropsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -455,7 +473,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["zookeeperopsrequests"]
+      resources: ["zookeeperopsrequests","zookeeperopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
