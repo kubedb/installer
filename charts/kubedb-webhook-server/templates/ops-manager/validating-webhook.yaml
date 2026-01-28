@@ -124,6 +124,24 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
+{{- if $featureGates.Ignite }}
+- name: igniteopsrequestwebhook.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-ops-kubedb-com-v1alpha1-igniteopsrequest
+      port: 443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: ["ops.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["igniteopsrequests","igniteopsrequests/status"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
 {{- if $featureGates.Kafka }}
 - name: kafkaopsrequestwebhook.validators.ops.kubedb.com
   clientConfig:
@@ -401,7 +419,7 @@ webhooks:
   rules:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
-      resources: ["redissentinelopsrequests"]
+      resources: ["redissentinelopsrequests","redissentinelopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
