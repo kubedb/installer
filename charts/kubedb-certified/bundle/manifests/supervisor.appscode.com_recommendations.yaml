@@ -1,0 +1,267 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: recommendations.supervisor.appscode.com
+spec:
+  group: supervisor.appscode.com
+  names:
+    kind: Recommendation
+    listKind: RecommendationList
+    plural: recommendations
+    singular: recommendation
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Status
+      type: string
+    - jsonPath: .status.outdated
+      name: Outdated
+      type: boolean
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              backoffLimit:
+                format: int32
+                maximum: 10
+                minimum: 0
+                type: integer
+              deadline:
+                format: date-time
+                type: string
+              description:
+                type: string
+              operation:
+                type: object
+                x-kubernetes-embedded-resource: true
+                x-kubernetes-preserve-unknown-fields: true
+              recommender:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+              requireExplicitApproval:
+                type: boolean
+              rules:
+                properties:
+                  failed:
+                    type: string
+                  inProgress:
+                    type: string
+                  success:
+                    type: string
+                required:
+                - failed
+                - inProgress
+                - success
+                type: object
+              target:
+                properties:
+                  apiGroup:
+                    type: string
+                  kind:
+                    type: string
+                  name:
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+                x-kubernetes-map-type: atomic
+              vulnerabilityReport:
+                properties:
+                  fixed:
+                    properties:
+                      count:
+                        additionalProperties:
+                          type: integer
+                        type: object
+                      vulnerabilities:
+                        items:
+                          properties:
+                            primaryURL:
+                              type: string
+                            severity:
+                              type: string
+                            vulnerabilityID:
+                              type: string
+                          type: object
+                        type: array
+                    type: object
+                  known:
+                    properties:
+                      count:
+                        additionalProperties:
+                          type: integer
+                        type: object
+                      vulnerabilities:
+                        items:
+                          properties:
+                            primaryURL:
+                              type: string
+                            severity:
+                              type: string
+                            vulnerabilityID:
+                              type: string
+                          type: object
+                        type: array
+                    type: object
+                  message:
+                    type: string
+                  status:
+                    type: string
+                type: object
+            required:
+            - operation
+            - recommender
+            - rules
+            - target
+            type: object
+          status:
+            properties:
+              approvalStatus:
+                default: Pending
+                enum:
+                - Pending
+                - Approved
+                - Rejected
+                type: string
+              approvedWindow:
+                properties:
+                  dates:
+                    items:
+                      properties:
+                        end:
+                          format: date-time
+                          type: string
+                        start:
+                          format: date-time
+                          type: string
+                      required:
+                      - end
+                      - start
+                      type: object
+                    type: array
+                  maintenanceWindow:
+                    properties:
+                      apiGroup:
+                        type: string
+                      kind:
+                        type: string
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                    required:
+                    - name
+                    type: object
+                  window:
+                    enum:
+                    - Immediate
+                    - NextAvailable
+                    - SpecificDates
+                    type: string
+                type: object
+              comments:
+                type: string
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              createdOperationRef:
+                properties:
+                  name:
+                    default: ""
+                    type: string
+                type: object
+                x-kubernetes-map-type: atomic
+              failedAttempt:
+                default: 0
+                format: int32
+                type: integer
+              observedGeneration:
+                format: int64
+                type: integer
+              outdated:
+                default: false
+                type: boolean
+              parallelism:
+                default: Namespace
+                enum:
+                - Namespace
+                - Target
+                - TargetAndNamespace
+                type: string
+              phase:
+                enum:
+                - Pending
+                - Skipped
+                - Waiting
+                - InProgress
+                - Succeeded
+                - Failed
+                type: string
+              reason:
+                default: WaitingForApproval
+                type: string
+              reviewTimestamp:
+                format: date-time
+                type: string
+              reviewer:
+                properties:
+                  apiGroup:
+                    type: string
+                  kind:
+                    type: string
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+                x-kubernetes-map-type: atomic
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
