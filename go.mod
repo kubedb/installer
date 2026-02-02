@@ -46,7 +46,7 @@ require (
 	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
-	github.com/cert-manager/cert-manager v1.19.2 // indirect
+	github.com/cert-manager/cert-manager v1.19.3 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/codegangsta/inject v0.0.0-20150114235600-33e0aa1cb7c0 // indirect
 	github.com/containerd/stargz-snapshotter/estargz v0.18.1 // indirect
