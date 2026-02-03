@@ -125,9 +125,9 @@ type QdrantSpec struct {
 type QdrantTLSConfig struct {
 	kmapi.TLSConfig `json:",inline"`
 	// +optional
-	P2P *bool `json:"p2p"`
+	P2P *bool `json:"p2p,omitempty"`
 	// +optional
-	Client *bool `json:"client"`
+	Client *bool `json:"client,omitempty"`
 }
 
 // QdrantStatus defines the observed state of Qdrant.

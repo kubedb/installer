@@ -453,3 +453,21 @@ const (
 	PostgresStorageTypeHDD PostgresStorageType = "hdd"
 	PostgresStorageTypeSAN PostgresStorageType = "san"
 )
+
+var _ Accessor = &Postgres{}
+
+func (m *Postgres) GetObjectMeta() metav1.ObjectMeta {
+	return m.ObjectMeta
+}
+
+func (m *Postgres) GetConditions() []kmapi.Condition {
+	return m.Status.Conditions
+}
+
+func (m *Postgres) SetCondition(cond kmapi.Condition) {
+	m.Status.Conditions = setCondition(m.Status.Conditions, cond)
+}
+
+func (m *Postgres) RemoveCondition(typ string) {
+	m.Status.Conditions = removeCondition(m.Status.Conditions, typ)
+}

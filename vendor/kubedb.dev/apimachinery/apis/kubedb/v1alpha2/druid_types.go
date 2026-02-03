@@ -283,3 +283,21 @@ const (
 	DruidServerCert DruidCertificateAlias = "server"
 	DruidClientCert DruidCertificateAlias = "client"
 )
+
+var _ Accessor = &Druid{}
+
+func (m *Druid) GetObjectMeta() metav1.ObjectMeta {
+	return m.ObjectMeta
+}
+
+func (m *Druid) GetConditions() []kmapi.Condition {
+	return m.Status.Conditions
+}
+
+func (m *Druid) SetCondition(cond kmapi.Condition) {
+	m.Status.Conditions = setCondition(m.Status.Conditions, cond)
+}
+
+func (m *Druid) RemoveCondition(typ string) {
+	m.Status.Conditions = removeCondition(m.Status.Conditions, typ)
+}

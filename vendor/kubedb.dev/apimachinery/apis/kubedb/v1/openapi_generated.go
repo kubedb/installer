@@ -28564,7 +28564,7 @@ func schema_apimachinery_apis_kubedb_v1_MariaDBSpec(ref common.ReferenceCallback
 					},
 					"configSecret": {
 						SchemaProps: spec.SchemaProps{
-							Description: "ConfigSecret is an optional field to provide custom configuration file for database (i.e custom-mysql.cnf). If specified, this file will be used as configuration file otherwise default configuration file will be used.",
+							Description: "ConfigSecret is an optional field to provide custom configuration file for database (i.e custom-MariaDB.cnf). If specified, this file will be used as configuration file otherwise default configuration file will be used.",
 							Ref:         ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
