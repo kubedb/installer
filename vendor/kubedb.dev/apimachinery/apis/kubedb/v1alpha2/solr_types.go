@@ -207,3 +207,21 @@ type SolrList struct {
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []Solr `json:"items"`
 }
+
+var _ Accessor = &Solr{}
+
+func (m *Solr) GetObjectMeta() metav1.ObjectMeta {
+	return m.ObjectMeta
+}
+
+func (m *Solr) GetConditions() []kmapi.Condition {
+	return m.Status.Conditions
+}
+
+func (m *Solr) SetCondition(cond kmapi.Condition) {
+	m.Status.Conditions = setCondition(m.Status.Conditions, cond)
+}
+
+func (m *Solr) RemoveCondition(typ string) {
+	m.Status.Conditions = removeCondition(m.Status.Conditions, typ)
+}

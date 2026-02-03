@@ -233,3 +233,21 @@ const (
 	SSLVerificationModeStrict  SSLVerificationMode = "strict"
 	SSLVerificationModeOnce    SSLVerificationMode = "once"
 )
+
+var _ Accessor = &ClickHouse{}
+
+func (m *ClickHouse) GetObjectMeta() metav1.ObjectMeta {
+	return m.ObjectMeta
+}
+
+func (m *ClickHouse) GetConditions() []kmapi.Condition {
+	return m.Status.Conditions
+}
+
+func (m *ClickHouse) SetCondition(cond kmapi.Condition) {
+	m.Status.Conditions = setCondition(m.Status.Conditions, cond)
+}
+
+func (m *ClickHouse) RemoveCondition(typ string) {
+	m.Status.Conditions = removeCondition(m.Status.Conditions, typ)
+}
