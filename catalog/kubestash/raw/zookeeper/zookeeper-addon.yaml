@@ -39,6 +39,28 @@ spec:
       mountPath: /kubestash-interim
     - name: kubestash-tmp-volume
       mountPath: /kubestash-tmp
+  - name: manifest-backup
+    function: kubedbmanifest-backup
+    driver: Restic
+    executor: Job
+    singleton: true
+    parameters:
+    - name: enableCache
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+      required: false
+      default: "true"
+    - name: scratchDir
+      usage: Directory for holding temporary files and restic cache.
+      required: false
+      default: /kubestash-tmp
+    volumeTemplate:
+      - name: kubestash-tmp-volume
+        usage: Holds temporary files and restic cache.
+        source:
+          emptyDir: {}
+    volumeMounts:
+      - name: kubestash-tmp-volume
+        mountPath: /kubestash-tmp
   restoreTasks:
   - name: logical-backup-restore
     function: zookeeper-restore
@@ -73,5 +95,27 @@ spec:
     volumeMounts:
     - name: kubestash-interim-volume
       mountPath: /kubestash-interim
+    - name: kubestash-tmp-volume
+      mountPath: /kubestash-tmp
+  - name: manifest-restore
+    function: kubedbmanifest-restore
+    driver: Restic
+    executor: Job
+    singleton: true
+    parameters:
+    - name: enableCache
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+      required: false
+      default: "true"
+    - name: scratchDir
+      usage: Directory for holding temporary files and restic cache.
+      required: false
+      default: /kubestash-tmp
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      usage: Holds temporary files and restic cache.
+      source:
+        emptyDir: {}
+    volumeMounts:
     - name: kubestash-tmp-volume
       mountPath: /kubestash-tmp
