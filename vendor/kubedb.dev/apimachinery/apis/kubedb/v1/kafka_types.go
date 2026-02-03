@@ -245,3 +245,21 @@ type KafkaList struct {
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []Kafka `json:"items"`
 }
+
+var _ Accessor = &Kafka{}
+
+func (k *Kafka) GetObjectMeta() metav1.ObjectMeta {
+	return k.ObjectMeta
+}
+
+func (k *Kafka) GetConditions() []kmapi.Condition {
+	return k.Status.Conditions
+}
+
+func (k *Kafka) SetCondition(cond kmapi.Condition) {
+	k.Status.Conditions = setCondition(k.Status.Conditions, cond)
+}
+
+func (k *Kafka) RemoveCondition(typ string) {
+	k.Status.Conditions = removeCondition(k.Status.Conditions, typ)
+}

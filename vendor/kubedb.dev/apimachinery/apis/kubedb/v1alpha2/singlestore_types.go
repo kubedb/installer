@@ -177,3 +177,21 @@ type SinglestoreList struct {
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []Singlestore `json:"items"`
 }
+
+var _ Accessor = &Singlestore{}
+
+func (m *Singlestore) GetObjectMeta() metav1.ObjectMeta {
+	return m.ObjectMeta
+}
+
+func (m *Singlestore) GetConditions() []kmapi.Condition {
+	return m.Status.Conditions
+}
+
+func (m *Singlestore) SetCondition(cond kmapi.Condition) {
+	m.Status.Conditions = setCondition(m.Status.Conditions, cond)
+}
+
+func (m *Singlestore) RemoveCondition(typ string) {
+	m.Status.Conditions = removeCondition(m.Status.Conditions, typ)
+}
