@@ -64,6 +64,7 @@ var ubiImageList = sets.NewString(
 	"ghcr.io/kubedb/redis-coordinator",
 	"ghcr.io/kubedb/replication-mode-detector",
 	"ghcr.io/kubedb/singlestore-coordinator",
+	"ghcr.io/kubedb/mssql-exporter",
 )
 
 type StashAddon struct {

@@ -1,4 +1,9 @@
-{{ if .Values.kubedbverifier.enabled }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and .Values.kubedbverifier.enabled (not (eq $ubi "operator")) }}
 apiVersion: addons.kubestash.com/v1alpha1
 kind: Function
 metadata:
@@ -10,5 +15,5 @@ spec:
   - verify
   - --namespace=${namespace:=default}
   - --backupverificationsession=${backupVerificationSession:=}
-  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-verifier") $) }}:v0.11.0-rc.0{{ include "catalog.ubi" $ }}'
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-verifier") $) }}:v0.11.0{{ include "catalog.ubi" $ }}'
 {{ end }}

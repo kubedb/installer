@@ -6,7 +6,7 @@
 {{- end }}
 
 {{ if and $featureGates.Singlestore (not (eq $ubi "operator")) }}
-
+{{ if or (not .Values.skipEndOfLife) (has "8.1.32" .Values.enableVersions.Singlestore) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: SinglestoreVersion
 metadata:
@@ -15,7 +15,7 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/singlestore-coordinator") $) }}:v0.15.0-rc.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/singlestore-coordinator") $) }}:v0.15.0{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/singlestore-node") $) }}:alma-8.1.32-e3d3cde6da'
   initContainer:
@@ -29,4 +29,6 @@ spec:
     allowlist:
     - '>= 8.1.32, <= 8.9.3'
   version: 8.1.32
+  endOfLife: {{ not (has "8.1.32" .Values.enableVersions.Singlestore) }}
+{{ end }}
 {{ end }}

@@ -1,0 +1,64 @@
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.MariaDB (not (eq $ubi "operator")) }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MariaDBVersion
+metadata:
+  name: '12.1.2'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  archiver:
+    addon:
+      name: mariadb-addon
+      tasks:
+        fullBackup:
+          name: physical-backup
+        fullBackupRestore:
+          name: physical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-archiver") $) }}:v0.20.0_11.2.2-jammy'
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-coordinator") $) }}:v0.40.0{{ include "catalog.ubi" $ }}'
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mariadb") $) }}:12.1.2-noble'
+  exporter:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prom/mysqld-exporter") $) }}:v0.18.0'
+  gitSyncer:
+    image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.4.2'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-init") $) }}:0.8.0'
+  maxscale:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "mariadb/maxscale") $) }}:24.02.4'
+    securityContext:
+      runAsUser: 997
+  securityContext:
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: mariadb-backup-10.6.23
+      restoreTask:
+        name: mariadb-restore-10.6.23
+  ui:
+  - name: phpmyadmin
+    version: v2024.4.27
+  updateConstraints:
+    allowlist:
+    - '>= 12.1.2, <= 12.1.2'
+  version: 12.1.2
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "maria-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+{{ end }}

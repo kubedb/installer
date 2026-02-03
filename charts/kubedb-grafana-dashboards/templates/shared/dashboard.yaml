@@ -1,9 +1,19 @@
 {{ $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") }}
 {{ if $shared }}
 
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ $featureGates = merge $featureGates (dict "ConnectCluster" $featureGates.Kafka) }}
+{{ $featureGates = merge $featureGates (dict "RedisSentinel" $featureGates.Redis) }}
+
 {{- $gkr := .Files.Get "data/resources.yaml" | fromYaml -}}
-{{ range $r := .Values.resources }}
-{{ range $path, $_ :=  $.Files.Glob (printf "dashboards/%s/**.json" $r) }}
+{{ range $r, $enabled := $featureGates }}
+{{ $singular := lower $r }}
+{{ if $enabled }}
+{{ range $path, $_ := $.Files.Glob (printf "dashboards/%s/**.json" $singular) }}
 
 {{- $dashtpl := $.Files.Get $path }}
 {{- range $k, $v := $.Values.dashboard.replacements }}
@@ -18,8 +28,8 @@ metadata:
   namespace: {{ $.Release.Namespace }}
   labels:
     k8s.io/group: kubedb.com
-    k8s.io/kind: {{ get (get $gkr $r) "kind" }}
-    k8s.io/resource: {{ get (get $gkr $r) "resource" }}
+    k8s.io/kind: {{ get (get $gkr $singular) "kind" }}
+    k8s.io/resource: {{ get (get $gkr $singular) "resource" }}
     {{- include "kubedb-grafana-dashboards.labels" $ | nindent 4 }}
 spec:
 {{- if or $.Values.grafana.name $.Values.grafana.namespace }}
@@ -41,6 +51,7 @@ spec:
     title: {{ $.Values.dashboard.templatize.title }}
     datasource: {{ $.Values.dashboard.templatize.datasource }}
 ---
+{{ end }}
 {{ end }}
 {{ end }}
 {{ end }}

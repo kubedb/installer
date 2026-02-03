@@ -6,7 +6,7 @@
 {{- end }}
 
 {{ if and $featureGates.Postgres (not (eq $ubi "operator")) }}
-{{ if or (not .Values.skipDeprecated) (has "9.6.21" .Values.enableVersions.Postgres) }}
+{{ if or (not .Values.skipDeprecated) (has "9.6.21" .Values.enableVersions.Postgres) }}{{ if or (not .Values.skipEndOfLife) (has "9.6.21" .Values.enableVersions.Postgres) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -15,13 +15,13 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.44.0-rc.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.44.0{{ include "catalog.ubi" $ }}'
   db:
     baseOS: alpine
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:9.6.21-alpine'
   distribution: Official
   exporter:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.15.0'
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.18.1'
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.18.0'
   securityContext:
@@ -40,10 +40,12 @@ spec:
   podSecurityPolicies:
     databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "9.6.21" .Values.enableVersions.Postgres) }}
+  endOfLife: {{ not (has "9.6.21" .Values.enableVersions.Postgres) }}
+{{ end }}
 {{ end }}
 
 ---
-{{ if or (not .Values.skipDeprecated) (has "9.6.21-debian" .Values.enableVersions.Postgres) }}
+{{ if or (not .Values.skipDeprecated) (has "9.6.21-debian" .Values.enableVersions.Postgres) }}{{ if or (not .Values.skipEndOfLife) (has "9.6.21-debian" .Values.enableVersions.Postgres) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -52,13 +54,13 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.44.0-rc.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.44.0{{ include "catalog.ubi" $ }}'
   db:
     baseOS: debian
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:9.6.21'
   distribution: Official
   exporter:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.15.0'
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.18.1'
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.18.0'
   securityContext:
@@ -78,5 +80,7 @@ spec:
   podSecurityPolicies:
     databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "9.6.21-debian" .Values.enableVersions.Postgres) }}
+  endOfLife: {{ not (has "9.6.21-debian" .Values.enableVersions.Postgres) }}
+{{ end }}
 {{ end }}
 {{ end }}

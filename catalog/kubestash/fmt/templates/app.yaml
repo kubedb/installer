@@ -1,4 +1,9 @@
-{{"{{ if .Values."}}{{ .app }}{{".enabled }}"}}
+{{ "{{ $ubi := .Values.distro.ubi }}" }}
+{{ "{{- if .Values.global }}" }}
+{{ "  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}" }}
+{{ "{{- end }}" }}
+
+{{"{{ if and .Values."}}{{ .app }}{{".enabled (not (eq $ubi \"operator\")) }}"}}
 apiVersion: {{ .object.apiVersion }}
 kind: {{ .object.kind }}
 metadata:

@@ -1,0 +1,52 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MariaDBVersion
+metadata:
+  name: 11.8.5
+spec:
+  archiver:
+    addon:
+      name: mariadb-addon
+      tasks:
+        fullBackup:
+          name: physical-backup
+        fullBackupRestore:
+          name: physical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: ghcr.io/kubedb/mariadb-archiver:(v0.20.0)_11.2.2-jammy
+  coordinator:
+    image: ghcr.io/kubedb/mariadb-coordinator:v0.40.0
+  db:
+    image: ghcr.io/appscode-images/mariadb:11.8.5-noble
+  exporter:
+    image: prom/mysqld-exporter:v0.18.0
+  gitSyncer:
+    image: registry.k8s.io/git-sync/git-sync:v4.4.2
+  initContainer:
+    image: ghcr.io/kubedb/mariadb-init:0.8.0
+  maxscale:
+    image: mariadb/maxscale:24.02.4
+    securityContext:
+      runAsUser: 997
+  podSecurityPolicies:
+    databasePolicyName: maria-db
+  securityContext:
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: mariadb-backup-10.6.23
+      restoreTask:
+        name: mariadb-restore-10.6.23
+  ui:
+  - name: phpmyadmin
+    version: v2024.4.27
+  updateConstraints:
+    allowlist:
+    - '>= 11.8.5, <= 12.1.2'
+  version: 11.8.5

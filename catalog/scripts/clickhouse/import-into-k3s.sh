@@ -25,7 +25,9 @@ TARBALL=${1:-}
 tar -zxvf $TARBALL
 
 k3s ctr images import images/clickhouse-clickhouse-keeper-24.4.1.tar
+k3s ctr images import images/clickhouse-clickhouse-keeper-25.12.3.tar
 k3s ctr images import images/clickhouse-clickhouse-keeper-25.7.1.tar
 k3s ctr images import images/clickhouse-clickhouse-server-24.4.1.tar
+k3s ctr images import images/clickhouse-clickhouse-server-25.12.3.tar
 k3s ctr images import images/clickhouse-clickhouse-server-25.7.1.tar
 k3s ctr images import images/kubedb-clickhouse-init-24.4.1-v3.tar

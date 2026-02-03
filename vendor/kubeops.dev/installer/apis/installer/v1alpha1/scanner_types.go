@@ -19,6 +19,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"kmodules.xyz/resource-metadata/apis/shared"
 )
 
 const (
@@ -88,7 +89,7 @@ type ScannerSpec struct {
 	// +optional
 	License string `json:"license"`
 	// +optional
-	Distro DistroSpec `json:"distro"`
+	Distro shared.DistroSpec `json:"distro"`
 	// +optional
 	ScanRequestTTLAfterFinished metav1.Duration  `json:"scanRequestTTLAfterFinished"`
 	ScanReportTTLAfterOutdated  metav1.Duration  `json:"scanReportTTLAfterOutdated"`

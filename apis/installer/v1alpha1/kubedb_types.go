@@ -19,6 +19,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"kmodules.xyz/resource-metadata/apis/shared"
 	kubeopsinstaller "kubeops.dev/installer/apis/installer/v1alpha1"
 )
 
@@ -82,6 +83,30 @@ type KubedbSpec struct {
 
 	//+optional
 	AceUserRoles AceUserRolesValues `json:"ace-user-roles"`
+
+	//+optional
+	NameOverride string `json:"nameOverride"`
+	//+optional
+	FullnameOverride string    `json:"fullnameOverride"`
+	RegistryFQDN     string    `json:"registryFQDN"`
+	Tester           Container `json:"tester"`
+	ImagePullPolicy  string    `json:"imagePullPolicy"`
+	//+optional
+	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
+	//+optional
+	PodLabels map[string]string `json:"podLabels"`
+	// +optional
+	NodeSelector map[string]string `json:"nodeSelector"`
+	// If specified, the pod's tolerations.
+	// +optional
+	Tolerations []core.Toleration `json:"tolerations"`
+	// If specified, the pod's scheduling constraints
+	// +optional
+	Affinity *core.Affinity `json:"affinity"`
+	// PodSecurityContext holds pod-level security attributes and common container settings.
+	// Optional: Defaults to empty.  See type description for default values of each field.
+	// +optional
+	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext"`
 }
 
 type PetsetValues struct {
@@ -178,7 +203,7 @@ type GlobalValues struct {
 	// +optional
 	NetworkPolicy NetworkPolicySpec `json:"networkPolicy"`
 	// +optional
-	Distro DistroSpec `json:"distro"`
+	Distro shared.DistroSpec `json:"distro"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

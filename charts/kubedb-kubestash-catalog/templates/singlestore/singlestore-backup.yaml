@@ -1,9 +1,11 @@
 {{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
 {{- if .Values.global }}
   {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
 {{- end }}
 
-{{ if $featureGates.Singlestore }}
+{{ if and $featureGates.Singlestore (not (eq $ubi "operator")) }}
 apiVersion: addons.kubestash.com/v1alpha1
 kind: Function
 metadata:
@@ -23,5 +25,5 @@ spec:
   availableVersions:
   - alma-8.1.32-e3d3cde6da
   - alma-8.5.7-bf633c1a54
-  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/singlestore-restic-plugin") $) }}:v0.18.0-rc.0_${DB_VERSION}{{ include "catalog.ubi" $ }}'
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/singlestore-restic-plugin") $) }}:v0.18.0_${DB_VERSION}{{ include "catalog.ubi" $ }}'
 {{ end }}

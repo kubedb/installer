@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb-provisioner --version=v0.60.0-rc.0
-$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.60.0-rc.0
+$ helm search repo appscode/kubedb-provisioner --version=v0.60.0
+$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.60.0
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeDB Provisioner operator on a [Kubernetes](http://kubern
 To install/upgrade the chart with the release name `kubedb-provisioner`:
 
 ```bash
-$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.60.0-rc.0
+$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.60.0
 ```
 
 The command deploys a KubeDB Provisioner operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -61,7 +61,7 @@ The following table lists the configurable parameters of the `kubedb-provisioner
 | operator.resources                   | Compute Resources required by this container                                                                                                                                                                                                                                                                                                                                    | <code>{}</code>                                                                                                                                                                                |
 | waitfor.registry                     | Docker registry used to pull KubeDB enterprise kubectl-nonroot image                                                                                                                                                                                                                                                                                                            | <code>appscode</code>                                                                                                                                                                          |
 | waitfor.repository                   | KubeDB enterprise kubectl-nonroot container image                                                                                                                                                                                                                                                                                                                               | <code>kubectl-nonroot</code>                                                                                                                                                                   |
-| waitfor.tag                          | KubeDB enterprise kubectl-nonroot container image tag                                                                                                                                                                                                                                                                                                                           | <code>"1.31"</code>                                                                                                                                                                            |
+| waitfor.tag                          | KubeDB enterprise kubectl-nonroot container image tag                                                                                                                                                                                                                                                                                                                           | <code>"1.34"</code>                                                                                                                                                                            |
 | imagePullSecrets                     | Specify an array of imagePullSecrets. Secrets must be manually created in the namespace. <br> Example: <br> `helm template charts/kubedb-provisioner \` <br> `--set imagePullSecrets[0].name=sec0 \` <br> `--set imagePullSecrets[1].name=sec1`                                                                                                                                 | <code>[]</code>                                                                                                                                                                                |
 | imagePullPolicy                      | Container image pull policy                                                                                                                                                                                                                                                                                                                                                     | <code>IfNotPresent</code>                                                                                                                                                                      |
 | criticalAddon                        | If true, installs KubeDB operator as critical addon                                                                                                                                                                                                                                                                                                                             | <code>false</code>                                                                                                                                                                             |
@@ -94,12 +94,12 @@ The following table lists the configurable parameters of the `kubedb-provisioner
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.60.0-rc.0 --set replicaCount=1
+$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.60.0 --set replicaCount=1
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.60.0-rc.0 --values values.yaml
+$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.60.0 --values values.yaml
 ```

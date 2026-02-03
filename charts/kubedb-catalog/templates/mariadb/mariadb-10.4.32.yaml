@@ -6,7 +6,7 @@
 {{- end }}
 
 {{ if and $featureGates.MariaDB (not (eq $ubi "operator")) }}
-
+{{ if or (not .Values.skipEndOfLife) (has "10.4.32" .Values.enableVersions.MariaDB) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MariaDBVersion
 metadata:
@@ -29,13 +29,13 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-archiver") $) }}:v0.20.0-rc.0_10.4.32-focal'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-archiver") $) }}:v0.20.0_10.4.32-focal'
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-coordinator") $) }}:v0.40.0-rc.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-coordinator") $) }}:v0.40.0{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mariadb") $) }}:10.4.32-focal'
   exporter:
-    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prom/mysqld-exporter") $) }}:v0.13.0'
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prom/mysqld-exporter") $) }}:v0.18.0'
   gitSyncer:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.4.2'
   initContainer:
@@ -57,8 +57,10 @@ spec:
     version: v2024.4.27
   updateConstraints:
     allowlist:
-    - '>= 10.4.32, <= 11.6.2'
+    - '>= 10.4.32, <= 12.1.2'
   version: 10.4.32
   podSecurityPolicies:
     databasePolicyName: {{ ternary "maria-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+  endOfLife: {{ not (has "10.4.32" .Values.enableVersions.MariaDB) }}
+{{ end }}
 {{ end }}

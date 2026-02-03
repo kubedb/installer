@@ -1,9 +1,11 @@
 {{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
 {{- if .Values.global }}
   {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
 {{- end }}
 
-{{ if $featureGates.Elasticsearch }}
+{{ if and $featureGates.Elasticsearch (not (eq $ubi "operator")) }}
 apiVersion: addons.kubestash.com/v1alpha1
 kind: Function
 metadata:
@@ -18,5 +20,5 @@ spec:
   - --enable-cache=${enableCache:=}
   - --scratch-dir=${scratchDir:=}
   - --interim-data-dir=${interimDataDir:=}
-  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/dashboard-restic-plugin") $) }}:v0.18.0-rc.0{{ include "catalog.ubi" $ }}'
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/dashboard-restic-plugin") $) }}:v0.18.0{{ include "catalog.ubi" $ }}'
 {{ end }}

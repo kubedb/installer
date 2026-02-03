@@ -1,9 +1,11 @@
 {{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
 {{- if .Values.global }}
   {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
 {{- end }}
 
-{{ if $featureGates.Postgres }}
+{{ if and $featureGates.Postgres (not (eq $ubi "operator")) }}
 apiVersion: addons.kubestash.com/v1alpha1
 kind: Function
 metadata:
@@ -16,5 +18,5 @@ spec:
   - --namespace=${namespace:=default}
   - --volume-snapshot-class-name=${volumeSnapshotClassName:=}
   - --backupsession=${backupSession:=}
-  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-csi-snapshotter-plugin") $) }}:v0.21.0-rc.0{{ include "catalog.ubi" $ }}'
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-csi-snapshotter-plugin") $) }}:v0.21.0{{ include "catalog.ubi" $ }}'
 {{ end }}

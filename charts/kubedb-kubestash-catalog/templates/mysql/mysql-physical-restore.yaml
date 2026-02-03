@@ -1,9 +1,11 @@
 {{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
 {{- if .Values.global }}
   {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
 {{- end }}
 
-{{ if $featureGates.MySQL }}
+{{ if and $featureGates.MySQL (not (eq $ubi "operator")) }}
 apiVersion: addons.kubestash.com/v1alpha1
 kind: Function
 metadata:
@@ -27,5 +29,5 @@ spec:
   - 8.1.0
   - 8.2.0
   - 8.4.0
-  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/xtrabackup-restic-plugin") $) }}:v0.8.0-rc.0_${DB_VERSION}{{ include "catalog.ubi" $ }}'
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/xtrabackup-restic-plugin") $) }}:v0.8.0_${DB_VERSION}{{ include "catalog.ubi" $ }}'
 {{ end }}
