@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "migrator-operator.fullname" . }}-config
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "migrator-operator.labels" . | nindent 4 }}
+data:
+  addon.yaml: |
+    apiVersion: operator.kubedb.com/v1alpha1
+    kind: MigratorAddon
+    metadata:
+      labels:
+{{ include "migrator-operator.labels" . | nindent 8 }}
+      name: {{ include "migrator-operator.fullname" . }}-addon
+    spec:
+      migratorImages:
+        sidecar: {{ include "image.registry" . }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}{{ include "operator.ubi" . }}
+{{- range .Values.migratorImages }}
+        {{ .name }}: {{ .image | quote }}
+{{- end }}
