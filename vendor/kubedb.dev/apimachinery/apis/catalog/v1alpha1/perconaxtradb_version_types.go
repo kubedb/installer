@@ -52,11 +52,6 @@ type PerconaXtraDBVersion struct {
 type PerconaXtraDBVersionSpec struct {
 	// Version
 	Version string `json:"version"`
-
-	// EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/
-	// +optional
-	EndOfLife bool `json:"endOfLife"`
-
 	// Database Image
 	DB PerconaXtraDBVersionDatabase `json:"db"`
 	// Exporter Image
