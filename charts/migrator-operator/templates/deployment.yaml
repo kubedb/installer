@@ -47,21 +47,21 @@ spec:
             - run
             - --leader-elect
             - --health-probe-bind-address=:8081
-            - --migrator-config-path=/etc/migrator/addon.yaml
+            - --migrator-addon-name={{ include "migrator-operator.fullname" . }}-addon
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          volumeMounts:
-            - name: migrator-addon-volume
-              mountPath: /etc/migrator/addon.yaml
-              subPath: addon.yaml
+{{/*          volumeMounts:*/}}
+{{/*            - name: migrator-addon-volume*/}}
+{{/*              mountPath: /etc/migrator/addon.yaml*/}}
+{{/*              subPath: addon.yaml*/}}
       volumes:
-      - name: migrator-addon-volume
-        configMap:
-          name: {{ include "migrator-operator.fullname" . }}-config
+{{/*      - name: migrator-addon-volume*/}}
+{{/*        configMap:*/}}
+{{/*          name: {{ include "migrator-operator.fullname" . }}-config*/}}
       {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
