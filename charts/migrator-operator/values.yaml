@@ -1,0 +1,133 @@
+# Default values for aws-credential-manager.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+# Docker registry fqdn used to pull app related images.
+# Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image}
+registryFQDN: ghcr.io
+image:
+  # Docker registry used to pull app container image
+  registry: kubedb
+  repository: migrator-operator
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+podAnnotations: {}
+podLabels: {}
+podSecurityContext: {}
+# fsGroup: 2000
+
+securityContext: # +doc-gen:break
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop: ["ALL"]
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 65534
+  seccompProfile:
+    type: RuntimeDefault
+service:
+  type: ClusterIP
+  port: 8081
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+#   memory: 128Mi
+
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: 8081
+    scheme: HTTP
+  initialDelaySeconds: 15
+  periodSeconds: 20
+readinessProbe:
+  httpGet:
+    path: /readyz
+    port: 8081
+    scheme: HTTP
+  initialDelaySeconds: 5
+  periodSeconds: 10
+# Additional volumes on the output Deployment definition.
+volumes: []
+# - name: foo
+#   secret:
+#     secretName: mysecret
+#     optional: false
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts: []
+# - name: foo
+#   mountPath: "/etc/foo"
+#   readOnly: true
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+distro:
+  # Set true, if installed in OpenShift
+  openshift: false
+  # Set operator or all to use ubi images
+  ubi: ""
+
+bucketAccessor:
+  awsMaxIntervalSeconds: "5"
+  awsMaxWaitSeconds: "300"
+
+apiserver:
+  # The minimum priority the webhook api group should have at least. Please see
+  # https://github.com/kubernetes/kube-aggregator/blob/release-1.9/pkg/apis/apiregistration/v1beta1/types.go#L58-L64
+  # for more information on proper values of this field.
+  groupPriorityMinimum: 10000
+  # The ordering of the webhook api inside of the group. Please see
+  # https://github.com/kubernetes/kube-aggregator/blob/release-1.9/pkg/apis/apiregistration/v1beta1/types.go#L66-L70
+  # for more information on proper values of this field
+  versionPriority: 15
+  # If true, mutating webhook is configured for Kubernetes workloads
+  enableMutatingWebhook: true
+  # If true, validating webhook is configured for Stash CRDss
+  enableValidatingWebhook: false
+  # CA certificate used by the Kubernetes api server. This field is automatically assigned by the operator.
+  ca: not-ca-cert
+  # If true, bypasses checks that validating webhook is actually enabled in the Kubernetes cluster.
+  bypassValidatingWebhookXray: false
+  # If true, uses kube-apiserver FQDN for AKS cluster to workaround https://github.com/Azure/AKS/issues/522 (default true)
+  useKubeapiserverFqdnForAks: true
+  healthcheck:
+    # If true, enables the readiness and liveliness probes for the operator pod.
+    enabled: false
+  servingCerts:
+    # If true, generates on install/upgrade the certs that allow the kube-apiserver (and potentially ServiceMonitor)
+    # to authenticate operators pods. Otherwise specify certs in `apiserver.servingCerts.{caCrt, serverCrt, serverKey}`.
+    generate: true
+    # CA certficate used by serving certificate of webhook server.
+    caCrt: ""
+    # Serving certficate used by webhook server.
+    serverCrt: ""
+    # Private key for the serving certificate used by webhook server.
+    serverKey: ""
+
+migratorImages:
+ # List of images to use for migration.
+  - name: postgres
+    image: ghcr.io/kubedb/migrator-cli:init_linux_amd64
