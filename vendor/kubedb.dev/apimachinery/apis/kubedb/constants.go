@@ -129,9 +129,7 @@ const (
 	ElasticsearchVolumeData                      = "data"
 	ElasticsearchVolumeTemp                      = "temp"
 	ElasticsearchConfigFileName                  = "elasticsearch.yml"
-	ElasticsearchScriptFileName                  = "startup.sh"
-	ElasticsearchVolumeScriptFileName            = "startup-script"
-	ElasticsearchVolumeScriptDir                 = "/script"
+	ElasticsearchScriptFileName                  = "config-merger.sh"
 
 	// Ref:
 	//	- https://www.elastic.co/guide/en/elasticsearch/reference/7.6/heap-size.html#heap-size
@@ -515,7 +513,6 @@ const (
 	PostgresDatabasePort              = 5432
 	PostgresPodPrimary                = "primary"
 	PostgresPodStandby                = "standby"
-	PostgresPodReadReplica            = "read-replica"
 	EnvPostgresUser                   = "POSTGRES_USER"
 	EnvPostgresPassword               = "POSTGRES_PASSWORD"
 	PostgresRootUser                  = "postgres"
@@ -572,10 +569,8 @@ const (
 	SYS_RESOURCE              = "SYS_RESOURCE"
 	DropCapabilityALL         = "ALL"
 
-	PostgresGRPCIssuerName              = "grpc-issuer"
-	PostgresGRPCSelfSignedIssuerName    = "grpc-selfsigned"
-	PostgresDatabaseClusterLabelKey     = "postgreses.kubedb.com/database.cluster"
-	PostgresDatabaseReadReplicaLabelKey = "postgreses.kubedb.com/database.read-replica"
+	PostgresGRPCIssuerName           = "grpc-issuer"
+	PostgresGRPCSelfSignedIssuerName = "grpc-selfsigned"
 
 	// =========================== ProxySQL Constants ============================
 	LabelProxySQLName                  = ProxySQLKey + "/name"
@@ -884,18 +879,15 @@ const (
 const (
 	MilvusUsername = "root"
 
-	MilvusGrpcPortName    = "grpc"
-	MilvusMetricsPortName = "metrics"
-	MilvusGrpcPort        = int32(19530)
+	MilvusGrpcPortName = "grpc"
+	MilvusGrpcPort     = int32(19530)
 
 	MilvusVolumeNameData = "data"
+	MilvusDataDir        = "/var/lib/milvus"
 	MilvusConfigVolName  = "milvus-config"
+	MilvusConfigDir      = "/milvus/configs/milvus.yaml"
 	MilvusConfigFileName = "milvus.yaml"
-	MilvusLogFileName    = "glog.conf"
-
-	MilvusDataDir       = "/var/lib/milvus"
-	MilvusConfigVolDir  = "/milvus/configs"
-	MilvusContainerName = "milvus"
+	MilvusContainerName  = "milvus"
 
 	EtcdEndpointsName = "ETCD_ENDPOINTS"
 	EtcdAPIVersion    = "operator.etcd.io/v1alpha1"
@@ -906,14 +898,9 @@ const (
 	MinioAddressName   = "MINIO_ADDRESS"
 	MinioAddressKey    = "address"
 	MinioAccessKeyName = "MINIO_ACCESS_KEY"
-	MinioAccessKey     = "accesskey"
+	MinioAccessKey     = "accessKeyId"
 	MinioSecretKeyName = "MINIO_SECRET_KEY"
-	MinioSecretKey     = "secretkey"
-
-	MilvusMetricsPort       = 9091
-	MilvusPortDataNode      = 21124
-	MilvusPortQueryNode     = 21123
-	MilvusPortStreamingNode = 22222
+	MinioSecretKey     = "secretAccessKey"
 )
 
 const (
@@ -1069,16 +1056,6 @@ const (
 	KafkaAdminTopicConfigProvider = "com.linkedin.kafka.cruisecontrol.config.KafkaAdminTopicConfigProvider"
 	KafkaCCMetricReporter         = "com.linkedin.kafka.cruisecontrol.metricsreporter.CruiseControlMetricsReporter"
 	KafkaJMXMetricReporter        = "org.apache.kafka.common.metrics.JmxReporter"
-
-	// Kafka Tiered Storage Constants
-	KafkaAivenTieredStorageClassName      = "io.aiven.kafka.tieredstorage.RemoteStorageManager"
-	KafkaVolumeTieredStoragePlugins       = "tiered-plugins"
-	KafkaTieredStoragePluginDir           = "/opt/kafka/libs/tiered-plugins"
-	KafkaVolumeTieredStorageChunkCache    = "tiered-chunk-cache"
-	KafkaTieredStorageChunkCacheDir       = "/opt/kafka/tiered-storage/cache"
-	KafkaVolumeTieredStorageGCSCredential = "gcs-credential"
-	KafkaTieredStorageGCSCredentialDir    = "/etc/credentials"
-	KafkaVolumeTieredStorageLocalDir      = "tiered-local"
 
 	// =========================== Solr Constants ============================
 	SolrPortName          = "http"
