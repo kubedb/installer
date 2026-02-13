@@ -21,7 +21,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	kmapi "kmodules.xyz/client-go/api/v1"
 	mona "kmodules.xyz/monitoring-agent-api/api/v1"
-	ofstv1 "kmodules.xyz/offshoot-api/api/v1"
 	ofstv2 "kmodules.xyz/offshoot-api/api/v2"
 )
 
@@ -170,9 +169,6 @@ type PostgresSpec struct {
 
 	// +optional
 	Replication *PostgresReplication `json:"replication,omitempty"`
-
-	// +optional
-	ReadReplicas []ReadReplicaSpec `json:"readReplicas,omitempty"`
 }
 
 type PostgresConfiguration struct {
@@ -221,36 +217,6 @@ type ArbiterSpec struct {
 	// If specified, the pod's tolerations.
 	// +optional
 	Tolerations []core.Toleration `json:"tolerations,omitempty"`
-}
-
-type ReadReplicaSpec struct {
-	// Name specifies the name of the read replica
-	Name string `json:"name"`
-	// Number of instances to deploy for a Postgres database.
-	Replicas *int32 `json:"replicas,omitempty"`
-	// Compute Resources required by the sidecar container.
-	// +optional
-	Resources core.ResourceRequirements `json:"resources,omitempty"`
-	// NodeSelector is a selector which must be true for the pod to fit on a node.
-	// Selector which must match a node's labels for the pod to be scheduled on that node.
-	// More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
-	// +optional
-	// +mapType=atomic
-	NodeSelector map[string]string `json:"nodeSelector,omitempty"`
-	// If specified, the pod's tolerations.
-	// +optional
-	Tolerations []core.Toleration `json:"tolerations,omitempty"`
-	// StorageType can be durable (default) or ephemeral
-	StorageType StorageType `json:"storageType,omitempty"`
-	// Storage to specify how storage shall be used.
-	Storage *core.PersistentVolumeClaimSpec `json:"storage,omitempty"`
-	// PodPlacementPolicy is the reference of the podPlacementPolicy
-	// +kubebuilder:default={name:"default"}
-	// +optional
-	PodPlacementPolicy *core.LocalObjectReference `json:"podPlacementPolicy,omitempty"`
-	// ServiceTemplate is an optional configuration for services used to expose database
-	// +optional
-	ServiceTemplate *ofstv1.ServiceTemplateSpec `json:"serviceTemplate,omitempty"`
 }
 
 // PostgreLeaderElectionConfig contains essential attributes of leader election.

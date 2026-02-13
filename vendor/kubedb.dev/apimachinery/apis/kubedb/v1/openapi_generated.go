@@ -608,7 +608,6 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/apimachinery/apis/kubedb/v1.KafkaNode":                                           schema_apimachinery_apis_kubedb_v1_KafkaNode(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1.KafkaSpec":                                           schema_apimachinery_apis_kubedb_v1_KafkaSpec(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1.KafkaStatus":                                         schema_apimachinery_apis_kubedb_v1_KafkaStatus(ref),
-		"kubedb.dev/apimachinery/apis/kubedb/v1.KafkaTieredStorage":                                  schema_apimachinery_apis_kubedb_v1_KafkaTieredStorage(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1.KernelSettings":                                      schema_apimachinery_apis_kubedb_v1_KernelSettings(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1.ManifestOptions":                                     schema_apimachinery_apis_kubedb_v1_ManifestOptions(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1.MariaDB":                                             schema_apimachinery_apis_kubedb_v1_MariaDB(ref),
@@ -666,7 +665,6 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/apimachinery/apis/kubedb/v1.ProxySQLList":                                        schema_apimachinery_apis_kubedb_v1_ProxySQLList(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1.ProxySQLSpec":                                        schema_apimachinery_apis_kubedb_v1_ProxySQLSpec(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1.ProxySQLStatus":                                      schema_apimachinery_apis_kubedb_v1_ProxySQLStatus(ref),
-		"kubedb.dev/apimachinery/apis/kubedb/v1.ReadReplicaSpec":                                     schema_apimachinery_apis_kubedb_v1_ReadReplicaSpec(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1.RecoveryTarget":                                      schema_apimachinery_apis_kubedb_v1_RecoveryTarget(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1.Redis":                                               schema_apimachinery_apis_kubedb_v1_Redis(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1.RedisAclSpec":                                        schema_apimachinery_apis_kubedb_v1_RedisAclSpec(ref),
@@ -34995,12 +34993,6 @@ func schema_apimachinery_apis_kubedb_v1_KafkaSpec(ref common.ReferenceCallback) 
 							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1.KafkaClusterTopology"),
 						},
 					},
-					"tieredStorage": {
-						SchemaProps: spec.SchemaProps{
-							Description: "TieredStorage defines the tiered storage specification for Kafka",
-							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1.KafkaTieredStorage"),
-						},
-					},
 					"storageType": {
 						SchemaProps: spec.SchemaProps{
 							Description: "StorageType can be durable (default) or ephemeral",
@@ -35122,7 +35114,7 @@ func schema_apimachinery_apis_kubedb_v1_KafkaSpec(ref common.ReferenceCallback) 
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "k8s.io/api/core/v1.PersistentVolumeClaimSpec", "kmodules.xyz/client-go/api/v1.HealthCheckSpec", "kmodules.xyz/client-go/api/v1.TLSConfig", "kmodules.xyz/monitoring-agent-api/api/v1.AgentSpec", "kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.AutoOpsSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.BrokerRack", "kubedb.dev/apimachinery/apis/kubedb/v1.ConfigurationSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.KafkaClusterTopology", "kubedb.dev/apimachinery/apis/kubedb/v1.KafkaCruiseControl", "kubedb.dev/apimachinery/apis/kubedb/v1.KafkaTieredStorage", "kubedb.dev/apimachinery/apis/kubedb/v1.NamedServiceTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.SecretReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "k8s.io/api/core/v1.PersistentVolumeClaimSpec", "kmodules.xyz/client-go/api/v1.HealthCheckSpec", "kmodules.xyz/client-go/api/v1.TLSConfig", "kmodules.xyz/monitoring-agent-api/api/v1.AgentSpec", "kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.AutoOpsSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.BrokerRack", "kubedb.dev/apimachinery/apis/kubedb/v1.ConfigurationSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.KafkaClusterTopology", "kubedb.dev/apimachinery/apis/kubedb/v1.KafkaCruiseControl", "kubedb.dev/apimachinery/apis/kubedb/v1.NamedServiceTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.SecretReference"},
 	}
 }
 
@@ -35166,32 +35158,6 @@ func schema_apimachinery_apis_kubedb_v1_KafkaStatus(ref common.ReferenceCallback
 		},
 		Dependencies: []string{
 			"kmodules.xyz/client-go/api/v1.Condition"},
-	}
-}
-
-func schema_apimachinery_apis_kubedb_v1_KafkaTieredStorage(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
-				Properties: map[string]spec.Schema{
-					"storageManagerClassName": {
-						SchemaProps: spec.SchemaProps{
-							Description: "StorageManagerClassName is defined as the class name of the storage manager to be used for tiered storage It can be used your own custom storage manager class name",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"storageManagerClassPath": {
-						SchemaProps: spec.SchemaProps{
-							Description: "StorageManagerClassPath is defined as the class path of the storage manager to be used for tiered storage If you use your own custom storage manager class, you can specify the class path here",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-				},
-			},
-		},
 	}
 }
 
@@ -38186,25 +38152,12 @@ func schema_apimachinery_apis_kubedb_v1_PostgresSpec(ref common.ReferenceCallbac
 							Ref: ref("kubedb.dev/apimachinery/apis/kubedb/v1.PostgresReplication"),
 						},
 					},
-					"readReplicas": {
-						SchemaProps: spec.SchemaProps{
-							Type: []string{"array"},
-							Items: &spec.SchemaOrArray{
-								Schema: &spec.Schema{
-									SchemaProps: spec.SchemaProps{
-										Default: map[string]interface{}{},
-										Ref:     ref("kubedb.dev/apimachinery/apis/kubedb/v1.ReadReplicaSpec"),
-									},
-								},
-							},
-						},
-					},
 				},
 				Required: []string{"version"},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "k8s.io/api/core/v1.PersistentVolumeClaimSpec", "kmodules.xyz/client-go/api/v1.HealthCheckSpec", "kmodules.xyz/client-go/api/v1.TLSConfig", "kmodules.xyz/monitoring-agent-api/api/v1.AgentSpec", "kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.AllowedConsumers", "kubedb.dev/apimachinery/apis/kubedb/v1.ArbiterSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.Archiver", "kubedb.dev/apimachinery/apis/kubedb/v1.AutoOpsSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.InitSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.NamedServiceTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.PostgreLeaderElectionConfig", "kubedb.dev/apimachinery/apis/kubedb/v1.PostgresConfiguration", "kubedb.dev/apimachinery/apis/kubedb/v1.PostgresReplication", "kubedb.dev/apimachinery/apis/kubedb/v1.ReadReplicaSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.RemoteReplicaSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.SecretReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "k8s.io/api/core/v1.PersistentVolumeClaimSpec", "kmodules.xyz/client-go/api/v1.HealthCheckSpec", "kmodules.xyz/client-go/api/v1.TLSConfig", "kmodules.xyz/monitoring-agent-api/api/v1.AgentSpec", "kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.AllowedConsumers", "kubedb.dev/apimachinery/apis/kubedb/v1.ArbiterSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.Archiver", "kubedb.dev/apimachinery/apis/kubedb/v1.AutoOpsSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.InitSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.NamedServiceTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.PostgreLeaderElectionConfig", "kubedb.dev/apimachinery/apis/kubedb/v1.PostgresConfiguration", "kubedb.dev/apimachinery/apis/kubedb/v1.PostgresReplication", "kubedb.dev/apimachinery/apis/kubedb/v1.RemoteReplicaSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.SecretReference"},
 	}
 }
 
@@ -38658,103 +38611,6 @@ func schema_apimachinery_apis_kubedb_v1_ProxySQLStatus(ref common.ReferenceCallb
 		},
 		Dependencies: []string{
 			"kmodules.xyz/client-go/api/v1.Condition", "kubedb.dev/apimachinery/apis/kubedb/v1.Age"},
-	}
-}
-
-func schema_apimachinery_apis_kubedb_v1_ReadReplicaSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
-				Properties: map[string]spec.Schema{
-					"name": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Name specifies the name of the read replica",
-							Default:     "",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"replicas": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Number of instances to deploy for a Postgres database.",
-							Type:        []string{"integer"},
-							Format:      "int32",
-						},
-					},
-					"resources": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Compute Resources required by the sidecar container.",
-							Default:     map[string]interface{}{},
-							Ref:         ref("k8s.io/api/core/v1.ResourceRequirements"),
-						},
-					},
-					"nodeSelector": {
-						VendorExtensible: spec.VendorExtensible{
-							Extensions: spec.Extensions{
-								"x-kubernetes-map-type": "atomic",
-							},
-						},
-						SchemaProps: spec.SchemaProps{
-							Description: "NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/",
-							Type:        []string{"object"},
-							AdditionalProperties: &spec.SchemaOrBool{
-								Allows: true,
-								Schema: &spec.Schema{
-									SchemaProps: spec.SchemaProps{
-										Default: "",
-										Type:    []string{"string"},
-										Format:  "",
-									},
-								},
-							},
-						},
-					},
-					"tolerations": {
-						SchemaProps: spec.SchemaProps{
-							Description: "If specified, the pod's tolerations.",
-							Type:        []string{"array"},
-							Items: &spec.SchemaOrArray{
-								Schema: &spec.Schema{
-									SchemaProps: spec.SchemaProps{
-										Default: map[string]interface{}{},
-										Ref:     ref("k8s.io/api/core/v1.Toleration"),
-									},
-								},
-							},
-						},
-					},
-					"storageType": {
-						SchemaProps: spec.SchemaProps{
-							Description: "StorageType can be durable (default) or ephemeral",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"storage": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Storage to specify how storage shall be used.",
-							Ref:         ref("k8s.io/api/core/v1.PersistentVolumeClaimSpec"),
-						},
-					},
-					"podPlacementPolicy": {
-						SchemaProps: spec.SchemaProps{
-							Description: "PodPlacementPolicy is the reference of the podPlacementPolicy",
-							Ref:         ref("k8s.io/api/core/v1.LocalObjectReference"),
-						},
-					},
-					"serviceTemplate": {
-						SchemaProps: spec.SchemaProps{
-							Description: "ServiceTemplate is an optional configuration for services used to expose database",
-							Ref:         ref("kmodules.xyz/offshoot-api/api/v1.ServiceTemplateSpec"),
-						},
-					},
-				},
-				Required: []string{"name"},
-			},
-		},
-		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "k8s.io/api/core/v1.PersistentVolumeClaimSpec", "k8s.io/api/core/v1.ResourceRequirements", "k8s.io/api/core/v1.Toleration", "kmodules.xyz/offshoot-api/api/v1.ServiceTemplateSpec"},
 	}
 }
 

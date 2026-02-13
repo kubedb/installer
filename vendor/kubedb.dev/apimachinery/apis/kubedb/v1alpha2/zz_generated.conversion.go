@@ -24,6 +24,8 @@ package v1alpha2
 import (
 	unsafe "unsafe"
 
+	v1 "kubedb.dev/apimachinery/apis/kubedb/v1"
+
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	conversion "k8s.io/apimachinery/pkg/conversion"
@@ -33,7 +35,6 @@ import (
 	monitoringagentapiapiv1 "kmodules.xyz/monitoring-agent-api/api/v1"
 	apiv1 "kmodules.xyz/offshoot-api/api/v1"
 	v2 "kmodules.xyz/offshoot-api/api/v2"
-	v1 "kubedb.dev/apimachinery/apis/kubedb/v1"
 )
 
 func init() {
@@ -2154,7 +2155,6 @@ func autoConvert_v1_KafkaSpec_To_v1alpha2_KafkaSpec(in *v1.KafkaSpec, out *Kafka
 	} else {
 		out.Topology = nil
 	}
-	// WARNING: in.TieredStorage requires manual conversion: does not exist in peer-type
 	out.StorageType = StorageType(in.StorageType)
 	out.Storage = (*corev1.PersistentVolumeClaimSpec)(unsafe.Pointer(in.Storage))
 	out.EnableSSL = in.EnableSSL
@@ -3855,7 +3855,6 @@ func autoConvert_v1_PostgresSpec_To_v1alpha2_PostgresSpec(in *v1.PostgresSpec, o
 	out.Archiver = (*Archiver)(unsafe.Pointer(in.Archiver))
 	out.Arbiter = (*ArbiterSpec)(unsafe.Pointer(in.Arbiter))
 	out.Replication = (*PostgresReplication)(unsafe.Pointer(in.Replication))
-	// WARNING: in.ReadReplicas requires manual conversion: does not exist in peer-type
 	return nil
 }
 
