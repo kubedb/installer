@@ -700,7 +700,10 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MetadataStorage":                               schema_apimachinery_apis_kubedb_v1alpha2_MetadataStorage(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Milvus":                                        schema_apimachinery_apis_kubedb_v1alpha2_Milvus(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusApp":                                     schema_apimachinery_apis_kubedb_v1alpha2_MilvusApp(ref),
+		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusDataNode":                                schema_apimachinery_apis_kubedb_v1alpha2_MilvusDataNode(ref),
+		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusDistributedSpec":                         schema_apimachinery_apis_kubedb_v1alpha2_MilvusDistributedSpec(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusList":                                    schema_apimachinery_apis_kubedb_v1alpha2_MilvusList(ref),
+		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusNode":                                    schema_apimachinery_apis_kubedb_v1alpha2_MilvusNode(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusSpec":                                    schema_apimachinery_apis_kubedb_v1alpha2_MilvusSpec(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusStatus":                                  schema_apimachinery_apis_kubedb_v1alpha2_MilvusStatus(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusTopology":                                schema_apimachinery_apis_kubedb_v1alpha2_MilvusTopology(ref),
@@ -39916,6 +39919,85 @@ func schema_apimachinery_apis_kubedb_v1alpha2_MilvusApp(ref common.ReferenceCall
 	}
 }
 
+func schema_apimachinery_apis_kubedb_v1alpha2_MilvusDataNode(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"replicas": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Replicas represents number of replicas for the specific type of node",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"podTemplate": {
+						SchemaProps: spec.SchemaProps{
+							Description: "PodTemplate is an optional configuration for pods used to expose database",
+							Ref:         ref("kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec"),
+						},
+					},
+					"storageType": {
+						SchemaProps: spec.SchemaProps{
+							Description: "StorageType specifies if the storage of this node is durable (default) or ephemeral.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"storage": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Storage to specify how storage shall be used.",
+							Ref:         ref("k8s.io/api/core/v1.PersistentVolumeClaimSpec"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/api/core/v1.PersistentVolumeClaimSpec", "kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec"},
+	}
+}
+
+func schema_apimachinery_apis_kubedb_v1alpha2_MilvusDistributedSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"datanode": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusNode"),
+						},
+					},
+					"mixcoord": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusNode"),
+						},
+					},
+					"querynode": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusNode"),
+						},
+					},
+					"streamingnode": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusDataNode"),
+						},
+					},
+					"proxy": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusNode"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusDataNode", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusNode"},
+	}
+}
+
 func schema_apimachinery_apis_kubedb_v1alpha2_MilvusList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -39962,6 +40044,33 @@ func schema_apimachinery_apis_kubedb_v1alpha2_MilvusList(ref common.ReferenceCal
 		},
 		Dependencies: []string{
 			"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Milvus"},
+	}
+}
+
+func schema_apimachinery_apis_kubedb_v1alpha2_MilvusNode(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"replicas": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Replicas represents number of replicas for the specific type of node",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"podTemplate": {
+						SchemaProps: spec.SchemaProps{
+							Description: "PodTemplate is an optional configuration for pods used to expose database",
+							Ref:         ref("kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec"},
 	}
 }
 
@@ -40130,14 +40239,22 @@ func schema_apimachinery_apis_kubedb_v1alpha2_MilvusTopology(ref common.Referenc
 				Properties: map[string]spec.Schema{
 					"mode": {
 						SchemaProps: spec.SchemaProps{
-							Description: "If set to - \"Standalone\", Standalone is required, and Milvus will start a Standalone Mode \"Distributed\", DistributedSpec is required, and Milvus will start a Distributed Mode",
+							Description: "If set to - \"Standalone\", Milvus will start a Standalone Mode \"Distributed\", Milvus will start a Distributed Mode",
 							Type:        []string{"string"},
 							Format:      "",
+						},
+					},
+					"distributed": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Distributed contains information of the Distributed configuration. Used when Mode is \"Distributed\".",
+							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusDistributedSpec"),
 						},
 					},
 				},
 			},
 		},
+		Dependencies: []string{
+			"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusDistributedSpec"},
 	}
 }
 

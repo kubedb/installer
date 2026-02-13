@@ -1,0 +1,169 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/name: kubestash
+  name: repositories.storage.kubestash.com
+spec:
+  group: storage.kubestash.com
+  names:
+    categories:
+    - kubestash
+    - appscode
+    - all
+    kind: Repository
+    listKind: RepositoryList
+    plural: repositories
+    shortNames:
+    - repo
+    singular: repository
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.integrity
+      name: Integrity
+      type: boolean
+    - jsonPath: .status.snapshotCount
+      name: Snapshot-Count
+      type: integer
+    - jsonPath: .status.size
+      name: Size
+      type: string
+    - jsonPath: .status.phase
+      name: Phase
+      type: string
+    - format: date-time
+      jsonPath: .status.lastBackupTime
+      name: Last-Successful-Backup
+      type: date
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              appRef:
+                properties:
+                  apiGroup:
+                    type: string
+                  kind:
+                    type: string
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+              deletionPolicy:
+                default: Delete
+                enum:
+                - Delete
+                - WipeOut
+                type: string
+              encryptionSecret:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+              path:
+                type: string
+              paused:
+                type: boolean
+              storageRef:
+                properties:
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+            type: object
+          status:
+            properties:
+              componentPaths:
+                items:
+                  type: string
+                type: array
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              integrity:
+                type: boolean
+              lastBackupTime:
+                format: date-time
+                type: string
+              phase:
+                enum:
+                - NotReady
+                - Ready
+                type: string
+              recentSnapshots:
+                items:
+                  properties:
+                    name:
+                      type: string
+                    phase:
+                      enum:
+                      - Pending
+                      - Running
+                      - Succeeded
+                      - Failed
+                      type: string
+                    session:
+                      type: string
+                    size:
+                      type: string
+                    snapshotTime:
+                      format: date-time
+                      type: string
+                  type: object
+                type: array
+              size:
+                type: string
+              snapshotCount:
+                format: int32
+                type: integer
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
