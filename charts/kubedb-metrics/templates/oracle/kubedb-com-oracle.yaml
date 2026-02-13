@@ -1,3 +1,8 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+{{ if $featureGates.Oracle }}
 apiVersion: metrics.appscode.com/v1alpha1
 kind: MetricsConfiguration
 metadata:
@@ -20,7 +25,6 @@ spec:
         type: DateTime
       metricValue:
         valueFromPath: .metadata.creationTimestamp
-
     - name: status_phase
       help: "Oracle instance current phase"
       type: gauge
@@ -51,7 +55,6 @@ spec:
           - labelValue: DataRestoring
             metricValue:
               valueFromExpression: "int(phase == 'DataRestoring')"
-
     - name: info
       help: "Oracle instance information"
       type: gauge
@@ -62,7 +65,6 @@ spec:
           valuePath: .spec.version
       metricValue:
         value: 1
-
     - name: status_conditions
       help: "Oracle instance status condition"
       type: gauge
@@ -76,7 +78,6 @@ spec:
           valuePath: .status.conditions[*].status
       metricValue:
         value: 1
-
     - name: resource_request_cpu
       help: "Requested CPU by Oracle in core"
       type: gauge
@@ -90,7 +91,6 @@ spec:
           value: cpu
       metricValue:
         valueFromExpression: total_resource_requests(obj, resourceType)
-
     - name: resource_request_memory
       help: "Requested memory by Oracle in byte"
       type: gauge
@@ -104,7 +104,6 @@ spec:
           value: memory
       metricValue:
         valueFromExpression: total_resource_requests(obj, resourceType)
-
     - name: resource_request_storage
       help: "Requested storage by Oracle in byte"
       type: gauge
@@ -118,7 +117,6 @@ spec:
           value: storage
       metricValue:
         valueFromExpression: total_resource_requests(obj, resourceType)
-
     - name: resource_limit_cpu
       help: "CPU limit for Oracle in core"
       type: gauge
@@ -132,7 +130,6 @@ spec:
           value: cpu
       metricValue:
         valueFromExpression: total_resource_limits(obj, resourceType)
-
     - name: resource_limit_memory
       help: "Memory limit for Oracle in byte"
       type: gauge
@@ -146,7 +143,6 @@ spec:
           value: memory
       metricValue:
         valueFromExpression: total_resource_limits(obj, resourceType)
-
     - name: resource_limit_storage
       help: "Storage limit for Oracle in byte"
       type: gauge
@@ -160,7 +156,6 @@ spec:
           value: storage
       metricValue:
         valueFromExpression: total_resource_limits(obj, resourceType)
-
     - name: replicas
       help: "Number of replicas in the Oracle"
       type: gauge
@@ -169,4 +164,4 @@ spec:
         type: Integer
       metricValue:
         valueFromPath: .spec.replicas
-
+{{ end }}

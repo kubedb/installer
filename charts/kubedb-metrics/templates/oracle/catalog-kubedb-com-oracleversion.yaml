@@ -1,5 +1,8 @@
-
-
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+{{ if $featureGates.Oracle }}
 apiVersion: metrics.appscode.com/v1alpha1
 kind: MetricsConfiguration
 metadata:
@@ -17,7 +20,6 @@ spec:
         type: DateTime
       metricValue:
         valueFromPath: .metadata.creationTimestamp
-
     - name: info
       help: "Oracle versions info"
       type: gauge
@@ -28,5 +30,4 @@ spec:
           valuePath: .spec.deprecated
       metricValue:
         value: 1
-
-
+{{ end }}
