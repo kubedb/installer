@@ -1,0 +1,77 @@
+# Default values for aws-credential-manager.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+# Docker registry fqdn used to pull app related images.
+# Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image}
+registryFQDN: ghcr.io
+image:
+  # Docker registry used to pull app container image
+  registry: kubedb
+  repository: migrator-operator
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+podAnnotations: {}
+podLabels: {}
+podSecurityContext: {}
+# fsGroup: 2000
+
+securityContext: # +doc-gen:break
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop: ["ALL"]
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 65534
+  seccompProfile:
+    type: RuntimeDefault
+service:
+  type: ClusterIP
+  port: 8081
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+#   memory: 128Mi
+
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: 8081
+    scheme: HTTP
+  initialDelaySeconds: 15
+  periodSeconds: 20
+readinessProbe:
+  httpGet:
+    path: /readyz
+    port: 8081
+    scheme: HTTP
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+volumes: []
+volumeMounts: []
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+distro:
+  # Set true, if installed in OpenShift
+  openshift: false
+  # Set operator or all to use ubi images
+  ubi: ""
