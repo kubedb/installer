@@ -6,7 +6,7 @@
 {{- end }}
 
 {{ if and $featureGates.Elasticsearch (not (eq $ubi "operator")) }}
-{{ if or (not .Values.skipEndOfLife) (has "opensearch-1.1.0" .Values.enableVersions.Elasticsearch) }}
+{{ if or (not .Values.skipDeprecated) (has "opensearch-1.1.0" .Values.enableVersions.Elasticsearch) }}{{ if or (not .Values.skipEndOfLife) (has "opensearch-1.1.0" .Values.enableVersions.Elasticsearch) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
@@ -48,6 +48,8 @@ spec:
   version: 1.1.0
   podSecurityPolicies:
     databasePolicyName: {{ ternary "elasticsearch-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+  deprecated: {{ not (has "opensearch-1.1.0" .Values.enableVersions.Elasticsearch) }}
   endOfLife: {{ not (has "opensearch-1.1.0" .Values.enableVersions.Elasticsearch) }}
+{{ end }}
 {{ end }}
 {{ end }}
