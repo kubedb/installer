@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/migrator-operator --version=v2026.2.13
-$ helm upgrade -i migrator-operator appscode/migrator-operator -n kubedb --create-namespace --version=v2026.2.13
+$ helm search repo appscode/migrator-operator --version=v2026.2.16-rc.0
+$ helm upgrade -i migrator-operator appscode/migrator-operator -n kubedb --create-namespace --version=v2026.2.16-rc.0
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a Database Migrator operator on a [Kubernetes](http://kuberne
 To install/upgrade the chart with the release name `migrator-operator`:
 
 ```bash
-$ helm upgrade -i migrator-operator appscode/migrator-operator -n kubedb --create-namespace --version=v2026.2.13
+$ helm upgrade -i migrator-operator appscode/migrator-operator -n kubedb --create-namespace --version=v2026.2.16-rc.0
 ```
 
 The command deploys a Database Migrator operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -88,12 +88,12 @@ The following table lists the configurable parameters of the `migrator-operator`
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i migrator-operator appscode/migrator-operator -n kubedb --create-namespace --version=v2026.2.13 --set replicaCount=1
+$ helm upgrade -i migrator-operator appscode/migrator-operator -n kubedb --create-namespace --version=v2026.2.16-rc.0 --set replicaCount=1
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i migrator-operator appscode/migrator-operator -n kubedb --create-namespace --version=v2026.2.13 --values values.yaml
+$ helm upgrade -i migrator-operator appscode/migrator-operator -n kubedb --create-namespace --version=v2026.2.16-rc.0 --values values.yaml
 ```
