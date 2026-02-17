@@ -137,7 +137,9 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/me
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.29-alpine $IMAGE_REGISTRY/appscode-images/memcached:1.6.29-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.33-alpine $IMAGE_REGISTRY/appscode-images/memcached:1.6.33-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached_exporter:v0.14.3-ac $IMAGE_REGISTRY/appscode-images/memcached_exporter:v0.14.3-ac
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/milvus:2.6.11 $IMAGE_REGISTRY/appscode-images/milvus:2.6.11
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/milvus:2.6.7 $IMAGE_REGISTRY/appscode-images/milvus:2.6.7
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/milvus:2.6.9 $IMAGE_REGISTRY/appscode-images/milvus:2.6.9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:4.4.26 $IMAGE_REGISTRY/appscode-images/mongo:4.4.26
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:5.0.31 $IMAGE_REGISTRY/appscode-images/mongo:5.0.31
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:6.0.24 $IMAGE_REGISTRY/appscode-images/mongo:6.0.24
@@ -163,12 +165,14 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/op
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:2.19.2 $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.19.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:2.5.0 $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:3.1.0 $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:3.1.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:3.4.0 $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:3.4.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:1.1.0 $IMAGE_REGISTRY/appscode-images/opensearch:1.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:1.3.13 $IMAGE_REGISTRY/appscode-images/opensearch:1.3.13
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:1.3.20 $IMAGE_REGISTRY/appscode-images/opensearch:1.3.20
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.19.2 $IMAGE_REGISTRY/appscode-images/opensearch:2.19.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.5.0 $IMAGE_REGISTRY/appscode-images/opensearch:2.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:3.1.0 $IMAGE_REGISTRY/appscode-images/opensearch:3.1.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:3.4.0 $IMAGE_REGISTRY/appscode-images/opensearch:3.4.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:5.7.44 $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:5.7.44
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.0.40 $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.0.40
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.4.3 $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.4.3
@@ -308,6 +312,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-arc
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-coordinator:v0.40.0 $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.40.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-csi-snapshotter-plugin:v0.20.0 $IMAGE_REGISTRY/kubedb/mariadb-csi-snapshotter-plugin:v0.20.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-init:0.8.0 $IMAGE_REGISTRY/kubedb/mariadb-init:0.8.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/migrator-operator:v0.1.0 $IMAGE_REGISTRY/kubedb/migrator-operator:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.21.0 $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.21.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v11 $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v11

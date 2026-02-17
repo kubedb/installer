@@ -61,10 +61,12 @@ k3s ctr images import images/appscode-images-opensearch-dashboards-1.3.20.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-2.19.2.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-2.5.0.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-3.1.0.tar
+k3s ctr images import images/appscode-images-opensearch-dashboards-3.4.0.tar
 k3s ctr images import images/appscode-images-opensearch-1.1.0.tar
 k3s ctr images import images/appscode-images-opensearch-1.3.13.tar
 k3s ctr images import images/appscode-images-opensearch-1.3.20.tar
 k3s ctr images import images/appscode-images-opensearch-2.19.2.tar
 k3s ctr images import images/appscode-images-opensearch-2.5.0.tar
 k3s ctr images import images/appscode-images-opensearch-3.1.0.tar
+k3s ctr images import images/appscode-images-opensearch-3.4.0.tar
 k3s ctr images import images/prometheuscommunity-elasticsearch-exporter-v1.10.0.tar

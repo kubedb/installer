@@ -53,6 +53,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ui-s
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-verifier:v0.11.0 $IMAGE_REGISTRY/kubedb/kubedb-verifier:v0.11.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-webhook-server:v0.36.0 $IMAGE_REGISTRY/kubedb/kubedb-webhook-server:v0.36.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-csi-snapshotter-plugin:v0.20.0 $IMAGE_REGISTRY/kubedb/mariadb-csi-snapshotter-plugin:v0.20.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/migrator-operator:v0.1.0 $IMAGE_REGISTRY/kubedb/migrator-operator:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.21.0 $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.21.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssqlserver-walg-plugin:v0.14.0 $IMAGE_REGISTRY/kubedb/mssqlserver-walg-plugin:v0.14.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-csi-snapshotter-plugin:v0.21.0 $IMAGE_REGISTRY/kubedb/mysql-csi-snapshotter-plugin:v0.21.0

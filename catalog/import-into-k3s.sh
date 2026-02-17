@@ -126,7 +126,9 @@ k3s ctr images import images/appscode-images-memcached-1.6.22-alpine.tar
 k3s ctr images import images/appscode-images-memcached-1.6.29-alpine.tar
 k3s ctr images import images/appscode-images-memcached-1.6.33-alpine.tar
 k3s ctr images import images/appscode-images-memcached_exporter-v0.14.3-ac.tar
+k3s ctr images import images/appscode-images-milvus-2.6.11.tar
 k3s ctr images import images/appscode-images-milvus-2.6.7.tar
+k3s ctr images import images/appscode-images-milvus-2.6.9.tar
 k3s ctr images import images/appscode-images-mongo-4.4.26.tar
 k3s ctr images import images/appscode-images-mongo-5.0.31.tar
 k3s ctr images import images/appscode-images-mongo-6.0.24.tar
@@ -152,12 +154,14 @@ k3s ctr images import images/appscode-images-opensearch-dashboards-1.3.20.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-2.19.2.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-2.5.0.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-3.1.0.tar
+k3s ctr images import images/appscode-images-opensearch-dashboards-3.4.0.tar
 k3s ctr images import images/appscode-images-opensearch-1.1.0.tar
 k3s ctr images import images/appscode-images-opensearch-1.3.13.tar
 k3s ctr images import images/appscode-images-opensearch-1.3.20.tar
 k3s ctr images import images/appscode-images-opensearch-2.19.2.tar
 k3s ctr images import images/appscode-images-opensearch-2.5.0.tar
 k3s ctr images import images/appscode-images-opensearch-3.1.0.tar
+k3s ctr images import images/appscode-images-opensearch-3.4.0.tar
 k3s ctr images import images/appscode-images-percona-xtradb-cluster-5.7.44.tar
 k3s ctr images import images/appscode-images-percona-xtradb-cluster-8.0.40.tar
 k3s ctr images import images/appscode-images-percona-xtradb-cluster-8.4.3.tar
@@ -297,6 +301,7 @@ k3s ctr images import images/kubedb-mariadb-archiver-v0.20.0_11.2.2-jammy.tar
 k3s ctr images import images/kubedb-mariadb-coordinator-v0.40.0.tar
 k3s ctr images import images/kubedb-mariadb-csi-snapshotter-plugin-v0.20.0.tar
 k3s ctr images import images/kubedb-mariadb-init-0.8.0.tar
+k3s ctr images import images/kubedb-migrator-operator-v0.1.0.tar
 k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.21.0.tar
 k3s ctr images import images/kubedb-mongodb-init-4.2-v9.tar
 k3s ctr images import images/kubedb-mongodb-init-6.0-v11.tar

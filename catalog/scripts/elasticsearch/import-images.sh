@@ -63,10 +63,12 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-o
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-2.19.2.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.19.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-2.5.0.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-3.1.0.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:3.1.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-3.4.0.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:3.4.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-1.1.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:1.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-1.3.13.tar $IMAGE_REGISTRY/appscode-images/opensearch:1.3.13
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-1.3.20.tar $IMAGE_REGISTRY/appscode-images/opensearch:1.3.20
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-2.19.2.tar $IMAGE_REGISTRY/appscode-images/opensearch:2.19.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-2.5.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:2.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-3.1.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:3.1.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-3.4.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:3.4.0
 $CMD push --allow-nondistributable-artifacts --insecure images/prometheuscommunity-elasticsearch-exporter-v1.10.0.tar $IMAGE_REGISTRY/prometheuscommunity/elasticsearch-exporter:v1.10.0
