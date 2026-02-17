@@ -92,6 +92,9 @@ spec:
         - --use-kubeapiserver-fqdn-for-aks={{ .Values.apiserver.useKubeapiserverFqdnForAks }}
         - --metrics-bind-address=:{{ .Values.monitoring.bindPort }}
         - --health-probe-bind-address=:{{ .Values.apiserver.healthcheck.probePort }}
+        {{- if gt (int .Values.replicaCount) 1 }}
+        - --shard-config={{ include "kubedb-ops-manager.name" . }}
+        {{- end }}
         {{- with .Values.recommendationEngine }}
         - --recommendation-resync-period={{ .resyncPeriod }}
         - --enable-deadline={{ .deadline.enable }}

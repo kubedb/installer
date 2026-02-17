@@ -605,6 +605,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/apimachinery/apis/kubedb/v1.Redis":                                               schema_apimachinery_apis_kubedb_v1_Redis(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1.RedisAclSpec":                                        schema_apimachinery_apis_kubedb_v1_RedisAclSpec(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1.RedisClusterSpec":                                    schema_apimachinery_apis_kubedb_v1_RedisClusterSpec(ref),
+		"kubedb.dev/apimachinery/apis/kubedb/v1.RedisConfiguration":                                  schema_apimachinery_apis_kubedb_v1_RedisConfiguration(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1.RedisList":                                           schema_apimachinery_apis_kubedb_v1_RedisList(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1.RedisSentinel":                                       schema_apimachinery_apis_kubedb_v1_RedisSentinel(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1.RedisSentinelList":                                   schema_apimachinery_apis_kubedb_v1_RedisSentinelList(ref),
@@ -28563,7 +28564,7 @@ func schema_apimachinery_apis_kubedb_v1_MariaDBSpec(ref common.ReferenceCallback
 					},
 					"configSecret": {
 						SchemaProps: spec.SchemaProps{
-							Description: "ConfigSecret is an optional field to provide custom configuration file for database (i.e custom-mysql.cnf). If specified, this file will be used as configuration file otherwise default configuration file will be used.",
+							Description: "ConfigSecret is an optional field to provide custom configuration file for database (i.e custom-MariaDB.cnf). If specified, this file will be used as configuration file otherwise default configuration file will be used.",
 							Ref:         ref("k8s.io/api/core/v1.LocalObjectReference"),
 						},
 					},
@@ -31927,6 +31928,49 @@ func schema_apimachinery_apis_kubedb_v1_RedisClusterSpec(ref common.ReferenceCal
 	}
 }
 
+func schema_apimachinery_apis_kubedb_v1_RedisConfiguration(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"secretName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "SecretName is an optional field to provide custom configuration file for the database (i.e. elasticsearch.yml, mongod.conf ..). If specified, these configurations will be used with default configurations (if any) and applyConfig configurations (if any). configurations from this secret will override default configurations. This secret must be created by user.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"inline": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Inline contains key-value pairs of configurations to be applied to the database. These configurations will override both default configurations and configurations from the config secret (if any).",
+							Type:        []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Default: "",
+										Type:    []string{"string"},
+										Format:  "",
+									},
+								},
+							},
+						},
+					},
+					"acl": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Redis ACL Configuration",
+							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1.RedisAclSpec"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"kubedb.dev/apimachinery/apis/kubedb/v1.RedisAclSpec"},
+	}
+}
+
 func schema_apimachinery_apis_kubedb_v1_RedisList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -32265,6 +32309,12 @@ func schema_apimachinery_apis_kubedb_v1_RedisSpec(ref common.ReferenceCallback) 
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"acl": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Redis ACL Configuration",
+							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1.RedisAclSpec"),
+						},
+					},
 					"autoOps": {
 						SchemaProps: spec.SchemaProps{
 							Description: "AutoOps contains configuration of automatic ops-request-recommendation generation",
@@ -32324,12 +32374,6 @@ func schema_apimachinery_apis_kubedb_v1_RedisSpec(ref common.ReferenceCallback) 
 							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1.SecretReference"),
 						},
 					},
-					"acl": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Redis ACL Configuration",
-							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1.RedisAclSpec"),
-						},
-					},
 					"disableAuth": {
 						SchemaProps: spec.SchemaProps{
 							Description: "If disable Auth true then don't create any auth secret",
@@ -32357,7 +32401,7 @@ func schema_apimachinery_apis_kubedb_v1_RedisSpec(ref common.ReferenceCallback) 
 					},
 					"configuration": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("kubedb.dev/apimachinery/apis/kubedb/v1.ConfigurationSpec"),
+							Ref: ref("kubedb.dev/apimachinery/apis/kubedb/v1.RedisConfiguration"),
 						},
 					},
 					"podTemplate": {
@@ -32419,7 +32463,7 @@ func schema_apimachinery_apis_kubedb_v1_RedisSpec(ref common.ReferenceCallback) 
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.LocalObjectReference", "k8s.io/api/core/v1.PersistentVolumeClaimSpec", "kmodules.xyz/client-go/api/v1.HealthCheckSpec", "kmodules.xyz/client-go/api/v1.TLSConfig", "kmodules.xyz/monitoring-agent-api/api/v1.AgentSpec", "kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.AllowedConsumers", "kubedb.dev/apimachinery/apis/kubedb/v1.AutoOpsSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.ConfigurationSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.InitSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.NamedServiceTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.RedisAclSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.RedisClusterSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.RedisSentinelRef", "kubedb.dev/apimachinery/apis/kubedb/v1.SecretReference"},
+			"k8s.io/api/core/v1.LocalObjectReference", "k8s.io/api/core/v1.PersistentVolumeClaimSpec", "kmodules.xyz/client-go/api/v1.HealthCheckSpec", "kmodules.xyz/client-go/api/v1.TLSConfig", "kmodules.xyz/monitoring-agent-api/api/v1.AgentSpec", "kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.AllowedConsumers", "kubedb.dev/apimachinery/apis/kubedb/v1.AutoOpsSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.InitSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.NamedServiceTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.RedisAclSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.RedisClusterSpec", "kubedb.dev/apimachinery/apis/kubedb/v1.RedisConfiguration", "kubedb.dev/apimachinery/apis/kubedb/v1.RedisSentinelRef", "kubedb.dev/apimachinery/apis/kubedb/v1.SecretReference"},
 	}
 }
 

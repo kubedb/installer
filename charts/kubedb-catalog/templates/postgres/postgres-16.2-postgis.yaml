@@ -29,9 +29,9 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.21.0-rc.1_16.1-bookworm'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.21.0_16.1-bookworm'
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.44.0-rc.1{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.44.0{{ include "catalog.ubi" $ }}'
   db:
     baseOS: bullseye
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "postgis/postgis") $) }}:16-3.4'
@@ -40,6 +40,9 @@ spec:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.18.1'
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.18.0'
+  migrator:
+    cli: ghcr.io/kubedb/migrator-cli:v0.1.0
+    statusReporter: ghcr.io/kubedb/migrator-operator:v0.1.0
   securityContext:
     runAsAnyNonRoot: true
     runAsUser: 999

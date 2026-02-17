@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb-metrics --version=v2025.12.31-rc.1
-$ helm upgrade -i kubedb-metrics appscode/kubedb-metrics -n kubedb --create-namespace --version=v2025.12.31-rc.1
+$ helm search repo appscode/kubedb-metrics --version=v2026.1.19
+$ helm upgrade -i kubedb-metrics appscode/kubedb-metrics -n kubedb --create-namespace --version=v2026.1.19
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys KubeDB metrics configurations on a [Kubernetes](http://kubern
 To install/upgrade the chart with the release name `kubedb-metrics`:
 
 ```bash
-$ helm upgrade -i kubedb-metrics appscode/kubedb-metrics -n kubedb --create-namespace --version=v2025.12.31-rc.1
+$ helm upgrade -i kubedb-metrics appscode/kubedb-metrics -n kubedb --create-namespace --version=v2026.1.19
 ```
 
 The command deploys KubeDB metrics configurations on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -84,12 +84,12 @@ The following table lists the configurable parameters of the `kubedb-metrics` ch
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-metrics appscode/kubedb-metrics -n kubedb --create-namespace --version=v2025.12.31-rc.1 --set -- generate from values file --
+$ helm upgrade -i kubedb-metrics appscode/kubedb-metrics -n kubedb --create-namespace --version=v2026.1.19 --set -- generate from values file --
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-metrics appscode/kubedb-metrics -n kubedb --create-namespace --version=v2025.12.31-rc.1 --values values.yaml
+$ helm upgrade -i kubedb-metrics appscode/kubedb-metrics -n kubedb --create-namespace --version=v2026.1.19 --values values.yaml
 ```
