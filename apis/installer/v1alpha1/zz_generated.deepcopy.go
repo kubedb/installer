@@ -1477,13 +1477,6 @@ func (in *KubedbMigratorSpec) DeepCopyInto(out *KubedbMigratorSpec) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
-	if in.FeatureGates != nil {
-		in, out := &in.FeatureGates, &out.FeatureGates
-		*out = make(map[string]bool, len(*in))
-		for key, val := range *in {
-			(*out)[key] = val
-		}
-	}
 	out.Distro = in.Distro
 	return
 }

@@ -83,21 +83,8 @@ type KubedbMigratorSpec struct {
 	ServiceAccount ServiceAccountSpec `json:"serviceAccount"`
 	Volumes        []core.Volume      `json:"volumes"`
 	VolumeMounts   []core.VolumeMount `json:"volumeMounts"`
-	FeatureGates   map[string]bool    `json:"featureGates"`
 	// +optional
 	Distro shared.DistroSpec `json:"distro"`
-}
-
-type ImageReference struct {
-	Registry   string `json:"registry"`
-	Repository string `json:"repository"`
-	Tag        string `json:"tag"`
-	PullPolicy string `json:"pullPolicy"`
-}
-
-type ServiceSpec struct {
-	Type string `json:"type"`
-	Port int    `json:"port"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
