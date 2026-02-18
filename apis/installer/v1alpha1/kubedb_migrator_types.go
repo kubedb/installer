@@ -23,46 +23,51 @@ import (
 )
 
 const (
-	ResourceKindKubedbProvisioner = "KubedbProvisioner"
-	ResourceKubedbProvisioner     = "kubedbprovisioner"
-	ResourceKubedbProvisioners    = "kubedbprovisioners"
+	ResourceKindKubedbMigrator = "KubedbMigrator"
+	ResourceKubedbMigrator     = "kubedbmigrator"
+	ResourceKubedbMigrators    = "kubedbmigrators"
 )
 
-// KubedbProvisioner defines the schama for KubeDB Operator Installer.
+// KubedbMigrator defines the schama for KubeDB Migrator installer.
 
+// +genclient
+// +genclient:skipVerbs=updateStatus
+// +k8s:openapi-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:path=kubedbprovisioners,singular=kubedbprovisioner,categories={kubedb,appscode}
-type KubedbProvisioner struct {
-	metav1.TypeMeta   `json:",inline"`
+// +kubebuilder:resource:path=kubedbmigrators,singular=kubedbmigrator,categories={kubeops,appscode}
+type KubedbMigrator struct {
+	metav1.TypeMeta   `json:",inline,omitempty"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              KubedbProvisionerSpec `json:"spec,omitempty"`
+	Spec              KubedbMigratorSpec `json:"spec,omitempty"`
 }
 
-// KubedbProvisionerSpec is the schema for kubedb-provisioner chart values file
-type KubedbProvisionerSpec struct {
+// KubedbMigratorSpec is the schema for Identity Server values file
+type KubedbMigratorSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
-	FullnameOverride   string    `json:"fullnameOverride"`
-	ReplicaCount       int32     `json:"replicaCount"`
-	RegistryFQDN       string    `json:"registryFQDN"`
-	InsecureRegistries []string  `json:"insecureRegistries"`
-	Operator           Container `json:"operator"`
-	Waitfor            ImageRef  `json:"waitfor"`
-	ImagePullPolicy    string    `json:"imagePullPolicy"`
+	FullnameOverride string `json:"fullnameOverride"`
 	//+optional
-	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
-	// +optional
-	CriticalAddon bool `json:"criticalAddon"`
-	// +optional
-	LogLevel int32 `json:"logLevel"`
-	// +optional
-	Annotations map[string]string `json:"annotations"`
+	RegistryFQDN string         `json:"registryFQDN"`
+	ReplicaCount int32          `json:"replicaCount"`
+	Image        ImageReference `json:"image"`
+	//+optional
+	ImagePullSecrets []string `json:"imagePullSecrets"`
 	//+optional
 	PodAnnotations map[string]string `json:"podAnnotations"`
+	//+optional
+	PodLabels map[string]string `json:"podLabels"`
+	// PodSecurityContext holds pod-level security attributes and common container settings.
+	// Optional: Defaults to empty.  See type description for default values of each field.
 	// +optional
+	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext"`
+	//+optional
+	SecurityContext *core.SecurityContext `json:"securityContext"`
+	//+optional
+	Resources core.ResourceRequirements `json:"resources"`
+	//+optional
 	NodeSelector map[string]string `json:"nodeSelector"`
 	// If specified, the pod's tolerations.
 	// +optional
@@ -70,51 +75,37 @@ type KubedbProvisionerSpec struct {
 	// If specified, the pod's scheduling constraints
 	// +optional
 	Affinity *core.Affinity `json:"affinity"`
-	// PodSecurityContext holds pod-level security attributes and common container settings.
-	// Optional: Defaults to empty.  See type description for default values of each field.
 	// +optional
-	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext"`
-	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount"`
-	Apiserver          WebHookSpec              `json:"apiserver"`
+	LivenessProbe *core.Probe `json:"livenessProbe"`
 	// +optional
-	EnforceTerminationPolicy bool       `json:"enforceTerminationPolicy"`
-	Monitoring               Monitoring `json:"monitoring"`
-	// +optional
-	AdditionalPodSecurityPolicies []string `json:"additionalPodSecurityPolicies"`
-	// +optional
-	License string `json:"license"`
-	// +optional
-	LicenseSecretName string  `json:"licenseSecretName"`
-	Psp               PSPSpec `json:"psp"`
-	// +optional
-	MaxConcurrentReconciles int `json:"maxConcurrentReconciles"`
-	// List of sources to populate environment variables in the container.
-	// The keys defined within a source must be a C_IDENTIFIER. All invalid keys
-	// will be reported as an event when the container is starting. When a key exists in multiple
-	// sources, the value associated with the last source will take precedence.
-	// Values defined by an Env with a duplicate key will take precedence.
-	// Cannot be updated.
-	// +optional
-	// +listType=atomic
-	EnvFrom []core.EnvFromSource `json:"envFrom"`
-	// List of environment variables to set in the container.
-	// Cannot be updated.
-	// +optional
-	// +patchMergeKey=name
-	// +patchStrategy=merge
-	// +listType=map
-	// +listMapKey=name
-	Env []core.EnvVar `json:"env"`
+	ReadinessProbe *core.Probe        `json:"readinessProbe"`
+	Service        ServiceSpec        `json:"service"`
+	ServiceAccount ServiceAccountSpec `json:"serviceAccount"`
+	Volumes        []core.Volume      `json:"volumes"`
+	VolumeMounts   []core.VolumeMount `json:"volumeMounts"`
+	FeatureGates   map[string]bool    `json:"featureGates"`
 	// +optional
 	Distro shared.DistroSpec `json:"distro"`
 }
 
+type ImageReference struct {
+	Registry   string `json:"registry"`
+	Repository string `json:"repository"`
+	Tag        string `json:"tag"`
+	PullPolicy string `json:"pullPolicy"`
+}
+
+type ServiceSpec struct {
+	Type string `json:"type"`
+	Port int    `json:"port"`
+}
+
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KubedbProvisionerList is a list of KubedbProvisioner-s
-type KubedbProvisionerList struct {
+// KubedbMigratorList is a list of KubedbMigrators
+type KubedbMigratorList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of KubedbProvisioner CRD objects
-	Items []KubedbProvisioner `json:"items,omitempty"`
+	// Items is a list of KubedbMigrator CRD objects
+	Items []KubedbMigrator `json:"items,omitempty"`
 }
