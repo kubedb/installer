@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "migrator-operator.fullname" . }}
+  name: {{ include "kubedb-migrator.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "migrator-operator.labels" . | nindent 4 }}
+    {{- include "kubedb-migrator.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "migrator-operator.selectorLabels" . | nindent 6 }}
+      {{- include "kubedb-migrator.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -17,13 +17,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "migrator-operator.labels" . | nindent 8 }}
+        {{- include "kubedb-migrator.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
       {{- include "appscode.imagePullSecrets" . | nindent 6 }}
-      serviceAccountName: {{ include "migrator-operator.serviceAccountName" . }}
+      serviceAccountName: {{ include "kubedb-migrator.serviceAccountName" . }}
       {{- if eq "true" ( include "distro.openshift" . ) }}
       terminationGracePeriodSeconds: 10
       securityContext:
@@ -60,7 +60,7 @@ spec:
       volumes:
 {{/*      - name: migrator-addon-volume*/}}
 {{/*        configMap:*/}}
-{{/*          name: {{ include "migrator-operator.fullname" . }}-config*/}}
+{{/*          name: {{ include "kubedb-migrator.fullname" . }}-config*/}}
       {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
