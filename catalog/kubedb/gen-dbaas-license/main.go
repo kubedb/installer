@@ -28,6 +28,12 @@ import (
 
 func main() {
 	r := configdata.LicenseRestrictions{
+		dbv1a2.ResourceKindCassandra: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
+		dbv1a2.ResourceKindClickHouse: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
 		dbv1a2.ResourceKindDruid: configdata.Restrictions{{
 			VersionConstraint: "*",
 		}},
