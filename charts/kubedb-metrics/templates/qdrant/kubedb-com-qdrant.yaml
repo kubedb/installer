@@ -1,3 +1,8 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
 apiVersion: metrics.appscode.com/v1alpha1
 kind: MetricsConfiguration
 metadata:
@@ -65,6 +70,8 @@ spec:
           valuePath: .spec.version
         - key: deletionPolicy
           valuePath: .spec.deletionPolicy
+        - key: storageType
+          valuePath: .spec.storageType
         - key: tls
           valuePath: .spec.tls
         - key: clientTLS
