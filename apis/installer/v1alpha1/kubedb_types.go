@@ -178,7 +178,7 @@ type KubedbGitopsValues struct {
 }
 
 type KubedbMigratorValues struct {
-	Enabled           bool `json:"enabled"`
+	Enabled             bool `json:"enabled"`
 	*KubedbMigratorSpec `json:",inline,omitempty"`
 }
 
