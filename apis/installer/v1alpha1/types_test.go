@@ -33,6 +33,7 @@ func TestDefaultValues(t *testing.T) {
 		schemachecker.TestCase{Obj: v1alpha1.KubedbDashboardSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.KubedbGitopsSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.KubedbKubestashCatalogSpec{}},
+		schemachecker.TestCase{Obj: v1alpha1.KubedbMigratorSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.KubedbOpsManagerSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.KubedbProviderAwsSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.KubedbProviderAzureSpec{}},

@@ -1,15 +1,34 @@
+{{- $major := default "0" .Capabilities.KubeVersion.Major | trimSuffix "+" | int64 }}
+{{- $minor := default "0" .Capabilities.KubeVersion.Minor | trimSuffix "+" | int64 }}
+{{- $criticalAddon := and .Values.criticalAddon (or (eq .Release.Namespace "kube-system") (and (ge $major 1) (ge $minor 17))) -}}
+
+{{- $nodeSelector := .Values.nodeSelector }}
+{{- if .Values.global }}
+  {{ $nodeSelector = default .Values.nodeSelector .Values.global.nodeSelector }}
+{{- end }}
+
+{{- $tolerations := .Values.tolerations }}
+{{- if .Values.global }}
+  {{ $tolerations = default .Values.tolerations .Values.global.tolerations }}
+{{- end }}
+
+{{- $affinity := .Values.affinity }}
+{{- if .Values.global }}
+  {{ $affinity = default .Values.affinity .Values.global.affinity }}
+{{- end }}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "migrator-operator.fullname" . }}
+  name: {{ include "kubedb-migrator.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "migrator-operator.labels" . | nindent 4 }}
+    {{- include "kubedb-migrator.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "migrator-operator.selectorLabels" . | nindent 6 }}
+      {{- include "kubedb-migrator.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -17,13 +36,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "migrator-operator.labels" . | nindent 8 }}
+        {{- include "kubedb-migrator.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
       {{- include "appscode.imagePullSecrets" . | nindent 6 }}
-      serviceAccountName: {{ include "migrator-operator.serviceAccountName" . }}
+      serviceAccountName: {{ include "kubedb-migrator.serviceAccountName" . }}
       {{- if eq "true" ( include "distro.openshift" . ) }}
       terminationGracePeriodSeconds: 10
       securityContext:
@@ -60,19 +79,36 @@ spec:
       volumes:
 {{/*      - name: migrator-addon-volume*/}}
 {{/*        configMap:*/}}
-{{/*          name: {{ include "migrator-operator.fullname" . }}-config*/}}
+{{/*          name: {{ include "kubedb-migrator.fullname" . }}-config*/}}
       {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.nodeSelector }}
+      {{- with $nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.affinity }}
+    {{- if $affinity }}
       affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
+        {{- toYaml $affinity | nindent 8 }}
+    {{- else if gt (int .Values.replicaCount) 1 }}
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                {{- include "kubedb-migrator.selectorLabels" . | nindent 16 }}
+            topologyKey: "kubernetes.io/hostname"
+    {{- end }}
+    {{- if or $tolerations $criticalAddon }}
       tolerations:
+      {{- with $tolerations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if $criticalAddon }}
+        - key: CriticalAddonsOnly
+          operator: Exists
+      {{- end -}}
+    {{- end -}}
+    {{- if $criticalAddon }}
+      priorityClassName: system-cluster-critical
+    {{- end -}}

@@ -297,7 +297,7 @@ k3s ctr images import images/kubedb-mariadb-archiver-v0.21.0-rc.0_11.2.2-jammy.t
 k3s ctr images import images/kubedb-mariadb-coordinator-v0.41.0-rc.0.tar
 k3s ctr images import images/kubedb-mariadb-csi-snapshotter-plugin-v0.21.0-rc.0.tar
 k3s ctr images import images/kubedb-mariadb-init-0.8.0.tar
-k3s ctr images import images/kubedb-migrator-operator-v2026.2.16-rc.0.tar
+k3s ctr images import images/kubedb-migrator-operator-v0.1.0-rc.0.tar
 k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.22.0-rc.0.tar
 k3s ctr images import images/kubedb-mongodb-init-4.2-v9.tar
 k3s ctr images import images/kubedb-mongodb-init-6.0-v11.tar
