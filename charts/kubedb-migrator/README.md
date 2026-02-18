@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/migrator-operator --version=v2026.2.16-rc.0
-$ helm upgrade -i migrator-operator appscode/migrator-operator -n kubedb --create-namespace --version=v2026.2.16-rc.0
+$ helm search repo appscode/kubedb-migrator --version=v0.1.0-rc.0
+$ helm upgrade -i kubedb-migrator appscode/kubedb-migrator -n kubedb --create-namespace --version=v0.1.0-rc.0
 ```
 
 ## Introduction
@@ -21,10 +21,10 @@ This chart deploys a Database Migrator operator on a [Kubernetes](http://kuberne
 
 ## Installing the Chart
 
-To install/upgrade the chart with the release name `migrator-operator`:
+To install/upgrade the chart with the release name `kubedb-migrator`:
 
 ```bash
-$ helm upgrade -i migrator-operator appscode/migrator-operator -n kubedb --create-namespace --version=v2026.2.16-rc.0
+$ helm upgrade -i kubedb-migrator appscode/kubedb-migrator -n kubedb --create-namespace --version=v0.1.0-rc.0
 ```
 
 The command deploys a Database Migrator operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -33,17 +33,17 @@ The command deploys a Database Migrator operator on the Kubernetes cluster in th
 
 ## Uninstalling the Chart
 
-To uninstall the `migrator-operator`:
+To uninstall the `kubedb-migrator`:
 
 ```bash
-$ helm uninstall migrator-operator -n kubedb
+$ helm uninstall kubedb-migrator -n kubedb
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
 ## Configuration
 
-The following table lists the configurable parameters of the `migrator-operator` chart and their default values.
+The following table lists the configurable parameters of the `kubedb-migrator` chart and their default values.
 
 |             Parameter              |                                                             Description                                                              |                                                                                            Default                                                                                             |
 |------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -88,12 +88,12 @@ The following table lists the configurable parameters of the `migrator-operator`
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i migrator-operator appscode/migrator-operator -n kubedb --create-namespace --version=v2026.2.16-rc.0 --set replicaCount=1
+$ helm upgrade -i kubedb-migrator appscode/kubedb-migrator -n kubedb --create-namespace --version=v0.1.0-rc.0 --set replicaCount=1
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i migrator-operator appscode/migrator-operator -n kubedb --create-namespace --version=v2026.2.16-rc.0 --values values.yaml
+$ helm upgrade -i kubedb-migrator appscode/kubedb-migrator -n kubedb --create-namespace --version=v0.1.0-rc.0 --values values.yaml
 ```
