@@ -90,6 +90,12 @@ if [ "$update_kubedb_crds" = true ] && [ -d ${crd_dir} ]; then
         --input=${crd_dir} \
         --out=. --output-yaml=crds/kubedb-catalog-crds.yaml \
         --group=catalog.kubedb.com
+
+    crd-importer \
+        --no-description \
+        --input=${crd_dir} \
+        --out=./charts/kubedb-migrator/crds \
+        --group=migrator.kubedb.com
 fi
 
 KMODULES_CUSTOM_RESOURCES_TAG=${KMODULES_CUSTOM_RESOURCES_TAG:-v0.34.0}
