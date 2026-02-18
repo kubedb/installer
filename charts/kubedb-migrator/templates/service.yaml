@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "kubedb-migrator.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubedb-migrator.labels" . | nindent 4 }}
+spec:
+  ports:
+    # Port used to expose admission webhook apiserver
+    - name: api
+      port: 443
+      targetPort: 9443
+      protocol: TCP
+  selector:
+    {{- include "kubedb-migrator.selectorLabels" . | nindent 4 }}

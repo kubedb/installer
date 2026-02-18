@@ -68,6 +68,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&KubedbList{},
 		&KubedbKubestashCatalog{},
 		&KubedbKubestashCatalogList{},
+		&KubedbMigrator{},
+		&KubedbMigratorList{},
 		&KubedbOpsManager{},
 		&KubedbOpsManagerList{},
 		&KubedbProvisioner{},
