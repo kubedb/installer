@@ -92,6 +92,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/po
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.4-bookworm $IMAGE_REGISTRY/appscode-images/postgres:17.4-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.5-alpine $IMAGE_REGISTRY/appscode-images/postgres:17.5-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.5-bookworm $IMAGE_REGISTRY/appscode-images/postgres:17.5-bookworm
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/migrator-cli:v0.1.0-rc.0 $IMAGE_REGISTRY/kubedb/migrator-cli:v0.1.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pg-coordinator:v0.45.0-rc.0 $IMAGE_REGISTRY/kubedb/pg-coordinator:v0.45.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.22.0-rc.0_11.22-alpine $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.22.0-rc.0_11.22-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.22.0-rc.0_11.22-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.22.0-rc.0_11.22-bookworm

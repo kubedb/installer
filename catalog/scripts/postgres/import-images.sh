@@ -83,6 +83,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-p
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.4-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:17.4-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.5-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:17.5-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.5-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:17.5-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-migrator-cli-v0.1.0-rc.0.tar $IMAGE_REGISTRY/kubedb/migrator-cli:v0.1.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pg-coordinator-v0.45.0-rc.0.tar $IMAGE_REGISTRY/kubedb/pg-coordinator:v0.45.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.22.0-rc.0_11.22-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.22.0-rc.0_11.22-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.22.0-rc.0_11.22-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.22.0-rc.0_11.22-bookworm
