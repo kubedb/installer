@@ -47,6 +47,7 @@ var archSkipList = []string{
 	"ghcr.io/appscode-images/singlestore-node:alma-8.7.10-95e2357384",
 	"ghcr.io/appscode-images/singlestore-node:alma-8.7.21-f0b8de04d5",
 	"ghcr.io/appscode-images/singlestore-node:alma-8.9.3-bfa36a984a",
+	"ghcr.io/kubedb/migrator-cli:v0.1.0-rc.0",
 	"ghcr.io/kubedb/db2-coordinator:v0.1.0",
 	"ghcr.io/kubedb/db2-coordinator:v0.2.0-rc.0",
 	"ghcr.io/kubedb/db2-coordinator:v0.1.0-ubi",
