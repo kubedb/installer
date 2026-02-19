@@ -308,6 +308,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-arc
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-coordinator:v0.41.0-rc.0 $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.41.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-csi-snapshotter-plugin:v0.21.0-rc.0 $IMAGE_REGISTRY/kubedb/mariadb-csi-snapshotter-plugin:v0.21.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-init:0.8.0 $IMAGE_REGISTRY/kubedb/mariadb-init:0.8.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/migrator-cli:v0.1.0-rc.0 $IMAGE_REGISTRY/kubedb/migrator-cli:v0.1.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/migrator-operator:v0.1.0-rc.0 $IMAGE_REGISTRY/kubedb/migrator-operator:v0.1.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.22.0-rc.0 $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.22.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
