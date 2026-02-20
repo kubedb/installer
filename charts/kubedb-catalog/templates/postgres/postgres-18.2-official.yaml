@@ -1,0 +1,117 @@
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.Postgres (not (eq $ubi "operator")) }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: '18.2'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        fullBackup:
+          name: physical-backup
+        fullBackupRestore:
+          name: physical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.21.0_18.2-alpine'
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.44.0{{ include "catalog.ubi" $ }}'
+  db:
+    baseOS: alpine
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres") $) }}:18.2-alpine'
+  distribution: Official
+  exporter:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.18.1'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.18.0'
+  migrator:
+    cli:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/migrator-cli") $) }}:v0.1.0-rc.0{{ include "catalog.ubi" $ }}'
+    statusReporter:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/migrator-operator") $) }}:v0.1.0-rc.0'
+  securityContext:
+    runAsAnyNonRoot: false
+    runAsUser: 70
+  ui:
+  - name: pgadmin
+    version: v2024.4.27
+  - name: dbgate
+    version: v2024.4.27
+  updateConstraints:
+    allowlist:
+    - '>= 18.2'
+  version: "18.2"
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+
+---
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: '18.2-bookworm'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        fullBackup:
+          name: physical-backup
+        fullBackupRestore:
+          name: physical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.21.0_18.2-bookworm'
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.44.0{{ include "catalog.ubi" $ }}'
+  db:
+    baseOS: bookworm
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres") $) }}:18.2-bookworm'
+  distribution: Official
+  exporter:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.18.1'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.18.0'
+  migrator:
+    cli:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/migrator-cli") $) }}:v0.1.0-rc.0{{ include "catalog.ubi" $ }}'
+    statusReporter:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/migrator-operator") $) }}:v0.1.0-rc.0'
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
+  ui:
+  - name: pgadmin
+    version: v2024.4.27
+  - name: dbgate
+    version: v2024.4.27
+  updateConstraints:
+    allowlist:
+    - '>= 18.2'
+  version: "18.2"
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+{{ end }}

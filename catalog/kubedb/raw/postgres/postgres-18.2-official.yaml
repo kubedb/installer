@@ -1,0 +1,102 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: "18.2"
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        fullBackup:
+          name: physical-backup
+        fullBackupRestore:
+          name: physical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: ghcr.io/kubedb/postgres-archiver:(v0.21.0)_18.2-alpine
+  coordinator:
+    image: ghcr.io/kubedb/pg-coordinator:v0.44.0
+  db:
+    baseOS: alpine
+    image: ghcr.io/appscode-images/postgres:18.2-alpine
+  distribution: Official
+  exporter:
+    image: prometheuscommunity/postgres-exporter:v0.18.1
+  initContainer:
+    image: ghcr.io/kubedb/postgres-init:0.18.0
+  migrator:
+    cli:
+      image: ghcr.io/kubedb/migrator-cli:v0.1.0-rc.0
+    statusReporter:
+      image: ghcr.io/kubedb/migrator-operator:v0.1.0-rc.0
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: false
+    runAsUser: 70
+  ui:
+  - name: pgadmin
+    version: v2024.4.27
+  - name: dbgate
+    version: v2024.4.27
+  updateConstraints:
+    allowlist:
+    - '>= 18.2'
+  version: "18.2"
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: 18.2-bookworm
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        fullBackup:
+          name: physical-backup
+        fullBackupRestore:
+          name: physical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: ghcr.io/kubedb/postgres-archiver:(v0.21.0)_18.2-bookworm
+  coordinator:
+    image: ghcr.io/kubedb/pg-coordinator:v0.44.0
+  db:
+    baseOS: bookworm
+    image: ghcr.io/appscode-images/postgres:18.2-bookworm
+  distribution: Official
+  exporter:
+    image: prometheuscommunity/postgres-exporter:v0.18.1
+  initContainer:
+    image: ghcr.io/kubedb/postgres-init:0.18.0
+  migrator:
+    cli:
+      image: ghcr.io/kubedb/migrator-cli:v0.1.0-rc.0
+    statusReporter:
+      image: ghcr.io/kubedb/migrator-operator:v0.1.0-rc.0
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
+  ui:
+  - name: pgadmin
+    version: v2024.4.27
+  - name: dbgate
+    version: v2024.4.27
+  updateConstraints:
+    allowlist:
+    - '>= 18.2'
+  version: "18.2"
