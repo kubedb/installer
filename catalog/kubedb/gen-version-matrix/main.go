@@ -35,7 +35,7 @@ import (
 
 type DBVersion struct {
 	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata,omitempty"`
+	metav1.ObjectMeta `json:"metadata"`
 	Spec              DBVersionSpec `json:"spec"`
 }
 
@@ -83,9 +83,9 @@ type UpdateConstraints struct {
 }
 type MySQLUpdateConstraints struct {
 	// List of all accepted versions for upgrade request
-	Allowlist MySQLVersionAllowlist `json:"allowlist,omitempty"`
+	Allowlist MySQLVersionAllowlist `json:"allowlist"`
 	// List of all rejected versions for upgrade request
-	Denylist MySQLVersionDenylist `json:"denylist,omitempty"`
+	Denylist MySQLVersionDenylist `json:"denylist"`
 }
 
 type MySQLVersionAllowlist struct {
@@ -275,8 +275,8 @@ func canUpdate(src string, upc UpdateConstraints) (Decision, error) {
 }
 
 func parseVersion(v string) (*semver.Version, error) {
-	if strings.HasPrefix(v, "alma-") {
-		v = strings.TrimPrefix(v, "alma-")
+	if after, ok := strings.CutPrefix(v, "alma-"); ok {
+		v = after
 	} else if pre, _, ok := strings.Cut(v, "_"); ok {
 		v = pre
 	}
