@@ -54,6 +54,7 @@ var ubiImageList = sets.NewString(
 	"ghcr.io/kubedb/hanadb-coordinator",
 	// "ghcr.io/kubedb/mariadb-archiver",
 	"ghcr.io/kubedb/mariadb-coordinator",
+	"ghcr.io/kubedb/migrator-cli",
 	"ghcr.io/kubedb/mssql-coordinator",
 	// "ghcr.io/kubedb/mysql-archiver",
 	"ghcr.io/kubedb/mysql-coordinator",
@@ -571,6 +572,8 @@ func main() {
 					templatizeRegistry("image")
 					templatizeRegistry("yqImage")
 					templatizeRegistry("walg", "image")
+					templatizeRegistry("cli", "image")
+					templatizeRegistry("statusReporter", "image")
 				}
 				copies = append(copies, objCopy.UnstructuredContent())
 
