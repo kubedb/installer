@@ -77,6 +77,7 @@ type KubedbCrdManagerSpec struct {
 	FeatureGates            map[string]bool    `json:"featureGates"`
 	RemoveUnusedCRDs        bool               `json:"removeUnusedCRDs"`
 	InstallGitOpsCRDs       bool               `json:"installGitOpsCRDs"`
+	VersionConfigMap        string             `json:"versionConfigMap"`
 	TTLSecondsAfterFinished int                `json:"ttlSecondsAfterFinished"`
 	// +optional
 	Distro shared.DistroSpec `json:"distro"`

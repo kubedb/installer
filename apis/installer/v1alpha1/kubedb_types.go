@@ -196,6 +196,7 @@ type GlobalValues struct {
 	//+optional
 	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
 	FeatureGates     map[string]bool             `json:"featureGates"`
+	VersionConfigMap string                      `json:"versionConfigMap"`
 	Monitoring       EASMonitoring               `json:"monitoring"`
 	// +optional
 	MaxConcurrentReconciles int `json:"maxConcurrentReconciles"`
