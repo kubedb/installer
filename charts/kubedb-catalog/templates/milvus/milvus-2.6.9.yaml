@@ -1,0 +1,23 @@
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.Milvus (not (eq $ubi "operator")) }}
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MilvusVersion
+metadata:
+  name: '2.6.9'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/milvus") $) }}:2.6.9'
+  etcdVersion: v3.5.21
+  securityContext:
+    runAsUser: 1000
+  version: 2.6.9
+{{ end }}

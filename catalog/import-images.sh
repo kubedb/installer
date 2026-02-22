@@ -128,7 +128,9 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached-1.6.29-alpine.tar $IMAGE_REGISTRY/appscode-images/memcached:1.6.29-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached-1.6.33-alpine.tar $IMAGE_REGISTRY/appscode-images/memcached:1.6.33-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached_exporter-v0.14.3-ac.tar $IMAGE_REGISTRY/appscode-images/memcached_exporter:v0.14.3-ac
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-milvus-2.6.11.tar $IMAGE_REGISTRY/appscode-images/milvus:2.6.11
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-milvus-2.6.7.tar $IMAGE_REGISTRY/appscode-images/milvus:2.6.7
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-milvus-2.6.9.tar $IMAGE_REGISTRY/appscode-images/milvus:2.6.9
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-4.4.26.tar $IMAGE_REGISTRY/appscode-images/mongo:4.4.26
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-5.0.31.tar $IMAGE_REGISTRY/appscode-images/mongo:5.0.31
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-6.0.24.tar $IMAGE_REGISTRY/appscode-images/mongo:6.0.24
