@@ -96,3 +96,26 @@ Returns if ubi images are to be used
 {{- define "catalog.ubi" -}}
 {{ ternary "-ubi" "" (list "catalog" "all" | has .Values.distro.ubi) }}
 {{- end }}
+
+{{- define "kubedb-catalog.refresh-versions" -}}
+{{- if not ._versionRefreshed }}
+
+{{- $cfgmapName := .Values.usedVersionsConfigMap -}}
+{{- if .Values.global }}
+  {{ $cfgmapName = default .Values.usedVersionsConfigMap .Values.global.usedVersionsConfigMap }}
+{{- end }}
+
+{{- if $cfgmapName }}
+{{- $cfgmap := lookup "v1" "ConfigMap" .Release.Name $cfgmapName -}}
+{{- if $cfgmap }}
+{{- range $kind, $usedVersions := $cfgmap.data }}
+    {{ $usedList := splitList "," $usedVersions }}
+    {{ $userList := dig $kind (list) .Values.enableVersions }}
+    {{ $_ := set .Values.enableVersions $kind (concat $usedList $userList | uniq) }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{ $_ := set $ "_versionRefreshed" true }}
+{{- end }}
+{{- end }}

@@ -47,13 +47,14 @@ type KubedbCatalogSpec struct {
 	//+optional
 	FullnameOverride string `json:"fullnameOverride"`
 	//+optional
-	Proxies        shared.RegistryProxies           `json:"proxies"`
-	FeatureGates   map[string]bool                  `json:"featureGates"`
-	Psp            PSP                              `json:"psp"`
-	SkipDeprecated bool                             `json:"skipDeprecated"`
-	SkipEndOfLife  bool                             `json:"skipEndOfLife"`
-	EnableVersions map[string][]string              `json:"enableVersions"`
-	CustomVersions map[string]*runtime.RawExtension `json:"customVersions"`
+	Proxies               shared.RegistryProxies           `json:"proxies"`
+	FeatureGates          map[string]bool                  `json:"featureGates"`
+	Psp                   PSP                              `json:"psp"`
+	SkipDeprecated        bool                             `json:"skipDeprecated"`
+	SkipEndOfLife         bool                             `json:"skipEndOfLife"`
+	EnableVersions        map[string][]string              `json:"enableVersions"`
+	UsedVersionsConfigMap string                           `json:"usedVersionsConfigMap"`
+	CustomVersions        map[string]*runtime.RawExtension `json:"customVersions"`
 	// +optional
 	Distro shared.DistroSpec `json:"distro"`
 }
