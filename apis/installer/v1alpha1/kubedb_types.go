@@ -194,9 +194,10 @@ type GlobalValues struct {
 	RegistryFQDN       string   `json:"registryFQDN"`
 	InsecureRegistries []string `json:"insecureRegistries"`
 	//+optional
-	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
-	FeatureGates     map[string]bool             `json:"featureGates"`
-	Monitoring       EASMonitoring               `json:"monitoring"`
+	ImagePullSecrets      []core.LocalObjectReference `json:"imagePullSecrets"`
+	FeatureGates          map[string]bool             `json:"featureGates"`
+	UsedVersionsConfigMap string                      `json:"usedVersionsConfigMap"`
+	Monitoring            EASMonitoring               `json:"monitoring"`
 	// +optional
 	MaxConcurrentReconciles int `json:"maxConcurrentReconciles"`
 	// +optional
