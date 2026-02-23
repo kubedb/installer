@@ -38,6 +38,7 @@ CMD="./crane"
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.34 $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.34
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.16 $IMAGE_REGISTRY/appscode/petset:v0.0.16
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.13 $IMAGE_REGISTRY/appscode/sidekick:v0.0.13
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.14 $IMAGE_REGISTRY/appscode/sidekick:v0.0.14
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-medusa-plugin:v0.8.0-rc.1 $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.8.0-rc.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.19.0-rc.1 $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.19.0-rc.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.24.0-rc.1 $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.24.0-rc.1
