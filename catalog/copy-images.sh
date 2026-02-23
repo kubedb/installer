@@ -422,6 +422,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure mysql/mysql-router:8.0.31 
 $CMD cp --allow-nondistributable-artifacts --insecure neo4j:2025.10.1-enterprise $IMAGE_REGISTRY/neo4j:2025.10.1-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure neo4j:2025.11.2-enterprise $IMAGE_REGISTRY/neo4j:2025.11.2-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure neo4j:2025.12.1-enterprise $IMAGE_REGISTRY/neo4j:2025.12.1-enterprise
+$CMD cp --allow-nondistributable-artifacts --insecure percona/percona-distribution-postgresql:16.11 $IMAGE_REGISTRY/percona/percona-distribution-postgresql:16.11
 $CMD cp --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:4.4.26 $IMAGE_REGISTRY/percona/percona-server-mongodb:4.4.26
 $CMD cp --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:5.0.29 $IMAGE_REGISTRY/percona/percona-server-mongodb:5.0.29
 $CMD cp --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:6.0.24 $IMAGE_REGISTRY/percona/percona-server-mongodb:6.0.24
@@ -429,6 +430,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure percona/percona-server-mon
 $CMD cp --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:7.0.28 $IMAGE_REGISTRY/percona/percona-server-mongodb:7.0.28
 $CMD cp --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:8.0.17 $IMAGE_REGISTRY/percona/percona-server-mongodb:8.0.17
 $CMD cp --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:8.0.8 $IMAGE_REGISTRY/percona/percona-server-mongodb:8.0.8
+$CMD cp --allow-nondistributable-artifacts --insecure perconalab/percona-distribution-postgresql:17.7 $IMAGE_REGISTRY/perconalab/percona-distribution-postgresql:17.7
 $CMD cp --allow-nondistributable-artifacts --insecure postgis/postgis:11-3.3 $IMAGE_REGISTRY/postgis/postgis:11-3.3
 $CMD cp --allow-nondistributable-artifacts --insecure postgis/postgis:12-3.4 $IMAGE_REGISTRY/postgis/postgis:12-3.4
 $CMD cp --allow-nondistributable-artifacts --insecure postgis/postgis:13-3.4 $IMAGE_REGISTRY/postgis/postgis:13-3.4

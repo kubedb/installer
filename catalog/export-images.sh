@@ -419,6 +419,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure mysql/mysql-router:8.0.3
 $CMD pull --allow-nondistributable-artifacts --insecure neo4j:2025.10.1-enterprise images/library-neo4j-2025.10.1-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure neo4j:2025.11.2-enterprise images/library-neo4j-2025.11.2-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure neo4j:2025.12.1-enterprise images/library-neo4j-2025.12.1-enterprise.tar
+$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-distribution-postgresql:16.11 images/percona-percona-distribution-postgresql-16.11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:4.4.26 images/percona-percona-server-mongodb-4.4.26.tar
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:5.0.29 images/percona-percona-server-mongodb-5.0.29.tar
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:6.0.24 images/percona-percona-server-mongodb-6.0.24.tar
@@ -426,6 +427,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-m
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:7.0.28 images/percona-percona-server-mongodb-7.0.28.tar
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:8.0.17 images/percona-percona-server-mongodb-8.0.17.tar
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:8.0.8 images/percona-percona-server-mongodb-8.0.8.tar
+$CMD pull --allow-nondistributable-artifacts --insecure perconalab/percona-distribution-postgresql:17.7 images/perconalab-percona-distribution-postgresql-17.7.tar
 $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:11-3.3 images/postgis-postgis-11-3.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:12-3.4 images/postgis-postgis-12-3.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:13-3.4 images/postgis-postgis-13-3.4.tar

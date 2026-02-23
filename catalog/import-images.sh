@@ -413,6 +413,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/mysql-mysql-route
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2025.10.1-enterprise.tar $IMAGE_REGISTRY/neo4j:2025.10.1-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2025.11.2-enterprise.tar $IMAGE_REGISTRY/neo4j:2025.11.2-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2025.12.1-enterprise.tar $IMAGE_REGISTRY/neo4j:2025.12.1-enterprise
+$CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-distribution-postgresql-16.11.tar $IMAGE_REGISTRY/percona/percona-distribution-postgresql:16.11
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-4.4.26.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:4.4.26
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-5.0.29.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:5.0.29
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-6.0.24.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:6.0.24
@@ -420,6 +421,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-s
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-7.0.28.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:7.0.28
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-8.0.17.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:8.0.17
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-8.0.8.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:8.0.8
+$CMD push --allow-nondistributable-artifacts --insecure images/perconalab-percona-distribution-postgresql-17.7.tar $IMAGE_REGISTRY/perconalab/percona-distribution-postgresql:17.7
 $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-11-3.3.tar $IMAGE_REGISTRY/postgis/postgis:11-3.3
 $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-12-3.4.tar $IMAGE_REGISTRY/postgis/postgis:12-3.4
 $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-13-3.4.tar $IMAGE_REGISTRY/postgis/postgis:13-3.4

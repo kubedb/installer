@@ -411,6 +411,7 @@ k3s ctr images import images/mysql-mysql-router-8.0.31.tar
 k3s ctr images import images/library-neo4j-2025.10.1-enterprise.tar
 k3s ctr images import images/library-neo4j-2025.11.2-enterprise.tar
 k3s ctr images import images/library-neo4j-2025.12.1-enterprise.tar
+k3s ctr images import images/percona-percona-distribution-postgresql-16.11.tar
 k3s ctr images import images/percona-percona-server-mongodb-4.4.26.tar
 k3s ctr images import images/percona-percona-server-mongodb-5.0.29.tar
 k3s ctr images import images/percona-percona-server-mongodb-6.0.24.tar
@@ -418,6 +419,7 @@ k3s ctr images import images/percona-percona-server-mongodb-7.0.18.tar
 k3s ctr images import images/percona-percona-server-mongodb-7.0.28.tar
 k3s ctr images import images/percona-percona-server-mongodb-8.0.17.tar
 k3s ctr images import images/percona-percona-server-mongodb-8.0.8.tar
+k3s ctr images import images/perconalab-percona-distribution-postgresql-17.7.tar
 k3s ctr images import images/postgis-postgis-11-3.3.tar
 k3s ctr images import images/postgis-postgis-12-3.4.tar
 k3s ctr images import images/postgis-postgis-13-3.4.tar

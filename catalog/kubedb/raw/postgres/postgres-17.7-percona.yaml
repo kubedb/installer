@@ -18,13 +18,13 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: ghcr.io/kubedb/postgres-archiver:(v0.22.0-rc.0)_16.1-bookworm
+      image: ghcr.io/kubedb/postgres-archiver:(v0.22.0-rc.0)_17.2-bookworm
   coordinator:
     image: ghcr.io/kubedb/pg-coordinator:v0.45.0-rc.0
   db:
     baseOS: bookworm
-    image: percona/percona-distribution-postgresql:17.7
-  distribution: Official
+    image: perconalab/percona-distribution-postgresql:17.7
+  distribution: Percona
   exporter:
     image: prometheuscommunity/postgres-exporter:v0.18.1
   initContainer:
@@ -38,15 +38,13 @@ spec:
     databasePolicyName: postgres-db
   securityContext:
     runAsAnyNonRoot: true
-    runAsUser: 1001
+    runAsUser: 26
   stash:
     addon:
       backupTask:
-        name: postgres-backup-16.1
+        name: postgres-backup-17.2
       restoreTask:
-        name: postgres-restore-16.1
-  tls:
-    disableSSLSessionResumption: true
+        name: postgres-restore-17.2
   ui:
   - name: pgadmin
     version: v2024.4.27
@@ -54,6 +52,5 @@ spec:
     version: v2024.4.27
   updateConstraints:
     allowlist:
-    - '16-12-percona'
-    - '17.7-percona'
-  version: "17.11"
+    - 18.2-percona
+  version: "17.7"

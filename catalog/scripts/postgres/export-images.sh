@@ -119,6 +119,8 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.22.0-rc.0_17.2-alpine images/kubedb-postgres-archiver-v0.22.0-rc.0_17.2-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.22.0-rc.0_17.2-bookworm images/kubedb-postgres-archiver-v0.22.0-rc.0_17.2-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.18.0 images/kubedb-postgres-init-0.18.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-distribution-postgresql:16.11 images/percona-percona-distribution-postgresql-16.11.tar
+$CMD pull --allow-nondistributable-artifacts --insecure perconalab/percona-distribution-postgresql:17.7 images/perconalab-percona-distribution-postgresql-17.7.tar
 $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:11-3.3 images/postgis-postgis-11-3.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:12-3.4 images/postgis-postgis-12-3.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:13-3.4 images/postgis-postgis-13-3.4.tar

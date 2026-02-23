@@ -111,6 +111,8 @@ k3s ctr images import images/kubedb-postgres-archiver-v0.22.0-rc.0_16.1-bookworm
 k3s ctr images import images/kubedb-postgres-archiver-v0.22.0-rc.0_17.2-alpine.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.22.0-rc.0_17.2-bookworm.tar
 k3s ctr images import images/kubedb-postgres-init-0.18.0.tar
+k3s ctr images import images/percona-percona-distribution-postgresql-16.11.tar
+k3s ctr images import images/perconalab-percona-distribution-postgresql-17.7.tar
 k3s ctr images import images/postgis-postgis-11-3.3.tar
 k3s ctr images import images/postgis-postgis-12-3.4.tar
 k3s ctr images import images/postgis-postgis-13-3.4.tar
