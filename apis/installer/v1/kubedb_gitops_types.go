@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package v1alpha1
+package v1
 
 import (
 	core "k8s.io/api/core/v1"
@@ -23,12 +23,12 @@ import (
 )
 
 const (
-	ResourceKindKubedbMigrator = "KubedbMigrator"
-	ResourceKubedbMigrator     = "kubedbmigrator"
-	ResourceKubedbMigrators    = "kubedbmigrators"
+	ResourceKindKubedbGitops = "KubedbGitops"
+	ResourceKubedbGitops     = "kubedbgitops"
+	ResourceKubedbGitopss    = "kubedbgitopss"
 )
 
-// KubedbMigrator defines the schama for KubeDB Migrator installer.
+// KubedbGitops defines the schama for Operator Shard Manager installer.
 
 // +genclient
 // +genclient:skipVerbs=updateStatus
@@ -36,15 +36,15 @@ const (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:path=kubedbmigrators,singular=kubedbmigrator,categories={kubeops,appscode}
-type KubedbMigrator struct {
+// +kubebuilder:resource:path=kubedbgitopss,singular=kubedbgitops,categories={kubeops,appscode}
+type KubedbGitops struct {
 	metav1.TypeMeta   `json:",inline,omitempty"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              KubedbMigratorSpec `json:"spec,omitempty"`
+	Spec              KubedbGitopsSpec `json:"spec,omitempty"`
 }
 
-// KubedbMigratorSpec is the schema for Identity Server values file
-type KubedbMigratorSpec struct {
+// KubedbGitopsSpec is the schema for Identity Server values file
+type KubedbGitopsSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
@@ -83,16 +83,29 @@ type KubedbMigratorSpec struct {
 	ServiceAccount ServiceAccountSpec `json:"serviceAccount"`
 	Volumes        []core.Volume      `json:"volumes"`
 	VolumeMounts   []core.VolumeMount `json:"volumeMounts"`
+	FeatureGates   map[string]bool    `json:"featureGates"`
 	// +optional
 	Distro shared.DistroSpec `json:"distro"`
 }
 
+type ImageReference struct {
+	Registry   string `json:"registry"`
+	Repository string `json:"repository"`
+	Tag        string `json:"tag"`
+	PullPolicy string `json:"pullPolicy"`
+}
+
+type ServiceSpec struct {
+	Type string `json:"type"`
+	Port int    `json:"port"`
+}
+
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KubedbMigratorList is a list of KubedbMigrators
-type KubedbMigratorList struct {
+// KubedbGitopsList is a list of KubedbGitopss
+type KubedbGitopsList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of KubedbMigrator CRD objects
-	Items []KubedbMigrator `json:"items,omitempty"`
+	// Items is a list of KubedbGitops CRD objects
+	Items []KubedbGitops `json:"items,omitempty"`
 }

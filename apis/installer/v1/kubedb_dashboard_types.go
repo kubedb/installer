@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package v1alpha1
+package v1
 
 import (
 	core "k8s.io/api/core/v1"
@@ -23,35 +23,34 @@ import (
 )
 
 const (
-	ResourceKindKubedbProvisioner = "KubedbProvisioner"
-	ResourceKubedbProvisioner     = "kubedbprovisioner"
-	ResourceKubedbProvisioners    = "kubedbprovisioners"
+	ResourceKindKubedbDashboard = "KubedbDashboard"
+	ResourceKubedbDashboard     = "kubedbdashboard"
+	ResourceKubedbDashboards    = "kubedbdashboards"
 )
 
-// KubedbProvisioner defines the schama for KubeDB Operator Installer.
+// KubedbDashboard defines the schama for KubeDB Operator Installer.
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:path=kubedbprovisioners,singular=kubedbprovisioner,categories={kubedb,appscode}
-type KubedbProvisioner struct {
+// +kubebuilder:resource:path=kubedbdashboards,singular=kubedbdashboard,categories={kubedb,appscode}
+type KubedbDashboard struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              KubedbProvisionerSpec `json:"spec,omitempty"`
+	Spec              KubedbDashboardSpec `json:"spec,omitempty"`
 }
 
-// KubedbProvisionerSpec is the schema for kubedb-provisioner chart values file
-type KubedbProvisionerSpec struct {
+// KubedbDashboardSpec is the schema for kubedb-provisioner chart values file
+type KubedbDashboardSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
-	FullnameOverride   string    `json:"fullnameOverride"`
-	ReplicaCount       int32     `json:"replicaCount"`
-	RegistryFQDN       string    `json:"registryFQDN"`
-	InsecureRegistries []string  `json:"insecureRegistries"`
-	Operator           Container `json:"operator"`
-	Waitfor            ImageRef  `json:"waitfor"`
-	ImagePullPolicy    string    `json:"imagePullPolicy"`
+	FullnameOverride string    `json:"fullnameOverride"`
+	ReplicaCount     int32     `json:"replicaCount"`
+	RegistryFQDN     string    `json:"registryFQDN"`
+	Operator         Container `json:"operator"`
+	Waitfor          ImageRef  `json:"waitfor"`
+	ImagePullPolicy  string    `json:"imagePullPolicy"`
 	//+optional
 	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
 	// +optional
@@ -80,41 +79,19 @@ type KubedbProvisionerSpec struct {
 	EnforceTerminationPolicy bool       `json:"enforceTerminationPolicy"`
 	Monitoring               Monitoring `json:"monitoring"`
 	// +optional
-	AdditionalPodSecurityPolicies []string `json:"additionalPodSecurityPolicies"`
-	// +optional
 	License string `json:"license"`
 	// +optional
-	LicenseSecretName string  `json:"licenseSecretName"`
-	Psp               PSPSpec `json:"psp"`
-	// +optional
-	MaxConcurrentReconciles int `json:"maxConcurrentReconciles"`
-	// List of sources to populate environment variables in the container.
-	// The keys defined within a source must be a C_IDENTIFIER. All invalid keys
-	// will be reported as an event when the container is starting. When a key exists in multiple
-	// sources, the value associated with the last source will take precedence.
-	// Values defined by an Env with a duplicate key will take precedence.
-	// Cannot be updated.
-	// +optional
-	// +listType=atomic
-	EnvFrom []core.EnvFromSource `json:"envFrom"`
-	// List of environment variables to set in the container.
-	// Cannot be updated.
-	// +optional
-	// +patchMergeKey=name
-	// +patchStrategy=merge
-	// +listType=map
-	// +listMapKey=name
-	Env []core.EnvVar `json:"env"`
+	LicenseSecretName string `json:"licenseSecretName"`
 	// +optional
 	Distro shared.DistroSpec `json:"distro"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KubedbProvisionerList is a list of KubedbProvisioner-s
-type KubedbProvisionerList struct {
+// KubedbDashboardList is a list of KubedbDashboard-s
+type KubedbDashboardList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of KubedbProvisioner CRD objects
-	Items []KubedbProvisioner `json:"items,omitempty"`
+	// Items is a list of KubedbDashboard CRD objects
+	Items []KubedbDashboard `json:"items,omitempty"`
 }

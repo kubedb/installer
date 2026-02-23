@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package v1alpha1
+package v1
 
 import (
 	core "k8s.io/api/core/v1"
@@ -22,12 +22,12 @@ import (
 )
 
 const (
-	ResourceKindKubedbProviderAzure = "KubedbProviderAzure"
-	ResourceKubedbProviderAzure     = "kubedbproviderazure"
-	ResourceKubedbProviderAzures    = "kubedbproviderazures"
+	ResourceKindKubedbProviderGcp = "KubedbProviderGcp"
+	ResourceKubedbProviderGcp     = "kubedbprovidergcp"
+	ResourceKubedbProviderGcps    = "kubedbprovidergcps"
 )
 
-// KubedbProviderAzure defines the schama for Kubeform AWS provider installer.
+// KubedbProviderGcp defines the schama for Kubeform AWS provider installer.
 
 // +genclient
 // +genclient:skipVerbs=updateStatus
@@ -35,15 +35,15 @@ const (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:path=kubedbproviderazures,singular=kubedbproviderazure,categories={kubeform,appscode}
-type KubedbProviderAzure struct {
+// +kubebuilder:resource:path=kubedbprovidergcps,singular=kubedbprovidergcp,categories={kubeform,appscode}
+type KubedbProviderGcp struct {
 	metav1.TypeMeta   `json:",inline,omitempty"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              KubedbProviderAzureSpec `json:"spec,omitempty"`
+	Spec              KubedbProviderGcpSpec `json:"spec,omitempty"`
 }
 
-// KubedbProviderAzureSpec is the schema for Identity Server values file
-type KubedbProviderAzureSpec struct {
+// KubedbProviderGcpSpec is the schema for Identity Server values file
+type KubedbProviderGcpSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
@@ -68,21 +68,22 @@ type KubedbProviderAzureSpec struct {
 	Tolerations []core.Toleration `json:"tolerations"`
 	// If specified, the pod's scheduling constraints
 	// +optional
-	Affinity   *core.Affinity      `json:"affinity"`
-	Monitoring EASMonitoring       `json:"monitoring"`
-	Azure      AzureProviderConfig `json:"azure"`
+	Affinity   *core.Affinity    `json:"affinity"`
+	Monitoring EASMonitoring     `json:"monitoring"`
+	Gcp        GcpProviderConfig `json:"gcp"`
 }
 
-type AzureProviderConfig struct {
+type GcpProviderConfig struct {
+	ProjectID  string `json:"projectID"`
 	SecretName string `json:"secretName"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KubedbProviderAzureList is a list of KubedbProviderAzures
-type KubedbProviderAzureList struct {
+// KubedbProviderGcpList is a list of KubedbProviderGcps
+type KubedbProviderGcpList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of KubedbProviderAzure CRD objects
-	Items []KubedbProviderAzure `json:"items,omitempty"`
+	// Items is a list of KubedbProviderGcp CRD objects
+	Items []KubedbProviderGcp `json:"items,omitempty"`
 }

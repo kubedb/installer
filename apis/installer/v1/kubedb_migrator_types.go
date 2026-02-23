@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package v1alpha1
+package v1
 
 import (
 	core "k8s.io/api/core/v1"
@@ -23,12 +23,12 @@ import (
 )
 
 const (
-	ResourceKindKubedbCrdManager = "KubedbCrdManager"
-	ResourceKubedbCrdManager     = "kubedbcrdmanager"
-	ResourceKubedbCrdManagers    = "kubedbcrdmanagers"
+	ResourceKindKubedbMigrator = "KubedbMigrator"
+	ResourceKubedbMigrator     = "kubedbmigrator"
+	ResourceKubedbMigrators    = "kubedbmigrators"
 )
 
-// KubedbCrdManager defines the schama for KubedbCrdManager operator installer.
+// KubedbMigrator defines the schama for KubeDB Migrator installer.
 
 // +genclient
 // +genclient:skipVerbs=updateStatus
@@ -36,27 +36,29 @@ const (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:path=kubedbcrdmanagers,singular=kubedbcrdmanager,categories={kubeops,appscode}
-type KubedbCrdManager struct {
+// +kubebuilder:resource:path=kubedbmigrators,singular=kubedbmigrator,categories={kubeops,appscode}
+type KubedbMigrator struct {
 	metav1.TypeMeta   `json:",inline,omitempty"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              KubedbCrdManagerSpec `json:"spec,omitempty"`
+	Spec              KubedbMigratorSpec `json:"spec,omitempty"`
 }
 
-// KubedbCrdManagerSpec is the schema for Identity Server values file
-type KubedbCrdManagerSpec struct {
+// KubedbMigratorSpec is the schema for Identity Server values file
+type KubedbMigratorSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
 	FullnameOverride string `json:"fullnameOverride"`
 	//+optional
-	RegistryFQDN    string   `json:"registryFQDN"`
-	Image           ImageRef `json:"image"`
-	ImagePullPolicy string   `json:"imagePullPolicy"`
+	RegistryFQDN string         `json:"registryFQDN"`
+	ReplicaCount int32          `json:"replicaCount"`
+	Image        ImageReference `json:"image"`
 	//+optional
 	ImagePullSecrets []string `json:"imagePullSecrets"`
 	//+optional
 	PodAnnotations map[string]string `json:"podAnnotations"`
+	//+optional
+	PodLabels map[string]string `json:"podLabels"`
 	// PodSecurityContext holds pod-level security attributes and common container settings.
 	// Optional: Defaults to empty.  See type description for default values of each field.
 	// +optional
@@ -72,23 +74,25 @@ type KubedbCrdManagerSpec struct {
 	Tolerations []core.Toleration `json:"tolerations"`
 	// If specified, the pod's scheduling constraints
 	// +optional
-	Affinity                *core.Affinity     `json:"affinity"`
-	ServiceAccount          ServiceAccountSpec `json:"serviceAccount"`
-	FeatureGates            map[string]bool    `json:"featureGates"`
-	RemoveUnusedCRDs        bool               `json:"removeUnusedCRDs"`
-	InstallGitOpsCRDs       bool               `json:"installGitOpsCRDs"`
-	VersionConfigMap        string             `json:"versionConfigMap"`
-	TTLSecondsAfterFinished int                `json:"ttlSecondsAfterFinished"`
+	Affinity *core.Affinity `json:"affinity"`
+	// +optional
+	LivenessProbe *core.Probe `json:"livenessProbe"`
+	// +optional
+	ReadinessProbe *core.Probe        `json:"readinessProbe"`
+	Service        ServiceSpec        `json:"service"`
+	ServiceAccount ServiceAccountSpec `json:"serviceAccount"`
+	Volumes        []core.Volume      `json:"volumes"`
+	VolumeMounts   []core.VolumeMount `json:"volumeMounts"`
 	// +optional
 	Distro shared.DistroSpec `json:"distro"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KubedbCrdManagerList is a list of KubedbCrdManagers
-type KubedbCrdManagerList struct {
+// KubedbMigratorList is a list of KubedbMigrators
+type KubedbMigratorList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of KubedbCrdManager CRD objects
-	Items []KubedbCrdManager `json:"items,omitempty"`
+	// Items is a list of KubedbMigrator CRD objects
+	Items []KubedbMigrator `json:"items,omitempty"`
 }

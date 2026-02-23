@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package v1alpha1
+package v1
 
 import (
 	core "k8s.io/api/core/v1"
@@ -22,12 +22,12 @@ import (
 )
 
 const (
-	ResourceKindKubedbProviderGcp = "KubedbProviderGcp"
-	ResourceKubedbProviderGcp     = "kubedbprovidergcp"
-	ResourceKubedbProviderGcps    = "kubedbprovidergcps"
+	ResourceKindKubedbProviderAws = "KubedbProviderAws"
+	ResourceKubedbProviderAws     = "kubedbprovideraws"
+	ResourceKubedbProviderAwss    = "kubedbproviderawss"
 )
 
-// KubedbProviderGcp defines the schama for Kubeform AWS provider installer.
+// KubedbProviderAws defines the schama for Kubeform AWS provider installer.
 
 // +genclient
 // +genclient:skipVerbs=updateStatus
@@ -35,15 +35,15 @@ const (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:path=kubedbprovidergcps,singular=kubedbprovidergcp,categories={kubeform,appscode}
-type KubedbProviderGcp struct {
+// +kubebuilder:resource:path=kubedbproviderawss,singular=kubedbprovideraws,categories={kubeform,appscode}
+type KubedbProviderAws struct {
 	metav1.TypeMeta   `json:",inline,omitempty"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              KubedbProviderGcpSpec `json:"spec,omitempty"`
+	Spec              KubedbProviderAwsSpec `json:"spec,omitempty"`
 }
 
-// KubedbProviderGcpSpec is the schema for Identity Server values file
-type KubedbProviderGcpSpec struct {
+// KubedbProviderAwsSpec is the schema for Identity Server values file
+type KubedbProviderAwsSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
@@ -70,20 +70,19 @@ type KubedbProviderGcpSpec struct {
 	// +optional
 	Affinity   *core.Affinity    `json:"affinity"`
 	Monitoring EASMonitoring     `json:"monitoring"`
-	Gcp        GcpProviderConfig `json:"gcp"`
+	Aws        AwsProviderConfig `json:"aws"`
 }
 
-type GcpProviderConfig struct {
-	ProjectID  string `json:"projectID"`
+type AwsProviderConfig struct {
 	SecretName string `json:"secretName"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KubedbProviderGcpList is a list of KubedbProviderGcps
-type KubedbProviderGcpList struct {
+// KubedbProviderAwsList is a list of KubedbProviderAwss
+type KubedbProviderAwsList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of KubedbProviderGcp CRD objects
-	Items []KubedbProviderGcp `json:"items,omitempty"`
+	// Items is a list of KubedbProviderAws CRD objects
+	Items []KubedbProviderAws `json:"items,omitempty"`
 }

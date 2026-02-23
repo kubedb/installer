@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package v1alpha1
+package v1
 
 import (
 	core "k8s.io/api/core/v1"
@@ -23,34 +23,35 @@ import (
 )
 
 const (
-	ResourceKindKubedbAutoscaler = "KubedbAutoscaler"
-	ResourceKubedbAutoscaler     = "kubedbautoscaler"
-	ResourceKubedbAutoscalers    = "kubedbautoscalers"
+	ResourceKindKubedbProvisioner = "KubedbProvisioner"
+	ResourceKubedbProvisioner     = "kubedbprovisioner"
+	ResourceKubedbProvisioners    = "kubedbprovisioners"
 )
 
-// KubedbAutoscaler defines the schama for KubeDB Ops Manager Operator Installer.
+// KubedbProvisioner defines the schama for KubeDB Operator Installer.
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:path=kubedbautoscalers,singular=kubedbautoscaler,categories={kubedb,appscode}
-type KubedbAutoscaler struct {
+// +kubebuilder:resource:path=kubedbprovisioners,singular=kubedbprovisioner,categories={kubedb,appscode}
+type KubedbProvisioner struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              KubedbAutoscalerSpec `json:"spec,omitempty"`
+	Spec              KubedbProvisionerSpec `json:"spec,omitempty"`
 }
 
-// KubedbAutoscalerSpec is the schema for kubedb-autoscaler chart values file
-type KubedbAutoscalerSpec struct {
+// KubedbProvisionerSpec is the schema for kubedb-provisioner chart values file
+type KubedbProvisionerSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
-	FullnameOverride string    `json:"fullnameOverride"`
-	ReplicaCount     int32     `json:"replicaCount"`
-	RegistryFQDN     string    `json:"registryFQDN"`
-	Operator         Container `json:"operator"`
-	Waitfor          ImageRef  `json:"waitfor"`
-	ImagePullPolicy  string    `json:"imagePullPolicy"`
+	FullnameOverride   string    `json:"fullnameOverride"`
+	ReplicaCount       int32     `json:"replicaCount"`
+	RegistryFQDN       string    `json:"registryFQDN"`
+	InsecureRegistries []string  `json:"insecureRegistries"`
+	Operator           Container `json:"operator"`
+	Waitfor            ImageRef  `json:"waitfor"`
+	ImagePullPolicy    string    `json:"imagePullPolicy"`
 	//+optional
 	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
 	// +optional
@@ -75,48 +76,45 @@ type KubedbAutoscalerSpec struct {
 	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext"`
 	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount"`
 	Apiserver          WebHookSpec              `json:"apiserver"`
-	Monitoring         Monitoring               `json:"monitoring"`
+	// +optional
+	EnforceTerminationPolicy bool       `json:"enforceTerminationPolicy"`
+	Monitoring               Monitoring `json:"monitoring"`
+	// +optional
+	AdditionalPodSecurityPolicies []string `json:"additionalPodSecurityPolicies"`
 	// +optional
 	License string `json:"license"`
 	// +optional
-	LicenseSecretName string `json:"licenseSecretName"`
-	// +optional
-	UpdateInterval string `json:"updateInterval"`
-	// +optional
-	StorageAutoscaler StorageAutoscalerSpec `json:"storageAutoscaler"`
-	// +optional
-	Recommender Recommender `json:"recommender"`
+	LicenseSecretName string  `json:"licenseSecretName"`
+	Psp               PSPSpec `json:"psp"`
 	// +optional
 	MaxConcurrentReconciles int `json:"maxConcurrentReconciles"`
+	// List of sources to populate environment variables in the container.
+	// The keys defined within a source must be a C_IDENTIFIER. All invalid keys
+	// will be reported as an event when the container is starting. When a key exists in multiple
+	// sources, the value associated with the last source will take precedence.
+	// Values defined by an Env with a duplicate key will take precedence.
+	// Cannot be updated.
+	// +optional
+	// +listType=atomic
+	EnvFrom []core.EnvFromSource `json:"envFrom"`
+	// List of environment variables to set in the container.
+	// Cannot be updated.
+	// +optional
+	// +patchMergeKey=name
+	// +patchStrategy=merge
+	// +listType=map
+	// +listMapKey=name
+	Env []core.EnvVar `json:"env"`
 	// +optional
 	Distro shared.DistroSpec `json:"distro"`
 }
 
-type StorageAutoscalerSpec struct {
-	Prometheus PrometheusSpec `json:"prometheus"`
-}
-
-type PrometheusSpec struct {
-	Address string `json:"address"`
-	// +optional
-	BearerToken string `json:"bearerToken"`
-	// +optional
-	CACert string `json:"caCert"`
-}
-
-type Recommender struct {
-	MemoryAggregationInterval      metav1.Duration `json:"memoryAggregationInterval"`
-	MemoryAggregationIntervalCount int64           `json:"memoryAggregationIntervalCount"`
-	MemoryHistogramDecayHalfLife   metav1.Duration `json:"memoryHistogramDecayHalfLife"`
-	CpuHistogramDecayHalfLife      metav1.Duration `json:"cpuHistogramDecayHalfLife"`
-}
-
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KubedbAutoscalerList is a list of KubedbAutoscalers
-type KubedbAutoscalerList struct {
+// KubedbProvisionerList is a list of KubedbProvisioner-s
+type KubedbProvisionerList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of KubedbAutoscaler CRD objects
-	Items []KubedbAutoscaler `json:"items,omitempty"`
+	// Items is a list of KubedbProvisioner CRD objects
+	Items []KubedbProvisioner `json:"items,omitempty"`
 }

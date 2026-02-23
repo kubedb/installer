@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package v1alpha1
+package v1
 
 import (
 	core "k8s.io/api/core/v1"
@@ -23,25 +23,25 @@ import (
 )
 
 const (
-	ResourceKindKubedbDashboard = "KubedbDashboard"
-	ResourceKubedbDashboard     = "kubedbdashboard"
-	ResourceKubedbDashboards    = "kubedbdashboards"
+	ResourceKindKubedbAutoscaler = "KubedbAutoscaler"
+	ResourceKubedbAutoscaler     = "kubedbautoscaler"
+	ResourceKubedbAutoscalers    = "kubedbautoscalers"
 )
 
-// KubedbDashboard defines the schama for KubeDB Operator Installer.
+// KubedbAutoscaler defines the schama for KubeDB Ops Manager Operator Installer.
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:path=kubedbdashboards,singular=kubedbdashboard,categories={kubedb,appscode}
-type KubedbDashboard struct {
+// +kubebuilder:resource:path=kubedbautoscalers,singular=kubedbautoscaler,categories={kubedb,appscode}
+type KubedbAutoscaler struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              KubedbDashboardSpec `json:"spec,omitempty"`
+	Spec              KubedbAutoscalerSpec `json:"spec,omitempty"`
 }
 
-// KubedbDashboardSpec is the schema for kubedb-provisioner chart values file
-type KubedbDashboardSpec struct {
+// KubedbAutoscalerSpec is the schema for kubedb-autoscaler chart values file
+type KubedbAutoscalerSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
@@ -75,23 +75,48 @@ type KubedbDashboardSpec struct {
 	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext"`
 	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount"`
 	Apiserver          WebHookSpec              `json:"apiserver"`
-	// +optional
-	EnforceTerminationPolicy bool       `json:"enforceTerminationPolicy"`
-	Monitoring               Monitoring `json:"monitoring"`
+	Monitoring         Monitoring               `json:"monitoring"`
 	// +optional
 	License string `json:"license"`
 	// +optional
 	LicenseSecretName string `json:"licenseSecretName"`
 	// +optional
+	UpdateInterval string `json:"updateInterval"`
+	// +optional
+	StorageAutoscaler StorageAutoscalerSpec `json:"storageAutoscaler"`
+	// +optional
+	Recommender Recommender `json:"recommender"`
+	// +optional
+	MaxConcurrentReconciles int `json:"maxConcurrentReconciles"`
+	// +optional
 	Distro shared.DistroSpec `json:"distro"`
+}
+
+type StorageAutoscalerSpec struct {
+	Prometheus PrometheusSpec `json:"prometheus"`
+}
+
+type PrometheusSpec struct {
+	Address string `json:"address"`
+	// +optional
+	BearerToken string `json:"bearerToken"`
+	// +optional
+	CACert string `json:"caCert"`
+}
+
+type Recommender struct {
+	MemoryAggregationInterval      metav1.Duration `json:"memoryAggregationInterval"`
+	MemoryAggregationIntervalCount int64           `json:"memoryAggregationIntervalCount"`
+	MemoryHistogramDecayHalfLife   metav1.Duration `json:"memoryHistogramDecayHalfLife"`
+	CpuHistogramDecayHalfLife      metav1.Duration `json:"cpuHistogramDecayHalfLife"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KubedbDashboardList is a list of KubedbDashboard-s
-type KubedbDashboardList struct {
+// KubedbAutoscalerList is a list of KubedbAutoscalers
+type KubedbAutoscalerList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of KubedbDashboard CRD objects
-	Items []KubedbDashboard `json:"items,omitempty"`
+	// Items is a list of KubedbAutoscaler CRD objects
+	Items []KubedbAutoscaler `json:"items,omitempty"`
 }
