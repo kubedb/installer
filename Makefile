@@ -80,6 +80,8 @@ BUILD_DIRS  := bin/$(OS)_$(ARCH)     \
 
 DOCKER_REPO_ROOT := /go/src/$(GO_PKG)/$(REPO)
 
+include olm.mk
+
 # If you want to build all binaries, see the 'all-build' rule.
 # If you want to build all containers, see the 'all-container' rule.
 # If you want to build AND push all containers, see the 'all-push' rule.
