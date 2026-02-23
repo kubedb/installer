@@ -14,17 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package install
+// Package v1 is the v1 version of the API.
 
-import (
-	v1 "kubedb.dev/installer/apis/installer/v1"
+// +k8s:deepcopy-gen=package,register
+// +k8s:conversion-gen=kubedb.dev/installer/apis/installer
+// +k8s:openapi-gen=true
+// +k8s:defaulter-gen=TypeMeta
 
-	"k8s.io/apimachinery/pkg/runtime"
-	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
-)
-
-// Install registers the API group and adds types to a scheme
-func Install(scheme *runtime.Scheme) {
-	utilruntime.Must(v1.AddToScheme(scheme))
-	utilruntime.Must(scheme.SetVersionPriority(v1.SchemeGroupVersion))
-}
+// +groupName=installer.kubedb.com
+package v1
