@@ -17,7 +17,7 @@ limitations under the License.
 package fuzzer
 
 import (
-	"kubedb.dev/installer/apis/installer/v1alpha1"
+	v1 "kubedb.dev/installer/apis/installer/v1"
 
 	fuzz "github.com/google/gofuzz"
 	runtimeserializer "k8s.io/apimachinery/pkg/runtime/serializer"
@@ -26,37 +26,37 @@ import (
 // Funcs returns the fuzzer functions for this api group.
 var Funcs = func(codecs runtimeserializer.CodecFactory) []any {
 	return []any{
-		func(s *v1alpha1.KubedbAutoscaler, c fuzz.Continue) {
+		func(s *v1.KubedbAutoscaler, c fuzz.Continue) {
 			c.FuzzNoCustom(s) // fuzz self without calling this function again
 		},
-		func(s *v1alpha1.KubedbCatalog, c fuzz.Continue) {
+		func(s *v1.KubedbCatalog, c fuzz.Continue) {
 			c.FuzzNoCustom(s) // fuzz self without calling this function again
 		},
-		func(s *v1alpha1.KubedbCrdManager, c fuzz.Continue) {
+		func(s *v1.KubedbCrdManager, c fuzz.Continue) {
 			c.FuzzNoCustom(s) // fuzz self without calling this function again
 		},
-		func(s *v1alpha1.KubedbKubestashCatalog, c fuzz.Continue) {
+		func(s *v1.KubedbKubestashCatalog, c fuzz.Continue) {
 			c.FuzzNoCustom(s) // fuzz self without calling this function again
 		},
-		func(s *v1alpha1.KubedbDashboard, c fuzz.Continue) {
+		func(s *v1.KubedbDashboard, c fuzz.Continue) {
 			c.FuzzNoCustom(s) // fuzz self without calling this function again
 		},
-		func(s *v1alpha1.KubedbOpsManager, c fuzz.Continue) {
+		func(s *v1.KubedbOpsManager, c fuzz.Continue) {
 			c.FuzzNoCustom(s) // fuzz self without calling this function again
 		},
-		func(s *v1alpha1.KubedbProvisioner, c fuzz.Continue) {
+		func(s *v1.KubedbProvisioner, c fuzz.Continue) {
 			c.FuzzNoCustom(s) // fuzz self without calling this function again
 		},
-		func(s *v1alpha1.KubedbSchemaManager, c fuzz.Continue) {
+		func(s *v1.KubedbSchemaManager, c fuzz.Continue) {
 			c.FuzzNoCustom(s) // fuzz self without calling this function again
 		},
-		func(s *v1alpha1.KubedbWebhookServer, c fuzz.Continue) {
+		func(s *v1.KubedbWebhookServer, c fuzz.Continue) {
 			c.FuzzNoCustom(s) // fuzz self without calling this function again
 		},
-		func(s *v1alpha1.Kubedb, c fuzz.Continue) {
+		func(s *v1.Kubedb, c fuzz.Continue) {
 			c.FuzzNoCustom(s) // fuzz self without calling this function again
 		},
-		func(s *v1alpha1.PrepareCluster, c fuzz.Continue) {
+		func(s *v1.PrepareCluster, c fuzz.Continue) {
 			c.FuzzNoCustom(s) // fuzz self without calling this function again
 		},
 	}
