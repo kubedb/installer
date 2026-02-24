@@ -18,6 +18,11 @@
   {{ $affinity = default .Values.affinity .Values.global.affinity }}
 {{- end }}
 
+{{- $cfgmapName := .Values.versionConfigMap -}}
+{{- if .Values.global }}
+  {{ $cfgmapName = default .Values.versionConfigMap .Values.global.versionConfigMap }}
+{{- end }}
+
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -91,6 +96,7 @@ spec:
           args:
             - verify
             - --v=3
+            - --version-configmap={{ $cfgmapName }}
           {{- range $db, $enable := $featureGates }}
             - --feature-gates={{ $db }}={{ $enable }}
           {{- end }}

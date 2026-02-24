@@ -1,3 +1,5 @@
+{{- template "kubedb-catalog.refresh-versions" . }}
+
 {{ $featureGates := .Values.featureGates }}
 {{ $ubi := .Values.distro.ubi }}
 {{- if .Values.global }}
@@ -7,6 +9,7 @@
 
 {{ if and $featureGates.MySQL (not (eq $ubi "operator")) }}
 {{ if or (not .Values.skipDeprecated) (has "5" .Values.enableVersions.MySQL) }}
+
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -24,7 +27,7 @@ spec:
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/busybox") $) }}'
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.48.0-rc.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.48.0-rc.1{{ include "catalog.ubi" $ }}'
   securityContext:
     runAsUser: 999
   updateConstraints:
@@ -41,6 +44,7 @@ spec:
 
 ---
 {{ if or (not .Values.skipDeprecated) (has "5-v1" .Values.enableVersions.MySQL) }}
+
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -58,7 +62,7 @@ spec:
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/busybox") $) }}'
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.48.0-rc.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.48.0-rc.1{{ include "catalog.ubi" $ }}'
   securityContext:
     runAsUser: 999
   updateConstraints:
