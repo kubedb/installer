@@ -137,7 +137,9 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/me
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.29-alpine $IMAGE_REGISTRY/appscode-images/memcached:1.6.29-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.33-alpine $IMAGE_REGISTRY/appscode-images/memcached:1.6.33-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached_exporter:v0.14.3-ac $IMAGE_REGISTRY/appscode-images/memcached_exporter:v0.14.3-ac
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/milvus:2.6.11 $IMAGE_REGISTRY/appscode-images/milvus:2.6.11
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/milvus:2.6.7 $IMAGE_REGISTRY/appscode-images/milvus:2.6.7
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/milvus:2.6.9 $IMAGE_REGISTRY/appscode-images/milvus:2.6.9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:4.4.26 $IMAGE_REGISTRY/appscode-images/mongo:4.4.26
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:5.0.31 $IMAGE_REGISTRY/appscode-images/mongo:5.0.31
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:6.0.24 $IMAGE_REGISTRY/appscode-images/mongo:6.0.24
