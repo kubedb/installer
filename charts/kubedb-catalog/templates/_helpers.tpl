@@ -106,12 +106,12 @@ Returns if ubi images are to be used
 {{- end }}
 
 {{- if $cfgmapName }}
-{{- $cfgmap := lookup "v1" "ConfigMap" .Release.Name $cfgmapName -}}
+{{- $cfgmap := lookup "v1" "ConfigMap" $.Release.Name $cfgmapName -}}
 {{- if $cfgmap }}
 {{- range $kind, $usedVersions := $cfgmap.data }}
     {{ $usedList := splitList "," $usedVersions }}
-    {{ $userList := dig $kind (list) .Values.enableVersions }}
-    {{ $_ := set .Values.enableVersions $kind (concat $usedList $userList | uniq) }}
+    {{ $userList := dig $kind (list) $.Values.enableVersions }}
+    {{ $_ := set $.Values.enableVersions $kind (concat $usedList $userList | uniq) }}
 {{- end }}
 {{- end }}
 {{- end }}
