@@ -49,7 +49,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-cs
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssqlserver-walg-plugin-v0.15.0-rc.0.tar $IMAGE_REGISTRY/kubedb/mssqlserver-walg-plugin:v0.15.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-csi-snapshotter-plugin-v0.22.0-rc.0.tar $IMAGE_REGISTRY/kubedb/mysql-csi-snapshotter-plugin:v0.22.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-csi-snapshotter-plugin-v0.22.0-rc.0.tar $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.22.0-rc.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.24.0-rc.0_16.1.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.24.0-rc.0_16.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.24.0-rc.1_16.1.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.24.0-rc.1_16.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-aws-v0.22.0-rc.0.tar $IMAGE_REGISTRY/kubedb/provider-aws:v0.22.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-azure-v0.22.0-rc.0.tar $IMAGE_REGISTRY/kubedb/provider-azure:v0.22.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-gcp-v0.22.0-rc.0.tar $IMAGE_REGISTRY/kubedb/provider-gcp:v0.22.0-rc.0

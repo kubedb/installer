@@ -347,15 +347,12 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-ee
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-init:v0.2.0 images/kubedb-oracle-init-v0.2.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-coordinator:v0.34.0-rc.0 images/kubedb-percona-xtradb-coordinator-v0.34.0-rc.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-init:0.2.3 images/kubedb-percona-xtradb-init-0.2.3.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pg-coordinator:v0.44.0 images/kubedb-pg-coordinator-v0.44.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pg-coordinator:v0.45.0-rc.0 images/kubedb-pg-coordinator-v0.45.0-rc.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.17.0 images/kubedb-pgbouncer-1.17.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.18.0 images/kubedb-pgbouncer-1.18.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.23.1 images/kubedb-pgbouncer-1.23.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer:1.24.0 images/kubedb-pgbouncer-1.24.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pgbouncer_exporter:v0.1.1 images/kubedb-pgbouncer_exporter-v0.1.1.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.21.0_18.2-alpine images/kubedb-postgres-archiver-v0.21.0_18.2-alpine.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.21.0_18.2-bookworm images/kubedb-postgres-archiver-v0.21.0_18.2-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.22.0-rc.0_11.22-alpine images/kubedb-postgres-archiver-v0.22.0-rc.0_11.22-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.22.0-rc.0_11.22-bookworm images/kubedb-postgres-archiver-v0.22.0-rc.0_11.22-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.22.0-rc.0_12.17-alpine images/kubedb-postgres-archiver-v0.22.0-rc.0_12.17-alpine.tar
@@ -370,9 +367,11 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.22.0-rc.0_16.1-bookworm images/kubedb-postgres-archiver-v0.22.0-rc.0_16.1-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.22.0-rc.0_17.2-alpine images/kubedb-postgres-archiver-v0.22.0-rc.0_17.2-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.22.0-rc.0_17.2-bookworm images/kubedb-postgres-archiver-v0.22.0-rc.0_17.2-bookworm.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.22.0-rc.0_18.2-alpine images/kubedb-postgres-archiver-v0.22.0-rc.0_18.2-alpine.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.22.0-rc.0_18.2-bookworm images/kubedb-postgres-archiver-v0.22.0-rc.0_18.2-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.22.0-rc.0 images/kubedb-postgres-csi-snapshotter-plugin-v0.22.0-rc.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.18.0 images/kubedb-postgres-init-0.18.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.24.0-rc.0_16.1 images/kubedb-postgres-restic-plugin-v0.24.0-rc.0_16.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.24.0-rc.1_16.1 images/kubedb-postgres-restic-plugin-v0.24.0-rc.1_16.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-aws:v0.22.0-rc.0 images/kubedb-provider-aws-v0.22.0-rc.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-azure:v0.22.0-rc.0 images/kubedb-provider-azure-v0.22.0-rc.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-gcp:v0.22.0-rc.0 images/kubedb-provider-gcp-v0.22.0-rc.0.tar
@@ -419,7 +418,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure mysql/mysql-router:8.0.3
 $CMD pull --allow-nondistributable-artifacts --insecure neo4j:2025.10.1-enterprise images/library-neo4j-2025.10.1-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure neo4j:2025.11.2-enterprise images/library-neo4j-2025.11.2-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure neo4j:2025.12.1-enterprise images/library-neo4j-2025.12.1-enterprise.tar
-$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-distribution-postgresql:16.11 images/percona-percona-distribution-postgresql-16.11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:4.4.26 images/percona-percona-server-mongodb-4.4.26.tar
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:5.0.29 images/percona-percona-server-mongodb-5.0.29.tar
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:6.0.24 images/percona-percona-server-mongodb-6.0.24.tar
@@ -427,7 +425,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-m
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:7.0.28 images/percona-percona-server-mongodb-7.0.28.tar
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:8.0.17 images/percona-percona-server-mongodb-8.0.17.tar
 $CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:8.0.8 images/percona-percona-server-mongodb-8.0.8.tar
-$CMD pull --allow-nondistributable-artifacts --insecure perconalab/percona-distribution-postgresql:17.7 images/perconalab-percona-distribution-postgresql-17.7.tar
 $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:11-3.3 images/postgis-postgis-11-3.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:12-3.4 images/postgis-postgis-12-3.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:13-3.4 images/postgis-postgis-13-3.4.tar

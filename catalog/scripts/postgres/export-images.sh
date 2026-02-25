@@ -100,10 +100,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.2-alpine images/appscode-images-postgres-18.2-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.2-bookworm images/appscode-images-postgres-18.2-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/migrator-cli:v0.1.0-rc.0 images/kubedb-migrator-cli-v0.1.0-rc.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pg-coordinator:v0.44.0 images/kubedb-pg-coordinator-v0.44.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pg-coordinator:v0.45.0-rc.0 images/kubedb-pg-coordinator-v0.45.0-rc.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.21.0_18.2-alpine images/kubedb-postgres-archiver-v0.21.0_18.2-alpine.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.21.0_18.2-bookworm images/kubedb-postgres-archiver-v0.21.0_18.2-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.22.0-rc.0_11.22-alpine images/kubedb-postgres-archiver-v0.22.0-rc.0_11.22-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.22.0-rc.0_11.22-bookworm images/kubedb-postgres-archiver-v0.22.0-rc.0_11.22-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.22.0-rc.0_12.17-alpine images/kubedb-postgres-archiver-v0.22.0-rc.0_12.17-alpine.tar
@@ -118,9 +115,9 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.22.0-rc.0_16.1-bookworm images/kubedb-postgres-archiver-v0.22.0-rc.0_16.1-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.22.0-rc.0_17.2-alpine images/kubedb-postgres-archiver-v0.22.0-rc.0_17.2-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.22.0-rc.0_17.2-bookworm images/kubedb-postgres-archiver-v0.22.0-rc.0_17.2-bookworm.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.22.0-rc.0_18.2-alpine images/kubedb-postgres-archiver-v0.22.0-rc.0_18.2-alpine.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.22.0-rc.0_18.2-bookworm images/kubedb-postgres-archiver-v0.22.0-rc.0_18.2-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.18.0 images/kubedb-postgres-init-0.18.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-distribution-postgresql:16.11 images/percona-percona-distribution-postgresql-16.11.tar
-$CMD pull --allow-nondistributable-artifacts --insecure perconalab/percona-distribution-postgresql:17.7 images/perconalab-percona-distribution-postgresql-17.7.tar
 $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:11-3.3 images/postgis-postgis-11-3.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:12-3.4 images/postgis-postgis-12-3.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:13-3.4 images/postgis-postgis-13-3.4.tar

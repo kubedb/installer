@@ -341,15 +341,12 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-ee-
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-init-v0.2.0.tar $IMAGE_REGISTRY/kubedb/oracle-init:v0.2.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-coordinator-v0.34.0-rc.0.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-coordinator:v0.34.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-init-0.2.3.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-init:0.2.3
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pg-coordinator-v0.44.0.tar $IMAGE_REGISTRY/kubedb/pg-coordinator:v0.44.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pg-coordinator-v0.45.0-rc.0.tar $IMAGE_REGISTRY/kubedb/pg-coordinator:v0.45.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pgbouncer-1.17.0.tar $IMAGE_REGISTRY/kubedb/pgbouncer:1.17.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pgbouncer-1.18.0.tar $IMAGE_REGISTRY/kubedb/pgbouncer:1.18.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pgbouncer-1.23.1.tar $IMAGE_REGISTRY/kubedb/pgbouncer:1.23.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pgbouncer-1.24.0.tar $IMAGE_REGISTRY/kubedb/pgbouncer:1.24.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pgbouncer_exporter-v0.1.1.tar $IMAGE_REGISTRY/kubedb/pgbouncer_exporter:v0.1.1
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.21.0_18.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.21.0_18.2-alpine
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.21.0_18.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.21.0_18.2-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.22.0-rc.0_11.22-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.22.0-rc.0_11.22-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.22.0-rc.0_11.22-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.22.0-rc.0_11.22-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.22.0-rc.0_12.17-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.22.0-rc.0_12.17-alpine
@@ -364,9 +361,11 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-a
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.22.0-rc.0_16.1-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.22.0-rc.0_16.1-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.22.0-rc.0_17.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.22.0-rc.0_17.2-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.22.0-rc.0_17.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.22.0-rc.0_17.2-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.22.0-rc.0_18.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.22.0-rc.0_18.2-alpine
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.22.0-rc.0_18.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.22.0-rc.0_18.2-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-csi-snapshotter-plugin-v0.22.0-rc.0.tar $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.22.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-init-0.18.0.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.18.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.24.0-rc.0_16.1.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.24.0-rc.0_16.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.24.0-rc.1_16.1.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.24.0-rc.1_16.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-aws-v0.22.0-rc.0.tar $IMAGE_REGISTRY/kubedb/provider-aws:v0.22.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-azure-v0.22.0-rc.0.tar $IMAGE_REGISTRY/kubedb/provider-azure:v0.22.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-gcp-v0.22.0-rc.0.tar $IMAGE_REGISTRY/kubedb/provider-gcp:v0.22.0-rc.0
@@ -413,7 +412,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/mysql-mysql-route
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2025.10.1-enterprise.tar $IMAGE_REGISTRY/neo4j:2025.10.1-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2025.11.2-enterprise.tar $IMAGE_REGISTRY/neo4j:2025.11.2-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2025.12.1-enterprise.tar $IMAGE_REGISTRY/neo4j:2025.12.1-enterprise
-$CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-distribution-postgresql-16.11.tar $IMAGE_REGISTRY/percona/percona-distribution-postgresql:16.11
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-4.4.26.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:4.4.26
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-5.0.29.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:5.0.29
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-6.0.24.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:6.0.24
@@ -421,7 +419,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-s
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-7.0.28.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:7.0.28
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-8.0.17.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:8.0.17
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-8.0.8.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:8.0.8
-$CMD push --allow-nondistributable-artifacts --insecure images/perconalab-percona-distribution-postgresql-17.7.tar $IMAGE_REGISTRY/perconalab/percona-distribution-postgresql:17.7
 $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-11-3.3.tar $IMAGE_REGISTRY/postgis/postgis:11-3.3
 $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-12-3.4.tar $IMAGE_REGISTRY/postgis/postgis:12-3.4
 $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-13-3.4.tar $IMAGE_REGISTRY/postgis/postgis:13-3.4

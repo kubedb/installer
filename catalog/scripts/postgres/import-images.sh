@@ -94,10 +94,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-p
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-18.2-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:18.2-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-18.2-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:18.2-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-migrator-cli-v0.1.0-rc.0.tar $IMAGE_REGISTRY/kubedb/migrator-cli:v0.1.0-rc.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pg-coordinator-v0.44.0.tar $IMAGE_REGISTRY/kubedb/pg-coordinator:v0.44.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pg-coordinator-v0.45.0-rc.0.tar $IMAGE_REGISTRY/kubedb/pg-coordinator:v0.45.0-rc.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.21.0_18.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.21.0_18.2-alpine
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.21.0_18.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.21.0_18.2-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.22.0-rc.0_11.22-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.22.0-rc.0_11.22-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.22.0-rc.0_11.22-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.22.0-rc.0_11.22-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.22.0-rc.0_12.17-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.22.0-rc.0_12.17-alpine
@@ -112,9 +109,9 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-a
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.22.0-rc.0_16.1-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.22.0-rc.0_16.1-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.22.0-rc.0_17.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.22.0-rc.0_17.2-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.22.0-rc.0_17.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.22.0-rc.0_17.2-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.22.0-rc.0_18.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.22.0-rc.0_18.2-alpine
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.22.0-rc.0_18.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.22.0-rc.0_18.2-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-init-0.18.0.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.18.0
-$CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-distribution-postgresql-16.11.tar $IMAGE_REGISTRY/percona/percona-distribution-postgresql:16.11
-$CMD push --allow-nondistributable-artifacts --insecure images/perconalab-percona-distribution-postgresql-17.7.tar $IMAGE_REGISTRY/perconalab/percona-distribution-postgresql:17.7
 $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-11-3.3.tar $IMAGE_REGISTRY/postgis/postgis:11-3.3
 $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-12-3.4.tar $IMAGE_REGISTRY/postgis/postgis:12-3.4
 $CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-13-3.4.tar $IMAGE_REGISTRY/postgis/postgis:13-3.4
