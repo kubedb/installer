@@ -198,12 +198,16 @@ k3s ctr images import images/appscode-images-postgres-14.17-alpine.tar
 k3s ctr images import images/appscode-images-postgres-14.17-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-14.18-alpine.tar
 k3s ctr images import images/appscode-images-postgres-14.18-bookworm.tar
+k3s ctr images import images/appscode-images-postgres-14.21-alpine.tar
+k3s ctr images import images/appscode-images-postgres-14.21-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-15.10-alpine.tar
 k3s ctr images import images/appscode-images-postgres-15.10-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-15.12-alpine.tar
 k3s ctr images import images/appscode-images-postgres-15.12-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-15.13-alpine.tar
 k3s ctr images import images/appscode-images-postgres-15.13-bookworm.tar
+k3s ctr images import images/appscode-images-postgres-15.16-alpine.tar
+k3s ctr images import images/appscode-images-postgres-15.16-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-15.5-alpine.tar
 k3s ctr images import images/appscode-images-postgres-15.5-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-15.8-alpine.tar
@@ -212,6 +216,8 @@ k3s ctr images import images/appscode-images-postgres-16.1-alpine.tar
 k3s ctr images import images/appscode-images-postgres-16.1-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-16.10-alpine.tar
 k3s ctr images import images/appscode-images-postgres-16.10-bookworm.tar
+k3s ctr images import images/appscode-images-postgres-16.12-alpine.tar
+k3s ctr images import images/appscode-images-postgres-16.12-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-16.4-alpine.tar
 k3s ctr images import images/appscode-images-postgres-16.4-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-16.6-alpine.tar
@@ -226,6 +232,10 @@ k3s ctr images import images/appscode-images-postgres-17.4-alpine.tar
 k3s ctr images import images/appscode-images-postgres-17.4-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-17.5-alpine.tar
 k3s ctr images import images/appscode-images-postgres-17.5-bookworm.tar
+k3s ctr images import images/appscode-images-postgres-17.8-alpine.tar
+k3s ctr images import images/appscode-images-postgres-17.8-bookworm.tar
+k3s ctr images import images/appscode-images-postgres-18.2-alpine.tar
+k3s ctr images import images/appscode-images-postgres-18.2-bookworm.tar
 k3s ctr images import images/appscode-images-rabbitmq-3.12.12-management-alpine.tar
 k3s ctr images import images/appscode-images-rabbitmq-3.13.2-management-alpine.tar
 k3s ctr images import images/appscode-images-rabbitmq-4.0.4-management-alpine.tar
@@ -263,7 +273,6 @@ k3s ctr images import images/appscode-images-zookeeper-3.8.3.tar
 k3s ctr images import images/appscode-images-zookeeper-3.9.1.tar
 k3s ctr images import images/appscode-kubectl-nonroot-1.34.tar
 k3s ctr images import images/appscode-petset-v0.0.16.tar
-k3s ctr images import images/appscode-sidekick-v0.0.13.tar
 k3s ctr images import images/appscode-sidekick-v0.0.14.tar
 k3s ctr images import images/kubedb-cassandra-init-4.1.6-v2.tar
 k3s ctr images import images/kubedb-cassandra-init-5.0.0-v2.tar
@@ -300,7 +309,9 @@ k3s ctr images import images/kubedb-mariadb-archiver-v0.21.0-rc.1_11.2.2-jammy.t
 k3s ctr images import images/kubedb-mariadb-coordinator-v0.41.0-rc.1.tar
 k3s ctr images import images/kubedb-mariadb-csi-snapshotter-plugin-v0.21.0-rc.1.tar
 k3s ctr images import images/kubedb-mariadb-init-0.8.0.tar
+k3s ctr images import images/kubedb-migrator-cli-v0.1.0-rc.0.tar
 k3s ctr images import images/kubedb-migrator-cli-v0.1.0-rc.1.tar
+k3s ctr images import images/kubedb-migrator-operator-v0.1.0-rc.0.tar
 k3s ctr images import images/kubedb-migrator-operator-v0.1.0-rc.1.tar
 k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.22.0-rc.1.tar
 k3s ctr images import images/kubedb-mongodb-init-4.2-v9.tar
@@ -332,6 +343,7 @@ k3s ctr images import images/kubedb-oracle-ee-21.3.0.tar
 k3s ctr images import images/kubedb-oracle-init-v0.2.0.tar
 k3s ctr images import images/kubedb-percona-xtradb-coordinator-v0.34.0-rc.1.tar
 k3s ctr images import images/kubedb-percona-xtradb-init-0.2.3.tar
+k3s ctr images import images/kubedb-pg-coordinator-v0.45.0-rc.0.tar
 k3s ctr images import images/kubedb-pg-coordinator-v0.45.0-rc.1.tar
 k3s ctr images import images/kubedb-pgbouncer-1.17.0.tar
 k3s ctr images import images/kubedb-pgbouncer-1.18.0.tar
@@ -352,8 +364,10 @@ k3s ctr images import images/kubedb-postgres-archiver-v0.22.0-rc.1_16.1-alpine.t
 k3s ctr images import images/kubedb-postgres-archiver-v0.22.0-rc.1_16.1-bookworm.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.22.0-rc.1_17.2-alpine.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.22.0-rc.1_17.2-bookworm.tar
+k3s ctr images import images/kubedb-postgres-archiver-v0.22.0-rc.1_18.2-alpine.tar
+k3s ctr images import images/kubedb-postgres-archiver-v0.22.0-rc.1_18.2-bookworm.tar
 k3s ctr images import images/kubedb-postgres-csi-snapshotter-plugin-v0.22.0-rc.1.tar
-k3s ctr images import images/kubedb-postgres-init-0.18.0.tar
+k3s ctr images import images/kubedb-postgres-init-0.19.0.tar
 k3s ctr images import images/kubedb-postgres-restic-plugin-v0.24.0-rc.1_16.1.tar
 k3s ctr images import images/kubedb-provider-aws-v0.22.0-rc.1.tar
 k3s ctr images import images/kubedb-provider-azure-v0.22.0-rc.1.tar
