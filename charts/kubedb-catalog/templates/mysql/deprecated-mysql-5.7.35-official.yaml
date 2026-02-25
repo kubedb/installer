@@ -1,3 +1,5 @@
+{{- template "kubedb-catalog.refresh-versions" . }}
+
 {{ $featureGates := .Values.featureGates }}
 {{ $ubi := .Values.distro.ubi }}
 {{- if .Values.global }}
@@ -7,6 +9,7 @@
 
 {{ if and $featureGates.MySQL (not (eq $ubi "operator")) }}
 {{ if or (not .Values.skipDeprecated) (has "5.7.35" .Values.enableVersions.MySQL) }}
+
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -24,7 +27,7 @@ spec:
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:5.7'
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.48.0-rc.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.48.0-rc.1{{ include "catalog.ubi" $ }}'
   securityContext:
     runAsUser: 999
   stash:
@@ -47,6 +50,7 @@ spec:
 
 ---
 {{ if or (not .Values.skipDeprecated) (has "5.7.35-v1" .Values.enableVersions.MySQL) }}
+
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -55,7 +59,7 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.39.0-rc.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.39.0-rc.1{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "mysql") $) }}:5.7.35'
   distribution: Official
@@ -66,7 +70,7 @@ spec:
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:5.7-v3'
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.48.0-rc.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.48.0-rc.1{{ include "catalog.ubi" $ }}'
   securityContext:
     runAsUser: 999
   stash:
