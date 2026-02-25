@@ -69,6 +69,7 @@ k3s ctr images import images/appscode-images-kafka-connect-cluster-3.7.2.tar
 k3s ctr images import images/appscode-images-kafka-connect-cluster-3.8.1.tar
 k3s ctr images import images/appscode-images-kafka-connect-cluster-3.9.0.tar
 k3s ctr images import images/appscode-images-kafka-connect-cluster-4.0.0.tar
+k3s ctr images import images/appscode-images-kafka-connect-cluster-4.2.0.tar
 k3s ctr images import images/appscode-images-kafka-connector-gcs-0.13.0.tar
 k3s ctr images import images/appscode-images-kafka-connector-jdbc-2.6.1.final.tar
 k3s ctr images import images/appscode-images-kafka-connector-jdbc-2.7.4.final.tar
@@ -86,12 +87,14 @@ k3s ctr images import images/appscode-images-kafka-cruise-control-3.7.2.tar
 k3s ctr images import images/appscode-images-kafka-cruise-control-3.8.1.tar
 k3s ctr images import images/appscode-images-kafka-cruise-control-3.9.0.tar
 k3s ctr images import images/appscode-images-kafka-cruise-control-4.0.0.tar
+k3s ctr images import images/appscode-images-kafka-cruise-control-4.2.0.tar
 k3s ctr images import images/appscode-images-kafka-kraft-3.5.2.tar
 k3s ctr images import images/appscode-images-kafka-kraft-3.6.1.tar
 k3s ctr images import images/appscode-images-kafka-kraft-3.7.2.tar
 k3s ctr images import images/appscode-images-kafka-kraft-3.8.1.tar
 k3s ctr images import images/appscode-images-kafka-kraft-3.9.0.tar
 k3s ctr images import images/appscode-images-kafka-4.0.0.tar
+k3s ctr images import images/appscode-images-kafka-4.2.0.tar
 k3s ctr images import images/appscode-images-kibana-6.8.23.tar
 k3s ctr images import images/appscode-images-kibana-7.17.15.tar
 k3s ctr images import images/appscode-images-kibana-7.17.28.tar
@@ -434,6 +437,7 @@ k3s ctr images import images/prometheuscommunity-elasticsearch-exporter-v1.10.0.
 k3s ctr images import images/prometheuscommunity-postgres-exporter-v0.18.1.tar
 k3s ctr images import images/qdrant-qdrant-v1.15.4-unprivileged.tar
 k3s ctr images import images/qdrant-qdrant-v1.16.2-unprivileged.tar
+k3s ctr images import images/qdrant-qdrant-v1.17.0-unprivileged.tar
 k3s ctr images import images/git-sync-git-sync-v4.4.2.tar
 k3s ctr images import images/saplabs-hanaexpress-2.00.082.00.20250528.1.tar
 k3s ctr images import images/singlestore-cluster-in-a-box-alma-8.1.32-e3d3cde6da-4.0.16-1.17.6.tar

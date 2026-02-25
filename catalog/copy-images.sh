@@ -80,6 +80,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ka
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.8.1 $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.8.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.9.0 $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.9.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:4.0.0 $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:4.0.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:4.2.0 $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:4.2.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-gcs:0.13.0 $IMAGE_REGISTRY/appscode-images/kafka-connector-gcs:0.13.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-jdbc:2.6.1.final $IMAGE_REGISTRY/appscode-images/kafka-connector-jdbc:2.6.1.final
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-jdbc:2.7.4.final $IMAGE_REGISTRY/appscode-images/kafka-connector-jdbc:2.7.4.final
@@ -97,12 +98,14 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ka
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:3.8.1 $IMAGE_REGISTRY/appscode-images/kafka-cruise-control:3.8.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:3.9.0 $IMAGE_REGISTRY/appscode-images/kafka-cruise-control:3.9.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:4.0.0 $IMAGE_REGISTRY/appscode-images/kafka-cruise-control:4.0.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:4.2.0 $IMAGE_REGISTRY/appscode-images/kafka-cruise-control:4.2.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.5.2 $IMAGE_REGISTRY/appscode-images/kafka-kraft:3.5.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.6.1 $IMAGE_REGISTRY/appscode-images/kafka-kraft:3.6.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.7.2 $IMAGE_REGISTRY/appscode-images/kafka-kraft:3.7.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.8.1 $IMAGE_REGISTRY/appscode-images/kafka-kraft:3.8.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.9.0 $IMAGE_REGISTRY/appscode-images/kafka-kraft:3.9.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka:4.0.0 $IMAGE_REGISTRY/appscode-images/kafka:4.0.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka:4.2.0 $IMAGE_REGISTRY/appscode-images/kafka:4.2.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:6.8.23 $IMAGE_REGISTRY/appscode-images/kibana:6.8.23
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:7.17.15 $IMAGE_REGISTRY/appscode-images/kibana:7.17.15
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:7.17.28 $IMAGE_REGISTRY/appscode-images/kibana:7.17.28
@@ -445,6 +448,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure prometheuscommunity/elasti
 $CMD cp --allow-nondistributable-artifacts --insecure prometheuscommunity/postgres-exporter:v0.18.1 $IMAGE_REGISTRY/prometheuscommunity/postgres-exporter:v0.18.1
 $CMD cp --allow-nondistributable-artifacts --insecure qdrant/qdrant:v1.15.4-unprivileged $IMAGE_REGISTRY/qdrant/qdrant:v1.15.4-unprivileged
 $CMD cp --allow-nondistributable-artifacts --insecure qdrant/qdrant:v1.16.2-unprivileged $IMAGE_REGISTRY/qdrant/qdrant:v1.16.2-unprivileged
+$CMD cp --allow-nondistributable-artifacts --insecure qdrant/qdrant:v1.17.0-unprivileged $IMAGE_REGISTRY/qdrant/qdrant:v1.17.0-unprivileged
 $CMD cp --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.4.2 $IMAGE_REGISTRY/git-sync/git-sync:v4.4.2
 $CMD cp --allow-nondistributable-artifacts --insecure saplabs/hanaexpress:2.00.082.00.20250528.1 $IMAGE_REGISTRY/saplabs/hanaexpress:2.00.082.00.20250528.1
 $CMD cp --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6 $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6
