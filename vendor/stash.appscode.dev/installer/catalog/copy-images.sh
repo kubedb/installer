@@ -38,6 +38,7 @@ CMD="./crane"
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.31 $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.31
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/kubedump:0.2.0-v6 $IMAGE_REGISTRY/stashed/kubedump:0.2.0-v6
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/stash-crd-installer:v0.42.0 $IMAGE_REGISTRY/stashed/stash-crd-installer:v0.42.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/stash-crd-installer:v0.42.1 $IMAGE_REGISTRY/stashed/stash-crd-installer:v0.42.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/stash-elasticsearch:5.6.4-v38 $IMAGE_REGISTRY/stashed/stash-elasticsearch:5.6.4-v38
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/stash-elasticsearch:6.2.4-v38 $IMAGE_REGISTRY/stashed/stash-elasticsearch:6.2.4-v38
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/stash-elasticsearch:6.3.0-v38 $IMAGE_REGISTRY/stashed/stash-elasticsearch:6.3.0-v38
@@ -48,7 +49,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/stash-elas
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/stash-elasticsearch:7.2.0-v38 $IMAGE_REGISTRY/stashed/stash-elasticsearch:7.2.0-v38
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/stash-elasticsearch:7.3.2-v38 $IMAGE_REGISTRY/stashed/stash-elasticsearch:7.3.2-v38
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/stash-elasticsearch:8.2.0-v21 $IMAGE_REGISTRY/stashed/stash-elasticsearch:8.2.0-v21
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/stash-enterprise:v0.42.0 $IMAGE_REGISTRY/stashed/stash-enterprise:v0.42.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/stash-enterprise:v0.42.1 $IMAGE_REGISTRY/stashed/stash-enterprise:v0.42.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/stash-etcd:3.5.0-v25 $IMAGE_REGISTRY/stashed/stash-etcd:3.5.0-v25
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/stash-mariadb:10.6.23-v1 $IMAGE_REGISTRY/stashed/stash-mariadb:10.6.23-v1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/stash-mongodb:3.4.17-v39 $IMAGE_REGISTRY/stashed/stash-mongodb:3.4.17-v39
@@ -83,6 +84,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/stash-post
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/stash-postgres:15.1-v18 $IMAGE_REGISTRY/stashed/stash-postgres:15.1-v18
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/stash-postgres:16.1-v7 $IMAGE_REGISTRY/stashed/stash-postgres:16.1-v7
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/stash-postgres:17.2-v5 $IMAGE_REGISTRY/stashed/stash-postgres:17.2-v5
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/stash-postgres:18.2 $IMAGE_REGISTRY/stashed/stash-postgres:18.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/stash-postgres:9.6.19-v37 $IMAGE_REGISTRY/stashed/stash-postgres:9.6.19-v37
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/stash-redis:5.0.13-v26 $IMAGE_REGISTRY/stashed/stash-redis:5.0.13-v26
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/stashed/stash-redis:6.2.5-v26 $IMAGE_REGISTRY/stashed/stash-redis:6.2.5-v26
