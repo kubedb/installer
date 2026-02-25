@@ -13,12 +13,12 @@ require (
 	gomodules.xyz/semvers v0.0.2
 	k8s.io/api v0.34.3
 	k8s.io/apimachinery v0.34.3
-	kmodules.xyz/client-go v0.34.2
+	kmodules.xyz/client-go v0.34.3
 	kmodules.xyz/go-containerregistry v0.0.15
 	kmodules.xyz/image-packer v0.0.0-20251207101219-5eac37d8b469
-	kmodules.xyz/resource-metadata v0.42.1
+	kmodules.xyz/resource-metadata v0.42.4
 	kmodules.xyz/schema-checker v0.4.2
-	kubedb.dev/apimachinery v0.61.0-rc.1
+	kubedb.dev/apimachinery v0.61.0-rc.1.0.20260225065941-f29876fbf7e0
 	kubeops.dev/installer v0.0.0-20251215120607-2679d0cb5864
 	sigs.k8s.io/yaml v1.6.0
 	stash.appscode.dev/installer v0.12.2-0.20260224175756-ac464b38bf6c
@@ -71,7 +71,7 @@ require (
 	github.com/huandu/xstrings v1.5.0 // indirect
 	github.com/imdario/mergo v0.3.16 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/klauspost/compress v1.18.1 // indirect
+	github.com/klauspost/compress v1.18.2 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.5 // indirect
 	github.com/mattn/go-runewidth v0.0.13 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
