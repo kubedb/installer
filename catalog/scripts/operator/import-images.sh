@@ -28,7 +28,6 @@ CMD="./crane"
 
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-kubectl-nonroot-1.34.tar $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.34
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.0.16.tar $IMAGE_REGISTRY/appscode/petset:v0.0.16
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.13.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.13
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.14.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.14
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-medusa-plugin-v0.8.0-rc.1.tar $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.8.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.19.0-rc.1.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.19.0-rc.1
