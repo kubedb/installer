@@ -1,3 +1,5 @@
+{{- template "kubedb-catalog.refresh-versions" . }}
+
 {{ $featureGates := .Values.featureGates }}
 {{ $ubi := .Values.distro.ubi }}
 {{- if .Values.global }}
@@ -6,7 +8,8 @@
 {{- end }}
 
 {{ if and $featureGates.Postgres (not (eq $ubi "operator")) }}
-{{ if or (not .Values.skipDeprecated) (has "11.20" .Values.enableVersions.Postgres) }}{{ if or (not .Values.skipEndOfLife) (has "11.20" .Values.enableVersions.Postgres) }}
+{{ if or (not .Values.skipDeprecated) (has "11.20" .Values.enableVersions.Postgres) }}
+{{ if or (not .Values.skipEndOfLife) (has "11.20" .Values.enableVersions.Postgres) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -29,9 +32,9 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "v0.21.0") $) }}'
+      image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "v0.22.0-rc.1") $) }}'
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.44.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.45.0-rc.1{{ include "catalog.ubi" $ }}'
   db:
     baseOS: alpine
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:11.20-alpine'
@@ -61,7 +64,8 @@ spec:
 {{ end }}
 
 ---
-{{ if or (not .Values.skipDeprecated) (has "11.20-bullseye" .Values.enableVersions.Postgres) }}{{ if or (not .Values.skipEndOfLife) (has "11.20-bullseye" .Values.enableVersions.Postgres) }}
+{{ if or (not .Values.skipDeprecated) (has "11.20-bullseye" .Values.enableVersions.Postgres) }}
+{{ if or (not .Values.skipEndOfLife) (has "11.20-bullseye" .Values.enableVersions.Postgres) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -84,9 +88,9 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "v0.21.0") $) }}'
+      image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "v0.22.0-rc.1") $) }}'
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.44.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.45.0-rc.1{{ include "catalog.ubi" $ }}'
   db:
     baseOS: bullseye
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "postgres") $) }}:11.20-bullseye'

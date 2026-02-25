@@ -18,7 +18,6 @@ package conditions
 
 import (
 	"fmt"
-	"slices"
 
 	kmapi "kmodules.xyz/client-go/api/v1"
 
@@ -171,8 +170,10 @@ func (s Status) String() string {
 // not a valid status.
 func StatusFromStringOrDie(text string) Status {
 	s := Status(text)
-	if slices.Contains(Statuses, s) {
-		return s
+	for _, r := range Statuses {
+		if s == r {
+			return s
+		}
 	}
 	panic(fmt.Errorf("string has invalid status: %s", s))
 }

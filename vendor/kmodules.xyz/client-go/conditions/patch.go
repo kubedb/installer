@@ -19,7 +19,6 @@ package conditions
 import (
 	"fmt"
 	"reflect"
-	"slices"
 
 	kmapi "kmodules.xyz/client-go/api/v1"
 
@@ -88,7 +87,12 @@ type applyOptions struct {
 }
 
 func (o *applyOptions) isOwnedCondition(t kmapi.ConditionType) bool {
-	return slices.Contains(o.ownedConditions, t)
+	for _, i := range o.ownedConditions {
+		if i == t {
+			return true
+		}
+	}
+	return false
 }
 
 // ApplyOption defines an option for applying a condition patch.

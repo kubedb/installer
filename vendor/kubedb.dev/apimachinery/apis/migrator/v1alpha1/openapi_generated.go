@@ -28732,9 +28732,8 @@ func schema_kmodulesxyz_client_go_api_v1_ClusterClaimFeatures(ref common.Referen
 				Properties: map[string]spec.Schema{
 					"enabledFeatures": {
 						SchemaProps: spec.SchemaProps{
-							Type: []string{"object"},
-							AdditionalProperties: &spec.SchemaOrBool{
-								Allows: true,
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: "",
