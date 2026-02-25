@@ -1,5 +1,5 @@
 /*
-Copyright 2025.
+Copyright AppsCode Inc. and Contributors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -101,7 +101,34 @@ type Neo4jSpec struct {
 
 	// TLS contains tls configurations
 	// +optional
-	TLS *kmapi.TLSConfig `json:"tls,omitempty"`
+	TLS *Neo4jTLSConfig `json:"tls,omitempty"`
+}
+
+type Neo4jTLSConfig struct {
+	kmapi.TLSConfig `json:",inline"`
+	// +optional
+	Bolt *ProtocolTLSConfig `json:"bolt,omitempty"`
+	// +optional
+	HTTP *ProtocolTLSConfig `json:"http,omitempty"`
+	// +optional
+	Cluster *ProtocolTLSConfig `json:"cluster,omitempty"`
+	// Keystore encryption secret
+	// +optional
+	KeystoreCredSecret *SecretReference `json:"keystoreCredSecret,omitempty"`
+}
+
+type TLSMode string
+
+const (
+	TLSModeDisabled TLSMode = "Disabled"
+	TLSModeTLS      TLSMode = "TLS"
+	TLSModeMTLS     TLSMode = "mTLS"
+)
+
+type ProtocolTLSConfig struct {
+	// +kubebuilder:validation:Enum=Disabled;TLS;mTLS
+	// +optional
+	Mode TLSMode `json:"mode,omitempty"`
 }
 
 // Neo4jStatus defines the observed state of Neo4j.
@@ -136,6 +163,17 @@ const (
 	Neo4jProtocolTCPBoltRouting Neo4jProtocol = "tcp-boltrouting"
 	Neo4jProtocolTCPRaft        Neo4jProtocol = "tcp-raft"
 	Neo4jProtocolTCPTx          Neo4jProtocol = "tcp-tx"
+)
+
+// +kubebuilder:validation:Enum=ca;bolt;http;client;server
+type Neo4jCertificateType string
+
+const (
+	Neo4jCertificateTypeCA     Neo4jCertificateType = "ca"
+	Neo4jCertificateTypeBolt   Neo4jCertificateType = "bolt"
+	Neo4jCertificateTypeHTTP   Neo4jCertificateType = "http"
+	Neo4jCertificateTypeClient Neo4jCertificateType = "client"
+	Neo4jCertificateTypeServer Neo4jCertificateType = "server"
 )
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

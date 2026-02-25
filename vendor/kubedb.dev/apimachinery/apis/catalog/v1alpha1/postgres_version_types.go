@@ -17,6 +17,8 @@ limitations under the License.
 package v1alpha1
 
 import (
+	"kubedb.dev/apimachinery/apis/migrator/v1alpha1"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	appcat "kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1"
 )
@@ -53,6 +55,11 @@ type PostgresVersion struct {
 type PostgresVersionSpec struct {
 	// Version
 	Version string `json:"version"`
+
+	// EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/
+	// +optional
+	EndOfLife bool `json:"endOfLife"`
+
 	// Distribution
 	Distribution PostgresDistro `json:"distribution,omitempty"`
 	// init container image
@@ -85,6 +92,9 @@ type PostgresVersionSpec struct {
 	Archiver ArchiverSpec `json:"archiver,omitempty"`
 	// +optional
 	UI []ChartInfo `json:"ui,omitempty"`
+	// Migrator defines the migration related CLI/Tools images for this Postgres version
+	// +optional
+	Migrator v1alpha1.DBMigratorImages `json:"migrator,omitempty"`
 }
 
 // PostgresVersionInitContainer is the Postgres init container image

@@ -32,6 +32,7 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/klog/v2"
 	"k8s.io/utils/ptr"
+	kmapi "kmodules.xyz/client-go/api/v1"
 	"kmodules.xyz/client-go/apiextensions"
 	coreutil "kmodules.xyz/client-go/core/v1"
 	meta_util "kmodules.xyz/client-go/meta"
@@ -55,6 +56,13 @@ func (r *Neo4j) GetAuthSecretName() string {
 		return r.Spec.AuthSecret.Name
 	}
 	return meta_util.NameWithSuffix(r.OffshootName(), "auth")
+}
+
+func (r *Neo4j) GetKeystoreSecretName() string {
+	if r.Spec.TLS.KeystoreCredSecret != nil && r.Spec.TLS.KeystoreCredSecret.Name != "" {
+		return r.Spec.TLS.KeystoreCredSecret.Name
+	}
+	return meta_util.NameWithSuffix(r.OffshootName(), "keystore-cred")
 }
 
 func (r *Neo4j) OffshootName() string {
@@ -141,7 +149,7 @@ func (r *Neo4j) SetDefaults(kc client.Client) {
 			r.Spec.Monitor.Prometheus = &mona.PrometheusSpec{}
 		}
 		if r.Spec.Monitor.Prometheus.Exporter.Port == 0 {
-			r.Spec.Monitor.Prometheus.Exporter.Port = kubedb.Neo4jPrometheusPort
+			r.Spec.Monitor.Prometheus.Exporter.Port = kubedb.Neo4jExporterPort
 		}
 		r.Spec.Monitor.SetDefaults()
 		if r.Spec.Monitor.Prometheus.Exporter.SecurityContext.RunAsUser == nil {
@@ -152,10 +160,35 @@ func (r *Neo4j) SetDefaults(kc client.Client) {
 		}
 	}
 
+	r.SetTLSDefaults()
+
 	dbContainer := coreutil.GetContainerByName(r.Spec.PodTemplate.Spec.Containers, kubedb.Neo4jContainerName)
 	if dbContainer != nil && (dbContainer.Resources.Requests == nil && dbContainer.Resources.Limits == nil) {
 		apis.SetDefaultResourceLimits(&dbContainer.Resources, kubedb.DefaultResourcesNeo4j)
 	}
+}
+
+func (r *Neo4j) SetTLSDefaults() {
+	if r.Spec.TLS == nil || r.Spec.TLS.IssuerRef == nil {
+		return
+	}
+	if r.Spec.TLS.HTTP == nil {
+		r.Spec.TLS.HTTP = &ProtocolTLSConfig{
+			Mode: TLSModeTLS,
+		}
+	}
+	if r.Spec.TLS.Bolt == nil {
+		r.Spec.TLS.Bolt = &ProtocolTLSConfig{
+			Mode: TLSModeTLS,
+		}
+	}
+	if r.Spec.TLS.Cluster == nil {
+		r.Spec.TLS.Cluster = &ProtocolTLSConfig{
+			Mode: TLSModeMTLS,
+		}
+	}
+	r.Spec.TLS.Certificates = kmapi.SetMissingSecretNameForCertificate(r.Spec.TLS.Certificates, string(Neo4jCertificateTypeServer), r.CertificateName(Neo4jCertificateTypeServer))
+	r.Spec.TLS.Certificates = kmapi.SetMissingSecretNameForCertificate(r.Spec.TLS.Certificates, string(Neo4jCertificateTypeClient), r.CertificateName(Neo4jCertificateTypeClient))
 }
 
 func (r *Neo4j) setDefaultContainerSecurityContext(neoVersion *catalog.Neo4jVersion, podTemplate *ofst.PodTemplateSpec) {
@@ -262,7 +295,10 @@ func (r *Neo4j) AppBindingMeta() appcat.AppBindingMeta {
 }
 
 func (r *Neo4j) GetConnectionScheme() string {
-	scheme := "http" // TODO:()
+	scheme := "http"
+	if r.Spec.TLS != nil && r.Spec.TLS.HTTP.Mode != TLSModeDisabled {
+		scheme = "https"
+	}
 	return scheme
 }
 
@@ -308,7 +344,11 @@ func (r neo4jStatsService) Path() string {
 }
 
 func (r neo4jStatsService) Scheme() string {
-	return ""
+	scheme := "http"
+	if r.Spec.TLS != nil && r.Spec.TLS.HTTP.Mode != TLSModeDisabled {
+		scheme = "https"
+	}
+	return scheme
 }
 
 func (r neo4jStatsService) TLSConfig() *promapi.TLSConfig {
@@ -321,4 +361,20 @@ func (r *Neo4j) StatsService() mona.StatsAccessor {
 
 func (r *Neo4j) StatsServiceLabels() map[string]string {
 	return r.ServiceLabels(StatsServiceAlias, map[string]string{kubedb.LabelRole: kubedb.RoleStats})
+}
+
+// GetCertSecretName returns the secret name for a certificate alias if any,
+// otherwise returns default certificate secret name for the given alias.
+func (r *Neo4j) GetCertSecretName(alias Neo4jCertificateType) string {
+	if r.Spec.TLS != nil {
+		name, ok := kmapi.GetCertificateSecretName(r.Spec.TLS.Certificates, string(alias))
+		if ok {
+			return name
+		}
+	}
+	return r.CertificateName(alias)
+}
+
+func (r *Neo4j) CertificateName(alias Neo4jCertificateType) string {
+	return meta_util.NameWithSuffix(r.Name, fmt.Sprintf("%s-cert", string(alias)))
 }

@@ -1,5 +1,5 @@
 /*
-Copyright 2023.
+Copyright AppsCode Inc. and Contributors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -51,6 +51,11 @@ type RabbitMQVersion struct {
 type RabbitMQVersionSpec struct {
 	// Version
 	Version string `json:"version"`
+
+	// EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/
+	// +optional
+	EndOfLife bool `json:"endOfLife"`
+
 	// Database Image
 	DB RabbitMQVersionDatabase `json:"db"`
 	// Database Image
