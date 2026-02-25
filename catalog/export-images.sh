@@ -77,6 +77,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.8.1 images/appscode-images-kafka-connect-cluster-3.8.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.9.0 images/appscode-images-kafka-connect-cluster-3.9.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:4.0.0 images/appscode-images-kafka-connect-cluster-4.0.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:4.2.0 images/appscode-images-kafka-connect-cluster-4.2.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-gcs:0.13.0 images/appscode-images-kafka-connector-gcs-0.13.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-jdbc:2.6.1.final images/appscode-images-kafka-connector-jdbc-2.6.1.final.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connector-jdbc:2.7.4.final images/appscode-images-kafka-connector-jdbc-2.7.4.final.tar
@@ -94,12 +95,14 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:3.8.1 images/appscode-images-kafka-cruise-control-3.8.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:3.9.0 images/appscode-images-kafka-cruise-control-3.9.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:4.0.0 images/appscode-images-kafka-cruise-control-4.0.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-cruise-control:4.2.0 images/appscode-images-kafka-cruise-control-4.2.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.5.2 images/appscode-images-kafka-kraft-3.5.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.6.1 images/appscode-images-kafka-kraft-3.6.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.7.2 images/appscode-images-kafka-kraft-3.7.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.8.1 images/appscode-images-kafka-kraft-3.8.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-kraft:3.9.0 images/appscode-images-kafka-kraft-3.9.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka:4.0.0 images/appscode-images-kafka-4.0.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka:4.2.0 images/appscode-images-kafka-4.2.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:6.8.23 images/appscode-images-kibana-6.8.23.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:7.17.15 images/appscode-images-kibana-7.17.15.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:7.17.28 images/appscode-images-kibana-7.17.28.tar
@@ -442,6 +445,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/elas
 $CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/postgres-exporter:v0.18.1 images/prometheuscommunity-postgres-exporter-v0.18.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure qdrant/qdrant:v1.15.4-unprivileged images/qdrant-qdrant-v1.15.4-unprivileged.tar
 $CMD pull --allow-nondistributable-artifacts --insecure qdrant/qdrant:v1.16.2-unprivileged images/qdrant-qdrant-v1.16.2-unprivileged.tar
+$CMD pull --allow-nondistributable-artifacts --insecure qdrant/qdrant:v1.17.0-unprivileged images/qdrant-qdrant-v1.17.0-unprivileged.tar
 $CMD pull --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.4.2 images/git-sync-git-sync-v4.4.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure saplabs/hanaexpress:2.00.082.00.20250528.1 images/saplabs-hanaexpress-2.00.082.00.20250528.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6 images/singlestore-cluster-in-a-box-alma-8.1.32-e3d3cde6da-4.0.16-1.17.6.tar
