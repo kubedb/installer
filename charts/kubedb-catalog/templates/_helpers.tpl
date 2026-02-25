@@ -106,7 +106,7 @@ Returns if ubi images are to be used
 {{- end }}
 
 {{- if $cfgmapName }}
-{{- $cfgmap := lookup "v1" "ConfigMap" $.Release.Name $cfgmapName -}}
+{{- $cfgmap := lookup "v1" "ConfigMap" $.Release.Namespace $cfgmapName -}}
 {{- if $cfgmap }}
 {{- range $kind, $usedVersions := $cfgmap.data }}
     {{ $usedList := splitList "," $usedVersions }}
