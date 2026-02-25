@@ -73,6 +73,25 @@ webhooks:
   sideEffects: None
   matchPolicy: Equivalent
 {{- end }}
+{{- if $featureGates.DocumentDB }}
+- name: documentdbwebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-documentdb
+      port: 443
+    caBundle: {{ $._caCrt }}
+  rules:
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["documentdbs"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+  matchPolicy: Equivalent
+{{- end }}
 {{- if $featureGates.Druid }}
 - name: druidwebhook.validators.kubedb.com
   clientConfig:
