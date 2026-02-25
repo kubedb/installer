@@ -27,6 +27,7 @@ tar -zxvf $TARBALL
 k3s ctr images import images/appscode-kubectl-nonroot-1.31.tar
 k3s ctr images import images/stashed-kubedump-0.2.0-v6.tar
 k3s ctr images import images/stashed-stash-crd-installer-v0.42.0.tar
+k3s ctr images import images/stashed-stash-crd-installer-v0.42.1.tar
 k3s ctr images import images/stashed-stash-elasticsearch-5.6.4-v38.tar
 k3s ctr images import images/stashed-stash-elasticsearch-6.2.4-v38.tar
 k3s ctr images import images/stashed-stash-elasticsearch-6.3.0-v38.tar
@@ -37,7 +38,7 @@ k3s ctr images import images/stashed-stash-elasticsearch-7.14.0-v24.tar
 k3s ctr images import images/stashed-stash-elasticsearch-7.2.0-v38.tar
 k3s ctr images import images/stashed-stash-elasticsearch-7.3.2-v38.tar
 k3s ctr images import images/stashed-stash-elasticsearch-8.2.0-v21.tar
-k3s ctr images import images/stashed-stash-enterprise-v0.42.0.tar
+k3s ctr images import images/stashed-stash-enterprise-v0.42.1.tar
 k3s ctr images import images/stashed-stash-etcd-3.5.0-v25.tar
 k3s ctr images import images/stashed-stash-mariadb-10.6.23-v1.tar
 k3s ctr images import images/stashed-stash-mongodb-3.4.17-v39.tar
@@ -72,6 +73,7 @@ k3s ctr images import images/stashed-stash-postgres-14.0-v26.tar
 k3s ctr images import images/stashed-stash-postgres-15.1-v18.tar
 k3s ctr images import images/stashed-stash-postgres-16.1-v7.tar
 k3s ctr images import images/stashed-stash-postgres-17.2-v5.tar
+k3s ctr images import images/stashed-stash-postgres-18.2.tar
 k3s ctr images import images/stashed-stash-postgres-9.6.19-v37.tar
 k3s ctr images import images/stashed-stash-redis-5.0.13-v26.tar
 k3s ctr images import images/stashed-stash-redis-6.2.5-v26.tar
