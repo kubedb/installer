@@ -1,3 +1,5 @@
+{{- template "kubedb-catalog.refresh-versions" . }}
+
 {{ $featureGates := .Values.featureGates }}
 {{ $ubi := .Values.distro.ubi }}
 {{- if .Values.global }}
@@ -6,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.MongoDB (not (eq $ubi "operator")) }}
+
 
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
@@ -40,7 +43,7 @@ spec:
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb-init") $) }}:6.0-v11'
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.47.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.48.0-rc.1{{ include "catalog.ubi" $ }}'
   securityContext:
     runAsGroup: 999
     runAsUser: 999

@@ -1,3 +1,5 @@
+{{- template "kubedb-catalog.refresh-versions" . }}
+
 {{ $featureGates := .Values.featureGates }}
 {{ $ubi := .Values.distro.ubi }}
 {{- if .Values.global }}
@@ -6,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.MariaDB (not (eq $ubi "operator")) }}
+
 {{ if or (not .Values.skipEndOfLife) (has "11.2.2" .Values.enableVersions.MariaDB) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MariaDBVersion
@@ -29,9 +32,9 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-archiver") $) }}:v0.20.0_11.2.2-jammy'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-archiver") $) }}:v0.21.0-rc.1_11.2.2-jammy'
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-coordinator") $) }}:v0.40.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-coordinator") $) }}:v0.41.0-rc.1{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mariadb") $) }}:11.2.2-jammy'
   exporter:

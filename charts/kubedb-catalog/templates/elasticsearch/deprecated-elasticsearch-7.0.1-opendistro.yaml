@@ -1,3 +1,5 @@
+{{- template "kubedb-catalog.refresh-versions" . }}
+
 {{ $featureGates := .Values.featureGates }}
 {{ $ubi := .Values.distro.ubi }}
 {{- if .Values.global }}
@@ -7,6 +9,7 @@
 
 {{ if and $featureGates.Elasticsearch (not (eq $ubi "operator")) }}
 {{ if or (not .Values.skipDeprecated) (has "opendistro-1.0.2" .Values.enableVersions.Elasticsearch) }}
+
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
@@ -46,6 +49,7 @@ spec:
 
 ---
 {{ if or (not .Values.skipDeprecated) (has "opendistro-1.0.2-v1" .Values.enableVersions.Elasticsearch) }}
+
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:

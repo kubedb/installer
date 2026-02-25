@@ -21,7 +21,7 @@ BIN      := installer
 CRD_OPTIONS          ?= "crd:crdVersions={v1}"
 # https://github.com/appscodelabs/gengo-builder
 CODE_GENERATOR_IMAGE ?= ghcr.io/appscode/gengo:release-1.32
-API_GROUPS           ?= installer:v1alpha1
+API_GROUPS           ?= installer:v1
 
 # This version-strategy uses git tags to set the version string
 git_branch       := $(shell git rev-parse --abbrev-ref HEAD)
@@ -79,6 +79,8 @@ BUILD_DIRS  := bin/$(OS)_$(ARCH)     \
                $(HOME)/.minikube
 
 DOCKER_REPO_ROOT := /go/src/$(GO_PKG)/$(REPO)
+
+include olm.mk
 
 # If you want to build all binaries, see the 'all-build' rule.
 # If you want to build all containers, see the 'all-container' rule.
@@ -174,6 +176,8 @@ gen-crds:
 			$(CRD_OPTIONS)                  \
 			paths="./apis/..."              \
 			output:crd:artifacts:config=.crds
+	@cp .crds/installer.kubedb.com_kubedbs.yaml bundle/manifests/installer.kubedb.com_kubedbs.yaml
+	@cp .crds/installer.kubedb.com_kubedbs.yaml config/crd/bases/installer.kubedb.com_kubedbs.yaml
 
 crds_to_patch :=
 
