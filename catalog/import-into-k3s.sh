@@ -287,6 +287,7 @@ k3s ctr images import images/kubedb-druid-init-28.0.1.tar
 k3s ctr images import images/kubedb-druid-init-30.0.1.tar
 k3s ctr images import images/kubedb-druid-init-31.0.0.tar
 k3s ctr images import images/kubedb-elasticsearch-restic-plugin-v0.24.0-rc.1.tar
+k3s ctr images import images/kubedb-hanadb-coordinator-v0.1.0.tar
 k3s ctr images import images/kubedb-hazelcast-init-5.5.2.tar
 k3s ctr images import images/kubedb-ignite-init-2.17.0-v2.tar
 k3s ctr images import images/kubedb-kafka-init-4.0-v2.tar
@@ -343,6 +344,7 @@ k3s ctr images import images/kubedb-mysql-router-init-v0.39.0-rc.1.tar
 k3s ctr images import images/kubedb-mysqld-exporter-v0.18.0.tar
 k3s ctr images import images/kubedb-oracle-coordinator-v0.7.0-rc.1.tar
 k3s ctr images import images/kubedb-oracle-ee-21.3.0.tar
+k3s ctr images import images/kubedb-oracle-exporter-2.2.1.tar
 k3s ctr images import images/kubedb-oracle-init-v0.2.0.tar
 k3s ctr images import images/kubedb-percona-xtradb-coordinator-v0.34.0-rc.1.tar
 k3s ctr images import images/kubedb-percona-xtradb-init-0.2.3.tar

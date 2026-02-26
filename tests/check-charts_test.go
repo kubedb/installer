@@ -52,6 +52,7 @@ var archSkipList = []string{
 	"ghcr.io/kubedb/db2-coordinator:v0.2.0-rc.1-ubi",
 	"ghcr.io/kubedb/mysql-archiver:v0.22.0-rc.1_5.7.44",
 	"ghcr.io/kubedb/mysql-init:5.7-v7",
+	"ghcr.io/kubedb/oracle-exporter:2.2.1",
 	"ghcr.io/kubedb/oracle-ee:21.3.0",
 	"ghcr.io/kubedb/proxysql-exporter:v1.1.0",
 	"ibmcom/db2:11.5.8.0",
