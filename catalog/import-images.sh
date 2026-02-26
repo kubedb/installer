@@ -289,6 +289,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-30.0.1.tar $IMAGE_REGISTRY/kubedb/druid-init:30.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-31.0.0.tar $IMAGE_REGISTRY/kubedb/druid-init:31.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-elasticsearch-restic-plugin-v0.24.0-rc.1.tar $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.24.0-rc.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-hanadb-coordinator-v0.1.0.tar $IMAGE_REGISTRY/kubedb/hanadb-coordinator:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-hazelcast-init-5.5.2.tar $IMAGE_REGISTRY/kubedb/hazelcast-init:5.5.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-ignite-init-2.17.0-v2.tar $IMAGE_REGISTRY/kubedb/ignite-init:2.17.0-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kafka-init-4.0-v2.tar $IMAGE_REGISTRY/kubedb/kafka-init:4.0-v2
@@ -345,6 +346,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-rout
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysqld-exporter-v0.18.0.tar $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.18.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-coordinator-v0.7.0-rc.1.tar $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.7.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-ee-21.3.0.tar $IMAGE_REGISTRY/kubedb/oracle-ee:21.3.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-exporter-2.2.1.tar $IMAGE_REGISTRY/kubedb/oracle-exporter:2.2.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-init-v0.2.0.tar $IMAGE_REGISTRY/kubedb/oracle-init:v0.2.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-coordinator-v0.34.0-rc.1.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-coordinator:v0.34.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-init-0.2.3.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-init:0.2.3
