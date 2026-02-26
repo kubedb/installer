@@ -27,4 +27,5 @@ tar -zxvf $TARBALL
 k3s ctr images import images/library-busybox-1.36.tar
 k3s ctr images import images/kubedb-oracle-coordinator-v0.7.0-rc.1.tar
 k3s ctr images import images/kubedb-oracle-ee-21.3.0.tar
+k3s ctr images import images/kubedb-oracle-exporter-2.2.1.tar
 k3s ctr images import images/kubedb-oracle-init-v0.2.0.tar
