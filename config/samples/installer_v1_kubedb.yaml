@@ -3,55 +3,129 @@ kind: Kubedb
 metadata:
   name: kubedb-sample
 spec:
-  # Default values copied from <project_dir>/helm-charts/kubedb/values.yaml
-  affinity: {}
-  autoscaling:
-    enabled: false
-    maxReplicas: 100
-    minReplicas: 1
-    targetCPUUtilizationPercentage: 80
-  fullnameOverride: ""
-  image:
-    pullPolicy: IfNotPresent
-    repository: nginx
-    tag: ""
-  imagePullSecrets: []
-  ingress:
-    annotations: {}
-    className: ""
-    enabled: false
-    hosts:
-    - host: chart-example.local
-      paths:
-      - path: /
-        pathType: ImplementationSpecific
-    tls: []
-  livenessProbe:
-    httpGet:
-      path: /
-      port: http
+  # Default values copied from <project_dir>/charts/kubedb/values.yaml
   nameOverride: ""
-  nodeSelector: {}
-  podAnnotations: {}
+  fullnameOverride: ""
+  global:
+    license: ""
+    licenseSecretName: ""
+    registry: ""
+    registryFQDN: ""
+    insecureRegistries: []
+    imagePullSecrets: []
+    featureGates:
+      Cassandra: false
+      ClickHouse: false
+      DB2: false
+      Druid: false
+      Elasticsearch: true
+      FerretDB: false
+      HanaDB: false
+      Hazelcast: false
+      Ignite: false
+      Kafka: true
+      MariaDB: true
+      Memcached: false
+      Milvus: false
+      MongoDB: true
+      MSSQLServer: false
+      MySQL: true
+      Neo4j: false
+      Oracle: false
+      PerconaXtraDB: false
+      PgBouncer: false
+      Pgpool: false
+      Postgres: true
+      ProxySQL: false
+      Qdrant: false
+      RabbitMQ: false
+      Redis: true
+      Singlestore: false
+      Solr: false
+      Weaviate: false
+      ZooKeeper: false
+    versionConfigMap: kubedb-active-versions
+    monitoring:
+      agent: ""
+      serviceMonitor:
+        labels:
+          monitoring.appscode.com/prometheus: auto
+    maxConcurrentReconciles: 0
+    nodeSelector:
+      kubernetes.io/os: linux
+    tolerations: []
+    affinity: {}
+    waitForWebhook: true
+    networkPolicy:
+      enabled: false
+    distro:
+      openshift: false
+      ubi: ""
+  petset:
+    enabled: true
+  operator-shard-manager:
+    enabled: false
+  sidekick:
+    enabled: true
+  supervisor:
+    enabled: false
+  kubedb-crd-manager:
+    enabled: true
+  kubedb-provisioner:
+    enabled: true
+  kubedb-webhook-server:
+    enabled: true
+  kubedb-ops-manager:
+    enabled: true
+  kubedb-autoscaler:
+    enabled: true
+  kubedb-schema-manager:
+    enabled: false
+  kubedb-metrics:
+    enabled: false
+  kubedb-catalog:
+    enabled: true
+  kubedb-kubestash-catalog:
+    enabled: true
+  kubedb-migrator:
+    enabled: false
+  ace-user-roles:
+    enabled: true
+    enableClusterRoles:
+      ace: false
+      appcatalog: true
+      catalog: false
+      cert-manager: false
+      kubedb-ui: false
+      kubedb: true
+      kubestash: false
+      kubevault: false
+      license-proxyserver: true
+      metrics: true
+      prometheus: false
+      secrets-store: false
+      stash: false
+      virtual-secrets: false
+  registryFQDN: ghcr.io
+  tester:
+    registry: appscode
+    repository: kubectl-nonroot
+    tag: '1.34'
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - ALL
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+      runAsUser: 65534
+      seccompProfile:
+        type: RuntimeDefault
+    resources: {}
+  imagePullSecrets: []
+  imagePullPolicy: IfNotPresent
   podLabels: {}
   podSecurityContext: {}
-  readinessProbe:
-    httpGet:
-      path: /
-      port: http
-  replicaCount: 1
-  resources: {}
-  securityContext: {}
-  service:
-    port: 80
-    type: ClusterIP
-  serviceAccount:
-    annotations: {}
-    automount: true
-    create: true
-    name: ""
+  nodeSelector: {}
   tolerations: []
-  volumeMounts: []
-  volumes: []
-  
-  
+  affinity: {}

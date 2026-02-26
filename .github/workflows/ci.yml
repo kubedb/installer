@@ -269,14 +269,18 @@ jobs:
           yqq w -i ./charts/kubedb/ci/ci-values.yaml global.license --tag '!!str' -- "${LICENSE_KEY}"
           yqq w -i ./charts/kubedb-certified/ci/ci-values.yaml global.license --tag '!!str' -- "${LICENSE_KEY}"
 
-
 #      - name: Setup upterm session
 #        uses: lhotari/action-upterm@v1
+
+      - name: Test Catalog
+        run: |
+          kubectl create -f crds/kubedb-catalog-crds.yaml
+          find catalog/kubedb/raw -name "*.yaml" ! -name "*psp*" -exec kubectl apply -f {} \;
+
       - name: Test charts
         run: |
           export KUBECONFIG="${HOME}/.kube/config"
           ./hack/scripts/ct.sh
-
 
       - name: Check metrics configuration
         run: |
