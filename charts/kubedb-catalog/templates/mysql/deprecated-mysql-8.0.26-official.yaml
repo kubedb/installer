@@ -17,6 +17,8 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.41.0{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql") $) }}:8.0.26'
   distribution: Official
@@ -27,7 +29,7 @@ spec:
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:8.0.21'
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.48.0-rc.1{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.50.0{{ include "catalog.ubi" $ }}'
   securityContext:
     runAsUser: 999
   stash:

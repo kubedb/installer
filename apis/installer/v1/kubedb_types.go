@@ -43,6 +43,7 @@ type Kubedb struct {
 
 // KubedbSpec is the schema for kubedb chart values file
 type KubedbSpec struct {
+	//+optional
 	Global GlobalValues `json:"global"`
 
 	//+optional
@@ -90,10 +91,13 @@ type KubedbSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
-	FullnameOverride string    `json:"fullnameOverride"`
-	RegistryFQDN     string    `json:"registryFQDN"`
-	Tester           Container `json:"tester"`
-	ImagePullPolicy  string    `json:"imagePullPolicy"`
+	FullnameOverride string `json:"fullnameOverride"`
+	//+optional
+	RegistryFQDN string `json:"registryFQDN"`
+	//+optional
+	Tester Container `json:"tester"`
+	//+optional
+	ImagePullPolicy string `json:"imagePullPolicy"`
 	//+optional
 	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
 	//+optional
@@ -188,16 +192,24 @@ type AceUserRolesValues struct {
 }
 
 type GlobalValues struct {
-	License            string   `json:"license"`
-	LicenseSecretName  string   `json:"licenseSecretName"`
-	Registry           string   `json:"registry"`
-	RegistryFQDN       string   `json:"registryFQDN"`
+	//+optional
+	License string `json:"license"`
+	//+optional
+	LicenseSecretName string `json:"licenseSecretName"`
+	//+optional
+	Registry string `json:"registry"`
+	//+optional
+	RegistryFQDN string `json:"registryFQDN"`
+	//+optional
 	InsecureRegistries []string `json:"insecureRegistries"`
 	//+optional
 	ImagePullSecrets []core.LocalObjectReference `json:"imagePullSecrets"`
-	FeatureGates     map[string]bool             `json:"featureGates"`
-	VersionConfigMap string                      `json:"versionConfigMap"`
-	Monitoring       EASMonitoring               `json:"monitoring"`
+	//+optional
+	FeatureGates map[string]bool `json:"featureGates"`
+	//+optional
+	VersionConfigMap string `json:"versionConfigMap"`
+	//+optional
+	Monitoring EASMonitoring `json:"monitoring"`
 	// +optional
 	MaxConcurrentReconciles int `json:"maxConcurrentReconciles"`
 	// +optional
@@ -207,8 +219,9 @@ type GlobalValues struct {
 	Tolerations []core.Toleration `json:"tolerations"`
 	// If specified, the pod's scheduling constraints
 	// +optional
-	Affinity       *core.Affinity `json:"affinity"`
-	WaitForWebhook bool           `json:"waitForWebhook"`
+	Affinity *core.Affinity `json:"affinity"`
+	//+optional
+	WaitForWebhook bool `json:"waitForWebhook"`
 	// +optional
 	NetworkPolicy NetworkPolicySpec `json:"networkPolicy"`
 	// +optional
