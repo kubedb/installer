@@ -19,28 +19,41 @@ package catalog
 import (
 	"embed"
 	"encoding/json"
+	"flag"
+	iofs "io/fs"
+	"os"
+
+	"github.com/spf13/pflag"
 )
 
-//go:embed raw
+//go:embed raw *.json
 var raw embed.FS
 
-//go:embed active_versions.json
-var activeVersions []byte
+var dirCatalog = ""
 
-//go:embed backup_tasks.json
-var backupTasks []byte
+func AddFlags(fs *pflag.FlagSet) {
+	fs.StringVar(&dirCatalog, "kubedb-catalog-dir", dirCatalog, "Path to kubedb-catalog directory")
+}
 
-//go:embed restore_tasks.json
-var restoreTasks []byte
+func AddGoFlags(fs *flag.FlagSet) {
+	fs.StringVar(&dirCatalog, "kubedb-catalog-dir", dirCatalog, "Path to kubedb-catalog directory")
+}
 
-func FS() embed.FS {
-	return raw
+func FS() iofs.FS {
+	if dirCatalog == "" {
+		return raw
+	}
+	return os.DirFS(dirCatalog)
 }
 
 func ActiveDBVersions() map[string][]string {
-	out := map[string][]string{}
+	activeVersions, err := iofs.ReadFile(FS(), "active_versions.json")
+	if err != nil {
+		panic(err)
+	}
 
-	err := json.Unmarshal(activeVersions, &out)
+	out := map[string][]string{}
+	err = json.Unmarshal(activeVersions, &out)
 	if err != nil {
 		panic(err)
 	}
@@ -48,9 +61,13 @@ func ActiveDBVersions() map[string][]string {
 }
 
 func BackupTasks() map[string][]string {
-	out := map[string][]string{}
+	backupTasks, err := iofs.ReadFile(FS(), "backup_tasks.json")
+	if err != nil {
+		panic(err)
+	}
 
-	err := json.Unmarshal(backupTasks, &out)
+	out := map[string][]string{}
+	err = json.Unmarshal(backupTasks, &out)
 	if err != nil {
 		panic(err)
 	}
@@ -58,9 +75,13 @@ func BackupTasks() map[string][]string {
 }
 
 func RestoreTasks() map[string][]string {
-	out := map[string][]string{}
+	restoreTasks, err := iofs.ReadFile(FS(), "restore_tasks.json")
+	if err != nil {
+		panic(err)
+	}
 
-	err := json.Unmarshal(restoreTasks, &out)
+	out := map[string][]string{}
+	err = json.Unmarshal(restoreTasks, &out)
 	if err != nil {
 		panic(err)
 	}
