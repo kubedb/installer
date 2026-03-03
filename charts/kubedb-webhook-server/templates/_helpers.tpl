@@ -128,7 +128,11 @@ Prepare certs
 {{- $caCrt := "" }}
 {{- $serverCrt := "" }}
 {{- $serverKey := "" }}
-{{- if .Values.apiserver.servingCerts.generate }}
+{{- if .Values.apiserver.servingCerts.certManager.enabled }}
+{{- $caCrt = "" }}
+{{- $serverCrt = "" }}
+{{- $serverKey = "" }}
+{{- else if .Values.apiserver.servingCerts.generate }}
 {{- $ca := genCA "ca" 3650 }}
 {{- $cn := include "kubedb-webhook-server.fullname" . -}}
 {{- $altName1 := printf "%s.%s" $cn .Release.Namespace }}
@@ -147,5 +151,23 @@ Prepare certs
 {{ $_ := set $ "_serverCrt" $serverCrt }}
 {{ $_ := set $ "_serverKey" $serverKey }}
 
+{{- end }}
+{{- end }}
+
+{{/*
+Webhook CA bundle helper
+*/}}
+{{- define "kubedb-webhook-server.webhook-ca-bundle" -}}
+{{- if not .Values.apiserver.servingCerts.certManager.enabled }}
+caBundle: {{ $._caCrt }}
+{{- end }}
+{{- end }}
+
+{{/*
+Webhook CA injection annotations
+*/}}
+{{- define "kubedb-webhook-server.webhook-ca-inject-annotations" -}}
+{{- if .Values.apiserver.servingCerts.certManager.enabled }}
+cert-manager.io/inject-ca-from-secret: {{ printf "%s/%s-cert" .Release.Namespace (include "kubedb-webhook-server.fullname" .) }}
 {{- end }}
 {{- end }}

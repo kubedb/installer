@@ -95,8 +95,20 @@ type WebhookAPIServerSpec struct {
 	CA                         string             `json:"ca"`
 	UseKubeapiserverFqdnForAks bool               `json:"useKubeapiserverFqdnForAks"`
 	Healthcheck                EASHealthcheckSpec `json:"healthcheck"`
-	ServingCerts               ServingCerts       `json:"servingCerts"`
+	ServingCerts               WebhookServerCerts `json:"servingCerts"`
 	Webhook                    WebhookSpec        `json:"webhook"`
+}
+
+type WebhookServerCerts struct {
+	Generate bool `json:"generate"`
+	// +optional
+	CertManager CertManagerCerts `json:"certManager"`
+	// +optional
+	CaCrt string `json:"caCrt"`
+	// +optional
+	ServerCrt string `json:"serverCrt"`
+	// +optional
+	ServerKey string `json:"serverKey"`
 }
 
 type WebhookSpec struct {
