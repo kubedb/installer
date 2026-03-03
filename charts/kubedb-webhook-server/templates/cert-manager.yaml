@@ -1,0 +1,36 @@
+{{- if .Values.apiserver.servingCerts.certManager.enabled }}
+{{- $fullname := include "kubedb-webhook-server.fullname" . }}
+{{- $issuerRef := .Values.apiserver.servingCerts.certManager.issuerRef }}
+{{- $issuerName := default (printf "%s-selfsign" $fullname) $issuerRef.name }}
+{{- $issuerKind := default "Issuer" $issuerRef.kind }}
+{{- $issuerGroup := default "cert-manager.io" $issuerRef.group }}
+{{- if not $issuerRef.name }}
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: {{ $issuerName }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
+spec:
+  selfSigned: {}
+---
+{{- end }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ $fullname }}-serving-cert
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
+spec:
+  secretName: {{ $fullname }}-cert
+  dnsNames:
+  - {{ $fullname }}
+  - {{ $fullname }}.{{ .Release.Namespace }}
+  - {{ $fullname }}.{{ .Release.Namespace }}.svc
+  issuerRef:
+    name: {{ $issuerName }}
+    kind: {{ $issuerKind }}
+    group: {{ $issuerGroup }}
+{{- end }}
