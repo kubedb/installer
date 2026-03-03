@@ -15,6 +15,11 @@ metadata:
   labels:
     app.kubernetes.io/component: kubedb-autoscaler
     {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
+  {{- $caInject := include "kubedb-webhook-server.webhook-ca-inject-annotations" . }}
+  {{- if $caInject }}
+  annotations:
+    {{- $caInject | nindent 4 }}
+  {{- end }}
 webhooks:
 {{- if $featureGates.Cassandra }}
 - name: cassandraautoscalerwebhook.validators.autoscaling.kubedb.com
@@ -24,7 +29,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-cassandraautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -42,7 +47,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-clickhouseautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -60,7 +65,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-druidautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -78,7 +83,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-elasticsearchautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -96,7 +101,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-ferretdbautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -114,7 +119,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-hazelcastautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -132,7 +137,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-kafkaautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -150,7 +155,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-mariadbautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -168,7 +173,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-memcachedautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -186,7 +191,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-mongodbautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -204,7 +209,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-mssqlserverautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -222,7 +227,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-mysqlautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -240,7 +245,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-perconaxtradbautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -258,7 +263,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-pgbouncerautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -276,7 +281,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-pgpoolautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -294,7 +299,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-postgresautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -312,7 +317,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-proxysqlautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -330,7 +335,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-rabbitmqautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -348,7 +353,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-redisautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -364,7 +369,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-redissentinelautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -382,7 +387,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-singlestoreautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -400,7 +405,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-solrautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
@@ -418,7 +423,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-autoscaling-kubedb-com-v1alpha1-zookeeperautoscaler
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]

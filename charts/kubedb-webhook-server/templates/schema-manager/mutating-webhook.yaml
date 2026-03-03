@@ -15,6 +15,11 @@ metadata:
   labels:
     app.kubernetes.io/component: kubedb-schema-manager
     {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
+  {{- $caInject := include "kubedb-webhook-server.webhook-ca-inject-annotations" . }}
+  {{- if $caInject }}
+  annotations:
+    {{- $caInject | nindent 4 }}
+  {{- end }}
 webhooks:
 {{- if $featureGates.MariaDB }}
 - name: mariadbdatabasewebhook.mutators.schema.kubedb.com
@@ -24,7 +29,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-schema-kubedb-com-v1alpha1-mariadbdatabase
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["schema.kubedb.com"]
       apiVersions: ["*"]
@@ -42,7 +47,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-schema-kubedb-com-v1alpha1-mongodbdatabase
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
   - apiGroups: ["schema.kubedb.com"]
     apiVersions: ["*"]
@@ -60,7 +65,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-schema-kubedb-com-v1alpha1-mysqldatabase
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["schema.kubedb.com"]
       apiVersions: ["*"]
@@ -78,7 +83,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-schema-kubedb-com-v1alpha1-postgresdatabase
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["schema.kubedb.com"]
       apiVersions: ["*"]

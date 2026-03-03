@@ -15,6 +15,11 @@ metadata:
   labels:
     app.kubernetes.io/component: kubedb-dashboard
     {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
+  {{- $caInject := include "kubedb-webhook-server.webhook-ca-inject-annotations" . }}
+  {{- if $caInject }}
+  annotations:
+    {{- $caInject | nindent 4 }}
+  {{- end }}
 webhooks:
 {{- if $featureGates.Elasticsearch }}
 - name: elasticsearchdashboardwebhook.validators.elasticsearch.kubedb.com
@@ -24,7 +29,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /validate-elasticsearch-kubedb-com-v1alpha1-elasticsearchdashboard
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
   - apiGroups: ["elasticsearch.kubedb.com"]
     apiVersions: ["*"]

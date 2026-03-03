@@ -15,6 +15,11 @@ metadata:
   labels:
     app.kubernetes.io/component: kubedb-provisioner
     {{- include "kubedb-webhook-server.labels" . | nindent 4 }}
+  {{- $caInject := include "kubedb-webhook-server.webhook-ca-inject-annotations" . }}
+  {{- if $caInject }}
+  annotations:
+    {{- $caInject | nindent 4 }}
+  {{- end }}
 webhooks:
 {{- if $featureGates.Cassandra }}
 - name: cassandrawebhook.mutators.kubedb.com
@@ -24,7 +29,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-cassandra
       port: 443
-    caBundle: {{ $._caCrt }}
+  {{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -42,7 +47,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-clickhouse
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -60,7 +65,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-db2
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -78,7 +83,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-druid
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -96,7 +101,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-elasticsearch
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["v1"]
@@ -114,7 +119,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-ferretdb
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -132,7 +137,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-hanadb
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -150,7 +155,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-hazelcast
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -168,7 +173,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-ignite
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -186,7 +191,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-kafka
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["v1"]
@@ -202,7 +207,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kafka-kubedb-com-v1alpha1-connectcluster
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kafka.kubedb.com"]
       apiVersions: ["*"]
@@ -218,7 +223,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kafka-kubedb-com-v1alpha1-connector
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kafka.kubedb.com"]
       apiVersions: ["*"]
@@ -234,7 +239,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kafka-kubedb-com-v1alpha1-restproxy
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kafka.kubedb.com"]
       apiVersions: ["*"]
@@ -250,7 +255,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kafka-kubedb-com-v1alpha1-schemaregistry
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kafka.kubedb.com"]
       apiVersions: ["*"]
@@ -268,7 +273,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-mariadb
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["v1"]
@@ -286,7 +291,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-memcached
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["v1"]
@@ -304,7 +309,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-milvus
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -322,7 +327,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-mongodb
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["v1"]
@@ -340,7 +345,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-mssqlserver
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -358,7 +363,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-mysql
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["v1"]
@@ -376,7 +381,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-neo4j
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -394,7 +399,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-oracle
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["v1alpha2"]
@@ -412,7 +417,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-perconaxtradb
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["v1"]
@@ -430,7 +435,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-pgbouncer
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["v1"]
@@ -448,7 +453,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-pgpool
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -466,7 +471,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-postgres
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["v1"]
@@ -485,7 +490,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-proxysql
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["v1"]
@@ -503,7 +508,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-qdrant
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -521,7 +526,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-rabbitmq
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -539,7 +544,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-redis
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["v1"]
@@ -555,7 +560,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1-redissentinel
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["v1"]
@@ -573,7 +578,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-singlestore
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -591,7 +596,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-solr
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -609,7 +614,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-weaviate
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
@@ -627,7 +632,7 @@ webhooks:
       name: {{ include "kubedb-webhook-server.fullname" . }}
       path: /mutate-kubedb-com-v1alpha2-zookeeper
       port: 443
-    caBundle: {{ $._caCrt }}
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
   rules:
     - apiGroups: ["kubedb.com"]
       apiVersions: ["*"]
