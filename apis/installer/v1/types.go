@@ -59,6 +59,17 @@ type ServingCerts struct {
 	ServerKey string `json:"serverKey"`
 }
 
+type CertManagerCerts struct {
+	Enabled   bool                 `json:"enabled"`
+	IssuerRef CertManagerIssuerRef `json:"issuerRef"`
+}
+
+type CertManagerIssuerRef struct {
+	Name  string `json:"name"`
+	Kind  string `json:"kind"`
+	Group string `json:"group"`
+}
+
 type HealthcheckSpec struct {
 	// +optional
 	Enabled   bool `json:"enabled"`

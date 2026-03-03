@@ -98,6 +98,7 @@ if [ "$update_kubedb_crds" = true ] && [ -d ${crd_dir} ]; then
         --group=migrator.kubedb.com
 fi
 
+CERT_MANAGER_CERT_MANAGER_TAG=${CERT_MANAGER_CERT_MANAGER_TAG:-v1.19.3}
 KMODULES_CUSTOM_RESOURCES_TAG=${KMODULES_CUSTOM_RESOURCES_TAG:-v0.34.0}
 KMODULES_RESOURCE_METADATA_TAG=${KMODULES_RESOURCE_METADATA_TAG:-v0.40.2}
 KUBEOPS_OPERATOR_SHARD_MANAGER_TAG=${KUBEOPS_OPERATOR_SHARD_MANAGER_TAG:-v0.0.5}
@@ -136,6 +137,12 @@ crd-importer \
     --no-description \
     --input=https://github.com/kubeops/operator-shard-manager/raw/${KUBEOPS_OPERATOR_SHARD_MANAGER_TAG}/crds/operator.k8s.appscode.com_shardconfigurations.yaml \
     --out=./charts/kubedb-provisioner/crds
+
+crd-importer \
+    --no-description \
+    --input=https://github.com/cert-manager/cert-manager/raw/${CERT_MANAGER_CERT_MANAGER_TAG}/deploy/crds/cert-manager.io_certificates.yaml \
+    --input=https://github.com/cert-manager/cert-manager/raw/${CERT_MANAGER_CERT_MANAGER_TAG}/deploy/crds/cert-manager.io_issuers.yaml \
+    --out=./charts/kubedb-webhook-server/crds
 
 {
     crd_dir=${1:-}/provider-aws/package/crds
