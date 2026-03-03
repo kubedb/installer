@@ -294,7 +294,7 @@ k3s ctr images import images/kubedb-kubedb-crd-manager-v0.10.0.tar
 k3s ctr images import images/kubedb-kubedb-gitops-v0.3.0.tar
 k3s ctr images import images/kubedb-kubedb-kibana-v0.31.0.tar
 k3s ctr images import images/kubedb-kubedb-manifest-plugin-v0.18.0.tar
-k3s ctr images import images/kubedb-kubedb-ops-manager-v0.42.0.tar
+k3s ctr images import images/kubedb-kubedb-ops-manager-v0.42.1.tar
 k3s ctr images import images/kubedb-kubedb-provisioner-v0.55.0.tar
 k3s ctr images import images/kubedb-kubedb-schema-manager-v0.31.0.tar
 k3s ctr images import images/kubedb-kubedb-ui-server-v0.31.0.tar

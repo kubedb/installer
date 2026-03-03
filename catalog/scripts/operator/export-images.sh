@@ -44,7 +44,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-cr
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-gitops:v0.3.0 images/kubedb-kubedb-gitops-v0.3.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-kibana:v0.31.0 images/kubedb-kubedb-kibana-v0.31.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-manifest-plugin:v0.18.0 images/kubedb-kubedb-manifest-plugin-v0.18.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.42.0 images/kubedb-kubedb-ops-manager-v0.42.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.42.1 images/kubedb-kubedb-ops-manager-v0.42.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-provisioner:v0.55.0 images/kubedb-kubedb-provisioner-v0.55.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-schema-manager:v0.31.0 images/kubedb-kubedb-schema-manager-v0.31.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ui-server:v0.31.0 images/kubedb-kubedb-ui-server-v0.31.0.tar
