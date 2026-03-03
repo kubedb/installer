@@ -176,8 +176,8 @@ gen-crds:
 			$(CRD_OPTIONS)                  \
 			paths="./apis/..."              \
 			output:crd:artifacts:config=.crds
-	@cp .crds/installer.kubedb.com_kubedbs.yaml bundle/manifests/installer.kubedb.com_kubedbs.yaml
-	@cp .crds/installer.kubedb.com_kubedbs.yaml config/crd/bases/installer.kubedb.com_kubedbs.yaml
+	@awk 'BEGIN{s=0} {if(!s && ($$0=="" || $$0=="---")){next} s=1; print}' .crds/installer.kubedb.com_kubedbs.yaml > bundle/manifests/installer.kubedb.com_kubedbs.yaml
+	@awk 'BEGIN{s=0} {if(!s && ($$0=="" || $$0=="---")){next} s=1; print}' .crds/installer.kubedb.com_kubedbs.yaml > config/crd/bases/installer.kubedb.com_kubedbs.yaml
 
 crds_to_patch :=
 
