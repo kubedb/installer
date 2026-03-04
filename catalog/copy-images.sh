@@ -449,7 +449,9 @@ $CMD cp --allow-nondistributable-artifacts --insecure qdrant/qdrant:v1.15.4-unpr
 $CMD cp --allow-nondistributable-artifacts --insecure qdrant/qdrant:v1.16.2-unprivileged $IMAGE_REGISTRY/qdrant/qdrant:v1.16.2-unprivileged
 $CMD cp --allow-nondistributable-artifacts --insecure qdrant/qdrant:v1.17.0-unprivileged $IMAGE_REGISTRY/qdrant/qdrant:v1.17.0-unprivileged
 $CMD cp --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.4.2 $IMAGE_REGISTRY/git-sync/git-sync:v4.4.2
+$CMD cp --allow-nondistributable-artifacts --insecure saplabs/hanaexpress:2.00.076.00.20240701.1 $IMAGE_REGISTRY/saplabs/hanaexpress:2.00.076.00.20240701.1
 $CMD cp --allow-nondistributable-artifacts --insecure saplabs/hanaexpress:2.00.082.00.20250528.1 $IMAGE_REGISTRY/saplabs/hanaexpress:2.00.082.00.20250528.1
+$CMD cp --allow-nondistributable-artifacts --insecure saplabs/hanaexpress:2.00.088.00.20251110.1 $IMAGE_REGISTRY/saplabs/hanaexpress:2.00.088.00.20251110.1
 $CMD cp --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6 $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6
 $CMD cp --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11 $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11
 $CMD cp --allow-nondistributable-artifacts --insecure singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8 $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8
