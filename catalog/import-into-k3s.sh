@@ -148,6 +148,7 @@ k3s ctr images import images/appscode-images-mysql-8.1.0-oracle.tar
 k3s ctr images import images/appscode-images-mysql-8.2.0-oracle.tar
 k3s ctr images import images/appscode-images-mysql-8.4.2-oracle.tar
 k3s ctr images import images/appscode-images-mysql-8.4.3-oracle.tar
+k3s ctr images import images/appscode-images-mysql-8.4.5-oracle.tar
 k3s ctr images import images/appscode-images-mysql-9.0.1-oracle.tar
 k3s ctr images import images/appscode-images-mysql-9.1.0-oracle.tar
 k3s ctr images import images/appscode-images-mysql-9.4.0-oracle.tar
@@ -330,6 +331,7 @@ k3s ctr images import images/kubedb-mysql-archiver-v0.24.0_8.0.35.tar
 k3s ctr images import images/kubedb-mysql-archiver-v0.24.0_8.1.0.tar
 k3s ctr images import images/kubedb-mysql-archiver-v0.24.0_8.2.0.tar
 k3s ctr images import images/kubedb-mysql-archiver-v0.24.0_8.4.3.tar
+k3s ctr images import images/kubedb-mysql-archiver-v0.24.0_8.4.5.tar
 k3s ctr images import images/kubedb-mysql-archiver-v0.24.0_9.1.0.tar
 k3s ctr images import images/kubedb-mysql-coordinator-v0.41.0.tar
 k3s ctr images import images/kubedb-mysql-csi-snapshotter-plugin-v0.24.0.tar
