@@ -55,6 +55,8 @@ k3s ctr images import images/appscode-images-postgres-14.18-alpine.tar
 k3s ctr images import images/appscode-images-postgres-14.18-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-14.21-alpine.tar
 k3s ctr images import images/appscode-images-postgres-14.21-bookworm.tar
+k3s ctr images import images/appscode-images-postgres-14.22-alpine.tar
+k3s ctr images import images/appscode-images-postgres-14.22-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-15.10-alpine.tar
 k3s ctr images import images/appscode-images-postgres-15.10-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-15.12-alpine.tar
@@ -63,6 +65,8 @@ k3s ctr images import images/appscode-images-postgres-15.13-alpine.tar
 k3s ctr images import images/appscode-images-postgres-15.13-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-15.16-alpine.tar
 k3s ctr images import images/appscode-images-postgres-15.16-bookworm.tar
+k3s ctr images import images/appscode-images-postgres-15.17-alpine.tar
+k3s ctr images import images/appscode-images-postgres-15.17-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-15.5-alpine.tar
 k3s ctr images import images/appscode-images-postgres-15.5-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-15.8-alpine.tar
@@ -73,6 +77,8 @@ k3s ctr images import images/appscode-images-postgres-16.10-alpine.tar
 k3s ctr images import images/appscode-images-postgres-16.10-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-16.12-alpine.tar
 k3s ctr images import images/appscode-images-postgres-16.12-bookworm.tar
+k3s ctr images import images/appscode-images-postgres-16.13-alpine.tar
+k3s ctr images import images/appscode-images-postgres-16.13-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-16.4-alpine.tar
 k3s ctr images import images/appscode-images-postgres-16.4-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-16.6-alpine.tar
@@ -89,8 +95,12 @@ k3s ctr images import images/appscode-images-postgres-17.5-alpine.tar
 k3s ctr images import images/appscode-images-postgres-17.5-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-17.8-alpine.tar
 k3s ctr images import images/appscode-images-postgres-17.8-bookworm.tar
+k3s ctr images import images/appscode-images-postgres-17.9-alpine.tar
+k3s ctr images import images/appscode-images-postgres-17.9-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-18.2-alpine.tar
 k3s ctr images import images/appscode-images-postgres-18.2-bookworm.tar
+k3s ctr images import images/appscode-images-postgres-18.3-alpine.tar
+k3s ctr images import images/appscode-images-postgres-18.3-bookworm.tar
 k3s ctr images import images/kubedb-migrator-cli-v0.3.0.tar
 k3s ctr images import images/kubedb-pg-coordinator-v0.47.0.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.24.0_11.22-alpine.tar

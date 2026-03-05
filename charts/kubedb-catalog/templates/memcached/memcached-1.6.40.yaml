@@ -13,20 +13,20 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MemcachedVersion
 metadata:
-  name: '1.6.33'
+  name: '1.6.40'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/memcached") $) }}:1.6.33-alpine'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/memcached") $) }}:1.6.40-alpine'
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/memcached_exporter") $) }}:v0.14.3-ac'
   securityContext:
     runAsUser: 999
   updateConstraints:
     allowlist:
-    - '>= 1.6.33, <= 1.6.40'
-  version: 1.6.33
+    - '>= 1.6.40'
+  version: 1.6.40
   podSecurityPolicies:
     databasePolicyName: {{ ternary "memcached-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
 {{ end }}
