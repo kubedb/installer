@@ -38,7 +38,7 @@ spec:
       labels:
         {{- include "kubedb-webhook-server.labels" . | nindent 8 }}
       annotations:
-        reload: {{ randAlpha 8 }}
+        checksum/serving-cert: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
       {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
