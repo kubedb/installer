@@ -36,7 +36,7 @@ const (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:path=aceshifters,singular=aceshifter,categories={kubeops,appscode}
+// +kubebuilder:resource:path=fargocds,singular=fargocd,categories={kubeops,appscode}
 type Fargocd struct {
 	metav1.TypeMeta   `json:",inline,omitempty"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
@@ -76,14 +76,48 @@ type FargocdSpec struct {
 	Tolerations []core.Toleration `json:"tolerations"`
 	// If specified, the pod's scheduling constraints
 	// +optional
-	Affinity       *core.Affinity      `json:"affinity"`
-	ServiceAccount ServiceAccountSpec  `json:"serviceAccount"`
-	Apiserver      SupervisorApiserver `json:"apiserver"`
-	Monitoring     Monitoring          `json:"monitoring"`
+	Affinity       *core.Affinity     `json:"affinity"`
+	ServiceAccount ServiceAccountSpec `json:"serviceAccount"`
+	Apiserver      FargocdApiserver   `json:"apiserver"`
+	Monitoring     Monitoring         `json:"monitoring"`
 	// +optional
 	NetworkPolicy NetworkPolicySpec `json:"networkPolicy"`
 	// +optional
 	Distro shared.DistroSpec `json:"distro"`
+}
+
+type FargocdApiserver struct {
+	EnableMutatingWebhook   bool                `json:"enableMutatingWebhook"`
+	EnableValidatingWebhook bool                `json:"enableValidatingWebhook"`
+	Healthcheck             HealthcheckSpec     `json:"healthcheck"`
+	ServingCerts            FargocdServingCerts `json:"servingCerts"`
+}
+
+type FargocdServingCerts struct {
+	Generate bool `json:"generate"`
+	//+optional
+	CertManager FargocdCertManagerCerts `json:"certManager"`
+	//+optional
+	CaCrt string `json:"caCrt"`
+	//+optional
+	ServerCrt string `json:"serverCrt"`
+	//+optional
+	ServerKey string `json:"serverKey"`
+}
+
+type FargocdCertManagerCerts struct {
+	Enabled bool `json:"enabled"`
+	//+optional
+	IssuerRef FargocdCertManagerIssuerRef `json:"issuerRef"`
+}
+
+type FargocdCertManagerIssuerRef struct {
+	//+optional
+	Name string `json:"name"`
+	//+optional
+	Kind string `json:"kind"`
+	//+optional
+	Group string `json:"group"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

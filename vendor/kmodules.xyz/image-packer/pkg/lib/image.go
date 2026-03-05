@@ -59,16 +59,20 @@ func MapImages(rootDir string, values map[string]string) (map[string]string, err
 }
 
 func mapChartImages(rootDir string, values map[string]string, sh *shell.Session, entry os.DirEntry, images map[string]string) {
-	err := sh.SetDir(filepath.Join(rootDir, entry.Name())).Command("helm", "dependency", "update").Run()
-	if err != nil {
-		panic(err)
+	chartName := entry.Name()
+	if !strings.HasSuffix(chartName, "-certified") &&
+		!strings.HasSuffix(chartName, "-certified-crds") {
+		err := sh.SetDir(filepath.Join(rootDir, chartName)).Command("helm", "dependency", "update").Run()
+		if err != nil {
+			panic(err)
+		}
 	}
 
-	args := []any{"template", entry.Name()}
+	args := []any{"template", chartName}
 
-	content, ok := values[entry.Name()]
+	content, ok := values[chartName]
 	if ok {
-		tmpfile, err := os.CreateTemp("", entry.Name()+"-val-*.yaml")
+		tmpfile, err := os.CreateTemp("", chartName+"-val-*.yaml")
 		if err != nil {
 			klog.Fatal(err)
 		}
@@ -88,12 +92,12 @@ func mapChartImages(rootDir string, values map[string]string, sh *shell.Session,
 		args = append(args, "--values="+tmpfile.Name())
 	}
 
-	if entry.Name() == "cluster-manager-spoke" {
+	if chartName == "cluster-manager-spoke" {
 		args = append(args, "--dry-run=server")
 	} else {
-		if files, err := filepath.Glob(filepath.Join(rootDir, entry.Name(), "*.sample.yaml")); err == nil && len(files) > 0 {
+		if files, err := filepath.Glob(filepath.Join(rootDir, chartName, "*.sample.yaml")); err == nil && len(files) > 0 {
 			for _, file := range files {
-				args = append(args, "--values="+entry.Name()+"/"+filepath.Base(file))
+				args = append(args, "--values="+chartName+"/"+filepath.Base(file))
 			}
 		}
 	}
@@ -107,7 +111,7 @@ func mapChartImages(rootDir string, values map[string]string, sh *shell.Session,
 			collectImages(ri.Object.UnstructuredContent(), images, ri.Object.GetObjectKind().GroupVersionKind().GroupKind().String())
 		}
 	} else {
-		klog.Infof("Skipping %s due to error: %v", entry.Name(), err)
+		klog.Infof("Skipping %s due to error: %v", chartName, err)
 	}
 }
 

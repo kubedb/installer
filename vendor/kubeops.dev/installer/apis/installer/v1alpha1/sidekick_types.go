@@ -76,14 +76,48 @@ type SidekickSpec struct {
 	Tolerations []core.Toleration `json:"tolerations"`
 	// If specified, the pod's scheduling constraints
 	// +optional
-	Affinity       *core.Affinity      `json:"affinity"`
-	ServiceAccount ServiceAccountSpec  `json:"serviceAccount"`
-	Apiserver      SupervisorApiserver `json:"apiserver"`
-	Monitoring     Monitoring          `json:"monitoring"`
+	Affinity       *core.Affinity     `json:"affinity"`
+	ServiceAccount ServiceAccountSpec `json:"serviceAccount"`
+	Apiserver      SidekickApiserver  `json:"apiserver"`
+	Monitoring     Monitoring         `json:"monitoring"`
 	// +optional
 	NetworkPolicy NetworkPolicySpec `json:"networkPolicy"`
 	// +optional
 	Distro shared.DistroSpec `json:"distro"`
+}
+
+type SidekickApiserver struct {
+	EnableMutatingWebhook   bool                 `json:"enableMutatingWebhook"`
+	EnableValidatingWebhook bool                 `json:"enableValidatingWebhook"`
+	Healthcheck             HealthcheckSpec      `json:"healthcheck"`
+	ServingCerts            SidekickServingCerts `json:"servingCerts"`
+}
+
+type SidekickServingCerts struct {
+	Generate bool `json:"generate"`
+	//+optional
+	CertManager SidekickCertManagerCerts `json:"certManager"`
+	//+optional
+	CaCrt string `json:"caCrt"`
+	//+optional
+	ServerCrt string `json:"serverCrt"`
+	//+optional
+	ServerKey string `json:"serverKey"`
+}
+
+type SidekickCertManagerCerts struct {
+	Enabled bool `json:"enabled"`
+	//+optional
+	IssuerRef SidekickCertManagerIssuerRef `json:"issuerRef"`
+}
+
+type SidekickCertManagerIssuerRef struct {
+	//+optional
+	Name string `json:"name"`
+	//+optional
+	Kind string `json:"kind"`
+	//+optional
+	Group string `json:"group"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
