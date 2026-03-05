@@ -15,11 +15,11 @@ require (
 	k8s.io/apimachinery v0.34.3
 	kmodules.xyz/client-go v0.34.3
 	kmodules.xyz/go-containerregistry v0.0.15
-	kmodules.xyz/image-packer v0.0.0-20251207101219-5eac37d8b469
-	kmodules.xyz/resource-metadata v0.42.4
+	kmodules.xyz/image-packer v0.0.0-20260211014345-daa6afa3ceba
+	kmodules.xyz/resource-metadata v0.42.7
 	kmodules.xyz/schema-checker v0.4.2
 	kubedb.dev/apimachinery v0.63.0
-	kubeops.dev/installer v0.0.0-20251215120607-2679d0cb5864
+	kubeops.dev/installer v0.0.0-20260305065349-dbc8a048d7dd
 	sigs.k8s.io/yaml v1.6.0
 	stash.appscode.dev/installer v0.12.2-0.20260224175756-ac464b38bf6c
 )
@@ -35,7 +35,7 @@ require (
 	github.com/containerd/stargz-snapshotter/estargz v0.18.1 // indirect
 	github.com/cyphar/filepath-securejoin v0.6.1 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
-	github.com/docker/cli v29.0.3+incompatible // indirect
+	github.com/docker/cli v29.2.0+incompatible // indirect
 	github.com/docker/distribution v2.8.3+incompatible // indirect
 	github.com/docker/docker-credential-helpers v0.9.4 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect

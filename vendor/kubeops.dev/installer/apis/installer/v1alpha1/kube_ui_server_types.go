@@ -80,11 +80,10 @@ type KubeUiServerSpec struct {
 	Monitoring         Monitoring               `json:"monitoring"`
 	Prometheus         PrometheusConfig         `json:"prometheus"`
 	// +optional
-	Distro               shared.DistroSpec  `json:"distro"`
-	HelmRepositories     HelmRepositories   `json:"helmRepositories"`
-	KubeconfigSecretName string             `json:"kubeconfigSecretName"`
-	Platform             AcePlatformSpec    `json:"platform"`
-	AceUserRoles         AceUserRolesValues `json:"ace-user-roles"`
+	Distro           shared.DistroSpec  `json:"distro"`
+	HelmRepositories HelmRepositories   `json:"helmRepositories"`
+	Platform         AcePlatformSpec    `json:"platform"`
+	AceUserRoles     AceUserRolesValues `json:"ace-user-roles"`
 }
 
 type AceUserRolesValues struct {
