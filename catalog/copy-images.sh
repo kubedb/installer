@@ -264,6 +264,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/po
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/rabbitmq:3.12.12-management-alpine $IMAGE_REGISTRY/appscode-images/rabbitmq:3.12.12-management-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/rabbitmq:3.13.2-management-alpine $IMAGE_REGISTRY/appscode-images/rabbitmq:3.13.2-management-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/rabbitmq:4.0.4-management-alpine $IMAGE_REGISTRY/appscode-images/rabbitmq:4.0.4-management-alpine
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/rabbitmq:4.2.4-management-alpine $IMAGE_REGISTRY/appscode-images/rabbitmq:4.2.4-management-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:5.0.14-bullseye $IMAGE_REGISTRY/appscode-images/redis:5.0.14-bullseye
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:6.0.20-bookworm $IMAGE_REGISTRY/appscode-images/redis:6.0.20-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:6.2.14-bookworm $IMAGE_REGISTRY/appscode-images/redis:6.2.14-bookworm

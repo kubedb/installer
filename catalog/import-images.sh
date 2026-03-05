@@ -255,6 +255,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-p
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-rabbitmq-3.12.12-management-alpine.tar $IMAGE_REGISTRY/appscode-images/rabbitmq:3.12.12-management-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-rabbitmq-3.13.2-management-alpine.tar $IMAGE_REGISTRY/appscode-images/rabbitmq:3.13.2-management-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-rabbitmq-4.0.4-management-alpine.tar $IMAGE_REGISTRY/appscode-images/rabbitmq:4.0.4-management-alpine
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-rabbitmq-4.2.4-management-alpine.tar $IMAGE_REGISTRY/appscode-images/rabbitmq:4.2.4-management-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-5.0.14-bullseye.tar $IMAGE_REGISTRY/appscode-images/redis:5.0.14-bullseye
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-6.0.20-bookworm.tar $IMAGE_REGISTRY/appscode-images/redis:6.0.20-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-6.2.14-bookworm.tar $IMAGE_REGISTRY/appscode-images/redis:6.2.14-bookworm

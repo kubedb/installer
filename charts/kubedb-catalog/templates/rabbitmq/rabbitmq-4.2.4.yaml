@@ -1,0 +1,27 @@
+{{- template "kubedb-catalog.refresh-versions" . }}
+
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.RabbitMQ (not (eq $ubi "operator")) }}
+
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: RabbitMQVersion
+metadata:
+  name: '4.2.4'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/rabbitmq") $) }}:4.2.4-management-alpine'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/rabbitmq-init") $) }}:4.0.4'
+  securityContext:
+    runAsUser: 999
+  version: 4.2.4
+{{ end }}

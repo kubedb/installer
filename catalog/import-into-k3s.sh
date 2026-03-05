@@ -253,6 +253,7 @@ k3s ctr images import images/appscode-images-postgres-18.3-bookworm.tar
 k3s ctr images import images/appscode-images-rabbitmq-3.12.12-management-alpine.tar
 k3s ctr images import images/appscode-images-rabbitmq-3.13.2-management-alpine.tar
 k3s ctr images import images/appscode-images-rabbitmq-4.0.4-management-alpine.tar
+k3s ctr images import images/appscode-images-rabbitmq-4.2.4-management-alpine.tar
 k3s ctr images import images/appscode-images-redis-5.0.14-bullseye.tar
 k3s ctr images import images/appscode-images-redis-6.0.20-bookworm.tar
 k3s ctr images import images/appscode-images-redis-6.2.14-bookworm.tar
