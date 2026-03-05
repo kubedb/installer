@@ -76,6 +76,8 @@ type PgoutboxSpec struct {
 	ServiceAccount  HelmServiceAccount    `json:"serviceAccount"`
 	Service         HelmServiceSpec       `json:"service"`
 	// +optional
+	Monitoring *Monitoring `json:"monitoring"`
+	// +optional
 	LivenessProbe *core.Probe `json:"livenessProbe"`
 	// +optional
 	ReadinessProbe *core.Probe        `json:"readinessProbe"`
