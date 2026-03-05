@@ -24,6 +24,13 @@ fi
 TARBALL=${1:-}
 tar -zxvf $TARBALL
 
+k3s ctr images import images/percona-percona-server-mongodb-4.4.26.tar
+k3s ctr images import images/percona-percona-server-mongodb-5.0.29.tar
+k3s ctr images import images/percona-percona-server-mongodb-6.0.24.tar
+k3s ctr images import images/percona-percona-server-mongodb-7.0.18.tar
+k3s ctr images import images/percona-percona-server-mongodb-7.0.28.tar
+k3s ctr images import images/percona-percona-server-mongodb-8.0.17.tar
+k3s ctr images import images/percona-percona-server-mongodb-8.0.8.tar
 k3s ctr images import images/appscode-images-mongo-4.4.26.tar
 k3s ctr images import images/appscode-images-mongo-5.0.31.tar
 k3s ctr images import images/appscode-images-mongo-6.0.24.tar

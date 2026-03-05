@@ -35,6 +35,17 @@ mv /tmp/crane .
 
 CMD="./crane"
 
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/postgis/postgis:11-3.3 $IMAGE_REGISTRY/postgis/postgis:11-3.3
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/postgis/postgis:12-3.4 $IMAGE_REGISTRY/postgis/postgis:12-3.4
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/postgis/postgis:13-3.4 $IMAGE_REGISTRY/postgis/postgis:13-3.4
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/postgis/postgis:14-3.4 $IMAGE_REGISTRY/postgis/postgis:14-3.4
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/postgis/postgis:15-3.4 $IMAGE_REGISTRY/postgis/postgis:15-3.4
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/postgis/postgis:16-3.4 $IMAGE_REGISTRY/postgis/postgis:16-3.4
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/prometheuscommunity/postgres-exporter:v0.18.1 $IMAGE_REGISTRY/prometheuscommunity/postgres-exporter:v0.18.1
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg13-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg13-oss
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg14-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg14-oss
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg15-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg15-oss
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg16-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg16-oss
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:15-0.102.0-ferretdb-2.0.0 $IMAGE_REGISTRY/appscode-images/postgres-documentdb:15-0.102.0-ferretdb-2.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:16-0.102.0-ferretdb-2.0.0 $IMAGE_REGISTRY/appscode-images/postgres-documentdb:16-0.102.0-ferretdb-2.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:17-0.102.0-ferretdb-2.0.0 $IMAGE_REGISTRY/appscode-images/postgres-documentdb:17-0.102.0-ferretdb-2.0.0

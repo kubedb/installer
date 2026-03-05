@@ -24,6 +24,7 @@ fi
 TARBALL=${1:-}
 tar -zxvf $TARBALL
 
+k3s ctr images import images/mysql-mysql-router-8.0.31.tar
 k3s ctr images import images/appscode-images-mysql-5.7.42-debian.tar
 k3s ctr images import images/appscode-images-mysql-5.7.44-oracle.tar
 k3s ctr images import images/appscode-images-mysql-8.0.31-oracle.tar

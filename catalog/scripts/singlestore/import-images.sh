@@ -26,6 +26,10 @@ tar -zxvf $TARBALL
 
 CMD="./crane"
 
+$CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.1.32-e3d3cde6da-4.0.16-1.17.6.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6
+$CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.5.22-fe61f40cd1-4.1.0-1.17.11.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11
+$CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.5.7-bf633c1a54-4.0.17-1.17.8.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8
+$CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.7.10-95e2357384-4.1.0-1.17.14.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.7.10-95e2357384-4.1.0-1.17.14
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-singlestore-node-alma-8.1.32-e3d3cde6da.tar $IMAGE_REGISTRY/appscode-images/singlestore-node:alma-8.1.32-e3d3cde6da
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-singlestore-node-alma-8.5.30-4f46ab16a5.tar $IMAGE_REGISTRY/appscode-images/singlestore-node:alma-8.5.30-4f46ab16a5
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-singlestore-node-alma-8.5.7-bf633c1a54.tar $IMAGE_REGISTRY/appscode-images/singlestore-node:alma-8.5.7-bf633c1a54
@@ -36,7 +40,3 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-singlestor
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-singlestore-init-8.1-v2.tar $IMAGE_REGISTRY/kubedb/singlestore-init:8.1-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-singlestore-init-8.5-v2.tar $IMAGE_REGISTRY/kubedb/singlestore-init:8.5-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-singlestore-init-8.7.10-v1.tar $IMAGE_REGISTRY/kubedb/singlestore-init:8.7.10-v1
-$CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.1.32-e3d3cde6da-4.0.16-1.17.6.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6
-$CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.5.22-fe61f40cd1-4.1.0-1.17.11.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11
-$CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.5.7-bf633c1a54-4.0.17-1.17.8.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8
-$CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.7.10-95e2357384-4.1.0-1.17.14.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.7.10-95e2357384-4.1.0-1.17.14

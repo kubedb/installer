@@ -541,9 +541,9 @@ func main() {
 							case "index.docker.io":
 								_, bin, found := strings.Cut(ref.Repository, "library/")
 								if found {
-									newimg = fmt.Sprintf(`{{ include "image.dockerLibrary" (merge (dict "_repo" "%s") $) }}`, bin)
+									newimg = fmt.Sprintf(`{{ include "image.dockerLibrary" (merge (dict "_repo" "docker.io/%s") $) }}`, bin)
 								} else {
-									newimg = fmt.Sprintf(`{{ include "image.dockerHub" (merge (dict "_repo" "%s") $) }}`, ref.Repository)
+									newimg = fmt.Sprintf(`{{ include "image.dockerHub" (merge (dict "_repo" "docker.io/%s") $) }}`, ref.Repository)
 								}
 							case "ghcr.io":
 								newimg = fmt.Sprintf(`{{ include "image.ghcr" (merge (dict "_repo" "%s") $) }}`, ref.Repository)
