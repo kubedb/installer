@@ -426,6 +426,11 @@ func (in *Kubedb) DeepCopyInto(out *Kubedb) {
 	out.TypeMeta = in.TypeMeta
 	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
 	in.Spec.DeepCopyInto(&out.Spec)
+	if in.Status != nil {
+		in, out := &in.Status, &out.Status
+		*out = new(runtime.RawExtension)
+		(*in).DeepCopyInto(*out)
+	}
 	return
 }
 
