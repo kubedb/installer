@@ -78,8 +78,8 @@ type PetsetSpec struct {
 	PodSecurityContext *core.PodSecurityContext `json:"podSecurityContext"`
 	ServiceAccount     ServiceAccountSpec       `json:"serviceAccount"`
 	// +optional
-	Apiserver  SupervisorApiserver `json:"apiserver"`
-	Monitoring Monitoring          `json:"monitoring"`
+	Apiserver  PetsetApiserver `json:"apiserver"`
+	Monitoring Monitoring      `json:"monitoring"`
 	// +optional
 	NetworkPolicy NetworkPolicySpec `json:"networkPolicy"`
 	// +optional
@@ -94,6 +94,41 @@ type PetsetFeatures struct {
 	// +optional
 	Ocm OCMSpec `json:"ocm"`
 }
+
+type PetsetApiserver struct {
+	EnableMutatingWebhook   bool               `json:"enableMutatingWebhook"`
+	EnableValidatingWebhook bool               `json:"enableValidatingWebhook"`
+	Healthcheck             HealthcheckSpec    `json:"healthcheck"`
+	ServingCerts            PetsetServingCerts `json:"servingCerts"`
+}
+
+type PetsetServingCerts struct {
+	Generate bool `json:"generate"`
+	//+optional
+	CertManager PetsetCertManagerCerts `json:"certManager"`
+	//+optional
+	CaCrt string `json:"caCrt"`
+	//+optional
+	ServerCrt string `json:"serverCrt"`
+	//+optional
+	ServerKey string `json:"serverKey"`
+}
+
+type PetsetCertManagerCerts struct {
+	Enabled bool `json:"enabled"`
+	//+optional
+	IssuerRef PetsetCertManagerIssuerRef `json:"issuerRef"`
+}
+
+type PetsetCertManagerIssuerRef struct {
+	//+optional
+	Name string `json:"name"`
+	//+optional
+	Kind string `json:"kind"`
+	//+optional
+	Group string `json:"group"`
+}
+
 type OCMSpec struct {
 	Enabled   bool         `json:"enabled"`
 	Placement OCMPlacement `json:"placement"`
