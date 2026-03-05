@@ -22,7 +22,7 @@ spec:
       labels:
         {{- include "kubedb-ui-server.selectorLabels" . | nindent 8 }}
       annotations:
-        reload: {{ randAlpha 8 }}
+        checksum/serving-cert: {{ include (print $.Template.BasePath "/apiregistration.yaml") . | sha256sum }}
       {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
