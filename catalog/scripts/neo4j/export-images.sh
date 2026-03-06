@@ -32,8 +32,8 @@ mv /tmp/crane images
 
 CMD="./images/crane"
 
-$CMD pull --allow-nondistributable-artifacts --insecure neo4j:2025.10.1-enterprise images/library-neo4j-2025.10.1-enterprise.tar
-$CMD pull --allow-nondistributable-artifacts --insecure neo4j:2025.11.2-enterprise images/library-neo4j-2025.11.2-enterprise.tar
-$CMD pull --allow-nondistributable-artifacts --insecure neo4j:2025.12.1-enterprise images/library-neo4j-2025.12.1-enterprise.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.10.1-enterprise images/library-neo4j-2025.10.1-enterprise.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.11.2-enterprise images/library-neo4j-2025.11.2-enterprise.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.12.1-enterprise images/library-neo4j-2025.12.1-enterprise.tar
 
 tar -czvf images.tar.gz images

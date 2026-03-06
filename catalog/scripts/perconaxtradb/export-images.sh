@@ -32,6 +32,7 @@ mv /tmp/crane images
 
 CMD="./images/crane"
 
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/prom/mysqld-exporter:v0.18.0 images/prom-mysqld-exporter-v0.18.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:5.7.44 images/appscode-images-percona-xtradb-cluster-5.7.44.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.0.40 images/appscode-images-percona-xtradb-cluster-8.0.40.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.4.3 images/appscode-images-percona-xtradb-cluster-8.4.3.tar
