@@ -130,6 +130,12 @@ docker-buildx: ## Build and push docker image for the manager for cross-platform
 	- $(CONTAINER_TOOL) buildx build --push --platform=$(PLATFORMS) --tag ${IMG} -f Dockerfile .
 	- $(CONTAINER_TOOL) buildx rm project-v3-builder
 
+.PHONY: docker-certify-redhat
+docker-certify-redhat:
+	@preflight check container ${IMG} \
+		--submit \
+		--certification-component-id=69aa458f8d2c13edb2ff0e74
+
 ##@ Deployment
 
 .PHONY: install
