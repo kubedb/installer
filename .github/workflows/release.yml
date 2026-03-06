@@ -18,6 +18,15 @@ jobs:
       - name: Check out code into the Go module directory
         uses: actions/checkout@v1
 
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v3
+        with:
+          cache-image: false
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Install GitHub CLI
         run: |
           curl -fsSL https://github.com/github/hub/raw/master/script/get | bash -s 2.14.1
@@ -26,6 +35,28 @@ jobs:
       - name: Install Helm 3
         run: |
           pushd /usr/local/bin && sudo curl -fsSLO https://github.com/x-helm/helm/releases/latest/download/helm && sudo chmod +x helm && popd
+
+      - name: Log in to the GitHub Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish Red Hat Operator Bundle
+        run: |
+          make docker-buildx
+          make bundle-build bundle-push
+
+      - name: Publish to Red Hat Ecosystem Catalog
+        env:
+          REGISTRY: ghcr.io/kubedb
+          PFLT_PYXIS_API_TOKEN: ${{ secrets.PFLT_PYXIS_API_TOKEN }}
+        run: |
+          curl -fsSL -o preflight https://github.com/redhat-openshift-ecosystem/openshift-preflight/releases/latest/download/preflight-linux-amd64
+          chmod +x preflight
+          sudo mv preflight /usr/local/bin/preflight
+          make docker-certify-redhat
 
       - name: Clone charts repository
         env:

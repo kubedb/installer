@@ -19,6 +19,7 @@ package v1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
 	"kmodules.xyz/resource-metadata/apis/shared"
 	kubeopsinstaller "kubeops.dev/installer/apis/installer/v1alpha1"
 )
@@ -29,16 +30,18 @@ const (
 	ResourceKubedbs    = "kubedbs"
 )
 
-// Kubedb defines the schama for KubeDB combined Installer.
+// Kubedb defines the schama for KubeDB Operator Installer.
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:path=kubedbs,singular=kubedb,categories={kubedb,appscode}
+// +kubebuilder:resource:path=kubedbs,singular=kubedb,categories={datastore,kubedb,appscode,all}
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 type Kubedb struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              KubedbSpec `json:"spec,omitempty"`
+	Spec              KubedbSpec            `json:"spec,omitempty"`
+	Status            *runtime.RawExtension `json:"status,omitempty"`
 }
 
 // KubedbSpec is the schema for kubedb chart values file

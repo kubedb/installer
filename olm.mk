@@ -82,6 +82,32 @@ help: ## Display this help.
 run: helm-operator ## Run against the configured Kubernetes cluster in ~/.kube/config
 	$(HELM_OPERATOR) run
 
+TEST_BUNDLE_TIMEOUT ?= 10m
+TEST_BUNDLE_NAMESPACE ?= default
+TEST_BUNDLE_SUBSCRIPTION ?= installer-v$(shell echo "$(VERSION_NO_PREFIX)" | tr '.+' '-')-sub
+
+.PHONY: cleanup-bundle
+cleanup-bundle: ## Cleanup OLM resources used by run-bundle in the target namespace
+	@kubectl delete catalogsource installer-catalog -n $(TEST_BUNDLE_NAMESPACE) --ignore-not-found=true >/dev/null 2>&1 || true
+	@kubectl wait --for=delete catalogsource/installer-catalog -n $(TEST_BUNDLE_NAMESPACE) --timeout=120s >/dev/null 2>&1 || true
+	@kubectl delete subscription $(TEST_BUNDLE_SUBSCRIPTION) -n $(TEST_BUNDLE_NAMESPACE) --ignore-not-found=true >/dev/null 2>&1 || true
+	@kubectl wait --for=delete subscription/$(TEST_BUNDLE_SUBSCRIPTION) -n $(TEST_BUNDLE_NAMESPACE) --timeout=120s >/dev/null 2>&1 || true
+	@kubectl delete operatorgroup operator-sdk-og -n $(TEST_BUNDLE_NAMESPACE) --ignore-not-found=true >/dev/null 2>&1 || true
+	@kubectl wait --for=delete operatorgroup/operator-sdk-og -n $(TEST_BUNDLE_NAMESPACE) --timeout=120s >/dev/null 2>&1 || true
+
+.PHONY: run-bundle
+run-bundle: operator-sdk cleanup-bundle ## Run against the configured Kubernetes cluster in ~/.kube/config
+	- rm -rf bundle-* cache
+	$(OPERATOR_SDK) run bundle $(BUNDLE_IMG) --timeout $(TEST_BUNDLE_TIMEOUT) -n $(TEST_BUNDLE_NAMESPACE)
+
+.PHONY: olm-install
+olm-install: operator-sdk ## Install OLM in the configured Kubernetes cluster
+	$(OPERATOR_SDK) olm install
+
+.PHONY: olm-uninstall
+olm-uninstall: operator-sdk ## Uninstall OLM from the configured Kubernetes cluster
+	$(OPERATOR_SDK) olm uninstall
+
 .PHONY: docker-build
 docker-build: ## Build docker image with the manager.
 	$(CONTAINER_TOOL) build -t ${IMG} .
@@ -103,6 +129,12 @@ docker-buildx: ## Build and push docker image for the manager for cross-platform
 	$(CONTAINER_TOOL) buildx use project-v3-builder
 	- $(CONTAINER_TOOL) buildx build --push --platform=$(PLATFORMS) --tag ${IMG} -f Dockerfile .
 	- $(CONTAINER_TOOL) buildx rm project-v3-builder
+
+.PHONY: docker-certify-redhat
+docker-certify-redhat:
+	@preflight check container ${IMG} \
+		--submit \
+		--certification-component-id=69aa458f8d2c13edb2ff0e74
 
 ##@ Deployment
 
@@ -174,13 +206,47 @@ OPERATOR_SDK = $(shell which operator-sdk)
 endif
 endif
 
+.PHONY: role-aggregator
+ROLE_AGGREGATOR = $(shell pwd)/bin/role-aggregator
+role-aggregator: ## Download role-aggregator locally if necessary.
+ifeq (,$(wildcard $(ROLE_AGGREGATOR)))
+ifeq (, $(shell which role-aggregator 2>/dev/null))
+	@{ \
+	set -e ;\
+	mkdir -p $(dir $(ROLE_AGGREGATOR)) ;\
+	curl -sSLo $(ROLE_AGGREGATOR) https://github.com/kmodules/role-aggregator/releases/latest/download/role-aggregator-$(OS)-$(ARCH) ;\
+	chmod +x $(ROLE_AGGREGATOR) ;\
+	}
+else
+ROLE_AGGREGATOR = $(shell which role-aggregator)
+endif
+endif
+
+.PHONY: gen-custom-role
+gen-custom-role: role-aggregator ## Generate custom role for kubedb from selected charts.
+	$(ROLE_AGGREGATOR) \
+		--name kubedb-role \
+		--dir config/rbac/role.yaml \
+		--chart charts/kubedb-autoscaler \
+		--chart charts/kubedb-crd-manager \
+		--chart charts/kubedb-dashboard \
+		--chart charts/kubedb-gitops \
+		--chart charts/kubedb-migrator \
+		--chart charts/kubedb-ops-manager \
+		--chart charts/kubedb-provisioner \
+		--chart charts/kubedb-schema-manager \
+		--chart charts/kubedb-webhook-server \
+		--output config/rbac/custom_role.yaml
+
 
 .PHONY: bundle
 bundle: kustomize operator-sdk ## Generate bundle manifests and metadata, then validate generated files.
 	$(OPERATOR_SDK) generate kustomize manifests -q
 	cd config/manager && $(KUSTOMIZE) edit set image controller=$(IMG)
+	@$(MAKE) gen-custom-role --no-print-directory
 	$(KUSTOMIZE) build config/manifests | $(OPERATOR_SDK) generate bundle $(BUNDLE_GEN_FLAGS)
 	$(OPERATOR_SDK) bundle validate ./bundle
+	@awk 'BEGIN{s=0} {if(!s && ($$0=="" || $$0=="---")){next} s=1; print}' config/crd/bases/installer.kubedb.com_kubedbs.yaml > bundle/manifests/installer.kubedb.com_kubedbs.yaml
 
 .PHONY: bundle-build
 bundle-build: ## Build the bundle image.
