@@ -26,8 +26,6 @@ tar -zxvf $TARBALL
 
 CMD="./crane"
 
-$CMD push --allow-nondistributable-artifacts --insecure images/apicurio-apicurio-registry-kafkasql-2.5.11.Final.tar $IMAGE_REGISTRY/apicurio/apicurio-registry-kafkasql:2.5.11.Final
-$CMD push --allow-nondistributable-artifacts --insecure images/apicurio-apicurio-registry-mem-2.5.11.Final.tar $IMAGE_REGISTRY/apicurio/apicurio-registry-mem:2.5.11.Final
 $CMD push --allow-nondistributable-artifacts --insecure images/database-enterprise-21.3.0.0.tar $IMAGE_REGISTRY/database/enterprise:21.3.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/database-observability-exporter-2.2.1.tar $IMAGE_REGISTRY/database/observability-exporter:2.2.1
 $CMD push --allow-nondistributable-artifacts --insecure images/semitechnologies-weaviate-1.33.1.tar $IMAGE_REGISTRY/semitechnologies/weaviate:1.33.1
@@ -79,7 +77,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timesca
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg14-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg14-oss
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg15-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg15-oss
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg16-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg16-oss
-$CMD push --allow-nondistributable-artifacts --insecure images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar $IMAGE_REGISTRY/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/aiven-open-karapace-3.15.0.tar $IMAGE_REGISTRY/aiven-open/karapace:3.15.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-exporter-2.3.8.tar $IMAGE_REGISTRY/appscode-images/cassandra-exporter:2.3.8
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-management-4.1.8.tar $IMAGE_REGISTRY/appscode-images/cassandra-management:4.1.8
@@ -456,33 +453,10 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-init-
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-wal-g-v2024.12.18_mongo.tar $IMAGE_REGISTRY/kubedb/wal-g:v2024.12.18_mongo
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-init-3.7-v1.tar $IMAGE_REGISTRY/kubedb/zookeeper-init:3.7-v1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-restic-plugin-v0.18.0.tar $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.18.0
-$CMD push --allow-nondistributable-artifacts --insecure images/mariadb-maxscale-24.02.4.tar $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU12-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU12-ubuntu-22.04
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU14-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU14-ubuntu-22.04
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU16-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU16-ubuntu-22.04
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU19-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU19-ubuntu-22.04
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU22-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU22-ubuntu-22.04
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2025-RTM-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2025-RTM-ubuntu-22.04
-$CMD push --allow-nondistributable-artifacts --insecure images/mysql-mysql-router-8.0.31.tar $IMAGE_REGISTRY/mysql/mysql-router:8.0.31
-$CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-4.4.26.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:4.4.26
-$CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-5.0.29.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:5.0.29
-$CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-6.0.24.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:6.0.24
-$CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-7.0.18.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:7.0.18
-$CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-7.0.28.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:7.0.28
-$CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-8.0.17.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:8.0.17
-$CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-8.0.8.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:8.0.8
-$CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-11-3.3.tar $IMAGE_REGISTRY/postgis/postgis:11-3.3
-$CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-12-3.4.tar $IMAGE_REGISTRY/postgis/postgis:12-3.4
-$CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-13-3.4.tar $IMAGE_REGISTRY/postgis/postgis:13-3.4
-$CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-14-3.4.tar $IMAGE_REGISTRY/postgis/postgis:14-3.4
-$CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-15-3.4.tar $IMAGE_REGISTRY/postgis/postgis:15-3.4
-$CMD push --allow-nondistributable-artifacts --insecure images/postgis-postgis-16-3.4.tar $IMAGE_REGISTRY/postgis/postgis:16-3.4
-$CMD push --allow-nondistributable-artifacts --insecure images/prom-mysqld-exporter-v0.18.0.tar $IMAGE_REGISTRY/prom/mysqld-exporter:v0.18.0
-$CMD push --allow-nondistributable-artifacts --insecure images/prometheuscommunity-elasticsearch-exporter-v1.10.0.tar $IMAGE_REGISTRY/prometheuscommunity/elasticsearch-exporter:v1.10.0
-$CMD push --allow-nondistributable-artifacts --insecure images/prometheuscommunity-postgres-exporter-v0.18.1.tar $IMAGE_REGISTRY/prometheuscommunity/postgres-exporter:v0.18.1
 $CMD push --allow-nondistributable-artifacts --insecure images/git-sync-git-sync-v4.4.2.tar $IMAGE_REGISTRY/git-sync/git-sync:v4.4.2
-$CMD push --allow-nondistributable-artifacts --insecure images/tianon-toybox-0.8.11.tar $IMAGE_REGISTRY/tianon/toybox:0.8.11
-$CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg13-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg13-oss
-$CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg14-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg14-oss
-$CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg15-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg15-oss
-$CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg16-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg16-oss

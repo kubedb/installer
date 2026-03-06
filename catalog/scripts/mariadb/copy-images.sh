@@ -36,6 +36,7 @@ mv /tmp/crane .
 CMD="./crane"
 
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/mariadb/maxscale:24.02.4 $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/prom/mysqld-exporter:v0.18.0 $IMAGE_REGISTRY/prom/mysqld-exporter:v0.18.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.10.7-jammy $IMAGE_REGISTRY/appscode-images/mariadb:10.10.7-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.11.6-jammy $IMAGE_REGISTRY/appscode-images/mariadb:10.11.6-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.4.32-focal $IMAGE_REGISTRY/appscode-images/mariadb:10.4.32-focal
@@ -60,5 +61,3 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-arc
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.23.0_11.2.2-jammy $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.23.0_11.2.2-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-coordinator:v0.43.0 $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.43.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-init:0.8.0 $IMAGE_REGISTRY/kubedb/mariadb-init:0.8.0
-$CMD cp --allow-nondistributable-artifacts --insecure mariadb/maxscale:24.02.4 $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
-$CMD cp --allow-nondistributable-artifacts --insecure prom/mysqld-exporter:v0.18.0 $IMAGE_REGISTRY/prom/mysqld-exporter:v0.18.0

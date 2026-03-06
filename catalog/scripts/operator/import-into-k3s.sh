@@ -24,6 +24,7 @@ fi
 TARBALL=${1:-}
 tar -zxvf $TARBALL
 
+k3s ctr images import images/tianon-toybox-0.8.11.tar
 k3s ctr images import images/appscode-kubectl-nonroot-1.34.tar
 k3s ctr images import images/appscode-petset-v0.0.16.tar
 k3s ctr images import images/appscode-sidekick-v0.0.14.tar
@@ -53,4 +54,3 @@ k3s ctr images import images/kubedb-provider-azure-v0.24.0.tar
 k3s ctr images import images/kubedb-provider-gcp-v0.24.0.tar
 k3s ctr images import images/kubedb-redis-restic-plugin-v0.26.0.tar
 k3s ctr images import images/kubedb-zookeeper-restic-plugin-v0.18.0.tar
-k3s ctr images import images/tianon-toybox-0.8.11.tar

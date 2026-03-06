@@ -24,8 +24,6 @@ fi
 TARBALL=${1:-}
 tar -zxvf $TARBALL
 
-k3s ctr images import images/apicurio-apicurio-registry-kafkasql-2.5.11.Final.tar
-k3s ctr images import images/apicurio-apicurio-registry-mem-2.5.11.Final.tar
 k3s ctr images import images/database-enterprise-21.3.0.0.tar
 k3s ctr images import images/database-observability-exporter-2.2.1.tar
 k3s ctr images import images/semitechnologies-weaviate-1.33.1.tar
@@ -77,7 +75,6 @@ k3s ctr images import images/timescale-timescaledb-2.14.2-pg13-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg14-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg15-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg16-oss.tar
-k3s ctr images import images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar
 k3s ctr images import images/aiven-open-karapace-3.15.0.tar
 k3s ctr images import images/appscode-images-cassandra-exporter-2.3.8.tar
 k3s ctr images import images/appscode-images-cassandra-management-4.1.8.tar
@@ -454,33 +451,10 @@ k3s ctr images import images/kubedb-solr-init-9.8.0.tar
 k3s ctr images import images/kubedb-wal-g-v2024.12.18_mongo.tar
 k3s ctr images import images/kubedb-zookeeper-init-3.7-v1.tar
 k3s ctr images import images/kubedb-zookeeper-restic-plugin-v0.18.0.tar
-k3s ctr images import images/mariadb-maxscale-24.02.4.tar
 k3s ctr images import images/mssql-server-2022-CU12-ubuntu-22.04.tar
 k3s ctr images import images/mssql-server-2022-CU14-ubuntu-22.04.tar
 k3s ctr images import images/mssql-server-2022-CU16-ubuntu-22.04.tar
 k3s ctr images import images/mssql-server-2022-CU19-ubuntu-22.04.tar
 k3s ctr images import images/mssql-server-2022-CU22-ubuntu-22.04.tar
 k3s ctr images import images/mssql-server-2025-RTM-ubuntu-22.04.tar
-k3s ctr images import images/mysql-mysql-router-8.0.31.tar
-k3s ctr images import images/percona-percona-server-mongodb-4.4.26.tar
-k3s ctr images import images/percona-percona-server-mongodb-5.0.29.tar
-k3s ctr images import images/percona-percona-server-mongodb-6.0.24.tar
-k3s ctr images import images/percona-percona-server-mongodb-7.0.18.tar
-k3s ctr images import images/percona-percona-server-mongodb-7.0.28.tar
-k3s ctr images import images/percona-percona-server-mongodb-8.0.17.tar
-k3s ctr images import images/percona-percona-server-mongodb-8.0.8.tar
-k3s ctr images import images/postgis-postgis-11-3.3.tar
-k3s ctr images import images/postgis-postgis-12-3.4.tar
-k3s ctr images import images/postgis-postgis-13-3.4.tar
-k3s ctr images import images/postgis-postgis-14-3.4.tar
-k3s ctr images import images/postgis-postgis-15-3.4.tar
-k3s ctr images import images/postgis-postgis-16-3.4.tar
-k3s ctr images import images/prom-mysqld-exporter-v0.18.0.tar
-k3s ctr images import images/prometheuscommunity-elasticsearch-exporter-v1.10.0.tar
-k3s ctr images import images/prometheuscommunity-postgres-exporter-v0.18.1.tar
 k3s ctr images import images/git-sync-git-sync-v4.4.2.tar
-k3s ctr images import images/tianon-toybox-0.8.11.tar
-k3s ctr images import images/timescale-timescaledb-2.14.2-pg13-oss.tar
-k3s ctr images import images/timescale-timescaledb-2.14.2-pg14-oss.tar
-k3s ctr images import images/timescale-timescaledb-2.14.2-pg15-oss.tar
-k3s ctr images import images/timescale-timescaledb-2.14.2-pg16-oss.tar

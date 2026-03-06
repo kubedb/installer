@@ -32,6 +32,7 @@ mv /tmp/crane images
 
 CMD="./images/crane"
 
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/tianon/toybox:0.8.11 images/tianon-toybox-0.8.11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.34 images/appscode-kubectl-nonroot-1.34.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.16 images/appscode-petset-v0.0.16.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.14 images/appscode-sidekick-v0.0.14.tar
@@ -61,6 +62,5 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-gcp:v0.24.0 images/kubedb-provider-gcp-v0.24.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.26.0 images/kubedb-redis-restic-plugin-v0.26.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.18.0 images/kubedb-zookeeper-restic-plugin-v0.18.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure tianon/toybox:0.8.11 images/tianon-toybox-0.8.11.tar
 
 tar -czvf images.tar.gz images

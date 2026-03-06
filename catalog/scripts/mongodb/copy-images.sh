@@ -53,10 +53,3 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-ini
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v11 $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v11
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb_exporter:v0.47.2 $IMAGE_REGISTRY/kubedb/mongodb_exporter:v0.47.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/wal-g:v2024.12.18_mongo $IMAGE_REGISTRY/kubedb/wal-g:v2024.12.18_mongo
-$CMD cp --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:4.4.26 $IMAGE_REGISTRY/percona/percona-server-mongodb:4.4.26
-$CMD cp --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:5.0.29 $IMAGE_REGISTRY/percona/percona-server-mongodb:5.0.29
-$CMD cp --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:6.0.24 $IMAGE_REGISTRY/percona/percona-server-mongodb:6.0.24
-$CMD cp --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:7.0.18 $IMAGE_REGISTRY/percona/percona-server-mongodb:7.0.18
-$CMD cp --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:7.0.28 $IMAGE_REGISTRY/percona/percona-server-mongodb:7.0.28
-$CMD cp --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:8.0.17 $IMAGE_REGISTRY/percona/percona-server-mongodb:8.0.17
-$CMD cp --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:8.0.8 $IMAGE_REGISTRY/percona/percona-server-mongodb:8.0.8

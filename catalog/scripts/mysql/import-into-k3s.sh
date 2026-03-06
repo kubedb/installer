@@ -53,4 +53,3 @@ k3s ctr images import images/kubedb-mysql-init-9.0.1-v3.tar
 k3s ctr images import images/kubedb-mysql-router-init-v0.41.0.tar
 k3s ctr images import images/kubedb-mysqld-exporter-v0.18.0.tar
 k3s ctr images import images/kubedb-replication-mode-detector-v0.50.0.tar
-k3s ctr images import images/mysql-mysql-router-8.0.31.tar

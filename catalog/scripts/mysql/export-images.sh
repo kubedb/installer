@@ -61,6 +61,5 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-ini
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.41.0 images/kubedb-mysql-router-init-v0.41.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.18.0 images/kubedb-mysqld-exporter-v0.18.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/replication-mode-detector:v0.50.0 images/kubedb-replication-mode-detector-v0.50.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure mysql/mysql-router:8.0.31 images/mysql-mysql-router-8.0.31.tar
 
 tar -czvf images.tar.gz images

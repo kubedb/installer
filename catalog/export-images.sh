@@ -32,8 +32,6 @@ mv /tmp/crane images
 
 CMD="./images/crane"
 
-$CMD pull --allow-nondistributable-artifacts --insecure apicurio/apicurio-registry-kafkasql:2.5.11.Final images/apicurio-apicurio-registry-kafkasql-2.5.11.Final.tar
-$CMD pull --allow-nondistributable-artifacts --insecure apicurio/apicurio-registry-mem:2.5.11.Final images/apicurio-apicurio-registry-mem-2.5.11.Final.tar
 $CMD pull --allow-nondistributable-artifacts --insecure container-registry.oracle.com/database/enterprise:21.3.0.0 images/database-enterprise-21.3.0.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure container-registry.oracle.com/database/observability-exporter:2.2.1 images/database-observability-exporter-2.2.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure cr.weaviate.io/semitechnologies/weaviate:1.33.1 images/semitechnologies-weaviate-1.33.1.tar
@@ -85,7 +83,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure docker.io/timescale/time
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg14-oss images/timescale-timescaledb-2.14.2-pg14-oss.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg15-oss images/timescale-timescaledb-2.14.2-pg15-oss.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg16-oss images/timescale-timescaledb-2.14.2-pg16-oss.tar
-$CMD pull --allow-nondistributable-artifacts --insecure floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0 images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/aiven-open/karapace:3.15.0 images/aiven-open-karapace-3.15.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-exporter:2.3.8 images/appscode-images-cassandra-exporter-2.3.8.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:4.1.8 images/appscode-images-cassandra-management-4.1.8.tar
@@ -462,35 +459,12 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/wal-g:v2024.12.18_mongo images/kubedb-wal-g-v2024.12.18_mongo.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-init:3.7-v1 images/kubedb-zookeeper-init-3.7-v1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.18.0 images/kubedb-zookeeper-restic-plugin-v0.18.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure mariadb/maxscale:24.02.4 images/mariadb-maxscale-24.02.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04 images/mssql-server-2022-CU12-ubuntu-22.04.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04 images/mssql-server-2022-CU14-ubuntu-22.04.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU16-ubuntu-22.04 images/mssql-server-2022-CU16-ubuntu-22.04.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU19-ubuntu-22.04 images/mssql-server-2022-CU19-ubuntu-22.04.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU22-ubuntu-22.04 images/mssql-server-2022-CU22-ubuntu-22.04.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2025-RTM-ubuntu-22.04 images/mssql-server-2025-RTM-ubuntu-22.04.tar
-$CMD pull --allow-nondistributable-artifacts --insecure mysql/mysql-router:8.0.31 images/mysql-mysql-router-8.0.31.tar
-$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:4.4.26 images/percona-percona-server-mongodb-4.4.26.tar
-$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:5.0.29 images/percona-percona-server-mongodb-5.0.29.tar
-$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:6.0.24 images/percona-percona-server-mongodb-6.0.24.tar
-$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:7.0.18 images/percona-percona-server-mongodb-7.0.18.tar
-$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:7.0.28 images/percona-percona-server-mongodb-7.0.28.tar
-$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:8.0.17 images/percona-percona-server-mongodb-8.0.17.tar
-$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:8.0.8 images/percona-percona-server-mongodb-8.0.8.tar
-$CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:11-3.3 images/postgis-postgis-11-3.3.tar
-$CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:12-3.4 images/postgis-postgis-12-3.4.tar
-$CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:13-3.4 images/postgis-postgis-13-3.4.tar
-$CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:14-3.4 images/postgis-postgis-14-3.4.tar
-$CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:15-3.4 images/postgis-postgis-15-3.4.tar
-$CMD pull --allow-nondistributable-artifacts --insecure postgis/postgis:16-3.4 images/postgis-postgis-16-3.4.tar
-$CMD pull --allow-nondistributable-artifacts --insecure prom/mysqld-exporter:v0.18.0 images/prom-mysqld-exporter-v0.18.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/elasticsearch-exporter:v1.10.0 images/prometheuscommunity-elasticsearch-exporter-v1.10.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/postgres-exporter:v0.18.1 images/prometheuscommunity-postgres-exporter-v0.18.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.4.2 images/git-sync-git-sync-v4.4.2.tar
-$CMD pull --allow-nondistributable-artifacts --insecure tianon/toybox:0.8.11 images/tianon-toybox-0.8.11.tar
-$CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg13-oss images/timescale-timescaledb-2.14.2-pg13-oss.tar
-$CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg14-oss images/timescale-timescaledb-2.14.2-pg14-oss.tar
-$CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg15-oss images/timescale-timescaledb-2.14.2-pg15-oss.tar
-$CMD pull --allow-nondistributable-artifacts --insecure timescale/timescaledb:2.14.2-pg16-oss images/timescale-timescaledb-2.14.2-pg16-oss.tar
 
 tar -czvf images.tar.gz images
