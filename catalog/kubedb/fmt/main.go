@@ -68,6 +68,16 @@ var ubiImageList = sets.NewString(
 	"ghcr.io/kubedb/mssql-exporter",
 )
 
+var imagePathList = [][]string{
+	{"image"},
+	{"yqImage"},
+	{"walg", "image"},
+	{"cli", "image"},
+	{"statusReporter", "image"},
+	{"initContainer", "image"},
+	{"observer", "image"},
+}
+
 type StashAddon struct {
 	DBType    string
 	DBVersion string
@@ -233,7 +243,7 @@ func main() {
 						if err != nil {
 							panic(err)
 						}
-						if ref.Registry == "mysql" {
+						if ref.Registry == "index.docker.io" && strings.HasPrefix(ref.Repository, "mysql/") {
 							distro = "MySQL"
 						}
 					}
@@ -368,6 +378,7 @@ func main() {
 			panic(err)
 		}
 	}
+
 	{
 		for k, v := range backupTaskStore {
 			versions := semvers.SortVersions(v, func(vi, vj string) bool {
@@ -418,7 +429,43 @@ func main() {
 		}
 	}
 
+	// FORMAT CATALOG, INJECT docker.io prefix
 	for k, v := range dbStore {
+		for _, obj := range v {
+			spec, _, err := unstructured.NestedMap(obj.Object, "spec")
+			if err != nil {
+				panic(err)
+			}
+			for prop := range spec {
+				updateDockerHubPrefix := func(fields ...string) {
+					fieldList := append([]string{"spec", prop}, fields...)
+					img, ok, _ := unstructured.NestedString(obj.Object, fieldList...)
+					if img != "" && ok {
+						decodedImg := decodeTag(img)
+						ref, err := name.ParseReference(decodedImg)
+						if err != nil {
+							panic(err)
+						}
+
+						if ref.Registry == "index.docker.io" && !strings.HasPrefix(img, "docker.io/") {
+							if _, digest, found := strings.Cut(img, "@"); found {
+								img = fmt.Sprintf("docker.io/%s@%s", ref.Repository, digest)
+							} else if _, tag, found := strings.Cut(img, ":"); found {
+								img = fmt.Sprintf("docker.io/%s:%s", ref.Repository, tag)
+							}
+						}
+						err = unstructured.SetNestedField(obj.Object, img, fieldList...)
+						if err != nil {
+							panic(err)
+						}
+					}
+				}
+				for _, path := range imagePathList {
+					updateDockerHubPrefix(path...)
+				}
+			}
+		}
+
 		sort.Slice(v, func(i, j int) bool {
 			di, _, _ := unstructured.NestedBool(v[i].Object, "spec", "deprecated")
 			dj, _, _ := unstructured.NestedBool(v[j].Object, "spec", "deprecated")
@@ -464,7 +511,6 @@ func main() {
 			panic(err)
 		}
 	}
-
 	for k, v := range pspForDBs {
 		if len(v) == 0 {
 			continue
@@ -494,7 +540,6 @@ func main() {
 			panic(err)
 		}
 	}
-
 	{
 		// move new_raw to raw
 		err = os.RemoveAll(filepath.Join(dir, "catalog", "kubedb", "raw"))
@@ -551,6 +596,8 @@ func main() {
 								newimg = fmt.Sprintf(`{{ include "image.kubernetes" (merge (dict "_repo" "%s") $) }}`, ref.Repository)
 							case "mcr.microsoft.com":
 								newimg = fmt.Sprintf(`{{ include "image.microsoft" (merge (dict "_repo" "%s") $) }}`, ref.Repository)
+							case "container-registry.oracle.com":
+								newimg = fmt.Sprintf(`{{ include "image.oracle" (merge (dict "_repo" "%s") $) }}`, ref.Repository)
 							case "cr.weaviate.io":
 								newimg = fmt.Sprintf(`{{ include "image.weaviate" (merge (dict "_repo" "%s") $) }}`, ref.Repository)
 							default:
@@ -569,11 +616,9 @@ func main() {
 							}
 						}
 					}
-					templatizeRegistry("image")
-					templatizeRegistry("yqImage")
-					templatizeRegistry("walg", "image")
-					templatizeRegistry("cli", "image")
-					templatizeRegistry("statusReporter", "image")
+					for _, path := range imagePathList {
+						templatizeRegistry(path...)
+					}
 				}
 				copies = append(copies, objCopy.UnstructuredContent())
 

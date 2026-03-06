@@ -86,6 +86,10 @@ Create the name of the service account to use
 {{ list .Values.proxies.appscode ._repo | compact | join "/" }}
 {{- end }}
 
+{{- define "image.oracle" -}}
+{{ list .Values.proxies.oracle ._repo | compact | join "/" }}
+{{- end }}
+
 {{- define "image.weaviate" -}}
 {{ list .Values.proxies.weaviate ._repo | compact | join "/" }}
 {{- end }}

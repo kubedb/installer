@@ -45,106 +45,107 @@ The command removes all the Kubernetes components associated with the chart and 
 
 The following table lists the configurable parameters of the `kubedb-catalog` chart and their default values.
 
-|                 Parameter                  |                   Description                   |            Default             |
-|--------------------------------------------|-------------------------------------------------|--------------------------------|
-| nameOverride                               | Overrides name template                         | <code>""</code>                |
-| fullnameOverride                           | Overrides fullname template                     | <code>""</code>                |
-| proxies.dockerHub                          |                                                 | <code>""</code>                |
-| proxies.dockerLibrary                      |                                                 | <code>""</code>                |
-| proxies.ghcr                               |                                                 | <code>ghcr.io</code>           |
-| proxies.quay                               |                                                 | <code>quay.io</code>           |
-| proxies.kubernetes                         |                                                 | <code>registry.k8s.io</code>   |
-| proxies.microsoft                          |                                                 | <code>mcr.microsoft.com</code> |
-| proxies.appscode                           |                                                 | <code>r.appscode.com</code>    |
-| proxies.weaviate                           |                                                 | <code>cr.weaviate.io</code>    |
-| featureGates.Cassandra                     |                                                 | <code>true</code>              |
-| featureGates.ClickHouse                    |                                                 | <code>true</code>              |
-| featureGates.DB2                           |                                                 | <code>true</code>              |
-| featureGates.Druid                         |                                                 | <code>true</code>              |
-| featureGates.Elasticsearch                 |                                                 | <code>true</code>              |
-| featureGates.FerretDB                      |                                                 | <code>true</code>              |
-| featureGates.HanaDB                        |                                                 | <code>true</code>              |
-| featureGates.Hazelcast                     |                                                 | <code>true</code>              |
-| featureGates.Ignite                        |                                                 | <code>true</code>              |
-| featureGates.Kafka                         |                                                 | <code>true</code>              |
-| featureGates.MariaDB                       |                                                 | <code>true</code>              |
-| featureGates.Memcached                     |                                                 | <code>true</code>              |
-| featureGates.Milvus                        |                                                 | <code>true</code>              |
-| featureGates.MongoDB                       |                                                 | <code>true</code>              |
-| featureGates.MSSQLServer                   |                                                 | <code>true</code>              |
-| featureGates.MySQL                         |                                                 | <code>true</code>              |
-| featureGates.Neo4j                         |                                                 | <code>true</code>              |
-| featureGates.Oracle                        |                                                 | <code>true</code>              |
-| featureGates.PerconaXtraDB                 |                                                 | <code>true</code>              |
-| featureGates.PgBouncer                     |                                                 | <code>true</code>              |
-| featureGates.Pgpool                        |                                                 | <code>true</code>              |
-| featureGates.Postgres                      |                                                 | <code>true</code>              |
-| featureGates.ProxySQL                      |                                                 | <code>true</code>              |
-| featureGates.Qdrant                        |                                                 | <code>true</code>              |
-| featureGates.RabbitMQ                      |                                                 | <code>true</code>              |
-| featureGates.Redis                         |                                                 | <code>true</code>              |
-| featureGates.Singlestore                   |                                                 | <code>true</code>              |
-| featureGates.Solr                          |                                                 | <code>true</code>              |
-| featureGates.Weaviate                      |                                                 | <code>true</code>              |
-| featureGates.ZooKeeper                     |                                                 | <code>true</code>              |
-| psp.enabled                                |                                                 | <code>false</code>             |
-| psp.elasticsearch.allowPrivilegeEscalation |                                                 | <code>true</code>              |
-| psp.elasticsearch.privileged               |                                                 | <code>true</code>              |
-| psp.mariadb.allowPrivilegeEscalation       |                                                 | <code>false</code>             |
-| psp.mariadb.privileged                     |                                                 | <code>false</code>             |
-| psp.memcached.allowPrivilegeEscalation     |                                                 | <code>false</code>             |
-| psp.memcached.privileged                   |                                                 | <code>false</code>             |
-| psp.mongodb.allowPrivilegeEscalation       |                                                 | <code>false</code>             |
-| psp.mongodb.privileged                     |                                                 | <code>false</code>             |
-| psp.mysql.allowPrivilegeEscalation         |                                                 | <code>false</code>             |
-| psp.mysql.privileged                       |                                                 | <code>false</code>             |
-| psp.perconaxtradb.allowPrivilegeEscalation |                                                 | <code>false</code>             |
-| psp.perconaxtradb.privileged               |                                                 | <code>false</code>             |
-| psp.postgres.allowPrivilegeEscalation      |                                                 | <code>false</code>             |
-| psp.postgres.privileged                    |                                                 | <code>false</code>             |
-| psp.proxysql.allowPrivilegeEscalation      |                                                 | <code>false</code>             |
-| psp.proxysql.privileged                    |                                                 | <code>false</code>             |
-| psp.redis.allowPrivilegeEscalation         |                                                 | <code>false</code>             |
-| psp.redis.privileged                       |                                                 | <code>false</code>             |
-| psp.kafka.allowPrivilegeEscalation         |                                                 | <code>false</code>             |
-| psp.kafka.privileged                       |                                                 | <code>false</code>             |
-| skipDeprecated                             | Set true to avoid deploying deprecated versions | <code>true</code>              |
-| skipEndOfLife                              |                                                 | <code>false</code>             |
-| enableVersions.Druid                       |                                                 | <code>[]</code>                |
-| enableVersions.Elasticsearch               |                                                 | <code>[]</code>                |
-| enableVersions.FerretDB                    |                                                 | <code>[]</code>                |
-| enableVersions.Hazelcast                   |                                                 | <code>[]</code>                |
-| enableVersions.Ignite                      |                                                 | <code>[]</code>                |
-| enableVersions.Kafka                       |                                                 | <code>[]</code>                |
-| enableVersions.MariaDB                     |                                                 | <code>[]</code>                |
-| enableVersions.Memcached                   |                                                 | <code>[]</code>                |
-| enableVersions.Milvus                      |                                                 | <code>[]</code>                |
-| enableVersions.MSSQLServer                 |                                                 | <code>[]</code>                |
-| enableVersions.MongoDB                     |                                                 | <code>[]</code>                |
-| enableVersions.MySQL                       |                                                 | <code>[]</code>                |
-| enableVersions.Oracle                      |                                                 | <code>[]</code>                |
-| enableVersions.PerconaXtraDB               |                                                 | <code>[]</code>                |
-| enableVersions.PgBouncer                   |                                                 | <code>[]</code>                |
-| enableVersions.Pgpool                      |                                                 | <code>[]</code>                |
-| enableVersions.Postgres                    |                                                 | <code>[]</code>                |
-| enableVersions.ProxySQL                    |                                                 | <code>[]</code>                |
-| enableVersions.Qdrant                      |                                                 | <code>[]</code>                |
-| enableVersions.RabbitMQ                    |                                                 | <code>[]</code>                |
-| enableVersions.Redis                       |                                                 | <code>[]</code>                |
-| enableVersions.Singlestore                 |                                                 | <code>[]</code>                |
-| enableVersions.Solr                        |                                                 | <code>[]</code>                |
-| enableVersions.ZooKeeper                   |                                                 | <code>[]</code>                |
-| enableVersions.Weaviate                    |                                                 | <code>[]</code>                |
-| versionConfigMap                           |                                                 | <code>""</code>                |
-| customVersions                             |                                                 | <code>{}</code>                |
-| distro.openshift                           |                                                 | <code>false</code>             |
-| distro.ubi                                 |                                                 | <code>""</code>                |
+|                 Parameter                  |                   Description                   |                  Default                   |
+|--------------------------------------------|-------------------------------------------------|--------------------------------------------|
+| nameOverride                               | Overrides name template                         | <code>""</code>                            |
+| fullnameOverride                           | Overrides fullname template                     | <code>""</code>                            |
+| proxies.dockerHub                          |                                                 | <code>docker.io</code>                     |
+| proxies.dockerLibrary                      |                                                 | <code>docker.io/library</code>             |
+| proxies.ghcr                               |                                                 | <code>ghcr.io</code>                       |
+| proxies.quay                               |                                                 | <code>quay.io</code>                       |
+| proxies.kubernetes                         |                                                 | <code>registry.k8s.io</code>               |
+| proxies.microsoft                          |                                                 | <code>mcr.microsoft.com</code>             |
+| proxies.appscode                           |                                                 | <code>r.appscode.com</code>                |
+| proxies.oracle                             |                                                 | <code>container-registry.oracle.com</code> |
+| proxies.weaviate                           |                                                 | <code>cr.weaviate.io</code>                |
+| featureGates.Cassandra                     |                                                 | <code>true</code>                          |
+| featureGates.ClickHouse                    |                                                 | <code>true</code>                          |
+| featureGates.DB2                           |                                                 | <code>true</code>                          |
+| featureGates.Druid                         |                                                 | <code>true</code>                          |
+| featureGates.Elasticsearch                 |                                                 | <code>true</code>                          |
+| featureGates.FerretDB                      |                                                 | <code>true</code>                          |
+| featureGates.HanaDB                        |                                                 | <code>true</code>                          |
+| featureGates.Hazelcast                     |                                                 | <code>true</code>                          |
+| featureGates.Ignite                        |                                                 | <code>true</code>                          |
+| featureGates.Kafka                         |                                                 | <code>true</code>                          |
+| featureGates.MariaDB                       |                                                 | <code>true</code>                          |
+| featureGates.Memcached                     |                                                 | <code>true</code>                          |
+| featureGates.Milvus                        |                                                 | <code>true</code>                          |
+| featureGates.MongoDB                       |                                                 | <code>true</code>                          |
+| featureGates.MSSQLServer                   |                                                 | <code>true</code>                          |
+| featureGates.MySQL                         |                                                 | <code>true</code>                          |
+| featureGates.Neo4j                         |                                                 | <code>true</code>                          |
+| featureGates.Oracle                        |                                                 | <code>true</code>                          |
+| featureGates.PerconaXtraDB                 |                                                 | <code>true</code>                          |
+| featureGates.PgBouncer                     |                                                 | <code>true</code>                          |
+| featureGates.Pgpool                        |                                                 | <code>true</code>                          |
+| featureGates.Postgres                      |                                                 | <code>true</code>                          |
+| featureGates.ProxySQL                      |                                                 | <code>true</code>                          |
+| featureGates.Qdrant                        |                                                 | <code>true</code>                          |
+| featureGates.RabbitMQ                      |                                                 | <code>true</code>                          |
+| featureGates.Redis                         |                                                 | <code>true</code>                          |
+| featureGates.Singlestore                   |                                                 | <code>true</code>                          |
+| featureGates.Solr                          |                                                 | <code>true</code>                          |
+| featureGates.Weaviate                      |                                                 | <code>true</code>                          |
+| featureGates.ZooKeeper                     |                                                 | <code>true</code>                          |
+| psp.enabled                                |                                                 | <code>false</code>                         |
+| psp.elasticsearch.allowPrivilegeEscalation |                                                 | <code>true</code>                          |
+| psp.elasticsearch.privileged               |                                                 | <code>true</code>                          |
+| psp.mariadb.allowPrivilegeEscalation       |                                                 | <code>false</code>                         |
+| psp.mariadb.privileged                     |                                                 | <code>false</code>                         |
+| psp.memcached.allowPrivilegeEscalation     |                                                 | <code>false</code>                         |
+| psp.memcached.privileged                   |                                                 | <code>false</code>                         |
+| psp.mongodb.allowPrivilegeEscalation       |                                                 | <code>false</code>                         |
+| psp.mongodb.privileged                     |                                                 | <code>false</code>                         |
+| psp.mysql.allowPrivilegeEscalation         |                                                 | <code>false</code>                         |
+| psp.mysql.privileged                       |                                                 | <code>false</code>                         |
+| psp.perconaxtradb.allowPrivilegeEscalation |                                                 | <code>false</code>                         |
+| psp.perconaxtradb.privileged               |                                                 | <code>false</code>                         |
+| psp.postgres.allowPrivilegeEscalation      |                                                 | <code>false</code>                         |
+| psp.postgres.privileged                    |                                                 | <code>false</code>                         |
+| psp.proxysql.allowPrivilegeEscalation      |                                                 | <code>false</code>                         |
+| psp.proxysql.privileged                    |                                                 | <code>false</code>                         |
+| psp.redis.allowPrivilegeEscalation         |                                                 | <code>false</code>                         |
+| psp.redis.privileged                       |                                                 | <code>false</code>                         |
+| psp.kafka.allowPrivilegeEscalation         |                                                 | <code>false</code>                         |
+| psp.kafka.privileged                       |                                                 | <code>false</code>                         |
+| skipDeprecated                             | Set true to avoid deploying deprecated versions | <code>true</code>                          |
+| skipEndOfLife                              |                                                 | <code>false</code>                         |
+| enableVersions.Druid                       |                                                 | <code>[]</code>                            |
+| enableVersions.Elasticsearch               |                                                 | <code>[]</code>                            |
+| enableVersions.FerretDB                    |                                                 | <code>[]</code>                            |
+| enableVersions.Hazelcast                   |                                                 | <code>[]</code>                            |
+| enableVersions.Ignite                      |                                                 | <code>[]</code>                            |
+| enableVersions.Kafka                       |                                                 | <code>[]</code>                            |
+| enableVersions.MariaDB                     |                                                 | <code>[]</code>                            |
+| enableVersions.Memcached                   |                                                 | <code>[]</code>                            |
+| enableVersions.Milvus                      |                                                 | <code>[]</code>                            |
+| enableVersions.MSSQLServer                 |                                                 | <code>[]</code>                            |
+| enableVersions.MongoDB                     |                                                 | <code>[]</code>                            |
+| enableVersions.MySQL                       |                                                 | <code>[]</code>                            |
+| enableVersions.Oracle                      |                                                 | <code>[]</code>                            |
+| enableVersions.PerconaXtraDB               |                                                 | <code>[]</code>                            |
+| enableVersions.PgBouncer                   |                                                 | <code>[]</code>                            |
+| enableVersions.Pgpool                      |                                                 | <code>[]</code>                            |
+| enableVersions.Postgres                    |                                                 | <code>[]</code>                            |
+| enableVersions.ProxySQL                    |                                                 | <code>[]</code>                            |
+| enableVersions.Qdrant                      |                                                 | <code>[]</code>                            |
+| enableVersions.RabbitMQ                    |                                                 | <code>[]</code>                            |
+| enableVersions.Redis                       |                                                 | <code>[]</code>                            |
+| enableVersions.Singlestore                 |                                                 | <code>[]</code>                            |
+| enableVersions.Solr                        |                                                 | <code>[]</code>                            |
+| enableVersions.ZooKeeper                   |                                                 | <code>[]</code>                            |
+| enableVersions.Weaviate                    |                                                 | <code>[]</code>                            |
+| versionConfigMap                           |                                                 | <code>""</code>                            |
+| customVersions                             |                                                 | <code>{}</code>                            |
+| distro.openshift                           |                                                 | <code>false</code>                         |
+| distro.ubi                                 |                                                 | <code>""</code>                            |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-catalog appscode/kubedb-catalog -n kubedb --create-namespace --version=v2026.2.26 --set proxies.ghcr=ghcr.io
+$ helm upgrade -i kubedb-catalog appscode/kubedb-catalog -n kubedb --create-namespace --version=v2026.2.26 --set proxies.dockerHub=docker.io
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
