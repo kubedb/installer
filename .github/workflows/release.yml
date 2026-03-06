@@ -48,6 +48,16 @@ jobs:
           make docker-buildx
           make bundle-build bundle-push
 
+      - name: Publish to Red Hat Ecosystem Catalog
+        env:
+          REGISTRY: ghcr.io/kubedb
+          PFLT_PYXIS_API_TOKEN: ${{ secrets.PFLT_PYXIS_API_TOKEN }}
+        run: |
+          curl -fsSL -o preflight https://github.com/redhat-openshift-ecosystem/openshift-preflight/releases/latest/download/preflight-linux-amd64
+          chmod +x preflight
+          sudo mv preflight /usr/local/bin/preflight
+          make docker-certify-redhat
+
       - name: Clone charts repository
         env:
           GITHUB_USER: 1gtm
