@@ -35,6 +35,7 @@ mv /tmp/crane .
 
 CMD="./crane"
 
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/tianon/toybox:0.8.11 $IMAGE_REGISTRY/tianon/toybox:0.8.11
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.34 $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.34
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.16 $IMAGE_REGISTRY/appscode/petset:v0.0.16
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.14 $IMAGE_REGISTRY/appscode/sidekick:v0.0.14
@@ -64,4 +65,3 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-az
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-gcp:v0.24.0 $IMAGE_REGISTRY/kubedb/provider-gcp:v0.24.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.26.0 $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.26.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.18.0 $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.18.0
-$CMD cp --allow-nondistributable-artifacts --insecure tianon/toybox:0.8.11 $IMAGE_REGISTRY/tianon/toybox:0.8.11

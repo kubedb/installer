@@ -28,6 +28,4 @@ CMD="./crane"
 
 $CMD push --allow-nondistributable-artifacts --insecure images/apicurio-apicurio-registry-kafkasql-2.5.11.Final.tar $IMAGE_REGISTRY/apicurio/apicurio-registry-kafkasql:2.5.11.Final
 $CMD push --allow-nondistributable-artifacts --insecure images/apicurio-apicurio-registry-mem-2.5.11.Final.tar $IMAGE_REGISTRY/apicurio/apicurio-registry-mem:2.5.11.Final
-$CMD push --allow-nondistributable-artifacts --insecure images/apicurio-apicurio-registry-kafkasql-2.5.11.Final.tar $IMAGE_REGISTRY/apicurio/apicurio-registry-kafkasql:2.5.11.Final
-$CMD push --allow-nondistributable-artifacts --insecure images/apicurio-apicurio-registry-mem-2.5.11.Final.tar $IMAGE_REGISTRY/apicurio/apicurio-registry-mem:2.5.11.Final
 $CMD push --allow-nondistributable-artifacts --insecure images/aiven-open-karapace-3.15.0.tar $IMAGE_REGISTRY/aiven-open/karapace:3.15.0

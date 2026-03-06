@@ -50,12 +50,5 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-i
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v11 images/kubedb-mongodb-init-6.0-v11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb_exporter:v0.47.2 images/kubedb-mongodb_exporter-v0.47.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/wal-g:v2024.12.18_mongo images/kubedb-wal-g-v2024.12.18_mongo.tar
-$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:4.4.26 images/percona-percona-server-mongodb-4.4.26.tar
-$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:5.0.29 images/percona-percona-server-mongodb-5.0.29.tar
-$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:6.0.24 images/percona-percona-server-mongodb-6.0.24.tar
-$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:7.0.18 images/percona-percona-server-mongodb-7.0.18.tar
-$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:7.0.28 images/percona-percona-server-mongodb-7.0.28.tar
-$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:8.0.17 images/percona-percona-server-mongodb-8.0.17.tar
-$CMD pull --allow-nondistributable-artifacts --insecure percona/percona-server-mongodb:8.0.8 images/percona-percona-server-mongodb-8.0.8.tar
 
 tar -czvf images.tar.gz images
