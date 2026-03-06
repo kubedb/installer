@@ -35,6 +35,13 @@ mv /tmp/crane .
 
 CMD="./crane"
 
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:4.4.26 $IMAGE_REGISTRY/percona/percona-server-mongodb:4.4.26
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:5.0.29 $IMAGE_REGISTRY/percona/percona-server-mongodb:5.0.29
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:6.0.24 $IMAGE_REGISTRY/percona/percona-server-mongodb:6.0.24
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:7.0.18 $IMAGE_REGISTRY/percona/percona-server-mongodb:7.0.18
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:7.0.28 $IMAGE_REGISTRY/percona/percona-server-mongodb:7.0.28
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:8.0.17 $IMAGE_REGISTRY/percona/percona-server-mongodb:8.0.17
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:8.0.8 $IMAGE_REGISTRY/percona/percona-server-mongodb:8.0.8
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:4.4.26 $IMAGE_REGISTRY/appscode-images/mongo:4.4.26
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:5.0.31 $IMAGE_REGISTRY/appscode-images/mongo:5.0.31
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:6.0.24 $IMAGE_REGISTRY/appscode-images/mongo:6.0.24

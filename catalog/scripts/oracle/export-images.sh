@@ -32,10 +32,10 @@ mv /tmp/crane images
 
 CMD="./images/crane"
 
-$CMD pull --allow-nondistributable-artifacts --insecure busybox:1.36 images/library-busybox-1.36.tar
+$CMD pull --allow-nondistributable-artifacts --insecure container-registry.oracle.com/database/enterprise:21.3.0.0 images/database-enterprise-21.3.0.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure container-registry.oracle.com/database/observability-exporter:2.2.1 images/database-observability-exporter-2.2.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/busybox:1.36 images/library-busybox-1.36.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-coordinator:v0.9.0 images/kubedb-oracle-coordinator-v0.9.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-ee:21.3.0 images/kubedb-oracle-ee-21.3.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-exporter:2.2.1 images/kubedb-oracle-exporter-2.2.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-init:v0.2.0 images/kubedb-oracle-init-v0.2.0.tar
 
 tar -czvf images.tar.gz images

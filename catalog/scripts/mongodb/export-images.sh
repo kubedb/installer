@@ -32,6 +32,13 @@ mv /tmp/crane images
 
 CMD="./images/crane"
 
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:4.4.26 images/percona-percona-server-mongodb-4.4.26.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:5.0.29 images/percona-percona-server-mongodb-5.0.29.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:6.0.24 images/percona-percona-server-mongodb-6.0.24.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:7.0.18 images/percona-percona-server-mongodb-7.0.18.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:7.0.28 images/percona-percona-server-mongodb-7.0.28.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:8.0.17 images/percona-percona-server-mongodb-8.0.17.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:8.0.8 images/percona-percona-server-mongodb-8.0.8.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:4.4.26 images/appscode-images-mongo-4.4.26.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:5.0.31 images/appscode-images-mongo-5.0.31.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:6.0.24 images/appscode-images-mongo-6.0.24.tar

@@ -24,6 +24,7 @@ fi
 TARBALL=${1:-}
 tar -zxvf $TARBALL
 
+k3s ctr images import images/mariadb-maxscale-24.02.4.tar
 k3s ctr images import images/appscode-images-mariadb-10.10.7-jammy.tar
 k3s ctr images import images/appscode-images-mariadb-10.11.6-jammy.tar
 k3s ctr images import images/appscode-images-mariadb-10.4.32-focal.tar

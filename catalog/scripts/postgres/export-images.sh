@@ -32,6 +32,17 @@ mv /tmp/crane images
 
 CMD="./images/crane"
 
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/postgis/postgis:11-3.3 images/postgis-postgis-11-3.3.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/postgis/postgis:12-3.4 images/postgis-postgis-12-3.4.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/postgis/postgis:13-3.4 images/postgis-postgis-13-3.4.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/postgis/postgis:14-3.4 images/postgis-postgis-14-3.4.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/postgis/postgis:15-3.4 images/postgis-postgis-15-3.4.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/postgis/postgis:16-3.4 images/postgis-postgis-16-3.4.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/prometheuscommunity/postgres-exporter:v0.18.1 images/prometheuscommunity-postgres-exporter-v0.18.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg13-oss images/timescale-timescaledb-2.14.2-pg13-oss.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg14-oss images/timescale-timescaledb-2.14.2-pg14-oss.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg15-oss images/timescale-timescaledb-2.14.2-pg15-oss.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg16-oss images/timescale-timescaledb-2.14.2-pg16-oss.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:15-0.102.0-ferretdb-2.0.0 images/appscode-images-postgres-documentdb-15-0.102.0-ferretdb-2.0.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:16-0.102.0-ferretdb-2.0.0 images/appscode-images-postgres-documentdb-16-0.102.0-ferretdb-2.0.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:17-0.102.0-ferretdb-2.0.0 images/appscode-images-postgres-documentdb-17-0.102.0-ferretdb-2.0.0.tar
