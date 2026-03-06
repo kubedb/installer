@@ -149,9 +149,11 @@ k3s ctr images import images/appscode-images-mysql-8.1.0-oracle.tar
 k3s ctr images import images/appscode-images-mysql-8.2.0-oracle.tar
 k3s ctr images import images/appscode-images-mysql-8.4.2-oracle.tar
 k3s ctr images import images/appscode-images-mysql-8.4.3-oracle.tar
+k3s ctr images import images/appscode-images-mysql-8.4.8-oracle.tar
 k3s ctr images import images/appscode-images-mysql-9.0.1-oracle.tar
 k3s ctr images import images/appscode-images-mysql-9.1.0-oracle.tar
 k3s ctr images import images/appscode-images-mysql-9.4.0-oracle.tar
+k3s ctr images import images/appscode-images-mysql-9.6.0-oracle.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-1.3.13.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-1.3.20.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-2.19.2.tar
@@ -347,9 +349,7 @@ k3s ctr images import images/kubedb-mysql-csi-snapshotter-plugin-v0.24.0.tar
 k3s ctr images import images/kubedb-mysql-init-5.7-v7.tar
 k3s ctr images import images/kubedb-mysql-init-8.0.31-v6.tar
 k3s ctr images import images/kubedb-mysql-init-8.4.2-v5.tar
-k3s ctr images import images/kubedb-mysql-init-8.4.3-v5.tar
 k3s ctr images import images/kubedb-mysql-init-9.0.1-v3.tar
-k3s ctr images import images/kubedb-mysql-init-9.1.0-v3.tar
 k3s ctr images import images/kubedb-mysql-router-init-v0.41.0.tar
 k3s ctr images import images/kubedb-mysqld-exporter-v0.18.0.tar
 k3s ctr images import images/kubedb-oracle-coordinator-v0.9.0.tar

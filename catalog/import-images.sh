@@ -151,9 +151,11 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-8.2.0-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:8.2.0-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-8.4.2-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:8.4.2-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-8.4.3-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:8.4.3-oracle
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-8.4.8-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:8.4.8-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-9.0.1-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:9.0.1-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-9.1.0-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:9.1.0-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-9.4.0-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:9.4.0-oracle
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-9.6.0-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:9.6.0-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-1.3.13.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:1.3.13
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-1.3.20.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:1.3.20
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-2.19.2.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.19.2
@@ -349,9 +351,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-csi-
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-5.7-v7.tar $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v7
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-8.0.31-v6.tar $IMAGE_REGISTRY/kubedb/mysql-init:8.0.31-v6
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-8.4.2-v5.tar $IMAGE_REGISTRY/kubedb/mysql-init:8.4.2-v5
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-8.4.3-v5.tar $IMAGE_REGISTRY/kubedb/mysql-init:8.4.3-v5
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-9.0.1-v3.tar $IMAGE_REGISTRY/kubedb/mysql-init:9.0.1-v3
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-9.1.0-v3.tar $IMAGE_REGISTRY/kubedb/mysql-init:9.1.0-v3
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-router-init-v0.41.0.tar $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.41.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysqld-exporter-v0.18.0.tar $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.18.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-coordinator-v0.9.0.tar $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.9.0
