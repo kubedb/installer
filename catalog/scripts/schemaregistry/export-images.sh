@@ -34,6 +34,8 @@ CMD="./images/crane"
 
 $CMD pull --allow-nondistributable-artifacts --insecure apicurio/apicurio-registry-kafkasql:2.5.11.Final images/apicurio-apicurio-registry-kafkasql-2.5.11.Final.tar
 $CMD pull --allow-nondistributable-artifacts --insecure apicurio/apicurio-registry-mem:2.5.11.Final images/apicurio-apicurio-registry-mem-2.5.11.Final.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/apicurio/apicurio-registry-kafkasql:2.5.11.Final images/apicurio-apicurio-registry-kafkasql-2.5.11.Final.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/apicurio/apicurio-registry-mem:2.5.11.Final images/apicurio-apicurio-registry-mem-2.5.11.Final.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/aiven-open/karapace:3.15.0 images/aiven-open-karapace-3.15.0.tar
 
 tar -czvf images.tar.gz images

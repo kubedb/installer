@@ -58,6 +58,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | proxies.appscode                           |                                                 | <code>r.appscode.com</code>                |
 | proxies.oracle                             |                                                 | <code>container-registry.oracle.com</code> |
 | proxies.weaviate                           |                                                 | <code>cr.weaviate.io</code>                |
+| proxies.oracle                             |                                                 | <code>container-registry.oracle.com</code> |
 | featureGates.Cassandra                     |                                                 | <code>true</code>                          |
 | featureGates.ClickHouse                    |                                                 | <code>true</code>                          |
 | featureGates.DB2                           |                                                 | <code>true</code>                          |

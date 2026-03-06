@@ -24,6 +24,17 @@ fi
 TARBALL=${1:-}
 tar -zxvf $TARBALL
 
+k3s ctr images import images/postgis-postgis-11-3.3.tar
+k3s ctr images import images/postgis-postgis-12-3.4.tar
+k3s ctr images import images/postgis-postgis-13-3.4.tar
+k3s ctr images import images/postgis-postgis-14-3.4.tar
+k3s ctr images import images/postgis-postgis-15-3.4.tar
+k3s ctr images import images/postgis-postgis-16-3.4.tar
+k3s ctr images import images/prometheuscommunity-postgres-exporter-v0.18.1.tar
+k3s ctr images import images/timescale-timescaledb-2.14.2-pg13-oss.tar
+k3s ctr images import images/timescale-timescaledb-2.14.2-pg14-oss.tar
+k3s ctr images import images/timescale-timescaledb-2.14.2-pg15-oss.tar
+k3s ctr images import images/timescale-timescaledb-2.14.2-pg16-oss.tar
 k3s ctr images import images/appscode-images-postgres-documentdb-15-0.102.0-ferretdb-2.0.0.tar
 k3s ctr images import images/appscode-images-postgres-documentdb-16-0.102.0-ferretdb-2.0.0.tar
 k3s ctr images import images/appscode-images-postgres-documentdb-17-0.102.0-ferretdb-2.0.0.tar

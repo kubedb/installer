@@ -25,6 +25,11 @@ import (
 	"kmodules.xyz/image-packer/pkg/lib"
 )
 
+var ignoreMissingList = []string{
+	"container-registry.oracle.com/database/enterprise:21.3.0.0",
+	"container-registry.oracle.com/database/observability-exporter:2.2.1",
+}
+
 var archSkipList = []string{
 	"floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0",
 	"ghcr.io/appscode-images/druid:28.0.1",
@@ -89,7 +94,7 @@ func Test_CheckImageArchitectures(t *testing.T) {
 	}
 	if err := lib.CheckImageArchitectures([]string{
 		filepath.Join(dir, "catalog", "imagelist.yaml"),
-	}, archSkipList, nil); err != nil {
+	}, archSkipList, ignoreMissingList); err != nil {
 		t.Errorf("CheckImageArchitectures() error = %v", err)
 	}
 }
@@ -124,7 +129,7 @@ func Test_CheckUBIImageArchitectures(t *testing.T) {
 		"kubedb-ui-server":         ubiOperator,
 		"kubedb-webhook-server":    ubiOperator,
 	}
-	if err := lib.CheckHelmChartImageArchitectures(filepath.Join(dir, "charts"), values, archSkipList, nil); err != nil {
+	if err := lib.CheckHelmChartImageArchitectures(filepath.Join(dir, "charts"), values, archSkipList, ignoreMissingList); err != nil {
 		t.Errorf("CheckUBIImageArchitectures() error = %v", err)
 	}
 }

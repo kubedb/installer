@@ -26,4 +26,6 @@ tar -zxvf $TARBALL
 
 k3s ctr images import images/apicurio-apicurio-registry-kafkasql-2.5.11.Final.tar
 k3s ctr images import images/apicurio-apicurio-registry-mem-2.5.11.Final.tar
+k3s ctr images import images/apicurio-apicurio-registry-kafkasql-2.5.11.Final.tar
+k3s ctr images import images/apicurio-apicurio-registry-mem-2.5.11.Final.tar
 k3s ctr images import images/aiven-open-karapace-3.15.0.tar
