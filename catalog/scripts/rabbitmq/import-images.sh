@@ -30,6 +30,4 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-r
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-rabbitmq-3.13.2-management-alpine.tar $IMAGE_REGISTRY/appscode-images/rabbitmq:3.13.2-management-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-rabbitmq-4.0.4-management-alpine.tar $IMAGE_REGISTRY/appscode-images/rabbitmq:4.0.4-management-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-rabbitmq-4.2.4-management-alpine.tar $IMAGE_REGISTRY/appscode-images/rabbitmq:4.2.4-management-alpine
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-rabbitmq-init-3.12.12.tar $IMAGE_REGISTRY/kubedb/rabbitmq-init:3.12.12
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-rabbitmq-init-3.13.2.tar $IMAGE_REGISTRY/kubedb/rabbitmq-init:3.13.2
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-rabbitmq-init-4.0.4.tar $IMAGE_REGISTRY/kubedb/rabbitmq-init:4.0.4
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-rabbitmq-init-v2026.1.19.tar $IMAGE_REGISTRY/kubedb/rabbitmq-init:v2026.1.19
