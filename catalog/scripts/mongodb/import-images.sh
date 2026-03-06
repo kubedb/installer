@@ -44,10 +44,3 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-in
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-6.0-v11.tar $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v11
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb_exporter-v0.47.2.tar $IMAGE_REGISTRY/kubedb/mongodb_exporter:v0.47.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-wal-g-v2024.12.18_mongo.tar $IMAGE_REGISTRY/kubedb/wal-g:v2024.12.18_mongo
-$CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-4.4.26.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:4.4.26
-$CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-5.0.29.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:5.0.29
-$CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-6.0.24.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:6.0.24
-$CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-7.0.18.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:7.0.18
-$CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-7.0.28.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:7.0.28
-$CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-8.0.17.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:8.0.17
-$CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-8.0.8.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:8.0.8

@@ -34,8 +34,6 @@ CMD="./images/crane"
 
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0 images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/prometheuscommunity/elasticsearch-exporter:v1.10.0 images/prometheuscommunity-elasticsearch-exporter-v1.10.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure docker.io/tianon/toybox:0.8.11 images/tianon-toybox-0.8.11.tar
-$CMD pull --allow-nondistributable-artifacts --insecure floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0 images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:6.8.23 images/appscode-images-elastic-6.8.23.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:7.17.15 images/appscode-images-elastic-7.17.15.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:7.17.28 images/appscode-images-elastic-7.17.28.tar
@@ -78,6 +76,5 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.5.0 images/appscode-images-opensearch-2.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:3.1.0 images/appscode-images-opensearch-3.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:3.4.0 images/appscode-images-opensearch-3.4.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure prometheuscommunity/elasticsearch-exporter:v1.10.0 images/prometheuscommunity-elasticsearch-exporter-v1.10.0.tar
 
 tar -czvf images.tar.gz images

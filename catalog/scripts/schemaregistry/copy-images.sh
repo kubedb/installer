@@ -35,8 +35,6 @@ mv /tmp/crane .
 
 CMD="./crane"
 
-$CMD cp --allow-nondistributable-artifacts --insecure apicurio/apicurio-registry-kafkasql:2.5.11.Final $IMAGE_REGISTRY/apicurio/apicurio-registry-kafkasql:2.5.11.Final
-$CMD cp --allow-nondistributable-artifacts --insecure apicurio/apicurio-registry-mem:2.5.11.Final $IMAGE_REGISTRY/apicurio/apicurio-registry-mem:2.5.11.Final
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/apicurio/apicurio-registry-kafkasql:2.5.11.Final $IMAGE_REGISTRY/apicurio/apicurio-registry-kafkasql:2.5.11.Final
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/apicurio/apicurio-registry-mem:2.5.11.Final $IMAGE_REGISTRY/apicurio/apicurio-registry-mem:2.5.11.Final
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/aiven-open/karapace:3.15.0 $IMAGE_REGISTRY/aiven-open/karapace:3.15.0

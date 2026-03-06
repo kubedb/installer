@@ -26,6 +26,7 @@ tar -zxvf $TARBALL
 
 CMD="./crane"
 
+$CMD push --allow-nondistributable-artifacts --insecure images/tianon-toybox-0.8.11.tar $IMAGE_REGISTRY/tianon/toybox:0.8.11
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-kubectl-nonroot-1.34.tar $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.34
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.0.16.tar $IMAGE_REGISTRY/appscode/petset:v0.0.16
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.14.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.14
@@ -55,4 +56,3 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-a
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-gcp-v0.24.0.tar $IMAGE_REGISTRY/kubedb/provider-gcp:v0.24.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-restic-plugin-v0.26.0.tar $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.26.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-restic-plugin-v0.18.0.tar $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.18.0
-$CMD push --allow-nondistributable-artifacts --insecure images/tianon-toybox-0.8.11.tar $IMAGE_REGISTRY/tianon/toybox:0.8.11

@@ -26,8 +26,6 @@ tar -zxvf $TARBALL
 
 k3s ctr images import images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar
 k3s ctr images import images/prometheuscommunity-elasticsearch-exporter-v1.10.0.tar
-k3s ctr images import images/tianon-toybox-0.8.11.tar
-k3s ctr images import images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar
 k3s ctr images import images/appscode-images-elastic-6.8.23.tar
 k3s ctr images import images/appscode-images-elastic-7.17.15.tar
 k3s ctr images import images/appscode-images-elastic-7.17.28.tar
@@ -70,4 +68,3 @@ k3s ctr images import images/appscode-images-opensearch-2.19.2.tar
 k3s ctr images import images/appscode-images-opensearch-2.5.0.tar
 k3s ctr images import images/appscode-images-opensearch-3.1.0.tar
 k3s ctr images import images/appscode-images-opensearch-3.4.0.tar
-k3s ctr images import images/prometheuscommunity-elasticsearch-exporter-v1.10.0.tar

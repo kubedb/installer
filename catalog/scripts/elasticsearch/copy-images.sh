@@ -37,8 +37,6 @@ CMD="./crane"
 
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0 $IMAGE_REGISTRY/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/prometheuscommunity/elasticsearch-exporter:v1.10.0 $IMAGE_REGISTRY/prometheuscommunity/elasticsearch-exporter:v1.10.0
-$CMD cp --allow-nondistributable-artifacts --insecure docker.io/tianon/toybox:0.8.11 $IMAGE_REGISTRY/tianon/toybox:0.8.11
-$CMD cp --allow-nondistributable-artifacts --insecure floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0 $IMAGE_REGISTRY/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:6.8.23 $IMAGE_REGISTRY/appscode-images/elastic:6.8.23
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:7.17.15 $IMAGE_REGISTRY/appscode-images/elastic:7.17.15
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:7.17.28 $IMAGE_REGISTRY/appscode-images/elastic:7.17.28
@@ -81,4 +79,3 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/op
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.5.0 $IMAGE_REGISTRY/appscode-images/opensearch:2.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:3.1.0 $IMAGE_REGISTRY/appscode-images/opensearch:3.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:3.4.0 $IMAGE_REGISTRY/appscode-images/opensearch:3.4.0
-$CMD cp --allow-nondistributable-artifacts --insecure prometheuscommunity/elasticsearch-exporter:v1.10.0 $IMAGE_REGISTRY/prometheuscommunity/elasticsearch-exporter:v1.10.0

@@ -55,4 +55,3 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-router-init-v0.41.0.tar $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.41.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysqld-exporter-v0.18.0.tar $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.18.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-replication-mode-detector-v0.50.0.tar $IMAGE_REGISTRY/kubedb/replication-mode-detector:v0.50.0
-$CMD push --allow-nondistributable-artifacts --insecure images/mysql-mysql-router-8.0.31.tar $IMAGE_REGISTRY/mysql/mysql-router:8.0.31
