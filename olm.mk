@@ -110,7 +110,7 @@ olm-uninstall: operator-sdk ## Uninstall OLM from the configured Kubernetes clus
 
 .PHONY: docker-build
 docker-build: ## Build docker image with the manager.
-	$(CONTAINER_TOOL) build -t ${IMG} .
+	$(CONTAINER_TOOL) build --build-arg TAG=$(VERSION) -t ${IMG} .
 
 .PHONY: docker-push
 docker-push: ## Push docker image with the manager.
@@ -127,7 +127,7 @@ PLATFORMS ?= linux/arm64,linux/amd64
 docker-buildx: ## Build and push docker image for the manager for cross-platform support
 	- $(CONTAINER_TOOL) buildx create --name project-v3-builder
 	$(CONTAINER_TOOL) buildx use project-v3-builder
-	- $(CONTAINER_TOOL) buildx build --push --platform=$(PLATFORMS) --tag ${IMG} -f Dockerfile .
+	- $(CONTAINER_TOOL) buildx build --push --platform=$(PLATFORMS) --build-arg TAG=$(VERSION) --tag ${IMG} -f Dockerfile .
 	- $(CONTAINER_TOOL) buildx rm project-v3-builder
 
 .PHONY: docker-certify-redhat

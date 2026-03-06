@@ -15,6 +15,20 @@
 # Build the manager binary
 FROM quay.io/operator-framework/helm-operator:v1.42.0
 
+ARG TAG
+
+LABEL org.opencontainers.image.source="https://github.com/kubedb/installer" \
+    name="KubeDB Operator Installer" \
+    maintainer=AppsCode \
+    vendor=AppsCode \
+    version=${TAG} \
+    release=${TAG} \
+    summary="KubeDB Operator Installer" \
+    description="KubeDB Operator Installer"
+
+RUN mkdir -p /licenses
+COPY LICENSE.md /licenses/
+
 ENV HOME=/opt/helm
 COPY watches.yaml ${HOME}/watches.yaml
 COPY charts/kubedb  ${HOME}/helm-charts/kubedb
