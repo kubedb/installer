@@ -169,7 +169,7 @@ metadata:
         }
       ]
     capabilities: Basic Install
-    createdAt: "2026-03-07T11:33:51Z"
+    createdAt: "2026-03-07T12:18:19Z"
     operators.operatorframework.io/builder: operator-sdk-v1.42.0
     operators.operatorframework.io/project_layout: helm.sdk.operatorframework.io/v1
   name: kubedb-installer.v2026.2.26
@@ -1607,19 +1607,19 @@ spec:
           - subjectaccessreviews
           verbs:
           - create
-        serviceAccountName: kubedb-installer-controller-manager
+        serviceAccountName: kubedb-installer-manager
       deployments:
       - label:
           app.kubernetes.io/managed-by: kustomize
           app.kubernetes.io/name: kubedb-installer
-          control-plane: controller-manager
-        name: kubedb-installer-controller-manager
+          control-plane: manager
+        name: kubedb-installer-manager
         spec:
           replicas: 1
           selector:
             matchLabels:
               app.kubernetes.io/name: kubedb-installer
-              control-plane: controller-manager
+              control-plane: manager
           strategy: {}
           template:
             metadata:
@@ -1627,7 +1627,7 @@ spec:
                 kubectl.kubernetes.io/default-container: manager
               labels:
                 app.kubernetes.io/name: kubedb-installer
-                control-plane: controller-manager
+                control-plane: manager
             spec:
               containers:
               - args:
@@ -1667,7 +1667,7 @@ spec:
                 runAsNonRoot: true
                 seccompProfile:
                   type: RuntimeDefault
-              serviceAccountName: kubedb-installer-controller-manager
+              serviceAccountName: kubedb-installer-manager
               terminationGracePeriodSeconds: 10
       permissions:
       - rules:
@@ -1702,7 +1702,7 @@ spec:
           verbs:
           - create
           - patch
-        serviceAccountName: kubedb-installer-controller-manager
+        serviceAccountName: kubedb-installer-manager
     strategy: deployment
   installModes:
   - supported: false
