@@ -29,7 +29,7 @@ LABEL org.opencontainers.image.source="https://github.com/kubedb/installer" \
 USER root
 RUN mkdir -p /licenses
 COPY LICENSE.md /licenses/
-USER ${USER_UID} # helm
+USER ${USER_UID}
 
 ENV HOME=/opt/helm
 COPY watches.yaml ${HOME}/watches.yaml
