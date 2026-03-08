@@ -244,6 +244,7 @@ bundle: kustomize operator-sdk ## Generate bundle manifests and metadata, then v
 	$(OPERATOR_SDK) generate kustomize manifests -q
 	cd config/manager && $(KUSTOMIZE) edit set image controller=$(IMG)
 	@$(MAKE) gen-custom-role --no-print-directory
+	@cd config/manifests/bases && sed -i.bak 's|^\([[:space:]]*containerImage:[[:space:]]*\).*|\1$(IMG)|' kubedb-installer.clusterserviceversion.yaml && rm -f kubedb-installer.clusterserviceversion.yaml.bak
 	$(KUSTOMIZE) build config/manifests | $(OPERATOR_SDK) generate bundle $(BUNDLE_GEN_FLAGS)
 	$(OPERATOR_SDK) bundle validate ./bundle
 	@awk 'BEGIN{s=0} {if(!s && ($$0=="" || $$0=="---")){next} s=1; print}' config/crd/bases/installer.kubedb.com_kubedbs.yaml > bundle/manifests/installer.kubedb.com_kubedbs.yaml
