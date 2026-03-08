@@ -249,7 +249,10 @@ bundle: kustomize operator-sdk ## Generate bundle manifests and metadata, then v
 		echo '  # OpenShift annotations.'; \
 		echo '  com.redhat.openshift.versions: v4.15-v4.21'; \
 	} >> bundle/metadata/annotations.yaml
-	$(OPERATOR_SDK) bundle validate ./bundle
+	$(OPERATOR_SDK) bundle validate ./bundle --select-optional name=operatorhubv2
+	$(OPERATOR_SDK) bundle validate ./bundle --select-optional name=capabilities
+	$(OPERATOR_SDK) bundle validate ./bundle --select-optional name=categories
+	$(OPERATOR_SDK) bundle validate ./bundle --select-optional name=good-practices
 	@awk 'BEGIN{s=0} {if(!s && ($$0=="" || $$0=="---")){next} s=1; print}' config/crd/bases/installer.kubedb.com_kubedbs.yaml > bundle/manifests/installer.kubedb.com_kubedbs.yaml
 
 .PHONY: bundle-build
