@@ -10,18 +10,16 @@ VERSION_NO_PREFIX = $(VERSION:v%=%)
 # To re-generate a bundle for other specific channels without changing the standard setup, you can:
 # - use the CHANNELS as arg of the bundle target (e.g make bundle CHANNELS=candidate,fast,stable)
 # - use environment variables to overwrite this value (e.g export CHANNELS="candidate,fast,stable")
-ifneq ($(origin CHANNELS), undefined)
+CHANNELS ?= $(if $(findstring -,$(VERSION_NO_PREFIX)),candidate,stable)
 BUNDLE_CHANNELS := --channels=$(CHANNELS)
-endif
 
 # DEFAULT_CHANNEL defines the default channel used in the bundle.
 # Add a new line here if you would like to change its default config. (E.g DEFAULT_CHANNEL = "stable")
 # To re-generate a bundle for any other default channel without changing the default setup, you can:
 # - use the DEFAULT_CHANNEL as arg of the bundle target (e.g make bundle DEFAULT_CHANNEL=stable)
 # - use environment variables to overwrite this value (e.g export DEFAULT_CHANNEL="stable")
-ifneq ($(origin DEFAULT_CHANNEL), undefined)
+DEFAULT_CHANNEL ?= stable
 BUNDLE_DEFAULT_CHANNEL := --default-channel=$(DEFAULT_CHANNEL)
-endif
 BUNDLE_METADATA_OPTS ?= $(BUNDLE_CHANNELS) $(BUNDLE_DEFAULT_CHANNEL)
 
 # IMAGE_TAG_BASE defines the docker.io namespace and part of the image name for remote images.
@@ -246,6 +244,11 @@ bundle: kustomize operator-sdk ## Generate bundle manifests and metadata, then v
 	@$(MAKE) gen-custom-role --no-print-directory
 	@cd config/manifests/bases && sed -i.bak 's|^\([[:space:]]*containerImage:[[:space:]]*\).*|\1$(IMG)|' kubedb-installer.clusterserviceversion.yaml && rm -f kubedb-installer.clusterserviceversion.yaml.bak
 	$(KUSTOMIZE) build config/manifests | $(OPERATOR_SDK) generate bundle $(BUNDLE_GEN_FLAGS)
+	@grep -q '^  com.redhat.openshift.versions: v4.14-v4.21$$' bundle/metadata/annotations.yaml || { \
+		echo ''; \
+		echo '  # OpenShift annotations.'; \
+		echo '  com.redhat.openshift.versions: v4.15-v4.21'; \
+	} >> bundle/metadata/annotations.yaml
 	$(OPERATOR_SDK) bundle validate ./bundle
 	@awk 'BEGIN{s=0} {if(!s && ($$0=="" || $$0=="---")){next} s=1; print}' config/crd/bases/installer.kubedb.com_kubedbs.yaml > bundle/manifests/installer.kubedb.com_kubedbs.yaml
 
