@@ -19,7 +19,11 @@ spec:
       {{- include "kubedb-provider-gcp.selectorLabels" . | nindent 6 }}
   endpoints:
   - port: api
-    bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    authorization:
+      type: Bearer
+      credentials:
+        name: {{ printf "%s-metrics-token" (include "kubedb-provider-gcp.fullname" .) }}
+        key: token
     scheme: https
     tlsConfig:
       ca:

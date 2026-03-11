@@ -18,7 +18,11 @@ spec:
     matchLabels:
       {{- include "kubedb-webhook-server.selectorLabels" . | nindent 6 }}
   endpoints:
-  - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+  - authorization:
+      type: Bearer
+      credentials:
+        name: {{ printf "%s-metrics-token" (include "kubedb-webhook-server.fullname" .) }}
+        key: token
     path: /metrics
     port: metrics
     scheme: https
