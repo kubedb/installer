@@ -19,9 +19,11 @@ spec:
       {{- include "kubedb-provider-azure.selectorLabels" . | nindent 6 }}
   endpoints:
   - port: api
-    bearerTokenSecret:
-      name: {{ default (printf "%s-metrics-token" (include "kubedb-provider-azure.fullname" .)) .Values.monitoring.serviceMonitor.bearerTokenSecret.name }}
-      key: {{ .Values.monitoring.serviceMonitor.bearerTokenSecret.key }}
+    authorization:
+      type: Bearer
+      credentials:
+        name: {{ default (printf "%s-metrics-token" (include "kubedb-provider-azure.fullname" .)) .Values.monitoring.serviceMonitor.bearerTokenSecret.name }}
+        key: {{ .Values.monitoring.serviceMonitor.bearerTokenSecret.key }}
     scheme: https
     tlsConfig:
       ca:
