@@ -47,7 +47,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-gito
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-kibana:v0.36.0 $IMAGE_REGISTRY/kubedb/kubedb-kibana:v0.36.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-manifest-plugin:v0.23.0 $IMAGE_REGISTRY/kubedb/kubedb-manifest-plugin:v0.23.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.47.0 $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.47.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-provisioner:v0.60.0 $IMAGE_REGISTRY/kubedb/kubedb-provisioner:v0.60.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-provisioner:v0.60.1 $IMAGE_REGISTRY/kubedb/kubedb-provisioner:v0.60.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-schema-manager:v0.36.0 $IMAGE_REGISTRY/kubedb/kubedb-schema-manager:v0.36.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ui-server:v0.36.0 $IMAGE_REGISTRY/kubedb/kubedb-ui-server:v0.36.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-verifier:v0.11.0 $IMAGE_REGISTRY/kubedb/kubedb-verifier:v0.11.0

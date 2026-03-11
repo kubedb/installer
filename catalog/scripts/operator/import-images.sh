@@ -38,7 +38,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-git
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-kibana-v0.36.0.tar $IMAGE_REGISTRY/kubedb/kubedb-kibana:v0.36.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-manifest-plugin-v0.23.0.tar $IMAGE_REGISTRY/kubedb/kubedb-manifest-plugin:v0.23.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-ops-manager-v0.47.0.tar $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.47.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-provisioner-v0.60.0.tar $IMAGE_REGISTRY/kubedb/kubedb-provisioner:v0.60.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-provisioner-v0.60.1.tar $IMAGE_REGISTRY/kubedb/kubedb-provisioner:v0.60.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-schema-manager-v0.36.0.tar $IMAGE_REGISTRY/kubedb/kubedb-schema-manager:v0.36.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-ui-server-v0.36.0.tar $IMAGE_REGISTRY/kubedb/kubedb-ui-server:v0.36.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-verifier-v0.11.0.tar $IMAGE_REGISTRY/kubedb/kubedb-verifier:v0.11.0

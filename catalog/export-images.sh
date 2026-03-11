@@ -289,7 +289,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-gi
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-kibana:v0.36.0 images/kubedb-kubedb-kibana-v0.36.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-manifest-plugin:v0.23.0 images/kubedb-kubedb-manifest-plugin-v0.23.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.47.0 images/kubedb-kubedb-ops-manager-v0.47.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-provisioner:v0.60.0 images/kubedb-kubedb-provisioner-v0.60.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-provisioner:v0.60.1 images/kubedb-kubedb-provisioner-v0.60.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-schema-manager:v0.36.0 images/kubedb-kubedb-schema-manager-v0.36.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ui-server:v0.36.0 images/kubedb-kubedb-ui-server-v0.36.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-verifier:v0.11.0 images/kubedb-kubedb-verifier-v0.11.0.tar
