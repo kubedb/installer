@@ -32,12 +32,29 @@ data:
   {{- $dashtpl = $dashtpl | replace "$app" $.Values.app.name }}
   {{- $dashtpl = $dashtpl | replace "$namespace" $.Values.app.namespace }}
   {{- end }}
-  {{- $dashboard := omit (tpl $dashtpl $ | mustFromJson) "id" "uid" -}}
+  {{- $dashboardJson := tpl $dashtpl $ | mustFromJson -}}
+  {{- $dashboard := omit $dashboardJson "id" "uid" -}}
+  {{- $payload := dict
+    "dashboard" $dashboard
+    "folderId" $.Values.dashboard.folderID
+    "overwrite" $.Values.dashboard.overwrite -}}
+  {{- if hasKey $dashboardJson "__inputs" }}
+    {{- $inputs := list -}}
+    {{- range $input := get $dashboardJson "__inputs" }}
+      {{- if and (eq (get $input "type") "datasource") (eq (get $input "pluginId") "prometheus") }}
+        {{- $inputs = append $inputs (dict
+          "name" (get $input "name")
+          "type" "datasource"
+          "pluginId" "prometheus"
+          "value" "Prometheus") -}}
+      {{- end }}
+    {{- end }}
+    {{- if gt (len $inputs) 0 }}
+      {{- $_ := set $payload "inputs" $inputs -}}
+    {{- end }}
+  {{- end }}
   {{ $path | replace "/" "-" | nindent 2 }}: |
-    {{- dict
-      "dashboard" $dashboard
-      "folderId" $.Values.dashboard.folderID
-      "overwrite" $.Values.dashboard.overwrite | toJson | nindent 4 -}}
+    {{- $payload | toJson | nindent 4 -}}
 {{- end }}
 {{- end }}
 {{- end }}
