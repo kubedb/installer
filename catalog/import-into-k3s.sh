@@ -346,7 +346,7 @@ k3s ctr images import images/kubedb-hazelcast-init-5.5.2.tar
 k3s ctr images import images/kubedb-ignite-init-2.17.0-v2.tar
 k3s ctr images import images/kubedb-kafka-init-4.0-v2.tar
 k3s ctr images import images/kubedb-kubedb-autoscaler-v0.48.0.tar
-k3s ctr images import images/kubedb-kubedb-crd-manager-v0.18.0.tar
+k3s ctr images import images/kubedb-kubedb-crd-manager-v0.18.1.tar
 k3s ctr images import images/kubedb-kubedb-gitops-v0.11.0.tar
 k3s ctr images import images/kubedb-kubedb-kibana-v0.39.0.tar
 k3s ctr images import images/kubedb-kubedb-manifest-plugin-v0.26.0.tar

@@ -40,7 +40,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.21.0 images/kubedb-dashboard-restic-plugin-v0.21.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.26.0 images/kubedb-elasticsearch-restic-plugin-v0.26.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-autoscaler:v0.48.0 images/kubedb-kubedb-autoscaler-v0.48.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-crd-manager:v0.18.0 images/kubedb-kubedb-crd-manager-v0.18.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-crd-manager:v0.18.1 images/kubedb-kubedb-crd-manager-v0.18.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-gitops:v0.11.0 images/kubedb-kubedb-gitops-v0.11.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-kibana:v0.39.0 images/kubedb-kubedb-kibana-v0.39.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-manifest-plugin:v0.26.0 images/kubedb-kubedb-manifest-plugin-v0.26.0.tar
