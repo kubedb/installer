@@ -32,7 +32,7 @@ k3s ctr images import images/kubedb-cassandra-medusa-plugin-v0.10.0.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.21.0.tar
 k3s ctr images import images/kubedb-elasticsearch-restic-plugin-v0.26.0.tar
 k3s ctr images import images/kubedb-kubedb-autoscaler-v0.48.0.tar
-k3s ctr images import images/kubedb-kubedb-crd-manager-v0.18.0.tar
+k3s ctr images import images/kubedb-kubedb-crd-manager-v0.18.1.tar
 k3s ctr images import images/kubedb-kubedb-gitops-v0.11.0.tar
 k3s ctr images import images/kubedb-kubedb-kibana-v0.39.0.tar
 k3s ctr images import images/kubedb-kubedb-manifest-plugin-v0.26.0.tar
