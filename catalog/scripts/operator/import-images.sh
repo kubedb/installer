@@ -56,3 +56,5 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-a
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-gcp-v0.24.0.tar $IMAGE_REGISTRY/kubedb/provider-gcp:v0.24.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-restic-plugin-v0.26.0.tar $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.26.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-restic-plugin-v0.18.0.tar $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.18.0
+$CMD push --allow-nondistributable-artifacts --insecure images/shuvokumarmondal-clickhouse-backup-plugin-v5.0.0_linux_amd64.tar $IMAGE_REGISTRY/shuvokumarmondal/clickhouse-backup-plugin:v5.0.0_linux_amd64
+$CMD push --allow-nondistributable-artifacts --insecure images/shuvokumarmondal-clickhouse-backup-plugin-v5.0.1_linux_amd64.tar $IMAGE_REGISTRY/shuvokumarmondal/clickhouse-backup-plugin:v5.0.1_linux_amd64

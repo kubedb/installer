@@ -80,7 +80,7 @@ func CompareFullVersions(vi FullVersion, vj FullVersion) bool {
 
 var appToKind = map[string]string{
 	"cassandra":          "Cassandra",
-	"clickHouse":         "ClickHouse",
+	"clickhouse":         "ClickHouse",
 	"druid":              "Druid",
 	"elasticsearch":      "Elasticsearch",
 	"opensearch":         "Elasticsearch",

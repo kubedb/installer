@@ -62,5 +62,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-gcp:v0.24.0 images/kubedb-provider-gcp-v0.24.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.26.0 images/kubedb-redis-restic-plugin-v0.26.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.18.0 images/kubedb-zookeeper-restic-plugin-v0.18.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/shuvokumarmondal/clickhouse-backup-plugin:v5.0.0_linux_amd64 images/shuvokumarmondal-clickhouse-backup-plugin-v5.0.0_linux_amd64.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/shuvokumarmondal/clickhouse-backup-plugin:v5.0.1_linux_amd64 images/shuvokumarmondal-clickhouse-backup-plugin-v5.0.1_linux_amd64.tar
 
 tar -czvf images.tar.gz images

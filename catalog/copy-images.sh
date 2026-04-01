@@ -462,6 +462,8 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/wal-g:v2024.12.18_mongo $IMAGE_REGISTRY/kubedb/wal-g:v2024.12.18_mongo
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-init:3.7-v1 $IMAGE_REGISTRY/kubedb/zookeeper-init:3.7-v1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.18.0 $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.18.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/shuvokumarmondal/clickhouse-backup-plugin:v5.0.0_linux_amd64 $IMAGE_REGISTRY/shuvokumarmondal/clickhouse-backup-plugin:v5.0.0_linux_amd64
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/shuvokumarmondal/clickhouse-backup-plugin:v5.0.1_linux_amd64 $IMAGE_REGISTRY/shuvokumarmondal/clickhouse-backup-plugin:v5.0.1_linux_amd64
 $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2022-CU12-ubuntu-22.04
 $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2022-CU14-ubuntu-22.04
 $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU16-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2022-CU16-ubuntu-22.04

@@ -54,3 +54,5 @@ k3s ctr images import images/kubedb-provider-azure-v0.24.0.tar
 k3s ctr images import images/kubedb-provider-gcp-v0.24.0.tar
 k3s ctr images import images/kubedb-redis-restic-plugin-v0.26.0.tar
 k3s ctr images import images/kubedb-zookeeper-restic-plugin-v0.18.0.tar
+k3s ctr images import images/shuvokumarmondal-clickhouse-backup-plugin-v5.0.0_linux_amd64.tar
+k3s ctr images import images/shuvokumarmondal-clickhouse-backup-plugin-v5.0.1_linux_amd64.tar

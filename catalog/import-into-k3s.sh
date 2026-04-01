@@ -451,6 +451,8 @@ k3s ctr images import images/kubedb-solr-init-9.8.0.tar
 k3s ctr images import images/kubedb-wal-g-v2024.12.18_mongo.tar
 k3s ctr images import images/kubedb-zookeeper-init-3.7-v1.tar
 k3s ctr images import images/kubedb-zookeeper-restic-plugin-v0.18.0.tar
+k3s ctr images import images/shuvokumarmondal-clickhouse-backup-plugin-v5.0.0_linux_amd64.tar
+k3s ctr images import images/shuvokumarmondal-clickhouse-backup-plugin-v5.0.1_linux_amd64.tar
 k3s ctr images import images/mssql-server-2022-CU12-ubuntu-22.04.tar
 k3s ctr images import images/mssql-server-2022-CU14-ubuntu-22.04.tar
 k3s ctr images import images/mssql-server-2022-CU16-ubuntu-22.04.tar

@@ -65,3 +65,5 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-az
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-gcp:v0.24.0 $IMAGE_REGISTRY/kubedb/provider-gcp:v0.24.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.26.0 $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.26.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.18.0 $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.18.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/shuvokumarmondal/clickhouse-backup-plugin:v5.0.0_linux_amd64 $IMAGE_REGISTRY/shuvokumarmondal/clickhouse-backup-plugin:v5.0.0_linux_amd64
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/shuvokumarmondal/clickhouse-backup-plugin:v5.0.1_linux_amd64 $IMAGE_REGISTRY/shuvokumarmondal/clickhouse-backup-plugin:v5.0.1_linux_amd64
