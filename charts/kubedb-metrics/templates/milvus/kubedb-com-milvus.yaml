@@ -1,0 +1,184 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Milvus }}
+
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: kubedb-com-milvus
+spec:
+  targetRef:
+    apiVersion: kubedb.com/v1alpha2
+    kind: Milvus
+  commonLabels:
+    - key: app
+      valuePath: .metadata.name
+    - key: app_namespace
+      valuePath: .metadata.namespace
+  metrics:
+    - name: created
+      help: "Unix creation time stamp"
+      type: gauge
+      field:
+        path: .metadata.creationTimestamp
+        type: DateTime
+      metricValue:
+        valueFromPath: .metadata.creationTimestamp
+
+    - name: info
+      help: "Kubedb milvus information"
+      type: gauge
+      labels:
+        - key: version
+          valuePath: .spec.version
+        - key: storageType
+          valuePath: .spec.storageType
+        - key: deletionPolicy
+          valuePath: .spec.deletionPolicy
+        - key: storageClassName
+          valuePath: .spec.storage.storageClassName
+      metricValue:
+        value: 1
+
+    - name: replicas
+      help: "Number of milvus replicas in general mode"
+      type: gauge
+      params:
+        - key: obj
+          valuePath: .
+      metricValue:
+        valueFromExpression: resource_replicas(obj)
+
+    - name: status_conditions
+      help: "Milvus instance status condition"
+      type: gauge
+      field:
+        path: .status.conditions
+        type: Array
+      labels:
+        - key: type
+          valuePath: .status.conditions[*].type
+        - key: status
+          valuePath: .status.conditions[*].status
+      metricValue:
+        value: 1
+
+    - name: status_phase
+      help: "Milvus instance current phase"
+      type: gauge
+      field:
+        path: .status.phase
+        type: String
+      params:
+        - key: phase
+          valuePath: .status.phase
+      states:
+        labelKey: phase
+        values:
+          - labelValue: Ready
+            metricValue:
+              valueFromExpression: "int(phase == 'Ready')"
+          - labelValue: Halted
+            metricValue:
+              valueFromExpression: "int(phase == 'Halted')"
+          - labelValue: Provisioning
+            metricValue:
+              valueFromExpression: "int(phase == 'Provisioning')"
+          - labelValue: Critical
+            metricValue:
+              valueFromExpression: "int(phase == 'Critical')"
+          - labelValue: NotReady
+            metricValue:
+              valueFromExpression: "int(phase == 'NotReady')"
+          - labelValue: DataRestoring
+            metricValue:
+              valueFromExpression: "int(phase == 'DataRestoring')"
+
+    - name: resource_request_cpu
+      help: "Requested CPU by Milvus in core"
+      type: gauge
+      labels:
+        - key: unit
+          value: core
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: cpu
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: resource_request_memory
+      help: "Requested memory by Milvus in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: memory
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: resource_request_storage
+      help: "Requested storage by Milvus in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: storage
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: resource_limit_cpu
+      help: "CPU limit for Milvus in core"
+      type: gauge
+      labels:
+        - key: unit
+          value: core
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: cpu
+      metricValue:
+        valueFromExpression: total_resource_limits(obj, resourceType)
+
+    - name: resource_limit_memory
+      help: "Memory limit for Milvus in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: memory
+      metricValue:
+        valueFromExpression: total_resource_limits(obj, resourceType)
+
+    - name: resource_limit_storage
+      help: "Storage limit for Milvus in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: storage
+      metricValue:
+        valueFromExpression: total_resource_limits(obj, resourceType)
+
+{{ end }}
