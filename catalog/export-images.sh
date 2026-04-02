@@ -85,8 +85,10 @@ $CMD pull --allow-nondistributable-artifacts --insecure docker.io/timescale/time
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg16-oss images/timescale-timescaledb-2.14.2-pg16-oss.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/aiven-open/karapace:3.15.0 images/aiven-open-karapace-3.15.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-exporter:2.3.8 images/appscode-images-cassandra-exporter-2.3.8.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:4.1.11 images/appscode-images-cassandra-management-4.1.11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:4.1.8 images/appscode-images-cassandra-management-4.1.8.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:5.0.3 images/appscode-images-cassandra-management-5.0.3.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:5.0.7 images/appscode-images-cassandra-management-5.0.7.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-medusa:0.24.0 images/appscode-images-cassandra-medusa-0.24.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:28.0.1 images/appscode-images-druid-28.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:30.0.1 images/appscode-images-druid-30.0.1.tar

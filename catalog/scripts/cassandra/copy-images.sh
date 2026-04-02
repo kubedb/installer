@@ -36,8 +36,10 @@ mv /tmp/crane .
 CMD="./crane"
 
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-exporter:2.3.8 $IMAGE_REGISTRY/appscode-images/cassandra-exporter:2.3.8
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:4.1.11 $IMAGE_REGISTRY/appscode-images/cassandra-management:4.1.11
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:4.1.8 $IMAGE_REGISTRY/appscode-images/cassandra-management:4.1.8
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:5.0.3 $IMAGE_REGISTRY/appscode-images/cassandra-management:5.0.3
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:5.0.7 $IMAGE_REGISTRY/appscode-images/cassandra-management:5.0.7
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-medusa:0.24.0 $IMAGE_REGISTRY/appscode-images/cassandra-medusa:0.24.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6-v2 $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0-v2 $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v2
