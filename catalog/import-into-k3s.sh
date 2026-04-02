@@ -83,6 +83,8 @@ k3s ctr images import images/appscode-images-cassandra-medusa-0.24.0.tar
 k3s ctr images import images/appscode-images-druid-28.0.1.tar
 k3s ctr images import images/appscode-images-druid-30.0.1.tar
 k3s ctr images import images/appscode-images-druid-31.0.0.tar
+k3s ctr images import images/appscode-images-druid-35.0.1.tar
+k3s ctr images import images/appscode-images-druid-36.0.0.tar
 k3s ctr images import images/appscode-images-elastic-6.8.23.tar
 k3s ctr images import images/appscode-images-elastic-7.17.15.tar
 k3s ctr images import images/appscode-images-elastic-7.17.28.tar
@@ -340,6 +342,8 @@ k3s ctr images import images/kubedb-db2-coordinator-v0.4.0.tar
 k3s ctr images import images/kubedb-druid-init-28.0.1.tar
 k3s ctr images import images/kubedb-druid-init-30.0.1.tar
 k3s ctr images import images/kubedb-druid-init-31.0.0.tar
+k3s ctr images import images/kubedb-druid-init-35.0.1.tar
+k3s ctr images import images/kubedb-druid-init-36.0.0.tar
 k3s ctr images import images/kubedb-elasticsearch-restic-plugin-v0.26.0.tar
 k3s ctr images import images/kubedb-hanadb-coordinator-v0.3.0.tar
 k3s ctr images import images/kubedb-hazelcast-init-5.5.2.tar
