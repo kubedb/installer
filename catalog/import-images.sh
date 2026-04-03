@@ -344,6 +344,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-31.0.0.tar $IMAGE_REGISTRY/kubedb/druid-init:31.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-elasticsearch-restic-plugin-v0.26.0.tar $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.26.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-hanadb-coordinator-v0.3.0.tar $IMAGE_REGISTRY/kubedb/hanadb-coordinator:v0.3.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-hanadb-exporter-0.0.1-ubi.tar $IMAGE_REGISTRY/kubedb/hanadb-exporter:0.0.1-ubi
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-hazelcast-init-5.5.2.tar $IMAGE_REGISTRY/kubedb/hazelcast-init:5.5.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-ignite-init-2.17.0-v2.tar $IMAGE_REGISTRY/kubedb/ignite-init:2.17.0-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kafka-init-4.0-v2.tar $IMAGE_REGISTRY/kubedb/kafka-init:4.0-v2

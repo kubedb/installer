@@ -18,7 +18,7 @@ require (
 	kmodules.xyz/image-packer v0.0.0-20260211014345-daa6afa3ceba
 	kmodules.xyz/resource-metadata v0.42.9
 	kmodules.xyz/schema-checker v0.4.2
-	kubedb.dev/apimachinery v0.63.0
+	kubedb.dev/apimachinery v0.63.1-0.20260317072713-af9ca1e54775
 	kubeops.dev/installer v0.0.0-20260305065349-dbc8a048d7dd
 	sigs.k8s.io/yaml v1.6.0
 	stash.appscode.dev/installer v0.12.2-0.20260224175756-ac464b38bf6c
@@ -29,7 +29,7 @@ require (
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/armon/circbuf v0.0.0-20190214190532-5111143e8da2 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
-	github.com/cert-manager/cert-manager v1.19.3 // indirect
+	github.com/cert-manager/cert-manager v1.19.4 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/codegangsta/inject v0.0.0-20150114235600-33e0aa1cb7c0 // indirect
 	github.com/containerd/stargz-snapshotter/estargz v0.18.1 // indirect
