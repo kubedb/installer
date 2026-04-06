@@ -384,7 +384,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-i
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v11 images/kubedb-mongodb-init-6.0-v11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb_exporter:v0.47.2 images/kubedb-mongodb_exporter-v0.47.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-coordinator:v0.18.0 images/kubedb-mssql-coordinator-v0.18.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-exporter:1.2.0 images/kubedb-mssql-exporter-1.2.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-exporter:1.4.0 images/kubedb-mssql-exporter-1.4.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-init:v2026.1.19 images/kubedb-mssql-init-v2026.1.19.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssqlserver-archiver:v0.17.0 images/kubedb-mssqlserver-archiver-v0.17.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssqlserver-walg-plugin:v0.17.0 images/kubedb-mssqlserver-walg-plugin-v0.17.0.tar

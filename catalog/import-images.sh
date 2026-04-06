@@ -378,7 +378,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-in
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-6.0-v11.tar $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v11
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb_exporter-v0.47.2.tar $IMAGE_REGISTRY/kubedb/mongodb_exporter:v0.47.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-coordinator-v0.18.0.tar $IMAGE_REGISTRY/kubedb/mssql-coordinator:v0.18.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-exporter-1.2.0.tar $IMAGE_REGISTRY/kubedb/mssql-exporter:1.2.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-exporter-1.4.0.tar $IMAGE_REGISTRY/kubedb/mssql-exporter:1.4.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-init-v2026.1.19.tar $IMAGE_REGISTRY/kubedb/mssql-init:v2026.1.19
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssqlserver-archiver-v0.17.0.tar $IMAGE_REGISTRY/kubedb/mssqlserver-archiver:v0.17.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssqlserver-walg-plugin-v0.17.0.tar $IMAGE_REGISTRY/kubedb/mssqlserver-walg-plugin:v0.17.0
