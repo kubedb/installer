@@ -1279,6 +1279,7 @@ func (in *KubedbKubestashCatalogSpec) DeepCopyInto(out *KubedbKubestashCatalogSp
 		}
 	}
 	out.Cassandra = in.Cassandra
+	out.ClickHouse = in.ClickHouse
 	out.Druid = in.Druid
 	out.Elasticsearch = in.Elasticsearch
 	out.Opensearch = in.Opensearch

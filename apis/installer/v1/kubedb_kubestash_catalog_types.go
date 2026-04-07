@@ -49,6 +49,7 @@ type KubedbKubestashCatalogSpec struct {
 	FeatureGates   map[string]bool             `json:"featureGates"`
 	WaitTimeout    int64                       `json:"waitTimeout"`
 	Cassandra      KubestashDatabaseSpec       `json:"cassandra"`
+	ClickHouse     KubestashDatabaseSpec       `json:"clickhouse"`
 	Druid          KubestashDatabaseSpec       `json:"druid"`
 	Elasticsearch  KubestashDatabaseSpec       `json:"elasticsearch"`
 	Opensearch     KubestashDatabaseSpec       `json:"opensearch"`
