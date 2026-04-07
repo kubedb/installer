@@ -88,6 +88,9 @@ spec:
         - --use-kubeapiserver-fqdn-for-aks={{ .Values.apiserver.useKubeapiserverFqdnForAks }}
         - --metrics-bind-address=:{{ .Values.monitoring.bindPort }}
         - --health-probe-bind-address=:{{ .Values.apiserver.healthcheck.probePort }}
+        {{- if gt (int .Values.replicaCount) 1 }}
+        - --shard-config={{ include "kubedb-autoscaler.name" . }}
+        {{- end }}
         - --update-interval={{ .Values.updateInterval }}
         - --prometheus-address={{.Values.storageAutoscaler.prometheus.address}}
         {{- if .Values.storageAutoscaler.prometheus.caCert }}
