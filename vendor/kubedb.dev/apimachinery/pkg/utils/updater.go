@@ -20,8 +20,11 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"reflect"
 	"slices"
 	"time"
+
+	v1 "kubedb.dev/apimachinery/apis/kubedb/v1"
 
 	"github.com/pkg/errors"
 	core "k8s.io/api/core/v1"
@@ -37,6 +40,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/event"
 	"sigs.k8s.io/controller-runtime/pkg/predicate"
+	"sigs.k8s.io/controller-runtime/pkg/reconcile"
 )
 
 const (
@@ -108,8 +112,8 @@ type Predicator interface {
 	GetOwnerObject(obj client.Object) (*unstructured.Unstructured, error)
 	GetPredicateFuncsForDatabase() predicate.Funcs
 	GetPredicateFuncsForOwnerObjects() predicate.Funcs
+	GetArchiverToDatabasesMappingFunc(ctx context.Context, obj client.Object) []reconcile.Request
 }
-
 type dbPredicate struct {
 	kc            client.Client
 	shardConfig   string
@@ -236,4 +240,114 @@ func (p *dbPredicate) GetPredicateFuncsForOwnerObjects() predicate.Funcs {
 			return rq
 		},
 	}
+}
+
+func (p *dbPredicate) GetArchiverToDatabasesMappingFunc(ctx context.Context, obj client.Object) (matched []reconcile.Request) {
+	archiverNS, archiverName := obj.GetNamespace(), obj.GetName()
+	consumers, err := getAllowedConsumers(obj)
+	if err != nil {
+		klog.Warningf("failed to get databases field as consumer for archiver: %s/%s. Reason: %v", archiverNS, archiverName, err)
+		return
+	}
+
+	namespaceAllowlist, err := getAllowedNamespaceList(ctx, p.kc, consumers)
+	if err != nil {
+		klog.Warningf("failed to get allowed namespace list for archiver: %s/%s. Reason: %v", archiverNS, archiverName, err)
+		return
+	}
+
+	dbs, err := p.listDatabasesForArchiver(ctx, consumers)
+	if err != nil {
+		klog.Warningf("failed to list dbs for archiver: %s/%s. Reason: %v", archiverNS, archiverName, err)
+		return
+	}
+
+	for _, db := range dbs.Items {
+		dbNS, dbName := db.GetNamespace(), db.GetName()
+		if !isDatabaseNamespaceAllowed(dbNS, archiverNS, *consumers.Namespaces.From, namespaceAllowlist) {
+			continue
+		}
+
+		key := dbNS + "/" + dbName
+		if scutil.ShouldEnqueueObjectForShard(p.kc, p.shardConfig, db.GetLabels()) {
+			matched = append(matched, reconcile.Request{
+				NamespacedName: types.NamespacedName{Namespace: dbNS, Name: dbName},
+			})
+		} else if p.healthChecker != nil {
+			p.healthChecker.Stop(key)
+		}
+	}
+	return
+}
+
+func getAllowedConsumers(obj client.Object) (*v1.AllowedConsumers, error) {
+	v := reflect.ValueOf(obj).Elem() // get struct value
+	spec := v.FieldByName("Spec")
+	if !spec.IsValid() {
+		return nil, fmt.Errorf("failed to get databases field from archiver")
+	}
+	databases := spec.FieldByName("Databases")
+	if !databases.IsValid() {
+		return nil, fmt.Errorf("failed to get databases field from archiver")
+	}
+	if databases.IsNil() {
+		return nil, fmt.Errorf("databases field is nil ")
+	}
+	return databases.Interface().(*v1.AllowedConsumers), nil
+}
+
+func getAllowedNamespaceList(ctx context.Context, kc client.Client, consumers *v1.AllowedConsumers) (map[string]struct{}, error) {
+	if *consumers.Namespaces.From != v1.NamespacesFromSelector {
+		return nil, nil
+	}
+	nsSelector, err := metav1.LabelSelectorAsSelector(consumers.Namespaces.Selector)
+	if err != nil {
+		return nil, fmt.Errorf("failed to converting namespace selector. Reason: %v", err)
+	}
+
+	nsList := &core.NamespaceList{}
+	err = kc.List(ctx, nsList, client.MatchingLabelsSelector{Selector: nsSelector})
+	if err != nil {
+		return nil, fmt.Errorf("failed to listing namespaces. Reason: %v", err)
+	}
+
+	allowlist := make(map[string]struct{}, len(nsList.Items))
+	for _, ns := range nsList.Items {
+		allowlist[ns.Name] = struct{}{}
+	}
+
+	return allowlist, nil
+}
+
+func (p *dbPredicate) listDatabasesForArchiver(ctx context.Context, consumers *v1.AllowedConsumers) (*unstructured.UnstructuredList, error) {
+	dbSelector, err := metav1.LabelSelectorAsSelector(consumers.Selector)
+	if err != nil {
+		return nil, fmt.Errorf("failed to converting namespace selector. Reason: %v", err)
+	}
+
+	dbs, err := listByGVK(ctx, p.kc, p.gvk, []client.ListOption{
+		client.MatchingLabelsSelector{Selector: dbSelector},
+	})
+	if err != nil {
+		return nil, fmt.Errorf("failed to listing databases. Reason: %v", err)
+	}
+	return dbs, nil
+}
+
+func isDatabaseNamespaceAllowed(dbNamespace, archiverNamespace string, from v1.FromNamespaces, namespaceAllowlist map[string]struct{}) bool {
+	if namespaceAllowlist != nil {
+		_, ok := namespaceAllowlist[dbNamespace]
+		return ok
+	}
+	return from != v1.NamespacesFromSame || dbNamespace == archiverNamespace
+}
+
+func listByGVK(ctx context.Context, kc client.Client, gvk schema.GroupVersionKind, opts []client.ListOption) (*unstructured.UnstructuredList, error) {
+	list := &unstructured.UnstructuredList{}
+	list.SetGroupVersionKind(gvk)
+	if err := kc.List(ctx, list, opts...); err != nil {
+		return nil, err
+	}
+
+	return list, nil
 }

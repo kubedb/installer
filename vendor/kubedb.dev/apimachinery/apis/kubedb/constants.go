@@ -1575,50 +1575,6 @@ const (
 	WeaviateConfigVolName   = "config"
 )
 
-// =========================== DocumentDB Constants ============================
-const (
-
-	// envs
-	EnvDocumentDBUser      = "DOCUMENTDB_PG_USER"
-	EnvDocumentDBPassword  = "DOCUMENTDB_PG_PASSWORD"
-	EnvDocumentDBHandler   = "DOCUMENTDB_HANDLER"
-	EnvDocumentDBPgURL     = "DOCUMENTDB_POSTGRESQL_URL"
-	EnvDocumentDBTLSPort   = "DOCUMENTDB_LISTEN_TLS"
-	EnvDocumentDBCAPath    = "DOCUMENTDB_LISTEN_TLS_CA_FILE"
-	EnvDocumentDBCertPath  = "DOCUMENTDB_LISTEN_TLS_CERT_FILE"
-	EnvDocumentDBKeyPath   = "DOCUMENTDB_LISTEN_TLS_KEY_FILE"
-	EnvDocumentDBDebugAddr = "DOCUMENTDB_DEBUG_ADDR"
-
-	DocumentDBDatabasePortName       = "db"
-	DocumentDBPrimaryServicePortName = "primary"
-
-	DocumentDBContainerName = "documentdb"
-	DocumentDBMainImage     = "ghcr.io/documentdb/documentdb"
-	DocumentDBUser          = "postgres"
-	DocumentDBLinkedDBName  = "documentdb"
-
-	DocumentDBServerPath = "/etc/certs/server"
-
-	DocumentDBExternalClientPath = "/etc/certs/ext"
-
-	DocumentDBDefaultPort = 27017
-	DocumentDBMetricsPort = 56790
-	DocumentDBTLSPort     = 27018
-
-	DocumentDBMetricsPath     = "/debug/metrics"
-	DocumentDBMetricsPortName = "metrics"
-
-	DocumentDBServerTypePrimary   = "primary"
-	DocumentDBServerTypeSecondary = "secondary"
-
-	DocumentDBPrimaryLabelKey   = "documentdb.kubedb.com/server.primary"
-	DocumentDBSecondaryLabelKey = "documentdb.kubedb.com/server.secondary"
-
-	DocumentDBBackendInitShellFile = "data.sh"
-	DocumentDBBackendInitSqlFile   = "data.sql"
-	DocumentDBBackendConfigFile    = "user.conf"
-)
-
 // =========================== FerretDB Constants ============================
 const (
 
@@ -2353,6 +2309,9 @@ const (
 	// Main SYSTEMDB SQL connection port, Used by health checks and administrative operations
 	HanaDBSystemDBSQLPortName = "systemdb-sql"
 	HanaDBSystemDBSQLPort     = 39017
+
+	// Metrics exporter port
+	HanaDBExporterPort = 9668
 
 	// Nameserver port for internal communication and system replication
 	HanaDBNameServerPortName = "nameserver"
