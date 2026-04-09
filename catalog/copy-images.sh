@@ -90,8 +90,10 @@ $CMD cp --allow-nondistributable-artifacts --insecure docker.io/timescale/timesc
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg16-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg16-oss
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/aiven-open/karapace:3.15.0 $IMAGE_REGISTRY/aiven-open/karapace:3.15.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-exporter:2.3.8 $IMAGE_REGISTRY/appscode-images/cassandra-exporter:2.3.8
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:4.1.11 $IMAGE_REGISTRY/appscode-images/cassandra-management:4.1.11
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:4.1.8 $IMAGE_REGISTRY/appscode-images/cassandra-management:4.1.8
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:5.0.3 $IMAGE_REGISTRY/appscode-images/cassandra-management:5.0.3
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:5.0.7 $IMAGE_REGISTRY/appscode-images/cassandra-management:5.0.7
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-medusa:0.24.0 $IMAGE_REGISTRY/appscode-images/cassandra-medusa:0.24.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:28.0.1 $IMAGE_REGISTRY/appscode-images/druid:28.0.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:30.0.1 $IMAGE_REGISTRY/appscode-images/druid:30.0.1

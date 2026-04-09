@@ -79,8 +79,10 @@ k3s ctr images import images/timescale-timescaledb-2.14.2-pg15-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg16-oss.tar
 k3s ctr images import images/aiven-open-karapace-3.15.0.tar
 k3s ctr images import images/appscode-images-cassandra-exporter-2.3.8.tar
+k3s ctr images import images/appscode-images-cassandra-management-4.1.11.tar
 k3s ctr images import images/appscode-images-cassandra-management-4.1.8.tar
 k3s ctr images import images/appscode-images-cassandra-management-5.0.3.tar
+k3s ctr images import images/appscode-images-cassandra-management-5.0.7.tar
 k3s ctr images import images/appscode-images-cassandra-medusa-0.24.0.tar
 k3s ctr images import images/appscode-images-druid-28.0.1.tar
 k3s ctr images import images/appscode-images-druid-30.0.1.tar

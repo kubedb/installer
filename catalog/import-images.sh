@@ -81,8 +81,10 @@ $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timesca
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg16-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg16-oss
 $CMD push --allow-nondistributable-artifacts --insecure images/aiven-open-karapace-3.15.0.tar $IMAGE_REGISTRY/aiven-open/karapace:3.15.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-exporter-2.3.8.tar $IMAGE_REGISTRY/appscode-images/cassandra-exporter:2.3.8
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-management-4.1.11.tar $IMAGE_REGISTRY/appscode-images/cassandra-management:4.1.11
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-management-4.1.8.tar $IMAGE_REGISTRY/appscode-images/cassandra-management:4.1.8
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-management-5.0.3.tar $IMAGE_REGISTRY/appscode-images/cassandra-management:5.0.3
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-management-5.0.7.tar $IMAGE_REGISTRY/appscode-images/cassandra-management:5.0.7
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-medusa-0.24.0.tar $IMAGE_REGISTRY/appscode-images/cassandra-medusa:0.24.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-28.0.1.tar $IMAGE_REGISTRY/appscode-images/druid:28.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-30.0.1.tar $IMAGE_REGISTRY/appscode-images/druid:30.0.1
