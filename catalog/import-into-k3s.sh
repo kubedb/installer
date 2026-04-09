@@ -342,7 +342,7 @@ k3s ctr images import images/kubedb-druid-init-30.0.1.tar
 k3s ctr images import images/kubedb-druid-init-31.0.0.tar
 k3s ctr images import images/kubedb-elasticsearch-restic-plugin-v0.26.0.tar
 k3s ctr images import images/kubedb-hanadb-coordinator-v0.3.0.tar
-k3s ctr images import images/kubedb-hanadb-exporter-0.0.1-ubi.tar
+k3s ctr images import images/kubedb-hanadb-exporter-v0.1.0.tar
 k3s ctr images import images/kubedb-hazelcast-init-5.5.2.tar
 k3s ctr images import images/kubedb-ignite-init-2.17.0-v2.tar
 k3s ctr images import images/kubedb-kafka-init-4.0-v2.tar

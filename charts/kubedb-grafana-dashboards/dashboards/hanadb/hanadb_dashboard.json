@@ -1,3 +1,5 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "__requires": [
     {
@@ -3773,7 +3775,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${datasource}",
-      "description": "I/O Latency in miliseconds.",
+      "description": "I/O Latency in milliseconds.",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -4431,7 +4433,11 @@
     ]
   },
   "timezone": "",
+  {{- if $shared }}
   "title": "SAP HANA",
+  {{- else }}
+  "title": {{ printf "SAP HANA / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
+  {{- end }}
   "uid": "EcC4JDFWz2",
   "version": 1
 }

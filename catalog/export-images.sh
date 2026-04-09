@@ -350,7 +350,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-ini
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:31.0.0 images/kubedb-druid-init-31.0.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.26.0 images/kubedb-elasticsearch-restic-plugin-v0.26.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hanadb-coordinator:v0.3.0 images/kubedb-hanadb-coordinator-v0.3.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hanadb-exporter:0.0.1-ubi images/kubedb-hanadb-exporter-0.0.1-ubi.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hanadb-exporter:v0.1.0 images/kubedb-hanadb-exporter-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hazelcast-init:5.5.2 images/kubedb-hazelcast-init-5.5.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/ignite-init:2.17.0-v2 images/kubedb-ignite-init-2.17.0-v2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kafka-init:4.0-v2 images/kubedb-kafka-init-4.0-v2.tar
