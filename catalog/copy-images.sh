@@ -397,10 +397,10 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archi
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.24.0_9.1.0 $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.24.0_9.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-coordinator:v0.41.0 $IMAGE_REGISTRY/kubedb/mysql-coordinator:v0.41.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-csi-snapshotter-plugin:v0.24.0 $IMAGE_REGISTRY/kubedb/mysql-csi-snapshotter-plugin:v0.24.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:5.7-v7 $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v7
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:8.0.31-v6 $IMAGE_REGISTRY/kubedb/mysql-init:8.0.31-v6
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:8.4.2-v5 $IMAGE_REGISTRY/kubedb/mysql-init:8.4.2-v5
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:9.0.1-v3 $IMAGE_REGISTRY/kubedb/mysql-init:9.0.1-v3
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:5.7-v8 $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v8
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:8.0.31-v7 $IMAGE_REGISTRY/kubedb/mysql-init:8.0.31-v7
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:8.4.2-v6 $IMAGE_REGISTRY/kubedb/mysql-init:8.4.2-v6
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:9.0.1-v4 $IMAGE_REGISTRY/kubedb/mysql-init:9.0.1-v4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.41.0 $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.41.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.18.0 $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.18.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-coordinator:v0.9.0 $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.9.0
