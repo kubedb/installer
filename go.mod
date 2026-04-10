@@ -18,7 +18,7 @@ require (
 	kmodules.xyz/image-packer v0.0.0-20260211014345-daa6afa3ceba
 	kmodules.xyz/resource-metadata v0.42.9
 	kmodules.xyz/schema-checker v0.4.2
-	kubedb.dev/apimachinery v0.63.1-0.20260409101025-124911359bcb
+	kubedb.dev/apimachinery master
 	kubeops.dev/installer v0.0.0-20260305065349-dbc8a048d7dd
 	sigs.k8s.io/yaml v1.6.0
 	stash.appscode.dev/installer v0.12.2-0.20260224175756-ac464b38bf6c

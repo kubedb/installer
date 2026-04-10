@@ -34,9 +34,11 @@ $CMD push --allow-nondistributable-artifacts --insecure images/apicurio-apicurio
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-keeper-24.4.1.tar $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:24.4.1
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-keeper-25.12.3.tar $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:25.12.3
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-keeper-25.7.1.tar $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:25.7.1
+$CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-keeper-26.2.6.tar $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:26.2.6
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-server-24.4.1.tar $IMAGE_REGISTRY/clickhouse/clickhouse-server:24.4.1
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-server-25.12.3.tar $IMAGE_REGISTRY/clickhouse/clickhouse-server:25.12.3
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-server-25.7.1.tar $IMAGE_REGISTRY/clickhouse/clickhouse-server:25.7.1
+$CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-server-26.2.6.tar $IMAGE_REGISTRY/clickhouse/clickhouse-server:26.2.6
 $CMD push --allow-nondistributable-artifacts --insecure images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar $IMAGE_REGISTRY/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/hazelcast-hazelcast-enterprise-5.5.2.tar $IMAGE_REGISTRY/hazelcast/hazelcast-enterprise:5.5.2
 $CMD push --allow-nondistributable-artifacts --insecure images/hazelcast-hazelcast-enterprise-5.5.6.tar $IMAGE_REGISTRY/hazelcast/hazelcast-enterprise:5.5.6
@@ -79,8 +81,10 @@ $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timesca
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg16-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg16-oss
 $CMD push --allow-nondistributable-artifacts --insecure images/aiven-open-karapace-3.15.0.tar $IMAGE_REGISTRY/aiven-open/karapace:3.15.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-exporter-2.3.8.tar $IMAGE_REGISTRY/appscode-images/cassandra-exporter:2.3.8
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-management-4.1.11.tar $IMAGE_REGISTRY/appscode-images/cassandra-management:4.1.11
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-management-4.1.8.tar $IMAGE_REGISTRY/appscode-images/cassandra-management:4.1.8
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-management-5.0.3.tar $IMAGE_REGISTRY/appscode-images/cassandra-management:5.0.3
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-management-5.0.7.tar $IMAGE_REGISTRY/appscode-images/cassandra-management:5.0.7
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-medusa-0.24.0.tar $IMAGE_REGISTRY/appscode-images/cassandra-medusa:0.24.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-28.0.1.tar $IMAGE_REGISTRY/appscode-images/druid:28.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-30.0.1.tar $IMAGE_REGISTRY/appscode-images/druid:30.0.1
@@ -344,6 +348,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-31.0.0.tar $IMAGE_REGISTRY/kubedb/druid-init:31.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-elasticsearch-restic-plugin-v0.26.0.tar $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.26.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-hanadb-coordinator-v0.3.0.tar $IMAGE_REGISTRY/kubedb/hanadb-coordinator:v0.3.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-hanadb-exporter-1.0.0.tar $IMAGE_REGISTRY/kubedb/hanadb-exporter:1.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-hazelcast-init-5.5.2.tar $IMAGE_REGISTRY/kubedb/hazelcast-init:5.5.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-ignite-init-2.17.0-v2.tar $IMAGE_REGISTRY/kubedb/ignite-init:2.17.0-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kafka-init-4.0-v2.tar $IMAGE_REGISTRY/kubedb/kafka-init:4.0-v2
@@ -388,10 +393,10 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-arch
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-archiver-v0.24.0_9.1.0.tar $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.24.0_9.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-coordinator-v0.41.0.tar $IMAGE_REGISTRY/kubedb/mysql-coordinator:v0.41.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-csi-snapshotter-plugin-v0.24.0.tar $IMAGE_REGISTRY/kubedb/mysql-csi-snapshotter-plugin:v0.24.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-5.7-v7.tar $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v7
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-8.0.31-v6.tar $IMAGE_REGISTRY/kubedb/mysql-init:8.0.31-v6
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-8.4.2-v5.tar $IMAGE_REGISTRY/kubedb/mysql-init:8.4.2-v5
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-9.0.1-v3.tar $IMAGE_REGISTRY/kubedb/mysql-init:9.0.1-v3
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-5.7-v8.tar $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v8
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-8.0.31-v7.tar $IMAGE_REGISTRY/kubedb/mysql-init:8.0.31-v7
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-8.4.2-v6.tar $IMAGE_REGISTRY/kubedb/mysql-init:8.4.2-v6
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-9.0.1-v4.tar $IMAGE_REGISTRY/kubedb/mysql-init:9.0.1-v4
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-router-init-v0.41.0.tar $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.41.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysqld-exporter-v0.18.0.tar $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.18.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-coordinator-v0.9.0.tar $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.9.0

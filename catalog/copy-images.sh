@@ -43,9 +43,11 @@ $CMD cp --allow-nondistributable-artifacts --insecure docker.io/apicurio/apicuri
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-keeper:24.4.1 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:24.4.1
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-keeper:25.12.3 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:25.12.3
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-keeper:25.7.1 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:25.7.1
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-keeper:26.2.6 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:26.2.6
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-server:24.4.1 $IMAGE_REGISTRY/clickhouse/clickhouse-server:24.4.1
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-server:25.12.3 $IMAGE_REGISTRY/clickhouse/clickhouse-server:25.12.3
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-server:25.7.1 $IMAGE_REGISTRY/clickhouse/clickhouse-server:25.7.1
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-server:26.2.6 $IMAGE_REGISTRY/clickhouse/clickhouse-server:26.2.6
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0 $IMAGE_REGISTRY/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/hazelcast/hazelcast-enterprise:5.5.2 $IMAGE_REGISTRY/hazelcast/hazelcast-enterprise:5.5.2
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/hazelcast/hazelcast-enterprise:5.5.6 $IMAGE_REGISTRY/hazelcast/hazelcast-enterprise:5.5.6
@@ -88,8 +90,10 @@ $CMD cp --allow-nondistributable-artifacts --insecure docker.io/timescale/timesc
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg16-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg16-oss
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/aiven-open/karapace:3.15.0 $IMAGE_REGISTRY/aiven-open/karapace:3.15.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-exporter:2.3.8 $IMAGE_REGISTRY/appscode-images/cassandra-exporter:2.3.8
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:4.1.11 $IMAGE_REGISTRY/appscode-images/cassandra-management:4.1.11
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:4.1.8 $IMAGE_REGISTRY/appscode-images/cassandra-management:4.1.8
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:5.0.3 $IMAGE_REGISTRY/appscode-images/cassandra-management:5.0.3
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:5.0.7 $IMAGE_REGISTRY/appscode-images/cassandra-management:5.0.7
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-medusa:0.24.0 $IMAGE_REGISTRY/appscode-images/cassandra-medusa:0.24.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:28.0.1 $IMAGE_REGISTRY/appscode-images/druid:28.0.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:30.0.1 $IMAGE_REGISTRY/appscode-images/druid:30.0.1
@@ -353,6 +357,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:31.0.0 $IMAGE_REGISTRY/kubedb/druid-init:31.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.26.0 $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.26.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hanadb-coordinator:v0.3.0 $IMAGE_REGISTRY/kubedb/hanadb-coordinator:v0.3.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hanadb-exporter:1.0.0 $IMAGE_REGISTRY/kubedb/hanadb-exporter:1.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hazelcast-init:5.5.2 $IMAGE_REGISTRY/kubedb/hazelcast-init:5.5.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/ignite-init:2.17.0-v2 $IMAGE_REGISTRY/kubedb/ignite-init:2.17.0-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kafka-init:4.0-v2 $IMAGE_REGISTRY/kubedb/kafka-init:4.0-v2
@@ -397,10 +402,10 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archi
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.24.0_9.1.0 $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.24.0_9.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-coordinator:v0.41.0 $IMAGE_REGISTRY/kubedb/mysql-coordinator:v0.41.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-csi-snapshotter-plugin:v0.24.0 $IMAGE_REGISTRY/kubedb/mysql-csi-snapshotter-plugin:v0.24.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:5.7-v7 $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v7
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:8.0.31-v6 $IMAGE_REGISTRY/kubedb/mysql-init:8.0.31-v6
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:8.4.2-v5 $IMAGE_REGISTRY/kubedb/mysql-init:8.4.2-v5
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:9.0.1-v3 $IMAGE_REGISTRY/kubedb/mysql-init:9.0.1-v3
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:5.7-v8 $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v8
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:8.0.31-v7 $IMAGE_REGISTRY/kubedb/mysql-init:8.0.31-v7
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:8.4.2-v6 $IMAGE_REGISTRY/kubedb/mysql-init:8.4.2-v6
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:9.0.1-v4 $IMAGE_REGISTRY/kubedb/mysql-init:9.0.1-v4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.41.0 $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.41.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.18.0 $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.18.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-coordinator:v0.9.0 $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.9.0
