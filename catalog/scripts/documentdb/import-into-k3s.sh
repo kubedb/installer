@@ -23,3 +23,5 @@ fi
 
 TARBALL=${1:-}
 tar -zxvf $TARBALL
+
+k3s ctr images import images/documentdb-documentdb-documentdb-local-pg17-0.109.0.tar

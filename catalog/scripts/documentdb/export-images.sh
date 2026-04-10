@@ -32,4 +32,6 @@ mv /tmp/crane images
 
 CMD="./images/crane"
 
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/documentdb/documentdb/documentdb-local:pg17-0.109.0 images/documentdb-documentdb-documentdb-local-pg17-0.109.0.tar
+
 tar -czvf images.tar.gz images

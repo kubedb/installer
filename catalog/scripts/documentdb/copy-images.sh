@@ -34,3 +34,5 @@ tar -zxvf /tmp/go-containerregistry.tar.gz -C /tmp/
 mv /tmp/crane .
 
 CMD="./crane"
+
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/documentdb/documentdb/documentdb-local:pg17-0.109.0 $IMAGE_REGISTRY/documentdb/documentdb/documentdb-local:pg17-0.109.0

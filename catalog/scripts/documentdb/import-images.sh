@@ -25,3 +25,5 @@ TARBALL=${1:-}
 tar -zxvf $TARBALL
 
 CMD="./crane"
+
+$CMD push --allow-nondistributable-artifacts --insecure images/documentdb-documentdb-documentdb-local-pg17-0.109.0.tar $IMAGE_REGISTRY/documentdb/documentdb/documentdb-local:pg17-0.109.0
