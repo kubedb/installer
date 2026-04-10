@@ -38,7 +38,9 @@ CMD="./crane"
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-keeper:24.4.1 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:24.4.1
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-keeper:25.12.3 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:25.12.3
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-keeper:25.7.1 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:25.7.1
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-keeper:26.2.6 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:26.2.6
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-server:24.4.1 $IMAGE_REGISTRY/clickhouse/clickhouse-server:24.4.1
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-server:25.12.3 $IMAGE_REGISTRY/clickhouse/clickhouse-server:25.12.3
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-server:25.7.1 $IMAGE_REGISTRY/clickhouse/clickhouse-server:25.7.1
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-server:26.2.6 $IMAGE_REGISTRY/clickhouse/clickhouse-server:26.2.6
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1-v3 $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1-v3
