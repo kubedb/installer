@@ -32,9 +32,11 @@ k3s ctr images import images/apicurio-apicurio-registry-mem-2.5.11.Final.tar
 k3s ctr images import images/clickhouse-clickhouse-keeper-24.4.1.tar
 k3s ctr images import images/clickhouse-clickhouse-keeper-25.12.3.tar
 k3s ctr images import images/clickhouse-clickhouse-keeper-25.7.1.tar
+k3s ctr images import images/clickhouse-clickhouse-keeper-26.2.6.tar
 k3s ctr images import images/clickhouse-clickhouse-server-24.4.1.tar
 k3s ctr images import images/clickhouse-clickhouse-server-25.12.3.tar
 k3s ctr images import images/clickhouse-clickhouse-server-25.7.1.tar
+k3s ctr images import images/clickhouse-clickhouse-server-26.2.6.tar
 k3s ctr images import images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar
 k3s ctr images import images/hazelcast-hazelcast-enterprise-5.5.2.tar
 k3s ctr images import images/hazelcast-hazelcast-enterprise-5.5.6.tar
@@ -344,6 +346,7 @@ k3s ctr images import images/kubedb-druid-init-30.0.1.tar
 k3s ctr images import images/kubedb-druid-init-31.0.0.tar
 k3s ctr images import images/kubedb-elasticsearch-restic-plugin-v0.26.0.tar
 k3s ctr images import images/kubedb-hanadb-coordinator-v0.3.0.tar
+k3s ctr images import images/kubedb-hanadb-exporter-1.0.0.tar
 k3s ctr images import images/kubedb-hazelcast-init-5.5.2.tar
 k3s ctr images import images/kubedb-ignite-init-2.17.0-v2.tar
 k3s ctr images import images/kubedb-kafka-init-4.0-v2.tar

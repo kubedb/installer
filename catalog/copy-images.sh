@@ -43,9 +43,11 @@ $CMD cp --allow-nondistributable-artifacts --insecure docker.io/apicurio/apicuri
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-keeper:24.4.1 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:24.4.1
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-keeper:25.12.3 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:25.12.3
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-keeper:25.7.1 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:25.7.1
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-keeper:26.2.6 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:26.2.6
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-server:24.4.1 $IMAGE_REGISTRY/clickhouse/clickhouse-server:24.4.1
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-server:25.12.3 $IMAGE_REGISTRY/clickhouse/clickhouse-server:25.12.3
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-server:25.7.1 $IMAGE_REGISTRY/clickhouse/clickhouse-server:25.7.1
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-server:26.2.6 $IMAGE_REGISTRY/clickhouse/clickhouse-server:26.2.6
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0 $IMAGE_REGISTRY/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/hazelcast/hazelcast-enterprise:5.5.2 $IMAGE_REGISTRY/hazelcast/hazelcast-enterprise:5.5.2
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/hazelcast/hazelcast-enterprise:5.5.6 $IMAGE_REGISTRY/hazelcast/hazelcast-enterprise:5.5.6
@@ -355,6 +357,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:31.0.0 $IMAGE_REGISTRY/kubedb/druid-init:31.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.26.0 $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.26.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hanadb-coordinator:v0.3.0 $IMAGE_REGISTRY/kubedb/hanadb-coordinator:v0.3.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hanadb-exporter:1.0.0 $IMAGE_REGISTRY/kubedb/hanadb-exporter:1.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hazelcast-init:5.5.2 $IMAGE_REGISTRY/kubedb/hazelcast-init:5.5.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/ignite-init:2.17.0-v2 $IMAGE_REGISTRY/kubedb/ignite-init:2.17.0-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kafka-init:4.0-v2 $IMAGE_REGISTRY/kubedb/kafka-init:4.0-v2

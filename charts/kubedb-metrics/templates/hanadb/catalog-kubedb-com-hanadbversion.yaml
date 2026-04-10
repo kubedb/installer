@@ -1,0 +1,41 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.HanaDB }}
+
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: catalog-kubedb-com-hanadbversion
+spec:
+  targetRef:
+    apiVersion: catalog.kubedb.com/v1alpha1
+    kind: HanaDBVersion
+  metrics:
+    - name: created
+      help: "Unix creation timestamp"
+      type: gauge
+      field:
+        path: .metadata.creationTimestamp
+        type: DateTime
+      metricValue:
+        valueFromPath: .metadata.creationTimestamp
+
+    - name: info
+      help: "HanaDB versions info"
+      type: gauge
+      labels:
+        - key: deprecated
+          valuePath: .spec.deprecated
+        - key: db_image
+          valuePath: .spec.db.image
+        - key: coordinator_image
+          valuePath: .spec.coordinator.image
+        - key: exporter_image
+          valuePath: .spec.exporter.image
+      metricValue:
+        value: 1
+
+{{ end }}
