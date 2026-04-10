@@ -157,3 +157,21 @@ type QdrantList struct {
 	meta.ListMeta `json:"metadata,omitempty"`
 	Items         []Qdrant `json:"items"`
 }
+
+var _ Accessor = &Qdrant{}
+
+func (q *Qdrant) GetObjectMeta() meta.ObjectMeta {
+	return q.ObjectMeta
+}
+
+func (q *Qdrant) GetConditions() []kmapi.Condition {
+	return q.Status.Conditions
+}
+
+func (q *Qdrant) SetCondition(cond kmapi.Condition) {
+	q.Status.Conditions = setCondition(q.Status.Conditions, cond)
+}
+
+func (q *Qdrant) RemoveCondition(typ string) {
+	q.Status.Conditions = removeCondition(q.Status.Conditions, typ)
+}

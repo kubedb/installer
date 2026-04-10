@@ -18,7 +18,7 @@ require (
 	kmodules.xyz/image-packer v0.0.0-20260211014345-daa6afa3ceba
 	kmodules.xyz/resource-metadata v0.42.9
 	kmodules.xyz/schema-checker v0.4.2
-	kubedb.dev/apimachinery v0.63.1-0.20260317072713-af9ca1e54775
+	kubedb.dev/apimachinery v0.63.1-0.20260410110703-d64cb9b9e613
 	kubeops.dev/installer v0.0.0-20260305065349-dbc8a048d7dd
 	sigs.k8s.io/yaml v1.6.0
 	stash.appscode.dev/installer v0.12.2-0.20260224175756-ac464b38bf6c
@@ -103,13 +103,13 @@ require (
 	go.virtual-secrets.dev/apimachinery v0.0.1 // indirect
 	go.yaml.in/yaml/v2 v2.4.3 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
-	golang.org/x/crypto v0.46.0 // indirect
-	golang.org/x/net v0.47.0 // indirect
-	golang.org/x/oauth2 v0.33.0 // indirect
-	golang.org/x/sync v0.19.0 // indirect
-	golang.org/x/sys v0.40.0 // indirect
-	golang.org/x/term v0.38.0 // indirect
-	golang.org/x/text v0.32.0 // indirect
+	golang.org/x/crypto v0.49.0 // indirect
+	golang.org/x/net v0.52.0 // indirect
+	golang.org/x/oauth2 v0.34.0 // indirect
+	golang.org/x/sync v0.20.0 // indirect
+	golang.org/x/sys v0.43.0 // indirect
+	golang.org/x/term v0.41.0 // indirect
+	golang.org/x/text v0.35.0 // indirect
 	golang.org/x/time v0.14.0 // indirect
 	gomodules.xyz/encoding v0.0.8 // indirect
 	gomodules.xyz/jsonpatch/v2 v2.5.0 // indirect
@@ -118,7 +118,7 @@ require (
 	gomodules.xyz/pointer v0.1.0 // indirect
 	gomodules.xyz/restic v0.2.0 // indirect
 	gomodules.xyz/x v0.0.17 // indirect
-	google.golang.org/protobuf v1.36.10 // indirect
+	google.golang.org/protobuf v1.36.11 // indirect
 	gopkg.in/evanphx/json-patch.v4 v4.13.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect

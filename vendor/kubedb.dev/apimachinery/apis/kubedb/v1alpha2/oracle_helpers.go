@@ -256,7 +256,8 @@ func (o *Oracle) ObserverPetSetName() string {
 }
 
 func (o *Oracle) ConfigSecretName() string {
-	return metautil.NameWithSuffix(o.OffshootName(), "config")
+	uid := string(o.UID)
+	return metautil.NameWithSuffix(o.OffshootName(), uid[len(uid)-6:])
 }
 
 func (o *Oracle) IsStandalone() bool {
@@ -473,9 +474,7 @@ func (p *Oracle) assignDefaultContainerSecurityContext(sc *core.SecurityContext,
 }
 
 func (o *Oracle) setContainerDefaultResources(container *core.Container, defaultResources core.ResourceRequirements) {
-	if container.Resources.Requests == nil && container.Resources.Limits == nil {
-		apis.SetDefaultResourceLimits(&container.Resources, defaultResources)
-	}
+	apis.SetDefaultResourceLimits(&container.Resources, defaultResources)
 }
 
 func (o *Oracle) SetDataGuardDefaults() {
