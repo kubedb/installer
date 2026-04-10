@@ -25,6 +25,7 @@ import (
 	"time"
 
 	v1 "kubedb.dev/apimachinery/apis/kubedb/v1"
+	"kubedb.dev/apimachinery/pkg/double_optin"
 
 	"github.com/pkg/errors"
 	core "k8s.io/api/core/v1"
@@ -110,8 +111,8 @@ func WaitForShardIdUpdate(kc client.Client, shardConfigName string) {
 
 type Predicator interface {
 	GetOwnerObject(obj client.Object) (*unstructured.Unstructured, error)
-	GetPredicateFuncsForDatabase() predicate.Funcs
-	GetPredicateFuncsForOwnerObjects() predicate.Funcs
+	GetPredicateFuncsForSelf() predicate.Funcs
+	GetPredicateFuncsForOwnedObjects() predicate.Funcs
 	GetArchiverToDatabasesMappingFunc(ctx context.Context, obj client.Object) []reconcile.Request
 }
 type dbPredicate struct {
@@ -159,7 +160,7 @@ func (p *dbPredicate) GetOwnerObject(obj client.Object) (*unstructured.Unstructu
 	return &un, err
 }
 
-func (p *dbPredicate) GetPredicateFuncsForDatabase() predicate.Funcs {
+func (p *dbPredicate) GetPredicateFuncsForSelf() predicate.Funcs {
 	return predicate.Funcs{
 		CreateFunc: func(e event.CreateEvent) bool {
 			obj := e.Object
@@ -190,52 +191,52 @@ func (p *dbPredicate) GetPredicateFuncsForDatabase() predicate.Funcs {
 	}
 }
 
-func (p *dbPredicate) GetPredicateFuncsForOwnerObjects() predicate.Funcs {
+func (p *dbPredicate) GetPredicateFuncsForOwnedObjects() predicate.Funcs {
 	return predicate.Funcs{
 		CreateFunc: func(e event.CreateEvent) bool {
-			dbObj, err := p.GetOwnerObject(e.Object)
+			ownerObj, err := p.GetOwnerObject(e.Object)
 			if err != nil && !kerr.IsNotFound(err) {
 				klog.Errorln(err)
 				return false
 			}
-			if dbObj == nil {
+			if ownerObj == nil {
 				return false
 			}
-			rq := scutil.ShouldEnqueueObjectForShard(p.kc, p.shardConfig, dbObj.GetLabels())
+			rq := scutil.ShouldEnqueueObjectForShard(p.kc, p.shardConfig, ownerObj.GetLabels())
 			if !rq && p.healthChecker != nil {
-				p.healthChecker.Stop(dbObj.GetNamespace() + "/" + dbObj.GetName())
+				p.healthChecker.Stop(ownerObj.GetNamespace() + "/" + ownerObj.GetName())
 			}
 			return rq
 		},
 
 		UpdateFunc: func(e event.UpdateEvent) bool {
-			dbObj, err := p.GetOwnerObject(e.ObjectNew)
+			ownerObj, err := p.GetOwnerObject(e.ObjectNew)
 			if err != nil && !kerr.IsNotFound(err) {
 				klog.Errorln(err)
 				return false
 			}
-			if dbObj == nil {
+			if ownerObj == nil {
 				return false
 			}
-			rq := scutil.ShouldEnqueueObjectForShard(p.kc, p.shardConfig, dbObj.GetLabels())
+			rq := scutil.ShouldEnqueueObjectForShard(p.kc, p.shardConfig, ownerObj.GetLabels())
 			if !rq && p.healthChecker != nil {
-				p.healthChecker.Stop(dbObj.GetNamespace() + "/" + dbObj.GetName())
+				p.healthChecker.Stop(ownerObj.GetNamespace() + "/" + ownerObj.GetName())
 			}
 			return rq
 		},
 
 		DeleteFunc: func(e event.DeleteEvent) bool {
-			dbObj, err := p.GetOwnerObject(e.Object)
+			ownerObj, err := p.GetOwnerObject(e.Object)
 			if err != nil && !kerr.IsNotFound(err) {
 				klog.Errorln(err)
 				return false
 			}
-			if dbObj == nil {
+			if ownerObj == nil {
 				return false
 			}
-			rq := scutil.ShouldEnqueueObjectForShard(p.kc, p.shardConfig, dbObj.GetLabels())
+			rq := scutil.ShouldEnqueueObjectForShard(p.kc, p.shardConfig, ownerObj.GetLabels())
 			if !rq && p.healthChecker != nil {
-				p.healthChecker.Stop(dbObj.GetNamespace() + "/" + dbObj.GetName())
+				p.healthChecker.Stop(ownerObj.GetNamespace() + "/" + ownerObj.GetName())
 			}
 			return rq
 		},
@@ -244,30 +245,19 @@ func (p *dbPredicate) GetPredicateFuncsForOwnerObjects() predicate.Funcs {
 
 func (p *dbPredicate) GetArchiverToDatabasesMappingFunc(ctx context.Context, obj client.Object) (matched []reconcile.Request) {
 	archiverNS, archiverName := obj.GetNamespace(), obj.GetName()
-	consumers, err := getAllowedConsumers(obj)
+	consumerSpec, err := getAllowedConsumerSpec(obj)
 	if err != nil {
 		klog.Warningf("failed to get databases field as consumer for archiver: %s/%s. Reason: %v", archiverNS, archiverName, err)
 		return
 	}
 
-	namespaceAllowlist, err := getAllowedNamespaceList(ctx, p.kc, consumers)
+	consumers, err := double_optin.ListConsumers(p.kc, metav1.ObjectMeta{Namespace: archiverNS, Name: archiverName}, p.gvk, consumerSpec)
 	if err != nil {
-		klog.Warningf("failed to get allowed namespace list for archiver: %s/%s. Reason: %v", archiverNS, archiverName, err)
-		return
+		return nil
 	}
 
-	dbs, err := p.listDatabasesForArchiver(ctx, consumers)
-	if err != nil {
-		klog.Warningf("failed to list dbs for archiver: %s/%s. Reason: %v", archiverNS, archiverName, err)
-		return
-	}
-
-	for _, db := range dbs.Items {
+	for _, db := range consumers.Items {
 		dbNS, dbName := db.GetNamespace(), db.GetName()
-		if !isDatabaseNamespaceAllowed(dbNS, archiverNS, *consumers.Namespaces.From, namespaceAllowlist) {
-			continue
-		}
-
 		key := dbNS + "/" + dbName
 		if scutil.ShouldEnqueueObjectForShard(p.kc, p.shardConfig, db.GetLabels()) {
 			matched = append(matched, reconcile.Request{
@@ -280,7 +270,7 @@ func (p *dbPredicate) GetArchiverToDatabasesMappingFunc(ctx context.Context, obj
 	return
 }
 
-func getAllowedConsumers(obj client.Object) (*v1.AllowedConsumers, error) {
+func getAllowedConsumerSpec(obj client.Object) (*v1.AllowedConsumers, error) {
 	v := reflect.ValueOf(obj).Elem() // get struct value
 	spec := v.FieldByName("Spec")
 	if !spec.IsValid() {
@@ -294,60 +284,4 @@ func getAllowedConsumers(obj client.Object) (*v1.AllowedConsumers, error) {
 		return nil, fmt.Errorf("databases field is nil ")
 	}
 	return databases.Interface().(*v1.AllowedConsumers), nil
-}
-
-func getAllowedNamespaceList(ctx context.Context, kc client.Client, consumers *v1.AllowedConsumers) (map[string]struct{}, error) {
-	if *consumers.Namespaces.From != v1.NamespacesFromSelector {
-		return nil, nil
-	}
-	nsSelector, err := metav1.LabelSelectorAsSelector(consumers.Namespaces.Selector)
-	if err != nil {
-		return nil, fmt.Errorf("failed to converting namespace selector. Reason: %v", err)
-	}
-
-	nsList := &core.NamespaceList{}
-	err = kc.List(ctx, nsList, client.MatchingLabelsSelector{Selector: nsSelector})
-	if err != nil {
-		return nil, fmt.Errorf("failed to listing namespaces. Reason: %v", err)
-	}
-
-	allowlist := make(map[string]struct{}, len(nsList.Items))
-	for _, ns := range nsList.Items {
-		allowlist[ns.Name] = struct{}{}
-	}
-
-	return allowlist, nil
-}
-
-func (p *dbPredicate) listDatabasesForArchiver(ctx context.Context, consumers *v1.AllowedConsumers) (*unstructured.UnstructuredList, error) {
-	dbSelector, err := metav1.LabelSelectorAsSelector(consumers.Selector)
-	if err != nil {
-		return nil, fmt.Errorf("failed to converting namespace selector. Reason: %v", err)
-	}
-
-	dbs, err := listByGVK(ctx, p.kc, p.gvk, []client.ListOption{
-		client.MatchingLabelsSelector{Selector: dbSelector},
-	})
-	if err != nil {
-		return nil, fmt.Errorf("failed to listing databases. Reason: %v", err)
-	}
-	return dbs, nil
-}
-
-func isDatabaseNamespaceAllowed(dbNamespace, archiverNamespace string, from v1.FromNamespaces, namespaceAllowlist map[string]struct{}) bool {
-	if namespaceAllowlist != nil {
-		_, ok := namespaceAllowlist[dbNamespace]
-		return ok
-	}
-	return from != v1.NamespacesFromSame || dbNamespace == archiverNamespace
-}
-
-func listByGVK(ctx context.Context, kc client.Client, gvk schema.GroupVersionKind, opts []client.ListOption) (*unstructured.UnstructuredList, error) {
-	list := &unstructured.UnstructuredList{}
-	list.SetGroupVersionKind(gvk)
-	if err := kc.List(ctx, list, opts...); err != nil {
-		return nil, err
-	}
-
-	return list, nil
 }
