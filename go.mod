@@ -15,11 +15,11 @@ require (
 	k8s.io/apimachinery v0.34.3
 	kmodules.xyz/client-go v0.34.3
 	kmodules.xyz/go-containerregistry v0.0.15
-	kmodules.xyz/image-packer v0.0.0-20260211014345-daa6afa3ceba
-	kmodules.xyz/resource-metadata v0.42.9
+	kmodules.xyz/image-packer v0.0.0-20260313163835-e88c9cfe24d3
+	kmodules.xyz/resource-metadata v0.43.0
 	kmodules.xyz/schema-checker v0.4.2
 	kubedb.dev/apimachinery v0.63.1-0.20260410110703-d64cb9b9e613
-	kubeops.dev/installer v0.0.0-20260305065349-dbc8a048d7dd
+	kubeops.dev/installer v0.0.0-20260409180749-66bc29c4e4c9
 	sigs.k8s.io/yaml v1.6.0
 	stash.appscode.dev/installer v0.12.2-0.20260224175756-ac464b38bf6c
 )

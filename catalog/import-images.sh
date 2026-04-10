@@ -339,6 +339,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-z
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-kubectl-nonroot-1.34.tar $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.34
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.0.16.tar $IMAGE_REGISTRY/appscode/petset:v0.0.16
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.14.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.14
+$CMD push --allow-nondistributable-artifacts --insecure images/documentdb-documentdb-documentdb-local-pg17-0.109.0.tar $IMAGE_REGISTRY/documentdb/documentdb/documentdb-local:pg17-0.109.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-4.1.6-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-5.0.0-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-medusa-plugin-v0.10.0.tar $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.10.0

@@ -25,6 +25,7 @@ image-packer generate-scripts --insecure --allow-nondistributable-artifacts \
 declare -a components=(
     cassandra
     clickhouse
+    documentdb
     druid
     elasticsearch
     ferretdb
