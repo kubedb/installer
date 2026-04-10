@@ -191,10 +191,6 @@ func (p *dbPredicate) GetPredicateFuncsForSelf() predicate.Funcs {
 	}
 }
 
-func (p *dbPredicate) GetPredicateFuncsForDatabase() predicate.Funcs {
-	return p.GetPredicateFuncsForSelf()
-}
-
 func (p *dbPredicate) GetPredicateFuncsForOwnedObjects() predicate.Funcs {
 	return predicate.Funcs{
 		CreateFunc: func(e event.CreateEvent) bool {

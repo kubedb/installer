@@ -2254,6 +2254,8 @@ const (
 	OracleEnvDataDir               = "ORADATA"
 	OracleSharedTlsVolumeName      = "certs"
 	OracleSharedTlsVolumeMountPath = "/tls/certs"
+
+	OracleCustomConfigFileName = "oracle.cnf"
 )
 
 // =========================== DB2 Constants ============================
