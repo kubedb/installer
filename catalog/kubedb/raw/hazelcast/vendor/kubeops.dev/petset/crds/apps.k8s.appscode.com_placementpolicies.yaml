@@ -1,0 +1,237 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  name: placementpolicies.apps.k8s.appscode.com
+spec:
+  group: apps.k8s.appscode.com
+  names:
+    kind: PlacementPolicy
+    listKind: PlacementPolicyList
+    plural: placementpolicies
+    singular: placementpolicy
+  scope: Cluster
+  versions:
+  - name: v1
+    schema:
+      openAPIV3Schema:
+        description: |-
+          PlacementPolicy represents a set of pods with consistent identities.
+          Identities are defined as:
+            - Network: A single stable DNS and hostname.
+            - Storage: As many VolumeClaims as requested.
+
+          The PlacementPolicy guarantees that a given network identity will always
+          map to the same storage identity.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: Spec defines the desired identities of pods in this set.
+            properties:
+              affinity:
+                description: If specified, the pod's scheduling constraints
+                properties:
+                  nodeAffinity:
+                    description: Describes node affinity scheduling rules for the
+                      pod.
+                    items:
+                      properties:
+                        domains:
+                          items:
+                            properties:
+                              replicas:
+                                type: string
+                              values:
+                                items:
+                                  type: string
+                                type: array
+                            required:
+                            - replicas
+                            - values
+                            type: object
+                          type: array
+                        topologyKey:
+                          type: string
+                        weight:
+                          default: 50
+                          description: Weight associated with matching the corresponding
+                            nodeSelectorTerm, in the range 1-100.
+                          format: int32
+                          type: integer
+                        whenUnsatisfiable:
+                          default: DoNotSchedule
+                          type: string
+                      required:
+                      - domains
+                      - topologyKey
+                      - weight
+                      - whenUnsatisfiable
+                      type: object
+                    type: array
+                type: object
+              clusterSpreadConstraint:
+                description: ClusterSpreadConstraint provides spec for distributed
+                  pod placements
+                properties:
+                  distributionRules:
+                    items:
+                      properties:
+                        clusterName:
+                          type: string
+                        monitoring:
+                          properties:
+                            prometheus:
+                              properties:
+                                appBindingRef:
+                                  description: ObjectReference contains enough information
+                                    to let you inspect or modify the referred object.
+                                  properties:
+                                    name:
+                                      description: |-
+                                        Name of the referent.
+                                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                      type: string
+                                    namespace:
+                                      description: |-
+                                        Namespace of the referent.
+                                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+                                      type: string
+                                  required:
+                                  - name
+                                  type: object
+                                authSecret:
+                                  description: |-
+                                    Secret is the name of the secret to create in the AppBinding's
+                                    namespace that will hold the credentials associated with the AppBinding.
+                                  properties:
+                                    name:
+                                      description: |-
+                                        Name of the referent.
+                                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                      type: string
+                                    namespace:
+                                      description: |-
+                                        Namespace of the referent.
+                                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+                                      type: string
+                                  required:
+                                  - name
+                                  type: object
+                                caBundle:
+                                  description: CABundle is a PEM encoded CA bundle
+                                    which will be used to validate the serving certificate
+                                    of this app.
+                                  format: byte
+                                  type: string
+                                insecureSkipTLSVerify:
+                                  description: |-
+                                    InsecureSkipTLSVerify disables TLS certificate verification when communicating with this app.
+                                    This is strongly discouraged.  You should use the CABundle instead.
+                                  type: boolean
+                                serverName:
+                                  description: |-
+                                    ServerName is used to verify the hostname on the returned
+                                    certificates unless InsecureSkipVerify is given. It is also included
+                                    in the client's handshake to support virtual hosting unless it is
+                                    an IP address.
+                                  type: string
+                                tlsSecret:
+                                  description: |-
+                                    TLSSecret is the name of the secret that will hold
+                                    the client certificate and private key associated with the AppBinding.
+                                  properties:
+                                    name:
+                                      description: |-
+                                        Name of the referent.
+                                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                                      type: string
+                                    namespace:
+                                      description: |-
+                                        Namespace of the referent.
+                                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+                                      type: string
+                                  required:
+                                  - name
+                                  type: object
+                                url:
+                                  description: |-
+                                    `url` gives the location of the app, in standard URL form
+                                    (`[scheme://]host:port/path`). Exactly one of `url` or `service`
+                                    must be specified.
+                                  type: string
+                              type: object
+                          type: object
+                        replicaIndices:
+                          items:
+                            format: int32
+                            type: integer
+                          type: array
+                        storageClassName:
+                          type: string
+                      required:
+                      - clusterName
+                      - replicaIndices
+                      type: object
+                    type: array
+                  slice:
+                    properties:
+                      projectNamespace:
+                        type: string
+                      sliceName:
+                        type: string
+                    required:
+                    - projectNamespace
+                    - sliceName
+                    type: object
+                required:
+                - distributionRules
+                - slice
+                type: object
+              nodeSpreadConstraint:
+                properties:
+                  maxSkew:
+                    default: 1
+                    format: int32
+                    type: integer
+                  whenUnsatisfiable:
+                    default: DoNotSchedule
+                    type: string
+                required:
+                - maxSkew
+                - whenUnsatisfiable
+                type: object
+              zoneSpreadConstraint:
+                properties:
+                  maxSkew:
+                    default: 1
+                    format: int32
+                    type: integer
+                  whenUnsatisfiable:
+                    default: DoNotSchedule
+                    type: string
+                required:
+                - maxSkew
+                - whenUnsatisfiable
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true

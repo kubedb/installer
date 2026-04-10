@@ -1,0 +1,55 @@
+name: release-tracker
+
+on:
+  pull_request:
+    types: [closed]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  label-detector:
+    name: Runner Label
+    runs-on: label-detector
+    outputs:
+      runs-on: ${{ steps.detector.outputs.label }}
+    steps:
+      - name: Detect Label
+        id: detector
+        run: |
+          # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idoutputs
+          echo "label=$(curl -fsSL https://this-is-nats.appscode.ninja/runs-on/${{ github.repository_owner }}?visibility=${{ github.repository_visibility }})" >> $GITHUB_OUTPUT
+
+  build:
+    name: Build
+    needs: label-detector
+    runs-on: "${{ needs.label-detector.outputs.runs-on }}"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare git
+        env:
+          GITHUB_USER: 1gtm
+          GITHUB_TOKEN: ${{ secrets.LGTM_GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "${GITHUB_USER}"
+          git config --global user.email "${GITHUB_USER}@appscode.com"
+          git remote set-url origin https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+
+      - name: Install GitHub CLI
+        run: |
+          curl -fsSL https://github.com/github/hub/raw/master/script/get | bash -s 2.14.1
+          sudo mv bin/hub /usr/local/bin
+
+      - name: Update release tracker
+        if: |
+          github.event.action == 'closed' &&
+          github.event.pull_request.merged == true
+        env:
+          GITHUB_USER: 1gtm
+          GITHUB_TOKEN: ${{ secrets.LGTM_GITHUB_TOKEN }}
+        run: |
+          ./hack/scripts/update-release-tracker.sh

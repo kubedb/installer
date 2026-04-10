@@ -1,0 +1,172 @@
+name: e2e
+
+on:
+  issue_comment:
+    types: [created]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}-e2e
+  cancel-in-progress: true
+
+jobs:
+  label-detector:
+    name: Runner Label
+    runs-on: label-detector
+    outputs:
+      runs-on: ${{ steps.detector.outputs.label }}
+    steps:
+      - name: Detect Label
+        id: detector
+        run: |
+          # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idoutputs
+          echo "label=$(curl -fsSL https://this-is-nats.appscode.ninja/runs-on/${{ github.repository_owner }}?visibility=${{ github.repository_visibility }})" >> $GITHUB_OUTPUT
+
+  config:
+    name: Test Matrix
+    runs-on: "${{ needs.label-detector.outputs.runs-on }}"
+    needs: label-detector
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      test_ref: ${{ steps.set-matrix.outputs.test_ref }}
+      installer_ref: ${{ steps.set-matrix.outputs.installer_ref }}
+      crd_manager_ref: ${{ steps.set-matrix.outputs.crd_manager_ref }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: set-matrix
+        name: Generate test matrix
+        run: |
+          ./hack/scripts/generate-test-matrix.sh ${{ github.event.comment.body }}
+
+  test:
+    name: Test
+    if: contains(github.event.issue.html_url, '/pull/') && startsWith(github.event.comment.body, '/ok-to-test')
+    needs: [label-detector, config]
+    # runs-on: "${{ needs.label-detector.outputs.runs-on }}"
+    runs-on: testrig
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.config.outputs.matrix) }}
+    steps:
+      - name: Set up Go 1.25
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.25'
+        id: go
+
+      - uses: actions/checkout@v4
+
+      - name: Install Homebrew
+        run: |
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+      - uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Prepare host
+        run: |
+          brew instal gh kubectl helm kind
+
+      - name: Checkout pr
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh pr checkout $PR_NUMBER
+
+      - name: Prepare git
+        env:
+          GITHUB_USER: 1gtm
+          GITHUB_TOKEN: ${{ secrets.LGTM_GITHUB_TOKEN }}
+        run: |
+          set -x
+          git config --global user.name "1gtm"
+          git config --global user.email "1gtm@appscode.com"
+          git config --global \
+            url."https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com".insteadOf \
+            "https://github.com"
+
+      - name: Create Kubernetes ${{ matrix.k8s }} cluster
+        id: kind
+        uses: engineerd/setup-kind@v0.5.0
+        with:
+          version: v0.31.0
+          config: hack/kubernetes/kind.yaml
+          image: kindest/node:${{ matrix.k8s }}
+
+      - name: Prepare cluster for testing
+        id: local-path
+        run: |
+          echo "waiting for nodes to be ready ..."
+          kubectl wait --for=condition=Ready nodes --all --timeout=5m
+          kubectl get nodes
+          kubectl wait --for=condition=Ready pods -n kube-system --all --timeout=10m
+          kubectl get pods -n kube-system
+
+      - name: Install cert-manager
+        run: |
+          kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml
+
+      - name: Check out installer
+        run: |
+          cd ..
+          git clone https://github.com/kubedb/installer.git
+          cd installer
+          git checkout ${{ needs.config.outputs.installer_ref }}
+      - name: Check out crd_manager
+        run: |
+          cd ..
+          git clone https://github.com/kubedb/crd-manager.git
+          cd crd-manager
+          git checkout ${{ needs.config.outputs.crd_manager }}
+
+      - name: Issue License
+        env:
+          BYTEBUILDERS_LICENSE_TOKEN: ${{ secrets.BYTEBUILDERS_LICENSE_TOKEN }}
+        run: |
+          export KUBECONFIG="${HOME}/.kube/config"
+          CLUSTER_UID=$(kubectl get ns kube-system -o=jsonpath='{.metadata.uid}')
+          curl -X POST -o /tmp/license.txt -d "name=1gtm&email=1gtm@appscode.com&product=kubedb-enterprise&cluster=${CLUSTER_UID}&tos=true&token=${BYTEBUILDERS_LICENSE_TOKEN}" https://license-issuer.appscode.com/issue-license
+
+      - name: Install stash and addons
+        env:
+          LICENSE_FILE: /tmp/license.txt
+        run: |
+          make stash-install
+
+      - name: Install operator
+        env:
+          LICENSE_FILE: /tmp/license.txt
+          REGISTRY: ghcr.io/${{ github.repository_owner }}
+          TEST_CREDENTIALS: ${{ secrets.TEST_CREDENTIALS }}
+          GOOGLE_SERVICE_ACCOUNT_JSON_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON_KEY }}
+        run: |
+          echo "preparing test credentials"
+          mkdir -p hack/config
+          echo -n "$TEST_CREDENTIALS" > hack/config/.env
+          echo >> hack/config/.env
+          echo "GOOGLE_SERVICE_ACCOUNT_JSON_KEY=$(echo $GOOGLE_SERVICE_ACCOUNT_JSON_KEY)" >> hack/config/.env
+          make deploy-to-kind
+
+      - name: Run e2e tests
+        env:
+          REGISTRY: ghcr.io/${{ github.repository_owner }}
+          TEST_CREDENTIALS: ${{ secrets.TEST_CREDENTIALS }}
+          GOOGLE_SERVICE_ACCOUNT_JSON_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON_KEY }}
+        run: |
+          cd ..
+          git clone https://github.com/kubedb/tests.git
+          cd tests
+          git checkout ${{ needs.config.outputs.test_ref }}
+          echo "preparing test credentials"
+          mkdir -p hack/config
+          echo -n "$TEST_CREDENTIALS" > hack/config/.env
+          echo >> hack/config/.env
+          echo "GOOGLE_SERVICE_ACCOUNT_JSON_KEY=$(echo $GOOGLE_SERVICE_ACCOUNT_JSON_KEY)" >> hack/config/.env
+          make e2e-tests GINKGO_ARGS="--flake-attempts=2 --timeout=24h" TEST_ARGS="--db-type=${{ matrix.db }} --db-version=${{ matrix.version }} --test-profiles=${{ matrix.profiles }} --ssl=${{ matrix.ssl }}" \
+          || (kubectl describe deployment -n kubedb -l 'app.kubernetes.io/name in (kubedb-provisioner,kubedb-ops-manager)'; \
+              kubectl logs -n kubedb -l 'app.kubernetes.io/name in (kubedb-provisioner,kubedb-ops-manager)'; \
+              kubectl describe deployment -n kubedb -l 'app.kubernetes.io/name in (app.kubernetes.io/name=stash-enterprise)'; \
+              kubectl logs -n kubedb -l 'app.kubernetes.io/name in (app.kubernetes.io/name=stash-enterprise)'; \
+              exit 1;)

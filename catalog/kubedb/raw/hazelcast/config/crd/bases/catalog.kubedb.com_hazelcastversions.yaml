@@ -1,0 +1,119 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.17.0
+  name: hazelcastversions.catalog.kubedb.com
+spec:
+  group: catalog.kubedb.com
+  names:
+    categories:
+    - catalog
+    - kubedb
+    - appscode
+    kind: HazelcastVersion
+    listKind: HazelcastVersionList
+    plural: hazelcastversions
+    shortNames:
+    - hzversion
+    singular: hazelcastversion
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.version
+      name: Version
+      type: string
+    - jsonPath: .spec.db.image
+      name: DB_IMAGE
+      type: string
+    - jsonPath: .spec.deprecated
+      name: Deprecated
+      type: boolean
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: HazelcastVersion is the Schema for the hazelcastversions API.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              db:
+                description: Database Image
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              deprecated:
+                description: Deprecated versions usable but regarded as obsolete and
+                  best avoided, typically due to having been superseded.
+                type: boolean
+              initContainer:
+                description: Database Image
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              securityContext:
+                description: SecurityContext is for the additional config for the
+                  DB container
+                properties:
+                  runAsUser:
+                    format: int64
+                    type: integer
+                type: object
+              updateConstraints:
+                description: |-
+                  SecurityContext is for the additional security information for the Hazelcast container
+                  update constraints
+                properties:
+                  allowlist:
+                    description: |-
+                      List of all accepted versions for upgrade request.
+                      An empty list indicates all versions are accepted except the denylist.
+                    items:
+                      type: string
+                    type: array
+                  denylist:
+                    description: |-
+                      List of all rejected versions for upgrade request.
+                      An empty list indicates no version is rejected.
+                    items:
+                      type: string
+                    type: array
+                type: object
+              version:
+                description: Version
+                type: string
+            required:
+            - db
+            - initContainer
+            - version
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources: {}

@@ -1,0 +1,100 @@
+# Copyright AppsCode Inc. and Contributors
+#
+# Licensed under the AppsCode Community License 1.0.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://github.com/appscode/licenses/raw/1.0.0/AppsCode-Community-1.0.0.md
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+KUBEOPS_NAMESPACE   ?= kubeops
+PETSET_REGISTRY     ?= ghcr.io/appscode
+PETSET_TAG          ?= v0.0.7
+SIDEKICK_REGISTRY   ?= ghcr.io/appscode
+SIDEKICK_TAG        ?= v0.0.10
+PANOPTICON_REGISTRY ?= ghcr.io/appscode
+PANOPTICON_TAG      ?= v0.0.17
+
+.PHONY: install-crd-to-kind
+install-crd-to-kind:
+	@cd ../crd-manager && $(MAKE) deploy-to-kind DATABASE="Hazelcast"
+
+.PHONY: install-crd
+install-crd:
+	@cd ../crd-manager && $(MAKE) push install DATABASE="Hazelcast"
+
+.PHONY: install-petset
+install-petset:
+	@cd ../../kubeops.dev/installer; \
+	kubectl create ns $(KUBEOPS_NAMESPACE) || true; \
+	kubectl label ns $(KUBEOPS_NAMESPACE) pod-security.kubernetes.io/enforce=restricted; \
+	helm upgrade -i petset charts/petset --wait --debug --force \
+		--namespace=$(KUBEOPS_NAMESPACE) --create-namespace \
+		--set registryFQDN="" \
+		--set operator.registry=$(PETSET_REGISTRY) \
+		--set operator.tag=$(PETSET_TAG) \
+		--set operator.securityContext.seccompProfile.type=RuntimeDefault \
+		--set rbacproxy.registry=ghcr.io/appscode \
+		--set rbacproxy.securityContext.seccompProfile.type=RuntimeDefault \
+		--set imagePullPolicy=$(IMAGE_PULL_POLICY) \
+		$(IMAGE_PULL_SECRETS);
+
+.PHONY: uninstall-petset
+uninstall-petset:
+	@cd ../../kubeops.dev/installer; \
+	helm uninstall petset --namespace=$(KUBEOPS_NAMESPACE) || true
+
+
+.PHONY: install-sidekick
+install-sidekick:
+	@cd ../../kubeops.dev/installer; \
+	kubectl create ns $(KUBEOPS_NAMESPACE) || true; \
+	kubectl label ns $(KUBEOPS_NAMESPACE) pod-security.kubernetes.io/enforce=restricted; \
+	helm upgrade -i sidekick charts/sidekick --wait \
+		--namespace=$(KUBEOPS_NAMESPACE) --create-namespace \
+		--set registryFQDN="" \
+		--set image.registry=$(SIDEKICK_REGISTRY) \
+		--set image.tag=$(SIDEKICK_TAG) \
+		--set imagePullPolicy=$(IMAGE_PULL_POLICY) \
+		$(IMAGE_PULL_SECRETS);
+
+.PHONY: uninstall-sidekick
+uninstall-sidekick:
+	@cd ../../kubeops.dev/installer; \
+	helm uninstall sidekick --namespace=$(KUBEOPS_NAMESPACE) || true
+
+.PHONY: install-panopticon
+install-panopticon:
+	@cd ../../kubeops.dev/installer; \
+	kubectl create ns $(KUBEOPS_NAMESPACE) || true; \
+	kubectl label ns $(KUBEOPS_NAMESPACE) pod-security.kubernetes.io/enforce=restricted; \
+	helm upgrade -i panopticon charts/panopticon --wait \
+		--namespace=$(KUBEOPS_NAMESPACE) --create-namespace \
+		--set-file license=$(LICENSE_FILE) \
+		--set registryFQDN="" \
+		--set image.registry=$(PANOPTICON_REGISTRY) \
+		--set image.tag=$(PANOPTICON_TAG) \
+		--set imagePullPolicy=$(IMAGE_PULL_POLICY) \
+		$(IMAGE_PULL_SECRETS); \
+	kubectl wait --for=condition=Available apiservice -l 'app.kubernetes.io/name=panopticon,app.kubernetes.io/instance=panopticon' --timeout=5m
+
+.PHONY: uninstall-panopticon
+uninstall-panopticon:
+	@cd ../../kubeops.dev/installer; \
+	helm uninstall panopticon --namespace=$(KUBEOPS_NAMESPACE) || true
+
+
+.PHONY: install-everything-to-kind
+install-everything-to-kind: deploy-to-kind install-kubestash install-petset install-sidekick install-panopticon
+
+.PHONY: install-everything
+install-everything: install-crd push install install-kubestash install-petset install-sidekick install-panopticon
+
+.PHONY: uninstall-everything
+uninstall-everything: uninstall-panopticon uninstall-sidekick uninstall-petset uninstall-kubestash uninstall

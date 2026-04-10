@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - "*"
+  push:
+    branches:
+      - master
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}-ci
+  cancel-in-progress: true
+
+jobs:
+  label-detector:
+    name: Runner Label
+    runs-on: label-detector
+    outputs:
+      runs-on: ${{ steps.detector.outputs.label }}
+    steps:
+      - name: Detect Label
+        id: detector
+        run: |
+          # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idoutputs
+          echo "label=$(curl -fsSL https://this-is-nats.appscode.ninja/runs-on/${{ github.repository_owner }}?visibility=${{ github.repository_visibility }})" >> $GITHUB_OUTPUT
+
+  build:
+    name: Build
+    needs: label-detector
+    runs-on: "${{ needs.label-detector.outputs.runs-on }}"
+    steps:
+      - name: Set up Go 1.25
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.25'
+        id: go
+
+      - uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v3
+        with:
+          cache-image: false
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Run checks
+        run: |
+          make ci

@@ -1,0 +1,129 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/name: kubedb
+  name: elasticsearchinsights.ui.kubedb.com
+spec:
+  group: ui.kubedb.com
+  names:
+    kind: ElasticsearchInsight
+    listKind: ElasticsearchInsightList
+    plural: elasticsearchinsights
+    singular: elasticsearchinsight
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              activePrimaryShards:
+                format: double
+                type: number
+              activeShards:
+                format: double
+                type: number
+              activeShardsPercentAsNumber:
+                format: double
+                type: number
+              clusterName:
+                type: string
+              clusterStatus:
+                type: string
+              delayedUnassignedShards:
+                format: double
+                type: number
+              initializingShards:
+                format: double
+                type: number
+              mode:
+                type: string
+              numberOfDataNodes:
+                format: double
+                type: number
+              numberOfInFlightFetch:
+                format: double
+                type: number
+              numberOfNodes:
+                format: double
+                type: number
+              numberOfPendingTasks:
+                format: double
+                type: number
+              relocatingShards:
+                format: double
+                type: number
+              status:
+                type: string
+              taskMaxWaitingInQueueMilliSeconds:
+                format: double
+                type: number
+              unassignedShards:
+                format: double
+                type: number
+              version:
+                type: string
+            required:
+            - mode
+            - status
+            - version
+            type: object
+          status:
+            properties:
+              authSecret:
+                properties:
+                  lastUpdateTimestamp:
+                    format: date-time
+                    type: string
+                type: object
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                format: int64
+                type: integer
+              phase:
+                enum:
+                - Provisioning
+                - DataRestoring
+                - Ready
+                - Critical
+                - NotReady
+                - Halted
+                - Unknown
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true

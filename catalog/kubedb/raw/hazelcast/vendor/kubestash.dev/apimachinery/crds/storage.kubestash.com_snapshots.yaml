@@ -1,0 +1,311 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/name: kubestash
+  name: snapshots.storage.kubestash.com
+spec:
+  group: storage.kubestash.com
+  names:
+    categories:
+    - kubestash
+    - appscode
+    kind: Snapshot
+    listKind: SnapshotList
+    plural: snapshots
+    singular: snapshot
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.repository
+      name: Repository
+      type: string
+    - jsonPath: .spec.session
+      name: Session
+      type: string
+    - jsonPath: .status.snapshotTime
+      name: Snapshot-Time
+      type: string
+    - jsonPath: .spec.deletionPolicy
+      name: Deletion-Policy
+      type: string
+    - jsonPath: .status.phase
+      name: Phase
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              appRef:
+                properties:
+                  apiGroup:
+                    type: string
+                  kind:
+                    type: string
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - name
+                type: object
+              backupSession:
+                type: string
+              deletionPolicy:
+                default: Delete
+                enum:
+                - Delete
+                - WipeOut
+                type: string
+              paused:
+                type: boolean
+              repository:
+                type: string
+              session:
+                type: string
+              snapshotID:
+                type: string
+              type:
+                type: string
+              version:
+                type: string
+            type: object
+          status:
+            properties:
+              components:
+                additionalProperties:
+                  properties:
+                    driver:
+                      enum:
+                      - Restic
+                      - WalG
+                      - VolumeSnapshotter
+                      - Solr
+                      - Medusa
+                      type: string
+                    duration:
+                      type: string
+                    error:
+                      type: string
+                    integrity:
+                      type: boolean
+                    logStats:
+                      properties:
+                        end:
+                          type: string
+                        lastFailedStats:
+                          items:
+                            properties:
+                              end:
+                                type: string
+                              error:
+                                type: string
+                              start:
+                                type: string
+                            type: object
+                          type: array
+                        lastLogRetentionStats:
+                          items:
+                            properties:
+                              deletedLogCount:
+                                format: int64
+                                type: integer
+                              error:
+                                type: string
+                              lastExecutionTime:
+                                type: string
+                              retentionPeriodApplied:
+                                type: string
+                            type: object
+                          type: array
+                        lastSucceededStats:
+                          items:
+                            properties:
+                              end:
+                                type: string
+                              error:
+                                type: string
+                              start:
+                                type: string
+                            type: object
+                          type: array
+                        lsn:
+                          type: string
+                        start:
+                          type: string
+                        totalFailedCount:
+                          format: int64
+                          type: integer
+                        totalSucceededCount:
+                          format: int64
+                          type: integer
+                      type: object
+                    medusaStats:
+                      properties:
+                        backupName:
+                          type: string
+                        backupNodes:
+                          items:
+                            type: string
+                          type: array
+                        finishTime:
+                          type: string
+                        startTime:
+                          type: string
+                        status:
+                          type: string
+                      type: object
+                    path:
+                      type: string
+                    phase:
+                      enum:
+                      - Pending
+                      - Running
+                      - Succeeded
+                      - Failed
+                      type: string
+                    resticStats:
+                      items:
+                        properties:
+                          endTime:
+                            format: date-time
+                            type: string
+                          hostPath:
+                            type: string
+                          id:
+                            type: string
+                          size:
+                            type: string
+                          startTime:
+                            format: date-time
+                            type: string
+                          uploaded:
+                            type: string
+                        type: object
+                      type: array
+                    size:
+                      type: string
+                    solrStats:
+                      items:
+                        properties:
+                          backupId:
+                            type: integer
+                          collection:
+                            type: string
+                          indexFileCount:
+                            type: integer
+                          indexSizeMB:
+                            format: double
+                            type: number
+                          location:
+                            type: string
+                          startTime:
+                            type: string
+                          uploadedIndexFileMB:
+                            format: double
+                            type: number
+                        type: object
+                      type: array
+                    volumeSnapshotterStats:
+                      items:
+                        properties:
+                          hostPath:
+                            type: string
+                          pvcName:
+                            type: string
+                          volumeSnapshotName:
+                            type: string
+                          volumeSnapshotTime:
+                            format: date-time
+                            type: string
+                        type: object
+                      type: array
+                    walGStats:
+                      properties:
+                        databases:
+                          items:
+                            type: string
+                          type: array
+                        id:
+                          type: string
+                        startTime:
+                          format: date-time
+                          type: string
+                        stopTime:
+                          format: date-time
+                          type: string
+                      type: object
+                  type: object
+                type: object
+                x-kubernetes-map-type: granular
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    reason:
+                      type: string
+                    severity:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - status
+                  - type
+                  type: object
+                type: array
+              integrity:
+                type: boolean
+              lastUpdateTime:
+                format: date-time
+                type: string
+              phase:
+                enum:
+                - Pending
+                - Running
+                - Succeeded
+                - Failed
+                type: string
+              size:
+                type: string
+              snapshotTime:
+                format: date-time
+                type: string
+              totalComponents:
+                format: int32
+                type: integer
+              verificationSession:
+                type: string
+              verificationStatus:
+                enum:
+                - Verified
+                - NotVerified
+                - VerificationFailed
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

@@ -1,0 +1,296 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  name: features.ui.k8s.appscode.com
+spec:
+  group: ui.k8s.appscode.com
+  names:
+    kind: Feature
+    listKind: FeatureList
+    plural: features
+    singular: feature
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.enabled
+      name: Enabled
+      type: boolean
+    - jsonPath: .status.managed
+      name: Managed
+      type: boolean
+    - jsonPath: .status.ready
+      name: Ready
+      type: boolean
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              chart:
+                description: Chart specifies the chart information that will be used
+                  by the FluxCD to install the respective feature
+                properties:
+                  createNamespace:
+                    type: boolean
+                  name:
+                    description: Name specifies the name of the chart
+                    type: string
+                  namespace:
+                    description: Namespace where the respective feature resources
+                      will be deployed.
+                    type: string
+                  sourceRef:
+                    description: SourceRef specifies the source of the chart
+                    properties:
+                      apiGroup:
+                        type: string
+                      kind:
+                        type: string
+                      name:
+                        description: |-
+                          Name of the referent.
+                          More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                        type: string
+                      namespace:
+                        description: |-
+                          Namespace of the referent.
+                          More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+                        type: string
+                    required:
+                    - name
+                    type: object
+                  valuesFiles:
+                    description: |-
+                      Alternative list of values files to use as the chart values (values.yaml
+                      is not included by default), expected to be a relative path in the SourceRef.
+                      Values files are merged in the order of this list with the last file overriding
+                      the first. Ignored when omitted.
+                    items:
+                      type: string
+                    type: array
+                  version:
+                    description: Version specifies the version of the chart.
+                    type: string
+                required:
+                - name
+                - sourceRef
+                type: object
+              description:
+                description: Description specifies a short description of the service
+                  this feature provides.
+                type: string
+              disabled:
+                description: Disabled specify whether this feature set is disabled.
+                type: boolean
+              featureBlock:
+                description: FeatureBlock specifies the ui block name of this feature.
+                type: string
+              featureExclusionGroup:
+                description: |-
+                  FeatureExclusionGroup specifies the name of the exclusion group for features
+                  Only one feature in a feature exclusion group can be installed
+                type: string
+              featureSet:
+                description: FeatureSet specifies the name of the FeatureSet where
+                  this feature belong to.
+                type: string
+              icons:
+                description: |-
+                  Icons is an optional list of icons for an application. Icon information includes the source, size,
+                  and mime type. These icons will be used in UI.
+                items:
+                  description: ImageSpec contains information about an image used
+                    as an icon.
+                  properties:
+                    size:
+                      description: (optional) The size of the image in pixels (e.g.,
+                        25x25).
+                      type: string
+                    src:
+                      description: |-
+                        The source for image represented as either an absolute URL to the image or a Data URL containing
+                        the image. Data URLs are defined in RFC 2397.
+                      type: string
+                    type:
+                      description: (optional) The mine type of the image (e.g., "image/png").
+                      type: string
+                  required:
+                  - src
+                  type: object
+                type: array
+              readinessChecks:
+                description: ReadinessChecks specifies the conditions for this feature
+                  to be considered enabled.
+                properties:
+                  resources:
+                    description: Resources specifies the resources that should be
+                      registered to consider this feature as enabled.
+                    items:
+                      description: |-
+                        GroupVersionKind unambiguously identifies a kind.  It doesn't anonymously include GroupVersion
+                        to avoid automatic coercion.  It doesn't use a GroupVersion to avoid custom marshalling
+                      properties:
+                        group:
+                          type: string
+                        kind:
+                          type: string
+                        version:
+                          type: string
+                      required:
+                      - group
+                      - kind
+                      - version
+                      type: object
+                    type: array
+                  workloads:
+                    description: Workloads specifies the workloads that should exist
+                      to consider this feature as enabled.
+                    items:
+                      properties:
+                        group:
+                          type: string
+                        kind:
+                          type: string
+                        optional:
+                          type: string
+                        selector:
+                          additionalProperties:
+                            type: string
+                          description: Selector specifies label selector that should
+                            be used to select this workload
+                          type: object
+                        version:
+                          type: string
+                      required:
+                      - group
+                      - kind
+                      - selector
+                      - version
+                      type: object
+                    type: array
+                type: object
+              recommended:
+                description: Required specifies whether this feature is mandatory
+                  or not for enabling the respecting FeatureSet.
+                type: boolean
+              requirements:
+                description: Requirements specifies the requirements to enable this
+                  feature.
+                properties:
+                  features:
+                    description: Features specifies a list of Feature names that must
+                      be enabled for using this feature.
+                    items:
+                      type: string
+                    type: array
+                type: object
+              title:
+                description: Title specifies the title of this feature.
+                type: string
+              values:
+                description: Values holds the values for this Helm release.
+                x-kubernetes-preserve-unknown-fields: true
+              valuesFrom:
+                description: |-
+                  ValuesFrom holds references to resources containing Helm values for this HelmRelease,
+                  and information about how they should be merged.
+                items:
+                  description: |-
+                    copied from: https://github.com/fluxcd/helm-controller/blob/v0.37.4/api/v2beta2/reference_types.go#L45-L80
+                    ValuesReference contains a reference to a resource containing Helm values,
+                    and optionally the key they can be found at.
+                  properties:
+                    kind:
+                      description: Kind of the values referent, valid values are ('Secret',
+                        'ConfigMap').
+                      enum:
+                      - Secret
+                      - ConfigMap
+                      type: string
+                    name:
+                      description: |-
+                        Name of the values referent. Should reside in the same namespace as the
+                        referring resource.
+                      maxLength: 253
+                      minLength: 1
+                      type: string
+                    optional:
+                      description: |-
+                        Optional marks this ValuesReference as optional. When set, a not found error
+                        for the values reference is ignored, but any ValuesKey, TargetPath or
+                        transient error will still result in a reconciliation failure.
+                      type: boolean
+                    targetPath:
+                      description: |-
+                        TargetPath is the YAML dot notation path the value should be merged at. When
+                        set, the ValuesKey is expected to be a single flat value. Defaults to 'None',
+                        which results in the values getting merged at the root.
+                      maxLength: 250
+                      pattern: ^([a-zA-Z0-9_\-.\\\/]|\[[0-9]{1,5}\])+$
+                      type: string
+                    valuesKey:
+                      description: |-
+                        ValuesKey is the data key where the values.yaml or a specific value can be
+                        found at. Defaults to 'values.yaml'.
+                      maxLength: 253
+                      pattern: ^[\-._a-zA-Z0-9]+$
+                      type: string
+                  required:
+                  - kind
+                  - name
+                  type: object
+                type: array
+            required:
+            - description
+            - featureSet
+            - title
+            type: object
+          status:
+            properties:
+              enabled:
+                description: Enabled specifies whether this feature is enabled or
+                  not.
+                type: boolean
+              managed:
+                description: Managed specifies whether this feature is managed by
+                  AppsCode Inc. or not.
+                type: boolean
+              note:
+                description: Note specifies the respective reason if the feature does
+                  not meet the requirements or is not ready.
+                type: string
+              ready:
+                description: |-
+                  Ready specifies whether this feature is ready to user or not. This field will be present only for the
+                  features that are managed by AppsCode Inc.
+                type: boolean
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
