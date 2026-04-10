@@ -29,6 +29,7 @@ k3s ctr images import images/appscode-kubectl-nonroot-1.34.tar
 k3s ctr images import images/appscode-petset-v0.0.16.tar
 k3s ctr images import images/appscode-sidekick-v0.0.14.tar
 k3s ctr images import images/kubedb-cassandra-medusa-plugin-v0.10.0.tar
+k3s ctr images import images/kubedb-clickhouse-backup-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.21.0.tar
 k3s ctr images import images/kubedb-elasticsearch-restic-plugin-v0.26.0.tar
 k3s ctr images import images/kubedb-kubedb-autoscaler-v0.48.0.tar
@@ -54,5 +55,3 @@ k3s ctr images import images/kubedb-provider-azure-v0.24.0.tar
 k3s ctr images import images/kubedb-provider-gcp-v0.24.0.tar
 k3s ctr images import images/kubedb-redis-restic-plugin-v0.26.0.tar
 k3s ctr images import images/kubedb-zookeeper-restic-plugin-v0.18.0.tar
-k3s ctr images import images/shuvokumarmondal-clickhouse-backup-plugin-v5.0.0_linux_amd64.tar
-k3s ctr images import images/shuvokumarmondal-clickhouse-backup-plugin-v5.0.1_linux_amd64.tar

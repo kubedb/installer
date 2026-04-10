@@ -345,6 +345,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6-v2 $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0-v2 $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-medusa-plugin:v0.10.0 $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.10.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-backup-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/clickhouse-backup-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1-v3 $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1-v3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.21.0 $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.21.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/db2-coordinator:v0.4.0 $IMAGE_REGISTRY/kubedb/db2-coordinator:v0.4.0
@@ -462,8 +463,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/wal-g:v2024.12.18_mongo $IMAGE_REGISTRY/kubedb/wal-g:v2024.12.18_mongo
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-init:3.7-v1 $IMAGE_REGISTRY/kubedb/zookeeper-init:3.7-v1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.18.0 $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.18.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/shuvokumarmondal/clickhouse-backup-plugin:v5.0.0_linux_amd64 $IMAGE_REGISTRY/shuvokumarmondal/clickhouse-backup-plugin:v5.0.0_linux_amd64
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/shuvokumarmondal/clickhouse-backup-plugin:v5.0.1_linux_amd64 $IMAGE_REGISTRY/shuvokumarmondal/clickhouse-backup-plugin:v5.0.1_linux_amd64
 $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2022-CU12-ubuntu-22.04
 $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2022-CU14-ubuntu-22.04
 $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU16-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2022-CU16-ubuntu-22.04

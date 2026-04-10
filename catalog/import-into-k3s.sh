@@ -334,6 +334,7 @@ k3s ctr images import images/appscode-sidekick-v0.0.14.tar
 k3s ctr images import images/kubedb-cassandra-init-4.1.6-v2.tar
 k3s ctr images import images/kubedb-cassandra-init-5.0.0-v2.tar
 k3s ctr images import images/kubedb-cassandra-medusa-plugin-v0.10.0.tar
+k3s ctr images import images/kubedb-clickhouse-backup-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-clickhouse-init-24.4.1-v3.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.21.0.tar
 k3s ctr images import images/kubedb-db2-coordinator-v0.4.0.tar
@@ -451,8 +452,6 @@ k3s ctr images import images/kubedb-solr-init-9.8.0.tar
 k3s ctr images import images/kubedb-wal-g-v2024.12.18_mongo.tar
 k3s ctr images import images/kubedb-zookeeper-init-3.7-v1.tar
 k3s ctr images import images/kubedb-zookeeper-restic-plugin-v0.18.0.tar
-k3s ctr images import images/shuvokumarmondal-clickhouse-backup-plugin-v5.0.0_linux_amd64.tar
-k3s ctr images import images/shuvokumarmondal-clickhouse-backup-plugin-v5.0.1_linux_amd64.tar
 k3s ctr images import images/mssql-server-2022-CU12-ubuntu-22.04.tar
 k3s ctr images import images/mssql-server-2022-CU14-ubuntu-22.04.tar
 k3s ctr images import images/mssql-server-2022-CU16-ubuntu-22.04.tar

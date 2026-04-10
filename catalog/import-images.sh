@@ -336,6 +336,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-4.1.6-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-5.0.0-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-medusa-plugin-v0.10.0.tar $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.10.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-clickhouse-backup-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/clickhouse-backup-plugin:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-clickhouse-init-24.4.1-v3.tar $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1-v3
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.21.0.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.21.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-db2-coordinator-v0.4.0.tar $IMAGE_REGISTRY/kubedb/db2-coordinator:v0.4.0
@@ -453,8 +454,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-init-
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-wal-g-v2024.12.18_mongo.tar $IMAGE_REGISTRY/kubedb/wal-g:v2024.12.18_mongo
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-init-3.7-v1.tar $IMAGE_REGISTRY/kubedb/zookeeper-init:3.7-v1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-restic-plugin-v0.18.0.tar $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.18.0
-$CMD push --allow-nondistributable-artifacts --insecure images/shuvokumarmondal-clickhouse-backup-plugin-v5.0.0_linux_amd64.tar $IMAGE_REGISTRY/shuvokumarmondal/clickhouse-backup-plugin:v5.0.0_linux_amd64
-$CMD push --allow-nondistributable-artifacts --insecure images/shuvokumarmondal-clickhouse-backup-plugin-v5.0.1_linux_amd64.tar $IMAGE_REGISTRY/shuvokumarmondal/clickhouse-backup-plugin:v5.0.1_linux_amd64
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU12-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU12-ubuntu-22.04
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU14-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU14-ubuntu-22.04
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU16-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU16-ubuntu-22.04
