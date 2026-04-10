@@ -352,6 +352,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/documentdb/documen
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6-v2 $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0-v2 $IMAGE_REGISTRY/kubedb/cassandra-init:5.0.0-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-medusa-plugin:v0.10.0 $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.10.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-backup-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/clickhouse-backup-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1-v3 $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1-v3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.21.0 $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.21.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/db2-coordinator:v0.4.0 $IMAGE_REGISTRY/kubedb/db2-coordinator:v0.4.0

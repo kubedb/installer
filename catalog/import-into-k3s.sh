@@ -341,6 +341,7 @@ k3s ctr images import images/documentdb-documentdb-documentdb-local-pg17-0.109.0
 k3s ctr images import images/kubedb-cassandra-init-4.1.6-v2.tar
 k3s ctr images import images/kubedb-cassandra-init-5.0.0-v2.tar
 k3s ctr images import images/kubedb-cassandra-medusa-plugin-v0.10.0.tar
+k3s ctr images import images/kubedb-clickhouse-backup-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-clickhouse-init-24.4.1-v3.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.21.0.tar
 k3s ctr images import images/kubedb-db2-coordinator-v0.4.0.tar

@@ -349,6 +349,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/documentdb/docum
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6-v2 images/kubedb-cassandra-init-4.1.6-v2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:5.0.0-v2 images/kubedb-cassandra-init-5.0.0-v2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-medusa-plugin:v0.10.0 images/kubedb-cassandra-medusa-plugin-v0.10.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-backup-plugin:v0.1.0 images/kubedb-clickhouse-backup-plugin-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1-v3 images/kubedb-clickhouse-init-24.4.1-v3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.21.0 images/kubedb-dashboard-restic-plugin-v0.21.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/db2-coordinator:v0.4.0 images/kubedb-db2-coordinator-v0.4.0.tar

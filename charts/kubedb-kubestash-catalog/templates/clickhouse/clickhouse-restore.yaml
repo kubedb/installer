@@ -1,0 +1,23 @@
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.ClickHouse (not (eq $ubi "operator")) }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'clickhouse-restore'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  args:
+  - restore
+  - --namespace=${namespace:=default}
+  - --restoresession=${restoreSession:=}
+  - --wait-timeout=${waitTimeout:={{ .Values.waitTimeout}}}
+  - --snapshot=${snapshot:=}
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/clickhouse-backup-plugin") $) }}:v0.1.0{{ include "catalog.ubi" $ }}'
+{{ end }}

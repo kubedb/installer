@@ -37,6 +37,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.16 images/appscode-petset-v0.0.16.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.14 images/appscode-sidekick-v0.0.14.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-medusa-plugin:v0.10.0 images/kubedb-cassandra-medusa-plugin-v0.10.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-backup-plugin:v0.1.0 images/kubedb-clickhouse-backup-plugin-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.21.0 images/kubedb-dashboard-restic-plugin-v0.21.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.26.0 images/kubedb-elasticsearch-restic-plugin-v0.26.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-autoscaler:v0.48.0 images/kubedb-kubedb-autoscaler-v0.48.0.tar

@@ -40,6 +40,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-n
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.16 $IMAGE_REGISTRY/appscode/petset:v0.0.16
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.14 $IMAGE_REGISTRY/appscode/sidekick:v0.0.14
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-medusa-plugin:v0.10.0 $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.10.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-backup-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/clickhouse-backup-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.21.0 $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.21.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.26.0 $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.26.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-autoscaler:v0.48.0 $IMAGE_REGISTRY/kubedb/kubedb-autoscaler:v0.48.0
