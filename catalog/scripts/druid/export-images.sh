@@ -35,8 +35,12 @@ CMD="./images/crane"
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:28.0.1 images/appscode-images-druid-28.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:30.0.1 images/appscode-images-druid-30.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:31.0.0 images/appscode-images-druid-31.0.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:35.0.1 images/appscode-images-druid-35.0.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:36.0.0 images/appscode-images-druid-36.0.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:28.0.1 images/kubedb-druid-init-28.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:30.0.1 images/kubedb-druid-init-30.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:31.0.0 images/kubedb-druid-init-31.0.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:35.0.1 images/kubedb-druid-init-35.0.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:36.0.0 images/kubedb-druid-init-36.0.0.tar
 
 tar -czvf images.tar.gz images

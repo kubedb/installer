@@ -95,6 +95,8 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:28.0.1 images/appscode-images-druid-28.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:30.0.1 images/appscode-images-druid-30.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:31.0.0 images/appscode-images-druid-31.0.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:35.0.1 images/appscode-images-druid-35.0.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:36.0.0 images/appscode-images-druid-36.0.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:6.8.23 images/appscode-images-elastic-6.8.23.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:7.17.15 images/appscode-images-elastic-7.17.15.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:7.17.28 images/appscode-images-elastic-7.17.28.tar
@@ -352,8 +354,11 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/db2-coord
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:28.0.1 images/kubedb-druid-init-28.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:30.0.1 images/kubedb-druid-init-30.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:31.0.0 images/kubedb-druid-init-31.0.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:35.0.1 images/kubedb-druid-init-35.0.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:36.0.0 images/kubedb-druid-init-36.0.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.26.0 images/kubedb-elasticsearch-restic-plugin-v0.26.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hanadb-coordinator:v0.3.0 images/kubedb-hanadb-coordinator-v0.3.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hanadb-exporter:1.0.0 images/kubedb-hanadb-exporter-1.0.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hazelcast-init:5.5.2 images/kubedb-hazelcast-init-5.5.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/ignite-init:2.17.0-v2 images/kubedb-ignite-init-2.17.0-v2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kafka-init:4.0-v2 images/kubedb-kafka-init-4.0-v2.tar
@@ -386,7 +391,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-i
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v11 images/kubedb-mongodb-init-6.0-v11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb_exporter:v0.47.2 images/kubedb-mongodb_exporter-v0.47.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-coordinator:v0.18.0 images/kubedb-mssql-coordinator-v0.18.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-exporter:1.2.0 images/kubedb-mssql-exporter-1.2.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-exporter:1.4.0 images/kubedb-mssql-exporter-1.4.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-init:v2026.1.19 images/kubedb-mssql-init-v2026.1.19.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssqlserver-archiver:v0.17.0 images/kubedb-mssqlserver-archiver-v0.17.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssqlserver-walg-plugin:v0.17.0 images/kubedb-mssqlserver-walg-plugin-v0.17.0.tar

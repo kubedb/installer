@@ -89,6 +89,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-c
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-28.0.1.tar $IMAGE_REGISTRY/appscode-images/druid:28.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-30.0.1.tar $IMAGE_REGISTRY/appscode-images/druid:30.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-31.0.0.tar $IMAGE_REGISTRY/appscode-images/druid:31.0.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-35.0.1.tar $IMAGE_REGISTRY/appscode-images/druid:35.0.1
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-36.0.0.tar $IMAGE_REGISTRY/appscode-images/druid:36.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-6.8.23.tar $IMAGE_REGISTRY/appscode-images/elastic:6.8.23
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-7.17.15.tar $IMAGE_REGISTRY/appscode-images/elastic:7.17.15
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-7.17.28.tar $IMAGE_REGISTRY/appscode-images/elastic:7.17.28
@@ -346,8 +348,11 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-db2-coordi
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-28.0.1.tar $IMAGE_REGISTRY/kubedb/druid-init:28.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-30.0.1.tar $IMAGE_REGISTRY/kubedb/druid-init:30.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-31.0.0.tar $IMAGE_REGISTRY/kubedb/druid-init:31.0.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-35.0.1.tar $IMAGE_REGISTRY/kubedb/druid-init:35.0.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-36.0.0.tar $IMAGE_REGISTRY/kubedb/druid-init:36.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-elasticsearch-restic-plugin-v0.26.0.tar $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.26.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-hanadb-coordinator-v0.3.0.tar $IMAGE_REGISTRY/kubedb/hanadb-coordinator:v0.3.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-hanadb-exporter-1.0.0.tar $IMAGE_REGISTRY/kubedb/hanadb-exporter:1.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-hazelcast-init-5.5.2.tar $IMAGE_REGISTRY/kubedb/hazelcast-init:5.5.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-ignite-init-2.17.0-v2.tar $IMAGE_REGISTRY/kubedb/ignite-init:2.17.0-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kafka-init-4.0-v2.tar $IMAGE_REGISTRY/kubedb/kafka-init:4.0-v2
@@ -380,7 +385,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-in
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-6.0-v11.tar $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v11
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb_exporter-v0.47.2.tar $IMAGE_REGISTRY/kubedb/mongodb_exporter:v0.47.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-coordinator-v0.18.0.tar $IMAGE_REGISTRY/kubedb/mssql-coordinator:v0.18.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-exporter-1.2.0.tar $IMAGE_REGISTRY/kubedb/mssql-exporter:1.2.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-exporter-1.4.0.tar $IMAGE_REGISTRY/kubedb/mssql-exporter:1.4.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-init-v2026.1.19.tar $IMAGE_REGISTRY/kubedb/mssql-init:v2026.1.19
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssqlserver-archiver-v0.17.0.tar $IMAGE_REGISTRY/kubedb/mssqlserver-archiver:v0.17.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssqlserver-walg-plugin-v0.17.0.tar $IMAGE_REGISTRY/kubedb/mssqlserver-walg-plugin:v0.17.0

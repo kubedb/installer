@@ -1,0 +1,30 @@
+{{- template "kubedb-catalog.refresh-versions" . }}
+
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.Druid (not (eq $ubi "operator")) }}
+
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: DruidVersion
+metadata:
+  name: '36.0.0'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/druid") $) }}:36.0.0'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/druid-init") $) }}:36.0.0'
+  securityContext:
+    runAsUser: 1000
+  updateConstraints:
+    allowlist:
+    - '>= 36.0.0'
+  version: 36.0.0
+{{ end }}
