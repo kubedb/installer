@@ -1,3 +1,5 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "__requires": [
     {
@@ -281,7 +283,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
@@ -297,7 +299,7 @@
           "expr": "sum(hanadb_host_memory_used_total_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}) / sum(hanadb_host_memory_alloc_limit_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}) * 100",
           "format": "time_series",
           "hide": false,
-          "instant": false,
+          "instant": true,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -361,44 +363,12 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "avg(hanadb_cpu_busy_percent{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"})",
+          "expr": "sum by (pod) (rate(container_cpu_usage_seconds_total{pod=~\"$node_name\",container!=\"\",container!=\"POD\",image!=\"\"}[5m])) * 100",
           "format": "time_series",
-          "hide": true,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "% Busy Time",
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
-        },
-        {
-          "expr": "avg(hanadb_cpu_system_percent{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"})",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "% System Time",
-          "refId": "B"
-        },
-        {
-          "expr": "avg(hanadb_cpu_idle_percent{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"})",
-          "format": "time_series",
-          "hide": true,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "% Idle Time",
-          "refId": "C"
-        },
-        {
-          "expr": "avg(hanadb_cpu_user_percent{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"})",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "% User Time",
-          "refId": "D"
-        },
-        {
-          "expr": "avg(hanadb_cpu_waitio_percent{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"})",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "% Wait I/O",
-          "refId": "E"
         }
       ],
       "thresholds": [
@@ -504,7 +474,7 @@
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
@@ -515,9 +485,9 @@
       "pluginVersion": "7.0.3",
       "targets": [
         {
-          "expr": "avg(hanadb_cpu_busy_percent{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"})",
+          "expr": "avg(sum by (pod) (rate(container_cpu_usage_seconds_total{pod=~\"$node_name\",container!=\"\",container!=\"POD\",image!=\"\"}[5m]))) * 100",
           "format": "time_series",
-          "instant": false,
+          "instant": true,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -3122,11 +3092,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "hanadb_network_receive_rate_kb_per_seconds{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}",
+          "expr": "sum by (pod) (rate(container_network_receive_bytes_total{pod=~\"$node_name\"}[5m])) / 1024",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": {{ `"{{interface}}"` }},
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -3223,10 +3193,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "hanadb_network_transmission_rate_kb_per_seconds{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}",
+          "expr": "sum by (pod) (rate(container_network_transmit_bytes_total{pod=~\"$node_name\"}[5m])) / 1024",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": {{ `"{{interface}}"` }},
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -3322,17 +3292,17 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "hanadb_network_receive_rate_errors_per_seconds{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}",
+          "expr": "sum by (pod) (rate(container_network_receive_errors_total{pod=~\"$node_name\"}[5m]))",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": {{ `"{{interface}} - Rec. rate"` }},
+          "legendFormat": {{ `"{{pod}} - Rx errors"` }},
           "refId": "A"
         },
         {
-          "expr": "hanadb_network_transmission_rate_errors_per_seconds{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}",
+          "expr": "sum by (pod) (rate(container_network_transmit_errors_total{pod=~\"$node_name\"}[5m]))",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": {{ `"{{interface}} - Trans. rate"` }},
+          "legendFormat": {{ `"{{pod}} - Tx errors"` }},
           "refId": "B"
         }
       ],
@@ -3428,11 +3398,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "hanadb_network_receive_requests_per_seconds{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}",
+          "expr": "sum by (pod) (rate(container_network_receive_packets_total{pod=~\"$node_name\"}[5m]))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": {{ `"{{interface}}"` }},
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -3528,11 +3498,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "hanadb_network_transmission_rate_requests_per_seconds{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}",
+          "expr": "sum by (pod) (rate(container_network_transmit_packets_total{pod=~\"$node_name\"}[5m]))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": {{ `"{{interface}}"` }},
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -3744,11 +3714,18 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "hanadb_disk_io_throughput_kb_second{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}",
+          "expr": "sum by (pod) (rate(container_fs_reads_bytes_total{pod=~\"$node_name\",container!=\"\",container!=\"POD\"}[5m])) / 1024",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": {{ `"{{disk}}"` }},
+          "legendFormat": {{ `"{{pod}} read"` }},
           "refId": "A"
+        },
+        {
+          "expr": "sum by (pod) (rate(container_fs_writes_bytes_total{pod=~\"$node_name\",container!=\"\",container!=\"POD\"}[5m])) / 1024",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{pod}} write"` }},
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -3798,7 +3775,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${datasource}",
-      "description": "I/O Latency in miliseconds.",
+      "description": "I/O Latency in milliseconds.",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -3843,10 +3820,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "hanadb_disk_io_latency_ms{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}",
+          "expr": "(((sum by (host_ip) (label_replace(rate(node_disk_read_time_seconds_total{device!~\"loop.*|ram.*|fd.*\"}[5m]), \"host_ip\", \"$1\", \"instance\", \"([^:]+):.*\")) + sum by (host_ip) (label_replace(rate(node_disk_write_time_seconds_total{device!~\"loop.*|ram.*|fd.*\"}[5m]), \"host_ip\", \"$1\", \"instance\", \"([^:]+):.*\"))) / clamp_min((sum by (host_ip) (label_replace(rate(node_disk_reads_completed_total{device!~\"loop.*|ram.*|fd.*\"}[5m]), \"host_ip\", \"$1\", \"instance\", \"([^:]+):.*\")) + sum by (host_ip) (label_replace(rate(node_disk_writes_completed_total{device!~\"loop.*|ram.*|fd.*\"}[5m]), \"host_ip\", \"$1\", \"instance\", \"([^:]+):.*\"))), 0.001)) * 1000) * on (host_ip) group_left(pod) max by (host_ip, pod) (kube_pod_info{pod=~\"$node_name\"})",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": {{ `"{{disk}}"` }},
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -3941,10 +3918,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "hanadb_disk_io_service_time_ms{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}",
+          "expr": "((sum by (host_ip) (label_replace(rate(node_disk_io_time_seconds_total{device!~\"loop.*|ram.*|fd.*\"}[5m]), \"host_ip\", \"$1\", \"instance\", \"([^:]+):.*\")) / clamp_min((sum by (host_ip) (label_replace(rate(node_disk_reads_completed_total{device!~\"loop.*|ram.*|fd.*\"}[5m]), \"host_ip\", \"$1\", \"instance\", \"([^:]+):.*\")) + sum by (host_ip) (label_replace(rate(node_disk_writes_completed_total{device!~\"loop.*|ram.*|fd.*\"}[5m]), \"host_ip\", \"$1\", \"instance\", \"([^:]+):.*\"))), 0.001)) * 1000) * on (host_ip) group_left(pod) max by (host_ip, pod) (kube_pod_info{pod=~\"$node_name\"})",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": {{ `"{{disk}}"` }},
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -4038,11 +4015,18 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "hanadb_disk_io_requests_per_second{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}",
+          "expr": "sum by (pod) (rate(container_fs_reads_total{pod=~\"$node_name\",container!=\"\",container!=\"POD\"}[5m]))",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": {{ `"{{disk}}"` }},
+          "legendFormat": {{ `"{{pod}} read"` }},
           "refId": "A"
+        },
+        {
+          "expr": "sum by (pod) (rate(container_fs_writes_total{pod=~\"$node_name\",container!=\"\",container!=\"POD\"}[5m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{pod}} write"` }},
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -4136,10 +4120,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "hanadb_disk_io_queue_length_requests{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}",
+          "expr": "(sum by (host_ip) (label_replace(node_disk_io_now{device!~\"loop.*|ram.*|fd.*\"}, \"host_ip\", \"$1\", \"instance\", \"([^:]+):.*\"))) * on (host_ip) group_left(pod) max by (host_ip, pod) (kube_pod_info{pod=~\"$node_name\"})",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": {{ `"{{disk}}"` }},
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -4235,10 +4219,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "hanadb_disk_io_wait_time_ms{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}",
+          "expr": "((sum by (host_ip) (label_replace(rate(node_disk_io_time_weighted_seconds_total{device!~\"loop.*|ram.*|fd.*\"}[5m]), \"host_ip\", \"$1\", \"instance\", \"([^:]+):.*\")) / clamp_min((sum by (host_ip) (label_replace(rate(node_disk_reads_completed_total{device!~\"loop.*|ram.*|fd.*\"}[5m]), \"host_ip\", \"$1\", \"instance\", \"([^:]+):.*\")) + sum by (host_ip) (label_replace(rate(node_disk_writes_completed_total{device!~\"loop.*|ram.*|fd.*\"}[5m]), \"host_ip\", \"$1\", \"instance\", \"([^:]+):.*\"))), 0.001)) * 1000) * on (host_ip) group_left(pod) max by (host_ip, pod) (kube_pod_info{pod=~\"$node_name\"})",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": {{ `"{{disk}}"` }},
+          "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
         }
       ],
@@ -4298,7 +4282,7 @@
         },
         "hide": 2,
         "includeAll": false,
-        "label": "Data Source",
+        "label": "Datasource",
         "multi": false,
         "name": "datasource",
         "options": [],
@@ -4449,7 +4433,11 @@
     ]
   },
   "timezone": "",
+  {{- if $shared }}
   "title": "SAP HANA",
+  {{- else }}
+  "title": {{ printf "SAP HANA / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
+  {{- end }}
   "uid": "EcC4JDFWz2",
   "version": 1
 }
