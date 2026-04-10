@@ -2310,6 +2310,9 @@ const (
 	HanaDBSystemDBSQLPortName = "systemdb-sql"
 	HanaDBSystemDBSQLPort     = 39017
 
+	// Metrics exporter port
+	HanaDBExporterPort = 9668
+
 	// Nameserver port for internal communication and system replication
 	HanaDBNameServerPortName = "nameserver"
 	HanaDBNameServerPort     = 39001
