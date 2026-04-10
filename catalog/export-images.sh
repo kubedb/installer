@@ -40,9 +40,11 @@ $CMD pull --allow-nondistributable-artifacts --insecure docker.io/apicurio/apicu
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-keeper:24.4.1 images/clickhouse-clickhouse-keeper-24.4.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-keeper:25.12.3 images/clickhouse-clickhouse-keeper-25.12.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-keeper:25.7.1 images/clickhouse-clickhouse-keeper-25.7.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-keeper:26.2.6 images/clickhouse-clickhouse-keeper-26.2.6.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-server:24.4.1 images/clickhouse-clickhouse-server-24.4.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-server:25.12.3 images/clickhouse-clickhouse-server-25.12.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-server:25.7.1 images/clickhouse-clickhouse-server-25.7.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-server:26.2.6 images/clickhouse-clickhouse-server-26.2.6.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0 images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/hazelcast/hazelcast-enterprise:5.5.2 images/hazelcast-hazelcast-enterprise-5.5.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/hazelcast/hazelcast-enterprise:5.5.6 images/hazelcast-hazelcast-enterprise-5.5.6.tar
@@ -85,8 +87,10 @@ $CMD pull --allow-nondistributable-artifacts --insecure docker.io/timescale/time
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg16-oss images/timescale-timescaledb-2.14.2-pg16-oss.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/aiven-open/karapace:3.15.0 images/aiven-open-karapace-3.15.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-exporter:2.3.8 images/appscode-images-cassandra-exporter-2.3.8.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:4.1.11 images/appscode-images-cassandra-management-4.1.11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:4.1.8 images/appscode-images-cassandra-management-4.1.8.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:5.0.3 images/appscode-images-cassandra-management-5.0.3.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:5.0.7 images/appscode-images-cassandra-management-5.0.7.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-medusa:0.24.0 images/appscode-images-cassandra-medusa-0.24.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:28.0.1 images/appscode-images-druid-28.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:30.0.1 images/appscode-images-druid-30.0.1.tar
@@ -350,7 +354,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-ini
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:31.0.0 images/kubedb-druid-init-31.0.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.26.0 images/kubedb-elasticsearch-restic-plugin-v0.26.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hanadb-coordinator:v0.3.0 images/kubedb-hanadb-coordinator-v0.3.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hanadb-exporter:0.1.0 images/kubedb-hanadb-exporter-0.1.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hanadb-exporter:1.0.0 images/kubedb-hanadb-exporter-1.0.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hazelcast-init:5.5.2 images/kubedb-hazelcast-init-5.5.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/ignite-init:2.17.0-v2 images/kubedb-ignite-init-2.17.0-v2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kafka-init:4.0-v2 images/kubedb-kafka-init-4.0-v2.tar
@@ -395,10 +399,10 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-arc
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.24.0_9.1.0 images/kubedb-mysql-archiver-v0.24.0_9.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-coordinator:v0.41.0 images/kubedb-mysql-coordinator-v0.41.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-csi-snapshotter-plugin:v0.24.0 images/kubedb-mysql-csi-snapshotter-plugin-v0.24.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:5.7-v7 images/kubedb-mysql-init-5.7-v7.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:8.0.31-v6 images/kubedb-mysql-init-8.0.31-v6.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:8.4.2-v5 images/kubedb-mysql-init-8.4.2-v5.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:9.0.1-v3 images/kubedb-mysql-init-9.0.1-v3.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:5.7-v8 images/kubedb-mysql-init-5.7-v8.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:8.0.31-v7 images/kubedb-mysql-init-8.0.31-v7.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:8.4.2-v6 images/kubedb-mysql-init-8.4.2-v6.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:9.0.1-v4 images/kubedb-mysql-init-9.0.1-v4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.41.0 images/kubedb-mysql-router-init-v0.41.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.18.0 images/kubedb-mysqld-exporter-v0.18.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-coordinator:v0.9.0 images/kubedb-oracle-coordinator-v0.9.0.tar
