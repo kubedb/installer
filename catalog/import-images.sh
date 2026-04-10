@@ -89,6 +89,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-c
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-28.0.1.tar $IMAGE_REGISTRY/appscode-images/druid:28.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-30.0.1.tar $IMAGE_REGISTRY/appscode-images/druid:30.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-31.0.0.tar $IMAGE_REGISTRY/appscode-images/druid:31.0.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-35.0.1.tar $IMAGE_REGISTRY/appscode-images/druid:35.0.1
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-36.0.0.tar $IMAGE_REGISTRY/appscode-images/druid:36.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-6.8.23.tar $IMAGE_REGISTRY/appscode-images/elastic:6.8.23
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-7.17.15.tar $IMAGE_REGISTRY/appscode-images/elastic:7.17.15
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-7.17.28.tar $IMAGE_REGISTRY/appscode-images/elastic:7.17.28
@@ -346,6 +348,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-db2-coordi
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-28.0.1.tar $IMAGE_REGISTRY/kubedb/druid-init:28.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-30.0.1.tar $IMAGE_REGISTRY/kubedb/druid-init:30.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-31.0.0.tar $IMAGE_REGISTRY/kubedb/druid-init:31.0.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-35.0.1.tar $IMAGE_REGISTRY/kubedb/druid-init:35.0.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-36.0.0.tar $IMAGE_REGISTRY/kubedb/druid-init:36.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-elasticsearch-restic-plugin-v0.26.0.tar $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.26.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-hanadb-coordinator-v0.3.0.tar $IMAGE_REGISTRY/kubedb/hanadb-coordinator:v0.3.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-hanadb-exporter-1.0.0.tar $IMAGE_REGISTRY/kubedb/hanadb-exporter:1.0.0

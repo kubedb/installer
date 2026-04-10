@@ -95,6 +95,8 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:28.0.1 images/appscode-images-druid-28.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:30.0.1 images/appscode-images-druid-30.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:31.0.0 images/appscode-images-druid-31.0.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:35.0.1 images/appscode-images-druid-35.0.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:36.0.0 images/appscode-images-druid-36.0.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:6.8.23 images/appscode-images-elastic-6.8.23.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:7.17.15 images/appscode-images-elastic-7.17.15.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:7.17.28 images/appscode-images-elastic-7.17.28.tar
@@ -352,6 +354,8 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/db2-coord
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:28.0.1 images/kubedb-druid-init-28.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:30.0.1 images/kubedb-druid-init-30.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:31.0.0 images/kubedb-druid-init-31.0.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:35.0.1 images/kubedb-druid-init-35.0.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:36.0.0 images/kubedb-druid-init-36.0.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.26.0 images/kubedb-elasticsearch-restic-plugin-v0.26.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hanadb-coordinator:v0.3.0 images/kubedb-hanadb-coordinator-v0.3.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hanadb-exporter:1.0.0 images/kubedb-hanadb-exporter-1.0.0.tar

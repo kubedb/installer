@@ -35,6 +35,8 @@ var archSkipList = []string{
 	"ghcr.io/appscode-images/druid:28.0.1",
 	"ghcr.io/appscode-images/druid:30.0.1",
 	"ghcr.io/appscode-images/druid:31.0.0",
+	"ghcr.io/appscode-images/druid:35.0.1",
+	"ghcr.io/appscode-images/druid:36.0.0",
 	"ghcr.io/appscode-images/elastic:6.8.23",
 	"ghcr.io/appscode-images/kibana:6.8.23",
 	"ghcr.io/appscode-images/mysql:5.7.42-debian",
