@@ -461,7 +461,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-init-
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-init-9.6.1.tar $IMAGE_REGISTRY/kubedb/solr-init:9.6.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-init-9.7.0.tar $IMAGE_REGISTRY/kubedb/solr-init:9.7.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-init-9.8.0.tar $IMAGE_REGISTRY/kubedb/solr-init:9.8.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-wal-g-v2024.12.18_mongo.tar $IMAGE_REGISTRY/kubedb/wal-g:v2024.12.18_mongo
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-wal-g-v2026.3.30_mongo.tar $IMAGE_REGISTRY/kubedb/wal-g:v2026.3.30_mongo
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-init-3.7-v1.tar $IMAGE_REGISTRY/kubedb/zookeeper-init:3.7-v1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-restic-plugin-v0.18.0.tar $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.18.0
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU12-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU12-ubuntu-22.04

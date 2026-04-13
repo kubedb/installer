@@ -459,7 +459,7 @@ k3s ctr images import images/kubedb-solr-init-9.4.1.tar
 k3s ctr images import images/kubedb-solr-init-9.6.1.tar
 k3s ctr images import images/kubedb-solr-init-9.7.0.tar
 k3s ctr images import images/kubedb-solr-init-9.8.0.tar
-k3s ctr images import images/kubedb-wal-g-v2024.12.18_mongo.tar
+k3s ctr images import images/kubedb-wal-g-v2026.3.30_mongo.tar
 k3s ctr images import images/kubedb-zookeeper-init-3.7-v1.tar
 k3s ctr images import images/kubedb-zookeeper-restic-plugin-v0.18.0.tar
 k3s ctr images import images/mssql-server-2022-CU12-ubuntu-22.04.tar
