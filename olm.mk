@@ -157,7 +157,7 @@ OS := $(shell uname -s | tr '[:upper:]' '[:lower:]')
 ARCH := $(shell uname -m | sed 's/x86_64/amd64/' | sed 's/aarch64/arm64/')
 
 .PHONY: kustomize
-KUSTOMIZE = $(shell pwd)/bin/kustomize
+KUSTOMIZE = $(LOCALBIN)/kustomize
 kustomize: ## Download kustomize locally if necessary.
 ifeq (,$(wildcard $(KUSTOMIZE)))
 ifeq (,$(shell which kustomize 2>/dev/null))
@@ -165,7 +165,7 @@ ifeq (,$(shell which kustomize 2>/dev/null))
 	set -e ;\
 	mkdir -p $(dir $(KUSTOMIZE)) ;\
 	curl -sSLo - https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v5.6.0/kustomize_v5.6.0_$(OS)_$(ARCH).tar.gz | \
-	tar xzf - -C bin/ ;\
+	tar xzf - -C $(dir $(HELM_OPERATOR)) ;\
 	}
 else
 KUSTOMIZE = $(shell which kustomize)
@@ -173,8 +173,8 @@ endif
 endif
 
 .PHONY: helm-operator
-HELM_OPERATOR = $(shell pwd)/bin/helm-operator
-helm-operator: ## Download helm-operator locally if necessary, preferring the $(pwd)/bin path over global if both exist.
+HELM_OPERATOR = $(LOCALBIN)/helm-operator
+helm-operator: ## Download helm-operator locally if necessary.
 ifeq (,$(wildcard $(HELM_OPERATOR)))
 ifeq (,$(shell which helm-operator 2>/dev/null))
 	@{ \
@@ -205,7 +205,7 @@ endif
 endif
 
 .PHONY: role-aggregator
-ROLE_AGGREGATOR = $(shell pwd)/bin/role-aggregator
+ROLE_AGGREGATOR = $(LOCALBIN)/role-aggregator
 role-aggregator: ## Download role-aggregator locally if necessary.
 ifeq (,$(wildcard $(ROLE_AGGREGATOR)))
 ifeq (, $(shell which role-aggregator 2>/dev/null))
