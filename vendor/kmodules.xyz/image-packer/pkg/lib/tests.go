@@ -20,6 +20,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"regexp"
 	"strings"
 
 	v1 "github.com/google/go-containerregistry/pkg/v1"
@@ -83,15 +84,15 @@ func CheckHelmChartImageArchitectures(rootDir string, values map[string]string, 
 }
 
 func checkImageArchitectures(images []string, archSkipList, ignoreMissingList []string) error {
-	archSkipSet := sets.NewString(archSkipList...)
-	ignoreMissingSet := sets.NewString(ignoreMissingList...)
+	archSkipMatcher := newGlobMatcher(archSkipList)
+	ignoreMissingMatcher := newGlobMatcher(ignoreMissingList)
 
 	var missing, ignored []string
 	missingArchs := map[string][]string{}
 	for _, img := range images {
 		obj, found, err := ImageManifest(img)
 		if err != nil || !found {
-			if ignoreMissingSet.Has(img) {
+			if ignoreMissingMatcher.Match(img) {
 				ignored = append(ignored, img)
 			} else {
 				missing = append(missing, img)
@@ -138,7 +139,7 @@ func checkImageArchitectures(images []string, archSkipList, ignoreMissingList []
 		fmt.Println("----------------------------------------")
 		fmt.Println("Missing Architectures:")
 		for img, archs := range missingArchs {
-			if !archSkipSet.Has(img) {
+			if !archSkipMatcher.Match(img) {
 				fmt.Printf("X %s %v\n", img, archs)
 				fail = true
 			} else {
@@ -151,6 +152,44 @@ func checkImageArchitectures(images []string, archSkipList, ignoreMissingList []
 		return errors.New("missing images and/or architectures")
 	}
 	return nil
+}
+
+type globMatcher struct {
+	exact sets.Set[string]
+	globs []*regexp.Regexp
+}
+
+func newGlobMatcher(patterns []string) globMatcher {
+	m := globMatcher{exact: sets.New[string]()}
+	for _, pattern := range patterns {
+		if strings.ContainsAny(pattern, "*?") {
+			re := regexp.QuoteMeta(pattern)
+			re = strings.ReplaceAll(re, "\\*", ".*")
+			re = strings.ReplaceAll(re, "\\?", ".")
+			re = "^" + re + "$"
+			compiled, err := regexp.Compile(re)
+			if err == nil {
+				m.globs = append(m.globs, compiled)
+			}
+			continue
+		}
+		m.exact.Insert(pattern)
+	}
+	return m
+}
+
+func (m globMatcher) Match(value string) bool {
+	if m.exact.Has(value) {
+		return true
+	}
+
+	for _, re := range m.globs {
+		if re.MatchString(value) {
+			return true
+		}
+	}
+
+	return false
 }
 
 func LoadImageList(files []string) ([]string, error) {

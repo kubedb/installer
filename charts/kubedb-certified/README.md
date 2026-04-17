@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb-certified --version=2026.2.26
-$ helm upgrade -i kubedb-certified appscode/kubedb-certified -n kubedb --create-namespace --version=2026.2.26
+$ helm search repo appscode/kubedb-certified --version=2026.4.13-rc.0
+$ helm upgrade -i kubedb-certified appscode/kubedb-certified -n kubedb --create-namespace --version=2026.4.13-rc.0
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeDB operator on a [Kubernetes](http://kubernetes.io) clu
 To install/upgrade the chart with the release name `kubedb-certified`:
 
 ```bash
-$ helm upgrade -i kubedb-certified appscode/kubedb-certified -n kubedb --create-namespace --version=2026.2.26
+$ helm upgrade -i kubedb-certified appscode/kubedb-certified -n kubedb --create-namespace --version=2026.4.13-rc.0
 ```
 
 The command deploys a KubeDB operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -58,6 +58,7 @@ The following table lists the configurable parameters of the `kubedb-certified` 
 | global.featureGates.Cassandra                         |                                                                                                                                                                                                                                                                                                                                                                       | <code>false</code>                                                                                                                                                                             |
 | global.featureGates.ClickHouse                        |                                                                                                                                                                                                                                                                                                                                                                       | <code>false</code>                                                                                                                                                                             |
 | global.featureGates.DB2                               |                                                                                                                                                                                                                                                                                                                                                                       | <code>false</code>                                                                                                                                                                             |
+| global.featureGates.DocumentDB                        |                                                                                                                                                                                                                                                                                                                                                                       | <code>false</code>                                                                                                                                                                             |
 | global.featureGates.Druid                             |                                                                                                                                                                                                                                                                                                                                                                       | <code>false</code>                                                                                                                                                                             |
 | global.featureGates.Elasticsearch                     |                                                                                                                                                                                                                                                                                                                                                                       | <code>true</code>                                                                                                                                                                              |
 | global.featureGates.FerretDB                          |                                                                                                                                                                                                                                                                                                                                                                       | <code>false</code>                                                                                                                                                                             |
@@ -143,12 +144,12 @@ The following table lists the configurable parameters of the `kubedb-certified` 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-certified appscode/kubedb-certified -n kubedb --create-namespace --version=2026.2.26 --set global.registry=kubedb
+$ helm upgrade -i kubedb-certified appscode/kubedb-certified -n kubedb --create-namespace --version=2026.4.13-rc.0 --set global.registry=kubedb
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-certified appscode/kubedb-certified -n kubedb --create-namespace --version=2026.2.26 --values values.yaml
+$ helm upgrade -i kubedb-certified appscode/kubedb-certified -n kubedb --create-namespace --version=2026.4.13-rc.0 --values values.yaml
 ```
