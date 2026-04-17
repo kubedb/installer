@@ -16,6 +16,7 @@ metadata:
                 "Cassandra": false,
                 "ClickHouse": false,
                 "DB2": false,
+                "DocumentDB": false,
                 "Druid": false,
                 "Elasticsearch": true,
                 "FerretDB": false,
@@ -59,8 +60,8 @@ metadata:
       ]
     capabilities: Auto Pilot
     categories: Database
-    containerImage: ghcr.io/kubedb/kubedb-installer:v2026.2.26
-    createdAt: "2026-03-20T15:21:50Z"
+    containerImage: ghcr.io/kubedb/kubedb-installer:v2026.4.13-rc.0
+    createdAt: "2026-04-17T10:17:38Z"
     description: Database-as-a-Service (DBaaS) Anywhere with Any Storage
     features.operators.openshift.io/disconnected: "true"
     features.operators.openshift.io/fips-compliant: "false"
@@ -70,11 +71,11 @@ metadata:
     features.operators.openshift.io/token-auth-azure: "false"
     features.operators.openshift.io/token-auth-gcp: "false"
     operators.openshift.io/valid-subscription: Contact AppsCode for subscription information.
-    operators.operatorframework.io/builder: operator-sdk-v1.42.2
+    operators.operatorframework.io/builder: operator-sdk-v1.42.0
     operators.operatorframework.io/project_layout: helm.sdk.operatorframework.io/v1
     repository: https://github.com/kubedb/installer
     support: https://support.appscode.com
-  name: kubedb-installer.v2026.2.26
+  name: kubedb-installer.v2026.4.13-rc.0
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
@@ -1093,6 +1094,33 @@ spec:
           - list
           - patch
         - apiGroups:
+          - policy
+          resources:
+          - podsecuritypolicies
+          verbs:
+          - use
+        - apiGroups:
+          - policy
+          resourceNames:
+          - elasticsearch-db
+          - etcd-db
+          - kafka-db
+          - kafkaconnector
+          - kubedb-provisioner
+          - maria-db
+          - memcached-db
+          - mongodb-db
+          - mysql-db
+          - percona-xtradb-db
+          - postgres-db
+          - proxysql-db
+          - redis-db
+          - zookeeper-db
+          resources:
+          - podsecuritypolicies
+          verbs:
+          - use
+        - apiGroups:
           - postgres.kubedb.com
           resources:
           - '*'
@@ -1644,7 +1672,7 @@ spec:
                 - --leader-elect
                 - --leader-election-id=kubedb-installer
                 - --health-probe-bind-address=:8081
-                image: ghcr.io/kubedb/kubedb-installer:v2026.2.26
+                image: ghcr.io/kubedb/kubedb-installer:v2026.4.13-rc.0
                 livenessProbe:
                   httpGet:
                     path: /healthz
@@ -1736,4 +1764,4 @@ spec:
   provider:
     name: AppsCode Inc.
     url: https://appscode.com
-  version: 2026.2.26
+  version: 2026.4.13-rc.0
