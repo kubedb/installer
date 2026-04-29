@@ -49,6 +49,39 @@ const (
 	distroOfficial = "Official"
 )
 
+var nonDeprecatedVersions = map[string][]string{
+	"Milvus":        {"2.4.0"},
+	"MSSQLServer":   {"2025-cu0"},
+	"Druid":         {"28.0.1"},
+	"DB2":           {"11.5.9"},
+	"Redis":         {"7.2.3", "valkey-8.1.1"},
+	"PgBouncer":     {"1.18.0"},
+	"MySQL":         {"8.4.8"},
+	"ClickHouse":    {"24.4.1"},
+	"FerretDB":      {"1.18.0"},
+	"Neo4j":         {"5.20.0"},
+	"ZooKeeper":     {"3.9.1"},
+	"Ignite":        {"2.17.0"},
+	"Hazelcast":     {"5.5.2"},
+	"Weaviate":      {"1.24.0"},
+	"Elasticsearch": {"opensearch-3.4.0", "xpack-9.1.9"},
+	"HanaDB":        {"2.0"},
+	"Kafka":         {"4.2.0"},
+	"Memcached":     {"1.5.4-v1"},
+	"Qdrant":        {"1.9.0"},
+	"MariaDB":       {"11.8.5"},
+	"RabbitMQ":      {"3.12.12"},
+	"PerconaXtraDB": {"8.4.3"},
+	"Pgpool":        {"4.5.0"},
+	"MongoDB":       {"8.0.17"},
+	"DocumentDB":    {"5.0"},
+	"ProxySQL":      {"3.0.1-debian"},
+	"Postgres":      {"17.4"},
+	"Solr":          {"9.4.1"},
+	"Singlestore":   {"8.9.3"},
+	"Cassandra":     {"5.0.3"},
+}
+
 var ubiImageList = sets.NewString(
 	"ghcr.io/kubedb/db2-coordinator",
 	"ghcr.io/kubedb/hanadb-coordinator",
@@ -205,6 +238,17 @@ func main() {
 		case "catalog.kubedb.com":
 			dbKind := strings.TrimSuffix(ri.Object.GetKind(), "Version")
 			deprecated, _, _ := unstructured.NestedBool(ri.Object.Object, "spec", "deprecated")
+
+			if deprecated {
+				if versions, ok := nonDeprecatedVersions[dbKind]; ok {
+					dbVersion, _, _ := unstructured.NestedString(ri.Object.Object, "spec", "version")
+					for _, v := range versions {
+						if dbVersion == v {
+							panic(fmt.Sprintf("can't mark %s %s as deprecated, it is being used in the overview page", dbKind, dbVersion))
+						}
+					}
+				}
+			}
 
 			distro, _, _ := unstructured.NestedString(ri.Object.Object, "spec", "distribution")
 			switch dbKind {
