@@ -92,13 +92,6 @@ spec:
         - --shard-config={{ include "kubedb-autoscaler.name" . }}
         {{- end }}
         - --update-interval={{ .Values.updateInterval }}
-        - --prometheus-address={{.Values.storageAutoscaler.prometheus.address}}
-        {{- if .Values.storageAutoscaler.prometheus.caCert }}
-        - --prometheus-ca-file=/var/prometheus-data/ca.crt
-        {{- end }}
-        {{- if .Values.storageAutoscaler.prometheus.bearerToken }}
-        - --prometheus-token-file=/var/prometheus-data/token.txt
-        {{- end }}
         - --memory-aggregation-interval={{ .Values.recommender.memoryAggregationInterval }}
         - --memory-aggregation-interval-count={{ .Values.recommender.memoryAggregationIntervalCount }}
         - --memory-histogram-decay-half-life={{ .Values.recommender.memoryHistogramDecayHalfLife }}
@@ -126,10 +119,6 @@ spec:
         volumeMounts:
         - mountPath: /tmp
           name: tmpdir
-        {{- if or (ne .Values.storageAutoscaler.prometheus.bearerToken "") (ne .Values.storageAutoscaler.prometheus.caCert  "") }}
-        - mountPath: /var/prometheus-data
-          name: prometheus-data
-        {{- end }}
         {{- if include "appscode.licenseSecretName" . }}
         - mountPath: /var/run/secrets/appscode/license
           name: license
@@ -153,12 +142,6 @@ spec:
       volumes:
       - name: tmpdir
         emptyDir: {}
-      {{- if or (ne .Values.storageAutoscaler.prometheus.bearerToken "") (ne .Values.storageAutoscaler.prometheus.caCert  "") }}
-      - name: prometheus-data
-        secret:
-          defaultMode: 420
-          secretName: {{ include "kubedb-autoscaler.fullname" . }}-prometheus-data
-      {{- end }}
       {{- if include "appscode.licenseSecretName" . }}
       - name: license
         secret:
