@@ -33,14 +33,6 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.12.0
 
-      - name: Generate GHCR App token
-        id: ghcr-app-token
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-        with:
-          client-id: ${{ secrets.GHCRX_APP_CLIENT_ID }}
-          private-key: ${{ secrets.GHCRX_APP_PRIVATE_KEY }}
-          owner: appscode-charts
-
       - name: Install Helm 3
         run: |
           pushd /usr/local/bin && sudo curl -fsSLO https://github.com/x-helm/helm/releases/latest/download/helm && sudo chmod +x helm && popd
@@ -70,11 +62,11 @@ jobs:
 
       - name: Clone charts repository
         env:
-          GITHUB_USER: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ steps.ghcr-app-token.outputs.token }}
+          GITHUB_USER: 1gtm
+          GITHUB_TOKEN: ${{ secrets.LGTM_GITHUB_TOKEN }}
           CHART_REPOSITORY: ${{ secrets.CHART_REPOSITORY }}
         run: |
-          url="https://x-access-token:${GITHUB_TOKEN}@${CHART_REPOSITORY}.git"
+          url="https://${GITHUB_USER}:${GITHUB_TOKEN}@${CHART_REPOSITORY}.git"
           cd $RUNNER_WORKSPACE
           git clone $url
           cd $(basename $CHART_REPOSITORY)
@@ -83,7 +75,7 @@ jobs:
 
       - name: Package
         env:
-          GITHUB_TOKEN: ${{ steps.ghcr-app-token.outputs.token }}
+          GITHUB_TOKEN: ${{ secrets.LGTM_GITHUB_TOKEN }}
           CHART_REPOSITORY: ${{ secrets.CHART_REPOSITORY }}
         run: |
           ./hack/scripts/update-chart-dependencies.sh
