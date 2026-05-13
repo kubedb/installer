@@ -97,15 +97,20 @@ jobs:
         run: |
           export KUBECONFIG="${HOME}/.kube/config"
           CLUSTER_UID=$(kubectl get ns kube-system -o=jsonpath='{.metadata.uid}')
-          LICENSE_KEY=$(curl -X POST \
+          if ! curl --fail-with-body -sS -X POST \
             --data-urlencode "name=1gtm" \
             --data-urlencode "email=1gtm@appscode.com" \
             --data-urlencode "product=kubedb-enterprise" \
             --data-urlencode "cluster=${CLUSTER_UID}" \
             --data-urlencode "tos=true" \
             --data-urlencode "token=${BYTEBUILDERS_LICENSE_TOKEN}" \
-            https://license-issuer.appscode.com/issue-license)
-          echo "${LICENSE_KEY}" > /tmp/license.txt
+            -o /tmp/license.txt \
+            https://license-issuer.appscode.com/issue-license; then
+            echo "license issuer request failed; response body:"
+            cat /tmp/license.txt
+            exit 1
+          fi
+          LICENSE_KEY=$(cat /tmp/license.txt)
           # ref: https://github.com/mikefarah/yq/issues/230#issuecomment-487458629
           yqq w -i ./charts/kubedb-provisioner/ci/ci-values.yaml license --tag '!!str' -- "${LICENSE_KEY}"
           yqq w -i ./charts/kubedb-ops-manager/ci/ci-values.yaml license --tag '!!str' -- "${LICENSE_KEY}"
