@@ -3,6 +3,22 @@ kind: ClickHouseVersion
 metadata:
   name: 25.7.1
 spec:
+  archiver:
+    addon:
+      name: clickhouse-addon
+      tasks:
+        fullBackup:
+          name: logical-backup
+        fullBackupRestore:
+          name: logical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        incBackupRestore:
+          name: incremental-restore
+    walg:
+      image: ghcr.io/shuvokumarmondal/clickhouse-backup-plugin:v5.8_linux_amd64
   clickHouseKeeper:
     image: docker.io/clickhouse/clickhouse-keeper:25.7.1
   db:
