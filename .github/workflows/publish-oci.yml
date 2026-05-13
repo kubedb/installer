@@ -14,9 +14,6 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-24.04
-    permissions:
-      contents: read
-      packages: write
     steps:
       - name: Check out code into the Go module directory
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
@@ -37,8 +34,8 @@ jobs:
         uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: 1gtm
+          password: ${{ secrets.LGTM_GITHUB_TOKEN }}
 
       - name: Install Helm 3
         run: |
@@ -46,9 +43,9 @@ jobs:
 
       - name: Clone charts repository
         env:
-          GITHUB_USER: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CHART_REPOSITORY: github.com/appscode/charts
+          GITHUB_USER: 1gtm
+          GITHUB_TOKEN: ${{ secrets.LGTM_GITHUB_TOKEN }}
+          CHART_REPOSITORY: ${{ secrets.CHART_REPOSITORY }}
         run: |
           url="https://${GITHUB_USER}:${GITHUB_TOKEN}@${CHART_REPOSITORY}.git"
           cd $RUNNER_WORKSPACE
@@ -59,9 +56,8 @@ jobs:
 
       - name: Publish OCI charts
         env:
-          GITHUB_USER: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CHART_REPOSITORY: github.com/appscode/charts
+          GITHUB_TOKEN: ${{ secrets.LGTM_GITHUB_TOKEN }}
+          CHART_REPOSITORY: ${{ secrets.CHART_REPOSITORY }}
         run: |
           export REGISTRY_0=oci://ghcr.io/appscode-charts
           ./hack/scripts/update-chart-dependencies.sh
