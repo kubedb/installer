@@ -83,25 +83,11 @@ type KubedbAutoscalerSpec struct {
 	// +optional
 	UpdateInterval string `json:"updateInterval"`
 	// +optional
-	StorageAutoscaler StorageAutoscalerSpec `json:"storageAutoscaler"`
-	// +optional
 	Recommender Recommender `json:"recommender"`
 	// +optional
 	MaxConcurrentReconciles int `json:"maxConcurrentReconciles"`
 	// +optional
 	Distro shared.DistroSpec `json:"distro"`
-}
-
-type StorageAutoscalerSpec struct {
-	Prometheus PrometheusSpec `json:"prometheus"`
-}
-
-type PrometheusSpec struct {
-	Address string `json:"address"`
-	// +optional
-	BearerToken string `json:"bearerToken"`
-	// +optional
-	CACert string `json:"caCert"`
 }
 
 type Recommender struct {
