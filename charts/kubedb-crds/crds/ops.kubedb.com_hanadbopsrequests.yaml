@@ -3,7 +3,7 @@ kind: CustomResourceDefinition
 metadata:
   labels:
     app.kubernetes.io/name: kubedb
-  name: hazelcastopsrequests.ops.kubedb.com
+  name: hanadbopsrequests.ops.kubedb.com
 spec:
   group: ops.kubedb.com
   names:
@@ -11,12 +11,12 @@ spec:
     - ops
     - kubedb
     - appscode
-    kind: HazelcastOpsRequest
-    listKind: HazelcastOpsRequestList
-    plural: hazelcastopsrequests
+    kind: HanaDBOpsRequest
+    listKind: HanaDBOpsRequestList
+    plural: hanadbopsrequests
     shortNames:
-    - hzops
-    singular: hazelcastopsrequest
+    - hdbops
+    singular: hanadbopsrequest
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
@@ -47,24 +47,6 @@ spec:
                 - IfReady
                 - Always
                 type: string
-              authentication:
-                properties:
-                  secretRef:
-                    properties:
-                      apiGroup:
-                        default: ""
-                        type: string
-                      kind:
-                        default: Secret
-                        type: string
-                      name:
-                        type: string
-                    required:
-                    - kind
-                    - name
-                    type: object
-                    x-kubernetes-map-type: atomic
-                type: object
               configuration:
                 properties:
                   applyConfig:
@@ -95,12 +77,6 @@ spec:
                     type: string
                 type: object
                 x-kubernetes-map-type: atomic
-              horizontalScaling:
-                properties:
-                  hazelcast:
-                    format: int32
-                    type: integer
-                type: object
               maxRetries:
                 default: 1
                 format: int32
@@ -205,6 +181,10 @@ spec:
                       - alias
                       type: object
                     type: array
+                  clientTLS:
+                    type: boolean
+                  insecureSkipVerify:
+                    type: boolean
                   issuerRef:
                     properties:
                       apiGroup:
@@ -222,91 +202,16 @@ spec:
                     type: boolean
                   rotateCertificates:
                     type: boolean
+                  serverName:
+                    type: string
                 type: object
               type:
                 enum:
-                - UpdateVersion
-                - HorizontalScaling
-                - VerticalScaling
-                - VolumeExpansion
-                - Reconfigure
                 - Restart
+                - Reconfigure
                 - ReconfigureTLS
-                - RotateAuth
                 - StorageMigration
                 type: string
-              updateVersion:
-                properties:
-                  targetVersion:
-                    type: string
-                type: object
-              verticalScaling:
-                properties:
-                  hazelcast:
-                    properties:
-                      nodeSelectionPolicy:
-                        type: string
-                      resources:
-                        properties:
-                          claims:
-                            items:
-                              properties:
-                                name:
-                                  type: string
-                                request:
-                                  type: string
-                              required:
-                              - name
-                              type: object
-                            type: array
-                            x-kubernetes-list-map-keys:
-                            - name
-                            x-kubernetes-list-type: map
-                          limits:
-                            additionalProperties:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                            type: object
-                          requests:
-                            additionalProperties:
-                              anyOf:
-                              - type: integer
-                              - type: string
-                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                              x-kubernetes-int-or-string: true
-                            type: object
-                        type: object
-                      topology:
-                        properties:
-                          key:
-                            type: string
-                          value:
-                            type: string
-                        required:
-                        - key
-                        - value
-                        type: object
-                    type: object
-                type: object
-              volumeExpansion:
-                properties:
-                  hazelcast:
-                    anyOf:
-                    - type: integer
-                    - type: string
-                    pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                    x-kubernetes-int-or-string: true
-                  mode:
-                    enum:
-                    - Offline
-                    - Online
-                    type: string
-                required:
-                - mode
-                type: object
             required:
             - databaseRef
             - type
