@@ -66,6 +66,8 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:8.0.31-v7 $IMAGE_REGISTRY/kubedb/mysql-init:8.0.31-v7
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:8.4.2-v6 $IMAGE_REGISTRY/kubedb/mysql-init:8.4.2-v6
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:9.0.1-v4 $IMAGE_REGISTRY/kubedb/mysql-init:9.0.1-v4
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.41.0 $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.41.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.42.0 $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.42.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.18.0 $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.18.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/replication-mode-detector:v0.50.0 $IMAGE_REGISTRY/kubedb/replication-mode-detector:v0.50.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/replication-mode-detector:v0.51.0 $IMAGE_REGISTRY/kubedb/replication-mode-detector:v0.51.0

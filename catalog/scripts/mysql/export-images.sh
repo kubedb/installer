@@ -63,8 +63,10 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-ini
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:8.0.31-v7 images/kubedb-mysql-init-8.0.31-v7.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:8.4.2-v6 images/kubedb-mysql-init-8.4.2-v6.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:9.0.1-v4 images/kubedb-mysql-init-9.0.1-v4.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.41.0 images/kubedb-mysql-router-init-v0.41.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.42.0 images/kubedb-mysql-router-init-v0.42.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.18.0 images/kubedb-mysqld-exporter-v0.18.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/replication-mode-detector:v0.50.0 images/kubedb-replication-mode-detector-v0.50.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/replication-mode-detector:v0.51.0 images/kubedb-replication-mode-detector-v0.51.0.tar
 
 tar -czvf images.tar.gz images

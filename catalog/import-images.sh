@@ -408,6 +408,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-8.0.31-v7.tar $IMAGE_REGISTRY/kubedb/mysql-init:8.0.31-v7
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-8.4.2-v6.tar $IMAGE_REGISTRY/kubedb/mysql-init:8.4.2-v6
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-9.0.1-v4.tar $IMAGE_REGISTRY/kubedb/mysql-init:9.0.1-v4
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-router-init-v0.41.0.tar $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.41.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-router-init-v0.42.0.tar $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.42.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysqld-exporter-v0.18.0.tar $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.18.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-coordinator-v0.10.0.tar $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.10.0
@@ -456,6 +457,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-init
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-restic-plugin-v0.27.0.tar $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.27.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-4.0.11.tar $IMAGE_REGISTRY/kubedb/redis:4.0.11
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis_exporter-1.66.0.tar $IMAGE_REGISTRY/kubedb/redis_exporter:1.66.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-replication-mode-detector-v0.50.0.tar $IMAGE_REGISTRY/kubedb/replication-mode-detector:v0.50.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-replication-mode-detector-v0.51.0.tar $IMAGE_REGISTRY/kubedb/replication-mode-detector:v0.51.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-singlestore-coordinator-v0.19.0.tar $IMAGE_REGISTRY/kubedb/singlestore-coordinator:v0.19.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-singlestore-init-8.1-v2.tar $IMAGE_REGISTRY/kubedb/singlestore-init:8.1-v2
