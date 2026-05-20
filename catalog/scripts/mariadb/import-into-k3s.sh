@@ -49,4 +49,4 @@ k3s ctr images import images/kubedb-mariadb-archiver-v0.24.0_11.0.4-jammy.tar
 k3s ctr images import images/kubedb-mariadb-archiver-v0.24.0_11.1.3-jammy.tar
 k3s ctr images import images/kubedb-mariadb-archiver-v0.24.0_11.2.2-jammy.tar
 k3s ctr images import images/kubedb-mariadb-coordinator-v0.44.0.tar
-k3s ctr images import images/kubedb-mariadb-init-0.8.0.tar
+k3s ctr images import images/kubedb-mariadb-init-0.9.0.tar

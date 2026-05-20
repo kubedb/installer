@@ -384,7 +384,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-ar
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.24.0_11.2.2-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.24.0_11.2.2-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-coordinator-v0.44.0.tar $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.44.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-csi-snapshotter-plugin-v0.24.0.tar $IMAGE_REGISTRY/kubedb/mariadb-csi-snapshotter-plugin:v0.24.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-init-0.8.0.tar $IMAGE_REGISTRY/kubedb/mariadb-init:0.8.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-init-0.9.0.tar $IMAGE_REGISTRY/kubedb/mariadb-init:0.9.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-migrator-cli-v0.4.0.tar $IMAGE_REGISTRY/kubedb/migrator-cli:v0.4.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-migrator-operator-v0.4.0.tar $IMAGE_REGISTRY/kubedb/migrator-operator:v0.4.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-csi-snapshotter-plugin-v0.25.0.tar $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.25.0
@@ -404,10 +404,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-arch
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-archiver-v0.25.0_9.1.0.tar $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.25.0_9.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-coordinator-v0.42.0.tar $IMAGE_REGISTRY/kubedb/mysql-coordinator:v0.42.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-csi-snapshotter-plugin-v0.25.0.tar $IMAGE_REGISTRY/kubedb/mysql-csi-snapshotter-plugin:v0.25.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-5.7-v8.tar $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v8
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-8.0.31-v7.tar $IMAGE_REGISTRY/kubedb/mysql-init:8.0.31-v7
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-8.4.2-v6.tar $IMAGE_REGISTRY/kubedb/mysql-init:8.4.2-v6
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-9.0.1-v4.tar $IMAGE_REGISTRY/kubedb/mysql-init:9.0.1-v4
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-0.1.0.tar $IMAGE_REGISTRY/kubedb/mysql-init:0.1.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-5.7-v9.tar $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v9
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-router-init-v0.41.0.tar $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.41.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-router-init-v0.42.0.tar $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.42.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysqld-exporter-v0.18.0.tar $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.18.0
@@ -457,7 +455,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-init
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-restic-plugin-v0.27.0.tar $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.27.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-4.0.11.tar $IMAGE_REGISTRY/kubedb/redis:4.0.11
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis_exporter-1.66.0.tar $IMAGE_REGISTRY/kubedb/redis_exporter:1.66.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-replication-mode-detector-v0.50.0.tar $IMAGE_REGISTRY/kubedb/replication-mode-detector:v0.50.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-replication-mode-detector-v0.51.0.tar $IMAGE_REGISTRY/kubedb/replication-mode-detector:v0.51.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-singlestore-coordinator-v0.19.0.tar $IMAGE_REGISTRY/kubedb/singlestore-coordinator:v0.19.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-singlestore-init-8.1-v2.tar $IMAGE_REGISTRY/kubedb/singlestore-init:8.1-v2
