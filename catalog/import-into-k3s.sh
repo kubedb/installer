@@ -46,7 +46,6 @@ k3s ctr images import images/library-neo4j-2025.10.1-enterprise.tar
 k3s ctr images import images/library-neo4j-2025.11.2-enterprise.tar
 k3s ctr images import images/library-neo4j-2025.12.1-enterprise.tar
 k3s ctr images import images/mariadb-maxscale-24.02.4.tar
-k3s ctr images import images/mysql-mysql-router-8.0.31.tar
 k3s ctr images import images/percona-percona-server-mongodb-4.4.26.tar
 k3s ctr images import images/percona-percona-server-mongodb-5.0.29.tar
 k3s ctr images import images/percona-percona-server-mongodb-6.0.24.tar
@@ -186,6 +185,12 @@ k3s ctr images import images/appscode-images-mongo-7.0.21.tar
 k3s ctr images import images/appscode-images-mongo-7.0.28.tar
 k3s ctr images import images/appscode-images-mongo-8.0.10.tar
 k3s ctr images import images/appscode-images-mongo-8.0.17.tar
+k3s ctr images import images/appscode-images-mysql-router-8.0.45.tar
+k3s ctr images import images/appscode-images-mysql-router-8.4.8.tar
+k3s ctr images import images/appscode-images-mysql-router-9.0.1.tar
+k3s ctr images import images/appscode-images-mysql-router-9.1.0.tar
+k3s ctr images import images/appscode-images-mysql-router-9.4.0.tar
+k3s ctr images import images/appscode-images-mysql-router-9.6.0.tar
 k3s ctr images import images/appscode-images-mysql-5.7.42-debian.tar
 k3s ctr images import images/appscode-images-mysql-5.7.44-oracle.tar
 k3s ctr images import images/appscode-images-mysql-8.0.31-oracle.tar

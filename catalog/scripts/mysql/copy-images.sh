@@ -35,7 +35,12 @@ mv /tmp/crane .
 
 CMD="./crane"
 
-$CMD cp --allow-nondistributable-artifacts --insecure docker.io/mysql/mysql-router:8.0.31 $IMAGE_REGISTRY/mysql/mysql-router:8.0.31
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:8.0.45 $IMAGE_REGISTRY/appscode-images/mysql-router:8.0.45
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:8.4.8 $IMAGE_REGISTRY/appscode-images/mysql-router:8.4.8
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.0.1 $IMAGE_REGISTRY/appscode-images/mysql-router:9.0.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.1.0 $IMAGE_REGISTRY/appscode-images/mysql-router:9.1.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.4.0 $IMAGE_REGISTRY/appscode-images/mysql-router:9.4.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.6.0 $IMAGE_REGISTRY/appscode-images/mysql-router:9.6.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:5.7.42-debian $IMAGE_REGISTRY/appscode-images/mysql:5.7.42-debian
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:5.7.44-oracle $IMAGE_REGISTRY/appscode-images/mysql:5.7.44-oracle
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:8.0.31-oracle $IMAGE_REGISTRY/appscode-images/mysql:8.0.31-oracle

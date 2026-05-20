@@ -48,7 +48,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-202
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2025.11.2-enterprise.tar $IMAGE_REGISTRY/neo4j:2025.11.2-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2025.12.1-enterprise.tar $IMAGE_REGISTRY/neo4j:2025.12.1-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/mariadb-maxscale-24.02.4.tar $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
-$CMD push --allow-nondistributable-artifacts --insecure images/mysql-mysql-router-8.0.31.tar $IMAGE_REGISTRY/mysql/mysql-router:8.0.31
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-4.4.26.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:4.4.26
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-5.0.29.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:5.0.29
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-6.0.24.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:6.0.24
@@ -188,6 +187,12 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-7.0.28.tar $IMAGE_REGISTRY/appscode-images/mongo:7.0.28
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-8.0.10.tar $IMAGE_REGISTRY/appscode-images/mongo:8.0.10
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-8.0.17.tar $IMAGE_REGISTRY/appscode-images/mongo:8.0.17
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-8.0.45.tar $IMAGE_REGISTRY/appscode-images/mysql-router:8.0.45
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-8.4.8.tar $IMAGE_REGISTRY/appscode-images/mysql-router:8.4.8
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.0.1.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.0.1
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.1.0.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.1.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.4.0.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.4.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.6.0.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.6.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-5.7.42-debian.tar $IMAGE_REGISTRY/appscode-images/mysql:5.7.42-debian
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-5.7.44-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:5.7.44-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-8.0.31-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:8.0.31-oracle
