@@ -26,7 +26,12 @@ tar -zxvf $TARBALL
 
 CMD="./crane"
 
-$CMD push --allow-nondistributable-artifacts --insecure images/mysql-mysql-router-8.0.31.tar $IMAGE_REGISTRY/mysql/mysql-router:8.0.31
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-8.0.45.tar $IMAGE_REGISTRY/appscode-images/mysql-router:8.0.45
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-8.4.8.tar $IMAGE_REGISTRY/appscode-images/mysql-router:8.4.8
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.0.1.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.0.1
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.1.0.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.1.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.4.0.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.4.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.6.0.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.6.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-5.7.42-debian.tar $IMAGE_REGISTRY/appscode-images/mysql:5.7.42-debian
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-5.7.44-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:5.7.44-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-8.0.31-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:8.0.31-oracle

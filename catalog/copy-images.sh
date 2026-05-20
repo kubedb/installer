@@ -56,7 +56,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:20
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.11.2-enterprise $IMAGE_REGISTRY/neo4j:2025.11.2-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.12.1-enterprise $IMAGE_REGISTRY/neo4j:2025.12.1-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/mariadb/maxscale:24.02.4 $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
-$CMD cp --allow-nondistributable-artifacts --insecure docker.io/mysql/mysql-router:8.0.31 $IMAGE_REGISTRY/mysql/mysql-router:8.0.31
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:4.4.26 $IMAGE_REGISTRY/percona/percona-server-mongodb:4.4.26
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:5.0.29 $IMAGE_REGISTRY/percona/percona-server-mongodb:5.0.29
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:6.0.24 $IMAGE_REGISTRY/percona/percona-server-mongodb:6.0.24
@@ -196,6 +195,12 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mo
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.28 $IMAGE_REGISTRY/appscode-images/mongo:7.0.28
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.10 $IMAGE_REGISTRY/appscode-images/mongo:8.0.10
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.17 $IMAGE_REGISTRY/appscode-images/mongo:8.0.17
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:8.0.45 $IMAGE_REGISTRY/appscode-images/mysql-router:8.0.45
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:8.4.8 $IMAGE_REGISTRY/appscode-images/mysql-router:8.4.8
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.0.1 $IMAGE_REGISTRY/appscode-images/mysql-router:9.0.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.1.0 $IMAGE_REGISTRY/appscode-images/mysql-router:9.1.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.4.0 $IMAGE_REGISTRY/appscode-images/mysql-router:9.4.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.6.0 $IMAGE_REGISTRY/appscode-images/mysql-router:9.6.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:5.7.42-debian $IMAGE_REGISTRY/appscode-images/mysql:5.7.42-debian
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:5.7.44-oracle $IMAGE_REGISTRY/appscode-images/mysql:5.7.44-oracle
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:8.0.31-oracle $IMAGE_REGISTRY/appscode-images/mysql:8.0.31-oracle
