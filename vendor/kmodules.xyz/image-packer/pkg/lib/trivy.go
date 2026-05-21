@@ -78,6 +78,7 @@ func ImageDigest(ref string) (string, bool, error) {
 
 func ImageManifest(ref string) (any, bool, error) {
 	data, err := crane.Manifest(ref, crane.WithAuthFromKeychain(authn.DefaultKeychain))
+	fmt.Println("====================data:", string(data), "=====err:", err)
 	if err != nil {
 		if ImageNotFound(err) {
 			return nil, false, nil
