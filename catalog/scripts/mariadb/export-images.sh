@@ -48,14 +48,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.6.2-noble images/appscode-images-mariadb-11.6.2-noble.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.8.5-noble images/appscode-images-mariadb-11.8.5-noble.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:12.1.2-noble images/appscode-images-mariadb-12.1.2-noble.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.23.0_10.10.7-jammy images/kubedb-mariadb-archiver-v0.23.0_10.10.7-jammy.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.23.0_10.11.6-jammy images/kubedb-mariadb-archiver-v0.23.0_10.11.6-jammy.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.23.0_10.4.32-focal images/kubedb-mariadb-archiver-v0.23.0_10.4.32-focal.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.23.0_10.5.23-focal images/kubedb-mariadb-archiver-v0.23.0_10.5.23-focal.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.23.0_10.6.16-focal images/kubedb-mariadb-archiver-v0.23.0_10.6.16-focal.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.23.0_11.0.4-jammy images/kubedb-mariadb-archiver-v0.23.0_11.0.4-jammy.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.23.0_11.1.3-jammy images/kubedb-mariadb-archiver-v0.23.0_11.1.3-jammy.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.23.0_11.2.2-jammy images/kubedb-mariadb-archiver-v0.23.0_11.2.2-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.25.0-rc.0_10.10.7-jammy images/kubedb-mariadb-archiver-v0.25.0-rc.0_10.10.7-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.25.0-rc.0_10.11.6-jammy images/kubedb-mariadb-archiver-v0.25.0-rc.0_10.11.6-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.25.0-rc.0_10.4.32-focal images/kubedb-mariadb-archiver-v0.25.0-rc.0_10.4.32-focal.tar
@@ -64,7 +56,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-a
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.25.0-rc.0_11.0.4-jammy images/kubedb-mariadb-archiver-v0.25.0-rc.0_11.0.4-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.25.0-rc.0_11.1.3-jammy images/kubedb-mariadb-archiver-v0.25.0-rc.0_11.1.3-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.25.0-rc.0_11.2.2-jammy images/kubedb-mariadb-archiver-v0.25.0-rc.0_11.2.2-jammy.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-coordinator:v0.43.0 images/kubedb-mariadb-coordinator-v0.43.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-coordinator:v0.45.0-rc.0 images/kubedb-mariadb-coordinator-v0.45.0-rc.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-init:0.8.0 images/kubedb-mariadb-init-0.8.0.tar
 
