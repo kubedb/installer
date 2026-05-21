@@ -31,6 +31,7 @@ var ignoreMissingList = []string{
 }
 
 var archSkipList = []string{
+	"ghcr.io/appscode-images/weaviate:1.33.1", // Docker inspect not showing any arm64 image
 	"docker.io/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0",
 	"ghcr.io/appscode-images/druid:28.0.1",
 	"ghcr.io/appscode-images/druid:30.0.1",
