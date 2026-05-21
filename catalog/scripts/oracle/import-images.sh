@@ -29,5 +29,5 @@ CMD="./crane"
 $CMD push --allow-nondistributable-artifacts --insecure images/database-enterprise-21.3.0.0.tar $IMAGE_REGISTRY/database/enterprise:21.3.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/database-observability-exporter-2.2.1.tar $IMAGE_REGISTRY/database/observability-exporter:2.2.1
 $CMD push --allow-nondistributable-artifacts --insecure images/library-busybox-1.36.tar $IMAGE_REGISTRY/busybox:1.36
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-coordinator-v0.10.0.tar $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.10.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-coordinator-v0.11.0-rc.0.tar $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.11.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-init-v0.2.0.tar $IMAGE_REGISTRY/kubedb/oracle-init:v0.2.0
