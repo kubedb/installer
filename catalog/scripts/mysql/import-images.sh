@@ -26,7 +26,12 @@ tar -zxvf $TARBALL
 
 CMD="./crane"
 
-$CMD push --allow-nondistributable-artifacts --insecure images/mysql-mysql-router-8.0.31.tar $IMAGE_REGISTRY/mysql/mysql-router:8.0.31
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-8.0.45.tar $IMAGE_REGISTRY/appscode-images/mysql-router:8.0.45
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-8.4.8.tar $IMAGE_REGISTRY/appscode-images/mysql-router:8.4.8
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.0.1.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.0.1
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.1.0.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.1.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.4.0.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.4.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.6.0.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.6.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-5.7.42-debian.tar $IMAGE_REGISTRY/appscode-images/mysql:5.7.42-debian
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-5.7.44-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:5.7.44-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-8.0.31-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:8.0.31-oracle
@@ -48,10 +53,9 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-arch
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-archiver-v0.26.0-rc.0_8.4.3.tar $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.26.0-rc.0_8.4.3
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-archiver-v0.26.0-rc.0_9.1.0.tar $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.26.0-rc.0_9.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-coordinator-v0.43.0-rc.0.tar $IMAGE_REGISTRY/kubedb/mysql-coordinator:v0.43.0-rc.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-5.7-v8.tar $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v8
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-8.0.31-v7.tar $IMAGE_REGISTRY/kubedb/mysql-init:8.0.31-v7
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-8.4.2-v6.tar $IMAGE_REGISTRY/kubedb/mysql-init:8.4.2-v6
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-9.0.1-v4.tar $IMAGE_REGISTRY/kubedb/mysql-init:9.0.1-v4
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-0.1.0.tar $IMAGE_REGISTRY/kubedb/mysql-init:0.1.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-5.7-v9.tar $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v9
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-router-init-v0.41.0.tar $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.41.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-router-init-v0.43.0-rc.0.tar $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.43.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysqld-exporter-v0.18.0.tar $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.18.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-replication-mode-detector-v0.52.0-rc.0.tar $IMAGE_REGISTRY/kubedb/replication-mode-detector:v0.52.0-rc.0

@@ -43,9 +43,13 @@ spec:
   gitSyncer:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.4.2'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:9.0.1-v4'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:0.1.0'
   replicationModeDetector:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.52.0-rc.0{{ include "catalog.ubi" $ }}'
+  router:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql-router") $) }}:9.4.0'
+  routerInitContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-router-init") $) }}:v0.41.0'
   securityContext:
     runAsUser: 999
   stash:

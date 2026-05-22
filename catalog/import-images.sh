@@ -47,7 +47,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-202
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2025.11.2-enterprise.tar $IMAGE_REGISTRY/neo4j:2025.11.2-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2025.12.1-enterprise.tar $IMAGE_REGISTRY/neo4j:2025.12.1-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/mariadb-maxscale-24.02.4.tar $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
-$CMD push --allow-nondistributable-artifacts --insecure images/mysql-mysql-router-8.0.31.tar $IMAGE_REGISTRY/mysql/mysql-router:8.0.31
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-4.4.26.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:4.4.26
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-5.0.29.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:5.0.29
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-6.0.24.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:6.0.24
@@ -187,6 +186,12 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-7.0.28.tar $IMAGE_REGISTRY/appscode-images/mongo:7.0.28
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-8.0.10.tar $IMAGE_REGISTRY/appscode-images/mongo:8.0.10
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-8.0.17.tar $IMAGE_REGISTRY/appscode-images/mongo:8.0.17
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-8.0.45.tar $IMAGE_REGISTRY/appscode-images/mysql-router:8.0.45
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-8.4.8.tar $IMAGE_REGISTRY/appscode-images/mysql-router:8.4.8
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.0.1.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.0.1
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.1.0.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.1.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.4.0.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.4.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.6.0.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.6.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-5.7.42-debian.tar $IMAGE_REGISTRY/appscode-images/mysql:5.7.42-debian
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-5.7.44-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:5.7.44-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-8.0.31-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:8.0.31-oracle
@@ -379,7 +384,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-ar
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.25.0-rc.0_11.2.2-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.25.0-rc.0_11.2.2-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-coordinator-v0.45.0-rc.0.tar $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.45.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-csi-snapshotter-plugin-v0.25.0-rc.0.tar $IMAGE_REGISTRY/kubedb/mariadb-csi-snapshotter-plugin:v0.25.0-rc.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-init-0.8.0.tar $IMAGE_REGISTRY/kubedb/mariadb-init:0.8.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-init-0.9.0.tar $IMAGE_REGISTRY/kubedb/mariadb-init:0.9.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-migrator-operator-v0.5.0-rc.0.tar $IMAGE_REGISTRY/kubedb/migrator-operator:v0.5.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-csi-snapshotter-plugin-v0.26.0-rc.0.tar $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.26.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-4.2-v9.tar $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
@@ -398,10 +403,9 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-arch
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-archiver-v0.26.0-rc.0_9.1.0.tar $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.26.0-rc.0_9.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-coordinator-v0.43.0-rc.0.tar $IMAGE_REGISTRY/kubedb/mysql-coordinator:v0.43.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-csi-snapshotter-plugin-v0.26.0-rc.0.tar $IMAGE_REGISTRY/kubedb/mysql-csi-snapshotter-plugin:v0.26.0-rc.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-5.7-v8.tar $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v8
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-8.0.31-v7.tar $IMAGE_REGISTRY/kubedb/mysql-init:8.0.31-v7
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-8.4.2-v6.tar $IMAGE_REGISTRY/kubedb/mysql-init:8.4.2-v6
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-9.0.1-v4.tar $IMAGE_REGISTRY/kubedb/mysql-init:9.0.1-v4
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-0.1.0.tar $IMAGE_REGISTRY/kubedb/mysql-init:0.1.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-5.7-v9.tar $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v9
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-router-init-v0.41.0.tar $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.41.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-router-init-v0.43.0-rc.0.tar $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.43.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysqld-exporter-v0.18.0.tar $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.18.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-coordinator-v0.11.0-rc.0.tar $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.11.0-rc.0

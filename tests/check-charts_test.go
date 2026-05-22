@@ -57,7 +57,7 @@ var archSkipList = []string{
 	"ghcr.io/appscode-images/singlestore-node:alma-8.9.3-bfa36a984a",
 	"ghcr.io/kubedb/db2-coordinator:*",
 	"ghcr.io/kubedb/mysql-archiver:*_5.7.44",
-	"ghcr.io/kubedb/mysql-init:5.7-v8",
+	"ghcr.io/kubedb/mysql-init:5.7-v9",
 	"ghcr.io/kubedb/oracle-ee:21.3.0",
 	"ghcr.io/kubedb/oracle-exporter:2.2.1",
 	"ghcr.io/kubedb/proxysql-exporter:v1.1.0",
