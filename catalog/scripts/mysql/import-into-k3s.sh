@@ -51,10 +51,9 @@ k3s ctr images import images/kubedb-mysql-archiver-v0.26.0-rc.0_8.2.0.tar
 k3s ctr images import images/kubedb-mysql-archiver-v0.26.0-rc.0_8.4.3.tar
 k3s ctr images import images/kubedb-mysql-archiver-v0.26.0-rc.0_9.1.0.tar
 k3s ctr images import images/kubedb-mysql-coordinator-v0.43.0-rc.0.tar
-k3s ctr images import images/kubedb-mysql-init-5.7-v8.tar
-k3s ctr images import images/kubedb-mysql-init-8.0.31-v7.tar
-k3s ctr images import images/kubedb-mysql-init-8.4.2-v6.tar
-k3s ctr images import images/kubedb-mysql-init-9.0.1-v4.tar
+k3s ctr images import images/kubedb-mysql-init-0.1.0.tar
+k3s ctr images import images/kubedb-mysql-init-5.7-v9.tar
+k3s ctr images import images/kubedb-mysql-router-init-v0.41.0.tar
 k3s ctr images import images/kubedb-mysql-router-init-v0.43.0-rc.0.tar
 k3s ctr images import images/kubedb-mysqld-exporter-v0.18.0.tar
 k3s ctr images import images/kubedb-replication-mode-detector-v0.52.0-rc.0.tar
