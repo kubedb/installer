@@ -28,7 +28,7 @@ CMD="./crane"
 
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-coordinator-v0.20.0-rc.0.tar $IMAGE_REGISTRY/kubedb/mssql-coordinator:v0.20.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-exporter-1.4.0.tar $IMAGE_REGISTRY/kubedb/mssql-exporter:1.4.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-init-v2026.1.19.tar $IMAGE_REGISTRY/kubedb/mssql-init:v2026.1.19
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-init-v2026.4.27.tar $IMAGE_REGISTRY/kubedb/mssql-init:v2026.4.27
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssqlserver-archiver-v0.19.0-rc.0.tar $IMAGE_REGISTRY/kubedb/mssqlserver-archiver:v0.19.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU12-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU12-ubuntu-22.04
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU14-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU14-ubuntu-22.04

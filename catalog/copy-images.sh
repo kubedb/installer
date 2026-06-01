@@ -401,7 +401,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-ini
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb_exporter:v0.47.2 $IMAGE_REGISTRY/kubedb/mongodb_exporter:v0.47.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-coordinator:v0.20.0-rc.0 $IMAGE_REGISTRY/kubedb/mssql-coordinator:v0.20.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-exporter:1.4.0 $IMAGE_REGISTRY/kubedb/mssql-exporter:1.4.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-init:v2026.1.19 $IMAGE_REGISTRY/kubedb/mssql-init:v2026.1.19
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-init:v2026.4.27 $IMAGE_REGISTRY/kubedb/mssql-init:v2026.4.27
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssqlserver-archiver:v0.19.0-rc.0 $IMAGE_REGISTRY/kubedb/mssqlserver-archiver:v0.19.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssqlserver-walg-plugin:v0.19.0-rc.0 $IMAGE_REGISTRY/kubedb/mssqlserver-walg-plugin:v0.19.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.26.0-rc.0_5.7.44 $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.26.0-rc.0_5.7.44
