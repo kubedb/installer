@@ -9,24 +9,62 @@ spec:
   endpointSelector: {}
   egress:
   - toEntities:
-    - remote-node
-    - host
+    - kube-apiserver
     toPorts:
     - ports:
       - port: "6443"
         protocol: TCP
 ---
-# Allow the operator pods to reach the database pods (any kubedb-managed
-# namespace, on the standard DB ports).
+# Allow every pod in the operator namespace to resolve DNS.
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: {{ .Release.Name }}-egress-to-databases
+  name: {{ .Release.Name }}-egress-dns
   namespace: {{ .Release.Namespace }}
+spec:
+  endpointSelector: {}
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: kube-system
+        k8s:k8s-app: kube-dns
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: UDP
+      - port: "53"
+        protocol: TCP
+      rules:
+        dns:
+        - matchPattern: '*'
+---
+# Allow every pod in the operator namespace to reach external registries / license servers.
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: {{ .Release.Name }}-egress-world
+  namespace: {{ .Release.Namespace }}
+spec:
+  endpointSelector: {}
+  egress:
+  - toEntities:
+    - world
+    toPorts:
+    - ports:
+      - port: "443"
+        protocol: TCP
+---
+# Allow the operator pods to reach the database pods (any kubedb-managed
+# namespace, on the standard DB ports).
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: {{ .Release.Name }}-egress-to-databases
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/instance: {{ .Release.Name }}-provisioner
+      k8s:io.kubernetes.pod.namespace: {{ .Release.Namespace }}
   egress:
   - toEndpoints:
     - matchLabels:
@@ -34,20 +72,28 @@ spec:
         app.kubernetes.io/managed-by: kubedb.com
     toPorts:
     - ports:
+      # PostgreSQL
       - port: "5432"
         protocol: TCP
+      # MongoDB
       - port: "27017"
         protocol: TCP
+      # MySQL / MariaDB
       - port: "3306"
         protocol: TCP
+      # Redis
       - port: "6379"
         protocol: TCP
+      # Elasticsearch / OpenSearch
       - port: "9200"
         protocol: TCP
+      # Kafka
       - port: "9092"
         protocol: TCP
+      # ClickHouse
       - port: "9000"
         protocol: TCP
+      # Cassandra
       - port: "9042"
         protocol: TCP
 {{- end }}
