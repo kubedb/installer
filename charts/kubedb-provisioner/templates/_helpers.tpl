@@ -147,10 +147,12 @@ Returns the ServiceMonitor labels
 {{- end }}
 
 {{/*
-Returns whether the NetworkPolicy should be enabled
+Returns whether the NetworkPolicy should be enabled.
+Local networkPolicy.enabled wins; falls back to global.networkPolicy.enabled.
 */}}
 {{- define "security.enableNetworkPolicy" -}}
-{{- ternary "true" "false" .Values.networkPolicy.enabled -}}
+{{- $local := .Values.networkPolicy.enabled -}}
+{{- ternary "true" "false" (dig "networkPolicy" "enabled" $local (default dict .Values.global)) -}}
 {{- end }}
 
 {{/*
@@ -160,15 +162,8 @@ default networking.k8s.io/v1 NetworkPolicy. The local chart's
 networkPolicy.flavor wins over the global value.
 */}}
 {{- define "security.networkPolicyFlavor" -}}
-{{- $globalFlavor := "" -}}
-{{- if and .Values.global .Values.global.networkPolicy -}}
-{{- $globalFlavor = .Values.global.networkPolicy.flavor -}}
-{{- end -}}
-{{- $localFlavor := "" -}}
-{{- if and .Values.networkPolicy .Values.networkPolicy.flavor -}}
-{{- $localFlavor = .Values.networkPolicy.flavor -}}
-{{- end -}}
-{{- default (default "kubernetes" $globalFlavor) $localFlavor -}}
+{{- $local := .Values.networkPolicy.flavor | default "kubernetes" -}}
+{{- dig "networkPolicy" "flavor" $local (default dict .Values.global) -}}
 {{- end }}
 
 {{/*

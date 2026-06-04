@@ -116,24 +116,19 @@ Returns the ServiceMonitor labels
 {{- end }}
 
 {{/*
-Returns whether the NetworkPolicy should be enabled
+Returns whether the NetworkPolicy should be enabled.
 */}}
 {{- define "security.enableNetworkPolicy" -}}
-{{- or .Values.global.networkPolicy.enabled (and .Values.networkPolicy .Values.networkPolicy.enabled) -}}
+{{- ternary "true" "false" (dig "networkPolicy" "enabled" false .Values.global) -}}
 {{- end }}
 
 {{/*
 Returns the configured NetworkPolicy flavor.
 "cilium" emits cilium.io/v2 CiliumNetworkPolicy; anything else emits the
 default networking.k8s.io/v1 NetworkPolicy.
-Local chart-scoped networkPolicy.flavor wins over the global value.
 */}}
 {{- define "security.networkPolicyFlavor" -}}
-{{- $local := "" -}}
-{{- if and .Values.networkPolicy .Values.networkPolicy.flavor -}}
-{{- $local = .Values.networkPolicy.flavor -}}
-{{- end -}}
-{{- default (default "kubernetes" .Values.global.networkPolicy.flavor) $local -}}
+{{- dig "networkPolicy" "flavor" "kubernetes" .Values.global -}}
 {{- end }}
 
 {{/*
