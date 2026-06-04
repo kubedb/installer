@@ -149,6 +149,10 @@ func (w *Weaviate) PetSetName() string {
 	return w.OffshootName()
 }
 
+func (q *Weaviate) PVCName(alias string) string {
+	return alias
+}
+
 func (w *Weaviate) GetAuthSecretName() string {
 	if w.Spec.AuthSecret != nil && w.Spec.AuthSecret.Name != "" {
 		return w.Spec.AuthSecret.Name

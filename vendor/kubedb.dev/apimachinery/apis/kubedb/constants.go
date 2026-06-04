@@ -1592,7 +1592,7 @@ const (
 	WeaviateClassNameKubeDBSystem = "KubeDBSystem"
 
 	WeaviateVolumeData    = "data"
-	WeaviateDataDir       = "/weaviate/storage"
+	WeaviateDataDir       = "/var/lib/weaviate"
 	WeaviateContainerName = "weaviate"
 	WeaviateAPIKey        = "AUTHENTICATION_APIKEY_ALLOWED_KEYS"
 	WeaviateAPIKeyEnabled = "AUTHENTICATION_APIKEY_ENABLED"
