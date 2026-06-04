@@ -807,6 +807,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.RedisSpec":                                     schema_apimachinery_apis_kubedb_v1alpha2_RedisSpec(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.RedisStatus":                                   schema_apimachinery_apis_kubedb_v1alpha2_RedisStatus(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.RemoteReplicaSpec":                             schema_apimachinery_apis_kubedb_v1alpha2_RemoteReplicaSpec(ref),
+		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ReplicationConfig":                             schema_apimachinery_apis_kubedb_v1alpha2_ReplicationConfig(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ScriptSourceSpec":                              schema_apimachinery_apis_kubedb_v1alpha2_ScriptSourceSpec(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.SecretReference":                               schema_apimachinery_apis_kubedb_v1alpha2_SecretReference(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.SemiSyncSpec":                                  schema_apimachinery_apis_kubedb_v1alpha2_SemiSyncSpec(ref),
@@ -46016,6 +46017,26 @@ func schema_apimachinery_apis_kubedb_v1alpha2_RemoteReplicaSpec(ref common.Refer
 	}
 }
 
+func schema_apimachinery_apis_kubedb_v1alpha2_ReplicationConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "ReplicationConfig defines replication settings for Weaviate.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"factor": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Factor is the number of replicas for each data object. Set to 1 for no replication (default), 2-3 for production HA.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
 func schema_apimachinery_apis_kubedb_v1alpha2_ScriptSourceSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -47479,6 +47500,12 @@ func schema_apimachinery_apis_kubedb_v1alpha2_WeaviateSpec(ref common.ReferenceC
 							Format:      "int32",
 						},
 					},
+					"replication": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Replication configuration for the Weaviate cluster. This controls the data replication factor per collection.",
+							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ReplicationConfig"),
+						},
+					},
 					"storageType": {
 						SchemaProps: spec.SchemaProps{
 							Description: "StorageType can be durable (default) or ephemeral",
@@ -47557,7 +47584,7 @@ func schema_apimachinery_apis_kubedb_v1alpha2_WeaviateSpec(ref common.ReferenceC
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PersistentVolumeClaimSpec", "kmodules.xyz/client-go/api/v1.HealthCheckSpec", "kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.InitSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.NamedServiceTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.SecretReference", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.WeaviateConfiguration"},
+			"k8s.io/api/core/v1.PersistentVolumeClaimSpec", "kmodules.xyz/client-go/api/v1.HealthCheckSpec", "kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.InitSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.NamedServiceTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ReplicationConfig", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.SecretReference", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.WeaviateConfiguration"},
 	}
 }
 
