@@ -343,6 +343,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-z
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-zookeeper-3.9.1.tar $IMAGE_REGISTRY/appscode-images/zookeeper:3.9.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-kubectl-nonroot-1.34.tar $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.34
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.0.16.tar $IMAGE_REGISTRY/appscode/petset:v0.0.16
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.1.0.tar $IMAGE_REGISTRY/appscode/petset:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.14.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.14
 $CMD push --allow-nondistributable-artifacts --insecure images/documentdb-documentdb-documentdb-local-pg17-0.109.0.tar $IMAGE_REGISTRY/documentdb/documentdb/documentdb-local:pg17-0.109.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-4.1.6-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
@@ -451,7 +452,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-3.0.1-debian.tar $IMAGE_REGISTRY/kubedb/proxysql:3.0.1-debian
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-rabbitmq-init-v2026.1.19.tar $IMAGE_REGISTRY/kubedb/rabbitmq-init:v2026.1.19
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-coordinator-v0.44.0-rc.0.tar $IMAGE_REGISTRY/kubedb/redis-coordinator:v0.44.0-rc.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-init-0.12.1.tar $IMAGE_REGISTRY/kubedb/redis-init:0.12.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-init-0.12.2.tar $IMAGE_REGISTRY/kubedb/redis-init:0.12.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-restic-plugin-v0.28.0-rc.0.tar $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.28.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-4.0.11.tar $IMAGE_REGISTRY/kubedb/redis:4.0.11
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis_exporter-1.66.0.tar $IMAGE_REGISTRY/kubedb/redis_exporter:1.66.0
