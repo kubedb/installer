@@ -102,10 +102,6 @@ k3s ctr images import images/appscode-images-elastic-9.0.8.tar
 k3s ctr images import images/appscode-images-elastic-9.1.4.tar
 k3s ctr images import images/appscode-images-elastic-9.1.9.tar
 k3s ctr images import images/appscode-images-elastic-9.2.3.tar
-k3s ctr images import images/appscode-images-ferretdb-1.18.0.tar
-k3s ctr images import images/appscode-images-ferretdb-1.23.0.tar
-k3s ctr images import images/appscode-images-ferretdb-1.24.0.tar
-k3s ctr images import images/appscode-images-ferretdb-2.0.0.tar
 k3s ctr images import images/appscode-images-ignite-2.17.0.tar
 k3s ctr images import images/appscode-images-kafka-connect-cluster-3.5.2.tar
 k3s ctr images import images/appscode-images-kafka-connect-cluster-3.6.1.tar

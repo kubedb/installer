@@ -85,7 +85,6 @@ var appToKind = map[string]string{
 	"elasticsearch":      "Elasticsearch",
 	"opensearch":         "Elasticsearch",
 	"etcd":               "Etcd",
-	"ferretdb":           "FerretDB",
 	"kafka":              "Kafka",
 	"mariadb":            "MariaDB",
 	"memcached":          "Memcached",
