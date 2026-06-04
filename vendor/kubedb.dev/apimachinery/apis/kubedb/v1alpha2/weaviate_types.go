@@ -148,3 +148,21 @@ type WeaviateConfiguration struct {
 	// +optional
 	BackupConfigSecret *core.LocalObjectReference `json:"backupConfigSecret,omitempty"`
 }
+
+var _ Accessor = &Weaviate{}
+
+func (w *Weaviate) GetObjectMeta() metav1.ObjectMeta {
+	return w.ObjectMeta
+}
+
+func (w *Weaviate) GetConditions() []kmapi.Condition {
+	return w.Status.Conditions
+}
+
+func (w *Weaviate) SetCondition(cond kmapi.Condition) {
+	w.Status.Conditions = setCondition(w.Status.Conditions, cond)
+}
+
+func (w *Weaviate) RemoveCondition(typ string) {
+	w.Status.Conditions = removeCondition(w.Status.Conditions, typ)
+}
