@@ -28,6 +28,7 @@ import (
 var ignoreMissingList = []string{
 	"container-registry.oracle.com/database/enterprise:21.3.0.0",
 	"container-registry.oracle.com/database/observability-exporter:2.2.1",
+	"ghcr.io/kubedb/db2-coordinator:*-ubi",
 }
 
 var archSkipList = []string{

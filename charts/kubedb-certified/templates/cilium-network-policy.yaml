@@ -1,5 +1,7 @@
 {{- if eq "true" ( include "security.useCiliumNetworkPolicy" . ) }}
 # Allow every pod in the operator namespace to reach the Kubernetes API server.
+# Required when the operator runs with >1 replica (leader election against
+# kube-apiserver) or when DBs are reconciled across namespaces.
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:

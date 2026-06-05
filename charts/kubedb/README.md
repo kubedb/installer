@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb --version=v2026.5.18-rc.0
-$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2026.5.18-rc.0
+$ helm search repo appscode/kubedb --version=v2026.6.5-rc.1
+$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2026.6.5-rc.1
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeDB operator on a [Kubernetes](http://kubernetes.io) clu
 To install/upgrade the chart with the release name `kubedb`:
 
 ```bash
-$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2026.5.18-rc.0
+$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2026.6.5-rc.1
 ```
 
 The command deploys a KubeDB operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -93,8 +93,8 @@ The following table lists the configurable parameters of the `kubedb` chart and 
 | global.tolerations                                    | Tolerations for pod assignment                                                                                                                                                                                                                                                                                                                                        | <code>[]</code>                                                                                                                                                                                |
 | global.affinity                                       | Affinity rules for pod assignment                                                                                                                                                                                                                                                                                                                                     | <code>{}</code>                                                                                                                                                                                |
 | global.waitForWebhook                                 |                                                                                                                                                                                                                                                                                                                                                                       | <code>true</code>                                                                                                                                                                              |
-| global.networkPolicy.enabled                          |                                                                                                                                                                                                                                                                                                                                                                       | <code>true</code>                                                                                                                                                                              |
-| global.networkPolicy.flavor                           | flavor selects which network policy API is used. Accepted values: "kubernetes" (default) or "cilium".                                                                                                                                                                                                                                                                 | <code>cilium</code>                                                                                                                                                                            |
+| global.networkPolicy.enabled                          |                                                                                                                                                                                                                                                                                                                                                                       | <code>false</code>                                                                                                                                                                             |
+| global.networkPolicy.flavor                           | flavor selects which network policy API is used. Accepted values: "kubernetes" (default) or "cilium".                                                                                                                                                                                                                                                                 | <code>kubernetes</code>                                                                                                                                                                        |
 | global.distro.openshift                               |                                                                                                                                                                                                                                                                                                                                                                       | <code>false</code>                                                                                                                                                                             |
 | global.distro.ubi                                     |                                                                                                                                                                                                                                                                                                                                                                       | <code>""</code>                                                                                                                                                                                |
 | petset.enabled                                        | If enabled, installs the petset chart                                                                                                                                                                                                                                                                                                                                 | <code>true</code>                                                                                                                                                                              |
@@ -145,12 +145,12 @@ The following table lists the configurable parameters of the `kubedb` chart and 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2026.5.18-rc.0 --set global.registry=kubedb
+$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2026.6.5-rc.1 --set global.registry=kubedb
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2026.5.18-rc.0 --values values.yaml
+$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2026.6.5-rc.1 --values values.yaml
 ```

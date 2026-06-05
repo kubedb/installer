@@ -2206,6 +2206,7 @@ func (in *KubedbProvisionerSpec) DeepCopyInto(out *KubedbProvisionerSpec) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	out.NetworkPolicy = in.NetworkPolicy
 	out.Distro = in.Distro
 	return
 }
