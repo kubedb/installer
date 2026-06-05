@@ -379,7 +379,6 @@ k3s ctr images import images/kubedb-mariadb-archiver-v0.25.0-rc.1_11.2.2-jammy.t
 k3s ctr images import images/kubedb-mariadb-coordinator-v0.45.0-rc.1.tar
 k3s ctr images import images/kubedb-mariadb-csi-snapshotter-plugin-v0.25.0-rc.1.tar
 k3s ctr images import images/kubedb-mariadb-init-0.9.0.tar
-k3s ctr images import images/kubedb-migrator-cli-v0.5.0-rc.1.tar
 k3s ctr images import images/kubedb-migrator-operator-v0.5.0-rc.1.tar
 k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.26.0-rc.1.tar
 k3s ctr images import images/kubedb-mongodb-init-4.2-v9.tar
@@ -431,6 +430,7 @@ k3s ctr images import images/kubedb-postgres-archiver-v0.26.0-rc.1_18.2-bookworm
 k3s ctr images import images/kubedb-postgres-csi-snapshotter-plugin-v0.26.0-rc.1.tar
 k3s ctr images import images/kubedb-postgres-init-0.19.0.tar
 k3s ctr images import images/kubedb-postgres-restic-plugin-v0.28.0-rc.1_16.1.tar
+k3s ctr images import images/kubedb-postgresql-migrator-cli-v0.5.0-rc.1.tar
 k3s ctr images import images/kubedb-provider-aws-v0.26.0-rc.1.tar
 k3s ctr images import images/kubedb-provider-azure-v0.26.0-rc.1.tar
 k3s ctr images import images/kubedb-provider-gcp-v0.26.0-rc.1.tar

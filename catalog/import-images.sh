@@ -381,7 +381,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-ar
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-coordinator-v0.45.0-rc.1.tar $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.45.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-csi-snapshotter-plugin-v0.25.0-rc.1.tar $IMAGE_REGISTRY/kubedb/mariadb-csi-snapshotter-plugin:v0.25.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-init-0.9.0.tar $IMAGE_REGISTRY/kubedb/mariadb-init:0.9.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-migrator-cli-v0.5.0-rc.1.tar $IMAGE_REGISTRY/kubedb/migrator-cli:v0.5.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-migrator-operator-v0.5.0-rc.1.tar $IMAGE_REGISTRY/kubedb/migrator-operator:v0.5.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-csi-snapshotter-plugin-v0.26.0-rc.1.tar $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.26.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-4.2-v9.tar $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
@@ -433,6 +432,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-a
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-csi-snapshotter-plugin-v0.26.0-rc.1.tar $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.26.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-init-0.19.0.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.19.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.28.0-rc.1_16.1.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.28.0-rc.1_16.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgresql-migrator-cli-v0.5.0-rc.1.tar $IMAGE_REGISTRY/kubedb/postgresql-migrator-cli:v0.5.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-aws-v0.26.0-rc.1.tar $IMAGE_REGISTRY/kubedb/provider-aws:v0.26.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-azure-v0.26.0-rc.1.tar $IMAGE_REGISTRY/kubedb/provider-azure:v0.26.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-gcp-v0.26.0-rc.1.tar $IMAGE_REGISTRY/kubedb/provider-gcp:v0.26.0-rc.1

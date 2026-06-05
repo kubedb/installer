@@ -387,7 +387,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-a
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-coordinator:v0.45.0-rc.1 images/kubedb-mariadb-coordinator-v0.45.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-csi-snapshotter-plugin:v0.25.0-rc.1 images/kubedb-mariadb-csi-snapshotter-plugin-v0.25.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-init:0.9.0 images/kubedb-mariadb-init-0.9.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/migrator-cli:v0.5.0-rc.1 images/kubedb-migrator-cli-v0.5.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/migrator-operator:v0.5.0-rc.1 images/kubedb-migrator-operator-v0.5.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.26.0-rc.1 images/kubedb-mongodb-csi-snapshotter-plugin-v0.26.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 images/kubedb-mongodb-init-4.2-v9.tar
@@ -439,6 +438,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.26.0-rc.1 images/kubedb-postgres-csi-snapshotter-plugin-v0.26.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.19.0 images/kubedb-postgres-init-0.19.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.28.0-rc.1_16.1 images/kubedb-postgres-restic-plugin-v0.28.0-rc.1_16.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgresql-migrator-cli:v0.5.0-rc.1 images/kubedb-postgresql-migrator-cli-v0.5.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-aws:v0.26.0-rc.1 images/kubedb-provider-aws-v0.26.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-azure:v0.26.0-rc.1 images/kubedb-provider-azure-v0.26.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-gcp:v0.26.0-rc.1 images/kubedb-provider-gcp-v0.26.0-rc.1.tar
