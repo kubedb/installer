@@ -264,3 +264,7 @@ func (w *Weaviate) ConfigSecretName() string {
 	uid := string(w.UID)
 	return meta_util.NameWithSuffix(w.OffshootName(), uid[len(uid)-6:])
 }
+
+func (w *Weaviate) GetStorageClassName() string {
+	return *w.Spec.Storage.StorageClassName
+}

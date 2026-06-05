@@ -110,10 +110,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.1.4 images/appscode-images-elastic-9.1.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.1.9 images/appscode-images-elastic-9.1.9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.2.3 images/appscode-images-elastic-9.2.3.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.18.0 images/appscode-images-ferretdb-1.18.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.23.0 images/appscode-images-ferretdb-1.23.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.24.0 images/appscode-images-ferretdb-1.24.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:2.0.0 images/appscode-images-ferretdb-2.0.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ignite:2.17.0 images/appscode-images-ignite-2.17.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.5.2 images/appscode-images-kafka-connect-cluster-3.5.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.6.1 images/appscode-images-kafka-connect-cluster-3.6.1.tar

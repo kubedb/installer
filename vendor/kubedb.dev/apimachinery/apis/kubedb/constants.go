@@ -1717,50 +1717,6 @@ const (
 	EnvReadReplica                         = "READ_REPLICA"
 )
 
-// =========================== FerretDB Constants ============================
-const (
-
-	// envs
-	EnvFerretDBUser      = "FERRETDB_PG_USER"
-	EnvFerretDBPassword  = "FERRETDB_PG_PASSWORD"
-	EnvFerretDBHandler   = "FERRETDB_HANDLER"
-	EnvFerretDBPgURL     = "FERRETDB_POSTGRESQL_URL"
-	EnvFerretDBTLSPort   = "FERRETDB_LISTEN_TLS"
-	EnvFerretDBCAPath    = "FERRETDB_LISTEN_TLS_CA_FILE"
-	EnvFerretDBCertPath  = "FERRETDB_LISTEN_TLS_CERT_FILE"
-	EnvFerretDBKeyPath   = "FERRETDB_LISTEN_TLS_KEY_FILE"
-	EnvFerretDBDebugAddr = "FERRETDB_DEBUG_ADDR"
-
-	FerretDBDatabasePortName       = "db"
-	FerretDBPrimaryServicePortName = "primary"
-
-	FerretDBContainerName = "ferretdb"
-	FerretDBMainImage     = "ghcr.io/ferretdb/ferretdb"
-	FerretDBUser          = "postgres"
-	FerretDBLinkedDBName  = "ferretdb"
-
-	FerretDBServerPath = "/etc/certs/server"
-
-	FerretDBExternalClientPath = "/etc/certs/ext"
-
-	FerretDBDefaultPort = 27017
-	FerretDBMetricsPort = 56790
-	FerretDBTLSPort     = 27018
-
-	FerretDBMetricsPath     = "/debug/metrics"
-	FerretDBMetricsPortName = "metrics"
-
-	FerretDBServerTypePrimary   = "primary"
-	FerretDBServerTypeSecondary = "secondary"
-
-	FerretDBPrimaryLabelKey   = "ferretdb.kubedb.com/server.primary"
-	FerretDBSecondaryLabelKey = "ferretdb.kubedb.com/server.secondary"
-
-	FerretDBBackendInitShellFile = "data.sh"
-	FerretDBBackendInitSqlFile   = "data.sql"
-	FerretDBBackendConfigFile    = "user.conf"
-)
-
 // =========================== Ignite Constants ============================
 const (
 	IgniteCustomConfigVolName  = "custom-config"
