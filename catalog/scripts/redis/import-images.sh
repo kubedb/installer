@@ -46,6 +46,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-v
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-valkey-8.1.1.tar $IMAGE_REGISTRY/appscode-images/valkey:8.1.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-coordinator-v0.44.0-rc.0.tar $IMAGE_REGISTRY/kubedb/redis-coordinator:v0.44.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-init-0.12.1.tar $IMAGE_REGISTRY/kubedb/redis-init:0.12.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-init-0.12.2.tar $IMAGE_REGISTRY/kubedb/redis-init:0.12.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-4.0.11.tar $IMAGE_REGISTRY/kubedb/redis:4.0.11
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis_exporter-1.66.0.tar $IMAGE_REGISTRY/kubedb/redis_exporter:1.66.0
 $CMD push --allow-nondistributable-artifacts --insecure images/git-sync-git-sync-v4.4.2.tar $IMAGE_REGISTRY/git-sync/git-sync:v4.4.2
