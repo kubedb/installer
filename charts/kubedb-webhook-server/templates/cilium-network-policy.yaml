@@ -1,0 +1,22 @@
+{{- if eq "true" ( include "security.useCiliumNetworkPolicy" . ) }}
+# Allow the kube-apiserver (via host / remote-node identities in Cilium) to
+# reach the webhook server's mutating, validating, and conversion endpoints.
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: {{ include "kubedb-webhook-server.fullname" . }}-ingress-from-apiserver
+  namespace: {{ .Release.Namespace }}
+spec:
+  endpointSelector:
+    matchLabels:
+      {{- include "kubedb-webhook-server.selectorLabels" . | nindent 6 }}
+  ingress:
+  - fromEntities:
+    - kube-apiserver
+    toPorts:
+    - ports:
+      - port: "8443"
+        protocol: TCP
+      - port: "9443"
+        protocol: TCP
+{{- end }}

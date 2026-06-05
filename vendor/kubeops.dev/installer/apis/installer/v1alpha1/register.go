@@ -66,6 +66,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&FalcoUiServerList{},
 		&Fargocd{},
 		&FargocdList{},
+		&FargocdManager{},
+		&FargocdManagerList{},
 		&GatekeeperGrafanaDashboards{},
 		&GatekeeperGrafanaDashboardsList{},
 		&KubeUiServer{},

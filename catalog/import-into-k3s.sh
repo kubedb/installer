@@ -102,10 +102,6 @@ k3s ctr images import images/appscode-images-elastic-9.0.8.tar
 k3s ctr images import images/appscode-images-elastic-9.1.4.tar
 k3s ctr images import images/appscode-images-elastic-9.1.9.tar
 k3s ctr images import images/appscode-images-elastic-9.2.3.tar
-k3s ctr images import images/appscode-images-ferretdb-1.18.0.tar
-k3s ctr images import images/appscode-images-ferretdb-1.23.0.tar
-k3s ctr images import images/appscode-images-ferretdb-1.24.0.tar
-k3s ctr images import images/appscode-images-ferretdb-2.0.0.tar
 k3s ctr images import images/appscode-images-ignite-2.17.0.tar
 k3s ctr images import images/appscode-images-kafka-connect-cluster-3.5.2.tar
 k3s ctr images import images/appscode-images-kafka-connect-cluster-3.6.1.tar
@@ -450,7 +446,6 @@ k3s ctr images import images/kubedb-proxysql-2.7.3-debian.tar
 k3s ctr images import images/kubedb-proxysql-3.0.1-debian.tar
 k3s ctr images import images/kubedb-rabbitmq-init-v2026.1.19.tar
 k3s ctr images import images/kubedb-redis-coordinator-v0.44.0-rc.0.tar
-k3s ctr images import images/kubedb-redis-init-0.12.1.tar
 k3s ctr images import images/kubedb-redis-init-0.12.2.tar
 k3s ctr images import images/kubedb-redis-restic-plugin-v0.28.0-rc.0.tar
 k3s ctr images import images/kubedb-redis-4.0.11.tar
