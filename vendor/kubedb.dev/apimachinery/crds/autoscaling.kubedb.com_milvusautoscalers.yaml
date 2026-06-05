@@ -4,7 +4,7 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/name: kubedb
-  name: ferretdbautoscalers.autoscaling.kubedb.com
+  name: milvusautoscalers.autoscaling.kubedb.com
 spec:
   group: autoscaling.kubedb.com
   names:
@@ -12,12 +12,12 @@ spec:
     - autoscaler
     - kubedb
     - appscode
-    kind: FerretDBAutoscaler
-    listKind: FerretDBAutoscalerList
-    plural: ferretdbautoscalers
+    kind: MilvusAutoscaler
+    listKind: MilvusAutoscalerList
+    plural: milvusautoscalers
     shortNames:
-    - frscaler
-    singular: ferretdbautoscaler
+    - mvscaler
+    singular: milvusautoscaler
   scope: Namespaced
   versions:
   - name: v1alpha1
@@ -34,20 +34,7 @@ spec:
             properties:
               compute:
                 properties:
-                  nodeTopology:
-                    properties:
-                      name:
-                        type: string
-                      scaleDownDiffPercentage:
-                        default: 25
-                        format: int32
-                        type: integer
-                      scaleUpDiffPercentage:
-                        default: 15
-                        format: int32
-                        type: integer
-                    type: object
-                  primary:
+                  datanode:
                     properties:
                       containerControlledValues:
                         enum:
@@ -91,7 +78,196 @@ spec:
                       trigger:
                         type: string
                     type: object
-                  secondary:
+                  mixcoord:
+                    properties:
+                      containerControlledValues:
+                        enum:
+                        - RequestsAndLimits
+                        - RequestsOnly
+                        type: string
+                      controlledResources:
+                        items:
+                          type: string
+                        type: array
+                      inMemoryStorage:
+                        properties:
+                          scalingFactorPercentage:
+                            format: int32
+                            type: integer
+                          usageThresholdPercentage:
+                            format: int32
+                            type: integer
+                        type: object
+                      maxAllowed:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                          x-kubernetes-int-or-string: true
+                        type: object
+                      minAllowed:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                          x-kubernetes-int-or-string: true
+                        type: object
+                      podLifeTimeThreshold:
+                        type: string
+                      resourceDiffPercentage:
+                        format: int32
+                        type: integer
+                      trigger:
+                        type: string
+                    type: object
+                  node:
+                    properties:
+                      containerControlledValues:
+                        enum:
+                        - RequestsAndLimits
+                        - RequestsOnly
+                        type: string
+                      controlledResources:
+                        items:
+                          type: string
+                        type: array
+                      inMemoryStorage:
+                        properties:
+                          scalingFactorPercentage:
+                            format: int32
+                            type: integer
+                          usageThresholdPercentage:
+                            format: int32
+                            type: integer
+                        type: object
+                      maxAllowed:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                          x-kubernetes-int-or-string: true
+                        type: object
+                      minAllowed:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                          x-kubernetes-int-or-string: true
+                        type: object
+                      podLifeTimeThreshold:
+                        type: string
+                      resourceDiffPercentage:
+                        format: int32
+                        type: integer
+                      trigger:
+                        type: string
+                    type: object
+                  nodeTopology:
+                    properties:
+                      name:
+                        type: string
+                      scaleDownDiffPercentage:
+                        default: 25
+                        format: int32
+                        type: integer
+                      scaleUpDiffPercentage:
+                        default: 15
+                        format: int32
+                        type: integer
+                    type: object
+                  proxy:
+                    properties:
+                      containerControlledValues:
+                        enum:
+                        - RequestsAndLimits
+                        - RequestsOnly
+                        type: string
+                      controlledResources:
+                        items:
+                          type: string
+                        type: array
+                      inMemoryStorage:
+                        properties:
+                          scalingFactorPercentage:
+                            format: int32
+                            type: integer
+                          usageThresholdPercentage:
+                            format: int32
+                            type: integer
+                        type: object
+                      maxAllowed:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                          x-kubernetes-int-or-string: true
+                        type: object
+                      minAllowed:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                          x-kubernetes-int-or-string: true
+                        type: object
+                      podLifeTimeThreshold:
+                        type: string
+                      resourceDiffPercentage:
+                        format: int32
+                        type: integer
+                      trigger:
+                        type: string
+                    type: object
+                  querynode:
+                    properties:
+                      containerControlledValues:
+                        enum:
+                        - RequestsAndLimits
+                        - RequestsOnly
+                        type: string
+                      controlledResources:
+                        items:
+                          type: string
+                        type: array
+                      inMemoryStorage:
+                        properties:
+                          scalingFactorPercentage:
+                            format: int32
+                            type: integer
+                          usageThresholdPercentage:
+                            format: int32
+                            type: integer
+                        type: object
+                      maxAllowed:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                          x-kubernetes-int-or-string: true
+                        type: object
+                      minAllowed:
+                        additionalProperties:
+                          anyOf:
+                          - type: integer
+                          - type: string
+                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                          x-kubernetes-int-or-string: true
+                        type: object
+                      podLifeTimeThreshold:
+                        type: string
+                      resourceDiffPercentage:
+                        format: int32
+                        type: integer
+                      trigger:
+                        type: string
+                    type: object
+                  streamingnode:
                     properties:
                       containerControlledValues:
                         enum:
@@ -151,16 +327,48 @@ spec:
                     - IfReady
                     - Always
                     type: string
-                  maxRetries:
-                    default: 1
-                    format: int32
-                    type: integer
                   timeout:
                     type: string
                 type: object
               storage:
                 properties:
-                  ferretdb:
+                  node:
+                    properties:
+                      expansionMode:
+                        enum:
+                        - Offline
+                        - Online
+                        type: string
+                      scalingRules:
+                        items:
+                          properties:
+                            appliesUpto:
+                              type: string
+                            threshold:
+                              type: string
+                          required:
+                          - appliesUpto
+                          - threshold
+                          type: object
+                        type: array
+                      scalingThreshold:
+                        format: int32
+                        type: integer
+                      trigger:
+                        type: string
+                      upperBound:
+                        anyOf:
+                        - type: integer
+                        - type: string
+                        pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                        x-kubernetes-int-or-string: true
+                      usageThreshold:
+                        format: int32
+                        type: integer
+                    required:
+                    - expansionMode
+                    type: object
+                  streamingnode:
                     properties:
                       expansionMode:
                         enum:

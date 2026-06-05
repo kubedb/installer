@@ -113,10 +113,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/el
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.1.4 $IMAGE_REGISTRY/appscode-images/elastic:9.1.4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.1.9 $IMAGE_REGISTRY/appscode-images/elastic:9.1.9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.2.3 $IMAGE_REGISTRY/appscode-images/elastic:9.2.3
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.18.0 $IMAGE_REGISTRY/appscode-images/ferretdb:1.18.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.23.0 $IMAGE_REGISTRY/appscode-images/ferretdb:1.23.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:1.24.0 $IMAGE_REGISTRY/appscode-images/ferretdb:1.24.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ferretdb:2.0.0 $IMAGE_REGISTRY/appscode-images/ferretdb:2.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ignite:2.17.0 $IMAGE_REGISTRY/appscode-images/ignite:2.17.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.5.2 $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.5.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.6.1 $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.6.1
@@ -352,6 +348,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zo
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.9.1 $IMAGE_REGISTRY/appscode-images/zookeeper:3.9.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.34 $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.34
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.0.16 $IMAGE_REGISTRY/appscode/petset:v0.0.16
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.1.0 $IMAGE_REGISTRY/appscode/petset:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.14 $IMAGE_REGISTRY/appscode/sidekick:v0.0.14
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/documentdb/documentdb/documentdb-local:pg17-0.109.0 $IMAGE_REGISTRY/documentdb/documentdb/documentdb-local:pg17-0.109.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6-v2 $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
@@ -460,7 +457,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:3.0.1-debian $IMAGE_REGISTRY/kubedb/proxysql:3.0.1-debian
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:v2026.1.19 $IMAGE_REGISTRY/kubedb/rabbitmq-init:v2026.1.19
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-coordinator:v0.44.0-rc.0 $IMAGE_REGISTRY/kubedb/redis-coordinator:v0.44.0-rc.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.12.1 $IMAGE_REGISTRY/kubedb/redis-init:0.12.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.12.2 $IMAGE_REGISTRY/kubedb/redis-init:0.12.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.28.0-rc.0 $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.28.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4.0.11 $IMAGE_REGISTRY/kubedb/redis:4.0.11
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis_exporter:1.66.0 $IMAGE_REGISTRY/kubedb/redis_exporter:1.66.0

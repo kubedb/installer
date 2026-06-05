@@ -15,11 +15,11 @@ require (
 	k8s.io/apimachinery v0.34.3
 	kmodules.xyz/client-go v0.34.3
 	kmodules.xyz/go-containerregistry v0.0.15
-	kmodules.xyz/image-packer v0.0.0-20260417111715-79b725e3dbf6
-	kmodules.xyz/resource-metadata v0.43.0
+	kmodules.xyz/image-packer v0.0.0-20260603060232-aba754904b6a
+	kmodules.xyz/resource-metadata v0.46.1
 	kmodules.xyz/schema-checker v0.4.2
-	kubedb.dev/apimachinery v0.65.0-rc.0
-	kubeops.dev/installer v0.0.0-20260409180749-66bc29c4e4c9
+	kubedb.dev/apimachinery v0.65.0-rc.0.0.20260604181114-007ef3ea6adf
+	kubeops.dev/installer v0.0.0-20260604074414-f8eed8b7cc8b
 	sigs.k8s.io/yaml v1.6.0
 	stash.appscode.dev/installer v0.12.2-0.20260224175756-ac464b38bf6c
 )
@@ -70,7 +70,7 @@ require (
 	github.com/huandu/xstrings v1.5.0 // indirect
 	github.com/imdario/mergo v0.3.16 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/klauspost/compress v1.18.2 // indirect
+	github.com/klauspost/compress v1.18.5 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.5 // indirect
 	github.com/mattn/go-runewidth v0.0.13 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
@@ -102,13 +102,13 @@ require (
 	go.virtual-secrets.dev/apimachinery v0.0.1 // indirect
 	go.yaml.in/yaml/v2 v2.4.3 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
-	golang.org/x/crypto v0.50.0 // indirect
-	golang.org/x/net v0.53.0 // indirect
+	golang.org/x/crypto v0.52.0 // indirect
+	golang.org/x/net v0.55.0 // indirect
 	golang.org/x/oauth2 v0.34.0 // indirect
 	golang.org/x/sync v0.20.0 // indirect
-	golang.org/x/sys v0.43.0 // indirect
-	golang.org/x/term v0.42.0 // indirect
-	golang.org/x/text v0.36.0 // indirect
+	golang.org/x/sys v0.45.0 // indirect
+	golang.org/x/term v0.43.0 // indirect
+	golang.org/x/text v0.37.0 // indirect
 	golang.org/x/time v0.14.0 // indirect
 	gomodules.xyz/encoding v0.0.8 // indirect
 	gomodules.xyz/jsonpatch/v2 v2.5.0 // indirect

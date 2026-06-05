@@ -93,24 +93,6 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
-{{- if $featureGates.FerretDB }}
-- name: ferretdbautoscalerwebhook.validators.autoscaling.kubedb.com
-  clientConfig:
-    service:
-      namespace: {{ .Release.Namespace }}
-      name: {{ include "kubedb-webhook-server.fullname" . }}
-      path: /validate-autoscaling-kubedb-com-v1alpha1-ferretdbautoscaler
-      port: 443
-{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
-  rules:
-    - apiGroups: ["autoscaling.kubedb.com"]
-      apiVersions: ["*"]
-      resources: ["ferretdbautoscalers"]
-      operations: ["CREATE", "UPDATE", "DELETE"]
-  admissionReviewVersions: ["v1beta1"]
-  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
-  sideEffects: None
-{{- end }}
 {{- if $featureGates.Hazelcast}}
 - name: hazelcastautoscalerwebhook.validators.autoscaling.kubedb.com
   clientConfig:
@@ -124,6 +106,25 @@ webhooks:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
       resources: ["hazelcastautoscalers"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+
+{{- if $featureGates.Ignite }}
+- name: igniteautoscalerwebhook.validators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-autoscaling-kubedb-com-v1alpha1-igniteautoscaler
+      port: 443
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["igniteautoscalers"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -322,6 +323,24 @@ webhooks:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
       resources: ["proxysqlautoscalers"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.Qdrant }}
+- name: qdrantautoscalerwebhook.validators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-autoscaling-kubedb-com-v1alpha1-qdrantautoscaler
+      port: 443
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["qdrantautoscalers"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
