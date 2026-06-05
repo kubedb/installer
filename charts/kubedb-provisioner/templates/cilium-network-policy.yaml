@@ -1,0 +1,110 @@
+{{- if eq "true" ( include "security.useCiliumNetworkPolicy" . ) }}
+# Allow provisioner pods to reach external registries.
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: {{ .Release.Name }}-egress-world
+  namespace: {{ .Release.Namespace }}
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: kubedb-provisioner
+  egress:
+  - toEntities:
+    - world
+    toPorts:
+    - ports:
+      - port: "443"
+        protocol: TCP
+---
+# Allow the provisioner pods to reach database pods (any kubedb-managed
+# namespace, on the standard DB ports).
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: {{ .Release.Name }}-egress-to-databases
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: kubedb-provisioner
+      k8s:io.kubernetes.pod.namespace: {{ .Release.Namespace }}
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        app.kubernetes.io/component: database
+        app.kubernetes.io/managed-by: kubedb.com
+    toPorts:
+    - ports:
+      # Cassandra
+      - port: "9042"
+        protocol: TCP
+      # ClickHouse
+      - port: "9000"
+        protocol: TCP
+      # DB2
+      - port: "50000"
+        protocol: TCP
+      # Druid
+      - port: "8082"
+        protocol: TCP
+      # Elasticsearch / OpenSearch
+      - port: "9200"
+        protocol: TCP
+      # HanaDB
+      - port: "30013"
+        protocol: TCP
+      # Hazelcast
+      - port: "5701"
+        protocol: TCP
+      # Ignite
+      - port: "10800"
+        protocol: TCP
+      # Kafka
+      - port: "9092"
+        protocol: TCP
+      # MariaDB / MySQL / PerconaXtraDB / Singlestore
+      - port: "3306"
+        protocol: TCP
+      # Memcached
+      - port: "11211"
+        protocol: TCP
+      # Milvus
+      - port: "19530"
+        protocol: TCP
+      # MongoDB / DocumentDB / FerretDB
+      - port: "27017"
+        protocol: TCP
+      # MSSQLServer
+      - port: "1433"
+        protocol: TCP
+      # Neo4j
+      - port: "7687"
+        protocol: TCP
+      # Oracle
+      - port: "1521"
+        protocol: TCP
+      # PgBouncer / Pgpool / Postgres
+      - port: "5432"
+        protocol: TCP
+      # ProxySQL
+      - port: "6033"
+        protocol: TCP
+      # Qdrant
+      - port: "6333"
+        protocol: TCP
+      # RabbitMQ
+      - port: "5672"
+        protocol: TCP
+      # Redis
+      - port: "6379"
+        protocol: TCP
+      # Solr
+      - port: "8983"
+        protocol: TCP
+      # Weaviate
+      - port: "8080"
+        protocol: TCP
+      # ZooKeeper
+      - port: "2181"
+        protocol: TCP
+{{- end }}

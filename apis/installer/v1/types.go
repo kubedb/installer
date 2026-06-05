@@ -111,6 +111,19 @@ type PSPSpec struct {
 	Enabled bool `json:"enabled"`
 }
 
+// NetworkPolicyFlavor selects which API flavor is used when network policies
+// are emitted. Defaults to "kubernetes".
+// +kubebuilder:validation:Enum=kubernetes;cilium
+type NetworkPolicyFlavor string
+
+const (
+	NetworkPolicyFlavorKubernetes NetworkPolicyFlavor = "kubernetes"
+	NetworkPolicyFlavorCilium     NetworkPolicyFlavor = "cilium"
+)
+
 type NetworkPolicySpec struct {
 	Enabled bool `json:"enabled"`
+	// +optional
+	// +kubebuilder:default=kubernetes
+	Flavor NetworkPolicyFlavor `json:"flavor,omitempty"`
 }
