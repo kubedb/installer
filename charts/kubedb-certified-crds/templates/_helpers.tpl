@@ -179,6 +179,30 @@ Returns whether the NetworkPolicy should be enabled.
 {{- end }}
 
 {{/*
+Returns the configured NetworkPolicy flavor.
+"cilium" emits cilium.io/v2 CiliumNetworkPolicy; anything else emits the
+default networking.k8s.io/v1 NetworkPolicy.
+*/}}
+{{- define "security.networkPolicyFlavor" -}}
+{{- dig "networkPolicy" "flavor" "kubernetes" .Values.global -}}
+{{- end }}
+
+{{/*
+Returns "true" when CiliumNetworkPolicy resources should be emitted.
+*/}}
+{{- define "security.useCiliumNetworkPolicy" -}}
+{{- and (eq "true" (include "security.enableNetworkPolicy" .)) (eq "cilium" (include "security.networkPolicyFlavor" .)) | ternary "true" "false" -}}
+{{- end }}
+
+{{/*
+Returns "true" when the built-in networking.k8s.io/v1 NetworkPolicy resources
+should be emitted (the default flavor).
+*/}}
+{{- define "security.useKubernetesNetworkPolicy" -}}
+{{- and (eq "true" (include "security.enableNetworkPolicy" .)) (ne "cilium" (include "security.networkPolicyFlavor" .)) | ternary "true" "false" -}}
+{{- end }}
+
+{{/*
 Returns whether the OpenShift distribution is used
 */}}
 {{- define "distro.openshift" -}}
