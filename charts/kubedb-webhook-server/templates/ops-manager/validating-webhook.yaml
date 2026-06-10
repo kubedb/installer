@@ -466,6 +466,24 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
+{{- if $featureGates.Weaviate }}
+- name: weaviateopsrequestwebhook.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-ops-kubedb-com-v1alpha1-weaviateopsrequest
+      port: 443
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
+  rules:
+    - apiGroups: ["ops.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["weaviateopsrequests","weaviateopsrequests/status"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
 {{- if $featureGates.Singlestore }}
 - name: singlestoreopsrequestwebhook.validators.ops.kubedb.com
   clientConfig:
