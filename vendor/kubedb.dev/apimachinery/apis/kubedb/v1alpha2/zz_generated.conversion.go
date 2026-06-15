@@ -24,8 +24,6 @@ package v1alpha2
 import (
 	unsafe "unsafe"
 
-	v1 "kubedb.dev/apimachinery/apis/kubedb/v1"
-
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	conversion "k8s.io/apimachinery/pkg/conversion"
@@ -35,6 +33,7 @@ import (
 	monitoringagentapiapiv1 "kmodules.xyz/monitoring-agent-api/api/v1"
 	apiv1 "kmodules.xyz/offshoot-api/api/v1"
 	v2 "kmodules.xyz/offshoot-api/api/v2"
+	v1 "kubedb.dev/apimachinery/apis/kubedb/v1"
 )
 
 func init() {

@@ -1629,7 +1629,7 @@ const (
 	DocumentDBCoordinatorPortName       = "coordinator"
 	DocumentDBCoordinatorPort           = 2380
 	DocumentDBCoordinatorClientPortName = "coordinatclient"
-	DocumentDBCoordinatorClientPort     = 2389
+	DocumentDBCoordinatorClientPort     = 2379
 	DocumentDBGRPCServerPortName        = "grpcserver"
 	DocumentDBGRPCServerPort            = 2384
 
@@ -1639,12 +1639,14 @@ const (
 	DocumentDBDatabaseRoleKey      = "documentdb.db/role"
 	DocumentDBDatabaseRoleInstance = "instance"
 
-	DocumentDBDefaultUsername = "default_user"
+	DocumentDBDefaultUsername       = "default_user"
+	DocumentDBAdminUsername         = "documentdb"
+	DocumentDBAdminAuthSecretSuffix = "admin-auth"
 
 	DefaultDocumentDBDatabase = "sampledb"
 
 	// volume related constants
-	DocumentDBVolumeMountData = "documentdb-data"
+	DocumentDBVolumeMountData = "data"
 	DocumentDBDataDir         = "/var/pv"
 
 	DocumentDBScripts    = "scripts"
@@ -1662,9 +1664,6 @@ const (
 	DocumentDBContainerName            = "documentdb"
 	DocumentDBInitContainerName        = "documentdb-init"
 	DocumentDBCoordinatorContainerName = "documentdb-coordinator"
-	DocumentDBMainImage                = "ghcr.io/documentdb/documentdb"
-	DocumentDBUser                     = "postgres"
-	DocumentDBLinkedDBName             = "documentdb"
 
 	DocumentDBServerPath = "/etc/certs/server"
 

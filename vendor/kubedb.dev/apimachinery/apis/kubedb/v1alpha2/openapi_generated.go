@@ -619,7 +619,10 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Database":                                      schema_apimachinery_apis_kubedb_v1alpha2_Database(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DeepStorageSpec":                               schema_apimachinery_apis_kubedb_v1alpha2_DeepStorageSpec(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDB":                                    schema_apimachinery_apis_kubedb_v1alpha2_DocumentDB(ref),
+		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDBConfiguration":                       schema_apimachinery_apis_kubedb_v1alpha2_DocumentDBConfiguration(ref),
+		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDBLeaderElectionConfig":                schema_apimachinery_apis_kubedb_v1alpha2_DocumentDBLeaderElectionConfig(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDBList":                                schema_apimachinery_apis_kubedb_v1alpha2_DocumentDBList(ref),
+		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDBReplication":                         schema_apimachinery_apis_kubedb_v1alpha2_DocumentDBReplication(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDBSpec":                                schema_apimachinery_apis_kubedb_v1alpha2_DocumentDBSpec(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDBStatus":                              schema_apimachinery_apis_kubedb_v1alpha2_DocumentDBStatus(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Druid":                                         schema_apimachinery_apis_kubedb_v1alpha2_Druid(ref),
@@ -640,10 +643,6 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ElasticsearchSpec":                             schema_apimachinery_apis_kubedb_v1alpha2_ElasticsearchSpec(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ElasticsearchStatus":                           schema_apimachinery_apis_kubedb_v1alpha2_ElasticsearchStatus(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ElasticsearchUserSpec":                         schema_apimachinery_apis_kubedb_v1alpha2_ElasticsearchUserSpec(ref),
-		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Etcd":                                          schema_apimachinery_apis_kubedb_v1alpha2_Etcd(ref),
-		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.EtcdList":                                      schema_apimachinery_apis_kubedb_v1alpha2_EtcdList(ref),
-		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.EtcdSpec":                                      schema_apimachinery_apis_kubedb_v1alpha2_EtcdSpec(ref),
-		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.EtcdStatus":                                    schema_apimachinery_apis_kubedb_v1alpha2_EtcdStatus(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.FastStartFailover":                             schema_apimachinery_apis_kubedb_v1alpha2_FastStartFailover(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.GitRepo":                                       schema_apimachinery_apis_kubedb_v1alpha2_GitRepo(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.HanaDB":                                        schema_apimachinery_apis_kubedb_v1alpha2_HanaDB(ref),
@@ -651,7 +650,6 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.HanaDBSpec":                                    schema_apimachinery_apis_kubedb_v1alpha2_HanaDBSpec(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.HanaDBStatus":                                  schema_apimachinery_apis_kubedb_v1alpha2_HanaDBStatus(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.HanaDBSystemReplicationSpec":                   schema_apimachinery_apis_kubedb_v1alpha2_HanaDBSystemReplicationSpec(ref),
-		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.HanaDBTLSConfig":                               schema_apimachinery_apis_kubedb_v1alpha2_HanaDBTLSConfig(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.HanaDBTopology":                                schema_apimachinery_apis_kubedb_v1alpha2_HanaDBTopology(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Hazelcast":                                     schema_apimachinery_apis_kubedb_v1alpha2_Hazelcast(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.HazelcastApp":                                  schema_apimachinery_apis_kubedb_v1alpha2_HazelcastApp(ref),
@@ -693,7 +691,6 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MariaDBList":                                   schema_apimachinery_apis_kubedb_v1alpha2_MariaDBList(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MariaDBSpec":                                   schema_apimachinery_apis_kubedb_v1alpha2_MariaDBSpec(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MariaDBStatus":                                 schema_apimachinery_apis_kubedb_v1alpha2_MariaDBStatus(ref),
-		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MemberSecret":                                  schema_apimachinery_apis_kubedb_v1alpha2_MemberSecret(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Memcached":                                     schema_apimachinery_apis_kubedb_v1alpha2_Memcached(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MemcachedList":                                 schema_apimachinery_apis_kubedb_v1alpha2_MemcachedList(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MemcachedSpec":                                 schema_apimachinery_apis_kubedb_v1alpha2_MemcachedSpec(ref),
@@ -821,7 +818,6 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.SystemReplicationHealthSummary":                schema_apimachinery_apis_kubedb_v1alpha2_SystemReplicationHealthSummary(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.SystemReplicationStatus":                       schema_apimachinery_apis_kubedb_v1alpha2_SystemReplicationStatus(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.SystemUserSecretsSpec":                         schema_apimachinery_apis_kubedb_v1alpha2_SystemUserSecretsSpec(ref),
-		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.TLSPolicy":                                     schema_apimachinery_apis_kubedb_v1alpha2_TLSPolicy(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Topology":                                      schema_apimachinery_apis_kubedb_v1alpha2_Topology(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Weaviate":                                      schema_apimachinery_apis_kubedb_v1alpha2_Weaviate(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.WeaviateApp":                                   schema_apimachinery_apis_kubedb_v1alpha2_WeaviateApp(ref),
@@ -835,10 +831,9 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ZooKeeperSpec":                                 schema_apimachinery_apis_kubedb_v1alpha2_ZooKeeperSpec(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ZooKeeperStatus":                               schema_apimachinery_apis_kubedb_v1alpha2_ZooKeeperStatus(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ZookeeperRef":                                  schema_apimachinery_apis_kubedb_v1alpha2_ZookeeperRef(ref),
+		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.documentDBApp":                                 schema_apimachinery_apis_kubedb_v1alpha2_documentDBApp(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.elasticsearchApp":                              schema_apimachinery_apis_kubedb_v1alpha2_elasticsearchApp(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.elasticsearchStatsService":                     schema_apimachinery_apis_kubedb_v1alpha2_elasticsearchStatsService(ref),
-		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.etcdApp":                                       schema_apimachinery_apis_kubedb_v1alpha2_etcdApp(ref),
-		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.etcdStatsService":                              schema_apimachinery_apis_kubedb_v1alpha2_etcdStatsService(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.hanaRaftProvider":                              schema_apimachinery_apis_kubedb_v1alpha2_hanaRaftProvider(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.hanadbApp":                                     schema_apimachinery_apis_kubedb_v1alpha2_hanadbApp(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.hanadbStatsService":                            schema_apimachinery_apis_kubedb_v1alpha2_hanadbStatsService(ref),
@@ -35553,6 +35548,118 @@ func schema_apimachinery_apis_kubedb_v1alpha2_DocumentDB(ref common.ReferenceCal
 	}
 }
 
+func schema_apimachinery_apis_kubedb_v1alpha2_DocumentDBConfiguration(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"secretName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "SecretName is an optional field to provide custom configuration file for the database (i.e. mssql.conf). If specified, these configurations will be used with default configurations (if any) and applyConfig configurations (if any). Configurations from this secret will override default configurations. This secret must be created by user.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"inline": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Inline contains key-value pairs of configurations to be applied to the database. These configurations will override both default configurations and configurations from the config secret (if any).",
+							Type:        []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Default: "",
+										Type:    []string{"string"},
+										Format:  "",
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_apimachinery_apis_kubedb_v1alpha2_DocumentDBLeaderElectionConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"leaseDurationSeconds": {
+						SchemaProps: spec.SchemaProps{
+							Description: "LeaseDuration is the duration in second that non-leader candidates will wait to force acquire leadership. This is measured against time of last observed ack. Default 15 Deprecated",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"renewDeadlineSeconds": {
+						SchemaProps: spec.SchemaProps{
+							Description: "RenewDeadline is the duration in second that the acting master will retry refreshing leadership before giving up. Normally, LeaseDuration * 2 / 3. Default 10 Deprecated",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"retryPeriodSeconds": {
+						SchemaProps: spec.SchemaProps{
+							Description: "RetryPeriod is the duration in second the LeaderElector clients should wait between tries of actions. Normally, LeaseDuration / 3. Default 2 Deprecated",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"maximumLagBeforeFailover": {
+						SchemaProps: spec.SchemaProps{
+							Description: "MaximumLagBeforeFailover is used as maximum lag tolerance for the cluster. when ever a replica is lagging more than MaximumLagBeforeFailover this node need to sync manually with the primary node. default value is 32MB",
+							Default:     3.3554432e+07,
+							Type:        []string{"integer"},
+							Format:      "int64",
+						},
+					},
+					"period": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Period between Node.Tick invocations",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Duration"),
+						},
+					},
+					"electionTick": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ElectionTick is the number of Node.Tick invocations that must pass between\n\telections. That is, if a follower does not receive any message from the\n leader of current term before ElectionTick has elapsed, it will become\n\tcandidate and start an election. ElectionTick must be greater than\n HeartbeatTick. We suggest ElectionTick = 10 * HeartbeatTick to avoid\n unnecessary leader switching. default value is 10.",
+							Default:     10,
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"heartbeatTick": {
+						SchemaProps: spec.SchemaProps{
+							Description: "HeartbeatTick is the number of Node.Tick invocations that must pass between heartbeats. That is, a leader sends heartbeat messages to maintain its leadership every HeartbeatTick ticks. default value is 1.",
+							Default:     1,
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"transferLeadershipInterval": {
+						SchemaProps: spec.SchemaProps{
+							Description: "TransferLeadershipInterval retry interval for transfer leadership to the healthiest node",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Duration"),
+						},
+					},
+					"transferLeadershipTimeout": {
+						SchemaProps: spec.SchemaProps{
+							Description: "TransferLeadershipTimeout retry timeout for transfer leadership to the healthiest node",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Duration"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.Duration"},
+	}
+}
+
 func schema_apimachinery_apis_kubedb_v1alpha2_DocumentDBList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -35601,6 +35708,53 @@ func schema_apimachinery_apis_kubedb_v1alpha2_DocumentDBList(ref common.Referenc
 	}
 }
 
+func schema_apimachinery_apis_kubedb_v1alpha2_DocumentDBReplication(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"walLimitPolicy": {
+						SchemaProps: spec.SchemaProps{
+							Description: "WALimitPolicy defines which WAL retention policy to use.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"walKeepSize": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"walKeepSegment": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"maxSlotWALKeepSize": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"forceFailoverAcceptingDataLossAfter": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ForceFailoverAcceptingDataLossAfter is the maximum time to wait before running a force failover process This is helpful for a scenario where the old primary is not available and it has the most updated wal lsn Doing force failover may or may not end up loosing data depending on any wrtie transaction in the range lagged lsn between the new primary and the old primary",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Duration"),
+						},
+					},
+				},
+				Required: []string{"walLimitPolicy"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.Duration"},
+	}
+}
+
 func schema_apimachinery_apis_kubedb_v1alpha2_DocumentDBSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -35622,6 +35776,27 @@ func schema_apimachinery_apis_kubedb_v1alpha2_DocumentDBSpec(ref common.Referenc
 							Format:      "int32",
 						},
 					},
+					"standbyMode": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Standby mode",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"streamingMode": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Streaming mode",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"clientAuthMode": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ClientAuthMode for sidecar or sharding. (default will be md5. [md5;scram;cert])",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
 					"storageType": {
 						SchemaProps: spec.SchemaProps{
 							Description: "StorageType can be durable (default) or ephemeral",
@@ -35635,9 +35810,32 @@ func schema_apimachinery_apis_kubedb_v1alpha2_DocumentDBSpec(ref common.Referenc
 							Ref:         ref("k8s.io/api/core/v1.PersistentVolumeClaimSpec"),
 						},
 					},
+					"leaderElection": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Leader election configuration",
+							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDBLeaderElectionConfig"),
+						},
+					},
+					"replication": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDBReplication"),
+						},
+					},
 					"authSecret": {
 						SchemaProps: spec.SchemaProps{
 							Ref: ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.SecretReference"),
+						},
+					},
+					"adminAuthSecret": {
+						SchemaProps: spec.SchemaProps{
+							Description: "AdminAuthSecret specifies the admin auth secret for \"default_user\"",
+							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.SecretReference"),
+						},
+					},
+					"configuration": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Configuration is an optional field to provide custom configuration file for database (i.e. config.properties). If specified, this file will be used as configuration file otherwise default configuration file will be used.",
+							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDBConfiguration"),
 						},
 					},
 					"podTemplate": {
@@ -35660,6 +35858,13 @@ func schema_apimachinery_apis_kubedb_v1alpha2_DocumentDBSpec(ref common.Referenc
 							},
 						},
 					},
+					"halted": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Indicates that the database is halted and all offshoot Kubernetes resources except PVCs are deleted.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 					"deletionPolicy": {
 						SchemaProps: spec.SchemaProps{
 							Description: "DeletionPolicy controls the delete operation for database",
@@ -35679,7 +35884,7 @@ func schema_apimachinery_apis_kubedb_v1alpha2_DocumentDBSpec(ref common.Referenc
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PersistentVolumeClaimSpec", "kmodules.xyz/client-go/api/v1.HealthCheckSpec", "kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.NamedServiceTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.SecretReference"},
+			"k8s.io/api/core/v1.PersistentVolumeClaimSpec", "kmodules.xyz/client-go/api/v1.HealthCheckSpec", "kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDBConfiguration", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDBLeaderElectionConfig", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDBReplication", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.NamedServiceTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.SecretReference"},
 	}
 }
 
@@ -36928,249 +37133,6 @@ func schema_apimachinery_apis_kubedb_v1alpha2_ElasticsearchUserSpec(ref common.R
 	}
 }
 
-func schema_apimachinery_apis_kubedb_v1alpha2_Etcd(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
-				Properties: map[string]spec.Schema{
-					"kind": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"apiVersion": {
-						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"metadata": {
-						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
-						},
-					},
-					"spec": {
-						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.EtcdSpec"),
-						},
-					},
-					"status": {
-						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.EtcdStatus"),
-						},
-					},
-				},
-			},
-		},
-		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.EtcdSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.EtcdStatus"},
-	}
-}
-
-func schema_apimachinery_apis_kubedb_v1alpha2_EtcdList(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
-				Properties: map[string]spec.Schema{
-					"kind": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"apiVersion": {
-						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"metadata": {
-						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
-						},
-					},
-					"items": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Items is a list of Etcd TPR objects",
-							Type:        []string{"array"},
-							Items: &spec.SchemaOrArray{
-								Schema: &spec.Schema{
-									SchemaProps: spec.SchemaProps{
-										Default: map[string]interface{}{},
-										Ref:     ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Etcd"),
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-		},
-		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Etcd"},
-	}
-}
-
-func schema_apimachinery_apis_kubedb_v1alpha2_EtcdSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
-				Properties: map[string]spec.Schema{
-					"version": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Version of Etcd to be deployed.",
-							Default:     "",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"replicas": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Number of instances to deploy for a Etcd database.",
-							Type:        []string{"integer"},
-							Format:      "int32",
-						},
-					},
-					"storageType": {
-						SchemaProps: spec.SchemaProps{
-							Description: "StorageType can be durable (default) or ephemeral",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"storage": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Storage spec to specify how storage shall be used.",
-							Ref:         ref("k8s.io/api/core/v1.PersistentVolumeClaimSpec"),
-						},
-					},
-					"authSecret": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Database authentication secret",
-							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.SecretReference"),
-						},
-					},
-					"init": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Init is used to initialize database",
-							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.InitSpec"),
-						},
-					},
-					"monitor": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Monitor is used monitor database instance",
-							Ref:         ref("kmodules.xyz/monitoring-agent-api/api/v1.AgentSpec"),
-						},
-					},
-					"tls": {
-						SchemaProps: spec.SchemaProps{
-							Description: "etcd cluster TLS configuration",
-							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.TLSPolicy"),
-						},
-					},
-					"podTemplate": {
-						SchemaProps: spec.SchemaProps{
-							Description: "PodTemplate is an optional configuration for pods used to expose database",
-							Default:     map[string]interface{}{},
-							Ref:         ref("kmodules.xyz/offshoot-api/api/v1.PodTemplateSpec"),
-						},
-					},
-					"serviceTemplates": {
-						SchemaProps: spec.SchemaProps{
-							Description: "ServiceTemplates is an optional configuration for services used to expose database",
-							Type:        []string{"array"},
-							Items: &spec.SchemaOrArray{
-								Schema: &spec.Schema{
-									SchemaProps: spec.SchemaProps{
-										Default: map[string]interface{}{},
-										Ref:     ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.NamedServiceTemplateSpec"),
-									},
-								},
-							},
-						},
-					},
-					"halted": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Indicates that the database is halted and all offshoot Kubernetes resources except PVCs are deleted.",
-							Type:        []string{"boolean"},
-							Format:      "",
-						},
-					},
-					"deletionPolicy": {
-						SchemaProps: spec.SchemaProps{
-							Description: "DeletionPolicy controls the delete operation for database",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-				},
-				Required: []string{"version"},
-			},
-		},
-		Dependencies: []string{
-			"k8s.io/api/core/v1.PersistentVolumeClaimSpec", "kmodules.xyz/monitoring-agent-api/api/v1.AgentSpec", "kmodules.xyz/offshoot-api/api/v1.PodTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.InitSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.NamedServiceTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.SecretReference", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.TLSPolicy"},
-	}
-}
-
-func schema_apimachinery_apis_kubedb_v1alpha2_EtcdStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
-				Properties: map[string]spec.Schema{
-					"phase": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Specifies the current phase of the database",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"observedGeneration": {
-						SchemaProps: spec.SchemaProps{
-							Description: "observedGeneration is the most recent generation observed for this resource. It corresponds to the resource's generation, which is updated on mutation by the API Server.",
-							Type:        []string{"integer"},
-							Format:      "int64",
-						},
-					},
-					"conditions": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Conditions applied to the database, such as approval or denial.",
-							Type:        []string{"array"},
-							Items: &spec.SchemaOrArray{
-								Schema: &spec.Schema{
-									SchemaProps: spec.SchemaProps{
-										Default: map[string]interface{}{},
-										Ref:     ref("kmodules.xyz/client-go/api/v1.Condition"),
-									},
-								},
-							},
-						},
-					},
-					"authSecret": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Age"),
-						},
-					},
-				},
-			},
-		},
-		Dependencies: []string{
-			"kmodules.xyz/client-go/api/v1.Condition", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Age"},
-	}
-}
-
 func schema_apimachinery_apis_kubedb_v1alpha2_FastStartFailover(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -37408,7 +37370,7 @@ func schema_apimachinery_apis_kubedb_v1alpha2_HanaDBSpec(ref common.ReferenceCal
 					"tls": {
 						SchemaProps: spec.SchemaProps{
 							Description: "TLS configures certificates issued from spec.tls.issuerRef for SAP HANA server-side TLS, KubeDB client connections, and metrics exporter TLS. When TLS is specified, issuerRef must be set.",
-							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.HanaDBTLSConfig"),
+							Ref:         ref("kmodules.xyz/client-go/api/v1.TLSConfig"),
 						},
 					},
 					"monitor": {
@@ -37462,7 +37424,7 @@ func schema_apimachinery_apis_kubedb_v1alpha2_HanaDBSpec(ref common.ReferenceCal
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PersistentVolumeClaimSpec", "kmodules.xyz/client-go/api/v1.HealthCheckSpec", "kmodules.xyz/monitoring-agent-api/api/v1.AgentSpec", "kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ArbiterSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ConfigurationSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.HanaDBTLSConfig", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.HanaDBTopology", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.NamedServiceTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.SecretReference"},
+			"k8s.io/api/core/v1.PersistentVolumeClaimSpec", "kmodules.xyz/client-go/api/v1.HealthCheckSpec", "kmodules.xyz/client-go/api/v1.TLSConfig", "kmodules.xyz/monitoring-agent-api/api/v1.AgentSpec", "kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ArbiterSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ConfigurationSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.HanaDBTopology", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.NamedServiceTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.SecretReference"},
 	}
 }
 
@@ -37533,61 +37495,6 @@ func schema_apimachinery_apis_kubedb_v1alpha2_HanaDBSystemReplicationSpec(ref co
 				},
 			},
 		},
-	}
-}
-
-func schema_apimachinery_apis_kubedb_v1alpha2_HanaDBTLSConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
-				Properties: map[string]spec.Schema{
-					"issuerRef": {
-						SchemaProps: spec.SchemaProps{
-							Description: "IssuerRef is a reference to a Certificate Issuer.",
-							Ref:         ref("k8s.io/api/core/v1.TypedLocalObjectReference"),
-						},
-					},
-					"certificates": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Certificate provides server and/or client certificate options used by application pods. These options are passed to a cert-manager Certificate object. xref: https://github.com/jetstack/cert-manager/blob/v0.16.0/pkg/apis/certmanager/v1beta1/types_certificate.go#L82-L162",
-							Type:        []string{"array"},
-							Items: &spec.SchemaOrArray{
-								Schema: &spec.Schema{
-									SchemaProps: spec.SchemaProps{
-										Default: map[string]interface{}{},
-										Ref:     ref("kmodules.xyz/client-go/api/v1.CertificateSpec"),
-									},
-								},
-							},
-						},
-					},
-					"clientTLS": {
-						SchemaProps: spec.SchemaProps{
-							Description: "ClientTLS determines whether KubeDB clients connect to the SAP HANA SQL interface over TLS.",
-							Type:        []string{"boolean"},
-							Format:      "",
-						},
-					},
-					"serverName": {
-						SchemaProps: spec.SchemaProps{
-							Description: "ServerName is used to verify the hostname on the certificate returned by SAP HANA.",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"insecureSkipVerify": {
-						SchemaProps: spec.SchemaProps{
-							Description: "InsecureSkipVerify controls whether KubeDB clients verify the SAP HANA server certificate chain and hostname.",
-							Type:        []string{"boolean"},
-							Format:      "",
-						},
-					},
-				},
-			},
-		},
-		Dependencies: []string{
-			"k8s.io/api/core/v1.TypedLocalObjectReference", "kmodules.xyz/client-go/api/v1.CertificateSpec"},
 	}
 }
 
@@ -39750,32 +39657,6 @@ func schema_apimachinery_apis_kubedb_v1alpha2_MariaDBStatus(ref common.Reference
 		},
 		Dependencies: []string{
 			"kmodules.xyz/client-go/api/v1.Condition", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Age"},
-	}
-}
-
-func schema_apimachinery_apis_kubedb_v1alpha2_MemberSecret(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
-				Properties: map[string]spec.Schema{
-					"peerSecret": {
-						SchemaProps: spec.SchemaProps{
-							Description: "PeerSecret is the secret containing TLS certs used by each etcd member pod for the communication between etcd peers.",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"serverSecret": {
-						SchemaProps: spec.SchemaProps{
-							Description: "ServerSecret is the secret containing TLS certs used by each etcd member pod for the communication between etcd server and its clients.",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-				},
-			},
-		},
 	}
 }
 
@@ -46891,31 +46772,6 @@ func schema_apimachinery_apis_kubedb_v1alpha2_SystemUserSecretsSpec(ref common.R
 	}
 }
 
-func schema_apimachinery_apis_kubedb_v1alpha2_TLSPolicy(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
-				Properties: map[string]spec.Schema{
-					"member": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MemberSecret"),
-						},
-					},
-					"operatorSecret": {
-						SchemaProps: spec.SchemaProps{
-							Type:   []string{"string"},
-							Format: "",
-						},
-					},
-				},
-			},
-		},
-		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MemberSecret"},
-	}
-}
-
 func schema_apimachinery_apis_kubedb_v1alpha2_Topology(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -47588,6 +47444,26 @@ func schema_apimachinery_apis_kubedb_v1alpha2_ZookeeperRef(ref common.ReferenceC
 	}
 }
 
+func schema_apimachinery_apis_kubedb_v1alpha2_documentDBApp(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"DocumentDB": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDB"),
+						},
+					},
+				},
+				Required: []string{"DocumentDB"},
+			},
+		},
+		Dependencies: []string{
+			"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDB"},
+	}
+}
+
 func schema_apimachinery_apis_kubedb_v1alpha2_elasticsearchApp(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -47625,46 +47501,6 @@ func schema_apimachinery_apis_kubedb_v1alpha2_elasticsearchStatsService(ref comm
 		},
 		Dependencies: []string{
 			"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Elasticsearch"},
-	}
-}
-
-func schema_apimachinery_apis_kubedb_v1alpha2_etcdApp(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
-				Properties: map[string]spec.Schema{
-					"Etcd": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Etcd"),
-						},
-					},
-				},
-				Required: []string{"Etcd"},
-			},
-		},
-		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Etcd"},
-	}
-}
-
-func schema_apimachinery_apis_kubedb_v1alpha2_etcdStatsService(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
-				Properties: map[string]spec.Schema{
-					"Etcd": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Etcd"),
-						},
-					},
-				},
-				Required: []string{"Etcd"},
-			},
-		},
-		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Etcd"},
 	}
 }
 

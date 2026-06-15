@@ -46,6 +46,30 @@ spec:
             type: object
           spec:
             properties:
+              adminAuthSecret:
+                properties:
+                  activeFrom:
+                    format: date-time
+                    type: string
+                  apiGroup:
+                    default: ""
+                    type: string
+                  externallyManaged:
+                    type: boolean
+                  kind:
+                    default: Secret
+                    type: string
+                  name:
+                    type: string
+                  rotateAfter:
+                    type: string
+                  secretStoreName:
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+                x-kubernetes-map-type: atomic
               authSecret:
                 properties:
                   activeFrom:
@@ -70,6 +94,20 @@ spec:
                 - name
                 type: object
                 x-kubernetes-map-type: atomic
+              clientAuthMode:
+                enum:
+                - scram
+                - cert
+                type: string
+              configuration:
+                properties:
+                  inline:
+                    additionalProperties:
+                      type: string
+                    type: object
+                  secretName:
+                    type: string
+                type: object
               deletionPolicy:
                 enum:
                 - Halt
@@ -77,6 +115,8 @@ spec:
                 - WipeOut
                 - DoNotTerminate
                 type: string
+              halted:
+                type: boolean
               healthChecker:
                 default:
                   failureThreshold: 1
@@ -97,6 +137,39 @@ spec:
                     default: 10
                     format: int32
                     type: integer
+                type: object
+              leaderElection:
+                properties:
+                  electionTick:
+                    default: 10
+                    format: int32
+                    type: integer
+                  heartbeatTick:
+                    default: 1
+                    format: int32
+                    type: integer
+                  leaseDurationSeconds:
+                    format: int32
+                    type: integer
+                  maximumLagBeforeFailover:
+                    default: 33554432
+                    format: int64
+                    type: integer
+                  period:
+                    default: 100ms
+                    type: string
+                  renewDeadlineSeconds:
+                    format: int32
+                    type: integer
+                  retryPeriodSeconds:
+                    format: int32
+                    type: integer
+                  transferLeadershipInterval:
+                    default: 1s
+                    type: string
+                  transferLeadershipTimeout:
+                    default: 60s
+                    type: string
                 type: object
               podTemplate:
                 properties:
@@ -3337,6 +3410,24 @@ spec:
               replicas:
                 format: int32
                 type: integer
+              replication:
+                properties:
+                  forceFailoverAcceptingDataLossAfter:
+                    type: string
+                  maxSlotWALKeepSize:
+                    format: int32
+                    type: integer
+                  walKeepSegment:
+                    format: int32
+                    type: integer
+                  walKeepSize:
+                    format: int32
+                    type: integer
+                  walLimitPolicy:
+                    type: string
+                required:
+                - walLimitPolicy
+                type: object
               serviceTemplates:
                 items:
                   properties:
@@ -3409,6 +3500,11 @@ spec:
                   - alias
                   type: object
                 type: array
+              standbyMode:
+                enum:
+                - Hot
+                - Warm
+                type: string
               storage:
                 properties:
                   accessModes:
@@ -3501,6 +3597,11 @@ spec:
                 enum:
                 - Durable
                 - Ephemeral
+                type: string
+              streamingMode:
+                enum:
+                - Synchronous
+                - Asynchronous
                 type: string
               version:
                 type: string

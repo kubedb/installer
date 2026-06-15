@@ -97,7 +97,7 @@ func (r *Neo4j) ResourcePlural() string {
 
 func (r *Neo4j) GetPersistentSecrets() []string {
 	var secrets []string
-	if !r.Spec.DisableSecurity {
+	if !r.Spec.DisableSecurity && !IsVirtualAuthSecretReferred(r.Spec.AuthSecret) && r.Spec.AuthSecret != nil && r.Spec.AuthSecret.Name != "" {
 		secrets = append(secrets, r.GetAuthSecretName())
 	}
 	return secrets

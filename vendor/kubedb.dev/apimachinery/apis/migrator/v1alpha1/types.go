@@ -17,8 +17,6 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"fmt"
-
 	kmapi "kmodules.xyz/client-go/api/v1"
 )
 
@@ -84,27 +82,4 @@ type DBMigratorCLI struct {
 
 type DBMigratorStatusReporter struct {
 	Image string `json:"image"`
-}
-
-type TableRef struct {
-	TableID int64
-	Schema  string
-	Name    string
-}
-
-func (t TableRef) Key() string {
-	return fmt.Sprintf("%s.%s", t.Schema, t.Name)
-}
-
-func (t TableRef) QuotedName() string {
-	return fmt.Sprintf("`%s`.`%s`", t.Schema, t.Name)
-}
-
-// PipelineConfig contains configuration for the snapshot pipeline
-type PipelineConfig struct {
-	SnapshotWorker int // Number of concurrent snapshot worker goroutines
-	Buffer         int // Size of buffer channel between extractor and sinkers
-	Sinkers        int // Number of concurrent sinker goroutines
-	ReadBatchSize  int // Number of rows to read per batch from source
-	WriteBatchSize int // Number of rows to write per transaction to target
 }

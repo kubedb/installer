@@ -600,14 +600,12 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/apimachinery/apis/migrator/v1alpha1.MySQLStreaming":                              schema_apimachinery_apis_migrator_v1alpha1_MySQLStreaming(ref),
 		"kubedb.dev/apimachinery/apis/migrator/v1alpha1.MySQLTarget":                                 schema_apimachinery_apis_migrator_v1alpha1_MySQLTarget(ref),
 		"kubedb.dev/apimachinery/apis/migrator/v1alpha1.PgDump":                                      schema_apimachinery_apis_migrator_v1alpha1_PgDump(ref),
-		"kubedb.dev/apimachinery/apis/migrator/v1alpha1.PipelineConfig":                              schema_apimachinery_apis_migrator_v1alpha1_PipelineConfig(ref),
 		"kubedb.dev/apimachinery/apis/migrator/v1alpha1.PostgresSource":                              schema_apimachinery_apis_migrator_v1alpha1_PostgresSource(ref),
 		"kubedb.dev/apimachinery/apis/migrator/v1alpha1.PostgresTarget":                              schema_apimachinery_apis_migrator_v1alpha1_PostgresTarget(ref),
 		"kubedb.dev/apimachinery/apis/migrator/v1alpha1.Progress":                                    schema_apimachinery_apis_migrator_v1alpha1_Progress(ref),
 		"kubedb.dev/apimachinery/apis/migrator/v1alpha1.Publication":                                 schema_apimachinery_apis_migrator_v1alpha1_Publication(ref),
 		"kubedb.dev/apimachinery/apis/migrator/v1alpha1.Source":                                      schema_apimachinery_apis_migrator_v1alpha1_Source(ref),
 		"kubedb.dev/apimachinery/apis/migrator/v1alpha1.Subscription":                                schema_apimachinery_apis_migrator_v1alpha1_Subscription(ref),
-		"kubedb.dev/apimachinery/apis/migrator/v1alpha1.TableRef":                                    schema_apimachinery_apis_migrator_v1alpha1_TableRef(ref),
 		"kubedb.dev/apimachinery/apis/migrator/v1alpha1.Target":                                      schema_apimachinery_apis_migrator_v1alpha1_Target(ref),
 	}
 }
@@ -33518,7 +33516,7 @@ func schema_apimachinery_apis_migrator_v1alpha1_MariaDBSource(ref common.Referen
 					"connectionInfo": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ConnectionInfo refers to the source MariaDB database connection information.",
-							Ref:         ref("kubedb.dev/apimachinery/apis/migrator/v1alpha1.MySQLConnectionInfo"),
+							Ref:         ref("kubedb.dev/apimachinery/apis/migrator/v1alpha1.ConnectionInfo"),
 						},
 					},
 					"schema": {
@@ -33541,7 +33539,7 @@ func schema_apimachinery_apis_migrator_v1alpha1_MariaDBSource(ref common.Referen
 			},
 		},
 		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/migrator/v1alpha1.MySQLConnectionInfo", "kubedb.dev/apimachinery/apis/migrator/v1alpha1.MySQLSchema", "kubedb.dev/apimachinery/apis/migrator/v1alpha1.MySQLSnapshot", "kubedb.dev/apimachinery/apis/migrator/v1alpha1.MySQLStreaming"},
+			"kubedb.dev/apimachinery/apis/migrator/v1alpha1.ConnectionInfo", "kubedb.dev/apimachinery/apis/migrator/v1alpha1.MySQLSchema", "kubedb.dev/apimachinery/apis/migrator/v1alpha1.MySQLSnapshot", "kubedb.dev/apimachinery/apis/migrator/v1alpha1.MySQLStreaming"},
 	}
 }
 
@@ -33554,7 +33552,7 @@ func schema_apimachinery_apis_migrator_v1alpha1_MariaDBTarget(ref common.Referen
 					"connectionInfo": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ConnectionInfo refers to the target MariaDB database connection information.",
-							Ref:         ref("kubedb.dev/apimachinery/apis/migrator/v1alpha1.MySQLConnectionInfo"),
+							Ref:         ref("kubedb.dev/apimachinery/apis/migrator/v1alpha1.ConnectionInfo"),
 						},
 					},
 				},
@@ -33562,7 +33560,7 @@ func schema_apimachinery_apis_migrator_v1alpha1_MariaDBTarget(ref common.Referen
 			},
 		},
 		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/migrator/v1alpha1.MySQLConnectionInfo"},
+			"kubedb.dev/apimachinery/apis/migrator/v1alpha1.ConnectionInfo"},
 	}
 }
 
@@ -33966,6 +33964,12 @@ func schema_apimachinery_apis_migrator_v1alpha1_MySQLConnectionInfo(ref common.R
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
+					"appBinding": {
+						SchemaProps: spec.SchemaProps{
+							Description: "AppBinding refers to the source database AppBinding name, which contains the connection information.",
+							Ref:         ref("kmodules.xyz/client-go/api/v1.ObjectReference"),
+						},
+					},
 					"address": {
 						SchemaProps: spec.SchemaProps{
 							Default: "",
@@ -34004,6 +34008,8 @@ func schema_apimachinery_apis_migrator_v1alpha1_MySQLConnectionInfo(ref common.R
 				Required: []string{"address", "user", "password", "dbName"},
 			},
 		},
+		Dependencies: []string{
+			"kmodules.xyz/client-go/api/v1.ObjectReference"},
 	}
 }
 
@@ -34137,7 +34143,7 @@ func schema_apimachinery_apis_migrator_v1alpha1_MySQLSource(ref common.Reference
 					"connectionInfo": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ConnectionInfo refers to the source MySQL database connection information.",
-							Ref:         ref("kubedb.dev/apimachinery/apis/migrator/v1alpha1.MySQLConnectionInfo"),
+							Ref:         ref("kubedb.dev/apimachinery/apis/migrator/v1alpha1.ConnectionInfo"),
 						},
 					},
 					"schema": {
@@ -34160,7 +34166,7 @@ func schema_apimachinery_apis_migrator_v1alpha1_MySQLSource(ref common.Reference
 			},
 		},
 		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/migrator/v1alpha1.MySQLConnectionInfo", "kubedb.dev/apimachinery/apis/migrator/v1alpha1.MySQLSchema", "kubedb.dev/apimachinery/apis/migrator/v1alpha1.MySQLSnapshot", "kubedb.dev/apimachinery/apis/migrator/v1alpha1.MySQLStreaming"},
+			"kubedb.dev/apimachinery/apis/migrator/v1alpha1.ConnectionInfo", "kubedb.dev/apimachinery/apis/migrator/v1alpha1.MySQLSchema", "kubedb.dev/apimachinery/apis/migrator/v1alpha1.MySQLSnapshot", "kubedb.dev/apimachinery/apis/migrator/v1alpha1.MySQLStreaming"},
 	}
 }
 
@@ -34193,7 +34199,7 @@ func schema_apimachinery_apis_migrator_v1alpha1_MySQLTarget(ref common.Reference
 					"connectionInfo": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ConnectionInfo refers to the target MySQL database connection information.",
-							Ref:         ref("kubedb.dev/apimachinery/apis/migrator/v1alpha1.MySQLConnectionInfo"),
+							Ref:         ref("kubedb.dev/apimachinery/apis/migrator/v1alpha1.ConnectionInfo"),
 						},
 					},
 				},
@@ -34201,7 +34207,7 @@ func schema_apimachinery_apis_migrator_v1alpha1_MySQLTarget(ref common.Reference
 			},
 		},
 		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/migrator/v1alpha1.MySQLConnectionInfo"},
+			"kubedb.dev/apimachinery/apis/migrator/v1alpha1.ConnectionInfo"},
 	}
 }
 
@@ -34294,59 +34300,6 @@ func schema_apimachinery_apis_migrator_v1alpha1_PgDump(ref common.ReferenceCallb
 						},
 					},
 				},
-			},
-		},
-	}
-}
-
-func schema_apimachinery_apis_migrator_v1alpha1_PipelineConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Description: "PipelineConfig contains configuration for the snapshot pipeline",
-				Type:        []string{"object"},
-				Properties: map[string]spec.Schema{
-					"SnapshotWorker": {
-						SchemaProps: spec.SchemaProps{
-							Default: 0,
-							Type:    []string{"integer"},
-							Format:  "int32",
-						},
-					},
-					"Buffer": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Number of concurrent snapshot worker goroutines",
-							Default:     0,
-							Type:        []string{"integer"},
-							Format:      "int32",
-						},
-					},
-					"Sinkers": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Size of buffer channel between extractor and sinkers",
-							Default:     0,
-							Type:        []string{"integer"},
-							Format:      "int32",
-						},
-					},
-					"ReadBatchSize": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Number of concurrent sinker goroutines",
-							Default:     0,
-							Type:        []string{"integer"},
-							Format:      "int32",
-						},
-					},
-					"WriteBatchSize": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Number of rows to read per batch from source",
-							Default:     0,
-							Type:        []string{"integer"},
-							Format:      "int32",
-						},
-					},
-				},
-				Required: []string{"SnapshotWorker", "Buffer", "Sinkers", "ReadBatchSize", "WriteBatchSize"},
 			},
 		},
 	}
@@ -34537,40 +34490,6 @@ func schema_apimachinery_apis_migrator_v1alpha1_Subscription(ref common.Referenc
 						},
 					},
 				},
-			},
-		},
-	}
-}
-
-func schema_apimachinery_apis_migrator_v1alpha1_TableRef(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
-				Properties: map[string]spec.Schema{
-					"TableID": {
-						SchemaProps: spec.SchemaProps{
-							Default: 0,
-							Type:    []string{"integer"},
-							Format:  "int64",
-						},
-					},
-					"Schema": {
-						SchemaProps: spec.SchemaProps{
-							Default: "",
-							Type:    []string{"string"},
-							Format:  "",
-						},
-					},
-					"Name": {
-						SchemaProps: spec.SchemaProps{
-							Default: "",
-							Type:    []string{"string"},
-							Format:  "",
-						},
-					},
-				},
-				Required: []string{"TableID", "Schema", "Name"},
 			},
 		},
 	}
