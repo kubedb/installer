@@ -51,6 +51,7 @@ const (
 
 var ubiImageList = sets.NewString(
 	"ghcr.io/kubedb/db2-coordinator",
+	"ghcr.io/kubedb/documentdb-coordinator",
 	"ghcr.io/kubedb/hanadb-coordinator",
 	// "ghcr.io/kubedb/mariadb-archiver",
 	"ghcr.io/kubedb/mariadb-coordinator",
