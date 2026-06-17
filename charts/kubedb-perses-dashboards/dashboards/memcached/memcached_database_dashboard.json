@@ -84,6 +84,113 @@
           }
         }
       },
+      "10": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Hit Ratio Per Command"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "1m",
+                    "query": "sum (delta(memcached_commands_total{job=\"$job\", status=\"hit\",command=\"get\"}[1m]))  / sum (delta(memcached_commands_total{job=\"$job\",command=\"get\"}[1m])) * 100",
+                    "seriesNameFormat": "get"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "1m",
+                    "query": "sum (delta(memcached_commands_total{job=\"$job\", status=\"hit\",command=\"delete\"}[1m]))  / sum (delta(memcached_commands_total{job=\"$job\",command=\"delete\"}[1m])) * 100",
+                    "seriesNameFormat": "delete"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "11": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Command Total"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "1m",
+                    "query": "sum(delta(memcached_commands_total{job=\"$job\"}[1m])) by (command)",
+                    "seriesNameFormat": "{{ `{{ command }}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "12": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "reclaimed / evicted"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "1m",
+                    "query": "delta(memcached_items_reclaimed_total{job=\"$job\"}[1m])",
+                    "seriesNameFormat": "reclaimed"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "1m",
+                    "query": "delta(memcached_items_evicted_total{job=\"$job\"}[1m])",
+                    "seriesNameFormat": "evicted"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
       "2": {
         "kind": "Panel",
         "spec": {
@@ -233,6 +340,33 @@
             }
           ]
         }
+      },
+      "9": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Hit Ratio"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "1m",
+                    "query": "sum (delta(memcached_commands_total{job=\"$job\", status=\"hit\"}[1m]))  / sum (delta(memcached_commands_total{job=\"$job\"}[1m])) * 100",
+                    "seriesNameFormat": "Hit Ratio"
+                  }
+                }
+              }
+            }
+          ]
+        }
       }
     },
     "layouts": [
@@ -322,6 +456,42 @@
               "height": 9,
               "content": {
                 "$ref": "#/spec/panels/8"
+              }
+            },
+            {
+              "x": 0,
+              "y": 8,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/9"
+              }
+            },
+            {
+              "x": 12,
+              "y": 8,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/10"
+              }
+            },
+            {
+              "x": 0,
+              "y": 17,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/11"
+              }
+            },
+            {
+              "x": 0,
+              "y": 9,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/12"
               }
             }
           ]

@@ -1,0 +1,4968 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
+{
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "uLf5cJ3Gz",
+    "createdAt": "0001-01-01T00:00:00Z",
+    "updatedAt": "0001-01-01T00:00:00Z",
+    "version": 0,
+    "project": "pp"
+  },
+  "spec": {
+    "display": {
+      "name": "milvus_pod"
+    },
+    "variables": [
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "hidden": false
+          },
+          "defaultValue": "Prometheus",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "plugin": {
+            "kind": "DatasourceVariable",
+            "spec": {
+              "datasourcePluginKind": "PrometheusDatasource"
+            }
+          },
+          "name": "datasource"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Namespace",
+            "hidden": false
+          },
+          "defaultValue": "kubedb",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "alphabetical-asc",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "namespace",
+              "matchers": [
+                "kube_pod_info"
+              ]
+            }
+          },
+          "name": "namespace"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Instance / Release",
+            "hidden": false
+          },
+          "defaultValue": [
+            "10.42.0.166:9091",
+            "10.42.0.167:9091",
+            "10.42.0.168:9091",
+            "10.42.0.170:9091",
+            "10.42.0.171:9091"
+          ],
+          "allowAllValue": true,
+          "allowMultiple": true,
+          "sort": "alphabetical-asc",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "instance",
+              "matchers": [
+                "{namespace=\"$namespace\"}"
+              ]
+            }
+          },
+          "name": "instance"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "collection_name",
+            "hidden": false
+          },
+          "defaultValue": [
+            "health_check_test"
+          ],
+          "allowAllValue": true,
+          "allowMultiple": true,
+          "customAllValue": ".*",
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "collection_name",
+              "matchers": [
+                "milvus_proxy_req_count{namespace=\"$namespace\"}"
+              ]
+            }
+          },
+          "name": "collection_name"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Pod",
+            "hidden": true
+          },
+          "defaultValue": [
+            "$__all"
+          ],
+          "allowAllValue": true,
+          "allowMultiple": true,
+          "sort": "alphabetical-asc",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "pod",
+              "matchers": [
+                "kube_pod_info{namespace=\"$namespace\",created_by_kind=\"PetSet\",}"
+              ]
+            }
+          },
+          "name": "pod"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "job",
+            "hidden": false
+          },
+          "defaultValue": [
+            "milvus-cluster-stats"
+          ],
+          "allowAllValue": true,
+          "allowMultiple": true,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "job",
+              "matchers": [
+                "{namespace=\"$namespace\"}"
+              ]
+            }
+          },
+          "name": "job"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "node_id",
+            "hidden": false
+          },
+          "defaultValue": [
+            "$__all"
+          ],
+          "allowAllValue": true,
+          "allowMultiple": true,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "node_id",
+              "matchers": [
+                "{namespace=\"$namespace\"}"
+              ]
+            }
+          },
+          "name": "node_id"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "cache_name",
+            "hidden": false
+          },
+          "defaultValue": "GetCollectionID",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "cache_name",
+              "matchers": [
+                "{namespace=\"$namespace\"}"
+              ]
+            }
+          },
+          "name": "cache_name"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "container",
+            "hidden": false
+          },
+          "defaultValue": [
+            "milvus"
+          ],
+          "allowAllValue": true,
+          "allowMultiple": true,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "container",
+              "matchers": [
+                "{namespace=\"$namespace\"}"
+              ]
+            }
+          },
+          "name": "container"
+        }
+      }
+    ],
+    "panels": {
+      "0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Search Vector Count Rate",
+            "description": "per-second increasing rate of searching vectors."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_proxy_search_vectors_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])/120) by (pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Insert Vector Count Rate",
+            "description": "per-second increasing rate of inserting vectors."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_proxy_insert_vectors_count{namespace=\"$namespace\",container=\"$container\",job=\"$job\"}[2m])/120) by (pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "10": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Success Request Rate",
+            "description": "per-second increasing rate of success requests."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_proxy_req_count{instance=~\"$instance\",namespace=\"$namespace\", status=\"success\"}[2m])/120) by(function_name, pod, node_id)",
+                    "seriesNameFormat": "{{ `{{function_name}}` }}-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "100": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Go Heap released",
+            "description": "Number of heap bytes released to OS."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "go_memstats_heap_released_bytes{container=\"$container\", instance=~\"$instance\", namespace=\"$namespace\"}",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "101": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Go Heap in Use",
+            "description": "Number of heap bytes that be used."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "go_memstats_heap_inuse_bytes{container=\"$container\", instance=~\"$instance\", namespace=\"$namespace\"}",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "102": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Container Threads",
+            "description": "Number of container threads created."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "container_threads{image=\"\", namespace=\"$namespace\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "11": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Cache Hit rate",
+            "description": "Average cache hits per minute of cache operations."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(increase(milvus_proxy_cache_hit_count{namespace=\"$namespace\",cache_name=\"$cache_name\", cache_state=\"hit\"}[2m])) \n  by(cache_name, pod, node_id)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "12": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Apply Timestamp Latency",
+            "description": "The 99th percentile and average latency of apply timestamp over the last 2 minutes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, pod, node_id) (rate(milvus_proxy_apply_timestamp_latency_bucket{instance=~\"$instance\",namespace=\"$namespace\"}[2m])))",
+                    "seriesNameFormat": "p99-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_proxy_apply_timestamp_latency_sum{instance=~\"$instance\", namespace=\"$namespace\"}[2m])) by (pod, node_id) / sum(increase(milvus_proxy_apply_timestamp_latency_count{instance=~\"$instance\", namespace=\"$namespace\"}[2m])) by (pod, node_id)",
+                    "seriesNameFormat": "avg-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "13": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Received Byte Rate",
+            "description": "per-second increasing rate of bytes received  in proxy"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_proxy_receive_bytes_count{namespace=\"$namespace\",job=\"$job\"}[2m])/120) by(pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "14": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Apply PK Latency",
+            "description": "The 99th percentile of latency for applying PK over the last 2 minutes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, pod, node_id) (rate(milvus_proxy_apply_pk_latency_bucket{instance=~\"$instance\", namespace=\"$namespace\", job=\"$job\"}[2m])))",
+                    "seriesNameFormat": "p99-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_proxy_apply_pk_latency_sum{instance=~\"$instance\", namespace=\"$namespace\", job=\"$job\"}[2m])) by (pod, node_id) / sum(increase(milvus_proxy_apply_pk_latency_count{instance=~\"$instance\", namespace=\"$namespace\", job=\"$job\"}[2m])) by (pod, node_id)",
+                    "seriesNameFormat": "avg-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "15": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Request Latency",
+            "description": "The 99th percentile and average latency of request over the last 2 minutes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_proxy_req_latency_sum{instance=~\"$instance\", namespace=\"$namespace\"}[2m])) by (pod, node_id) / sum(increase(milvus_proxy_req_latency_count{instance=~\"$instance\", namespace=\"$namespace\"}[2m])) by (pod, node_id)",
+                    "seriesNameFormat": "avg-{{ `{{function_name}}` }}-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "migration_from_grafana_not_supported"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "16": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Faild Request Rate",
+            "description": "per-second increasing rate of faild requests."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(milvus_proxy_req_count{namespace=\"kubedb\",collection_name=\"health_check_test\", status=\"fail\"}[5m]) ",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "17": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Send Byte Rate",
+            "description": "per-second increasing rate of bytes sent back to the client by the Proxy in response to a Search or Query request."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(increase(milvus_proxy_send_bytes_count{namespace=\"$namespace\",job=\"$job\"}[2m])/120) by(pod, node_id)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "18": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Proxy Node Num",
+            "description": "Number of proxy nodes which has register with etcd"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_rootcoord_proxy_num{instance=~\"$instance\", namespace=\"$namespace\",container=\"$container\",job=\"$job\"}) by (instance)",
+                    "seriesNameFormat": "num"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "19": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Timestamp Saved",
+            "description": "RootCoord stores pre-assigned timestamps in the metastore"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "milvus_rootcoord_timestamp_saved{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}",
+                    "seriesNameFormat": "tiestamp"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Search Latency",
+            "description": "The 99th percentile and average latency of search request over the last 2 minutes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, query_type, pod, node_id) (rate(milvus_proxy_sq_latency_bucket{instance=~\"$instance\", namespace=\"$namespace\", collection_name=~\"$collection_name\",container=\"$container\",job=\"$job\"}[2m])))",
+                    "seriesNameFormat": "p99-{{ `{{query_type}}` }}-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(increase(milvus_proxy_sq_latency_sum{instance=~\"$instance\", namespace=\"$namespace\", collection_name=~\"$collection_name\",container=\"$container\",job=\"$job\"}[2m])) by (pod, node_id, query_type) / sum(increase(milvus_proxy_sq_latency_count{instance=~\"$instance\", namespace=\"$namespace\", collection_name=~\"$collection_name\",container=\"$container\",job=\"$job\"}[2m])) by (pod, node_id, query_type)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "20": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Produced Timetick Time Taken",
+            "description": "The 99th percentile and average latency for rootcoord to finish synchronizing timestamp messages to all pchanels."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99,sum by (le, pod) (rate(milvus_rootcoord_sync_timetick_latency_bucket{job=\"$job\",namespace=\"$namespace\"}[2m])))",
+                    "seriesNameFormat": "p99-latency"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(\n  increase(milvus_rootcoord_sync_timetick_latency_sum{instance=~\"$instance\", namespace=\"$namespace\", job=\"$job\", container=~\"$container\"}[2m])\n)\n/\nsum(\n  increase(milvus_rootcoord_sync_timetick_latency_count{instance=~\"$instance\", namespace=\"$namespace\", job=\"$job\", container=~\"$container\"}[2m])\n)",
+                    "seriesNameFormat": "avg-latency"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "21": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "DDL Request Latency",
+            "description": "The 99th percentile and average latency of DDL request over the last 2 minutes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, function_name) (rate(milvus_rootcoord_ddl_req_latency_bucket{instance=~\"$instance\", namespace=\"$namespace\"}[2m])))",
+                    "seriesNameFormat": "p99-{{ `{{function_name}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_rootcoord_ddl_req_latency_sum{instance=~\"$instance\", namespace=\"$namespace\"}[2m])) by (function_name) / sum(increase(milvus_rootcoord_ddl_req_latency_count{instance=~\"$instance\", namespace=\"$namespace\"}[2m])) by (function_name)",
+                    "seriesNameFormat": "avg-{{ `{{function_name}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "22": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "DML Channel Num",
+            "description": "The number of DML channels"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_rootcoord_dml_channel_num{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (instance)",
+                    "seriesNameFormat": "num"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "23": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "DDL Request Rate",
+            "description": "per-second increasing rate of DDL request"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_rootcoord_ddl_req_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])/120) by (status, function_name)",
+                    "seriesNameFormat": "{{ `{{function_name}}` }}-{{ `{{status}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "24": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Timestamp",
+            "description": "RoootCoord current latest timestamp"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "milvus_rootcoord_timestamp{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}",
+                    "seriesNameFormat": "tiestamp"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "25": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Msgstream Num",
+            "description": "The number of Msgstream objects."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_rootcoord_msgstream_obj_num{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (instance)",
+                    "seriesNameFormat": "num"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "26": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "ID Alloc Rate",
+            "description": "per-second increasing rate of IDs assigned by RootCoord"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_rootcoord_id_alloc_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])/120)",
+                    "seriesNameFormat": "total"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "27": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Partition Num",
+            "description": "The number of partitions."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_rootcoord_partition_num{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (instance)",
+                    "seriesNameFormat": "num"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "28": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Credential Num",
+            "description": "The number of credential"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_rootcoord_credential_num{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (instance)",
+                    "seriesNameFormat": "num"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "29": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Collection Num",
+            "description": "The number of collections."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_rootcoord_collection_num{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (instance)",
+                    "seriesNameFormat": "num"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Collection Search Latency",
+            "description": "The 99th percentile and average latency of search request for a specified collection over the last 2 minutes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, query_type, pod, node_id) (rate(milvus_proxy_collection_sq_latency_bucket{instance=~\"$instance\",namespace=\"$namespace\", collection_name=~\"$collection_name\",container=\"$container\",job=\"$job\"}[2m])))",
+                    "seriesNameFormat": "p99-{{ `{{query_type}}` }}-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(increase(milvus_proxy_collection_sq_latency_sum{instance=~\"$instance\", namespace=\"$namespace\", collection_name=~\"$collection_name\",container=\"$container\",job=\"$job\"}[2m])) by (pod, node_id, query_type) / sum(increase(milvus_proxy_collection_sq_latency_count{instance=~\"$instance\", namespace=\"$namespace\", collection_name=~\"$collection_name\",container=\"$container\",job=\"$job\"}[2m])) by (pod, node_id, query_type)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "30": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Collection Loaded Num",
+            "description": "Total number of loaded collections."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_querycoord_collection_num{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (instance)",
+                    "seriesNameFormat": "num"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "31": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Load Request Latency",
+            "description": "The 99th percentile and average latency of load request over the last 2 minutes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le) (rate(milvus_querycoord_load_latency_bucket{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])))",
+                    "seriesNameFormat": "p99-latency"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_querycoord_load_latency_sum{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) / sum(increase(milvus_querycoord_load_latency_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m]))",
+                    "seriesNameFormat": "avg-latency"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "32": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Load Request Rate",
+            "description": "per-second increasing rate of load requests."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_querycoord_load_req_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])/120) by (status)",
+                    "seriesNameFormat": "{{ `{{status}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "33": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Release Request Rate",
+            "description": "per-second increasing rate of relaase requests."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_querycoord_release_req_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])/120) by (status)",
+                    "seriesNameFormat": "{{ `{{status}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "34": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Load Task",
+            "description": "Total number pf loading task."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_querycoord_task_num{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (instance)",
+                    "seriesNameFormat": "num"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "35": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Release Request Latency",
+            "description": "The 99th percentile and average latency of release request over the last 2 minutes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le) (rate(milvus_querycoord_release_latency_bucket{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])))",
+                    "seriesNameFormat": "p99-latency"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_querycoord_release_latency_sum{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) / sum(increase(milvus_querycoord_release_latency_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m]))",
+                    "seriesNameFormat": "avg-latency"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "36": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Query Node Num",
+            "description": "Number of Query nodes which has register with etcd."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_querycoord_querynode_num{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (instance)",
+                    "seriesNameFormat": "num"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "37": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Task Latency",
+            "description": "The 99th percentile and average latency of task request over the last 2 minutes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le) (rate(milvus_querycoord_task_latency_bucket{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])))",
+                    "seriesNameFormat": "p99-latency"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_querycoord_task_latency_sum{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) / sum(increase(milvus_querycoord_task_latency_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m]))",
+                    "seriesNameFormat": "avg-latency"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "38": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Collection Loaded Num",
+            "description": "Total number of the loaded collections in QueryNode."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_querynode_collection_num{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "39": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "DML Virtual Channel",
+            "description": "Total number of dml virtual channels for QueryNode watch"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_querynode_dml_vchannel_num{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Mutation Latency",
+            "description": "The 99th percentile and average latency of mutation request over the last 2 minutes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, msg_type, pod, node_id) (rate(milvus_proxy_mutation_latency_bucket{instance=~\"$instance\",namespace=\"$namespace\", collection_name=~\"$collection_name\",container=\"$container\",job=\"$job\"}[2m])))",
+                    "seriesNameFormat": "p99-{{ `{{msg_type}}` }}-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(increase(milvus_proxy_mutation_latency_sum{instance=~\"$instance\", namespace=\"$namespace\", collection_name=~\"$collection_name\",container=\"$container\",job=\"$job\"}[2m])) by (pod, node_id, msg_type) / sum(increase(milvus_proxy_mutation_latency_count{instance=~\"$instance\", namespace=\"$namespace\", collection_name=~\"$collection_name\",container=\"$container\",job=\"$job\"}[2m])) by (pod, node_id, msg_type)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "40": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Segment Loaded Num",
+            "description": "Total number of the loaded segment in QueryNode."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_querynode_segment_num{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (pod, node_id, segment_state)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{segment_state}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "41": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "TimeTick Lag Behind Now (Consumed)",
+            "description": "Average, maximum and minimum values of the  timestamps for time tick behind."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "avg(milvus_querynode_consume_tt_lag_ms{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\", msg_type=\"timetick\"}) by (pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}-avg"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "max(milvus_querynode_consume_tt_lag_ms{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\", msg_type=\"timetick\"}) by (pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}-max"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "min(milvus_querynode_consume_tt_lag_ms{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\", msg_type=\"timetick\"}) by (pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}-min"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "42": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Search Request Rate",
+            "description": "per-second increasing rate of searching requests."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_querynode_sq_req_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])/120) by (query_type, status, pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{query_type}}` }}-{{ `{{status}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "43": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Consumed Message Rate",
+            "description": "per-second increasing rate of consuming message"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_querynode_consume_msg_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])/120) by (pod, node_id, msg_type)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{msg_type}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_querynode_consume_msg_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])/120) by (pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}-all"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "44": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Queryable Entity Num",
+            "description": "Total number of the queryable entities  in QueryNode."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_querynode_entity_num{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "45": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Search Segment Latency",
+            "description": "The 99th percentile and average latency of search segment over the last 2 minutes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, pod, node_id, query_type, segment_state) (rate(milvus_querynode_sq_segment_latency_bucket{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])))",
+                    "seriesNameFormat": "p99-{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{query_type}}` }}-{{ `{{segment_state}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_querynode_sq_segment_latency_sum{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id, query_type, segment_state) / sum(increase(milvus_querynode_sq_segment_latency_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id, query_type, segment_state)",
+                    "seriesNameFormat": "avg-{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{query_type}}` }}_{{ `{{segment_state}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "46": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Search Request Latency",
+            "description": "The 99th percentile and average latency of search and query request over the last 2 minutes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, pod, node_id, query_type) (rate(milvus_querynode_sq_req_latency_bucket{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])))",
+                    "seriesNameFormat": "p99-{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{query_type}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_querynode_sq_req_latency_sum{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id, query_type) / sum(increase(milvus_querynode_sq_req_latency_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id, query_type)",
+                    "seriesNameFormat": "avg-{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{query_type}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "47": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Search in Queue Latency",
+            "description": "The 99th percentile and average latency of search or query in queue over the last 2 minutes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, pod, node_id, query_type) (rate(milvus_querynode_sq_queue_latency_bucket{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])))",
+                    "seriesNameFormat": "p99-{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{query_type}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_querynode_sq_queue_latency_sum{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id, query_type) / sum(increase(milvus_querynode_sq_queue_latency_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id, query_type)",
+                    "seriesNameFormat": "avg-{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{query_type}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "48": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Load Segment Latency",
+            "description": "The 99th percentile and average latency of load segment over the last 2 minutes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, pod, node_id) (rate(milvus_querynode_load_segment_latency_bucket{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])))",
+                    "seriesNameFormat": "p99-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_querynode_load_segment_latency_sum{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id) / sum(increase(milvus_querynode_load_segment_latency_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id)",
+                    "seriesNameFormat": "avg-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "49": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Segcore Request Latency",
+            "description": "The 99th percentile and average latency of search at the segcore step over the last 2 minutes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, query_type, pod, node_id) (rate(milvus_querynode_sq_core_latency_bucket{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])))",
+                    "seriesNameFormat": "p99-{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{query_type}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_querynode_sq_core_latency_sum{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id, query_type) / sum(increase(milvus_querynode_sq_core_latency_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id, query_type)",
+                    "seriesNameFormat": "avg-{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{query_type}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Collection Mutation Latency",
+            "description": "The 99th percentile and average latency of mutation request for a specified collection over the last 2 minutes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, msg_type, pod, node_id) (rate(milvus_proxy_collection_mutation_latency_bucket{instance=~\"$instance\",namespace=\"$namespace\", collection_name=~\"$collection_name\",container=\"$container\",job=\"$job\"}[2m])))",
+                    "seriesNameFormat": "p99-{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{msg_type}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_proxy_collection_mutation_latency_sum{instance=~\"$instance\", namespace=\"$namespace\", collection_name=~\"$collection_name\",container=\"$container\",job=\"$job\"}[2m])) by (pod, node_id, msg_type) / sum(increase(milvus_proxy_collection_mutation_latency_count{instance=~\"$instance\", namespace=\"$namespace\", collection_name=~\"$collection_name\",container=\"$container\",job=\"$job\"}[2m])) by (pod, node_id, msg_type)",
+                    "seriesNameFormat": "avg-{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{msg_type}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "50": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Search Reduce Latency",
+            "description": "The 99th percentile and average latency of search or query reduce over the last 2 minutes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, pod, node_id, query_type) (rate(milvus_querynode_sq_reduce_latency_bucket{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])))",
+                    "seriesNameFormat": "p99-{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{query_type}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_querynode_sq_reduce_latency_sum{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id, query_type) / sum(increase(milvus_querynode_sq_reduce_latency_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id, query_type)",
+                    "seriesNameFormat": "avg-{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{query_type}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "51": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Ready Read Task Length",
+            "description": "The length of the task queue of read requests to be executed"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_querynode_read_task_ready_len{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "52": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Flowgraph Num",
+            "description": "Total number of flowgraph"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_querynode_flowgraph_num{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "53": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Unsolved Read Task Length",
+            "description": "The length of the task queue for unsolved read requests"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_querynode_read_task_unsolved_len{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "54": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Search Group Size",
+            "description": "The number of original tasks contained in the merged search task"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, pod, node_id) (rate(milvus_querynode_search_group_size_bucket{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])))",
+                    "seriesNameFormat": "p99-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_querynode_search_group_size_sum{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id) / sum(increase(milvus_querynode_search_group_size_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id)",
+                    "seriesNameFormat": "avg-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "55": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Parallel Read Task Num",
+            "description": "Number of read requests currently being executed in parallel"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_querynode_read_task_concurrency{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "56": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Search Group NQ",
+            "description": "Number of queries for the merged search requests"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, pod, node_id) (rate(milvus_querynode_search_group_nq_bucket{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])))",
+                    "seriesNameFormat": "p99-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_querynode_search_group_nq_sum{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id) / sum(increase(milvus_querynode_search_group_nq_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id)",
+                    "seriesNameFormat": "avg-milvus_querynode_search_group_nq"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "57": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Search Top_K",
+            "description": "Top_K for search requests"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, pod, node_id) (rate(milvus_querynode_search_topk_bucket{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])))",
+                    "seriesNameFormat": "p99-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_querynode_search_topk_sum{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id) / sum(increase(milvus_querynode_search_topk_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id)",
+                    "seriesNameFormat": "avg-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "58": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Search NQ",
+            "description": "Number of queries for search requests"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, pod, node_id) (rate(milvus_querynode_search_nq_bucket{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])))",
+                    "seriesNameFormat": "p99-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_querynode_search_nq_sum{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id) / sum(increase(milvus_querynode_search_nq_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id)",
+                    "seriesNameFormat": "avg-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "59": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Search Group Top_K",
+            "description": "Top_K for the merged search requests."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, pod, node_id) (rate(milvus_querynode_search_group_topk_bucket{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])))",
+                    "seriesNameFormat": "p99-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_querynode_search_group_topk_sum{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id) / sum(increase(milvus_querynode_search_group_topk_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id)",
+                    "seriesNameFormat": "avg-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Wait Search Result Latency",
+            "description": "The 99th percentile and average latency of wait search result over the last 2 minutes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, query_type, pod, node_id) (rate(milvus_proxy_sq_wait_result_latency_bucket{instance=~\"$instance\", namespace=\"$namespace\",container=\"$container\",job=\"$job\"}[2m])))",
+                    "seriesNameFormat": "p99-{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{query_type}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_proxy_sq_wait_result_latency_sum{instance=~\"$instance\", namespace=\"$namespace\",container=\"$container\",job=\"$job\"}[2m])) by (pod, node_id, query_type) / sum(increase(milvus_proxy_sq_wait_result_latency_count{instance=~\"$instance\", namespace=\"$namespace\",container=\"$container\",job=\"$job\"}[2m])) by (pod, node_id, query_type)",
+                    "seriesNameFormat": "avg-{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{query_type}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "60": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Data Node Num",
+            "description": "Number of data nodes which has register with etcd."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_datacoord_datanode_num{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (instance)",
+                    "seriesNameFormat": "total"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "61": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Segment Num",
+            "description": "Number of segments with different states in the Meta of DataCoord"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_datacoord_segment_num{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (segment_state)",
+                    "seriesNameFormat": "{{ `{{segment_state}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "62": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Stored Rows",
+            "description": "The number of rows of valid data accumulated in DataCoord that flushed."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_datacoord_stored_rows_num{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (instance)",
+                    "seriesNameFormat": "row"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "63": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Stored Binlog Size",
+            "description": "binlog size of all collections/segments, unit byte"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_datacoord_stored_binlog_size{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (instance)",
+                    "seriesNameFormat": "size"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "64": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Compact Segment Size",
+            "description": "Compacted segment size distribution buckets"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_datacoord_compacted_segment_size_bucket{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (instance)",
+                    "seriesNameFormat": "size"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(increase(milvus_datacoord_compacted_segment_size_sum{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id) / sum(increase(milvus_datacoord_compacted_segment_size_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "65": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Level-0 Segment Size",
+            "description": "Sum of Level-0 segment sizes"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_datacoord_store_level0_segment_size_bucket{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (instance)",
+                    "seriesNameFormat": "size"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(increase(milvus_datacoord_store_level0_segment_size_sum{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id) / sum(increase(milvus_datacoord_store_level0_segment_size_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "66": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Task Count",
+            "description": "Number of ongoing DataCoord tasks"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_datacoord_task_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (instance)",
+                    "seriesNameFormat": "size"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "67": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Index Req Count",
+            "description": "DataCoord total index request count"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_datacoord_index_req_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (instance)",
+                    "seriesNameFormat": "size"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "68": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Index Node Number",
+            "description": "DataCoord total index node number."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_datacoord_index_node_num{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (instance)",
+                    "seriesNameFormat": "size"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "69": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "DataCoord Collection Number",
+            "description": "DataCoord total collection number."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_datacoord_collection_num{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (instance)",
+                    "seriesNameFormat": "size"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Reduce Search Result Latency",
+            "description": "The 99th percentile and average latency of reduce search result over the last 2 minutes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, query_type, pod, node_id) (rate(milvus_proxy_sq_decode_result_latency_bucket{instance=~\"$instance\",namespace=\"$namespace\",container=\"$container\",job=\"$job\"}[2m])))",
+                    "seriesNameFormat": "p99-{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{query_type}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_proxy_sq_reduce_result_latency_sum{instance=~\"$instance\", namespace=\"$namespace\",container=\"$container\",job=\"$job\"}[2m])) by (pod, node_id, query_type) / sum(increase(milvus_proxy_sq_reduce_result_latency_count{instance=~\"$instance\", namespace=\"$namespace\",container=\"$container\",job=\"$job\"}[2m])) by (pod, node_id, query_type)",
+                    "seriesNameFormat": "avg-{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{query_type}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "70": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Channel Checkpoint Unix Seconds",
+            "description": "Latest checkpoint timestamp per channel"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_datacoord_channel_checkpoint_unix_seconds{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (instance)",
+                    "seriesNameFormat": "size"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "71": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Flushed Data Rows",
+            "description": "DataNode total flushed rows count"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_datanode_flushed_data_rows{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "72": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Consume Bytes Count",
+            "description": "DataNode total consumed bytes count"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_datanode_consume_bytes_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "73": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "TimeTick Lag Behind Now (Consumed All)",
+            "description": "Average, maximum and minimum values of the  timestamps for time tick lag behind now."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "avg(milvus_datanode_consume_tt_lag_ms{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\", msg_type=\"all\"}) by (pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}-avg"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "max(milvus_datanode_consume_tt_lag_ms{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\", msg_type=\"all\"}) by (pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}-max"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "min(milvus_datanode_consume_tt_lag_ms{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\", msg_type=\"all\"}) by (pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}-min"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "74": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Flush Operate Rate",
+            "description": "per-second increasing rate of flush operete."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_datanode_flush_buffer_op_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])/120) by (status, pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{status}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "75": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Consumed Message Rate",
+            "description": "per-second increasing rate of consuming message"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_datanode_consume_msg_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])/120) by (pod, node_id, msg_type)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{msg_type}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "76": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Consumed Message Rate",
+            "description": "per-second increasing rate of consuming message"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_datanode_consume_msg_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])/120) by (pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "77": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Consume Bytes Count",
+            "description": "Volume of data processed by DataNode"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_datanode_consume_bytes_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (index_task_status)",
+                    "seriesNameFormat": "{{ `{{index_task_status}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "78": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Autoflush Operate Rate",
+            "description": "per-second increasing rate of auto flush operate."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_datanode_autoflush_buffer_op_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])/120) by (status, pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{status}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "79": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Msg Rows Consumed Rate",
+            "description": "per-second increasing rate of messages consumed for insert and delete operation."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_datanode_msg_rows_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])/120) by (msg_type, pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{msg_type}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "8": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Decode Search Result Latency",
+            "description": "The 99th percentile and average latency of decode search result over the last 2 minutes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_proxy_sq_decode_result_latency_sum{instance=~\"$instance\", namespace=\"$namespace\",container=\"$container\",job=\"$job\"}[2m])) by (pod, node_id, query_type) / sum(increase(milvus_proxy_sq_decode_result_latency_count{instance=~\"$instance\", namespace=\"$namespace\",container=\"$container\",job=\"$job\"}[2m])) by (pod, node_id, query_type)",
+                    "seriesNameFormat": "avg-{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{query_type}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, query_type, pod, node_id) (rate(milvus_proxy_sq_decode_result_latency_bucket{instance=~\"$instance\",namespace=\"$namespace\",container=\"$container\",job=\"$job\"}[2m])))",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "80": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Buffer Size",
+            "description": "DataNode foreground flush buffer size"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(milvus_datanode_fg_buffer_size{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}) by (instance)",
+                    "seriesNameFormat": "total"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "81": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Save Data Latency",
+            "description": "The 99th percentile and average latency of writte the data in buffer to storage  over the last 2 minutes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, pod, node_id) (rate(milvus_datanode_save_latency_bucket{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])))",
+                    "seriesNameFormat": "p99-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_datanode_save_latency_sum{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id) / sum(increase(milvus_datanode_save_latency_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])) by(pod, node_id)",
+                    "seriesNameFormat": "avg-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "82": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Flush Data Size Rate",
+            "description": "per-second increasing rate of each message that has been flushed."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_datanode_flushed_data_size{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])/120) by (msg_type, pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{msg_type}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "83": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Write Data Count",
+            "description": "per-second count of write data."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_datanode_write_data_count{instance=~\"$instance\", container=\"$container\", namespace=\"$namespace\"}[2m])/120) by (status, pod, node_id)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}-{{ `{{node_id}}` }}-{{ `{{status}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "84": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "CPU Usage Total",
+            "description": "Total cpu usage of all milvus components."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(rate(process_cpu_seconds_total{container=\"$container\", instance=~\"$instance\", namespace=\"$namespace\"}[5m]))",
+                    "seriesNameFormat": "cpu usage"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "85": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Memory Total"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(process_resident_memory_bytes{container=\"$container\", instance=~\"$instance\", namespace=\"$namespace\"})",
+                    "seriesNameFormat": "memory"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "86": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Goroutines Total",
+            "description": "Number of goroutines that currently exist."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(go_goroutines{container=\"$container\", instance=~\"$instance\", namespace=\"$namespace\"})",
+                    "seriesNameFormat": "goroutines"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "87": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "CPU Usage",
+            "description": "process cpu usage"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(process_cpu_seconds_total{container=\"$container\", instance=~\"$instance\", namespace=\"$namespace\"}[5m])",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "88": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Memory",
+            "description": "Process memory of milvus pod."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "process_resident_memory_bytes{container=\"$container\", instance=~\"$instance\", namespace=\"$namespace\"}",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "89": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Goroutines",
+            "description": "Number of goroutines that currently exist."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "go_goroutines{container=\"$container\", instance=~\"$instance\", namespace=\"$namespace\"}",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Cache Update Latency",
+            "description": "The 99th percentile and average latency of update cache over the last 2 minutes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "histogram_quantile(0.99, sum by (le, pod, node_id) (rate(milvus_proxy_cache_update_latency_bucket{instance=~\"$instance\", namespace=\"$namespace\"}[2m])))",
+                    "seriesNameFormat": "p99-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "sum(increase(milvus_proxy_cache_update_latency_sum{instance=~\"$instance\", namespace=\"$namespace\"}[2m])) by (pod, node_id) / sum(increase(milvus_proxy_cache_update_latency_count{instance=~\"$instance\", namespace=\"$namespace\"}[2m])) by (pod, node_id)",
+                    "seriesNameFormat": "avg-{{ `{{pod}}` }}-{{ `{{node_id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "90": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Go Allocated Memory",
+            "description": "Number of bytes allocated and still in use."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "go_memstats_alloc_bytes{container=\"$container\", instance=~\"$instance\", namespace=\"$namespace\"}",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "91": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "GC Max duration seconds",
+            "description": "GC Max duration seconds."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "go_gc_duration_seconds{container=\"$container\", instance=~\"$instance\", namespace=\"$namespace\"}",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "92": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "OS Threads",
+            "description": "Number of OS threads created."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "go_threads{container=\"$container\", instance=~\"$instance\", namespace=\"$namespace\"}",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "93": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Next GC Bytes",
+            "description": "Next GC Bytes."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "go_memstats_next_gc_bytes{container=\"$container\", instance=~\"$instance\", namespace=\"$namespace\"}",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "94": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Process Opened Fds",
+            "description": "Number of process opened fds."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "process_open_fds{container=\"$container\", instance=~\"$instance\", namespace=\"$namespace\"}",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "95": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Allocated Heap Objects",
+            "description": "Number of allocated heap objects."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "go_memstats_heap_objects{container=\"$container\", instance=~\"$instance\", namespace=\"$namespace\"}",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "96": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Memory Free Rate",
+            "description": "Rate of memory frees."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(go_memstats_frees_total{container=\"$container\", instance=~\"$instance\", namespace=\"$namespace\"}[5m])",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "97": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Go Memory mallocs rate.",
+            "description": "Rate of go memory mallocs."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(go_memstats_mallocs_total{container=\"$container\", instance=~\"$instance\", namespace=\"$namespace\"}[2m])",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "98": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Go Heap idle",
+            "description": "Number of heap bytes waiting to be used."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "go_memstats_heap_idle_bytes{container=\"$container\", instance=~\"$instance\", namespace=\"$namespace\"}",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "99": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Memory Allocated Rate",
+            "description": "Rate of bytes allocated, even if freed."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "$datasource"
+                    },
+                    "minStep": "",
+                    "query": "rate(go_memstats_alloc_bytes_total{container=\"$container\", instance=~\"$instance\", namespace=\"$namespace\"}[5m])",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "layouts": [
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Panel Group 1"
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 1,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/0"
+              }
+            },
+            {
+              "x": 8,
+              "y": 1,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/1"
+              }
+            },
+            {
+              "x": 16,
+              "y": 1,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/2"
+              }
+            },
+            {
+              "x": 0,
+              "y": 7,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/3"
+              }
+            },
+            {
+              "x": 8,
+              "y": 7,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/4"
+              }
+            },
+            {
+              "x": 16,
+              "y": 7,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/5"
+              }
+            },
+            {
+              "x": 0,
+              "y": 13,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/6"
+              }
+            },
+            {
+              "x": 8,
+              "y": 13,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/7"
+              }
+            },
+            {
+              "x": 16,
+              "y": 13,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/8"
+              }
+            },
+            {
+              "x": 0,
+              "y": 19,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/9"
+              }
+            },
+            {
+              "x": 8,
+              "y": 19,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/10"
+              }
+            },
+            {
+              "x": 16,
+              "y": 19,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/11"
+              }
+            },
+            {
+              "x": 0,
+              "y": 25,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/12"
+              }
+            },
+            {
+              "x": 8,
+              "y": 25,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/13"
+              }
+            },
+            {
+              "x": 16,
+              "y": 25,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/14"
+              }
+            },
+            {
+              "x": 0,
+              "y": 31,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/15"
+              }
+            },
+            {
+              "x": 8,
+              "y": 31,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/16"
+              }
+            },
+            {
+              "x": 16,
+              "y": 31,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/17"
+              }
+            },
+            {
+              "x": 0,
+              "y": 38,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/18"
+              }
+            },
+            {
+              "x": 8,
+              "y": 38,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/19"
+              }
+            },
+            {
+              "x": 16,
+              "y": 38,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/20"
+              }
+            },
+            {
+              "x": 0,
+              "y": 44,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/21"
+              }
+            },
+            {
+              "x": 8,
+              "y": 44,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/22"
+              }
+            },
+            {
+              "x": 16,
+              "y": 44,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/23"
+              }
+            },
+            {
+              "x": 0,
+              "y": 50,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/24"
+              }
+            },
+            {
+              "x": 8,
+              "y": 50,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/25"
+              }
+            },
+            {
+              "x": 16,
+              "y": 50,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/26"
+              }
+            },
+            {
+              "x": 0,
+              "y": 56,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/27"
+              }
+            },
+            {
+              "x": 8,
+              "y": 56,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/28"
+              }
+            },
+            {
+              "x": 16,
+              "y": 56,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/29"
+              }
+            },
+            {
+              "x": 0,
+              "y": 39,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/30"
+              }
+            },
+            {
+              "x": 8,
+              "y": 39,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/31"
+              }
+            },
+            {
+              "x": 16,
+              "y": 39,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/32"
+              }
+            },
+            {
+              "x": 0,
+              "y": 45,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/33"
+              }
+            },
+            {
+              "x": 8,
+              "y": 45,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/34"
+              }
+            },
+            {
+              "x": 16,
+              "y": 45,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/35"
+              }
+            },
+            {
+              "x": 0,
+              "y": 51,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/36"
+              }
+            },
+            {
+              "x": 8,
+              "y": 51,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/37"
+              }
+            },
+            {
+              "x": 0,
+              "y": 58,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/38"
+              }
+            },
+            {
+              "x": 8,
+              "y": 58,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/39"
+              }
+            },
+            {
+              "x": 16,
+              "y": 58,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/40"
+              }
+            },
+            {
+              "x": 0,
+              "y": 64,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/41"
+              }
+            },
+            {
+              "x": 8,
+              "y": 64,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/42"
+              }
+            },
+            {
+              "x": 16,
+              "y": 64,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/43"
+              }
+            },
+            {
+              "x": 0,
+              "y": 70,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/44"
+              }
+            },
+            {
+              "x": 8,
+              "y": 70,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/45"
+              }
+            },
+            {
+              "x": 16,
+              "y": 70,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/46"
+              }
+            },
+            {
+              "x": 0,
+              "y": 76,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/47"
+              }
+            },
+            {
+              "x": 8,
+              "y": 76,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/48"
+              }
+            },
+            {
+              "x": 16,
+              "y": 76,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/49"
+              }
+            },
+            {
+              "x": 0,
+              "y": 82,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/50"
+              }
+            },
+            {
+              "x": 8,
+              "y": 82,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/51"
+              }
+            },
+            {
+              "x": 16,
+              "y": 82,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/52"
+              }
+            },
+            {
+              "x": 0,
+              "y": 88,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/53"
+              }
+            },
+            {
+              "x": 8,
+              "y": 88,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/54"
+              }
+            },
+            {
+              "x": 16,
+              "y": 88,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/55"
+              }
+            },
+            {
+              "x": 0,
+              "y": 94,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/56"
+              }
+            },
+            {
+              "x": 8,
+              "y": 94,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/57"
+              }
+            },
+            {
+              "x": 16,
+              "y": 94,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/58"
+              }
+            },
+            {
+              "x": 0,
+              "y": 100,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/59"
+              }
+            },
+            {
+              "x": 0,
+              "y": 107,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/60"
+              }
+            },
+            {
+              "x": 8,
+              "y": 107,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/61"
+              }
+            },
+            {
+              "x": 16,
+              "y": 107,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/62"
+              }
+            },
+            {
+              "x": 0,
+              "y": 113,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/63"
+              }
+            },
+            {
+              "x": 8,
+              "y": 113,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/64"
+              }
+            },
+            {
+              "x": 16,
+              "y": 113,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/65"
+              }
+            },
+            {
+              "x": 0,
+              "y": 119,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/66"
+              }
+            },
+            {
+              "x": 8,
+              "y": 119,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/67"
+              }
+            },
+            {
+              "x": 16,
+              "y": 119,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/68"
+              }
+            },
+            {
+              "x": 0,
+              "y": 125,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/69"
+              }
+            },
+            {
+              "x": 8,
+              "y": 125,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/70"
+              }
+            },
+            {
+              "x": 0,
+              "y": 132,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/71"
+              }
+            },
+            {
+              "x": 8,
+              "y": 132,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/72"
+              }
+            },
+            {
+              "x": 16,
+              "y": 132,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/73"
+              }
+            },
+            {
+              "x": 0,
+              "y": 138,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/74"
+              }
+            },
+            {
+              "x": 8,
+              "y": 138,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/75"
+              }
+            },
+            {
+              "x": 16,
+              "y": 138,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/76"
+              }
+            },
+            {
+              "x": 0,
+              "y": 144,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/77"
+              }
+            },
+            {
+              "x": 8,
+              "y": 144,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/78"
+              }
+            },
+            {
+              "x": 16,
+              "y": 144,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/79"
+              }
+            },
+            {
+              "x": 0,
+              "y": 150,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/80"
+              }
+            },
+            {
+              "x": 8,
+              "y": 150,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/81"
+              }
+            },
+            {
+              "x": 16,
+              "y": 150,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/82"
+              }
+            },
+            {
+              "x": 0,
+              "y": 156,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/83"
+              }
+            },
+            {
+              "x": 0,
+              "y": 163,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/84"
+              }
+            },
+            {
+              "x": 8,
+              "y": 163,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/85"
+              }
+            },
+            {
+              "x": 16,
+              "y": 163,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/86"
+              }
+            },
+            {
+              "x": 0,
+              "y": 169,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/87"
+              }
+            },
+            {
+              "x": 8,
+              "y": 169,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/88"
+              }
+            },
+            {
+              "x": 16,
+              "y": 169,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/89"
+              }
+            },
+            {
+              "x": 0,
+              "y": 175,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/90"
+              }
+            },
+            {
+              "x": 8,
+              "y": 175,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/91"
+              }
+            },
+            {
+              "x": 16,
+              "y": 175,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/92"
+              }
+            },
+            {
+              "x": 0,
+              "y": 181,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/93"
+              }
+            },
+            {
+              "x": 8,
+              "y": 181,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/94"
+              }
+            },
+            {
+              "x": 16,
+              "y": 181,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/95"
+              }
+            },
+            {
+              "x": 0,
+              "y": 187,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/96"
+              }
+            },
+            {
+              "x": 8,
+              "y": 187,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/97"
+              }
+            },
+            {
+              "x": 16,
+              "y": 187,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/98"
+              }
+            },
+            {
+              "x": 0,
+              "y": 193,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/99"
+              }
+            },
+            {
+              "x": 8,
+              "y": 193,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/100"
+              }
+            },
+            {
+              "x": 16,
+              "y": 193,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/101"
+              }
+            },
+            {
+              "x": 0,
+              "y": 199,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/102"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "duration": "1h"
+  }
+}

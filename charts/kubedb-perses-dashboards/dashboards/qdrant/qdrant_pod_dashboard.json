@@ -1,0 +1,1128 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
+{
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "fd868f7d-b1ee-4a46-8cd4-524d08ef710b",
+    "createdAt": "0001-01-01T00:00:00Z",
+    "updatedAt": "0001-01-01T00:00:00Z",
+    "version": 0,
+    "project": "pp"
+  },
+  "spec": {
+    "display": {
+      "name": "KubeDB / Qdrant / Pod"
+    },
+    "variables": [
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "hidden": false
+          },
+          "defaultValue": "Prometheus",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "plugin": {
+            "kind": "DatasourceVariable",
+            "spec": {
+              "datasourcePluginKind": "PrometheusDatasource"
+            }
+          },
+          "name": "datasource"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Namespace",
+            "hidden": false
+          },
+          "defaultValue": "default",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "namespace",
+              "matchers": [
+                "kube_namespace_status_phase{phase=\"Active\"}"
+              ]
+            }
+          },
+          "name": "namespace"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Qdrant",
+            "hidden": false
+          },
+          "defaultValue": "qdrant-sample",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "app",
+              "matchers": [
+                "kubedb_com_qdrant_status_phase{namespace=~\"$namespace\"}"
+              ]
+            }
+          },
+          "name": "app"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Pod",
+            "hidden": false
+          },
+          "defaultValue": "qdrant-sample-0",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "pod",
+              "matchers": [
+                "up{service=\"$app-stats\", namespace=~\"$namespace\"}"
+              ]
+            }
+          },
+          "name": "pod"
+        }
+      }
+    ],
+    "panels": {
+      "0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Pod Name",
+            "description": "Displays the name of the selected Qdrant pod"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "value",
+              "metricLabel": "pod",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#3274d9",
+                    "value": 0
+                  }
+                ]
+              },
+              "valueFontSize": 24
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "app_info{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Status",
+            "description": "Shows the current operational status of the pod (Up/Down)"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#f2495c",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 0
+                  },
+                  {
+                    "color": "#73bf69",
+                    "value": 1
+                  }
+                ]
+              },
+              "valueFontSize": 50
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "up{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "10": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "REST Avg Response Duration",
+            "description": "Shows the average response time for REST API endpoints"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "mean",
+                  "last-number",
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 2
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "seconds"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum by (endpoint) (rest_responses_avg_duration_seconds{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"})",
+                    "seriesNameFormat": "{{ `{{endpoint}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "11": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "gRPC Request Rate by Endpoint",
+            "description": "Shows the rate of gRPC API requests per endpoint"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "mean",
+                  "last-number",
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 2
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "requests/sec"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(grpc_responses_total{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
+                    "seriesNameFormat": "{{ `{{endpoint}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "12": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "gRPC Request Distribution by Endpoint",
+            "description": "Displays the distribution of gRPC requests across different endpoints"
+          },
+          "plugin": {
+            "kind": "PieChart",
+            "spec": {
+              "calculation": "last-number",
+              "legend": {
+                "mode": "table",
+                "position": "right"
+              },
+              "radius": 50,
+              "showLabels": true
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum by (endpoint) (rate(grpc_responses_total{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m]))",
+                    "seriesNameFormat": "{{ `{{endpoint}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "13": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "gRPC Endpoint Performance Summary",
+            "description": "Table showing gRPC endpoint performance metrics including rate, average duration, and failures"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [
+                {
+                  "format": {
+                    "unit": "requests/sec"
+                  },
+                  "name": "Rate"
+                },
+                {
+                  "format": {
+                    "unit": "seconds"
+                  },
+                  "name": "Avg Duration"
+                }
+              ]
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum by (endpoint) (rate(grpc_responses_total{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m]))",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum by (endpoint) (grpc_responses_avg_duration_seconds{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"})",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum by (endpoint) (rate(grpc_responses_fail_total{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m]))",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "14": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "gRPC Success Rate",
+            "description": "Shows the success rate of gRPC API requests as a percentage"
+          },
+          "plugin": {
+            "kind": "GaugeChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "decimalPlaces": 4,
+                "unit": "percent-decimal"
+              },
+              "max": 1,
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#f2495c",
+                    "value": 0
+                  },
+                  {
+                    "color": "#ff9830",
+                    "value": 0.99
+                  },
+                  {
+                    "color": "#fade2a",
+                    "value": 0.995
+                  },
+                  {
+                    "color": "#73bf69",
+                    "value": 0.999
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "1 - (sum(rate(grpc_responses_fail_total{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])) / sum(rate(grpc_responses_total{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])))",
+                    "seriesNameFormat": "gRPC Success Rate"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "15": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "gRPC Total Failed Requests (1h)",
+            "description": "Displays the total number of failed gRPC requests in the last hour"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "sum",
+              "colorMode": "background_solid",
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 1
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(increase(grpc_responses_fail_total{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[1h]))",
+                    "seriesNameFormat": "Failed Requests (1h)"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "16": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "gRPC Avg Response Duration",
+            "description": "Shows the average response time for gRPC API endpoints"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "mean",
+                  "last-number",
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 2
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "seconds"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "grpc_responses_avg_duration_seconds{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
+                    "seriesNameFormat": "{{ `{{endpoint}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Uptime",
+            "description": "Displays how long the pod has been running since it was started"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "value",
+              "format": {
+                "unit": "seconds"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  }
+                ]
+              },
+              "valueFontSize": 40
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "time() - kube_pod_start_time{namespace=~\"$namespace\",pod=~\"$pod\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Memory Usage",
+            "description": "Shows memory consumption metrics including Resident, Allocated, and Active memory"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "mean",
+                  "last-number",
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 2
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "bytes"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "memory_resident_bytes{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
+                    "seriesNameFormat": "Resident"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "memory_allocated_bytes{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
+                    "seriesNameFormat": "Allocated"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "memory_active_bytes{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
+                    "seriesNameFormat": "Active"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "CPU Usage by Collection",
+            "description": "Displays CPU usage per collection for the selected pod"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 2
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "collection_hardware_metric_cpu{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
+                    "seriesNameFormat": "{{ `{{id}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "REST Request Rate by Endpoint",
+            "description": "Shows the rate of REST API requests per endpoint"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "mean",
+                  "last-number",
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 2
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "requests/sec"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(rest_responses_total{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
+                    "seriesNameFormat": "{{ `{{endpoint}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "REST Request Distribution by Endpoint",
+            "description": "Displays the distribution of REST requests across different endpoints"
+          },
+          "plugin": {
+            "kind": "PieChart",
+            "spec": {
+              "calculation": "last-number",
+              "legend": {
+                "mode": "table",
+                "position": "right"
+              },
+              "radius": 50,
+              "showLabels": true
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum by (endpoint) (\n  rate(\n    rest_responses_total{\n      namespace=~\"$namespace\",\n      service=~\"$app+-stats\",\n      pod=~\"$pod\"\n    }[5m]\n  )\n)\n",
+                    "seriesNameFormat": "{{ `{{endpoint}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "REST Endpoint Performance Summary",
+            "description": "Table showing REST endpoint performance metrics including rate, average duration, and failures"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [
+                {
+                  "format": {
+                    "unit": "requests/sec"
+                  },
+                  "name": "Rate"
+                },
+                {
+                  "format": {
+                    "unit": "seconds"
+                  },
+                  "name": "Avg Duration"
+                }
+              ]
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum by (endpoint) (rate(rest_responses_total{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m]))",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum by (endpoint) (rest_responses_avg_duration_seconds{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"})",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum by (endpoint) (rate(rest_responses_fail_total{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m]))",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "8": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "REST Success Rate",
+            "description": "Shows the success rate of REST API requests as a percentage"
+          },
+          "plugin": {
+            "kind": "GaugeChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "decimalPlaces": 4,
+                "unit": "percent-decimal"
+              },
+              "max": 1,
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#f2495c",
+                    "value": 0
+                  },
+                  {
+                    "color": "#ff9830",
+                    "value": 0.99
+                  },
+                  {
+                    "color": "#fade2a",
+                    "value": 0.995
+                  },
+                  {
+                    "color": "#73bf69",
+                    "value": 0.999
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "1 - (sum(rate(rest_responses_fail_total{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])) / sum(rate(rest_responses_total{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])))",
+                    "seriesNameFormat": "gRPC Success Rate"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "REST Total Failed Requests (1h)",
+            "description": "Displays the total number of failed REST requests in the last hour"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "sum",
+              "colorMode": "background_solid",
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 1
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(increase(rest_responses_fail_total{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[1h]))",
+                    "seriesNameFormat": "Failed Requests (1h)"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "layouts": [
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Panel Group 1"
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 1,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/0"
+              }
+            },
+            {
+              "x": 8,
+              "y": 1,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/1"
+              }
+            },
+            {
+              "x": 16,
+              "y": 1,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/2"
+              }
+            },
+            {
+              "x": 0,
+              "y": 8,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/3"
+              }
+            },
+            {
+              "x": 12,
+              "y": 8,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/4"
+              }
+            },
+            {
+              "x": 0,
+              "y": 17,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/5"
+              }
+            },
+            {
+              "x": 12,
+              "y": 17,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/6"
+              }
+            },
+            {
+              "x": 0,
+              "y": 25,
+              "width": 24,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7"
+              }
+            },
+            {
+              "x": 0,
+              "y": 33,
+              "width": 6,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/8"
+              }
+            },
+            {
+              "x": 6,
+              "y": 33,
+              "width": 6,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/9"
+              }
+            },
+            {
+              "x": 12,
+              "y": 33,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/10"
+              }
+            },
+            {
+              "x": 0,
+              "y": 42,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/11"
+              }
+            },
+            {
+              "x": 12,
+              "y": 42,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/12"
+              }
+            },
+            {
+              "x": 0,
+              "y": 50,
+              "width": 24,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/13"
+              }
+            },
+            {
+              "x": 0,
+              "y": 58,
+              "width": 6,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/14"
+              }
+            },
+            {
+              "x": 6,
+              "y": 58,
+              "width": 6,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/15"
+              }
+            },
+            {
+              "x": 12,
+              "y": 58,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/16"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "duration": "1h"
+  }
+}

@@ -1,4 +1,5 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "kind": "Dashboard",
   "metadata": {
@@ -116,9 +117,11 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "format": {
                 "unit": "decimal"
               },
+              "metricLabel": "pod",
               "thresholds": {
                 "steps": [
                   {
@@ -138,7 +141,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "pgbouncer_up{namespace=~\"$namespace\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -157,6 +160,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "format": {
                 "unit": "seconds"
               },
@@ -183,7 +187,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "time() - kube_pod_start_time{namespace=~\"$namespace\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -202,6 +206,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "sparkline": {},
               "thresholds": {
                 "steps": [
@@ -226,7 +231,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "pgbouncer_scrapes_total{namespace=~\"$namespace\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -260,7 +265,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum(rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\", pod=~\"$pod\", container!=\"\", image!=\"\"}[5m])) by (pod)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{container}}` }}"
                   }
                 }
               }
@@ -294,7 +299,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum(container_memory_working_set_bytes{namespace=~\"$namespace\", pod=~\"$pod\", container!=\"\", image!=\"\"}) by (pod)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -313,6 +318,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "format": {
                 "unit": "decimal"
               },
@@ -340,7 +346,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "(sum by (pod) (pgbouncer_databases_max_connections{namespace=~\"$namespace\",pod=~\"$pod\"}))",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -359,6 +365,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "format": {
                 "unit": "decimal"
               },
@@ -386,7 +393,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum by (pod) (pgbouncer_config_max_db_connections{namespace=~\"$namespace\",pod=~\"$pod\"})",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -405,6 +412,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "sparkline": {},
               "thresholds": {
                 "steps": [
@@ -429,7 +437,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum by (pod) (pgbouncer_databases_current_connections{namespace=~\"$namespace\",pod=~\"$pod\"})",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -463,7 +471,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "(sum by (pod) (pgbouncer_databases_current_connections{namespace=~\"$namespace\",pod=~\"$pod\"}))/(sum by (pod) (pgbouncer_databases_max_connections{namespace=~\"$namespace\",pod=~\"$pod\"}))",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -482,6 +490,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "format": {
                 "unit": "decimal"
               },
@@ -509,7 +518,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "pgbouncer_last_scrape_error{namespace=~\"$namespace\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -543,7 +552,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "pgbouncer_last_scrape_duration_seconds{namespace=~\"$namespace\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
