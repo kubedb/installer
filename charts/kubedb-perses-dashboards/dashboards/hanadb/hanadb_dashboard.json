@@ -1,0 +1,2206 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
+{
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "EcC4JDFWz2",
+    "createdAt": "0001-01-01T00:00:00Z",
+    "updatedAt": "0001-01-01T00:00:00Z",
+    "version": 0,
+    "project": "pp"
+  },
+  "spec": {
+    "display": {
+      "name": "KubeDB / HanaDB / Database"
+    },
+    "variables": [
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Datasource",
+            "hidden": true
+          },
+          "defaultValue": "Prometheus",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "plugin": {
+            "kind": "DatasourceVariable",
+            "spec": {
+              "datasourcePluginKind": "PrometheusDatasource"
+            }
+          },
+          "name": "datasource"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Node",
+            "hidden": false
+          },
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "host",
+              "matchers": [
+                "hanadb_host_memory_used_total_mb"
+              ]
+            }
+          },
+          "name": "node_name"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "hidden": true
+          },
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "instance",
+              "matchers": [
+                "node_uname_info{nodename=\"$node_name\"}"
+              ]
+            }
+          },
+          "name": "node_ip"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "SID",
+            "hidden": false
+          },
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "sid",
+              "matchers": [
+                "hanadb_host_memory_used_total_mb{host=\"$node_name\"}"
+              ]
+            }
+          },
+          "name": "sid"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Instance number",
+            "hidden": false
+          },
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "insnr",
+              "matchers": [
+                "hanadb_host_memory_used_total_mb{host=\"$node_name\", sid=\"$sid\"}"
+              ]
+            }
+          },
+          "name": "instance_number"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Database",
+            "hidden": false
+          },
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "database_name",
+              "matchers": [
+                "hanadb_host_memory_used_total_mb{host=\"$node_name\", sid=\"$sid\", insnr=\"$instance_number\"}"
+              ]
+            }
+          },
+          "name": "database_name"
+        }
+      }
+    ],
+    "panels": {
+      "0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Memory usage"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_host_memory_physical_total_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} / 1024",
+                    "seriesNameFormat": "Total Physical Memory"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_host_memory_physical_free_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} / 1024",
+                    "seriesNameFormat": "Free Physical Memory"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_host_memory_resident_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} / 1024",
+                    "seriesNameFormat": "Resident Memory "
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_host_memory_alloc_limit_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} / 1024",
+                    "seriesNameFormat": "Allocation Limit"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_host_memory_pool_size_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} / 1024",
+                    "seriesNameFormat": "Pool Size"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "hanadb_host_memory_used_total_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} / 1024",
+                    "seriesNameFormat": "Used"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_host_memory_shared_alloc_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} / 1024",
+                    "seriesNameFormat": "Shared Memory"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "hanadb_host_memory_swap_used_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} / 1024",
+                    "seriesNameFormat": "Swap"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "hanadb_host_memory_code_size_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} / 1024",
+                    "seriesNameFormat": "Code size"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "hanadb_host_memory_shared_alloc_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} / 1024",
+                    "seriesNameFormat": "Shared"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "hanadb_column_tables_used_memory_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} / 1024",
+                    "seriesNameFormat": "Column Store Tables"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "RAM Usage",
+            "description": "Percentage of Total Used RAM over the HANA Allocation Limit."
+          },
+          "plugin": {
+            "kind": "GaugeChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "decimalPlaces": 1,
+                "unit": "percent"
+              },
+              "max": 100,
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#299c46",
+                    "value": 0
+                  },
+                  {
+                    "color": "rgba(237, 129, 40, 0.89)",
+                    "value": 85
+                  },
+                  {
+                    "color": "#d44a3a",
+                    "value": 95
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(hanadb_host_memory_used_total_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}) / sum(hanadb_host_memory_alloc_limit_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}) * 100",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "10": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Memory usage by service"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_memory_service_total_used_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}",
+                    "seriesNameFormat": "{{ `{{service}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "11": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "SQL Executions Statistics"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [
+                {
+                  "header": "SERVICE",
+                  "name": "service"
+                },
+                {
+                  "header": "SQL TYPE",
+                  "name": "sql_type"
+                },
+                {
+                  "header": "TOTAL EXECUTIONS",
+                  "name": "value #1"
+                },
+                {
+                  "header": "TOTAL EXEC TIME",
+                  "name": "value #2"
+                },
+                {
+                  "header": "AVG EXEC TIME",
+                  "name": "value #3"
+                },
+                {
+                  "header": "AVG LOCK WAIT",
+                  "name": "value #4"
+                },
+                {
+                  "header": "MAX EXEC TIME",
+                  "name": "value #5"
+                },
+                {
+                  "header": "",
+                  "hide": true,
+                  "name": "/.*/"
+                }
+              ]
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sort(hanadb_sql_service_executions_count{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} + 0)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_sql_service_elapsed_time_ms{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} + 0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_sql_service_elap_per_exec_avg_ms{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} + 0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_sql_service_lock_per_exec_ms{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} + 0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_sql_service_max_ela_time_ms{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} + 0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "12": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Top SQL Time Consumers"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [
+                {
+                  "header": "SQL HASH",
+                  "name": "sql_hash"
+                },
+                {
+                  "header": "SQL STRING SNIPPET",
+                  "name": "sql_string"
+                },
+                {
+                  "header": "ELA. TIME",
+                  "name": "value #1"
+                },
+                {
+                  "header": "EXEC COUNT",
+                  "name": "value #2"
+                },
+                {
+                  "header": "",
+                  "hide": true,
+                  "name": "/.*/"
+                }
+              ]
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sort(hanadb_sql_top_time_consumers_mu{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} + 0)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_sql_top_time_consumers_count{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} + 0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "13": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Used Memory by Schema"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [
+                {
+                  "header": "SCHEMA",
+                  "name": "Metric"
+                },
+                {
+                  "header": "Size",
+                  "name": "value"
+                },
+                {
+                  "header": "",
+                  "hide": true,
+                  "name": "/.*/"
+                }
+              ]
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sort(sum(hanadb_schema_used_memory_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}) by (schema_name))",
+                    "seriesNameFormat": "{{ `{{schema_name}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "14": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Top SQL Memory Consumers"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [
+                {
+                  "header": "SQL HASH",
+                  "name": "sql_hash"
+                },
+                {
+                  "header": "SQL STRING SNIPPET",
+                  "name": "sql_string"
+                },
+                {
+                  "header": "USED MEM.",
+                  "name": "value #1"
+                },
+                {
+                  "header": "EXEC COUNT",
+                  "name": "value #2"
+                },
+                {
+                  "header": "",
+                  "hide": true,
+                  "name": "/.*/"
+                }
+              ]
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sort(hanadb_sql_top_mem_consumers_byte{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} + 0)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sort(hanadb_sql_top_mem_consumers_count{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} + 0)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "15": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "TOP CS Tables Memory Consumers"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [
+                {
+                  "header": "SCHEMA NAME",
+                  "name": "schema_name"
+                },
+                {
+                  "header": "TABLE NAME",
+                  "name": "table_name"
+                },
+                {
+                  "header": "TOTAL MEM",
+                  "name": "value #1"
+                },
+                {
+                  "header": "EST LOAD MEM",
+                  "name": "value #2"
+                },
+                {
+                  "header": "TOTAL DISK",
+                  "name": "value #3"
+                },
+                {
+                  "header": "RECORDS",
+                  "name": "value #4"
+                },
+                {
+                  "header": "",
+                  "hide": true,
+                  "name": "/.*/"
+                }
+              ]
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sort(hanadb_table_cs_top_mem_total_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}) + 0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_table_cs_top_mem_estimated_max_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} + 0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_table_cs_top_mem_disk_size_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} + 0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_table_cs_top_mem_record_count{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} + 0"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "16": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "DATA Files Usage"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [
+                {
+                  "header": "FILE NAME",
+                  "name": "file_name"
+                },
+                {
+                  "header": "Used Size",
+                  "name": "value #1"
+                },
+                {
+                  "header": "Total Size",
+                  "name": "value #2"
+                },
+                {
+                  "header": "% Used",
+                  "name": "value #3"
+                },
+                {
+                  "header": "",
+                  "hide": true,
+                  "name": "/.*/"
+                }
+              ]
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_disk_data_files_used_size_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} + 0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_disk_data_files_total_size_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} + 0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "(hanadb_disk_data_files_used_size_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} / hanadb_disk_data_files_total_size_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}) * 100"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "17": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "HANA System Replication Status"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [
+                {
+                  "header": "HOST",
+                  "name": "host"
+                },
+                {
+                  "header": "PORT",
+                  "name": "port"
+                },
+                {
+                  "header": "REPLICATION MODE",
+                  "name": "replication_mode"
+                },
+                {
+                  "header": "SECONDARY HOST",
+                  "name": "secondary_host"
+                },
+                {
+                  "header": "SECONDARY PORT",
+                  "name": "secondary_port"
+                },
+                {
+                  "header": "SECONDARY SITE NAME",
+                  "name": "secondary_site_name"
+                },
+                {
+                  "header": "PRIMARY SITE NAME",
+                  "name": "site_name"
+                },
+                {
+                  "header": "REPLICATION STATUS",
+                  "name": "value #1"
+                },
+                {
+                  "header": "SECONDARY ACTIVE?",
+                  "name": "value #2"
+                },
+                {
+                  "header": "SEC. RECONNECT COUNT",
+                  "name": "value #3"
+                },
+                {
+                  "header": "SEC. FAILOVER COUNT",
+                  "name": "value #4"
+                },
+                {
+                  "header": "",
+                  "hide": true,
+                  "name": "/.*/"
+                }
+              ]
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_sr_replication_status{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} + 0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_sr_secondary_active_status{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} + 0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_sr_secondary_reconnect_count{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} + 0"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_sr_secondary_failover_count{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} + 0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "18": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "System Replication Log Shipping Delay"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "hanadb_sr_ship_delay_seconds{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}",
+                    "seriesNameFormat": "{{ `{{host}}` }}:{{ `{{port}}` }} -> {{ `{{secondary_host}}` }}:{{ `{{secondary_port}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "19": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "System Replication Used Async Log Shipping Buffer"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "hanadb_sr_async_used_shipping_buffer_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}",
+                    "seriesNameFormat": "{{ `{{host}}` }}:{{ `{{port}}` }} -> {{ `{{secondary_host}}` }}:{{ `{{secondary_port}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "CPU Usage",
+            "description": "Average percent of CPU usage based on usage type."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum by (pod) (rate(container_cpu_usage_seconds_total{pod=~\"$node_name\",container!=\"\",container!=\"POD\",image!=\"\"}[5m])) * 100",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "20": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "System Replication Takeover History",
+            "description": "System Replication Takeover history. When the values of end time cannot be collected, the duration time is presented as -1 and the end time as \"N/A\""
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [
+                {
+                  "header": "SOURCE HOST",
+                  "name": "src_host"
+                },
+                {
+                  "header": "END TIME",
+                  "name": "end_time"
+                },
+                {
+                  "header": "LOG POSITION TIME",
+                  "name": "log_pos_time"
+                },
+                {
+                  "header": "OPERATION MODE",
+                  "name": "operation_mode"
+                },
+                {
+                  "header": "SHIPPED LOG POS TIME",
+                  "name": "shipped_log_pos_time"
+                },
+                {
+                  "header": "SOURCE SITE",
+                  "name": "src_site_name"
+                },
+                {
+                  "header": "START TIME",
+                  "name": "start_time"
+                },
+                {
+                  "header": "TARGET HOST",
+                  "name": "tgt_host"
+                },
+                {
+                  "header": "TARGET SITE",
+                  "name": "tgt_site_name"
+                },
+                {
+                  "header": "SR STATUS",
+                  "name": "value #1"
+                },
+                {
+                  "header": "DURATION TIME",
+                  "name": "value #2"
+                },
+                {
+                  "header": "MASTER LOG POS",
+                  "name": "value #3"
+                },
+                {
+                  "header": "MASTER LOG SHIPPED",
+                  "name": "value #4"
+                },
+                {
+                  "header": "",
+                  "hide": true,
+                  "name": "/.*/"
+                }
+              ]
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_sr_takeover_replication_status{src_host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} + 0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_sr_takeover_duration_time_seconds{src_host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} + 0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "hanadb_sr_takeover_log_position_bigint{src_host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} + 0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "hanadb_sr_takeover_shipped_log_position_bigint{src_host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} + 0"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "21": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Receive Rate (KB/s)"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum by (pod) (rate(container_network_receive_bytes_total{pod=~\"$node_name\"}[5m])) / 1024",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "22": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Transmission Rate (KB/s)"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sum by (pod) (rate(container_network_transmit_bytes_total{pod=~\"$node_name\"}[5m])) / 1024",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "23": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Receive/Transmission Errors per Second"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sum by (pod) (rate(container_network_receive_errors_total{pod=~\"$node_name\"}[5m]))",
+                    "seriesNameFormat": "{{ `{{pod}}` }} - Rx errors"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sum by (pod) (rate(container_network_transmit_errors_total{pod=~\"$node_name\"}[5m]))",
+                    "seriesNameFormat": "{{ `{{pod}}` }} - Tx errors"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "24": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Received Requests per Second"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum by (pod) (rate(container_network_receive_packets_total{pod=~\"$node_name\"}[5m]))",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "25": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Transmitted Requests per Second"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum by (pod) (rate(container_network_transmit_packets_total{pod=~\"$node_name\"}[5m]))",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "26": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Collisions per Second"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "hanadb_network_collisions_per_seconds{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}",
+                    "seriesNameFormat": "{{ `{{interface}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "27": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "I/O Throughput",
+            "description": "I/O Throughput  per Disk in KB/Sec"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sum by (pod) (rate(container_fs_reads_bytes_total{pod=~\"$node_name\",container!=\"\",container!=\"POD\"}[5m])) / 1024",
+                    "seriesNameFormat": "{{ `{{pod}}` }} read"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sum by (pod) (rate(container_fs_writes_bytes_total{pod=~\"$node_name\",container!=\"\",container!=\"POD\"}[5m])) / 1024",
+                    "seriesNameFormat": "{{ `{{pod}}` }} write"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "28": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Latency",
+            "description": "I/O Latency in milliseconds."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "(((sum by (host_ip) (label_replace(rate(node_disk_read_time_seconds_total{device!~\"loop.*|ram.*|fd.*\"}[5m]), \"host_ip\", \"$1\", \"instance\", \"([^:]+):.*\")) + sum by (host_ip) (label_replace(rate(node_disk_write_time_seconds_total{device!~\"loop.*|ram.*|fd.*\"}[5m]), \"host_ip\", \"$1\", \"instance\", \"([^:]+):.*\"))) / clamp_min((sum by (host_ip) (label_replace(rate(node_disk_reads_completed_total{device!~\"loop.*|ram.*|fd.*\"}[5m]), \"host_ip\", \"$1\", \"instance\", \"([^:]+):.*\")) + sum by (host_ip) (label_replace(rate(node_disk_writes_completed_total{device!~\"loop.*|ram.*|fd.*\"}[5m]), \"host_ip\", \"$1\", \"instance\", \"([^:]+):.*\"))), 0.001)) * 1000) * on (host_ip) group_left(pod) max by (host_ip, pod) (kube_pod_info{pod=~\"$node_name\"})",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "29": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "I/O Service Time"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "((sum by (host_ip) (label_replace(rate(node_disk_io_time_seconds_total{device!~\"loop.*|ram.*|fd.*\"}[5m]), \"host_ip\", \"$1\", \"instance\", \"([^:]+):.*\")) / clamp_min((sum by (host_ip) (label_replace(rate(node_disk_reads_completed_total{device!~\"loop.*|ram.*|fd.*\"}[5m]), \"host_ip\", \"$1\", \"instance\", \"([^:]+):.*\")) + sum by (host_ip) (label_replace(rate(node_disk_writes_completed_total{device!~\"loop.*|ram.*|fd.*\"}[5m]), \"host_ip\", \"$1\", \"instance\", \"([^:]+):.*\"))), 0.001)) * 1000) * on (host_ip) group_left(pod) max by (host_ip, pod) (kube_pod_info{pod=~\"$node_name\"})",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "CPU Usage",
+            "description": "Average CPU busy time of all cores."
+          },
+          "plugin": {
+            "kind": "GaugeChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "percent"
+              },
+              "max": 100,
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#299c46",
+                    "value": 0
+                  },
+                  {
+                    "color": "rgba(237, 129, 40, 0.89)",
+                    "value": 85
+                  },
+                  {
+                    "color": "#d44a3a",
+                    "value": 95
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "avg(sum by (pod) (rate(container_cpu_usage_seconds_total{pod=~\"$node_name\",container!=\"\",container!=\"POD\",image!=\"\"}[5m]))) * 100",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "30": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Requests per Sec"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sum by (pod) (rate(container_fs_reads_total{pod=~\"$node_name\",container!=\"\",container!=\"POD\"}[5m]))",
+                    "seriesNameFormat": "{{ `{{pod}}` }} read"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sum by (pod) (rate(container_fs_writes_total{pod=~\"$node_name\",container!=\"\",container!=\"POD\"}[5m]))",
+                    "seriesNameFormat": "{{ `{{pod}}` }} write"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "31": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Queue Length (Number of Requests)",
+            "description": "average queue length of the requests that were issued to the Disk Device"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "(sum by (host_ip) (label_replace(node_disk_io_now{device!~\"loop.*|ram.*|fd.*\"}, \"host_ip\", \"$1\", \"instance\", \"([^:]+):.*\"))) * on (host_ip) group_left(pod) max by (host_ip, pod) (kube_pod_info{pod=~\"$node_name\"})",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "32": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "I/O Wait Time"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "((sum by (host_ip) (label_replace(rate(node_disk_io_time_weighted_seconds_total{device!~\"loop.*|ram.*|fd.*\"}[5m]), \"host_ip\", \"$1\", \"instance\", \"([^:]+):.*\")) / clamp_min((sum by (host_ip) (label_replace(rate(node_disk_reads_completed_total{device!~\"loop.*|ram.*|fd.*\"}[5m]), \"host_ip\", \"$1\", \"instance\", \"([^:]+):.*\")) + sum by (host_ip) (label_replace(rate(node_disk_writes_completed_total{device!~\"loop.*|ram.*|fd.*\"}[5m]), \"host_ip\", \"$1\", \"instance\", \"([^:]+):.*\"))), 0.001)) * 1000) * on (host_ip) group_left(pod) max by (host_ip, pod) (kube_pod_info{pod=~\"$node_name\"})",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Alerts"
+          },
+          "plugin": {
+            "kind": "GaugeChart",
+            "spec": {
+              "calculation": "last",
+              "format": {
+                "unit": "decimal"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#299c46",
+                    "value": 0
+                  },
+                  {
+                    "color": "#d44a3a",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "count(hanadb_alerts_current_rating{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}) or vector(0)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Total Connections"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "hanadb_connections_total_count{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}",
+                    "seriesNameFormat": "{{ `{{connection_type}}` }} : {{ `{{connection_status}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Filesystem usage",
+            "description": "Details HANA on how HANA uses the filesystem in its various directories"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "(hanadb_disk_used_size_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} / hanadb_disk_total_device_size_mb)",
+                    "seriesNameFormat": "{{ `{{usage_type}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "File system details",
+            "description": "Details HANA on how HANA uses the filesystem in its various directories"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [
+                {
+                  "header": "Path",
+                  "name": "path"
+                },
+                {
+                  "header": "Usage type",
+                  "name": "usage_type"
+                },
+                {
+                  "header": "Usage",
+                  "name": "value #1"
+                },
+                {
+                  "header": "Device Usage %",
+                  "name": "value #5"
+                },
+                {
+                  "header": "Device Usage",
+                  "name": "value #4"
+                },
+                {
+                  "header": "Usage %",
+                  "name": "value #3"
+                },
+                {
+                  "header": "",
+                  "hide": true,
+                  "name": "/.*/"
+                }
+              ]
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "hanadb_disk_used_size_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\",usage_type!=\"ROOTKEY_BACKUP\"} + 0",
+                    "seriesNameFormat": "Usage by type"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "hanadb_disk_total_size_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\",usage_type!=\"ROOTKEY_BACKUP\"} + 0",
+                    "seriesNameFormat": "Disk Total Size"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "(hanadb_disk_used_size_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\",usage_type!=\"ROOTKEY_BACKUP\"} / hanadb_disk_total_size_mb) * 100",
+                    "seriesNameFormat": "Percent Used by type"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "hanadb_disk_total_used_size_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\",usage_type!=\"ROOTKEY_BACKUP\"} + 0",
+                    "seriesNameFormat": "Total Device Usage"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "(hanadb_disk_total_used_size_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\",usage_type!=\"ROOTKEY_BACKUP\"} / hanadb_disk_total_size_mb) * 100",
+                    "seriesNameFormat": "Device Percent Used"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "hanadb_disk_total_device_size_mb{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\",usage_type!=\"ROOTKEY_BACKUP\"}",
+                    "seriesNameFormat": "Total Device Size"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "8": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Alert counts by rating"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "count(hanadb_alerts_current_rating{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} == 1) or vector(0)",
+                    "seriesNameFormat": "Info"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "count(hanadb_alerts_current_rating{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} == 2) or vector(0)",
+                    "seriesNameFormat": "Low"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "count(hanadb_alerts_current_rating{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} == 3) or vector(0)",
+                    "seriesNameFormat": "Medium"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "count(hanadb_alerts_current_rating{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} == 4) or vector(0)",
+                    "seriesNameFormat": "High"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "count(hanadb_alerts_current_rating{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"} == 5) or vector(0)",
+                    "seriesNameFormat": "Critical"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Alert details",
+            "description": "Alerts raised from the HANA database internal alerting system"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [
+                {
+                  "header": "Timestamp",
+                  "name": "alert_timestamp"
+                },
+                {
+                  "header": "Details",
+                  "name": "alert_details"
+                },
+                {
+                  "header": "User Action",
+                  "name": "alert_useraction"
+                },
+                {
+                  "header": "Rating",
+                  "name": "value"
+                },
+                {
+                  "hide": true,
+                  "name": "/.*/"
+                }
+              ]
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sort_desc(hanadb_alerts_current_rating{host=~\"$node_name\",sid=~\"$sid\",insnr=~\"$instance_number\",database_name=~\"$database_name\"}) ",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "layouts": [
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Panel Group 1"
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 10,
+              "height": 15,
+              "content": {
+                "$ref": "#/spec/panels/0"
+              }
+            },
+            {
+              "x": 10,
+              "y": 0,
+              "width": 4,
+              "height": 5,
+              "content": {
+                "$ref": "#/spec/panels/1"
+              }
+            },
+            {
+              "x": 14,
+              "y": 0,
+              "width": 10,
+              "height": 15,
+              "content": {
+                "$ref": "#/spec/panels/2"
+              }
+            },
+            {
+              "x": 10,
+              "y": 5,
+              "width": 4,
+              "height": 5,
+              "content": {
+                "$ref": "#/spec/panels/3"
+              }
+            },
+            {
+              "x": 10,
+              "y": 10,
+              "width": 4,
+              "height": 5,
+              "content": {
+                "$ref": "#/spec/panels/4"
+              }
+            },
+            {
+              "x": 0,
+              "y": 15,
+              "width": 12,
+              "height": 11,
+              "content": {
+                "$ref": "#/spec/panels/5"
+              }
+            },
+            {
+              "x": 12,
+              "y": 15,
+              "width": 12,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/6"
+              }
+            },
+            {
+              "x": 12,
+              "y": 21,
+              "width": 12,
+              "height": 5,
+              "content": {
+                "$ref": "#/spec/panels/7"
+              }
+            },
+            {
+              "x": 0,
+              "y": 27,
+              "width": 7,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/8"
+              }
+            },
+            {
+              "x": 7,
+              "y": 27,
+              "width": 17,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/9"
+              }
+            },
+            {
+              "x": 0,
+              "y": 35,
+              "width": 12,
+              "height": 14,
+              "content": {
+                "$ref": "#/spec/panels/10"
+              }
+            },
+            {
+              "x": 12,
+              "y": 35,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/11"
+              }
+            },
+            {
+              "x": 12,
+              "y": 43,
+              "width": 12,
+              "height": 10,
+              "content": {
+                "$ref": "#/spec/panels/12"
+              }
+            },
+            {
+              "x": 0,
+              "y": 49,
+              "width": 12,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/13"
+              }
+            },
+            {
+              "x": 12,
+              "y": 53,
+              "width": 12,
+              "height": 10,
+              "content": {
+                "$ref": "#/spec/panels/14"
+              }
+            },
+            {
+              "x": 0,
+              "y": 56,
+              "width": 12,
+              "height": 14,
+              "content": {
+                "$ref": "#/spec/panels/15"
+              }
+            },
+            {
+              "x": 12,
+              "y": 63,
+              "width": 12,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/16"
+              }
+            },
+            {
+              "x": 0,
+              "y": 71,
+              "width": 24,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/17"
+              }
+            },
+            {
+              "x": 0,
+              "y": 77,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/18"
+              }
+            },
+            {
+              "x": 12,
+              "y": 77,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/19"
+              }
+            },
+            {
+              "x": 0,
+              "y": 85,
+              "width": 24,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/20"
+              }
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/21"
+              }
+            },
+            {
+              "x": 8,
+              "y": 92,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/22"
+              }
+            },
+            {
+              "x": 16,
+              "y": 92,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/23"
+              }
+            },
+            {
+              "x": 0,
+              "y": 100,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/24"
+              }
+            },
+            {
+              "x": 8,
+              "y": 100,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/25"
+              }
+            },
+            {
+              "x": 16,
+              "y": 100,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/26"
+              }
+            },
+            {
+              "x": 0,
+              "y": 109,
+              "width": 8,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/27"
+              }
+            },
+            {
+              "x": 8,
+              "y": 109,
+              "width": 8,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/28"
+              }
+            },
+            {
+              "x": 16,
+              "y": 109,
+              "width": 8,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/29"
+              }
+            },
+            {
+              "x": 0,
+              "y": 118,
+              "width": 8,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/30"
+              }
+            },
+            {
+              "x": 8,
+              "y": 118,
+              "width": 8,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/31"
+              }
+            },
+            {
+              "x": 16,
+              "y": 118,
+              "width": 8,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/32"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "duration": "1h"
+  }
+}

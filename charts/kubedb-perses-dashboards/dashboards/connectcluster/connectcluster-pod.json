@@ -1,0 +1,2424 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
+{
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "DcPflMxIz",
+    "createdAt": "0001-01-01T00:00:00Z",
+    "updatedAt": "0001-01-01T00:00:00Z",
+    "version": 0,
+    "project": "pp"
+  },
+  "spec": {
+    "display": {
+      "name": "KubeDB / Kafka / ConnectCluster / Pod"
+    },
+    "variables": [
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "hidden": false
+          },
+          "defaultValue": "default",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "plugin": {
+            "kind": "DatasourceVariable",
+            "spec": {
+              "datasourcePluginKind": "PrometheusDatasource"
+            }
+          },
+          "name": "datasource"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "hidden": false
+          },
+          "defaultValue": "demo",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "namespace",
+              "matchers": [
+                "kube_namespace_status_phase{phase=\"Active\"}"
+              ]
+            }
+          },
+          "name": "namespace"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "ConnectCluster",
+            "hidden": false
+          },
+          "defaultValue": "connect-cluster",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "app",
+              "matchers": [
+                "kafka_kubedb_com_connectcluster_status_phase{namespace=~\"$namespace\"}"
+              ]
+            }
+          },
+          "name": "app"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "hidden": false
+          },
+          "defaultValue": [
+            "$__all"
+          ],
+          "allowAllValue": true,
+          "allowMultiple": true,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "pod",
+              "matchers": [
+                "kafka_connect_app_info{namespace=~\"$namespace\",pod=~\"$app.+$\"}"
+              ]
+            }
+          },
+          "name": "pod"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "hidden": false
+          },
+          "defaultValue": [
+            "$__all"
+          ],
+          "allowAllValue": true,
+          "allowMultiple": true,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "connector",
+              "matchers": [
+                "kafka_connect_connector_status{namespace=~\"$namespace\",pod=~\"$pod\"}"
+              ]
+            }
+          },
+          "name": "connector"
+        }
+      }
+    ],
+    "panels": {
+      "0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Status"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "value",
+              "metricLabel": "phase",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kube_pod_status_phase{namespace=~\"$namespace\",pod=~\"$pod\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Uptime",
+            "description": "Pod uptime"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "value",
+              "format": {
+                "unit": "seconds"
+              },
+              "metricLabel": "",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "time() - process_start_time_seconds{namespace=~\"$namespace\",pod=~\"$pod\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "10": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Tasks Unassigned"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "value",
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  }
+                ]
+              },
+              "valueFontSize": 75
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "query": "sum(kafka_connect_worker_connector_unassigned_task_count{namespace=~\"$namespace\",pod=~\"$pod\"})"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "11": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Tasks Destroyed"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "value",
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  }
+                ]
+              },
+              "valueFontSize": 75
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "query": "sum(kafka_connect_worker_connector_destroyed_task_count{namespace=~\"$namespace\",pod=~\"$pod\"})"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "12": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Batch Size Average",
+            "description": "Average size of the batches processed by the connector"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decbytes"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "kafka_connect_connector_task_batch_size_avg{namespace=~\"$namespace\",pod=~\"$pod\",connector=~\"$connector\",task!=\"\"}",
+                    "seriesNameFormat": "{{ `{{connector}}` }}-{{ `{{task}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "13": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Running ratio",
+            "description": "The fraction of time this task has spent in the running state."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "percent-decimal"
+                },
+                "max": 1,
+                "min": 0
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "kafka_connect_connector_task_running_ratio{namespace=~\"$namespace\",pod=~\"$pod\",connector=~\"$connector\",task!=\"\"}",
+                    "seriesNameFormat": "{{ `{{connector}}` }}-{{ `{{task}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "14": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Offset commit Average Time",
+            "description": "The average time in milliseconds taken by this task to commit offsets"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "milliseconds"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "kafka_connect_connector_task_offset_commit_avg_time_ms{namespace=~\"$namespace\",pod=~\"$pod\",connector=~\"$connector\",task!=\"\"}",
+                    "seriesNameFormat": "{{ `{{connector}}` }}-{{ `{{task}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "15": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Batch Size Avg",
+            "description": "Average size of the batches processed by the connector"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "mean",
+                  "last-number",
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decbytes"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "kafka_connect_connector_task_batch_size_avg{namespace=~\"$namespace\",pod=~\"$pod\",connector=~\"$connector\",task!=\"\"}",
+                    "seriesNameFormat": "{{ `{{connector}}` }}-{{ `{{task}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "16": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "JVM Threads used",
+            "description": "JVM threads info"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom"
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "jvm_threads_current{namespace=~\"$namespace\",pod=~\"$pod\"}",
+                    "seriesNameFormat": "{{ `{{ pod }}` }}-current"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": " jvm_threads_daemon{namespace=~\"$namespace\",pod=~\"$pod\"}",
+                    "seriesNameFormat": "{{ `{{ pod }}` }}-daemon"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": " jvm_threads_peak{namespace=~\"$namespace\",pod=~\"$pod\"}",
+                    "seriesNameFormat": "{{ `{{ pod }}` }}-peak"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": " jvm_threads_deadlocked{namespace=~\"$namespace\",pod=~\"$pod\"}",
+                    "seriesNameFormat": "{{ `{{ pod }}` }}-deadlocked"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "17": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "JVM memory used [non-heap]",
+            "description": "used non-heap memory in Mi"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "list",
+                "position": "bottom"
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "jvm_memory_bytes_used{namespace=~\"$namespace\",pod=~\"$pod\",area=\"nonheap\"} / 1024 / 1024",
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "18": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "JVM memory used [heap]",
+            "description": "used heap memory in Mi"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "list",
+                "position": "bottom"
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "jvm_memory_bytes_used{namespace=~\"$namespace\",pod=~\"$pod\",area=\"heap\"} / 1024 / 1024",
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "19": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "JVM pool bytes used",
+            "description": "JVM pool usage info"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "mean",
+                  "last-number",
+                  "max",
+                  "min",
+                  "sum"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 1
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "jvm_memory_pool_bytes_used{namespace=~\"$namespace\",pod=~\"$pod\"} / 1024 / 1024",
+                    "seriesNameFormat": "{{ `{{ pool }}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Connector count",
+            "description": "Total connector in this cluster"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "value",
+              "metricLabel": "",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(kafka_connect_connector_status{namespace=~\"$namespace\", pod=~\"$pod\"})",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "20": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "GC count increase",
+            "description": "GC count increase"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "list",
+                "position": "bottom"
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "increase(jvm_gc_collection_seconds_count{namespace=~\"$namespace\",pod=~\"$pod\"}[5m])",
+                    "seriesNameFormat": "{{ `{{ pod }}` }}-{{ `{{ gc }}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "21": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "GC time increase",
+            "description": "GC time increase"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "list",
+                "position": "bottom"
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "increase(jvm_gc_collection_seconds_sum{namespace=~\"$namespace\",pod=~\"$pod\"}[5m])",
+                    "seriesNameFormat": "{{ `{{ pod }}` }}-{{ `{{ gc }}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "22": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Poll Batch Average time",
+            "description": "The average time in milliseconds taken by this task to poll for a batch of source records"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "mean",
+                  "last-number",
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "milliseconds"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "kafka_connect_source_task_poll_batch_avg_time_ms{namespace=~\"$namespace\",pod=~\"$pod\",connector=~\"$connector\",task!=\"\"}",
+                    "seriesNameFormat": "{{ `{{connector}}` }}-{{ `{{task}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "23": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Source Record Poll Total",
+            "description": "The total records produced/polled (before transformation) by this task belonging to the named source connector in this worker."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "mean",
+                  "last-number",
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "${datasource}"
+                    },
+                    "minStep": "",
+                    "query": "kafka_connect_source_task_source_record_poll_total{namespace=~\"$namespace\",pod=~\"$pod\",connector=~\"$connector\",task!=\"\"}",
+                    "seriesNameFormat": "{{ `{{connector}}` }}-{{ `{{task}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "24": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Source Record Write Total",
+            "description": "Total records output from the transformations and written to Kafka for this task belonging to the named source connector in this worker. This is after transformations are applied and excludes any records filtered out by the transformations."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "mean",
+                  "last-number",
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "kafka_connect_source_task_source_record_write_total{namespace=~\"$namespace\",pod=~\"$pod\",connector=~\"$connector\",task!=\"\"}",
+                    "seriesNameFormat": "{{ `{{connector}}` }}-{{ `{{task}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "25": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Source Record Active Count average",
+            "description": "The average number of records that have been produced by this task but not yet completely written to Kafka."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "mean",
+                  "last-number",
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "avg by(connector, task) (kafka_connect_source_task_source_record_active_count{namespace=~\"$namespace\",pod=~\"$pod\", connector=~\"$connector\", task!=\"\"})",
+                    "seriesNameFormat": "{{ `{{connector}}` }}-{{ `{{task}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "26": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Poll Batch Max time",
+            "description": "The maximum time in milliseconds taken by this task to poll for a batch of source records"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "mean",
+                  "last-number",
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "milliseconds"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "kafka_connect_source_task_poll_batch_max_time_ms{namespace=~\"$namespace\",pod=~\"$pod\",connector=~\"$connector\",task!=\"\"}",
+                    "seriesNameFormat": "{{ `{{connector}}` }}-{{ `{{task}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "27": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Source Record Active Count max",
+            "description": "The maximum number of records that have been produced by this task but not yet completely written to Kafka."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "mean",
+                  "last-number",
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": false,
+                "display": "line",
+                "lineStyle": "solid",
+                "lineWidth": 2
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "max by(connector, task) (kafka_connect_source_task_source_record_active_count{namespace=~\"$namespace\",pod=~\"$pod\", connector=~\"$connector\", task!=\"\"})",
+                    "seriesNameFormat": "{{ `{{connector}}` }}-{{ `{{task}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "28": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Put Batch Average time",
+            "description": "The average time in milliseconds taken by this task to put a batch of sinks records"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "min",
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "milliseconds"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "kafka_connect_sink_task_put_batch_avg_time_ms{namespace=~\"$namespace\",pod=~\"$pod\",connector=~\"$connector\",task!=\"\"}",
+                    "seriesNameFormat": "{{ `{{connector}}` }}-{{ `{{task}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "29": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Put Batch Max time",
+            "description": "The maximum time in milliseconds taken by this task to put a batch of sinks records"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "min",
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "milliseconds"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "kafka_connect_sink_task_put_batch_max_time_ms{namespace=~\"$namespace\",pod=~\"$pod\",connector=~\"$connector\",task!=\"\"}",
+                    "seriesNameFormat": "{{ `{{connector}}` }}-{{ `{{task}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Task count",
+            "description": "Total tasks in pods"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "value",
+              "metricLabel": "",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(kafka_connect_worker_connector_total_task_count{namespace=~\"$namespace\", pod=~\"$pod\"})",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "30": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Partition Count",
+            "description": "The number of topic partitions assigned to this task belonging to the named sink connector in this worker."
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [
+                {
+                  "header": "Sink Task Name",
+                  "name": "Field"
+                }
+              ]
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "kafka_connect_sink_task_partition_count{namespace=~\"$namespace\",pod=~\"$pod\",connector=~\"$connector\",task!=\"\"}",
+                    "seriesNameFormat": "{{ `{{connector}}` }}-{{ `{{task}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "31": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Record Send Total",
+            "description": "The total record send from kafka"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [
+                {
+                  "header": "Sink Task Name",
+                  "name": "Field"
+                }
+              ]
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "kafka_connect_sink_task_sink_record_send_total{namespace=~\"$namespace\",pod=~\"$pod\",connector=~\"$connector\",task!=\"\"}",
+                    "seriesNameFormat": "{{ `{{connector}}` }}-{{ `{{task}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "32": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Record Read Total",
+            "description": "The total record read from kafka"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [
+                {
+                  "header": "Sink Task Name",
+                  "name": "Field"
+                }
+              ]
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "kafka_connect_sink_task_sink_record_read_total{namespace=~\"$namespace\",pod=~\"$pod\", connector=~\"$connector\",task!=\"\"}",
+                    "seriesNameFormat": "{{ `{{connector}}` }}-{{ `{{task}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "33": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Total record failures",
+            "description": "Total number of failures seen by task"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "list",
+                "position": "bottom"
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "kafka_connect_task_error_total_record_failures{namespace=~\"$namespace\",pod=~\"$pod\",connector=~\"$connector\",task!=\"\"}",
+                    "seriesNameFormat": "{{ `{{connector}}` }}-{{ `{{task}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "34": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Dead letter queue Produce requests",
+            "description": "Number of produce requests to the dead letter queue"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "mean",
+                  "last-number",
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "decimalPlaces": 0,
+                  "unit": "decimal"
+                },
+                "min": 0
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "kafka_connect_task_error_deadletterqueue_produce_requests{namespace=~\"$namespace\",pod=~\"$pod\",connector=~\"$connector\",task!=\"\"}",
+                    "seriesNameFormat": "{{ `{{connector}}` }}-{{ `{{task}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "35": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Dead letter queue Produce failures",
+            "description": "Number of produce failures to the dead letter queue"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "mean",
+                  "last-number",
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "decimalPlaces": 0,
+                  "unit": "decimal"
+                },
+                "min": 0
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "kafka_connect_task_error_deadletterqueue_produce_failures{namespace=~\"$namespace\",pod=~\"$pod\", connector=~\"$connector\",task!=\"\"}",
+                    "seriesNameFormat": "{{ `{{connector}}` }}-{{ `{{task}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "36": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Total record skipped",
+            "description": "Total number of records skipped by task"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "mean",
+                  "last-number",
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "decimalPlaces": 0,
+                  "unit": "decimal"
+                },
+                "min": 0
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "kafka_connect_task_error_total_records_skipped{namespace=~\"$namespace\",pod=~\"$pod\",connector=~\"$connector\",task!=\"\"}",
+                    "seriesNameFormat": "{{ `{{connector}}` }}-{{ `{{task}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "37": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Total record errors",
+            "description": "Total number of errors seen by task"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "decimalPlaces": 0,
+                  "unit": "decimal"
+                },
+                "min": 0
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "kafka_connect_task_error_total_record_errors{namespace=~\"$namespace\",pod=~\"$pod\",connector=~\"$connector\",task!=\"\"}",
+                    "seriesNameFormat": "{{ `{{connector}}` }}-{{ `{{task}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "38": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Total errors logged",
+            "description": "The number of messages that was logged into either the dead letter queue or with Log4j"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "list",
+                "position": "bottom"
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "kafka_connect_task_error_total_errors_logged{namespace=~\"$namespace\",pod=~\"$pod\",connector=~\"$connector\",task!=\"\"}",
+                    "seriesNameFormat": "{{ `{{connector}}` }}-{{ `{{task}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "39": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Total retries",
+            "description": "Total number of retries made by task"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "mean",
+                  "last-number",
+                  "max"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "decimalPlaces": 0,
+                  "unit": "decimal"
+                },
+                "min": 0
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "kafka_connect_task_error_total_retries{namespace=~\"$namespace\",pod=~\"$pod\",connector=~\"$connector\",task!=\"\"}",
+                    "seriesNameFormat": "{{ `{{connector}}` }}-{{ `{{task}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Network-I/O Total"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "list",
+                "position": "bottom"
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_connect_network_io_total{namespace=~\"$namespace\",pod=~\"$pod\"}",
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Network-I/O-rate",
+            "description": "The average number of network operations (reads or writes) on all connections per second."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "list",
+                "position": "bottom"
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kafka_connect_connect_metrics_network_io_rate{namespace=\"$namespace\",pod=~\"$pod\"}",
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Task Total"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "value",
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  }
+                ]
+              },
+              "valueFontSize": 75
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "${datasource}"
+                    },
+                    "minStep": "",
+                    "query": "sum(kafka_connect_worker_connector_total_task_count{namespace=~\"$namespace\",pod=~\"$pod\",connector=~\"$connector\"})",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Tasks Running"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "value",
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              },
+              "valueFontSize": 75
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "sum(kafka_connect_worker_connector_running_task_count{namespace=~\"$namespace\",pod=~\"$pod\"})",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "8": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Tasks Paused"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "value",
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  }
+                ]
+              },
+              "valueFontSize": 75
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "minStep": "",
+                    "query": "sum(kafka_connect_worker_connector_paused_task_count{namespace=~\"$namespace\",pod=~\"$pod\"})"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Tasks Tasks Failed"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "value",
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  }
+                ]
+              },
+              "valueFontSize": 75
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "prometheus"
+                    },
+                    "query": "sum(kafka_connect_worker_connector_failed_task_count{pod=~\"$pod\"})"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "layouts": [
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Panel Group 1"
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 4,
+              "content": {
+                "$ref": "#/spec/panels/0"
+              }
+            },
+            {
+              "x": 6,
+              "y": 1,
+              "width": 6,
+              "height": 4,
+              "content": {
+                "$ref": "#/spec/panels/1"
+              }
+            },
+            {
+              "x": 12,
+              "y": 1,
+              "width": 6,
+              "height": 4,
+              "content": {
+                "$ref": "#/spec/panels/2"
+              }
+            },
+            {
+              "x": 18,
+              "y": 1,
+              "width": 6,
+              "height": 4,
+              "content": {
+                "$ref": "#/spec/panels/3"
+              }
+            },
+            {
+              "x": 0,
+              "y": 6,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/4"
+              }
+            },
+            {
+              "x": 12,
+              "y": 6,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/5"
+              }
+            },
+            {
+              "x": 0,
+              "y": 15,
+              "width": 4,
+              "height": 4,
+              "content": {
+                "$ref": "#/spec/panels/6"
+              }
+            },
+            {
+              "x": 4,
+              "y": 15,
+              "width": 4,
+              "height": 4,
+              "content": {
+                "$ref": "#/spec/panels/7"
+              }
+            },
+            {
+              "x": 8,
+              "y": 15,
+              "width": 4,
+              "height": 4,
+              "content": {
+                "$ref": "#/spec/panels/8"
+              }
+            },
+            {
+              "x": 12,
+              "y": 15,
+              "width": 4,
+              "height": 4,
+              "content": {
+                "$ref": "#/spec/panels/9"
+              }
+            },
+            {
+              "x": 16,
+              "y": 15,
+              "width": 4,
+              "height": 4,
+              "content": {
+                "$ref": "#/spec/panels/10"
+              }
+            },
+            {
+              "x": 20,
+              "y": 15,
+              "width": 4,
+              "height": 4,
+              "content": {
+                "$ref": "#/spec/panels/11"
+              }
+            },
+            {
+              "x": 0,
+              "y": 19,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/12"
+              }
+            },
+            {
+              "x": 12,
+              "y": 19,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/13"
+              }
+            },
+            {
+              "x": 0,
+              "y": 28,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/14"
+              }
+            },
+            {
+              "x": 12,
+              "y": 28,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/15"
+              }
+            },
+            {
+              "x": 0,
+              "y": 38,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/16"
+              }
+            },
+            {
+              "x": 12,
+              "y": 38,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/17"
+              }
+            },
+            {
+              "x": 0,
+              "y": 46,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/18"
+              }
+            },
+            {
+              "x": 12,
+              "y": 46,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/19"
+              }
+            },
+            {
+              "x": 0,
+              "y": 54,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/20"
+              }
+            },
+            {
+              "x": 12,
+              "y": 54,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/21"
+              }
+            },
+            {
+              "x": 0,
+              "y": 63,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/22"
+              }
+            },
+            {
+              "x": 12,
+              "y": 63,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/23"
+              }
+            },
+            {
+              "x": 0,
+              "y": 72,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/24"
+              }
+            },
+            {
+              "x": 12,
+              "y": 72,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/25"
+              }
+            },
+            {
+              "x": 0,
+              "y": 81,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/26"
+              }
+            },
+            {
+              "x": 12,
+              "y": 81,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/27"
+              }
+            },
+            {
+              "x": 0,
+              "y": 91,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/28"
+              }
+            },
+            {
+              "x": 12,
+              "y": 91,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/29"
+              }
+            },
+            {
+              "x": 0,
+              "y": 100,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/30"
+              }
+            },
+            {
+              "x": 12,
+              "y": 100,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/31"
+              }
+            },
+            {
+              "x": 0,
+              "y": 109,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/32"
+              }
+            },
+            {
+              "x": 0,
+              "y": 119,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/33"
+              }
+            },
+            {
+              "x": 12,
+              "y": 119,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/34"
+              }
+            },
+            {
+              "x": 0,
+              "y": 127,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/35"
+              }
+            },
+            {
+              "x": 12,
+              "y": 127,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/36"
+              }
+            },
+            {
+              "x": 0,
+              "y": 135,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/37"
+              }
+            },
+            {
+              "x": 12,
+              "y": 135,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/38"
+              }
+            },
+            {
+              "x": 0,
+              "y": 143,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/39"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "duration": "1h"
+  }
+}

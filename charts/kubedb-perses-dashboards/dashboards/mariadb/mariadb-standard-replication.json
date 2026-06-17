@@ -1,4 +1,5 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "kind": "Dashboard",
   "metadata": {
@@ -101,7 +102,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_slave_status_master_server_id{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -130,7 +131,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_slaves_connected{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -159,7 +160,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_slave_status_slave_transactional_groups{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -188,7 +189,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_slave_status_slave_non_transactional_groups{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -217,7 +218,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_slave_status_last_io_error{namespace=~\"$namespace\",service=~\"$app+-stats\"} or mysql_slave_status_last_sql_error{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }} - Error"
                   }
                 }
               }
@@ -246,7 +247,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_slave_status_slave_sql_running{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -275,7 +276,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_slave_status_slave_io_running{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -304,7 +305,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_slave_status_last_errno{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -333,7 +334,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_slave_status_last_sql_errno{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -362,7 +363,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_slave_status_last_io_errno{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -391,7 +392,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_slave_status_seconds_behind_master{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -420,7 +421,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_slave_status_max_relay_log_size{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -449,7 +450,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_slave_status_relay_log_pos{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
