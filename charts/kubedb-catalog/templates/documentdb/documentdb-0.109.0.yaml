@@ -17,8 +17,12 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/documentdb-coordinator") $) }}:v0.1.0{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "documentdb/documentdb/documentdb-local") $) }}:pg17-0.109.0'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/documentdb-init") $) }}:0.1.0'
   postgresVersion: "17"
   securityContext:
     runAsUser: 1000
