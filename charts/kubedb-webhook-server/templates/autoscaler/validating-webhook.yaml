@@ -488,6 +488,24 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
+{{- if $featureGates.Weaviate }}
+- name: weaviateautoscalerwebhook.validators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-autoscaling-kubedb-com-v1alpha1-weaviateautoscaler
+      port: 443
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["weaviateautoscalers"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
 {{- if $featureGates.ZooKeeper }}
 - name: zookeeperautoscalerwebhook.validators.autoscaling.kubedb.com
   clientConfig:
