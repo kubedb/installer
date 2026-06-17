@@ -383,6 +383,7 @@ k3s ctr images import images/kubedb-migrator-operator-v0.5.0-rc.1.tar
 k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.26.0-rc.1.tar
 k3s ctr images import images/kubedb-mongodb-init-4.2-v9.tar
 k3s ctr images import images/kubedb-mongodb-init-6.0-v11.tar
+k3s ctr images import images/kubedb-mongodb-migrator-cli-v0.5.0-rc.1.tar
 k3s ctr images import images/kubedb-mongodb_exporter-v0.47.2.tar
 k3s ctr images import images/kubedb-mssql-coordinator-v0.20.0-rc.1.tar
 k3s ctr images import images/kubedb-mssql-exporter-1.4.0.tar

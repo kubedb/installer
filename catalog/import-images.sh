@@ -385,6 +385,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-migrator-o
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-csi-snapshotter-plugin-v0.26.0-rc.1.tar $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.26.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-4.2-v9.tar $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-6.0-v11.tar $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v11
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-migrator-cli-v0.5.0-rc.1.tar $IMAGE_REGISTRY/kubedb/mongodb-migrator-cli:v0.5.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb_exporter-v0.47.2.tar $IMAGE_REGISTRY/kubedb/mongodb_exporter:v0.47.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-coordinator-v0.20.0-rc.1.tar $IMAGE_REGISTRY/kubedb/mssql-coordinator:v0.20.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-exporter-1.4.0.tar $IMAGE_REGISTRY/kubedb/mssql-exporter:1.4.0

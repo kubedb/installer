@@ -391,6 +391,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/migrator-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.26.0-rc.1 images/kubedb-mongodb-csi-snapshotter-plugin-v0.26.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 images/kubedb-mongodb-init-4.2-v9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v11 images/kubedb-mongodb-init-6.0-v11.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-migrator-cli:v0.5.0-rc.1 images/kubedb-mongodb-migrator-cli-v0.5.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb_exporter:v0.47.2 images/kubedb-mongodb_exporter-v0.47.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-coordinator:v0.20.0-rc.1 images/kubedb-mssql-coordinator-v0.20.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-exporter:1.4.0 images/kubedb-mssql-exporter-1.4.0.tar

@@ -394,6 +394,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/migrator-op
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.26.0-rc.1 $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.26.0-rc.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v11 $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v11
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-migrator-cli:v0.5.0-rc.1 $IMAGE_REGISTRY/kubedb/mongodb-migrator-cli:v0.5.0-rc.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb_exporter:v0.47.2 $IMAGE_REGISTRY/kubedb/mongodb_exporter:v0.47.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-coordinator:v0.20.0-rc.1 $IMAGE_REGISTRY/kubedb/mssql-coordinator:v0.20.0-rc.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-exporter:1.4.0 $IMAGE_REGISTRY/kubedb/mssql-exporter:1.4.0
