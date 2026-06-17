@@ -106,7 +106,7 @@
       }
     ],
     "panels": {
-      "0_0": {
+      "0": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -116,26 +116,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
-              "mappings": [
-                {
-                  "kind": "Value",
-                  "spec": {
-                    "result": {
-                      "value": "Down"
-                    },
-                    "value": "0"
-                  }
-                },
-                {
-                  "kind": "Value",
-                  "spec": {
-                    "result": {
-                      "value": "Up"
-                    },
-                    "value": "1"
-                  }
-                }
-              ],
+              "colorMode": "background_solid",
               "thresholds": {
                 "steps": [
                   {
@@ -167,7 +148,7 @@
           ]
         }
       },
-      "0_1": {
+      "1": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -177,6 +158,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "background_solid",
               "format": {
                 "unit": "hours"
               },
@@ -203,7 +185,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "hour ((ignite_uptime{namespace=\"demo\",pod=~\"$app-.+$\"}))",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -211,7 +193,473 @@
           ]
         }
       },
-      "0_2": {
+      "10": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Data Region memory usage  history (GiB)"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "list",
+                "position": "bottom"
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+                    },
+                    "minStep": "",
+                    "query": "io_dataregion_default_OffheapUsedSize{namespace=\"demo\", pod=~\"$app-.+$\"} / 1024 / 1024 / 1024 ",
+                    "seriesNameFormat": "{{ `{{pod}}` }} allocated size"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+                    },
+                    "minStep": "",
+                    "query": "io_dataregion_default_OffHeapSize{namespace=\"demo\", pod=~\"$app-.+$\"} / 1024 / 1024 / 1024",
+                    "seriesNameFormat": "{{ `{{pod}}` }} Max size"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "11": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Data region size (GB)"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+                    },
+                    "minStep": "",
+                    "query": "io_dataregion_default_OffHeapSize / 1024 / 1024 / 1024",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "12": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Data region off Heap Size"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+                    },
+                    "minStep": "",
+                    "query": "io_dataregion_default_OffHeapSize / 1024 / 1024 / 1024",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "13": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Data region offheap used (GB)"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+                    },
+                    "minStep": "",
+                    "query": "io_dataregion_default_OffheapUsedSize / 1024 / 1024 / 1024",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "14": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Data Region- Max Size",
+            "description": "< 70% is good"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#73bf69",
+                    "value": 70
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+                    },
+                    "minStep": "",
+                    "query": "io_dataregion_default_MaxSize / 1024 / 1024 / 1024\n",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "15": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Data Region- No of PagesRead",
+            "description": "< 70% is good"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "format": {
+                "unit": "decimal"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#73bf69",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+                    },
+                    "minStep": "",
+                    "query": "io_dataregion_default_PagesRead\n",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "16": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Data Region- No of PagesWritten",
+            "description": "< 70% is good"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "format": {
+                "unit": "decimal"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#73bf69",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+                    },
+                    "minStep": "",
+                    "query": "io_dataregion_default_PagesWritten\n",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "17": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Cache Hits",
+            "description": "> 0 means that rebalance is in progress"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom"
+              },
+              "visual": {
+                "areaOpacity": 0.2,
+                "connectNulls": true,
+                "display": "bar",
+                "lineWidth": 2
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+                    },
+                    "minStep": "",
+                    "query": "cache_${cacheName}_CacheHits",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "18": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Cache Hits",
+            "description": "> 0 means that rebalance is in progress"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom"
+              },
+              "visual": {
+                "areaOpacity": 0.2,
+                "connectNulls": true,
+                "display": "bar",
+                "lineWidth": 2
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+                    },
+                    "minStep": "",
+                    "query": "cache_${cacheName}_CacheHits",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "19": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Cache Puts",
+            "description": "> 0 means that rebalance is in progress"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom"
+              },
+              "visual": {
+                "areaOpacity": 0.2,
+                "connectNulls": true,
+                "display": "bar",
+                "lineWidth": 2
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+                    },
+                    "minStep": "",
+                    "query": "cache_${cacheName}_CachePuts",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -221,26 +669,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
-              "mappings": [
-                {
-                  "kind": "Value",
-                  "spec": {
-                    "result": {
-                      "value": "Down"
-                    },
-                    "value": "0"
-                  }
-                },
-                {
-                  "kind": "Value",
-                  "spec": {
-                    "result": {
-                      "value": "Up"
-                    },
-                    "value": "1"
-                  }
-                }
-              ],
+              "colorMode": "background_solid",
               "thresholds": {
                 "steps": [
                   {
@@ -272,20 +701,60 @@
           ]
         }
       },
-      "0_3": {
+      "20": {
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Topology",
-            "description": "Topology snapshot"
+            "name": "Cache Misses",
+            "description": "> 0 means that rebalance is in progress"
           },
           "plugin": {
-            "kind": "StatChart",
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom"
+              },
+              "visual": {
+                "areaOpacity": 0.2,
+                "connectNulls": true,
+                "display": "bar",
+                "lineWidth": 2
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+                    },
+                    "minStep": "",
+                    "query": "cache_${cacheName}_CacheMisses",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "21": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Cache Size",
+            "description": "> 0 means that rebalance is in progress"
+          },
+          "plugin": {
+            "kind": "GaugeChart",
             "spec": {
               "calculation": "last-number",
-              "format": {
-                "unit": "decimal"
-              },
               "thresholds": {
                 "steps": [
                   {
@@ -311,9 +780,9 @@
                       "kind": "PrometheusDatasource",
                       "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
                     },
-                    "minStep": "2",
-                    "query": "up{job=\"${job}\"}",
-                    "seriesNameFormat": ""
+                    "minStep": "",
+                    "query": "cache_${cacheName}_CacheSize",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -321,7 +790,199 @@
           ]
         }
       },
-      "0_4": {
+      "22": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Hit Ratio",
+            "description": "> 0 means that rebalance is in progress"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "list",
+                "position": "bottom"
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineStyle": "solid",
+                "lineWidth": 1
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+                    },
+                    "minStep": "",
+                    "query": "(cache_${cacheName}_CacheHits) / clamp_min((cache_${cacheName}_CacheHits) + (cache_${cacheName}_CacheMisses), 1)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "23": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Moving partitions",
+            "description": "> 0 means that rebalance is in progress"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+                    },
+                    "minStep": "",
+                    "query": "cacheGroups_ignite_sys_cache_LocalNodeMovingPartitionsCount ",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "24": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Owning partitions"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "format": {
+                "decimalPlaces": 0,
+                "unit": "decimal"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#73bf69",
+                    "value": 1
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+                    },
+                    "minStep": "",
+                    "query": "cacheGroups_ignite_sys_cache_LocalNodeOwningPartitionsCount",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Topology",
+            "description": "Topology snapshot"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "format": {
+                "unit": "decimal"
+              },
+              "metricLabel": "pod",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "datasource": {
+                      "kind": "PrometheusDatasource",
+                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
+                    },
+                    "minStep": "2s",
+                    "query": "up{job=\"${job}\"}",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -333,8 +994,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "bottom",
-                "values": []
+                "position": "bottom"
               },
               "visual": {
                 "areaOpacity": 0.1,
@@ -362,7 +1022,7 @@
                     },
                     "minStep": "",
                     "query": " avg (up{namespace=\"demo\", pod=~\"$app-.+$\"})",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -370,7 +1030,7 @@
           ]
         }
       },
-      "0_5": {
+      "5": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -411,7 +1071,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "100 - ((sys_memory_heap_max - sys_memory_heap_used)*100 / sys_memory_heap_max)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -419,7 +1079,7 @@
           ]
         }
       },
-      "0_6": {
+      "6": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -464,7 +1124,7 @@
                     },
                     "minStep": "",
                     "query": "sys_CpuLoad * 100",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -472,7 +1132,7 @@
           ]
         }
       },
-      "0_7": {
+      "7": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -482,6 +1142,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "background_solid",
               "format": {
                 "unit": "decimal"
               },
@@ -512,7 +1173,7 @@
                     },
                     "minStep": "",
                     "query": "threadPools_GridRebalanceExecutor_ActiveCount",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -520,7 +1181,7 @@
           ]
         }
       },
-      "1_0": {
+      "8": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -566,7 +1227,7 @@
                     },
                     "minStep": "",
                     "query": "avg (sys_CpuLoad{namespace=\"demo\", pod=~\"$app-.+$\"}) * 100",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -574,7 +1235,7 @@
           ]
         }
       },
-      "1_1": {
+      "9": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -621,701 +1282,7 @@
                     },
                     "minStep": "",
                     "query": "sys_memory_heap_used{namespace=\"demo\", pod=~\"$app-.+$\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "1_2": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Data Region memory usage  history (GiB)"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              },
-              "visual": {
-                "areaOpacity": 0.1,
-                "connectNulls": true,
-                "display": "line",
-                "lineWidth": 1
-              },
-              "yAxis": {
-                "format": {
-                  "unit": "decimal"
-                }
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "datasource": {
-                      "kind": "PrometheusDatasource",
-                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
-                    },
-                    "minStep": "",
-                    "query": "io_dataregion_default_OffheapUsedSize{namespace=\"demo\", pod=~\"$app-.+$\"} / 1024 / 1024 / 1024 ",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "datasource": {
-                      "kind": "PrometheusDatasource",
-                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
-                    },
-                    "minStep": "",
-                    "query": "io_dataregion_default_OffHeapSize{namespace=\"demo\", pod=~\"$app-.+$\"} / 1024 / 1024 / 1024",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "2_0": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Data region size (GB)"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "datasource": {
-                      "kind": "PrometheusDatasource",
-                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
-                    },
-                    "minStep": "",
-                    "query": "io_dataregion_default_OffHeapSize / 1024 / 1024 / 1024",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "2_1": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Data region off Heap Size"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "datasource": {
-                      "kind": "PrometheusDatasource",
-                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
-                    },
-                    "minStep": "",
-                    "query": "io_dataregion_default_OffHeapSize / 1024 / 1024 / 1024",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "2_2": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Data region offheap used (GB)"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "datasource": {
-                      "kind": "PrometheusDatasource",
-                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
-                    },
-                    "minStep": "",
-                    "query": "io_dataregion_default_OffheapUsedSize / 1024 / 1024 / 1024",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "2_3": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Data Region- Max Size",
-            "description": "< 70% is good"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  },
-                  {
-                    "color": "#73bf69",
-                    "value": 70
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "datasource": {
-                      "kind": "PrometheusDatasource",
-                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
-                    },
-                    "minStep": "",
-                    "query": "io_dataregion_default_MaxSize / 1024 / 1024 / 1024\n",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "2_4": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Data Region- No of PagesRead",
-            "description": "< 70% is good"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "format": {
-                "unit": "decimal"
-              },
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  },
-                  {
-                    "color": "#73bf69",
-                    "value": 80
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "datasource": {
-                      "kind": "PrometheusDatasource",
-                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
-                    },
-                    "minStep": "",
-                    "query": "io_dataregion_default_PagesRead\n",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "2_5": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Data Region- No of PagesWritten",
-            "description": "< 70% is good"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "format": {
-                "unit": "decimal"
-              },
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  },
-                  {
-                    "color": "#73bf69",
-                    "value": 80
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "datasource": {
-                      "kind": "PrometheusDatasource",
-                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
-                    },
-                    "minStep": "",
-                    "query": "io_dataregion_default_PagesWritten\n",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "3_0": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Cache Hits",
-            "description": "> 0 means that rebalance is in progress"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {
-              "legend": {
-                "mode": "table",
-                "position": "bottom",
-                "values": []
-              },
-              "visual": {
-                "areaOpacity": 0.2,
-                "connectNulls": true,
-                "display": "bar",
-                "lineWidth": 2
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "datasource": {
-                      "kind": "PrometheusDatasource",
-                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
-                    },
-                    "minStep": "",
-                    "query": "cache_${cacheName}_CacheHits",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "3_1": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Cache Hits",
-            "description": "> 0 means that rebalance is in progress"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {
-              "legend": {
-                "mode": "table",
-                "position": "bottom",
-                "values": []
-              },
-              "visual": {
-                "areaOpacity": 0.2,
-                "connectNulls": true,
-                "display": "bar",
-                "lineWidth": 2
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "datasource": {
-                      "kind": "PrometheusDatasource",
-                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
-                    },
-                    "minStep": "",
-                    "query": "cache_${cacheName}_CacheHits",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "3_2": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Cache Puts",
-            "description": "> 0 means that rebalance is in progress"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {
-              "legend": {
-                "mode": "table",
-                "position": "bottom",
-                "values": []
-              },
-              "visual": {
-                "areaOpacity": 0.2,
-                "connectNulls": true,
-                "display": "bar",
-                "lineWidth": 2
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "datasource": {
-                      "kind": "PrometheusDatasource",
-                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
-                    },
-                    "minStep": "",
-                    "query": "cache_${cacheName}_CachePuts",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "3_3": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Cache Misses",
-            "description": "> 0 means that rebalance is in progress"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {
-              "legend": {
-                "mode": "table",
-                "position": "bottom",
-                "values": []
-              },
-              "visual": {
-                "areaOpacity": 0.2,
-                "connectNulls": true,
-                "display": "bar",
-                "lineWidth": 2
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "datasource": {
-                      "kind": "PrometheusDatasource",
-                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
-                    },
-                    "minStep": "",
-                    "query": "cache_${cacheName}_CacheMisses",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "3_4": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Cache Size",
-            "description": "> 0 means that rebalance is in progress"
-          },
-          "plugin": {
-            "kind": "GaugeChart",
-            "spec": {
-              "calculation": "last-number",
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  },
-                  {
-                    "color": "#f2495c",
-                    "value": 80
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "datasource": {
-                      "kind": "PrometheusDatasource",
-                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
-                    },
-                    "minStep": "",
-                    "query": "cache_${cacheName}_CacheSize",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "3_5": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Hit Ratio",
-            "description": "> 0 means that rebalance is in progress"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {
-              "legend": {
-                "mode": "list",
-                "position": "bottom",
-                "values": []
-              },
-              "visual": {
-                "areaOpacity": 0.1,
-                "connectNulls": true,
-                "display": "line",
-                "lineStyle": "solid",
-                "lineWidth": 1
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "datasource": {
-                      "kind": "PrometheusDatasource",
-                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
-                    },
-                    "minStep": "",
-                    "query": "(cache_${cacheName}_CacheHits) / clamp_min((cache_${cacheName}_CacheHits) + (cache_${cacheName}_CacheMisses), 1)",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "3_6": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Moving partitions",
-            "description": "> 0 means that rebalance is in progress"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  },
-                  {
-                    "color": "#f2495c",
-                    "value": 80
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "datasource": {
-                      "kind": "PrometheusDatasource",
-                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
-                    },
-                    "minStep": "",
-                    "query": "cacheGroups_ignite_sys_cache_LocalNodeMovingPartitionsCount ",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "3_7": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Owning partitions"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "format": {
-                "decimalPlaces": 0,
-                "unit": "decimal"
-              },
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  },
-                  {
-                    "color": "#73bf69",
-                    "value": 1
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "datasource": {
-                      "kind": "PrometheusDatasource",
-                      "name": "e105d3fd-a91b-462e-b2e9-891dc66b8d78"
-                    },
-                    "minStep": "",
-                    "query": "cacheGroups_ignite_sys_cache_LocalNodeOwningPartitionsCount",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1329,10 +1296,7 @@
         "kind": "Grid",
         "spec": {
           "display": {
-            "title": "General",
-            "collapse": {
-              "open": true
-            }
+            "title": "Panel Group 1"
           },
           "items": [
             {
@@ -1341,7 +1305,7 @@
               "width": 4,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/0_0"
+                "$ref": "#/spec/panels/0"
               }
             },
             {
@@ -1350,7 +1314,7 @@
               "width": 4,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/0_1"
+                "$ref": "#/spec/panels/1"
               }
             },
             {
@@ -1359,7 +1323,7 @@
               "width": 4,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/0_2"
+                "$ref": "#/spec/panels/2"
               }
             },
             {
@@ -1368,7 +1332,7 @@
               "width": 12,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/0_3"
+                "$ref": "#/spec/panels/3"
               }
             },
             {
@@ -1377,7 +1341,7 @@
               "width": 9,
               "height": 8,
               "content": {
-                "$ref": "#/spec/panels/0_4"
+                "$ref": "#/spec/panels/4"
               }
             },
             {
@@ -1386,7 +1350,7 @@
               "width": 8,
               "height": 8,
               "content": {
-                "$ref": "#/spec/panels/0_5"
+                "$ref": "#/spec/panels/5"
               }
             },
             {
@@ -1395,7 +1359,7 @@
               "width": 7,
               "height": 8,
               "content": {
-                "$ref": "#/spec/panels/0_6"
+                "$ref": "#/spec/panels/6"
               }
             },
             {
@@ -1404,29 +1368,16 @@
               "width": 24,
               "height": 8,
               "content": {
-                "$ref": "#/spec/panels/0_7"
+                "$ref": "#/spec/panels/7"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "Memory and CPU",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 23,
               "width": 24,
               "height": 8,
               "content": {
-                "$ref": "#/spec/panels/1_0"
+                "$ref": "#/spec/panels/8"
               }
             },
             {
@@ -1435,7 +1386,7 @@
               "width": 12,
               "height": 10,
               "content": {
-                "$ref": "#/spec/panels/1_1"
+                "$ref": "#/spec/panels/9"
               }
             },
             {
@@ -1444,29 +1395,16 @@
               "width": 12,
               "height": 10,
               "content": {
-                "$ref": "#/spec/panels/1_2"
+                "$ref": "#/spec/panels/10"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "Data Region",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 42,
               "width": 8,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/2_0"
+                "$ref": "#/spec/panels/11"
               }
             },
             {
@@ -1475,7 +1413,7 @@
               "width": 8,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/2_1"
+                "$ref": "#/spec/panels/12"
               }
             },
             {
@@ -1484,7 +1422,7 @@
               "width": 8,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/2_2"
+                "$ref": "#/spec/panels/13"
               }
             },
             {
@@ -1493,7 +1431,7 @@
               "width": 8,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/2_3"
+                "$ref": "#/spec/panels/14"
               }
             },
             {
@@ -1502,7 +1440,7 @@
               "width": 8,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/2_4"
+                "$ref": "#/spec/panels/15"
               }
             },
             {
@@ -1511,29 +1449,16 @@
               "width": 8,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/2_5"
+                "$ref": "#/spec/panels/16"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "Caches",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 57,
               "width": 6,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/3_0"
+                "$ref": "#/spec/panels/17"
               }
             },
             {
@@ -1542,7 +1467,7 @@
               "width": 6,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/3_1"
+                "$ref": "#/spec/panels/18"
               }
             },
             {
@@ -1551,7 +1476,7 @@
               "width": 6,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/3_2"
+                "$ref": "#/spec/panels/19"
               }
             },
             {
@@ -1560,7 +1485,7 @@
               "width": 6,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/3_3"
+                "$ref": "#/spec/panels/20"
               }
             },
             {
@@ -1569,7 +1494,7 @@
               "width": 6,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/3_4"
+                "$ref": "#/spec/panels/21"
               }
             },
             {
@@ -1578,7 +1503,7 @@
               "width": 6,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/3_5"
+                "$ref": "#/spec/panels/22"
               }
             },
             {
@@ -1587,7 +1512,7 @@
               "width": 6,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/3_6"
+                "$ref": "#/spec/panels/23"
               }
             },
             {
@@ -1596,7 +1521,7 @@
               "width": 6,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/3_7"
+                "$ref": "#/spec/panels/24"
               }
             }
           ]

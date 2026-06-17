@@ -40,5 +40,6 @@ k3s ctr images import images/appscode-images-mongo-8.0.10.tar
 k3s ctr images import images/appscode-images-mongo-8.0.17.tar
 k3s ctr images import images/kubedb-mongodb-init-4.2-v9.tar
 k3s ctr images import images/kubedb-mongodb-init-6.0-v11.tar
+k3s ctr images import images/kubedb-mongodb-migrator-cli-v0.5.0-rc.1.tar
 k3s ctr images import images/kubedb-mongodb_exporter-v0.47.2.tar
 k3s ctr images import images/kubedb-wal-g-v2026.3.30_mongo.tar

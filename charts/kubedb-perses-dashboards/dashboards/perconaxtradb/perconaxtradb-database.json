@@ -91,26 +91,6 @@
           "plugin": {
             "kind": "Table",
             "spec": {
-              "cellSettings": [
-                {
-                  "condition": {
-                    "kind": "Value",
-                    "spec": {
-                      "value": "0"
-                    }
-                  },
-                  "text": "DOWN"
-                },
-                {
-                  "condition": {
-                    "kind": "Value",
-                    "spec": {
-                      "value": "1"
-                    }
-                  },
-                  "text": "UP"
-                }
-              ],
               "columnSettings": []
             }
           },
@@ -123,7 +103,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_up{namespace=~\"$namespace\",service=~\"$app\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -152,7 +132,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_uptime{namespace=~\"$namespace\",service=~\"$app\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -179,7 +159,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_open_files{namespace=~\"$namespace\",service=~\"$app\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Open Files - {{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -192,7 +172,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_variables_open_files_limit{namespace=~\"$namespace\",service=~\"$app\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Open Files Limit - {{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -205,7 +185,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_innodb_num_open_files{namespace=~\"$namespace\",service=~\"$app\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "InnoDB Open Files - {{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -232,7 +212,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_slow_queries{namespace=~\"$namespace\",service=~\"$app\"}[1m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Slow Queries on {{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -259,7 +239,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_aborted_connects{namespace=~\"$namespace\",service=~\"$app\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Aborted Connects (attempts) on - {{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -272,7 +252,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_aborted_clients{namespace=~\"$namespace\",service=~\"$app\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Aborted Clients (timeout) on - {{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -290,6 +270,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "sparkline": {},
               "thresholds": {
                 "steps": [
@@ -390,7 +371,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_queries{namespace=~\"$namespace\",service=~\"$app\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -417,7 +398,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_max_used_connections{namespace=~\"$namespace\",service=~\"$app\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Current - {{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -430,7 +411,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_variables_max_connections{namespace=~\"$namespace\",service=~\"$app\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Max - {{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -457,7 +438,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_innodb_data_reads{namespace=~\"$namespace\",service=~\"$app\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "reads - {{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -470,7 +451,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_innodb_data_writes{namespace=~\"$namespace\",service=~\"$app\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "write - {{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -497,7 +478,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_bytes_received{namespace=~\"$namespace\",service=~\"$app\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "received - {{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -510,7 +491,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_bytes_sent{namespace=~\"$namespace\",service=~\"$app\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "sent - {{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -537,7 +518,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "topk(3, rate(mysql_global_status_commands_total{namespace=~\"$namespace\",service=~\"$app\"}[5m]))",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }} = '{{ `{{ command }}` }}'"
                   }
                 }
               }
@@ -564,7 +545,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_opened_files{namespace=~\"$namespace\",service=~\"$app\"}[1m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }

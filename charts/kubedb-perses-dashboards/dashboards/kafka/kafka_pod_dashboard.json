@@ -1,4 +1,5 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "kind": "Dashboard",
   "metadata": {
@@ -110,6 +111,8 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
+              "metricLabel": "phase",
               "thresholds": {
                 "steps": [
                   {
@@ -152,9 +155,11 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "format": {
                 "unit": "seconds"
               },
+              "metricLabel": "",
               "thresholds": {
                 "steps": [
                   {
@@ -202,7 +207,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "jvm_memory_bytes_used{namespace=~\"$namespace\",pod=~\"$pod\",area=\"nonheap\"} / 1024 / 1024",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -230,7 +235,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "jvm_memory_bytes_used{namespace=~\"$namespace\",pod=~\"$pod\",area=\"heap\"} / 1024 / 1024",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -258,7 +263,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "jvm_memory_pool_bytes_used{namespace=~\"$namespace\",pod=\"$pod\"} / 1024 / 1024",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pool }}` }}"
                   }
                 }
               }
@@ -286,7 +291,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "increase(jvm_gc_collection_seconds_count{namespace=~\"$namespace\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}-{{ `{{ gc }}` }}"
                   }
                 }
               }
@@ -314,7 +319,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "increase(jvm_gc_collection_seconds_sum{namespace=~\"$namespace\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}-{{ `{{ gc }}` }}"
                   }
                 }
               }
@@ -389,6 +394,8 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
+              "metricLabel": "",
               "thresholds": {
                 "steps": [
                   {
@@ -426,6 +433,8 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
+              "metricLabel": "",
               "thresholds": {
                 "steps": [
                   {
@@ -468,6 +477,8 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
+              "metricLabel": "",
               "thresholds": {
                 "steps": [
                   {
@@ -525,7 +536,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "kafka_network_requestmetrics_localtimems_count{namespace=\"$namespace\",pod=~\"$pod\"} != 0 ",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ request }}` }}"
                   }
                 }
               }
@@ -559,7 +570,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "kafka_network_requestmetrics_responsequeuetimems_count{namespace=\"$namespace\",pod=~\"$pod\"} != 0",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ request }}` }}"
                   }
                 }
               }
@@ -587,7 +598,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "kafka_server_socket_server_metrics_network_io_rate{namespace=\"$namespace\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}-{{ `{{ listener }}` }}"
                   }
                 }
               }
@@ -615,7 +626,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "kafka_server_socket_server_metrics_successful_authentication_rate{namespace=\"$namespace\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}-{{ `{{ listener }}` }}"
                   }
                 }
               }
