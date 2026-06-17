@@ -189,6 +189,15 @@ func (r *Neo4j) SetTLSDefaults() {
 	}
 	r.Spec.TLS.Certificates = kmapi.SetMissingSecretNameForCertificate(r.Spec.TLS.Certificates, string(Neo4jCertificateTypeServer), r.CertificateName(Neo4jCertificateTypeServer))
 	r.Spec.TLS.Certificates = kmapi.SetMissingSecretNameForCertificate(r.Spec.TLS.Certificates, string(Neo4jCertificateTypeClient), r.CertificateName(Neo4jCertificateTypeClient))
+	if r.Spec.TLS.KeystoreCredSecret == nil {
+		r.Spec.TLS.KeystoreCredSecret = &SecretReference{}
+	}
+	if r.Spec.TLS.KeystoreCredSecret.Kind == "" {
+		r.Spec.TLS.KeystoreCredSecret.Kind = kubedb.ResourceKindSecret
+	}
+	if r.Spec.TLS.KeystoreCredSecret.Name == "" {
+		r.Spec.TLS.KeystoreCredSecret.Name = r.GetKeystoreSecretName()
+	}
 }
 
 func (r *Neo4j) setDefaultContainerSecurityContext(neoVersion *catalog.Neo4jVersion, podTemplate *ofst.PodTemplateSpec) {

@@ -4,34 +4,17 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/name: kubedb
-  name: cassandras.kubedb.com
+  name: cassandras.gitops.kubedb.com
 spec:
-  group: kubedb.com
+  group: gitops.kubedb.com
   names:
-    categories:
-    - datastore
-    - kubedb
-    - appscode
-    - all
     kind: Cassandra
     listKind: CassandraList
     plural: cassandras
-    shortNames:
-    - cas
     singular: cassandra
   scope: Namespaced
   versions:
-  - additionalPrinterColumns:
-    - jsonPath: .spec.version
-      name: Version
-      type: string
-    - jsonPath: .status.phase
-      name: Status
-      type: string
-    - jsonPath: .metadata.creationTimestamp
-      name: Age
-      type: date
-    name: v1alpha2
+  - name: v1alpha1
     schema:
       openAPIV3Schema:
         properties:
@@ -40,11 +23,6 @@ spec:
           kind:
             type: string
           metadata:
-            properties:
-              name:
-                maxLength: 63
-                pattern: ^[a-z]([-a-z0-9]*[a-z0-9])?$
-                type: string
             type: object
           spec:
             properties:
@@ -8432,6 +8410,33 @@ spec:
                   - type
                   type: object
                 type: array
+              gitops:
+                properties:
+                  gitOpsInfo:
+                    items:
+                      properties:
+                        changeRequestStatus:
+                          enum:
+                          - Pending
+                          - InProgress
+                          - Current
+                          - Failed
+                          type: string
+                        observedGeneration:
+                          format: int64
+                          type: integer
+                        operations:
+                          items:
+                            properties:
+                              name:
+                                type: string
+                              status:
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                type: object
               observedGeneration:
                 format: int64
                 type: integer

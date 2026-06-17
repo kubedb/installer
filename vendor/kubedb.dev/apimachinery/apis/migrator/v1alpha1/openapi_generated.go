@@ -606,6 +606,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/apimachinery/apis/migrator/v1alpha1.Publication":                                 schema_apimachinery_apis_migrator_v1alpha1_Publication(ref),
 		"kubedb.dev/apimachinery/apis/migrator/v1alpha1.Source":                                      schema_apimachinery_apis_migrator_v1alpha1_Source(ref),
 		"kubedb.dev/apimachinery/apis/migrator/v1alpha1.Subscription":                                schema_apimachinery_apis_migrator_v1alpha1_Subscription(ref),
+		"kubedb.dev/apimachinery/apis/migrator/v1alpha1.TLSConfig":                                   schema_apimachinery_apis_migrator_v1alpha1_TLSConfig(ref),
 		"kubedb.dev/apimachinery/apis/migrator/v1alpha1.Target":                                      schema_apimachinery_apis_migrator_v1alpha1_Target(ref),
 	}
 }
@@ -33330,7 +33331,6 @@ func schema_apimachinery_apis_migrator_v1alpha1_ConnectionInfo(ref common.Refere
 					"appBinding": {
 						SchemaProps: spec.SchemaProps{
 							Description: "AppBinding refers to the source database AppBinding name, Who contains the connection information.",
-							Default:     map[string]interface{}{},
 							Ref:         ref("kmodules.xyz/client-go/api/v1.ObjectReference"),
 						},
 					},
@@ -33356,11 +33356,17 @@ func schema_apimachinery_apis_migrator_v1alpha1_ConnectionInfo(ref common.Refere
 							Format:      "int32",
 						},
 					},
+					"tls": {
+						SchemaProps: spec.SchemaProps{
+							Description: "TLS holds paths to PEM files for TLS-enabled connections.",
+							Ref:         ref("kubedb.dev/apimachinery/apis/migrator/v1alpha1.TLSConfig"),
+						},
+					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"kmodules.xyz/client-go/api/v1.ObjectReference"},
+			"kmodules.xyz/client-go/api/v1.ObjectReference", "kubedb.dev/apimachinery/apis/migrator/v1alpha1.TLSConfig"},
 	}
 }
 
@@ -34485,6 +34491,53 @@ func schema_apimachinery_apis_migrator_v1alpha1_Subscription(ref common.Referenc
 					"name": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Name is the identifier of the PostgreSQL subscription. This name will be used when creating or referencing the subscription in logical replication.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_apimachinery_apis_migrator_v1alpha1_TLSConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"caFile": {
+						SchemaProps: spec.SchemaProps{
+							Description: "CAFile is the path to the PEM-encoded CA certificate file.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"certFile": {
+						SchemaProps: spec.SchemaProps{
+							Description: "CertFile is the path to the PEM-encoded client certificate (mutual TLS).",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"keyFile": {
+						SchemaProps: spec.SchemaProps{
+							Description: "KeyFile is the path to the PEM-encoded client private key (mutual TLS).",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"insecureSkipVerify": {
+						SchemaProps: spec.SchemaProps{
+							Description: "InsecureSkipVerify disables server certificate and hostname verification.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"serverName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ServerName overrides the hostname used for TLS SNI and certificate verification.",
 							Type:        []string{"string"},
 							Format:      "",
 						},

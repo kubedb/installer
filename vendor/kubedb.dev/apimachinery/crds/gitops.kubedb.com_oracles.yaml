@@ -4,36 +4,17 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/name: kubedb
-  name: oracles.kubedb.com
+  name: oracles.gitops.kubedb.com
 spec:
-  group: kubedb.com
+  group: gitops.kubedb.com
   names:
-    categories:
-    - datastore
-    - oracle
-    - all
     kind: Oracle
     listKind: OracleList
     plural: oracles
-    shortNames:
-    - ora
     singular: oracle
   scope: Namespaced
   versions:
-  - additionalPrinterColumns:
-    - jsonPath: .spec.version
-      name: Version
-      type: string
-    - jsonPath: .spec.mode
-      name: Mode
-      type: string
-    - jsonPath: .status.phase
-      name: Status
-      type: string
-    - jsonPath: .metadata.creationTimestamp
-      name: Age
-      type: date
-    name: v1alpha2
+  - name: v1alpha1
     schema:
       openAPIV3Schema:
         properties:
@@ -8463,6 +8444,33 @@ spec:
                   - type
                   type: object
                 type: array
+              gitops:
+                properties:
+                  gitOpsInfo:
+                    items:
+                      properties:
+                        changeRequestStatus:
+                          enum:
+                          - Pending
+                          - InProgress
+                          - Current
+                          - Failed
+                          type: string
+                        observedGeneration:
+                          format: int64
+                          type: integer
+                        operations:
+                          items:
+                            properties:
+                              name:
+                                type: string
+                              status:
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                type: object
               observedGeneration:
                 format: int64
                 type: integer

@@ -133,6 +133,16 @@ func (d *DocumentDB) GetAdminAuthSecretName() string {
 	return metautil.NameWithSuffix(d.OffshootName(), kubedb.DocumentDBAdminAuthSecretSuffix)
 }
 
+// ConfigSecretName returns the name of the operator-generated secret that holds
+// tuning (pgtune.conf) and inline (inline.conf) configuration for the database.
+func (d *DocumentDB) ConfigSecretName() string {
+	uid := string(d.UID)
+	if len(uid) >= 6 {
+		return metautil.NameWithSuffix(d.OffshootName(), uid[len(uid)-6:])
+	}
+	return metautil.NameWithSuffix(d.OffshootName(), "config")
+}
+
 func (d *DocumentDB) GetStorageClassName() string {
 	if d.Spec.Storage == nil || d.Spec.Storage.StorageClassName == nil {
 		return ""

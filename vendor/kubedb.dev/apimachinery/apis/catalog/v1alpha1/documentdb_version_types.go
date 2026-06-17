@@ -81,6 +81,9 @@ type DocumentDBVersionSpec struct {
 
 	// +optional
 	UI []ChartInfo `json:"ui,omitempty"`
+
+	// +optional
+	GitSyncer GitSyncer `json:"gitSyncer,omitempty"`
 }
 
 // DocumentDBVersionDatabase is the DocumentDB Database image

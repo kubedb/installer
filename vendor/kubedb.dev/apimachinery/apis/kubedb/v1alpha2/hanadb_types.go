@@ -151,6 +151,10 @@ type HanaDBSpec struct {
 	// Arbiter controls spec for arbiter pods
 	// +optional
 	Arbiter *ArbiterSpec `json:"arbiter,omitempty"`
+
+	// Init is used to initialize the database from a script or git repo.
+	// +optional
+	Init *InitSpec `json:"init,omitempty"`
 }
 
 // HanaDBTopology defines the deployment mode for HanaDB

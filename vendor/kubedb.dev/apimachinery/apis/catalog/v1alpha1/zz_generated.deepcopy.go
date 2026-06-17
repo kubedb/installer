@@ -413,6 +413,7 @@ func (in *CassandraVersionSpec) DeepCopyInto(out *CassandraVersionSpec) {
 		}
 	}
 	in.UpdateConstraints.DeepCopyInto(&out.UpdateConstraints)
+	out.GitSyncer = in.GitSyncer
 	return
 }
 
@@ -572,6 +573,7 @@ func (in *ClickHouseVersionSpec) DeepCopyInto(out *ClickHouseVersionSpec) {
 		}
 	}
 	in.UpdateConstraints.DeepCopyInto(&out.UpdateConstraints)
+	out.GitSyncer = in.GitSyncer
 	return
 }
 
@@ -755,6 +757,7 @@ func (in *DB2VersionSpec) DeepCopyInto(out *DB2VersionSpec) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	out.GitSyncer = in.GitSyncer
 	return
 }
 
@@ -891,6 +894,7 @@ func (in *DocumentDBVersionSpec) DeepCopyInto(out *DocumentDBVersionSpec) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	out.GitSyncer = in.GitSyncer
 	return
 }
 
@@ -1219,6 +1223,7 @@ func (in *ElasticsearchVersionSpec) DeepCopyInto(out *ElasticsearchVersionSpec) 
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	out.GitSyncer = in.GitSyncer
 	return
 }
 
@@ -1413,6 +1418,7 @@ func (in *HanaDBVersionSpec) DeepCopyInto(out *HanaDBVersionSpec) {
 		}
 	}
 	in.UpdateConstraints.DeepCopyInto(&out.UpdateConstraints)
+	out.GitSyncer = in.GitSyncer
 	return
 }
 
@@ -2072,6 +2078,7 @@ func (in *MSSQLServerVersionSpec) DeepCopyInto(out *MSSQLServerVersionSpec) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	out.GitSyncer = in.GitSyncer
 	return
 }
 
@@ -3099,6 +3106,7 @@ func (in *Neo4jVersionSpec) DeepCopyInto(out *Neo4jVersionSpec) {
 		}
 	}
 	in.UpdateConstraints.DeepCopyInto(&out.UpdateConstraints)
+	out.GitSyncer = in.GitSyncer
 	return
 }
 
@@ -3308,6 +3316,7 @@ func (in *OracleVersionSpec) DeepCopyInto(out *OracleVersionSpec) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	out.GitSyncer = in.GitSyncer
 	return
 }
 
