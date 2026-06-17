@@ -1,4 +1,5 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "kind": "Dashboard",
   "metadata": {
@@ -105,7 +106,7 @@
       }
     ],
     "panels": {
-      "0_0": {
+      "0": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -115,9 +116,11 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "format": {
                 "unit": "decimal"
               },
+              "metricLabel": "pod}} ",
               "thresholds": {
                 "steps": [
                   {
@@ -137,7 +140,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "proxysql_uptime_seconds_total{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }} "
                   }
                 }
               }
@@ -145,7 +148,7 @@
           ]
         }
       },
-      "0_1": {
+      "1": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -155,6 +158,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "format": {
                 "unit": "decimal"
               },
@@ -181,7 +185,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "proxysql_uptime_seconds_total{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -189,268 +193,7 @@
           ]
         }
       },
-      "1_0": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "CPU Usage"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {
-              "yAxis": {
-                "format": {
-                  "unit": "decimal"
-                }
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum(rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\", pod=~\"$pod\", container!=\"\", image!=\"\"}[5m])) by (pod)",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "1_1": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Memory Usage"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {
-              "yAxis": {
-                "format": {
-                  "unit": "bytes"
-                }
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum(container_memory_working_set_bytes{namespace=~\"$namespace\", pod=~\"$pod\", container!=\"\", image!=\"\"}) by (pod)",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "2_0": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "ProxySQL Connections"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "proxysql_connpool_conns{status=\"used\",namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "proxysql_connpool_conns{status=\"free\",namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "2_1": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "ProxySQL Aborted Connections"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "proxysql_server_connections_total{ status=\"aborted\",namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "3_0": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "ProxySQL Slow Queries"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "proxysql_slow_queries_total{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "4_0": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "ProxySQL Questions"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "rate(proxysql_questions_total{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "5_0": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "ProxySQL Network Traffic",
-            "description": "\n\nHere we can see how much network traffic is generated by MySQL. Outbound is network traffic sent from MySQL and Inbound is network traffic MySQL has received."
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "rate(proxysql_connpool_data_bytes_total{traffic_flow=\"recv\",namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "rate(proxysql_connpool_data_bytes_total{traffic_flow=\"sent\",namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "6_0": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "ProxySQL Query Cache Memory"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {
-              "yAxis": {
-                "format": {
-                  "unit": "bytes"
-                }
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "rate(proxysql_query_cache_memory_bytes{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "6_1": {
+      "10": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -475,7 +218,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(proxysql_query_cache_count_get_total{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Get-Total - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -488,7 +231,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(proxysql_query_cache_count_set_total{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Set-Total - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -501,7 +244,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(proxysql_query_cache_bytes_total{op=\"read\",namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Read - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -514,7 +257,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(proxysql_query_cache_bytes_total{op=\"written\",namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Write - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -527,7 +270,268 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(proxysql_query_cache_purged_total{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Purged - {{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "CPU Usage"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\", pod=~\"$pod\", container!=\"\", image!=\"\"}[5m])) by (pod)",
+                    "seriesNameFormat": "{{ `{{container}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Memory Usage"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "bytes"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(container_memory_working_set_bytes{namespace=~\"$namespace\", pod=~\"$pod\", container!=\"\", image!=\"\"}) by (pod)",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "ProxySQL Connections"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "proxysql_connpool_conns{status=\"used\",namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
+                    "seriesNameFormat": "Used Connects - {{ `{{pod}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "proxysql_connpool_conns{status=\"free\",namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
+                    "seriesNameFormat": "Free Connects - {{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "ProxySQL Aborted Connections"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "proxysql_server_connections_total{ status=\"aborted\",namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
+                    "seriesNameFormat": "Aborted Connects - {{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "ProxySQL Slow Queries"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "proxysql_slow_queries_total{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
+                    "seriesNameFormat": "Slow Queries - {{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "ProxySQL Questions"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_questions_total{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}[5m])",
+                    "seriesNameFormat": "Questions - {{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "8": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "ProxySQL Network Traffic",
+            "description": "\n\nHere we can see how much network traffic is generated by MySQL. Outbound is network traffic sent from MySQL and Inbound is network traffic MySQL has received."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_connpool_data_bytes_total{traffic_flow=\"recv\",namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}[5m])",
+                    "seriesNameFormat": "Inbound - {{ `{{pod}}` }} from {{ `{{endpoint}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_connpool_data_bytes_total{traffic_flow=\"sent\",namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}[5m])",
+                    "seriesNameFormat": "Outbound - {{ `{{pod}}` }} to {{ `{{endpoint}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "ProxySQL Query Cache Memory"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "bytes"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(proxysql_query_cache_memory_bytes{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}[5m])",
+                    "seriesNameFormat": "Query Cache Size - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -541,10 +545,7 @@
         "kind": "Grid",
         "spec": {
           "display": {
-            "title": "MySQL Pod Summary",
-            "collapse": {
-              "open": true
-            }
+            "title": "Panel Group 1"
           },
           "items": [
             {
@@ -553,7 +554,7 @@
               "width": 12,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/0_0"
+                "$ref": "#/spec/panels/0"
               }
             },
             {
@@ -562,29 +563,16 @@
               "width": 12,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/0_1"
+                "$ref": "#/spec/panels/1"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "Pod CPU, Memory and File Descriptor Stats",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 7,
               "width": 12,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/1_0"
+                "$ref": "#/spec/panels/2"
               }
             },
             {
@@ -593,29 +581,16 @@
               "width": 12,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/1_1"
+                "$ref": "#/spec/panels/3"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "Connections",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 15,
               "width": 12,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/2_0"
+                "$ref": "#/spec/panels/4"
               }
             },
             {
@@ -624,95 +599,43 @@
               "width": 12,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/2_1"
+                "$ref": "#/spec/panels/5"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "Temporary Objects & Slow Queries",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 23,
               "width": 24,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/3_0"
+                "$ref": "#/spec/panels/6"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "Table Locks and Questions",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 31,
               "width": 24,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/4_0"
+                "$ref": "#/spec/panels/7"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "Network",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 39,
               "width": 24,
               "height": 10,
               "content": {
-                "$ref": "#/spec/panels/5_0"
+                "$ref": "#/spec/panels/8"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "Query Cache",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 50,
               "width": 12,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/6_0"
+                "$ref": "#/spec/panels/9"
               }
             },
             {
@@ -721,7 +644,7 @@
               "width": 12,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/6_1"
+                "$ref": "#/spec/panels/10"
               }
             }
           ]

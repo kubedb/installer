@@ -91,6 +91,8 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
+              "metricLabel": "phase",
               "thresholds": {
                 "steps": [
                   {
@@ -110,7 +112,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "kubedb_com_pgpool_status_phase{namespace=\"$namespace\", app=\"$app\"} == 1\n",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{phase}}` }}"
                   }
                 }
               }
@@ -129,9 +131,11 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "mean",
+              "colorMode": "none",
               "format": {
                 "unit": "decimal"
               },
+              "metricLabel": " version ",
               "sparkline": {},
               "thresholds": {
                 "steps": [
@@ -157,7 +161,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "kubedb_com_pgpool_info{namespace=\"$namespace\", app=\"$app\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ version }}` }}"
                   }
                 }
               }
@@ -185,7 +189,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -206,29 +210,48 @@
               "columnSettings": [
                 {
                   "header": "Time",
-                  "name": "timestamp"
+                  "name": "timestamp",
+                  "width": "auto"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "header": "CPU Usage",
-                  "name": "Value #A"
+                  "name": "value #1"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "header": "CPU Requests",
-                  "name": "Value #B"
+                  "name": "value #2"
                 },
                 {
+                  "format": {
+                    "unit": "percent-decimal"
+                  },
                   "header": "CPU Requests %",
-                  "name": "Value #C"
+                  "name": "value #3"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "header": "CPU Limits",
-                  "name": "Value #D"
+                  "name": "value #4"
                 },
                 {
+                  "format": {
+                    "unit": "percent-decimal"
+                  },
                   "header": "CPU Limits %",
-                  "name": "Value #E"
+                  "name": "value #5"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "header": "Pod",
                   "name": "pod"
                 }
@@ -330,7 +353,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum(node_namespace_pod_container:container_memory_working_set_bytes{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\",container!=\"\"}) by (pod)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -353,38 +376,65 @@
                   "name": "timestamp"
                 },
                 {
+                  "format": {
+                    "unit": "bytes"
+                  },
                   "header": "Memory Usage",
-                  "name": "Value #A"
+                  "name": "value #1"
                 },
                 {
+                  "format": {
+                    "unit": "bytes"
+                  },
                   "header": "Memory Requests",
-                  "name": "Value #B"
+                  "name": "value #2"
                 },
                 {
+                  "format": {
+                    "unit": "percent-decimal"
+                  },
                   "header": "Memory Requests %",
-                  "name": "Value #C"
+                  "name": "value #3"
                 },
                 {
+                  "format": {
+                    "unit": "bytes"
+                  },
                   "header": "Memory Limits",
-                  "name": "Value #D"
+                  "name": "value #4"
                 },
                 {
+                  "format": {
+                    "unit": "percent-decimal"
+                  },
                   "header": "Memory Limits %",
-                  "name": "Value #E"
+                  "name": "value #5"
                 },
                 {
+                  "format": {
+                    "unit": "bytes"
+                  },
                   "header": "Memory Usage (RSS)",
-                  "name": "Value #F"
+                  "name": "value #6"
                 },
                 {
+                  "format": {
+                    "unit": "bytes"
+                  },
                   "header": "Memory Usage (Cache)",
-                  "name": "Value #G"
+                  "name": "value #7"
                 },
                 {
+                  "format": {
+                    "unit": "bytes"
+                  },
                   "header": "Memory Usage (Swap)",
-                  "name": "Value #H"
+                  "name": "value #8"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "header": "Pod",
                   "name": "pod"
                 }
@@ -525,7 +575,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "avg(container_blkio_device_usage_total{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -559,7 +609,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum(rate(container_fs_writes_total{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m]))by(pod)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}-disk-write"
                   }
                 }
               }
@@ -572,7 +622,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum(rate(container_fs_reads_total{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m]))by(pod)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}-disk-read"
                   }
                 }
               }
@@ -605,7 +655,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "ceil(sum by(pod) (rate(container_fs_reads_total{container!=\"\", namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m]) + rate(container_fs_writes_total{container!=\"\" ,namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])))",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -638,7 +688,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m]) + rate(container_fs_writes_bytes_total{container!=\"\" ,namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m]))",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -665,7 +715,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum(irate(container_network_receive_bytes_total{namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[$__rate_interval])) by (pod)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -698,7 +748,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum(irate(container_network_transmit_bytes_total{namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[$__rate_interval])) by (pod)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -717,6 +767,8 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
+              "metricLabel": " backend ",
               "sparkline": {},
               "thresholds": {
                 "steps": [
@@ -742,7 +794,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "kubedb_com_pgpool_info{namespace=\"$namespace\", app=\"$app\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ backend }}` }}"
                   }
                 }
               }
@@ -761,6 +813,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last",
+              "colorMode": "value",
               "thresholds": {
                 "steps": [
                   {
@@ -784,7 +837,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "kubedb_com_pgpool_info{namespace=\"$namespace\", app=\"$app\", ssl!~\"^$\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ssl}}` }}"
                   }
                 }
               }
@@ -803,6 +856,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "thresholds": {
                 "steps": [
                   {
@@ -845,6 +899,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "sparkline": {},
               "thresholds": {
                 "steps": [
@@ -884,6 +939,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "sparkline": {},
               "thresholds": {
                 "steps": [
@@ -923,6 +979,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "format": {
                 "unit": "bytes"
               },
@@ -965,6 +1022,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "format": {
                 "unit": "bytes"
               },
@@ -1007,6 +1065,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "sparkline": {},
               "thresholds": {
                 "steps": [
@@ -1027,7 +1086,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "kubedb_com_pgpool_info{namespace=\"$namespace\", app=\"$app\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{deletionPolicy}}` }}"
                   }
                 }
               }

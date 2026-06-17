@@ -1,4 +1,5 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "kind": "Dashboard",
   "metadata": {
@@ -115,9 +116,11 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "format": {
                 "unit": "decimal"
               },
+              "metricLabel": "pod}} ",
               "thresholds": {
                 "steps": [
                   {
@@ -137,7 +140,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_up{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }} "
                   }
                 }
               }
@@ -155,6 +158,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "format": {
                 "unit": "decimal"
               },
@@ -181,7 +185,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_uptime{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -208,7 +212,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_threads_connected{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Threads Connected - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -221,7 +225,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_threads_running{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Threads Running - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -248,7 +252,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_variables_thread_cache_size{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Thread Cache Size - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -261,7 +265,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_threads_cached{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Threads Cached - {{ `{{pod}}` }} "
                   }
                 }
               }
@@ -274,7 +278,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_threads_created{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Threads Created - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -301,7 +305,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_created_tmp_tables{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Created Tmp Tables - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -314,7 +318,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_created_tmp_disk_tables{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Created Tmp Disk Tables - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -327,7 +331,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_created_tmp_files{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Created Tmp Files - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -354,7 +358,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_slow_queries{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Slow Queries - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -381,7 +385,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_select_full_join{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Select Full Join - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -394,7 +398,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_select_scan{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Select Scan - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -421,7 +425,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_sort_rows{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Sort Rows - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -434,7 +438,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_sort_range{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Sort Range - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -447,7 +451,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_sort_merge_passes{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Sort Merge Passes - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -460,7 +464,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_sort_scan{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Sort Scan - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -487,7 +491,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_table_locks_immediate{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Table Locks Immediate - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -500,7 +504,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_table_locks_waited{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Table Locks Waited - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -527,7 +531,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_questions{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Questions - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -555,7 +559,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_bytes_received{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Inbound - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -568,7 +572,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_bytes_sent{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Outbound - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -596,7 +600,7 @@
                   "spec": {
                     "minStep": "1h",
                     "query": "increase(mysql_global_status_bytes_received{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[1h])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Received - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -609,7 +613,7 @@
                   "spec": {
                     "minStep": "1h",
                     "query": "increase(mysql_global_status_bytes_sent{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[1h])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Sent - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -627,9 +631,11 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "format": {
                 "unit": "decimal"
               },
+              "metricLabel": "version",
               "thresholds": {
                 "steps": [
                   {
@@ -653,7 +659,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_version_info{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{version}}` }}"
                   }
                 }
               }
@@ -686,7 +692,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_variables_innodb_buffer_pool_size{namespace=\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "InnoDB Buffer Pool Size - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -699,7 +705,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_variables_innodb_log_buffer_size{namespace=\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "InnoDB Log Buffer Size - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -712,7 +718,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_innodb_mem_dictionary{namespace=\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "InnoDB Dictionary Size - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -725,7 +731,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_variables_key_buffer_size{namespace=\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Key Buffer Size - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -738,7 +744,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_variables_query_cache_size{namespace=\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Query Cache Size - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -751,7 +757,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_innodb_mem_adaptive_hash{namespace=\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Adaptive Hash Index Size - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -778,7 +784,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "topk(5, rate(mysql_global_status_commands_total{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m]))",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Com_{{ `{{ command }}` }} - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -812,7 +818,7 @@
                   "spec": {
                     "minStep": "1h",
                     "query": "topk(5, avg by (pod,command) (increase(mysql_global_status_commands_total{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[1h])>0))",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Com_{{ `{{ command }}` }} - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -839,7 +845,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_handlers_total{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])>0",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ handler }}` }} - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -872,7 +878,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_qcache_free_memory{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Query Cache Size - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -905,7 +911,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_qcache_hits{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Hits - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -918,7 +924,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_qcache_inserts{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Inserts - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -931,7 +937,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_qcache_not_cached{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Not Cached - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -944,7 +950,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_qcache_lowmem_prunes{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Prunes - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -957,7 +963,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_qcache_queries_in_cache{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Queries in Cache - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -984,7 +990,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_opened_files{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Openings - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1011,7 +1017,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_open_files{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Open Files - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1024,7 +1030,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_variables_open_files_limit{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Open Files Limit - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1037,7 +1043,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_innodb_num_open_files{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "InnoDB Open Files - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1064,7 +1070,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_opened_tables{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Openings - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1077,7 +1083,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_table_open_cache_hits{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Hits - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1090,7 +1096,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_table_open_cache_misses{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Misses - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1103,7 +1109,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_table_open_cache_overflows{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Misses due to Overflows - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1116,7 +1122,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_table_open_cache_hits{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Table Open Cache Hit Ratio - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1143,7 +1149,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_open_tables{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Open Tables - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1156,7 +1162,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_variables_table_open_cache{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Table Open Cache - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1174,6 +1180,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "format": {
                 "unit": "decimal"
               },
@@ -1196,7 +1203,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_global_status_queries{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1223,7 +1230,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_open_table_definitions{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Open Table Definitions - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1236,7 +1243,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_variables_table_definition_cache{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Table Definitions Cache Size - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1249,7 +1256,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_opened_table_definitions{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Opened Table Definitions - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1267,6 +1274,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "format": {
                 "unit": "decimal"
               },
@@ -1293,7 +1301,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_variables_innodb_buffer_pool_size{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1326,7 +1334,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", pod=~\"$pod\", container!=\"\", image!=\"\"}[5m])) by (pod)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{container}}` }}"
                   }
                 }
               }
@@ -1359,7 +1367,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum(container_memory_working_set_bytes{namespace=\"$namespace\", pod=~\"$pod\", container!=\"\", image!=\"\"}) by (pod)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1393,7 +1401,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum(process_open_fds{pod=~\"$pod\", namespace=\"$namespace\"}) by (pod)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1420,7 +1428,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_max_used_connections{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Max Used Connects - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1433,7 +1441,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_variables_max_connections{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Max Connects - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1460,7 +1468,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_aborted_connects{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Aborted Connects - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1473,7 +1481,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mysql_global_status_aborted_clients{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Aborted Clients - {{ `{{pod}}` }}"
                   }
                 }
               }

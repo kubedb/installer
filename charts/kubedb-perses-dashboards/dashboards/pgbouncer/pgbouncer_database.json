@@ -138,6 +138,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "background_solid",
               "sparkline": {},
               "thresholds": {
                 "steps": [
@@ -160,7 +161,9 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "minStep": "",
+                    "query": "(sum by (pod) (pgbouncer_databases_disabled{hostname=~\"$backend_nodes\",namespace=~\"$namespace\",pod=~\"$pod\"}))/2",
+                    "seriesNameFormat": "{{ `{{pod}}` }} ({{ `{{role}}` }} )"
                   }
                 }
               }
@@ -179,6 +182,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "background_solid",
               "sparkline": {},
               "thresholds": {
                 "steps": [
@@ -201,7 +205,9 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "minStep": "",
+                    "query": "(sum by (pod) (pgbouncer_databases_paused{hostname=~\"$backend_nodes\",namespace=~\"$namespace\",pod=~\"$pod\"}))/2",
+                    "seriesNameFormat": "{{ `{{pod}}` }} ({{ `{{role}}` }} )"
                   }
                 }
               }
@@ -221,8 +227,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "bottom",
-                "values": []
+                "position": "bottom"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -239,7 +244,9 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "minStep": "",
+                    "query": "sum by (pod) (pgbouncer_stats_xact_count_total{hostname=~\"$backend_nodes\",namespace=~\"$namespace\",pod=~\"$pod\"})",
+                    "seriesNameFormat": "{{ `{{pod}}` }} ({{ `{{role}}` }})"
                   }
                 }
               }
@@ -259,8 +266,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "bottom",
-                "values": []
+                "position": "bottom"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -277,7 +283,9 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "minStep": "",
+                    "query": "(sum by (pod) (pgbouncer_databases_current_connections{namespace=~\"$namespace\",pod=~\"$pod\"}))/(sum by (pod) (pgbouncer_databases_max_connections{namespace=~\"$namespace\",pod=~\"$pod\"}))",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -303,7 +311,8 @@
                 "mode": "list",
                 "position": "right"
               },
-              "radius": 50
+              "radius": 50,
+              "showLabels": true
             }
           },
           "queries": [
@@ -313,7 +322,9 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "minStep": "",
+                    "query": "(sum by (pod) (pgbouncer_databases_current_connections{namespace=~\"$namespace\",pod=~\"$pod\"}))-(sum by (pod) (pgbouncer_databases_current_connections{namespace=~\"$namespace\",pod=~\"$pod\", name=\"pgbouncer\"}))",
+                    "seriesNameFormat": "{{ `{{pod}}` }}  (Used child process)"
                   }
                 }
               }
@@ -324,7 +335,9 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "minStep": "",
+                    "query": "pgbouncer_databases_current_connections{namespace=~\"$namespace\",pod=~\"$pod\", name=\"pgbouncer\"}",
+                    "seriesNameFormat": "{{ `{{pod}}` }} (Total child process)"
                   }
                 }
               }
@@ -344,8 +357,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "bottom",
-                "values": []
+                "position": "bottom"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -362,7 +374,9 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "minStep": "",
+                    "query": "pgbouncer_config_log_pooler_errors{hostname=~\"$backend_nodes\",namespace=~\"$namespace\",pod=~\"$pod\"}",
+                    "seriesNameFormat": "{{ `{{pod}}` }} ({{ `{{role}}` }})"
                   }
                 }
               }
@@ -382,8 +396,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "bottom",
-                "values": []
+                "position": "bottom"
               },
               "visual": {
                 "areaOpacity": 0.1,
@@ -400,7 +413,9 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "minStep": "",
+                    "query": "sum by (pod) (pgbouncer_stats_query_count_total{namespace=~\"$namespace\",pod=~\"$pod\"})",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -419,6 +434,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "sparkline": {},
               "thresholds": {
                 "steps": [
@@ -443,7 +459,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum by (pod) (pgbouncer_stats_avg_query_time_microseconds{namespace=~\"$namespace\",pod=~\"$pod\"})",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -462,6 +478,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "sparkline": {},
               "thresholds": {
                 "steps": [
@@ -486,7 +503,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "pgbouncer_config_query_wait_timeout_seconds{namespace=~\"$namespace\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -505,6 +522,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "sparkline": {},
               "thresholds": {
                 "steps": [
@@ -527,7 +545,9 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "minStep": "",
+                    "query": "sum(irate(pgbouncer_stats_query_time_microseconds_total{namespace=~\"$namespace\",pod=~\"$pod\"}[5m]))",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -570,7 +590,9 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "minStep": "",
+                    "query": "sum by (pod) (pgbouncer_stats_avg_xact_count{hostname=~\"$backend_nodes\",namespace=~\"$namespace\",pod=~\"$pod\"})",
+                    "seriesNameFormat": "{{ `{{pod}}` }} ({{ `{{role}}` }})"
                   }
                 }
               }

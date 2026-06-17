@@ -47,6 +47,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "format": {
                 "unit": "decimal"
               },
@@ -71,7 +72,7 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "max(cassandra_stats{cluster=~\"$cluster\",datacenter=~\".*\",instance=~\".*\",job=~\".*\",name=\"org:apache:cassandra:net:failuredetector:upendpointcount\"})"
                   }
                 }
               }
@@ -89,6 +90,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "format": {
                 "unit": "decimal"
               },
@@ -117,7 +119,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "minStep": "",
+                    "query": "max(cassandra_stats{cluster=~\"$cluster\",datacenter=~\".*\",instance=~\".*\",job=~\".*\",name=\"org:apache:cassandra:net:failuredetector:downendpointcount\"})"
                   }
                 }
               }
@@ -164,8 +167,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -189,7 +191,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:read:latency:50thpercentile\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}"
                   }
                 }
               }
@@ -209,8 +212,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -234,7 +236,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:read:latency:75thpercentile\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}"
                   }
                 }
               }
@@ -254,8 +257,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -279,7 +281,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:read:latency:99thpercentile\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}"
                   }
                 }
               }
@@ -299,8 +302,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -324,7 +326,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:write:latency:75thpercentile\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}"
                   }
                 }
               }
@@ -344,8 +347,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -369,7 +371,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:write:latency:75thpercentile\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}"
                   }
                 }
               }
@@ -389,8 +392,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -414,7 +416,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:write:latency:99thpercentile\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}"
                   }
                 }
               }
@@ -461,8 +464,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -485,7 +487,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:.*:timeouts:oneminuterate\"}+0.00000001) by (instance),\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}_All"
                   }
                 }
               }
@@ -496,7 +499,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:read:timeouts:oneminuterate\"}+0.00000001) by (instance),\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}_R"
                   }
                 }
               }
@@ -507,7 +511,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:write:timeouts:oneminuterate\"}+0.00000001) by (instance),\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}_W"
                   }
                 }
               }
@@ -527,8 +532,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -551,7 +555,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",name=~\"org:apache:cassandra:metrics:clientrequest:.*:unavailables:oneminuterate\"}+0.00000001) by (instance),\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}_All"
                   }
                 }
               }
@@ -562,7 +567,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",name=~\"org:apache:cassandra:metrics:clientrequest:read:unavailables:oneminuterate\"}+0.00000001) by (instance),\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}_R"
                   }
                 }
               }
@@ -573,7 +579,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",name=~\"org:apache:cassandra:metrics:clientrequest:write:unavailables:oneminuterate\"}+0.00000001) by (instance),\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}_W"
                   }
                 }
               }
@@ -620,7 +627,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "max(cassandra_stats{cluster=~\"$cluster\",datacenter=~\".*\",instance=~\".*\",job=~\".*\",name=\"org:apache:cassandra:metrics:client:connectednativeclients:value\"})",
+                    "seriesNameFormat": ""
                   }
                 }
               }
@@ -667,8 +675,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -692,7 +699,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",name=~\"org:apache:cassandra:metrics:storage:exceptions:count\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}"
                   }
                 }
               }
@@ -712,8 +720,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -737,7 +744,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".+\",name=\"org:apache:cassandra:metrics:connection:totaltimeouts:oneminuterate\"})",
+                    "seriesNameFormat": "ctt"
                   }
                 }
               }
@@ -784,8 +792,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -809,7 +816,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:antientropystage:activetasks:value\"})",
+                    "seriesNameFormat": "AntiEntropyStage"
                   }
                 }
               }
@@ -820,7 +828,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:cachecleanupexecutor:activetasks:value\"})",
+                    "seriesNameFormat": "CacheCleanupExecutor"
                   }
                 }
               }
@@ -831,7 +840,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:compactionexecutor:activetasks:value\"})",
+                    "seriesNameFormat": "CompactionExecutor"
                   }
                 }
               }
@@ -842,7 +852,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:gossipstage:activetasks:value\"})",
+                    "seriesNameFormat": "GossipStage"
                   }
                 }
               }
@@ -853,7 +864,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:hintsdispatcher:activetasks:value\"})",
+                    "seriesNameFormat": "HintsDispatcher"
                   }
                 }
               }
@@ -864,7 +876,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:internalresponsestage:activetasks:value\"})",
+                    "seriesNameFormat": "InternalResponseStage"
                   }
                 }
               }
@@ -875,7 +888,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:memtableflushwriter:activetasks:value\"})",
+                    "seriesNameFormat": "MemtableFlushWriter"
                   }
                 }
               }
@@ -886,7 +900,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:memtablepostflush:activetasks:value\"})",
+                    "seriesNameFormat": "MemtablePostFlush"
                   }
                 }
               }
@@ -897,7 +912,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:memtablereclaimmemory:activetasks:value\"})",
+                    "seriesNameFormat": "MemtableReclaimMemory"
                   }
                 }
               }
@@ -908,7 +924,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:migrationstage:activetasks:value\"})",
+                    "seriesNameFormat": "MigrationStage"
                   }
                 }
               }
@@ -919,7 +936,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:miscstage:activetasks:value\"})",
+                    "seriesNameFormat": "MiscStage"
                   }
                 }
               }
@@ -930,7 +948,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:pendingrangecalculator:activetasks:value\"})",
+                    "seriesNameFormat": "PendingRangeCalculator"
                   }
                 }
               }
@@ -941,7 +960,9 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "minStep": "",
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:perdiskmemtableflushwriter_0:activetasks:value\"})",
+                    "seriesNameFormat": "PerDiskMemtableFlushWriter"
                   }
                 }
               }
@@ -952,7 +973,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:sampler:activetasks:value\"})",
+                    "seriesNameFormat": "Sampler"
                   }
                 }
               }
@@ -963,7 +985,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:secondaryindexmanagement:activetasks:value\"})",
+                    "seriesNameFormat": "SecondaryIndexManagement"
                   }
                 }
               }
@@ -974,7 +997,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:validationexecutor:activetasks:value\"})",
+                    "seriesNameFormat": "ValidationExecutor"
                   }
                 }
               }
@@ -985,7 +1009,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:countermutationstage:activetasks:value\"})",
+                    "seriesNameFormat": "CounterMutationStage"
                   }
                 }
               }
@@ -996,7 +1021,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:mutationstage:activetasks:value\"})",
+                    "seriesNameFormat": "MutationStage"
                   }
                 }
               }
@@ -1007,7 +1033,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:readrepairstage:activetasks:value\"})",
+                    "seriesNameFormat": "ReadRepairStage"
                   }
                 }
               }
@@ -1018,7 +1045,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:requestresponsestage:activetasks:value\"})",
+                    "seriesNameFormat": "RequestResponseStage"
                   }
                 }
               }
@@ -1029,7 +1057,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:viewmutationstage:activetasks:value\"})",
+                    "seriesNameFormat": "ViewMutationStage"
                   }
                 }
               }
@@ -1040,7 +1069,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:transport:native-transport-requests:activetasks:value\"})",
+                    "seriesNameFormat": "NativeTransportRequest"
                   }
                 }
               }
@@ -1060,8 +1090,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -1085,7 +1114,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:antientropystage:pendingtasks:value\"})",
+                    "seriesNameFormat": "AntiEntropyStage"
                   }
                 }
               }
@@ -1096,7 +1126,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:cachecleanupexecutor:pendingtasks:value\"})",
+                    "seriesNameFormat": "CacheCleanupExecutor"
                   }
                 }
               }
@@ -1107,7 +1138,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:compactionexecutor:pendingtasks:value\"})",
+                    "seriesNameFormat": "CompactionExecutor"
                   }
                 }
               }
@@ -1118,7 +1150,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:gossipstage:pendingtasks:value\"})",
+                    "seriesNameFormat": "GossipStage"
                   }
                 }
               }
@@ -1129,7 +1162,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:hintsdispatcher:pendingtasks:value\"})",
+                    "seriesNameFormat": "HintsDispatcher"
                   }
                 }
               }
@@ -1140,7 +1174,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:internalresponsestage:pendingtasks:value\"})",
+                    "seriesNameFormat": "InternalResponseStage"
                   }
                 }
               }
@@ -1151,7 +1186,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:memtableflushwriter:pendingtasks:value\"})",
+                    "seriesNameFormat": "MemtableFlushWriter"
                   }
                 }
               }
@@ -1162,7 +1198,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:memtablepostflush:pendingtasks:value\"})",
+                    "seriesNameFormat": "MemtablePostFlush"
                   }
                 }
               }
@@ -1173,7 +1210,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:memtablereclaimmemory:pendingtasks:value\"})",
+                    "seriesNameFormat": "MemtableReclaimMemory"
                   }
                 }
               }
@@ -1184,7 +1222,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:migrationstage:pendingtasks:value\"})",
+                    "seriesNameFormat": "MigrationStage"
                   }
                 }
               }
@@ -1195,7 +1234,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:miscstage:pendingtasks:value\"})",
+                    "seriesNameFormat": "MiscStage"
                   }
                 }
               }
@@ -1206,7 +1246,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:pendingrangecalculator:pendingtasks:value\"})",
+                    "seriesNameFormat": "PendingRangeCalculator"
                   }
                 }
               }
@@ -1217,7 +1258,9 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "minStep": "",
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:perdiskmemtableflushwriter_0:pendingtasks:value\"})",
+                    "seriesNameFormat": "PerDiskMemtableFlushWriter"
                   }
                 }
               }
@@ -1228,7 +1271,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:sampler:pendingtasks:value\"})",
+                    "seriesNameFormat": "Sampler"
                   }
                 }
               }
@@ -1239,7 +1283,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:secondaryindexmanagement:pendingtasks:value\"})",
+                    "seriesNameFormat": "SecondaryIndexManagement"
                   }
                 }
               }
@@ -1250,7 +1295,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:validationexecutor:pendingtasks:value\"})",
+                    "seriesNameFormat": "ValidationExecutor"
                   }
                 }
               }
@@ -1261,7 +1307,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:countermutationstage:pendingtasks:value\"})",
+                    "seriesNameFormat": "CounterMutationStage"
                   }
                 }
               }
@@ -1272,7 +1319,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:mutationstage:pendingtasks:value\"})",
+                    "seriesNameFormat": "MutationStage"
                   }
                 }
               }
@@ -1283,7 +1331,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:readrepairstage:pendingtasks:value\"})",
+                    "seriesNameFormat": "ReadRepairStage"
                   }
                 }
               }
@@ -1294,7 +1343,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:requestresponsestage:pendingtasks:value\"})",
+                    "seriesNameFormat": "RequestResponseStage"
                   }
                 }
               }
@@ -1305,7 +1355,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:viewmutationstage:pendingtasks:value\"})",
+                    "seriesNameFormat": "ViewMutationStage"
                   }
                 }
               }
@@ -1316,7 +1367,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:transport:native-transport-requests:pendingtasks:value\"})",
+                    "seriesNameFormat": "NativeTransportRequest"
                   }
                 }
               }
@@ -1336,8 +1388,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -1361,7 +1412,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:antientropystage:currentlyblockedtasks:count\"})",
+                    "seriesNameFormat": "AntiEntropyStage"
                   }
                 }
               }
@@ -1372,7 +1424,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:cachecleanupexecutor:currentlyblockedtasks:count\"})",
+                    "seriesNameFormat": "CacheCleanupExecutor"
                   }
                 }
               }
@@ -1383,7 +1436,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:compactionexecutor:currentlyblockedtasks:count\"})",
+                    "seriesNameFormat": "CompactionExecutor"
                   }
                 }
               }
@@ -1394,7 +1448,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:gossipstage:currentlyblockedtasks:count\"})",
+                    "seriesNameFormat": "GossipStage"
                   }
                 }
               }
@@ -1405,7 +1460,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:hintsdispatcher:currentlyblockedtasks:count\"})",
+                    "seriesNameFormat": "HintsDispatcher"
                   }
                 }
               }
@@ -1416,7 +1472,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:internalresponsestage:currentlyblockedtasks:count\"})",
+                    "seriesNameFormat": "InternalResponseStage"
                   }
                 }
               }
@@ -1427,7 +1484,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:memtableflushwriter:currentlyblockedtasks:count\"})",
+                    "seriesNameFormat": "MemtableFlushWriter"
                   }
                 }
               }
@@ -1438,7 +1496,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:memtablepostflush:currentlyblockedtasks:count\"})",
+                    "seriesNameFormat": "MemtablePostFlush"
                   }
                 }
               }
@@ -1449,7 +1508,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:memtablereclaimmemory:currentlyblockedtasks:count\"})",
+                    "seriesNameFormat": "MemtableReclaimMemory"
                   }
                 }
               }
@@ -1460,7 +1520,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:migrationstage:currentlyblockedtasks:count\"})",
+                    "seriesNameFormat": "MigrationStage"
                   }
                 }
               }
@@ -1471,7 +1532,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:miscstage:currentlyblockedtasks:count\"})",
+                    "seriesNameFormat": "MiscStage"
                   }
                 }
               }
@@ -1482,7 +1544,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:pendingrangecalculator:currentlyblockedtasks:count\"})",
+                    "seriesNameFormat": "PendingRangeCalculator"
                   }
                 }
               }
@@ -1493,7 +1556,9 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "minStep": "",
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:perdiskmemtableflushwriter_0:currentlyblockedtasks:count\"})",
+                    "seriesNameFormat": "PerDiskMemtableFlushWriter"
                   }
                 }
               }
@@ -1504,7 +1569,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:sampler:currentlyblockedtasks:count\"})",
+                    "seriesNameFormat": "Sampler"
                   }
                 }
               }
@@ -1515,7 +1581,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:secondaryindexmanagement:currentlyblockedtasks:count\"})",
+                    "seriesNameFormat": "SecondaryIndexManagement"
                   }
                 }
               }
@@ -1526,7 +1593,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:internal:validationexecutor:currentlyblockedtasks:count\"})",
+                    "seriesNameFormat": "ValidationExecutor"
                   }
                 }
               }
@@ -1537,7 +1605,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:countermutationstage:currentlyblockedtasks:count\"})",
+                    "seriesNameFormat": "CounterMutationStage"
                   }
                 }
               }
@@ -1548,7 +1617,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:mutationstage:currentlyblockedtasks:count\"})",
+                    "seriesNameFormat": "MutationStage"
                   }
                 }
               }
@@ -1559,7 +1629,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:readrepairstage:currentlyblockedtasks:count\"})",
+                    "seriesNameFormat": "ReadRepairStage"
                   }
                 }
               }
@@ -1570,7 +1641,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:requestresponsestage:currentlyblockedtasks:count\"})",
+                    "seriesNameFormat": "RequestResponseStage"
                   }
                 }
               }
@@ -1581,7 +1653,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:request:viewmutationstage:currentlyblockedtasks:count\"})",
+                    "seriesNameFormat": "ViewMutationStage"
                   }
                 }
               }
@@ -1592,7 +1665,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:threadpools:transport:native-transport-requests:currentlyblockedtasks:count\"})",
+                    "seriesNameFormat": "NativeTransportRequest"
                   }
                 }
               }
@@ -1612,8 +1686,7 @@
             "spec": {
               "legend": {
                 "mode": "table",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -1637,7 +1710,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:droppedmessage:batch_remove:dropped:oneminuterate\"})",
+                    "seriesNameFormat": "BatchRemove"
                   }
                 }
               }
@@ -1648,7 +1722,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:droppedmessage:batch_store:dropped:oneminuterate\"})",
+                    "seriesNameFormat": "BatchStore"
                   }
                 }
               }
@@ -1659,7 +1734,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:droppedmessage:counter_mutation:dropped:oneminuterate\"})",
+                    "seriesNameFormat": "CounterMutation"
                   }
                 }
               }
@@ -1670,7 +1746,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:droppedmessage:hint:dropped:oneminuterate\"})",
+                    "seriesNameFormat": "Hint"
                   }
                 }
               }
@@ -1681,7 +1758,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:droppedmessage:mutation:dropped:oneminuterate\"})",
+                    "seriesNameFormat": "Mutation"
                   }
                 }
               }
@@ -1692,7 +1770,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:droppedmessage:paged_range:dropped:oneminuterate\"})",
+                    "seriesNameFormat": "PagedRange"
                   }
                 }
               }
@@ -1703,7 +1782,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:droppedmessage:range_slice:dropped:oneminuterate\"})",
+                    "seriesNameFormat": "RangeSlice"
                   }
                 }
               }
@@ -1714,7 +1794,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:droppedmessage:read:dropped:oneminuterate\"})",
+                    "seriesNameFormat": "Read"
                   }
                 }
               }
@@ -1725,7 +1806,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:droppedmessage:read_repair:dropped:oneminuterate\"})",
+                    "seriesNameFormat": "ReadRepair"
                   }
                 }
               }
@@ -1736,7 +1818,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:droppedmessage:request_response:dropped:oneminuterate\"})",
+                    "seriesNameFormat": "RequestResponse"
                   }
                 }
               }
@@ -1747,7 +1830,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".*\",name=\"org:apache:cassandra:metrics:droppedmessage:_trace:dropped:oneminuterate\"})",
+                    "seriesNameFormat": "_Trace"
                   }
                 }
               }
@@ -1794,8 +1878,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -1824,7 +1907,7 @@
                       "name": "${DS_PROMETHEUS}"
                     },
                     "query": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",name=~\"org:apache:cassandra:metrics:compaction:pendingtasks:value\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}_P"
                   }
                 }
               }
@@ -1835,7 +1918,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",name=~\"org:apache:cassandra:metrics:threadpools:internal:compactionexecutor:activetasks:value\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}_A"
                   }
                 }
               }
@@ -1882,8 +1966,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -1906,7 +1989,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",name=~\"org:apache:cassandra:metrics:compaction:completedtasks:value\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}"
                   }
                 }
               }
@@ -1926,8 +2010,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -1950,7 +2033,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:compaction:totalcompactionscompleted:count\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}"
                   }
                 }
               }
@@ -1970,8 +2054,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -1993,7 +2076,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:compaction:bytescompacted:count\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}"
                   }
                 }
               }
@@ -2004,7 +2088,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".*\", name=~\"org:apache:cassandra:metrics:table:dfce:documents:compactionbyteswritten:count\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}_docs"
                   }
                 }
               }
@@ -2024,8 +2109,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -2049,7 +2133,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:table:livesstablecount:value\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}"
                   }
                 }
               }
@@ -2069,8 +2154,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -2094,7 +2178,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "avg(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".+\",name=~\"org:apache:cassandra:metrics:table:sstablesperreadhistogram:50thpercentile\"})",
+                    "seriesNameFormat": "p55"
                   }
                 }
               }
@@ -2105,7 +2190,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "avg(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".+\",name=~\"org:apache:cassandra:metrics:table:sstablesperreadhistogram:75thpercentile\"})",
+                    "seriesNameFormat": "p75"
                   }
                 }
               }
@@ -2116,7 +2202,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "avg(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".+\",name=~\"org:apache:cassandra:metrics:table:sstablesperreadhistogram:99thpercentile\"})",
+                    "seriesNameFormat": "p99"
                   }
                 }
               }
@@ -2127,7 +2214,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "avg(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".+\",job=~\".+\",name=~\"org:apache:cassandra:metrics:table:sstablesperreadhistogram:mean\"})",
+                    "seriesNameFormat": "mean"
                   }
                 }
               }
@@ -2174,8 +2262,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "bottom",
-                "values": []
+                "position": "bottom"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -2200,7 +2287,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:cache:keycache:oneminutehitrate:value\"}*100,\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}"
                   }
                 }
               }
@@ -2220,8 +2308,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "bottom",
-                "values": []
+                "position": "bottom"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -2231,7 +2318,7 @@
               },
               "yAxis": {
                 "format": {
-                  "unit": "bytes"
+                  "unit": "decbytes"
                 }
               }
             }
@@ -2243,7 +2330,9 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "minStep": "",
+                    "query": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:cache:keycache:size:value\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}_sz"
                   }
                 }
               }
@@ -2254,7 +2343,9 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "minStep": "",
+                    "query": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:cache:keycache:entries:value\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}_en"
                   }
                 }
               }
@@ -2274,8 +2365,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "bottom",
-                "values": []
+                "position": "bottom"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -2286,7 +2376,7 @@
               "yAxis": {
                 "format": {
                   "decimalPlaces": 0,
-                  "unit": "bytes"
+                  "unit": "decbytes"
                 },
                 "min": 0
               }
@@ -2299,7 +2389,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:cache:keycache:hits:count\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}_hits"
                   }
                 }
               }
@@ -2310,7 +2401,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:cache:keycache:requests:count\"},\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}_reqs"
                   }
                 }
               }
@@ -2384,8 +2476,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -2396,7 +2487,7 @@
               "yAxis": {
                 "format": {
                   "decimalPlaces": 0,
-                  "unit": "bytes"
+                  "unit": "decbytes"
                 },
                 "min": 0
               }
@@ -2409,7 +2500,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:storage:load:count\"}) by (instance),\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}"
                   }
                 }
               }
@@ -2429,8 +2521,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -2454,7 +2545,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:(read|write|casread|caswrite|rangeslice|viewwrite):latency:oneminuterate\"})",
+                    "seriesNameFormat": "All"
                   }
                 }
               }
@@ -2465,7 +2557,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:read:latency:oneminuterate\"})",
+                    "seriesNameFormat": "Read"
                   }
                 }
               }
@@ -2476,7 +2569,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:write:latency:oneminuterate\"})",
+                    "seriesNameFormat": "Write"
                   }
                 }
               }
@@ -2487,7 +2581,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:casread:latency:oneminuterate\"})",
+                    "seriesNameFormat": "CasRead"
                   }
                 }
               }
@@ -2498,7 +2593,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:caswrite:latency:oneminuterate\"})",
+                    "seriesNameFormat": "CasWrite"
                   }
                 }
               }
@@ -2509,7 +2605,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:rangeslice:latency:oneminuterate\"})",
+                    "seriesNameFormat": "RangeSlice"
                   }
                 }
               }
@@ -2520,7 +2617,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:viewwrite:latency:oneminuterate\"})",
+                    "seriesNameFormat": "ViewWrite"
                   }
                 }
               }
@@ -2540,8 +2638,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -2565,7 +2662,9 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "minStep": "",
+                    "query": "label_replace(sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:(read|write|casread|caswrite|rangeslice|viewwrite):latency:oneminuterate\"}) by (instance), \"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}"
                   }
                 }
               }
@@ -2612,8 +2711,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -2636,7 +2734,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:read:latency:oneminuterate\"}+0.00000001) by (instance),\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}"
                   }
                 }
               }
@@ -2656,8 +2755,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "right",
-                "values": []
+                "position": "right"
               },
               "visual": {
                 "areaOpacity": 0,
@@ -2680,7 +2778,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "query": "migration_from_grafana_not_supported"
+                    "query": "label_replace(sum(cassandra_stats{cluster=\"$cluster\",datacenter=~\".*\",instance=~\".*\",name=~\"org:apache:cassandra:metrics:clientrequest:write:latency:oneminuterate\"}+0.00000001) by (instance),\"short_instance\", \"$1\", \"instance\", \"(.*):.*\")",
+                    "seriesNameFormat": "{{ `{{short_instance}}` }}"
                   }
                 }
               }
