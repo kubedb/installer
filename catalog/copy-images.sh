@@ -114,6 +114,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/el
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.1.9 $IMAGE_REGISTRY/appscode-images/elastic:9.1.9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.2.3 $IMAGE_REGISTRY/appscode-images/elastic:9.2.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ignite:2.17.0 $IMAGE_REGISTRY/appscode-images/ignite:2.17.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ignite:2.18.0 $IMAGE_REGISTRY/appscode-images/ignite:2.18.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.5.2 $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.5.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.6.1 $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.6.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.7.2 $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.7.2
@@ -367,6 +368,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hanadb-coor
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hanadb-exporter:1.0.0 $IMAGE_REGISTRY/kubedb/hanadb-exporter:1.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hazelcast-init:5.5.2 $IMAGE_REGISTRY/kubedb/hazelcast-init:5.5.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/ignite-init:2.17.0-v2 $IMAGE_REGISTRY/kubedb/ignite-init:2.17.0-v2
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/ignite-init:2.18.0-v1 $IMAGE_REGISTRY/kubedb/ignite-init:2.18.0-v1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kafka-init:4.0-v2 $IMAGE_REGISTRY/kubedb/kafka-init:4.0-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-autoscaler:v0.50.0-rc.1 $IMAGE_REGISTRY/kubedb/kubedb-autoscaler:v0.50.0-rc.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-crd-manager:v0.20.0-rc.1 $IMAGE_REGISTRY/kubedb/kubedb-crd-manager:v0.20.0-rc.1
