@@ -390,6 +390,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-arc
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-coordinator:v0.45.0-rc.1 $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.45.0-rc.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-csi-snapshotter-plugin:v0.25.0-rc.1 $IMAGE_REGISTRY/kubedb/mariadb-csi-snapshotter-plugin:v0.25.0-rc.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-init:0.9.0 $IMAGE_REGISTRY/kubedb/mariadb-init:0.9.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-migrator-cli:v0.5.0-rc.1 $IMAGE_REGISTRY/kubedb/mariadb-migrator-cli:v0.5.0-rc.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/migrator-operator:v0.5.0-rc.1 $IMAGE_REGISTRY/kubedb/migrator-operator:v0.5.0-rc.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.26.0-rc.1 $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.26.0-rc.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
@@ -411,6 +412,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-coord
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-csi-snapshotter-plugin:v0.26.0-rc.1 $IMAGE_REGISTRY/kubedb/mysql-csi-snapshotter-plugin:v0.26.0-rc.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:0.1.0 $IMAGE_REGISTRY/kubedb/mysql-init:0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:5.7-v9 $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v9
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-migrator-cli:v0.5.0-rc.1 $IMAGE_REGISTRY/kubedb/mysql-migrator-cli:v0.5.0-rc.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.43.0-rc.1 $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.43.0-rc.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.18.0 $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.18.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-coordinator:v0.11.0-rc.1 $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.11.0-rc.1

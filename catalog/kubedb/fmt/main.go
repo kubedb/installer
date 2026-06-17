@@ -56,6 +56,8 @@ var ubiImageList = sets.NewString(
 	"ghcr.io/kubedb/mariadb-coordinator",
 	"ghcr.io/kubedb/postgresql-migrator-cli",
 	"ghcr.io/kubedb/mongodb-migrator-cli",
+	"ghcr.io/kubedb/mysql-migrator-cli",
+	"ghcr.io/kubedb/mariadb-migrator-cli",
 	"ghcr.io/kubedb/migrator-operator",
 	"ghcr.io/kubedb/mssql-coordinator",
 	// "ghcr.io/kubedb/mysql-archiver",
