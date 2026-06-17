@@ -135,6 +135,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "mean",
+              "colorMode": "none",
               "sparkline": {},
               "thresholds": {
                 "steps": [
@@ -186,7 +187,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "irate(pg_stat_database_xact_commit{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{datname}}` }} commits"
                   }
                 }
               }
@@ -199,7 +200,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "irate(pg_stat_database_xact_rollback{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{datname}}` }} rollbacks"
                   }
                 }
               }
@@ -226,7 +227,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "irate(pg_stat_bgwriter_buffers_backend{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "buffers_backend"
                   }
                 }
               }
@@ -239,7 +240,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "irate(pg_stat_bgwriter_buffers_alloc{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "buffers_alloc"
                   }
                 }
               }
@@ -252,7 +253,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "irate(pg_stat_bgwriter_buffers_backend_fsync{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "backend_fsync"
                   }
                 }
               }
@@ -265,7 +266,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "irate(pg_stat_bgwriter_buffers_checkpoint{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "buffers_checkpoint"
                   }
                 }
               }
@@ -278,7 +279,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "irate(pg_stat_bgwriter_buffers_clean{pod=\"$pod\", namespace=\"$namespace\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "buffers_clean"
                   }
                 }
               }
@@ -305,7 +306,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "irate(pg_stat_database_conflicts{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{datname}}` }} conflicts"
                   }
                 }
               }
@@ -318,7 +319,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "irate(pg_stat_database_deadlocks{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{datname}}` }} deadlocks"
                   }
                 }
               }
@@ -345,7 +346,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "pg_stat_database_blks_hit{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"} / (pg_stat_database_blks_read{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"} + pg_stat_database_blks_hit{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"})",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ datname }}` }}"
                   }
                 }
               }
@@ -373,7 +374,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "irate(pg_stat_database_temp_bytes{pod=\"$pod\", namespace=\"$namespace\", datname=~\"$datname\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{datname}}` }}"
                   }
                 }
               }
@@ -537,7 +538,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "pg_stat_database_tup_updated{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{datname}}` }}"
                   }
                 }
               }
@@ -564,7 +565,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "pg_stat_activity_count{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} !=0",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{datname}}` }}, s: {{ `{{state}}` }}"
                   }
                 }
               }
@@ -591,7 +592,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "pg_stat_database_tup_inserted{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{datname}}` }}"
                   }
                 }
               }
@@ -618,7 +619,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "pg_locks_count{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{datname}}` }},{{ `{{mode}}` }}"
                   }
                 }
               }
@@ -645,7 +646,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "pg_stat_database_tup_fetched{datname=~\"$datname\",pod=\"$pod\", namespace=\"$namespace\"} != 0",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{datname}}` }}"
                   }
                 }
               }
@@ -672,7 +673,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "pg_stat_activity_count{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\", state=~\"idle|idle in transaction|idle in transaction (aborted)\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{datname}}` }}, s: {{ `{{state}}` }}"
                   }
                 }
               }
@@ -699,7 +700,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "pg_stat_database_tup_deleted{datname=~\"$datname\", pod=\"$pod\", namespace=\"$namespace\"} != 0",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{datname}}` }}"
                   }
                 }
               }
@@ -726,7 +727,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "pg_stat_database_tup_returned{datname=~\"$datname\",pod=\"$pod\", namespace=\"$namespace\"} != 0",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{datname}}` }}"
                   }
                 }
               }

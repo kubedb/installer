@@ -1,8 +1,9 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "kind": "Dashboard",
   "metadata": {
-    "name": "37b8207f-ab9e-442c-92eb-2364bfe2d7df",
+    "name": "e63d0da5-722a-4e00-aa0e-c25ee5d8cea4",
     "createdAt": "0001-01-01T00:00:00Z",
     "updatedAt": "0001-01-01T00:00:00Z",
     "version": 0,
@@ -173,6 +174,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "format": {
                 "unit": "seconds"
               },
@@ -363,7 +365,7 @@
                   "spec": {
                     "minStep": "$interval",
                     "query": "rate(mongodb_ss_asserts{pod=~\"$pod\"}[$interval]) or \nirate(mongodb_ss_asserts{pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{assert_type}}` }}"
                   }
                 }
               }
@@ -409,6 +411,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "format": {
                 "unit": "ops/sec"
               },
@@ -454,6 +457,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "sparkline": {},
               "thresholds": {
                 "steps": [
@@ -506,7 +510,7 @@
                   "spec": {
                     "minStep": "$interval",
                     "query": "rate(mongodb_ss_opcounters{pod=~\"$pod\", legacy_op_type!=\"command\"}[$interval])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{legacy_op_type}}` }}"
                   }
                 }
               }
@@ -519,7 +523,7 @@
                   "spec": {
                     "minStep": "$interval",
                     "query": "rate(mongodb_ss_opcountersRepl{pod=~\"$pod\", legacy_op_type!~\"(command|query|getmore)\"}[$interval])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "repl_{{ `{{legacy_op_type}}` }}"
                   }
                 }
               }
@@ -560,7 +564,7 @@
                   "spec": {
                     "minStep": "$interval",
                     "query": "avg by (service,op_type) (rate(mongodb_ss_opLatencies_latency{service=~\"${app}-stats\"}[$interval]) / (rate(mongodb_ss_opLatencies_ops{service=~\"${app}-stats\"}[$interval]) > 0) or irate(mongodb_ss_opLatencies_latency{service=~\"${app}-stats\"}[5m]) / (irate(mongodb_ss_opLatencies_ops{service=~\"${app}-stats\"}[5m]) > 0))",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{op_type}}` }}"
                   }
                 }
               }
@@ -616,7 +620,7 @@
                   "spec": {
                     "minStep": "$interval",
                     "query": "mongodb_ss_metrics_cursor_open{pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{csr_type}}` }}"
                   }
                 }
               }
@@ -644,7 +648,7 @@
                   "spec": {
                     "minStep": "$interval",
                     "query": "rate(mongodb_ss_metrics_document{pod=~\"$pod\"}[$interval])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{doc_op_type}}` }}"
                   }
                 }
               }
@@ -672,7 +676,7 @@
                   "spec": {
                     "minStep": "$interval",
                     "query": "mongodb_ss_globalLock_currentQueue{pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{count_type}}` }}"
                   }
                 }
               }

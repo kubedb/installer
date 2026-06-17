@@ -1,0 +1,1399 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
+{
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "fifRHuGDz",
+    "createdAt": "0001-01-01T00:00:00Z",
+    "updatedAt": "0001-01-01T00:00:00Z",
+    "version": 0,
+    "project": "pp"
+  },
+  "spec": {
+    "display": {
+      "name": "KubeDB / Neo4j / Database"
+    },
+    "variables": [
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Datasource",
+            "hidden": false
+          },
+          "defaultValue": "Prometheus",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "plugin": {
+            "kind": "DatasourceVariable",
+            "spec": {
+              "datasourcePluginKind": "PrometheusDatasource"
+            }
+          },
+          "name": "datasource"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Namespace",
+            "hidden": false
+          },
+          "defaultValue": "demo",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "namespace",
+              "matchers": [
+                "kube_namespace_status_phase{phase=\"Active\"}"
+              ]
+            }
+          },
+          "name": "namespace"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Neo4j",
+            "hidden": false
+          },
+          "defaultValue": "neo4j",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "app",
+              "matchers": [
+                "kubedb_com_neo4j_status_phase{namespace=~\"$namespace\"}"
+              ]
+            }
+          },
+          "name": "app"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "hidden": false
+          },
+          "defaultValue": "neo4j",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "StaticListVariable",
+            "spec": {
+              "values": [
+                "grafana",
+                "migration",
+                "not",
+                "supported"
+              ]
+            }
+          },
+          "name": "database"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "hidden": false
+          },
+          "defaultValue": "neo4j-1",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusPromQLVariable",
+            "spec": {
+              "expr": "neo4j_database_${database}_cluster_raft_is_leader{namespace=~\"$namespace\"} == 1",
+              "labelName": "app"
+            }
+          },
+          "name": "leader"
+        }
+      }
+    ],
+    "panels": {
+      "0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Uptime"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "format": {
+                "unit": "seconds"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "time() - max(max_over_time(container_start_time_seconds{namespace=~\"$namespace\",pod=~\"$app-.*\"}[$__interval]))",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Nodes"
+          },
+          "plugin": {
+            "kind": "GaugeChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "decimal"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "neo4j_database_${database}_neo4j_count_node{namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "10": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Committed transactions"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "neo4j_database_${database}_transaction_committed_total{namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "seriesNameFormat": "Total Committed Tr.s {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "neo4j_database_${database}_transaction_committed_read_total{namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "seriesNameFormat": "Committed Read Tr.s {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "neo4j_database_${database}_transaction_committed_write_total{namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "seriesNameFormat": "Committed Write Tr.s {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "11": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Active Transactions",
+            "description": "Active Transactions - Read and Write - \nand Peak concurrent"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "neo4j_database_neo4j_transaction_active_read{namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "seriesNameFormat": "Active read {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "neo4j_database_neo4j_transaction_active_write{namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "seriesNameFormat": "Active write {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "neo4j_database_neo4j_transaction_peak_concurrent_total{namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "seriesNameFormat": "Peak concurrent {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "12": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Page cache faults"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "neo4j_dbms_page_cache_page_faults_total{namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "seriesNameFormat": "{{ `{{instance}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "13": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Page cache faults/sec"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(neo4j_dbms_page_cache_page_faults_total{namespace=~\"$namespace\",job=~\"$app-stats\"}[$__interval])",
+                    "seriesNameFormat": "{{ `{{instance}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "14": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Page Cache Hit Ratio",
+            "description": "The ratio of hits to the total number of lookups in the page cache"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "neo4j_dbms_page_cache_hit_ratio{namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "seriesNameFormat": "{{ `{{instance}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "15": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Page Cache Hits Rate (hits/sec)",
+            "description": "Per-second Neo4j Page Cache Hits"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(neo4j_dbms_page_cache_hits_total{namespace=~\"$namespace\",job=~\"$app-stats\"}[$__interval])",
+                    "seriesNameFormat": "{{ `{{instance}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "16": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Page Cache Hits",
+            "description": "The total number of page hits happened in the page cache"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "neo4j_dbms_page_cache_hits_total{namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "seriesNameFormat": "{{ `{{__name__}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "17": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Checkpoints",
+            "description": "Neo4j Checkpoints. \nCheckpointing is the process of flushing all pending page updates from the page cache to the store files"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "label_replace({__name__=~\"neo4j_database_${database}_check_point_(events|total_time)_total\", namespace=~\"$namespace\",job=~\"$app-stats\"}, \"label\", \"$1\", \"__name__\", \"neo4j_(.*)\")",
+                    "seriesNameFormat": "{{ `{{label}}` }} {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "18": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Checkpoint event duration sec"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "neo4j_database_${database}_check_point_duration{namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "seriesNameFormat": "{{ `{{instance}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "19": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Bolt Messages Queue",
+            "description": "Messages received - Messages started"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "neo4j_dbms_bolt_messages_received_total{namespace=~\"$namespace\",job=~\"$app-stats\"} - neo4j_dbms_bolt_messages_started_total{namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "seriesNameFormat": "Bolt Msg Queue Length {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "label_replace({__name__=~\"neo4j_dbms_bolt_messages_(received|started)_total\", namespace=~\"$namespace\",job=~\"$app-stats\"}, \"label\", \"$1\", \"__name__\", \"neo4j_dbms_bolt_messages_(.+)\")",
+                    "seriesNameFormat": "{{ `{{label}}` }} {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(neo4j_dbms_bolt_messages_received_total{namespace=~\"$namespace\",job=~\"$app-stats\"}[$__interval])",
+                    "seriesNameFormat": "Bolt msg received rate {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(neo4j_dbms_bolt_messages_started_total{namespace=~\"$namespace\",job=~\"$app-stats\"}[$__interval])",
+                    "seriesNameFormat": "Bolt msg started rate {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Relationships"
+          },
+          "plugin": {
+            "kind": "GaugeChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "decimal"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "neo4j_database_${database}_neo4j_count_relationship{namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "20": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Bolt Connections"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "label_replace({__name__=~\"neo4j_dbms_bolt_connections_.+\", namespace=~\"$namespace\",job=~\"$app-stats\"}, \"label\", \"$1\", \"__name__\", \"neo4j_dbms_bolt_connections_(.+)\")",
+                    "seriesNameFormat": "{{ `{{label}}` }} {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "21": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "JVM Heap Size",
+            "description": "Heap memory (eden space, old generation, survivor space)\nNon-heap memory (metaspace, compressed class space, code cache)"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decbytes"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum({__name__=~\"neo4j_dbms_vm_memory_pool_g1_(eden|old|survivor).*\",namespace=~\"$namespace\",job=~\"$app-stats\"})",
+                    "seriesNameFormat": "{{ `{{instance}}` }} heap"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "22": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "VM Live Threads"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "neo4j_dbms_vm_threads{namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "seriesNameFormat": "vm live threads {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "23": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "JVM Used Buffer rate"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "neo4j_dbms_vm_memory_buffer_direct_used{namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "seriesNameFormat": "memory buffer direct used {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "neo4j_dbms_vm_memory_buffer_mapped_used{namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "seriesNameFormat": "memory buffer mapped used{{ `{{instance}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "24": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "VM Garbage Collector",
+            "description": "Time and counters"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "{__name__=~\"neo4j_dbms_vm_gc_time_g1_.+_generation_total\", namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "seriesNameFormat": "{{ `{{__name__}}` }} {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "delta(neo4j_dbms_vm_gc_time_g1_old_generation_total{namespace=~\"$namespace\",job=~\"$app-stats\"}[$__interval])",
+                    "seriesNameFormat": "delta g1 old g total {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "delta(neo4j_dbms_vm_gc_time_g1_young_generation_total{namespace=~\"$namespace\",job=~\"$app-stats\"}[$__interval])",
+                    "seriesNameFormat": "delta g1 young g total {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "25": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Cyper wait time",
+            "description": "The total number of seconds waited between query replans"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "neo4j_database_${database}_cypher_replan_wait_time{namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "seriesNameFormat": "{{ `{{__name__}}` }} {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "26": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Cyper replan events"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "neo4j_database_${database}_cypher_replan_events_total{namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "seriesNameFormat": "{{ `{{__name__}}` }} {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Total Memory Used"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(container_memory_working_set_bytes{namespace=~\"$namespace\",pod=~\"$app-.*\"}) / 1024 / 1024",
+                    "seriesNameFormat": "used memory"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Average CPU Usage",
+            "description": "Average user and system CPU time spent in seconds."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\",pod=~\"$app-.*\"}[5m])) / count(node_cpu_seconds_total{mode=\"system\"}) * 100",
+                    "seriesNameFormat": "CPU used (%)"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Last Committed Write Transaction ID"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "list",
+                "position": "bottom"
+              },
+              "visual": {
+                "areaOpacity": 0,
+                "connectNulls": false,
+                "display": "line",
+                "lineWidth": 1
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "neo4j_database_${database}_transaction_last_committed_tx_id_total{namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "seriesNameFormat": "Last Closed Write Transaction ID"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Committed Transaction Rate",
+            "description": "Per-second average rate of increase of Committed Transactions"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "list",
+                "position": "bottom",
+                "values": [
+                  "mean",
+                  "last-number",
+                  "max",
+                  "min",
+                  "sum"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.2,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(neo4j_database_${database}_transaction_committed_total{namespace=~\"$namespace\",job=~\"$app-stats\"}[$__interval])",
+                    "seriesNameFormat": "rate {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "irate(neo4j_database_${database}_transaction_committed_total{namespace=~\"$namespace\",job=~\"$app-stats\"}[$__interval])",
+                    "seriesNameFormat": "iRate {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Committed Write Transaction Rate",
+            "description": "Per-second average rate of increase of Committed Transactions"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "legend": {
+                "mode": "list",
+                "position": "bottom",
+                "values": [
+                  "mean",
+                  "last-number",
+                  "max",
+                  "min",
+                  "sum"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.22,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 3
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(neo4j_database_${database}_transaction_committed_write_total{namespace=~\"$namespace\",job=~\"$app-stats\"}[$__interval])",
+                    "seriesNameFormat": "rate {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "8": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Transactions",
+            "description": "All transaction metrics"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "label_replace({__name__=~\"neo4j_database_${database}_transaction_(committed|rollbacks)_total\", namespace=~\"$namespace\",job=~\"$app-stats\"}, \"label\", \"$1\", \"__name__\", \"neo4j_transaction_(.+)\")",
+                    "seriesNameFormat": "{{ `{{label}}` }} {{ `{{instance}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Committed Read Transaction Rate",
+            "description": "Per-second average rate of increase of Committed Transactions"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "rate(neo4j_database_${database}_transaction_committed_read_total{namespace=~\"$namespace\",job=~\"$app-stats\"}[$__interval])",
+                    "seriesNameFormat": "{{ `{{instance}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "layouts": [
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Panel Group 1"
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 1,
+              "width": 8,
+              "height": 4,
+              "content": {
+                "$ref": "#/spec/panels/0"
+              }
+            },
+            {
+              "x": 8,
+              "y": 1,
+              "width": 6,
+              "height": 4,
+              "content": {
+                "$ref": "#/spec/panels/1"
+              }
+            },
+            {
+              "x": 15,
+              "y": 1,
+              "width": 8,
+              "height": 4,
+              "content": {
+                "$ref": "#/spec/panels/2"
+              }
+            },
+            {
+              "x": 0,
+              "y": 6,
+              "width": 12,
+              "height": 11,
+              "content": {
+                "$ref": "#/spec/panels/3"
+              }
+            },
+            {
+              "x": 12,
+              "y": 6,
+              "width": 12,
+              "height": 11,
+              "content": {
+                "$ref": "#/spec/panels/4"
+              }
+            },
+            {
+              "x": 0,
+              "y": 18,
+              "width": 4,
+              "height": 4,
+              "content": {
+                "$ref": "#/spec/panels/5"
+              }
+            },
+            {
+              "x": 4,
+              "y": 18,
+              "width": 10,
+              "height": 5,
+              "content": {
+                "$ref": "#/spec/panels/6"
+              }
+            },
+            {
+              "x": 15,
+              "y": 18,
+              "width": 9,
+              "height": 13,
+              "content": {
+                "$ref": "#/spec/panels/7"
+              }
+            },
+            {
+              "x": 0,
+              "y": 23,
+              "width": 7,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/8"
+              }
+            },
+            {
+              "x": 7,
+              "y": 23,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/9"
+              }
+            },
+            {
+              "x": 0,
+              "y": 31,
+              "width": 9,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/10"
+              }
+            },
+            {
+              "x": 9,
+              "y": 31,
+              "width": 15,
+              "height": 5,
+              "content": {
+                "$ref": "#/spec/panels/11"
+              }
+            },
+            {
+              "x": 0,
+              "y": 38,
+              "width": 7,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/12"
+              }
+            },
+            {
+              "x": 7,
+              "y": 38,
+              "width": 8,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/13"
+              }
+            },
+            {
+              "x": 15,
+              "y": 38,
+              "width": 9,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/14"
+              }
+            },
+            {
+              "x": 0,
+              "y": 45,
+              "width": 6,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/15"
+              }
+            },
+            {
+              "x": 6,
+              "y": 45,
+              "width": 6,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/16"
+              }
+            },
+            {
+              "x": 12,
+              "y": 45,
+              "width": 6,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/17"
+              }
+            },
+            {
+              "x": 18,
+              "y": 45,
+              "width": 6,
+              "height": 6,
+              "content": {
+                "$ref": "#/spec/panels/18"
+              }
+            },
+            {
+              "x": 0,
+              "y": 53,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/19"
+              }
+            },
+            {
+              "x": 12,
+              "y": 53,
+              "width": 11,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/20"
+              }
+            },
+            {
+              "x": 0,
+              "y": 63,
+              "width": 13,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/21"
+              }
+            },
+            {
+              "x": 14,
+              "y": 63,
+              "width": 8,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/22"
+              }
+            },
+            {
+              "x": 0,
+              "y": 72,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/23"
+              }
+            },
+            {
+              "x": 12,
+              "y": 72,
+              "width": 12,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/24"
+              }
+            },
+            {
+              "x": 0,
+              "y": 82,
+              "width": 11,
+              "height": 9,
+              "content": {
+                "$ref": "#/spec/panels/25"
+              }
+            },
+            {
+              "x": 11,
+              "y": 82,
+              "width": 13,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/26"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "duration": "1h"
+  }
+}

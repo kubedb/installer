@@ -79,7 +79,7 @@
       }
     ],
     "panels": {
-      "0_0": {
+      "0": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -90,6 +90,8 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
+              "metricLabel": "phase",
               "thresholds": {
                 "steps": [
                   {
@@ -109,7 +111,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "kubedb_com_redis_status_phase{namespace=\"$namespace\", app=\"$app\"} == 1\n",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{phase}}` }}"
                   }
                 }
               }
@@ -117,7 +119,7 @@
           ]
         }
       },
-      "0_1": {
+      "1": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -128,9 +130,11 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "mean",
+              "colorMode": "none",
               "format": {
                 "unit": "decimal"
               },
+              "metricLabel": "version",
               "sparkline": {},
               "thresholds": {
                 "steps": [
@@ -155,7 +159,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "kubedb_com_redis_info{namespace=\"$namespace\", app=\"$app\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{version}}` }}"
                   }
                 }
               }
@@ -163,7 +167,7 @@
           ]
         }
       },
-      "0_10": {
+      "10": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -174,6 +178,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "format": {
                 "unit": "bytes"
               },
@@ -205,335 +210,7 @@
           ]
         }
       },
-      "0_2": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Max Clients",
-            "description": "redis_config_maxclients"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  }
-                ]
-              },
-              "valueFontSize": 25
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "avg(redis_config_maxclients{namespace=\"$namespace\" , pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) ",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "0_3": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "RedisMode",
-            "description": "RedisMode CR Name"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "mean",
-              "format": {
-                "unit": "decimal"
-              },
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  },
-                  {
-                    "color": "#f2495c",
-                    "value": 80
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "kubedb_com_redis_info{namespace=\"$namespace\", app=\"$app\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "0_4": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Deletion Policy",
-            "description": "KubeDB Database Resource deletionPolicy"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#c4162a",
-                    "value": 0
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "kubedb_com_redis_info{namespace=\"$namespace\", app=\"$app\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "0_5": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Total Nodes",
-            "description": "Total node count of Redis cluster"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  },
-                  {
-                    "color": "#f2495c",
-                    "value": 80
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "kubedb_com_redis_replicas{namespace=\"$namespace\",app=\"$app\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "0_6": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "CPU Request (Core)",
-            "description": "Initial Requested CPU amount by Postgres Instance"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "kubedb_com_redis_resource_request_cpu{namespace=\"$namespace\", app=\"$app\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "0_7": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "CPU Limit (Core)",
-            "description": "CPU Limit in core by Redis instance"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "kubedb_com_redis_resource_limit_cpu{namespace=\"$namespace\", app=\"$app\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "0_8": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Memory Request",
-            "description": "Initial Requested Memory amount by Redis Instance"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "format": {
-                "unit": "bytes"
-              },
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "kubedb_com_redis_resource_request_memory{namespace=\"$namespace\", app=\"$app\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "0_9": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Memory Limit",
-            "description": "KubeDB Redis Total Memory Limit"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "format": {
-                "unit": "bytes"
-              },
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "kubedb_com_redis_resource_limit_memory{namespace=\"$namespace\", app=\"$app\"}",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "1_0": {
+      "11": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -559,7 +236,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) by (pod)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -567,7 +244,7 @@
           ]
         }
       },
-      "1_1": {
+      "12": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -581,37 +258,49 @@
                 {
                   "header": "Time",
                   "name": "timestamp",
-                  "width": null
+                  "width": "auto"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "header": "CPU Usage",
-                  "name": "Value #A"
+                  "name": "value #1"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "header": "CPU Requests",
-                  "name": "Value #B"
+                  "name": "value #2"
                 },
                 {
+                  "format": {
+                    "unit": "percent-decimal"
+                  },
                   "header": "CPU Requests %",
-                  "name": "Value #C"
+                  "name": "value #3"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "header": "CPU Limits",
-                  "name": "Value #D"
+                  "name": "value #4"
                 },
                 {
+                  "format": {
+                    "unit": "percent-decimal"
+                  },
                   "header": "CPU Limits %",
-                  "name": "Value #E"
+                  "name": "value #5"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "header": "Pod",
                   "name": "pod"
-                }
-              ],
-              "transforms": [
-                {
-                  "kind": "MergeSeries",
-                  "spec": {}
                 }
               ]
             }
@@ -685,7 +374,7 @@
           ]
         }
       },
-      "2_0": {
+      "13": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -716,7 +405,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum(node_namespace_pod_container:container_memory_working_set_bytes{namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",container!=\"\"}) by (pod)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -724,7 +413,7 @@
           ]
         }
       },
-      "2_1": {
+      "14": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -739,46 +428,67 @@
                   "name": "timestamp"
                 },
                 {
+                  "format": {
+                    "unit": "bytes"
+                  },
                   "header": "Memory Usage",
-                  "name": "Value #A"
+                  "name": "value #1"
                 },
                 {
+                  "format": {
+                    "unit": "bytes"
+                  },
                   "header": "Memory Requests",
-                  "name": "Value #B"
+                  "name": "value #2"
                 },
                 {
+                  "format": {
+                    "unit": "percent-decimal"
+                  },
                   "header": "Memory Requests %",
-                  "name": "Value #C"
+                  "name": "value #3"
                 },
                 {
+                  "format": {
+                    "unit": "bytes"
+                  },
                   "header": "Memory Limits",
-                  "name": "Value #D"
+                  "name": "value #4"
                 },
                 {
+                  "format": {
+                    "unit": "percent-decimal"
+                  },
                   "header": "Memory Limits %",
-                  "name": "Value #E"
+                  "name": "value #5"
                 },
                 {
+                  "format": {
+                    "unit": "bytes"
+                  },
                   "header": "Memory Usage (RSS)",
-                  "name": "Value #F"
+                  "name": "value #6"
                 },
                 {
+                  "format": {
+                    "unit": "bytes"
+                  },
                   "header": "Memory Usage (Cache)",
-                  "name": "Value #G"
+                  "name": "value #7"
                 },
                 {
+                  "format": {
+                    "unit": "bytes"
+                  },
                   "header": "Memory Usage (Swap)",
-                  "name": "Value #H"
+                  "name": "value #8"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "header": "Pod",
                   "name": "pod"
-                }
-              ],
-              "transforms": [
-                {
-                  "kind": "MergeSeries",
-                  "spec": {}
                 }
               ]
             }
@@ -891,7 +601,7 @@
           ]
         }
       },
-      "3_0": {
+      "15": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -922,7 +632,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "avg(container_blkio_device_usage_total{namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) by (pod)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -930,7 +640,7 @@
           ]
         }
       },
-      "3_1": {
+      "16": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -961,7 +671,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum(rate(container_fs_writes_total{namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m]))by(pod)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}-disk-write"
                   }
                 }
               }
@@ -974,7 +684,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum(rate(container_fs_reads_total{namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m]))by(pod)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}-disk-read"
                   }
                 }
               }
@@ -982,7 +692,7 @@
           ]
         }
       },
-      "3_2": {
+      "17": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1012,7 +722,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "ceil(sum by(pod) (rate(container_fs_reads_total{container!=\"\", namespace=~\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m]) + rate(container_fs_writes_total{container!=\"\" ,namespace=~\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m])))",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1020,7 +730,7 @@
           ]
         }
       },
-      "3_3": {
+      "18": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1050,7 +760,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", namespace=~\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m]) + rate(container_fs_writes_bytes_total{container!=\"\" ,namespace=~\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[5m]))",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1058,7 +768,7 @@
           ]
         }
       },
-      "3_4": {
+      "19": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1073,38 +783,53 @@
                   "name": "timestamp"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "header": "IOPS(Reads)",
-                  "name": "Value #A"
+                  "name": "value #1"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "header": "IOPS(Writes)",
-                  "name": "Value #B"
+                  "name": "value #2"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "header": "IOPS(Reads + Writes)",
-                  "name": "Value #C"
+                  "name": "value #3"
                 },
                 {
+                  "format": {
+                    "unit": "bytes/sec"
+                  },
                   "header": "Throughput(Read)",
-                  "name": "Value #D"
+                  "name": "value #4"
                 },
                 {
+                  "format": {
+                    "unit": "bytes/sec"
+                  },
                   "header": "Throughput(Write)",
-                  "name": "Value #E"
+                  "name": "value #5"
                 },
                 {
+                  "format": {
+                    "unit": "bytes/sec"
+                  },
                   "header": "Throughput(Read + Write)",
-                  "name": "Value #F"
+                  "name": "value #6"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "header": "Pod",
                   "name": "pod"
-                }
-              ],
-              "transforms": [
-                {
-                  "kind": "MergeSeries",
-                  "spec": {}
                 }
               ]
             }
@@ -1191,7 +916,47 @@
           ]
         }
       },
-      "4_0": {
+      "2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Max Clients",
+            "description": "redis_config_maxclients"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "none",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  }
+                ]
+              },
+              "valueFontSize": 25
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "avg(redis_config_maxclients{namespace=\"$namespace\" , pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) ",
+                    "seriesNameFormat": "values"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "20": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1201,52 +966,7 @@
           "plugin": {
             "kind": "Table",
             "spec": {
-              "columnSettings": [
-                {
-                  "header": "Volume",
-                  "name": "value"
-                },
-                {
-                  "header": "Pod",
-                  "name": "pod"
-                },
-                {
-                  "hide": true,
-                  "name": "timestamp"
-                },
-                {
-                  "hide": true,
-                  "name": "endpoint"
-                },
-                {
-                  "hide": true,
-                  "name": "instance"
-                },
-                {
-                  "hide": true,
-                  "name": "job"
-                },
-                {
-                  "hide": true,
-                  "name": "metrics_path"
-                },
-                {
-                  "hide": true,
-                  "name": "namespace"
-                },
-                {
-                  "hide": true,
-                  "name": "node"
-                },
-                {
-                  "hide": true,
-                  "name": "persistentvolumeclaim"
-                },
-                {
-                  "hide": true,
-                  "name": "service"
-                }
-              ]
+              "columnSettings": []
             }
           },
           "queries": [
@@ -1266,7 +986,7 @@
           ]
         }
       },
-      "4_1": {
+      "21": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1291,7 +1011,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "(kubelet_volume_stats_used_bytes / on(persistentvolumeclaim) group_left(pod) (kubelet_volume_stats_capacity_bytes + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",namespace=~\"$namespace\"}) )* 100",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1299,7 +1019,7 @@
           ]
         }
       },
-      "4_2": {
+      "22": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1326,7 +1046,7 @@
               },
               "yAxis": {
                 "format": {
-                  "unit": "bytes"
+                  "unit": "decbytes"
                 },
                 "max": 5000,
                 "min": 0
@@ -1342,7 +1062,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "(kubelet_volume_stats_used_bytes + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\",namespace=~\"$namespace\"}) ",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1350,7 +1070,7 @@
           ]
         }
       },
-      "5_0": {
+      "23": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1380,7 +1100,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum(irate(container_network_receive_bytes_total{namespace=~\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[$__rate_interval])) by (pod)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1388,7 +1108,7 @@
           ]
         }
       },
-      "5_1": {
+      "24": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1418,7 +1138,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum(irate(container_network_transmit_bytes_total{namespace=~\"$namespace\", pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}[$__rate_interval])) by (pod)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -1426,7 +1146,7 @@
           ]
         }
       },
-      "6_0": {
+      "25": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1445,7 +1165,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum(redis_db_keys{namespace=\"$namespace\" , pod=~\"$app-\\\\d+$|$app-shard\\\\d+-\\\\d+$\"}) by (db)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ db }}` }}"
                   }
                 }
               }
@@ -1453,7 +1173,7 @@
           ]
         }
       },
-      "6_1": {
+      "26": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1493,7 +1213,7 @@
           ]
         }
       },
-      "6_2": {
+      "27": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1532,6 +1252,303 @@
             }
           ]
         }
+      },
+      "3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "RedisMode",
+            "description": "RedisMode CR Name"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "mean",
+              "colorMode": "none",
+              "format": {
+                "unit": "decimal"
+              },
+              "metricLabel": "mode",
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kubedb_com_redis_info{namespace=\"$namespace\", app=\"$app\"}",
+                    "seriesNameFormat": "{{ `{{mode}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Deletion Policy",
+            "description": "KubeDB Database Resource deletionPolicy"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "none",
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#c4162a",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kubedb_com_redis_info{namespace=\"$namespace\", app=\"$app\"}",
+                    "seriesNameFormat": "{{ `{{deletionPolicy}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Total Nodes",
+            "description": "Total node count of Redis cluster"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "none",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kubedb_com_redis_replicas{namespace=\"$namespace\",app=\"$app\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "CPU Request (Core)",
+            "description": "Initial Requested CPU amount by Postgres Instance"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "none",
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kubedb_com_redis_resource_request_cpu{namespace=\"$namespace\", app=\"$app\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "CPU Limit (Core)",
+            "description": "CPU Limit in core by Redis instance"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "none",
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kubedb_com_redis_resource_limit_cpu{namespace=\"$namespace\", app=\"$app\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "8": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Memory Request",
+            "description": "Initial Requested Memory amount by Redis Instance"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "none",
+              "format": {
+                "unit": "bytes"
+              },
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kubedb_com_redis_resource_request_memory{namespace=\"$namespace\", app=\"$app\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Memory Limit",
+            "description": "KubeDB Redis Total Memory Limit"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "none",
+              "format": {
+                "unit": "bytes"
+              },
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kubedb_com_redis_resource_limit_memory{namespace=\"$namespace\", app=\"$app\"}",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
       }
     },
     "layouts": [
@@ -1539,10 +1556,7 @@
         "kind": "Grid",
         "spec": {
           "display": {
-            "title": "General",
-            "collapse": {
-              "open": true
-            }
+            "title": "Panel Group 1"
           },
           "items": [
             {
@@ -1551,7 +1565,7 @@
               "width": 8,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/0_0"
+                "$ref": "#/spec/panels/0"
               }
             },
             {
@@ -1560,7 +1574,7 @@
               "width": 4,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/0_1"
+                "$ref": "#/spec/panels/1"
               }
             },
             {
@@ -1569,7 +1583,7 @@
               "width": 4,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/0_2"
+                "$ref": "#/spec/panels/2"
               }
             },
             {
@@ -1578,7 +1592,7 @@
               "width": 4,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/0_3"
+                "$ref": "#/spec/panels/3"
               }
             },
             {
@@ -1587,7 +1601,7 @@
               "width": 4,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/0_4"
+                "$ref": "#/spec/panels/4"
               }
             },
             {
@@ -1596,7 +1610,7 @@
               "width": 4,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/0_5"
+                "$ref": "#/spec/panels/5"
               }
             },
             {
@@ -1605,7 +1619,7 @@
               "width": 4,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/0_6"
+                "$ref": "#/spec/panels/6"
               }
             },
             {
@@ -1614,7 +1628,7 @@
               "width": 4,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/0_7"
+                "$ref": "#/spec/panels/7"
               }
             },
             {
@@ -1623,7 +1637,7 @@
               "width": 4,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/0_8"
+                "$ref": "#/spec/panels/8"
               }
             },
             {
@@ -1632,7 +1646,7 @@
               "width": 4,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/0_9"
+                "$ref": "#/spec/panels/9"
               }
             },
             {
@@ -1641,29 +1655,16 @@
               "width": 4,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/0_10"
+                "$ref": "#/spec/panels/10"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "CPU Info",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 8,
               "width": 24,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/1_0"
+                "$ref": "#/spec/panels/11"
               }
             },
             {
@@ -1672,29 +1673,16 @@
               "width": 24,
               "height": 6,
               "content": {
-                "$ref": "#/spec/panels/1_1"
+                "$ref": "#/spec/panels/12"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "Memory Info",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 22,
               "width": 24,
               "height": 6,
               "content": {
-                "$ref": "#/spec/panels/2_0"
+                "$ref": "#/spec/panels/13"
               }
             },
             {
@@ -1703,29 +1691,16 @@
               "width": 24,
               "height": 6,
               "content": {
-                "$ref": "#/spec/panels/2_1"
+                "$ref": "#/spec/panels/14"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "Storage Info",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 35,
               "width": 12,
               "height": 9,
               "content": {
-                "$ref": "#/spec/panels/3_0"
+                "$ref": "#/spec/panels/15"
               }
             },
             {
@@ -1734,7 +1709,7 @@
               "width": 12,
               "height": 9,
               "content": {
-                "$ref": "#/spec/panels/3_1"
+                "$ref": "#/spec/panels/16"
               }
             },
             {
@@ -1743,7 +1718,7 @@
               "width": 12,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/3_2"
+                "$ref": "#/spec/panels/17"
               }
             },
             {
@@ -1752,7 +1727,7 @@
               "width": 12,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/3_3"
+                "$ref": "#/spec/panels/18"
               }
             },
             {
@@ -1761,29 +1736,16 @@
               "width": 24,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/3_4"
+                "$ref": "#/spec/panels/19"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "Persistent Storage Insight",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 59,
               "width": 12,
               "height": 6,
               "content": {
-                "$ref": "#/spec/panels/4_0"
+                "$ref": "#/spec/panels/20"
               }
             },
             {
@@ -1792,7 +1754,7 @@
               "width": 12,
               "height": 6,
               "content": {
-                "$ref": "#/spec/panels/4_1"
+                "$ref": "#/spec/panels/21"
               }
             },
             {
@@ -1801,29 +1763,16 @@
               "width": 24,
               "height": 8,
               "content": {
-                "$ref": "#/spec/panels/4_2"
+                "$ref": "#/spec/panels/22"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "Network Info",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 74,
               "width": 12,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/5_0"
+                "$ref": "#/spec/panels/23"
               }
             },
             {
@@ -1832,29 +1781,16 @@
               "width": 12,
               "height": 7,
               "content": {
-                "$ref": "#/spec/panels/5_1"
+                "$ref": "#/spec/panels/24"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "Database Cluster Info",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 82,
               "width": 24,
               "height": 9,
               "content": {
-                "$ref": "#/spec/panels/6_0"
+                "$ref": "#/spec/panels/25"
               }
             },
             {
@@ -1863,7 +1799,7 @@
               "width": 12,
               "height": 8,
               "content": {
-                "$ref": "#/spec/panels/6_1"
+                "$ref": "#/spec/panels/26"
               }
             },
             {
@@ -1872,7 +1808,7 @@
               "width": 12,
               "height": 8,
               "content": {
-                "$ref": "#/spec/panels/6_2"
+                "$ref": "#/spec/panels/27"
               }
             }
           ]
