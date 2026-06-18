@@ -348,6 +348,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-clickhouse
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-clickhouse-init-24.4.1-v3.tar $IMAGE_REGISTRY/kubedb/clickhouse-init:24.4.1-v3
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.23.0-rc.1.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.23.0-rc.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-db2-coordinator-v0.6.0-rc.1.tar $IMAGE_REGISTRY/kubedb/db2-coordinator:v0.6.0-rc.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-documentdb-coordinator-v0.1.0.tar $IMAGE_REGISTRY/kubedb/documentdb-coordinator:v0.1.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-documentdb-init-0.1.0.tar $IMAGE_REGISTRY/kubedb/documentdb-init:0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-28.0.1.tar $IMAGE_REGISTRY/kubedb/druid-init:28.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-30.0.1.tar $IMAGE_REGISTRY/kubedb/druid-init:30.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-31.0.0.tar $IMAGE_REGISTRY/kubedb/druid-init:31.0.0

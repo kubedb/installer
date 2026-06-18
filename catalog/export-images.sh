@@ -354,6 +354,8 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhous
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-init:24.4.1-v3 images/kubedb-clickhouse-init-24.4.1-v3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.23.0-rc.1 images/kubedb-dashboard-restic-plugin-v0.23.0-rc.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/db2-coordinator:v0.6.0-rc.1 images/kubedb-db2-coordinator-v0.6.0-rc.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/documentdb-coordinator:v0.1.0 images/kubedb-documentdb-coordinator-v0.1.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/documentdb-init:0.1.0 images/kubedb-documentdb-init-0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:28.0.1 images/kubedb-druid-init-28.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:30.0.1 images/kubedb-druid-init-30.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:31.0.0 images/kubedb-druid-init-31.0.0.tar

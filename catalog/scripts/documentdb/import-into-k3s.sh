@@ -25,3 +25,5 @@ TARBALL=${1:-}
 tar -zxvf $TARBALL
 
 k3s ctr images import images/documentdb-documentdb-documentdb-local-pg17-0.109.0.tar
+k3s ctr images import images/kubedb-documentdb-coordinator-v0.1.0.tar
+k3s ctr images import images/kubedb-documentdb-init-0.1.0.tar
