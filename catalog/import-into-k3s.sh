@@ -434,7 +434,7 @@ k3s ctr images import images/kubedb-postgres-archiver-v0.26.0-rc.2_18.2-alpine.t
 k3s ctr images import images/kubedb-postgres-archiver-v0.26.0-rc.2_18.2-bookworm.tar
 k3s ctr images import images/kubedb-postgres-csi-snapshotter-plugin-v0.26.0-rc.2.tar
 k3s ctr images import images/kubedb-postgres-init-0.19.0.tar
-k3s ctr images import images/kubedb-postgres-restic-plugin-v0.28.0-rc.2_16.1.tar
+k3s ctr images import images/kubedb-postgres-restic-plugin-v0.28.0-rc.2_16.4.tar
 k3s ctr images import images/kubedb-postgresql-migrator-cli-v0.5.0-rc.2.tar
 k3s ctr images import images/kubedb-provider-aws-v0.26.0-rc.2.tar
 k3s ctr images import images/kubedb-provider-azure-v0.26.0-rc.2.tar

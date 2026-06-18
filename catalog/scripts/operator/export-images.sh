@@ -57,7 +57,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-c
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssqlserver-walg-plugin:v0.19.0-rc.2 images/kubedb-mssqlserver-walg-plugin-v0.19.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-csi-snapshotter-plugin:v0.26.0-rc.2 images/kubedb-mysql-csi-snapshotter-plugin-v0.26.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.26.0-rc.2 images/kubedb-postgres-csi-snapshotter-plugin-v0.26.0-rc.2.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.28.0-rc.2_16.1 images/kubedb-postgres-restic-plugin-v0.28.0-rc.2_16.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.28.0-rc.2_16.4 images/kubedb-postgres-restic-plugin-v0.28.0-rc.2_16.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-aws:v0.26.0-rc.2 images/kubedb-provider-aws-v0.26.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-azure:v0.26.0-rc.2 images/kubedb-provider-azure-v0.26.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-gcp:v0.26.0-rc.2 images/kubedb-provider-gcp-v0.26.0-rc.2.tar

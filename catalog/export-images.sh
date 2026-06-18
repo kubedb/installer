@@ -442,7 +442,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.26.0-rc.2_18.2-bookworm images/kubedb-postgres-archiver-v0.26.0-rc.2_18.2-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.26.0-rc.2 images/kubedb-postgres-csi-snapshotter-plugin-v0.26.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.19.0 images/kubedb-postgres-init-0.19.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.28.0-rc.2_16.1 images/kubedb-postgres-restic-plugin-v0.28.0-rc.2_16.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.28.0-rc.2_16.4 images/kubedb-postgres-restic-plugin-v0.28.0-rc.2_16.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgresql-migrator-cli:v0.5.0-rc.2 images/kubedb-postgresql-migrator-cli-v0.5.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-aws:v0.26.0-rc.2 images/kubedb-provider-aws-v0.26.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-azure:v0.26.0-rc.2 images/kubedb-provider-azure-v0.26.0-rc.2.tar
