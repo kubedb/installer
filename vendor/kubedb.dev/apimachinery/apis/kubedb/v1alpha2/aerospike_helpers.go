@@ -18,9 +18,15 @@ package v1alpha2
 
 import (
 	"kubedb.dev/apimachinery/apis/kubedb"
+	"kubedb.dev/apimachinery/crds"
 
+	"kmodules.xyz/client-go/apiextensions"
 	meta_util "kmodules.xyz/client-go/meta"
 )
+
+func (a *Aerospike) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralAerospike))
+}
 
 func (a *Aerospike) ConfigSecretName() string {
 	uid := string(a.UID)

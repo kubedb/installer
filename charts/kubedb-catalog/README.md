@@ -58,6 +58,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | proxies.appscode                           |                                                 | <code>r.appscode.com</code>                |
 | proxies.oracle                             |                                                 | <code>container-registry.oracle.com</code> |
 | proxies.weaviate                           |                                                 | <code>cr.weaviate.io</code>                |
+| featureGates.Aerospike                     |                                                 | <code>true</code>                          |
 | featureGates.Cassandra                     |                                                 | <code>true</code>                          |
 | featureGates.ClickHouse                    |                                                 | <code>true</code>                          |
 | featureGates.DB2                           |                                                 | <code>true</code>                          |
@@ -111,6 +112,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | psp.kafka.privileged                       |                                                 | <code>false</code>                         |
 | skipDeprecated                             | Set true to avoid deploying deprecated versions | <code>true</code>                          |
 | skipEndOfLife                              |                                                 | <code>false</code>                         |
+| enableVersions.Aerospike                   |                                                 | <code>[]</code>                            |
 | enableVersions.Druid                       |                                                 | <code>[]</code>                            |
 | enableVersions.Elasticsearch               |                                                 | <code>[]</code>                            |
 | enableVersions.Hazelcast                   |                                                 | <code>[]</code>                            |

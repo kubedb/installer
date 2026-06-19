@@ -45,39 +45,40 @@ The command removes all the Kubernetes components associated with the chart and 
 
 The following table lists the configurable parameters of the `kubedb-metrics` chart and their default values.
 
-|         Parameter          |         Description         |      Default      |
-|----------------------------|-----------------------------|-------------------|
-| nameOverride               | Overrides name template     | <code>""</code>   |
-| fullnameOverride           | Overrides fullname template | <code>""</code>   |
-| featureGates.Cassandra     |                             | <code>true</code> |
-| featureGates.ClickHouse    |                             | <code>true</code> |
-| featureGates.DB2           |                             | <code>true</code> |
-| featureGates.Druid         |                             | <code>true</code> |
-| featureGates.Elasticsearch |                             | <code>true</code> |
-| featureGates.HanaDB        |                             | <code>true</code> |
-| featureGates.Hazelcast     |                             | <code>true</code> |
-| featureGates.Ignite        |                             | <code>true</code> |
-| featureGates.Kafka         |                             | <code>true</code> |
-| featureGates.MariaDB       |                             | <code>true</code> |
-| featureGates.Memcached     |                             | <code>true</code> |
-| featureGates.Milvus        |                             | <code>true</code> |
-| featureGates.MongoDB       |                             | <code>true</code> |
-| featureGates.MSSQLServer   |                             | <code>true</code> |
-| featureGates.MySQL         |                             | <code>true</code> |
-| featureGates.Neo4j         |                             | <code>true</code> |
-| featureGates.Oracle        |                             | <code>true</code> |
-| featureGates.PerconaXtraDB |                             | <code>true</code> |
-| featureGates.PgBouncer     |                             | <code>true</code> |
-| featureGates.Pgpool        |                             | <code>true</code> |
-| featureGates.Postgres      |                             | <code>true</code> |
-| featureGates.ProxySQL      |                             | <code>true</code> |
-| featureGates.Qdrant        |                             | <code>true</code> |
-| featureGates.RabbitMQ      |                             | <code>true</code> |
-| featureGates.Redis         |                             | <code>true</code> |
-| featureGates.Singlestore   |                             | <code>true</code> |
-| featureGates.Solr          |                             | <code>true</code> |
-| featureGates.Weaviate      |                             | <code>true</code> |
-| featureGates.ZooKeeper     |                             | <code>true</code> |
+|         Parameter          |         Description         |      Default       |
+|----------------------------|-----------------------------|--------------------|
+| nameOverride               | Overrides name template     | <code>""</code>    |
+| fullnameOverride           | Overrides fullname template | <code>""</code>    |
+| featureGates.Aerospike     |                             | <code>false</code> |
+| featureGates.Cassandra     |                             | <code>true</code>  |
+| featureGates.ClickHouse    |                             | <code>true</code>  |
+| featureGates.DB2           |                             | <code>true</code>  |
+| featureGates.Druid         |                             | <code>true</code>  |
+| featureGates.Elasticsearch |                             | <code>true</code>  |
+| featureGates.HanaDB        |                             | <code>true</code>  |
+| featureGates.Hazelcast     |                             | <code>true</code>  |
+| featureGates.Ignite        |                             | <code>true</code>  |
+| featureGates.Kafka         |                             | <code>true</code>  |
+| featureGates.MariaDB       |                             | <code>true</code>  |
+| featureGates.Memcached     |                             | <code>true</code>  |
+| featureGates.Milvus        |                             | <code>true</code>  |
+| featureGates.MongoDB       |                             | <code>true</code>  |
+| featureGates.MSSQLServer   |                             | <code>true</code>  |
+| featureGates.MySQL         |                             | <code>true</code>  |
+| featureGates.Neo4j         |                             | <code>true</code>  |
+| featureGates.Oracle        |                             | <code>true</code>  |
+| featureGates.PerconaXtraDB |                             | <code>true</code>  |
+| featureGates.PgBouncer     |                             | <code>true</code>  |
+| featureGates.Pgpool        |                             | <code>true</code>  |
+| featureGates.Postgres      |                             | <code>true</code>  |
+| featureGates.ProxySQL      |                             | <code>true</code>  |
+| featureGates.Qdrant        |                             | <code>true</code>  |
+| featureGates.RabbitMQ      |                             | <code>true</code>  |
+| featureGates.Redis         |                             | <code>true</code>  |
+| featureGates.Singlestore   |                             | <code>true</code>  |
+| featureGates.Solr          |                             | <code>true</code>  |
+| featureGates.Weaviate      |                             | <code>true</code>  |
+| featureGates.ZooKeeper     |                             | <code>true</code>  |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:

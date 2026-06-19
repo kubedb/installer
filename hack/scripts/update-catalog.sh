@@ -23,6 +23,7 @@ image-packer generate-scripts --insecure --allow-nondistributable-artifacts \
     --src=catalog/imagelist.yaml
 
 declare -a components=(
+    aerospike
     cassandra
     clickhouse
     documentdb
