@@ -48,6 +48,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure docker.io/floragunncom/s
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/hazelcast/hazelcast-enterprise:5.5.2 images/hazelcast-hazelcast-enterprise-5.5.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/hazelcast/hazelcast-enterprise:5.5.6 images/hazelcast-hazelcast-enterprise-5.5.6.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/ibmcom/db2:11.5.8.0 images/ibmcom-db2-11.5.8.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/aerospike:ce-8.1.2.2 images/library-aerospike-ce-8.1.2.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/busybox:1.36 images/library-busybox-1.36.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.10.1-enterprise images/library-neo4j-2025.10.1-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.11.2-enterprise images/library-neo4j-2025.11.2-enterprise.tar

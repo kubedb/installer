@@ -51,6 +51,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure docker.io/floragunncom/sg-
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/hazelcast/hazelcast-enterprise:5.5.2 $IMAGE_REGISTRY/hazelcast/hazelcast-enterprise:5.5.2
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/hazelcast/hazelcast-enterprise:5.5.6 $IMAGE_REGISTRY/hazelcast/hazelcast-enterprise:5.5.6
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/ibmcom/db2:11.5.8.0 $IMAGE_REGISTRY/ibmcom/db2:11.5.8.0
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/aerospike:ce-8.1.2.2 $IMAGE_REGISTRY/aerospike:ce-8.1.2.2
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/busybox:1.36 $IMAGE_REGISTRY/busybox:1.36
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.10.1-enterprise $IMAGE_REGISTRY/neo4j:2025.10.1-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.11.2-enterprise $IMAGE_REGISTRY/neo4j:2025.11.2-enterprise

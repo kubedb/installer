@@ -40,6 +40,7 @@ k3s ctr images import images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar
 k3s ctr images import images/hazelcast-hazelcast-enterprise-5.5.2.tar
 k3s ctr images import images/hazelcast-hazelcast-enterprise-5.5.6.tar
 k3s ctr images import images/ibmcom-db2-11.5.8.0.tar
+k3s ctr images import images/library-aerospike-ce-8.1.2.2.tar
 k3s ctr images import images/library-busybox-1.36.tar
 k3s ctr images import images/library-neo4j-2025.10.1-enterprise.tar
 k3s ctr images import images/library-neo4j-2025.11.2-enterprise.tar

@@ -42,6 +42,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/floragunncom-sg-e
 $CMD push --allow-nondistributable-artifacts --insecure images/hazelcast-hazelcast-enterprise-5.5.2.tar $IMAGE_REGISTRY/hazelcast/hazelcast-enterprise:5.5.2
 $CMD push --allow-nondistributable-artifacts --insecure images/hazelcast-hazelcast-enterprise-5.5.6.tar $IMAGE_REGISTRY/hazelcast/hazelcast-enterprise:5.5.6
 $CMD push --allow-nondistributable-artifacts --insecure images/ibmcom-db2-11.5.8.0.tar $IMAGE_REGISTRY/ibmcom/db2:11.5.8.0
+$CMD push --allow-nondistributable-artifacts --insecure images/library-aerospike-ce-8.1.2.2.tar $IMAGE_REGISTRY/aerospike:ce-8.1.2.2
 $CMD push --allow-nondistributable-artifacts --insecure images/library-busybox-1.36.tar $IMAGE_REGISTRY/busybox:1.36
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2025.10.1-enterprise.tar $IMAGE_REGISTRY/neo4j:2025.10.1-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2025.11.2-enterprise.tar $IMAGE_REGISTRY/neo4j:2025.11.2-enterprise
