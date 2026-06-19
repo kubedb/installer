@@ -59,6 +59,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/migrator-op
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.26.0-rc.2 $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.26.0-rc.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssqlserver-walg-plugin:v0.19.0-rc.2 $IMAGE_REGISTRY/kubedb/mssqlserver-walg-plugin:v0.19.0-rc.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-csi-snapshotter-plugin:v0.26.0-rc.2 $IMAGE_REGISTRY/kubedb/mysql-csi-snapshotter-plugin:v0.26.0-rc.2
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/neo4j-backup-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/neo4j-backup-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.26.0-rc.2 $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.26.0-rc.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.28.0-rc.2_16.4 $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.28.0-rc.2_16.4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-aws:v0.26.0-rc.2 $IMAGE_REGISTRY/kubedb/provider-aws:v0.26.0-rc.2

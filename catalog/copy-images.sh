@@ -418,6 +418,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-migrator-cli:v0.5.0-rc.2 $IMAGE_REGISTRY/kubedb/mysql-migrator-cli:v0.5.0-rc.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.43.0-rc.2 $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.43.0-rc.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.18.0 $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.18.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/neo4j-backup-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/neo4j-backup-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-coordinator:v0.11.0-rc.2 $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.11.0-rc.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-init:v0.2.0 $IMAGE_REGISTRY/kubedb/oracle-init:v0.2.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-coordinator:v0.38.0-rc.2 $IMAGE_REGISTRY/kubedb/percona-xtradb-coordinator:v0.38.0-rc.2

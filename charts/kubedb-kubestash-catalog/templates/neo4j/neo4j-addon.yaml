@@ -1,0 +1,71 @@
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.Neo4j (not (eq $ubi "operator")) }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Addon
+metadata:
+  name: 'neo4j-addon'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  backupTasks:
+  - driver: Neo4jAdmin
+    executor: Job
+    function: neo4j-backup
+    name: logical-backup
+    parameters:
+    - name: databases
+      required: false
+      usage: List of databases to backup. If not specified, all databases will be backed up.
+    - default: --compress=true,--expand-commands,--remote-address-resolution=true,--type=FULL
+      name: neo4jAdminArgs
+      required: false
+      usage: Arguments to be passed to the neo4j-admin backup command, separate by space.
+    - name: from
+      required: false
+      usage: Source Database DNS, from where the backup will take
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and cache.
+  restoreTasks:
+  - driver: Neo4jAdmin
+    executor: Job
+    function: neo4j-restore
+    name: logical-backup-restore
+    parameters:
+    - default: --overwrite-destination=true,--expand-commands
+      name: neo4jAdminArgs
+      required: false
+      usage: Arguments to be passed to the neo4j-admin restore command, separate by space.
+    - default: '*'
+      name: databases
+      required: false
+      usage: List of databases to restore. If not specified, all databases will be restore.
+    - default: "300"
+      name: waitTimeout
+      required: false
+      usage: Seconds to wait for DB ready.
+    - name: seedServerName
+      required: false
+      usage: Name of the seed server to restore from. If not specified, the restore will be done from the primary server.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and cache.
+{{ end }}
