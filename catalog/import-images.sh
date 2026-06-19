@@ -409,6 +409,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-migrator-cli-v0.5.0-rc.2.tar $IMAGE_REGISTRY/kubedb/mysql-migrator-cli:v0.5.0-rc.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-router-init-v0.43.0-rc.2.tar $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.43.0-rc.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysqld-exporter-v0.18.0.tar $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.18.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-neo4j-backup-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/neo4j-backup-plugin:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-coordinator-v0.11.0-rc.2.tar $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.11.0-rc.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-init-v0.2.0.tar $IMAGE_REGISTRY/kubedb/oracle-init:v0.2.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-coordinator-v0.38.0-rc.2.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-coordinator:v0.38.0-rc.2

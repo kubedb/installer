@@ -50,6 +50,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-migrator-o
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-csi-snapshotter-plugin-v0.26.0-rc.2.tar $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.26.0-rc.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssqlserver-walg-plugin-v0.19.0-rc.2.tar $IMAGE_REGISTRY/kubedb/mssqlserver-walg-plugin:v0.19.0-rc.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-csi-snapshotter-plugin-v0.26.0-rc.2.tar $IMAGE_REGISTRY/kubedb/mysql-csi-snapshotter-plugin:v0.26.0-rc.2
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-neo4j-backup-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/neo4j-backup-plugin:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-csi-snapshotter-plugin-v0.26.0-rc.2.tar $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.26.0-rc.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.28.0-rc.2_16.4.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.28.0-rc.2_16.4
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-aws-v0.26.0-rc.2.tar $IMAGE_REGISTRY/kubedb/provider-aws:v0.26.0-rc.2

@@ -48,6 +48,7 @@ k3s ctr images import images/kubedb-migrator-operator-v0.5.0-rc.2.tar
 k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.26.0-rc.2.tar
 k3s ctr images import images/kubedb-mssqlserver-walg-plugin-v0.19.0-rc.2.tar
 k3s ctr images import images/kubedb-mysql-csi-snapshotter-plugin-v0.26.0-rc.2.tar
+k3s ctr images import images/kubedb-neo4j-backup-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-postgres-csi-snapshotter-plugin-v0.26.0-rc.2.tar
 k3s ctr images import images/kubedb-postgres-restic-plugin-v0.28.0-rc.2_16.4.tar
 k3s ctr images import images/kubedb-provider-aws-v0.26.0-rc.2.tar

@@ -415,6 +415,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-ini
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-migrator-cli:v0.5.0-rc.2 images/kubedb-mysql-migrator-cli-v0.5.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.43.0-rc.2 images/kubedb-mysql-router-init-v0.43.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.18.0 images/kubedb-mysqld-exporter-v0.18.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/neo4j-backup-plugin:v0.1.0 images/kubedb-neo4j-backup-plugin-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-coordinator:v0.11.0-rc.2 images/kubedb-oracle-coordinator-v0.11.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-init:v0.2.0 images/kubedb-oracle-init-v0.2.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-coordinator:v0.38.0-rc.2 images/kubedb-percona-xtradb-coordinator-v0.38.0-rc.2.tar
