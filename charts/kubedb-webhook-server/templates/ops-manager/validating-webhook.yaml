@@ -75,6 +75,24 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
+{{- if $featureGates.DocumentDB }}
+- name: documentdbopsrequestwebhook.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-ops-kubedb-com-v1alpha1-documentdbopsrequest
+      port: 443
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
+  rules:
+    - apiGroups: ["ops.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["documentdbopsrequests","documentdbopsrequests/status"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
 {{- if $featureGates.Druid }}
 - name: druidopsrequestwebhook.validators.ops.kubedb.com
   clientConfig:
@@ -106,6 +124,24 @@ webhooks:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
       resources: ["elasticsearchopsrequests","elasticsearchopsrequests/status"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.HanaDB }}
+- name: hanadbopsrequestwebhook.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-ops-kubedb-com-v1alpha1-hanadbopsrequest
+      port: 443
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
+  rules:
+    - apiGroups: ["ops.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["hanadbopsrequests","hanadbopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -286,6 +322,24 @@ webhooks:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
       resources: ["neo4jopsrequests","neo4jopsrequests/status"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.Oracle }}
+- name: oracleopsrequestwebhook.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-ops-kubedb-com-v1alpha1-oracleopsrequest
+      port: 443
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
+  rules:
+    - apiGroups: ["ops.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["oracleopsrequests","oracleopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
@@ -479,6 +533,24 @@ webhooks:
     - apiGroups: ["ops.kubedb.com"]
       apiVersions: ["*"]
       resources: ["redissentinelopsrequests","redissentinelopsrequests/status"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.Weaviate }}
+- name: weaviateopsrequestwebhook.validators.ops.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-ops-kubedb-com-v1alpha1-weaviateopsrequest
+      port: 443
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
+  rules:
+    - apiGroups: ["ops.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["weaviateopsrequests","weaviateopsrequests/status"]
       operations: ["CREATE", "UPDATE", "DELETE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}

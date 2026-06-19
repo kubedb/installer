@@ -51,10 +51,15 @@ const (
 
 var ubiImageList = sets.NewString(
 	"ghcr.io/kubedb/db2-coordinator",
+	"ghcr.io/kubedb/documentdb-coordinator",
 	"ghcr.io/kubedb/hanadb-coordinator",
 	// "ghcr.io/kubedb/mariadb-archiver",
 	"ghcr.io/kubedb/mariadb-coordinator",
 	"ghcr.io/kubedb/postgresql-migrator-cli",
+	"ghcr.io/kubedb/mongodb-migrator-cli",
+	"ghcr.io/kubedb/mysql-migrator-cli",
+	"ghcr.io/kubedb/mariadb-migrator-cli",
+	"ghcr.io/kubedb/migrator-operator",
 	"ghcr.io/kubedb/mssql-coordinator",
 	// "ghcr.io/kubedb/mysql-archiver",
 	"ghcr.io/kubedb/mysql-coordinator",

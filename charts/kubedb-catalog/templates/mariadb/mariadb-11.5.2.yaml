@@ -32,9 +32,9 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-archiver") $) }}:v0.25.0-rc.1_11.2.2-jammy'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-archiver") $) }}:v0.25.0-rc.2_11.2.2-jammy'
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-coordinator") $) }}:v0.45.0-rc.1{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-coordinator") $) }}:v0.45.0-rc.2{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mariadb") $) }}:11.5.2-noble'
   exporter:
@@ -47,6 +47,11 @@ spec:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "mariadb/maxscale") $) }}:24.02.4'
     securityContext:
       runAsUser: 997
+  migrator:
+    cli:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-migrator-cli") $) }}:v0.5.0-rc.2{{ include "catalog.ubi" $ }}'
+    statusReporter:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/migrator-operator") $) }}:v0.5.0-rc.2{{ include "catalog.ubi" $ }}'
   securityContext:
     runAsUser: 999
   stash:

@@ -111,6 +111,24 @@ webhooks:
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
   sideEffects: None
 {{- end }}
+{{- if $featureGates.HanaDB }}
+- name: hanadbautoscalerwebhook.mutators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-hanadbautoscaler
+      port: 443
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["hanadbautoscalers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
 {{- if $featureGates.Hazelcast }}
 - name: hazelcastautoscalerwebhook.mutators.autoscaling.kubedb.com
   clientConfig:
@@ -482,6 +500,24 @@ webhooks:
     - apiGroups: ["autoscaling.kubedb.com"]
       apiVersions: ["*"]
       resources: ["solrautoscalers"]
+      operations: ["CREATE", "UPDATE"]
+  admissionReviewVersions: ["v1beta1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+{{- end }}
+{{- if $featureGates.Weaviate }}
+- name: weaviateautoscalerwebhook.mutators.autoscaling.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /mutate-autoscaling-kubedb-com-v1alpha1-weaviateautoscaler
+      port: 443
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
+  rules:
+    - apiGroups: ["autoscaling.kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["weaviateautoscalers"]
       operations: ["CREATE", "UPDATE"]
   admissionReviewVersions: ["v1beta1"]
   failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}

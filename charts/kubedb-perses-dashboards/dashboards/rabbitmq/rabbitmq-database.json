@@ -80,7 +80,7 @@
       }
     ],
     "panels": {
-      "0_0": {
+      "0": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -90,6 +90,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "background_solid",
               "format": {
                 "unit": "decimal"
               },
@@ -120,7 +121,7 @@
           ]
         }
       },
-      "0_1": {
+      "1": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -130,6 +131,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "background_solid",
               "format": {
                 "unit": "decimal"
               },
@@ -160,354 +162,7 @@
           ]
         }
       },
-      "0_2": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Connections"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "format": {
-                "unit": "decimal"
-              },
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#fa6400",
-                    "value": 0
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum(rabbitmq_connections * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "0_3": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Ready messages"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "format": {
-                "unit": "decimal"
-              },
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#37872D",
-                    "value": 0
-                  },
-                  {
-                    "color": "#1F60C4",
-                    "value": 10000
-                  },
-                  {
-                    "color": "#C4162A",
-                    "value": 100000
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum(rabbitmq_queue_messages_ready * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "0_4": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Incoming messages / s"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "format": {
-                "unit": "decimal"
-              },
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#C4162A",
-                    "value": 0
-                  },
-                  {
-                    "color": "#37872d",
-                    "value": 0
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "sum(rate(rabbitmq_global_messages_received_total[60s]) * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "0_5": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Nodes"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "format": {
-                "unit": "decimal"
-              },
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#fa6400",
-                    "value": 0
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "query": "sum(rabbitmq_build_info * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "0_6": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Consumers"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "format": {
-                "unit": "decimal"
-              },
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#fa6400",
-                    "value": 0
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "query": "sum(rabbitmq_consumers * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "0_7": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Channels"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "format": {
-                "unit": "decimal"
-              },
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#fa6400",
-                    "value": 0
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "query": "sum(rabbitmq_channels * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "0_8": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Unacknowledged messages"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "format": {
-                "unit": "decimal"
-              },
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#37872D",
-                    "value": 0
-                  },
-                  {
-                    "color": "#1F60C4",
-                    "value": 100
-                  },
-                  {
-                    "color": "#C4162A",
-                    "value": 500
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "query": "sum(rabbitmq_queue_messages_unacked * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "0_9": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Outgoing messages / s"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "format": {
-                "unit": "decimal"
-              },
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#C4162A",
-                    "value": 0
-                  },
-                  {
-                    "color": "#37872d",
-                    "value": 0
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "query": "sum(rate(rabbitmq_global_messages_redelivered_total[60s]) * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) +\nsum(rate(rabbitmq_global_messages_delivered_consume_auto_ack_total[60s]) * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) +\nsum(rate(rabbitmq_global_messages_delivered_consume_manual_ack_total[60s]) * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) +\nsum(rate(rabbitmq_global_messages_delivered_get_auto_ack_total[60s]) * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) +\nsum(rate(rabbitmq_global_messages_delivered_get_manual_ack_total[60s]) * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})",
-                    "seriesNameFormat": ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "1_0": {
+      "10": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -518,76 +173,69 @@
             "spec": {
               "columnSettings": [
                 {
-                  "name": "rabbitmq_cluster"
-                },
-                {
-                  "name": "pod"
-                },
-                {
-                  "name": "rabbitmq_node"
-                },
-                {
-                  "name": "container"
-                },
-                {
-                  "name": "service"
-                },
-                {
-                  "name": "instance"
-                },
-                {
-                  "name": "endpoint"
-                },
-                {
-                  "header": "RabbitMQ Version",
-                  "name": "rabbitmq_version"
-                },
-                {
-                  "header": "Prometheus Plugin Version",
-                  "name": "prometheus_plugin_version"
-                },
-                {
-                  "header": "Prometheus client Version",
-                  "name": "prometheus_client_version"
-                },
-                {
-                  "header": "Erlang Version",
-                  "name": "erlang_version"
-                },
-                {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "header": "Erlang/OTP",
                   "name": "erlang_version"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "header": "RabbitMQ",
                   "name": "rabbitmq_version"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "header": "Host",
                   "name": "instance"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "header": "Node name",
                   "name": "rabbitmq_node"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "name": "timestamp"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "name": "value"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "name": "job"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "header": "Cluster",
                   "name": "rabbitmq_cluster"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "header": "prometheus.erl",
                   "name": "prometheus_client_version"
                 },
                 {
+                  "format": {
+                    "unit": "decimal"
+                  },
                   "header": "rabbitmq_prometheus",
                   "name": "prometheus_plugin_version"
                 },
@@ -602,12 +250,6 @@
                 {
                   "name": "Prometheus client Version",
                   "width": 185
-                }
-              ],
-              "transforms": [
-                {
-                  "kind": "MergeSeries",
-                  "spec": {}
                 }
               ]
             }
@@ -633,7 +275,7 @@
           ]
         }
       },
-      "1_1": {
+      "11": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -674,7 +316,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "(rabbitmq_resident_memory_limit_bytes * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) -\n(rabbitmq_process_resident_memory_bytes * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -682,7 +324,7 @@
           ]
         }
       },
-      "1_2": {
+      "12": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -723,7 +365,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "rabbitmq_disk_space_available_bytes * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -731,7 +373,7 @@
           ]
         }
       },
-      "1_3": {
+      "13": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -771,7 +413,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "(rabbitmq_process_max_fds * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) -\n(rabbitmq_process_open_fds * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -779,7 +421,7 @@
           ]
         }
       },
-      "1_4": {
+      "14": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -819,7 +461,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "(rabbitmq_process_max_tcp_sockets * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) -\n(rabbitmq_process_open_tcp_sockets * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -827,7 +469,7 @@
           ]
         }
       },
-      "2_0": {
+      "15": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -869,7 +511,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rabbitmq_queue_messages_ready * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -877,7 +519,7 @@
           ]
         }
       },
-      "2_1": {
+      "16": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -919,7 +561,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rabbitmq_queue_messages_unacked * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -927,7 +569,7 @@
           ]
         }
       },
-      "3_0": {
+      "17": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -969,7 +611,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rate(rabbitmq_global_messages_received_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -977,7 +619,7 @@
           ]
         }
       },
-      "3_1": {
+      "18": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1019,7 +661,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rate(rabbitmq_global_messages_confirmed_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -1027,7 +669,7 @@
           ]
         }
       },
-      "3_2": {
+      "19": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1069,6 +711,48 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rate(rabbitmq_global_messages_routed_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Connections"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "format": {
+                "unit": "decimal"
+              },
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#fa6400",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(rabbitmq_connections * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})",
                     "seriesNameFormat": ""
                   }
                 }
@@ -1077,7 +761,7 @@
           ]
         }
       },
-      "3_3": {
+      "20": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1119,7 +803,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rate(rabbitmq_global_messages_received_confirm_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"} - \nrate(rabbitmq_global_messages_confirmed_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}\n) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -1127,7 +811,7 @@
           ]
         }
       },
-      "3_4": {
+      "21": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1146,6 +830,13 @@
                   "min"
                 ]
               },
+              "querySettings": [
+                {
+                  "colorMode": "fixed",
+                  "colorValue": "#C4162A",
+                  "queryIndex": 0
+                }
+              ],
               "visual": {
                 "areaOpacity": 1,
                 "connectNulls": false,
@@ -1168,7 +859,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rate(rabbitmq_global_messages_unroutable_dropped_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -1176,7 +867,7 @@
           ]
         }
       },
-      "3_5": {
+      "22": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1195,6 +886,13 @@
                   "min"
                 ]
               },
+              "querySettings": [
+                {
+                  "colorMode": "fixed",
+                  "colorValue": "#C4162A",
+                  "queryIndex": 0
+                }
+              ],
               "visual": {
                 "areaOpacity": 1,
                 "connectNulls": false,
@@ -1217,7 +915,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rate(rabbitmq_global_messages_unroutable_returned_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -1225,7 +923,7 @@
           ]
         }
       },
-      "4_0": {
+      "23": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1267,7 +965,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(\n  (rate(rabbitmq_global_messages_delivered_consume_auto_ack_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) +\n  (rate(rabbitmq_global_messages_delivered_consume_manual_ack_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})\n) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -1275,7 +973,7 @@
           ]
         }
       },
-      "4_1": {
+      "24": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1316,7 +1014,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rate(rabbitmq_global_messages_redelivered_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -1324,7 +1022,7 @@
           ]
         }
       },
-      "4_2": {
+      "25": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1366,7 +1064,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rate(rabbitmq_global_messages_delivered_consume_manual_ack_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -1374,7 +1072,7 @@
           ]
         }
       },
-      "4_3": {
+      "26": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1416,7 +1114,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rate(rabbitmq_global_messages_delivered_consume_auto_ack_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -1424,7 +1122,7 @@
           ]
         }
       },
-      "4_4": {
+      "27": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1466,7 +1164,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rate(rabbitmq_global_messages_acknowledged_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -1474,7 +1172,7 @@
           ]
         }
       },
-      "4_5": {
+      "28": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1493,6 +1191,13 @@
                   "min"
                 ]
               },
+              "querySettings": [
+                {
+                  "colorMode": "fixed",
+                  "colorValue": "#C4162A",
+                  "queryIndex": 0
+                }
+              ],
               "visual": {
                 "areaOpacity": 1,
                 "connectNulls": false,
@@ -1515,7 +1220,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rate(rabbitmq_global_messages_delivered_get_auto_ack_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -1523,7 +1228,7 @@
           ]
         }
       },
-      "4_6": {
+      "29": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1542,6 +1247,13 @@
                   "min"
                 ]
               },
+              "querySettings": [
+                {
+                  "colorMode": "fixed",
+                  "colorValue": "#C4162A",
+                  "queryIndex": 0
+                }
+              ],
               "visual": {
                 "areaOpacity": 1,
                 "connectNulls": false,
@@ -1564,6 +1276,56 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rate(rabbitmq_global_messages_get_empty_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Ready messages"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "format": {
+                "unit": "decimal"
+              },
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#37872D",
+                    "value": 0
+                  },
+                  {
+                    "color": "#1F60C4",
+                    "value": 10000
+                  },
+                  {
+                    "color": "#C4162A",
+                    "value": 100000
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(rabbitmq_queue_messages_ready * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})",
                     "seriesNameFormat": ""
                   }
                 }
@@ -1572,7 +1334,7 @@
           ]
         }
       },
-      "4_7": {
+      "30": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1591,6 +1353,13 @@
                   "min"
                 ]
               },
+              "querySettings": [
+                {
+                  "colorMode": "fixed",
+                  "colorValue": "#C4162A",
+                  "queryIndex": 0
+                }
+              ],
               "visual": {
                 "areaOpacity": 1,
                 "connectNulls": false,
@@ -1613,7 +1382,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rate(rabbitmq_global_messages_delivered_get_manual_ack_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -1621,7 +1390,7 @@
           ]
         }
       },
-      "5_0": {
+      "31": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1663,7 +1432,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rabbitmq_queues * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -1671,7 +1440,7 @@
           ]
         }
       },
-      "5_1": {
+      "32": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1712,7 +1481,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rate(rabbitmq_queues_declared_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -1720,7 +1489,7 @@
           ]
         }
       },
-      "5_2": {
+      "33": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1761,7 +1530,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rate(rabbitmq_queues_created_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -1769,7 +1538,7 @@
           ]
         }
       },
-      "5_3": {
+      "34": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1810,7 +1579,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rate(rabbitmq_queues_deleted_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -1818,7 +1587,7 @@
           ]
         }
       },
-      "6_0": {
+      "35": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1859,7 +1628,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rate(rabbitmq_raft_log_commit_index[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -1867,7 +1636,7 @@
           ]
         }
       },
-      "6_1": {
+      "36": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1882,7 +1651,7 @@
           }
         }
       },
-      "6_2": {
+      "37": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1922,7 +1691,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(\n  (rabbitmq_raft_log_last_written_index * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) -\n  (rabbitmq_raft_log_commit_index * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})\n) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -1930,7 +1699,7 @@
           ]
         }
       },
-      "6_3": {
+      "38": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1971,7 +1740,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rate(rabbitmq_raft_term_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -1979,7 +1748,7 @@
           ]
         }
       },
-      "6_4": {
+      "39": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -2021,6 +1790,52 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(\n  (rabbitmq_raft_log_last_written_index * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) - \n  (rabbitmq_raft_log_snapshot_index * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})\n) by(queue, rabbitmq_node)",
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }} {{ `{{queue}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Incoming messages / s"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "format": {
+                "unit": "decimal"
+              },
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#C4162A",
+                    "value": 0
+                  },
+                  {
+                    "color": "#37872d",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(rate(rabbitmq_global_messages_received_total[60s]) * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})",
                     "seriesNameFormat": ""
                   }
                 }
@@ -2029,7 +1844,7 @@
           ]
         }
       },
-      "7_0": {
+      "40": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -2070,7 +1885,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "rabbitmq_channels * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -2078,7 +1893,7 @@
           ]
         }
       },
-      "7_1": {
+      "41": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -2119,7 +1934,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rate(rabbitmq_channels_opened_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -2127,7 +1942,7 @@
           ]
         }
       },
-      "7_2": {
+      "42": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -2168,7 +1983,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rate(rabbitmq_channels_closed_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -2176,7 +1991,7 @@
           ]
         }
       },
-      "8_0": {
+      "43": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -2217,7 +2032,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "rabbitmq_connections * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -2225,7 +2040,7 @@
           ]
         }
       },
-      "8_1": {
+      "44": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -2267,7 +2082,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum(rate(rabbitmq_connections_opened_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
                   }
                 }
               }
@@ -2275,7 +2090,7 @@
           ]
         }
       },
-      "8_2": {
+      "45": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -2316,6 +2131,223 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "query": "sum(rate(rabbitmq_connections_closed_total[60s]) * on(instance, job) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) by(rabbitmq_node)",
+                    "seriesNameFormat": "{{ `{{rabbitmq_node}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Nodes"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "format": {
+                "unit": "decimal"
+              },
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#fa6400",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sum(rabbitmq_build_info * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Consumers"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "format": {
+                "unit": "decimal"
+              },
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#fa6400",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sum(rabbitmq_consumers * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Channels"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "format": {
+                "unit": "decimal"
+              },
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#fa6400",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sum(rabbitmq_channels * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "8": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Unacknowledged messages"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "format": {
+                "unit": "decimal"
+              },
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#37872D",
+                    "value": 0
+                  },
+                  {
+                    "color": "#1F60C4",
+                    "value": 100
+                  },
+                  {
+                    "color": "#C4162A",
+                    "value": 500
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sum(rabbitmq_queue_messages_unacked * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Outgoing messages / s"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "format": {
+                "unit": "decimal"
+              },
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#C4162A",
+                    "value": 0
+                  },
+                  {
+                    "color": "#37872d",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sum(rate(rabbitmq_global_messages_redelivered_total[60s]) * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) +\nsum(rate(rabbitmq_global_messages_delivered_consume_auto_ack_total[60s]) * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) +\nsum(rate(rabbitmq_global_messages_delivered_consume_manual_ack_total[60s]) * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) +\nsum(rate(rabbitmq_global_messages_delivered_get_auto_ack_total[60s]) * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"}) +\nsum(rate(rabbitmq_global_messages_delivered_get_manual_ack_total[60s]) * on(instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$app\", namespace=\"$namespace\"})",
                     "seriesNameFormat": ""
                   }
                 }
@@ -2330,10 +2362,7 @@
         "kind": "Grid",
         "spec": {
           "display": {
-            "title": "MESSAGING",
-            "collapse": {
-              "open": true
-            }
+            "title": "Panel Group 1"
           },
           "items": [
             {
@@ -2342,7 +2371,7 @@
               "width": 4,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/0_0"
+                "$ref": "#/spec/panels/0"
               }
             },
             {
@@ -2351,7 +2380,7 @@
               "width": 4,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/0_1"
+                "$ref": "#/spec/panels/1"
               }
             },
             {
@@ -2360,7 +2389,7 @@
               "width": 4,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/0_2"
+                "$ref": "#/spec/panels/2"
               }
             },
             {
@@ -2369,7 +2398,7 @@
               "width": 6,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/0_3"
+                "$ref": "#/spec/panels/3"
               }
             },
             {
@@ -2378,7 +2407,7 @@
               "width": 6,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/0_4"
+                "$ref": "#/spec/panels/4"
               }
             },
             {
@@ -2387,7 +2416,7 @@
               "width": 4,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/0_5"
+                "$ref": "#/spec/panels/5"
               }
             },
             {
@@ -2396,7 +2425,7 @@
               "width": 4,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/0_6"
+                "$ref": "#/spec/panels/6"
               }
             },
             {
@@ -2405,7 +2434,7 @@
               "width": 4,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/0_7"
+                "$ref": "#/spec/panels/7"
               }
             },
             {
@@ -2414,7 +2443,7 @@
               "width": 6,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/0_8"
+                "$ref": "#/spec/panels/8"
               }
             },
             {
@@ -2423,29 +2452,16 @@
               "width": 6,
               "height": 3,
               "content": {
-                "$ref": "#/spec/panels/0_9"
+                "$ref": "#/spec/panels/9"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "NODES",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 8,
               "width": 24,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/1_0"
+                "$ref": "#/spec/panels/10"
               }
             },
             {
@@ -2454,7 +2470,7 @@
               "width": 12,
               "height": 8,
               "content": {
-                "$ref": "#/spec/panels/1_1"
+                "$ref": "#/spec/panels/11"
               }
             },
             {
@@ -2463,7 +2479,7 @@
               "width": 8,
               "height": 8,
               "content": {
-                "$ref": "#/spec/panels/1_2"
+                "$ref": "#/spec/panels/12"
               }
             },
             {
@@ -2472,7 +2488,7 @@
               "width": 4,
               "height": 4,
               "content": {
-                "$ref": "#/spec/panels/1_3"
+                "$ref": "#/spec/panels/13"
               }
             },
             {
@@ -2481,29 +2497,16 @@
               "width": 4,
               "height": 4,
               "content": {
-                "$ref": "#/spec/panels/1_4"
+                "$ref": "#/spec/panels/14"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "QUEUED MESSAGES",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 22,
               "width": 12,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/2_0"
+                "$ref": "#/spec/panels/15"
               }
             },
             {
@@ -2512,29 +2515,16 @@
               "width": 12,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/2_1"
+                "$ref": "#/spec/panels/16"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "INCOMING MESSAGES",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 28,
               "width": 12,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/3_0"
+                "$ref": "#/spec/panels/17"
               }
             },
             {
@@ -2543,7 +2533,7 @@
               "width": 12,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/3_1"
+                "$ref": "#/spec/panels/18"
               }
             },
             {
@@ -2552,7 +2542,7 @@
               "width": 12,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/3_2"
+                "$ref": "#/spec/panels/19"
               }
             },
             {
@@ -2561,7 +2551,7 @@
               "width": 12,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/3_3"
+                "$ref": "#/spec/panels/20"
               }
             },
             {
@@ -2570,7 +2560,7 @@
               "width": 12,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/3_4"
+                "$ref": "#/spec/panels/21"
               }
             },
             {
@@ -2579,29 +2569,16 @@
               "width": 12,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/3_5"
+                "$ref": "#/spec/panels/22"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "OUTGOING MESSAGES",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 44,
               "width": 12,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/4_0"
+                "$ref": "#/spec/panels/23"
               }
             },
             {
@@ -2610,7 +2587,7 @@
               "width": 12,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/4_1"
+                "$ref": "#/spec/panels/24"
               }
             },
             {
@@ -2619,7 +2596,7 @@
               "width": 12,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/4_2"
+                "$ref": "#/spec/panels/25"
               }
             },
             {
@@ -2628,7 +2605,7 @@
               "width": 12,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/4_3"
+                "$ref": "#/spec/panels/26"
               }
             },
             {
@@ -2637,7 +2614,7 @@
               "width": 12,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/4_4"
+                "$ref": "#/spec/panels/27"
               }
             },
             {
@@ -2646,7 +2623,7 @@
               "width": 12,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/4_5"
+                "$ref": "#/spec/panels/28"
               }
             },
             {
@@ -2655,7 +2632,7 @@
               "width": 12,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/4_6"
+                "$ref": "#/spec/panels/29"
               }
             },
             {
@@ -2664,29 +2641,16 @@
               "width": 12,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/4_7"
+                "$ref": "#/spec/panels/30"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "QUEUES",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 65,
               "width": 12,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/5_0"
+                "$ref": "#/spec/panels/31"
               }
             },
             {
@@ -2695,7 +2659,7 @@
               "width": 4,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/5_1"
+                "$ref": "#/spec/panels/32"
               }
             },
             {
@@ -2704,7 +2668,7 @@
               "width": 4,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/5_2"
+                "$ref": "#/spec/panels/33"
               }
             },
             {
@@ -2713,29 +2677,16 @@
               "width": 4,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/5_3"
+                "$ref": "#/spec/panels/34"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "RAFT STATES FOR QUORUM QUEUES",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 71,
               "width": 12,
               "height": 9,
               "content": {
-                "$ref": "#/spec/panels/6_0"
+                "$ref": "#/spec/panels/35"
               }
             },
             {
@@ -2744,7 +2695,7 @@
               "width": 12,
               "height": 9,
               "content": {
-                "$ref": "#/spec/panels/6_1"
+                "$ref": "#/spec/panels/36"
               }
             },
             {
@@ -2753,7 +2704,7 @@
               "width": 12,
               "height": 9,
               "content": {
-                "$ref": "#/spec/panels/6_2"
+                "$ref": "#/spec/panels/37"
               }
             },
             {
@@ -2762,7 +2713,7 @@
               "width": 12,
               "height": 9,
               "content": {
-                "$ref": "#/spec/panels/6_3"
+                "$ref": "#/spec/panels/38"
               }
             },
             {
@@ -2771,29 +2722,16 @@
               "width": 24,
               "height": 10,
               "content": {
-                "$ref": "#/spec/panels/6_4"
+                "$ref": "#/spec/panels/39"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "CHANNELS",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 100,
               "width": 12,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/7_0"
+                "$ref": "#/spec/panels/40"
               }
             },
             {
@@ -2802,7 +2740,7 @@
               "width": 6,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/7_1"
+                "$ref": "#/spec/panels/41"
               }
             },
             {
@@ -2811,29 +2749,16 @@
               "width": 6,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/7_2"
+                "$ref": "#/spec/panels/42"
               }
-            }
-          ]
-        }
-      },
-      {
-        "kind": "Grid",
-        "spec": {
-          "display": {
-            "title": "CONNECTIONS",
-            "collapse": {
-              "open": true
-            }
-          },
-          "items": [
+            },
             {
               "x": 0,
               "y": 106,
               "width": 12,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/8_0"
+                "$ref": "#/spec/panels/43"
               }
             },
             {
@@ -2842,7 +2767,7 @@
               "width": 6,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/8_1"
+                "$ref": "#/spec/panels/44"
               }
             },
             {
@@ -2851,7 +2776,7 @@
               "width": 6,
               "height": 5,
               "content": {
-                "$ref": "#/spec/panels/8_2"
+                "$ref": "#/spec/panels/45"
               }
             }
           ]
