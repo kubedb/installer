@@ -33729,13 +33729,6 @@ func schema_apimachinery_apis_kubedb_v1alpha2_AerospikeSpec(ref common.Reference
 							Format:      "",
 						},
 					},
-					"replicas": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Number of instances to deploy for a Aerospike instance.",
-							Type:        []string{"integer"},
-							Format:      "int32",
-						},
-					},
 					"mode": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Default is \"Standalone\".",
@@ -33765,9 +33758,17 @@ func schema_apimachinery_apis_kubedb_v1alpha2_AerospikeSpec(ref common.Reference
 							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.InitSpec"),
 						},
 					},
+					"disableAuth": {
+						SchemaProps: spec.SchemaProps{
+							Description: "If disable Auth true then don't create any auth secret",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
 					"podTemplate": {
 						SchemaProps: spec.SchemaProps{
 							Description: "PodTemplate is an optional configuration for pods used to expose Aerospike",
+							Default:     map[string]interface{}{},
 							Ref:         ref("kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec"),
 						},
 					},
