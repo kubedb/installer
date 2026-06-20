@@ -123,11 +123,6 @@ func (in *AerospikeList) DeepCopyObject() runtime.Object {
 func (in *AerospikeSpec) DeepCopyInto(out *AerospikeSpec) {
 	*out = *in
 	out.AutoOps = in.AutoOps
-	if in.Replicas != nil {
-		in, out := &in.Replicas, &out.Replicas
-		*out = new(int32)
-		**out = **in
-	}
 	if in.Cluster != nil {
 		in, out := &in.Cluster, &out.Cluster
 		*out = new(AerospikeClusterSpec)
@@ -148,11 +143,7 @@ func (in *AerospikeSpec) DeepCopyInto(out *AerospikeSpec) {
 		*out = new(InitSpec)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.PodTemplate != nil {
-		in, out := &in.PodTemplate, &out.PodTemplate
-		*out = new(v2.PodTemplateSpec)
-		(*in).DeepCopyInto(*out)
-	}
+	in.PodTemplate.DeepCopyInto(&out.PodTemplate)
 	if in.ServiceTemplates != nil {
 		in, out := &in.ServiceTemplates, &out.ServiceTemplates
 		*out = make([]NamedServiceTemplateSpec, len(*in))
