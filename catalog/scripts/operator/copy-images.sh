@@ -39,6 +39,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure docker.io/tianon/toybox:0.
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.34 $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.34
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.1.0 $IMAGE_REGISTRY/appscode/petset:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.14 $IMAGE_REGISTRY/appscode/sidekick:v0.0.14
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.15 $IMAGE_REGISTRY/appscode/sidekick:v0.0.15
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-medusa-plugin:v0.12.0 $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.12.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-backup-plugin:v0.2.0 $IMAGE_REGISTRY/kubedb/clickhouse-backup-plugin:v0.2.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.23.0 $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.23.0
