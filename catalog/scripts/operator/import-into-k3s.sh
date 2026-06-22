@@ -28,6 +28,7 @@ k3s ctr images import images/tianon-toybox-0.8.11.tar
 k3s ctr images import images/appscode-kubectl-nonroot-1.34.tar
 k3s ctr images import images/appscode-petset-v0.1.0.tar
 k3s ctr images import images/appscode-sidekick-v0.0.14.tar
+k3s ctr images import images/appscode-sidekick-v0.0.15.tar
 k3s ctr images import images/kubedb-cassandra-medusa-plugin-v0.12.0.tar
 k3s ctr images import images/kubedb-clickhouse-backup-plugin-v0.2.0.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.23.0.tar

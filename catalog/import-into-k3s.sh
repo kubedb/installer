@@ -339,6 +339,7 @@ k3s ctr images import images/appscode-images-zookeeper-3.9.1.tar
 k3s ctr images import images/appscode-kubectl-nonroot-1.34.tar
 k3s ctr images import images/appscode-petset-v0.1.0.tar
 k3s ctr images import images/appscode-sidekick-v0.0.14.tar
+k3s ctr images import images/appscode-sidekick-v0.0.15.tar
 k3s ctr images import images/documentdb-documentdb-documentdb-local-pg17-0.109.0.tar
 k3s ctr images import images/kubedb-cassandra-init-4.1.6-v2.tar
 k3s ctr images import images/kubedb-cassandra-init-5.0.0-v2.tar
