@@ -221,6 +221,17 @@ External tooling (pulled in via `docker run` in Makefile targets):
 - **Generated files**: `zz_generated.deepcopy.go` (apis), `.crds/*.yaml`, `bundle/manifests/*`, `config/crd/bases/*`, `charts/*/values.openapiv3_schema.yaml`, `charts/*/values.schema.json`, `charts/*/README.md`, `catalog/kubedb/raw/*.yaml`, `catalog/VersionMatrix.md` - never edit by hand; rerun the appropriate `make` target.
 - **Chart conventions**: each `charts/<name>/` has `Chart.yaml`, `values.yaml`, `doc.yaml` (chart-doc-gen input), generated `README.md`, generated `values.openapiv3_schema.yaml`/`values.schema.json`, `ci/*-values.yaml` for chart-testing. The umbrella `charts/kubedb` and `charts/kubedb-opscenter` declare `file://` dependencies on sibling charts plus OCI deps on `petset`, `operator-shard-manager`, `sidekick`, `supervisor`, `ace-user-roles` from `oci://ghcr.io/appscode-charts`.
 - **Chart version bumps**: always go through `make update-charts CHART_VERSION=...` (or per-chart `make chart-<name>`) so `Chart.yaml`, sibling chart deps in `charts/kubedb/Chart.yaml`, and `charts/kubedb-opscenter/Chart.yaml` stay in sync.
+- **Certified charts are generated**: never edit `charts/kubedb-certified` or `charts/kubedb-certified-crds` directly. They are derived from `charts/kubedb` and its subcharts. Whenever `charts/kubedb` or a subchart changes, regenerate them:
+
+  ```bash
+  rm -rf charts/kubedb-certified charts/kubedb-certified-crds
+  chart-packer crd-less --input charts/kubedb --output charts
+  chart-packer crd-only --input charts/kubedb --output charts
+  make gen-chart-doc
+  ```
+
+  - If any subcharts changed, also run `./hack/scripts/update-chart-dependencies.sh`.
+  - If any chart changed, run `./hack/scripts/update-catalog.sh`.
 - **Catalog edits**: never edit `catalog/kubedb/raw/*.yaml` directly. Update `catalog/kubedb/fmt/templates/` (or `active_versions.json`) and run `make fmt` - it executes `catalog/kubedb/fmt/main.go` and `catalog/kubedb/gen-version-matrix/main.go`. Same pattern for KubeStash via `catalog/kubestash/fmt/main.go`.
 - **Image lists**: regenerate with `./hack/scripts/update-catalog.sh` (runs `image-packer list` over `charts/` plus per-component `image-packer generate-scripts`).
 - **Build versioning**: `hack/build.sh` injects `main.Version`, `main.GitTag`, `main.CommitHash`, etc. via `-ldflags`. `VERSION` derives from `git describe --tags --always --dirty`, overridden when on a release branch or tag.
