@@ -1,0 +1,93 @@
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.Qdrant (not (eq $ubi "operator")) }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Addon
+metadata:
+  name: 'qdrant-addon'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  backupTasks:
+  - driver: Restic
+    executor: Job
+    function: qdrant-backup
+    name: logical-backup
+    parameters:
+    - name: collections
+      required: false
+      usage: Comma-separated list of collections to backup. If not specified, all collections will be backed up.
+    - default: "10"
+      name: maxParallelDump
+      required: false
+      usage: Maximum number of concurrent dump workers across all Qdrant nodes. Each worker streams one collection snapshot from a node to restic.
+    singleton: true
+  - driver: VolumeSnapshotter
+    executor: Job
+    function: qdrant-csi-snapshotter
+    name: volume-snapshot
+    parameters:
+    - name: volumeSnapshotClassName
+      required: false
+      usage: The VolumeSnapshotClassName to be used by volumeSnapshot
+    singleton: true
+  - driver: Restic
+    executor: Job
+    function: kubedbmanifest-backup
+    name: manifest-backup
+    parameters:
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+  restoreTasks:
+  - driver: Restic
+    executor: Job
+    function: qdrant-restore
+    name: logical-backup-restore
+    parameters:
+    - name: collections
+      required: false
+      usage: Comma-separated list of collections to restore. If not provided, all collections will be restored.
+    singleton: true
+  - driver: Restic
+    executor: Job
+    function: kubedbmanifest-restore
+    name: manifest-restore
+    parameters:
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+{{ end }}

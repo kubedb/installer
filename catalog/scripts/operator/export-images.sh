@@ -63,6 +63,8 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-aws:v0.26.0 images/kubedb-provider-aws-v0.26.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-azure:v0.26.0 images/kubedb-provider-azure-v0.26.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-gcp:v0.26.0 images/kubedb-provider-gcp-v0.26.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/qdrant-backup-plugin:v0.1.0 images/kubedb-qdrant-backup-plugin-v0.1.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/qdrant-restore-plugin:v0.1.0 images/kubedb-qdrant-restore-plugin-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.28.0 images/kubedb-redis-restic-plugin-v0.28.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.20.0 images/kubedb-zookeeper-restic-plugin-v0.20.0.tar
 
