@@ -23,12 +23,12 @@ import (
 )
 
 const (
-	ResourceKindKubedbMigrator = "KubedbMigrator"
-	ResourceKubedbMigrator     = "kubedbmigrator"
-	ResourceKubedbMigrators    = "kubedbmigrators"
+	ResourceKindKubedbCourier = "KubedbCourier"
+	ResourceKubedbCourier     = "kubedbcourier"
+	ResourceKubedbCouriers    = "kubedbcouriers"
 )
 
-// KubedbMigrator defines the schama for KubeDB Migrator installer.
+// KubedbCourier defines the schama for KubeDB Courier installer.
 
 // +genclient
 // +genclient:skipVerbs=updateStatus
@@ -36,15 +36,15 @@ const (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:path=kubedbmigrators,singular=kubedbmigrator,categories={kubeops,appscode}
-type KubedbMigrator struct {
+// +kubebuilder:resource:path=kubedbcouriers,singular=kubedbcourier,categories={kubeops,appscode}
+type KubedbCourier struct {
 	metav1.TypeMeta   `json:",inline,omitempty"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              KubedbMigratorSpec `json:"spec,omitempty"`
+	Spec              KubedbCourierSpec `json:"spec,omitempty"`
 }
 
-// KubedbMigratorSpec is the schema for Identity Server values file
-type KubedbMigratorSpec struct {
+// KubedbCourierSpec is the schema for Identity Server values file
+type KubedbCourierSpec struct {
 	//+optional
 	NameOverride string `json:"nameOverride"`
 	//+optional
@@ -89,10 +89,10 @@ type KubedbMigratorSpec struct {
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KubedbMigratorList is a list of KubedbMigrators
-type KubedbMigratorList struct {
+// KubedbCourierList is a list of KubedbCouriers
+type KubedbCourierList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	// Items is a list of KubedbMigrator CRD objects
-	Items []KubedbMigrator `json:"items,omitempty"`
+	// Items is a list of KubedbCourier CRD objects
+	Items []KubedbCourier `json:"items,omitempty"`
 }

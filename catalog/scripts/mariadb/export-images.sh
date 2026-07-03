@@ -58,6 +58,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-a
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.25.0_11.2.2-jammy images/kubedb-mariadb-archiver-v0.25.0_11.2.2-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-coordinator:v0.45.0 images/kubedb-mariadb-coordinator-v0.45.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-init:0.9.0 images/kubedb-mariadb-init-0.9.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-migrator-cli:v0.5.0 images/kubedb-mariadb-migrator-cli-v0.5.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-courier-cli:v0.5.0 images/kubedb-mariadb-courier-cli-v0.5.0.tar
 
 tar -czvf images.tar.gz images

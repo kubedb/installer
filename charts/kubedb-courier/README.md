@@ -1,19 +1,19 @@
-# Database Migrator
+# Database Courier
 
-[Database Migrator by AppsCodes](https://github.com/kubedb) - Community features for KubeDB by AppsCode
+[Database Courier by AppsCodes](https://github.com/kubedb) - Community features for KubeDB by AppsCode
 
 ## TL;DR;
 
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb-migrator --version=v0.5.0
-$ helm upgrade -i kubedb-migrator appscode/kubedb-migrator -n kubedb --create-namespace --version=v0.5.0
+$ helm search repo appscode/kubedb-courier --version=v0.5.0
+$ helm upgrade -i kubedb-courier appscode/kubedb-courier -n kubedb --create-namespace --version=v0.5.0
 ```
 
 ## Introduction
 
-This chart deploys a Database Migrator operator on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart deploys a Database Courier operator on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 ## Prerequisites
 
@@ -21,36 +21,36 @@ This chart deploys a Database Migrator operator on a [Kubernetes](http://kuberne
 
 ## Installing the Chart
 
-To install/upgrade the chart with the release name `kubedb-migrator`:
+To install/upgrade the chart with the release name `kubedb-courier`:
 
 ```bash
-$ helm upgrade -i kubedb-migrator appscode/kubedb-migrator -n kubedb --create-namespace --version=v0.5.0
+$ helm upgrade -i kubedb-courier appscode/kubedb-courier -n kubedb --create-namespace --version=v0.5.0
 ```
 
-The command deploys a Database Migrator operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
+The command deploys a Database Courier operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
 
 > **Tip**: List all releases using `helm list`
 
 ## Uninstalling the Chart
 
-To uninstall the `kubedb-migrator`:
+To uninstall the `kubedb-courier`:
 
 ```bash
-$ helm uninstall kubedb-migrator -n kubedb
+$ helm uninstall kubedb-courier -n kubedb
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
 ## Configuration
 
-The following table lists the configurable parameters of the `kubedb-migrator` chart and their default values.
+The following table lists the configurable parameters of the `kubedb-courier` chart and their default values.
 
 |             Parameter              |                                                             Description                                                              |                                                                                            Default                                                                                             |
 |------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | replicaCount                       |                                                                                                                                      | <code>1</code>                                                                                                                                                                                 |
 | registryFQDN                       | Docker registry fqdn used to pull app related images. Set this to use docker registry hosted at ${registryFQDN}/${registry}/${image} | <code>ghcr.io</code>                                                                                                                                                                           |
 | image.registry                     | Docker registry used to pull app container image                                                                                     | <code>kubedb</code>                                                                                                                                                                            |
-| image.repository                   |                                                                                                                                      | <code>migrator-operator</code>                                                                                                                                                                 |
+| image.repository                   |                                                                                                                                      | <code>courier-operator</code>                                                                                                                                                                  |
 | image.pullPolicy                   |                                                                                                                                      | <code>IfNotPresent</code>                                                                                                                                                                      |
 | image.tag                          | Overrides the image tag whose default is the chart appVersion.                                                                       | <code>""</code>                                                                                                                                                                                |
 | imagePullSecrets                   |                                                                                                                                      | <code>[]</code>                                                                                                                                                                                |
@@ -88,12 +88,12 @@ The following table lists the configurable parameters of the `kubedb-migrator` c
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-migrator appscode/kubedb-migrator -n kubedb --create-namespace --version=v0.5.0 --set replicaCount=1
+$ helm upgrade -i kubedb-courier appscode/kubedb-courier -n kubedb --create-namespace --version=v0.5.0 --set replicaCount=1
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-migrator appscode/kubedb-migrator -n kubedb --create-namespace --version=v0.5.0 --values values.yaml
+$ helm upgrade -i kubedb-courier appscode/kubedb-courier -n kubedb --create-namespace --version=v0.5.0 --values values.yaml
 ```

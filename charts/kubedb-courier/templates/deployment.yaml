@@ -20,15 +20,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "kubedb-migrator.fullname" . }}
+  name: {{ include "kubedb-courier.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "kubedb-migrator.labels" . | nindent 4 }}
+    {{- include "kubedb-courier.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "kubedb-migrator.selectorLabels" . | nindent 6 }}
+      {{- include "kubedb-courier.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -36,13 +36,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "kubedb-migrator.labels" . | nindent 8 }}
+        {{- include "kubedb-courier.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
       {{- include "appscode.imagePullSecrets" . | nindent 6 }}
-      serviceAccountName: {{ include "kubedb-migrator.serviceAccountName" . }}
+      serviceAccountName: {{ include "kubedb-courier.serviceAccountName" . }}
       {{- if eq "true" ( include "distro.openshift" . ) }}
       terminationGracePeriodSeconds: 10
       securityContext:
@@ -73,13 +73,13 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
 {{/*          volumeMounts:*/}}
-{{/*            - name: migrator-addon-volume*/}}
-{{/*              mountPath: /etc/migrator/addon.yaml*/}}
+{{/*            - name: courier-addon-volume*/}}
+{{/*              mountPath: /etc/courier/addon.yaml*/}}
 {{/*              subPath: addon.yaml*/}}
       volumes:
-{{/*      - name: migrator-addon-volume*/}}
+{{/*      - name: courier-addon-volume*/}}
 {{/*        configMap:*/}}
-{{/*          name: {{ include "kubedb-migrator.fullname" . }}-config*/}}
+{{/*          name: {{ include "kubedb-courier.fullname" . }}-config*/}}
       {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -96,7 +96,7 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
               matchLabels:
-                {{- include "kubedb-migrator.selectorLabels" . | nindent 16 }}
+                {{- include "kubedb-courier.selectorLabels" . | nindent 16 }}
             topologyKey: "kubernetes.io/hostname"
     {{- end }}
     {{- if or $tolerations $criticalAddon }}

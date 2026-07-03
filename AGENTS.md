@@ -4,7 +4,7 @@ This file provides instructions for AI coding agents working in this repository.
 
 ## Project Overview
 
-KubeDB installer repository: Helm charts, CRDs, catalog manifests, and deployment scripts for the KubeDB Kubernetes database operator platform. Hosts 23+ Helm charts (provisioner, ops-manager, autoscaler, dashboard, schema-manager, webhook-server, catalog, gitops, metrics, migrator, certified, opscenter, ui-server, providers for AWS/Azure/GCP, etc.) and DBVersion catalog manifests for 30+ databases. Also packages an OLM bundle (`bundle/`) using `helm-operator` to deliver KubeDB on OpenShift.
+KubeDB installer repository: Helm charts, CRDs, catalog manifests, and deployment scripts for the KubeDB Kubernetes database operator platform. Hosts 23+ Helm charts (provisioner, ops-manager, autoscaler, dashboard, schema-manager, webhook-server, catalog, gitops, metrics, courier, certified, opscenter, ui-server, providers for AWS/Azure/GCP, etc.) and DBVersion catalog manifests for 30+ databases. Also packages an OLM bundle (`bundle/`) using `helm-operator` to deliver KubeDB on OpenShift.
 
 Module: `kubedb.dev/installer` (Go 1.25). Apps under `apis/`, `catalog/`, and `tests/` are non-vendored source; everything else is config/manifests/generated code.
 
@@ -115,7 +115,7 @@ charts/                       # 23+ Helm charts (see list below)
   kubedb-gitops/
   kubedb-grafana-dashboards/
   kubedb-metrics/             # PrometheusRule + ServiceMonitor configs
-  kubedb-migrator/
+  kubedb-courier/
   kubedb-opscenter/           # Umbrella for ops-only install (no provisioner)
   kubedb-perses-dashboards/
   kubedb-provider-aws/
@@ -160,7 +160,7 @@ Makefile / olm.mk             # Top-level + OLM-specific targets
 ## Key Packages / APIs
 
 - `apis/installer/v1` (Group `installer.kubedb.com`, Version `v1`) - defines a Kubernetes-style spec object per chart, used as the Helm `values.yaml` schema source. Kinds registered in `register.go`:
-  `Kubedb`, `KubedbAutoscaler`, `KubedbCatalog`, `KubedbCrdManager`, `KubedbDashboard`, `KubedbGitops`, `KubedbKubestashCatalog`, `KubedbMigrator`, `KubedbOpsManager`, `KubedbProvisioner`, `KubedbSchemaManager`, `KubedbWebhookServer`, `KubedbUiServer`, `PrepareCluster` (plus `KubedbProviderAws/Azure/Gcp` types). Shared building blocks (`ImageRef`, `Container`, `ServiceAccountSpec`, `WebHookSpec`, `Monitoring`, `MonitoringAgent`, `ServingCerts`, `CertManagerCerts`, `NetworkPolicySpec`, ...) live in `types.go`.
+  `Kubedb`, `KubedbAutoscaler`, `KubedbCatalog`, `KubedbCrdManager`, `KubedbDashboard`, `KubedbGitops`, `KubedbKubestashCatalog`, `KubedbCourier`, `KubedbOpsManager`, `KubedbProvisioner`, `KubedbSchemaManager`, `KubedbWebhookServer`, `KubedbUiServer`, `PrepareCluster` (plus `KubedbProviderAws/Azure/Gcp` types). Shared building blocks (`ImageRef`, `Container`, `ServiceAccountSpec`, `WebHookSpec`, `Monitoring`, `MonitoringAgent`, `ServingCerts`, `CertManagerCerts`, `NetworkPolicySpec`, ...) live in `types.go`.
 - `catalog/kubedb` (package `catalog`) - embeds `raw/**` plus `active_versions.json`, `backup_tasks.json`, `restore_tasks.json` via `//go:embed`. `FS()` returns the embedded FS or an override via `--kubedb-catalog-dir` flag (use `AddFlags`/`AddGoFlags`). Helpers: `ActiveDBVersions()`, `BackupTasks()`, `RestoreTasks()`.
 - `catalog/kubedb/fmt` - regenerates DBVersion YAMLs in `catalog/kubedb/raw/` from text templates (uses Masterminds sprig + semver).
 - `catalog/kubedb/gen-version-matrix` - writes `catalog/VersionMatrix.md`.

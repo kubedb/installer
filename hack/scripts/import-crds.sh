@@ -94,8 +94,8 @@ if [ "$update_kubedb_crds" = true ] && [ -d ${crd_dir} ]; then
     crd-importer \
         --no-description \
         --input=${crd_dir} \
-        --out=./charts/kubedb-migrator/crds \
-        --group=migrator.kubedb.com
+        --out=./charts/kubedb-courier/crds \
+        --group=courier.kubedb.com
 fi
 
 CERT_MANAGER_CERT_MANAGER_TAG=${CERT_MANAGER_CERT_MANAGER_TAG:-v1.19.3}

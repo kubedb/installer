@@ -2,10 +2,10 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: {{ include "kubedb-migrator.fullname" . }}:leader-election
+  name: {{ include "kubedb-courier.fullname" . }}:leader-election
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "kubedb-migrator.labels" . | nindent 4 }}
+    {{- include "kubedb-courier.labels" . | nindent 4 }}
 rules:
   - apiGroups:
       - ""
@@ -42,26 +42,26 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: {{ include "kubedb-migrator.fullname" . }}:leader-election-rolebinding
+  name: {{ include "kubedb-courier.fullname" . }}:leader-election-rolebinding
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "kubedb-migrator.labels" . | nindent 4 }}
+    {{- include "kubedb-courier.labels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: {{ include "kubedb-migrator.fullname" . }}:leader-election
+  name: {{ include "kubedb-courier.fullname" . }}:leader-election
 subjects:
   - kind: ServiceAccount
-    name: {{ include "kubedb-migrator.serviceAccountName" . }}
+    name: {{ include "kubedb-courier.serviceAccountName" . }}
     namespace: {{ .Release.Namespace }}
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: {{ include "kubedb-migrator.fullname" . }}
+  name: {{ include "kubedb-courier.fullname" . }}
   labels:
-    {{- include "kubedb-migrator.labels" . | nindent 4 }}
+    {{- include "kubedb-courier.labels" . | nindent 4 }}
 rules:
   - apiGroups:
       - ""
@@ -92,12 +92,17 @@ rules:
       - jobs
     verbs: ["*"]
   - apiGroups:
-      - migrator.kubedb.com
+      - courier.kubedb.com
     resources:
-      - migratoraddons
-      - migrators
-      - migrators/finalizers
-      - migrators/status
+      - migrations
+      - migrations/finalizers
+      - migrations/status
+      - branches
+      - branches/finalizers
+      - branches/status
+      - branchworks
+      - branchworks/finalizers
+      - branchworks/status
     verbs: ["*"]
   - apiGroups:
       - rbac.authorization.k8s.io
@@ -122,29 +127,29 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ include "kubedb-migrator.fullname" . }}
+  name: {{ include "kubedb-courier.fullname" . }}
   labels:
-    {{- include "kubedb-migrator.labels" . | nindent 4 }}
+    {{- include "kubedb-courier.labels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name:  {{ include "kubedb-migrator.fullname" . }}
+  name:  {{ include "kubedb-courier.fullname" . }}
 subjects:
   - kind: ServiceAccount
-    name: {{ include "kubedb-migrator.serviceAccountName" . }}
+    name: {{ include "kubedb-courier.serviceAccountName" . }}
     namespace: {{ .Release.Namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ include "kubedb-migrator.fullname" . }}:metrics-auth
+  name: {{ include "kubedb-courier.fullname" . }}:metrics-auth
   labels:
-    {{- include "kubedb-migrator.labels" . | nindent 4 }}
+    {{- include "kubedb-courier.labels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: system:auth-delegator
 subjects:
   - kind: ServiceAccount
-    name: {{ include "kubedb-migrator.serviceAccountName" . }}
+    name: {{ include "kubedb-courier.serviceAccountName" . }}
     namespace: {{ .Release.Namespace }}
