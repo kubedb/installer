@@ -1,0 +1,17 @@
+KubeDB Courier addon manager installed.
+
+  Manager Deployment: {{ include "courier-addon-manager.fullname" . }} (namespace {{ .Release.Namespace }})
+  Manager image:      {{ include "courier-addon-manager.image" . }}
+  Agent image:        {{ include "courier-addon-manager.agentImage" . }}
+  OCM addon:          courier (ClusterManagementAddOn)
+
+Same-cluster branches do not need this chart. It is the cross-cluster control
+plane: it translates BranchWork into ManifestWork and rolls the per-cluster
+branch operator (kubedb-courier run) out to managed clusters.
+
+{{- if not .Values.agent.placement.name }}
+
+The addon uses Manual install strategy. Enroll a managed cluster by creating a
+ManagedClusterAddOn named "courier" in that cluster's namespace on the hub, or
+set agent.placement.name to roll out by Placement.
+{{- end }}

@@ -1,0 +1,17 @@
+# The per-spoke hub kubeconfig is scoped to this ClusterRole via the addon
+# registration (CurrentCluster hubPermission): the manager binds it in each
+# managed cluster's own hub namespace, so a spoke can drive only its own
+# BranchWork objects (design.md Section 7).
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: courier-branchwork
+  labels:
+    {{- include "courier-addon-manager.labels" . | nindent 4 }}
+rules:
+  - apiGroups: ["courier.kubedb.com"]
+    resources: ["branchworks"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["courier.kubedb.com"]
+    resources: ["branchworks/status"]
+    verbs: ["get"]
