@@ -141,4 +141,4 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-ar
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.26.0_18.2-alpine $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.26.0_18.2-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.26.0_18.2-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.26.0_18.2-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.19.0 $IMAGE_REGISTRY/kubedb/postgres-init:0.19.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgresql-migration-cli:v0.5.0 $IMAGE_REGISTRY/kubedb/postgresql-migration-cli:v0.5.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgresql-kubedb-migrator:v0.5.0 $IMAGE_REGISTRY/kubedb/postgresql-kubedb-migrator:v0.5.0

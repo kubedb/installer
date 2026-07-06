@@ -47,7 +47,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-ui-
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-verifier-v0.16.0.tar $IMAGE_REGISTRY/kubedb/kubedb-verifier:v0.16.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-webhook-server-v0.41.0.tar $IMAGE_REGISTRY/kubedb/kubedb-webhook-server:v0.41.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-csi-snapshotter-plugin-v0.25.0.tar $IMAGE_REGISTRY/kubedb/mariadb-csi-snapshotter-plugin:v0.25.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-courier-operator-v0.5.0.tar $IMAGE_REGISTRY/kubedb/courier-operator:v0.5.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-courier-v0.5.0.tar $IMAGE_REGISTRY/kubedb/kubedb-courier:v0.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-csi-snapshotter-plugin-v0.26.0.tar $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.26.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssqlserver-walg-plugin-v0.19.0.tar $IMAGE_REGISTRY/kubedb/mssqlserver-walg-plugin:v0.19.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-csi-snapshotter-plugin-v0.26.0.tar $IMAGE_REGISTRY/kubedb/mysql-csi-snapshotter-plugin:v0.26.0

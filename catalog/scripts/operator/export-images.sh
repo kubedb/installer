@@ -53,7 +53,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ui
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-verifier:v0.16.0 images/kubedb-kubedb-verifier-v0.16.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-webhook-server:v0.41.0 images/kubedb-kubedb-webhook-server-v0.41.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-csi-snapshotter-plugin:v0.25.0 images/kubedb-mariadb-csi-snapshotter-plugin-v0.25.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/courier-operator:v0.5.0 images/kubedb-courier-operator-v0.5.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-courier:v0.5.0 images/kubedb-kubedb-courier-v0.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.26.0 images/kubedb-mongodb-csi-snapshotter-plugin-v0.26.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssqlserver-walg-plugin:v0.19.0 images/kubedb-mssqlserver-walg-plugin-v0.19.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-csi-snapshotter-plugin:v0.26.0 images/kubedb-mysql-csi-snapshotter-plugin-v0.26.0.tar
