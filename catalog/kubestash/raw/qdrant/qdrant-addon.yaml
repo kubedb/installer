@@ -17,37 +17,6 @@ spec:
       usage: Maximum number of concurrent dump workers across all Qdrant nodes. Each worker streams one collection snapshot from a node to restic.
       required: false
       default: "10"
-  - name: volume-snapshot
-    function: qdrant-csi-snapshotter
-    driver: VolumeSnapshotter
-    executor: Job
-    singleton: true
-    parameters:
-      - name: volumeSnapshotClassName
-        usage: The VolumeSnapshotClassName to be used by volumeSnapshot
-        required: false
-  - name: manifest-backup
-    function: kubedbmanifest-backup
-    driver: Restic
-    executor: Job
-    singleton: true
-    parameters:
-    - name: enableCache
-      usage: Enable or disable caching. Disabling caching may impact backup performance.
-      required: false
-      default: "true"
-    - name: scratchDir
-      usage: Directory for holding temporary files and restic cache.
-      required: false
-      default: /kubestash-tmp
-    volumeTemplate:
-      - name: kubestash-tmp-volume
-        usage: Holds temporary files and restic cache.
-        source:
-          emptyDir: {}
-    volumeMounts:
-      - name: kubestash-tmp-volume
-        mountPath: /kubestash-tmp
   restoreTasks:
   - name: logical-backup-restore
     function: qdrant-restore
@@ -58,25 +27,3 @@ spec:
     - name: collections
       usage: Comma-separated list of collections to restore. If not provided, all collections will be restored.
       required: false
-  - name: manifest-restore
-    function: kubedbmanifest-restore
-    driver: Restic
-    executor: Job
-    singleton: true
-    parameters:
-    - name: enableCache
-      usage: Enable or disable caching. Disabling caching may impact backup performance.
-      required: false
-      default: "true"
-    - name: scratchDir
-      usage: Directory for holding temporary files and restic cache.
-      required: false
-      default: /kubestash-tmp
-    volumeTemplate:
-    - name: kubestash-tmp-volume
-      usage: Holds temporary files and restic cache.
-      source:
-        emptyDir: {}
-    volumeMounts:
-    - name: kubestash-tmp-volume
-      mountPath: /kubestash-tmp

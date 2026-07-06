@@ -457,8 +457,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.6.3-debian images/kubedb-proxysql-2.6.3-debian.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.7.3-debian images/kubedb-proxysql-2.7.3-debian.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:3.0.1-debian images/kubedb-proxysql-3.0.1-debian.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/qdrant-backup-plugin:v0.1.0 images/kubedb-qdrant-backup-plugin-v0.1.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/qdrant-restore-plugin:v0.1.0 images/kubedb-qdrant-restore-plugin-v0.1.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/qdrant-restic-plugin:v0.1.0 images/kubedb-qdrant-restic-plugin-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:v2026.1.19 images/kubedb-rabbitmq-init-v2026.1.19.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-coordinator:v0.44.0 images/kubedb-redis-coordinator-v0.44.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.12.2 images/kubedb-redis-init-0.12.2.tar

@@ -65,7 +65,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-re
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-aws:v0.26.0 $IMAGE_REGISTRY/kubedb/provider-aws:v0.26.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-azure:v0.26.0 $IMAGE_REGISTRY/kubedb/provider-azure:v0.26.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-gcp:v0.26.0 $IMAGE_REGISTRY/kubedb/provider-gcp:v0.26.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/qdrant-backup-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/qdrant-backup-plugin:v0.1.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/qdrant-restore-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/qdrant-restore-plugin:v0.1.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/qdrant-restic-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/qdrant-restic-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.28.0 $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.28.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.20.0 $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.20.0

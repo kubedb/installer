@@ -27,37 +27,6 @@ spec:
       required: false
       usage: Maximum number of concurrent dump workers across all Qdrant nodes. Each worker streams one collection snapshot from a node to restic.
     singleton: true
-  - driver: VolumeSnapshotter
-    executor: Job
-    function: qdrant-csi-snapshotter
-    name: volume-snapshot
-    parameters:
-    - name: volumeSnapshotClassName
-      required: false
-      usage: The VolumeSnapshotClassName to be used by volumeSnapshot
-    singleton: true
-  - driver: Restic
-    executor: Job
-    function: kubedbmanifest-backup
-    name: manifest-backup
-    parameters:
-    - default: "true"
-      name: enableCache
-      required: false
-      usage: Enable or disable caching. Disabling caching may impact backup performance.
-    - default: /kubestash-tmp
-      name: scratchDir
-      required: false
-      usage: Directory for holding temporary files and restic cache.
-    singleton: true
-    volumeMounts:
-    - mountPath: /kubestash-tmp
-      name: kubestash-tmp-volume
-    volumeTemplate:
-    - name: kubestash-tmp-volume
-      source:
-        emptyDir: {}
-      usage: Holds temporary files and restic cache.
   restoreTasks:
   - driver: Restic
     executor: Job
@@ -68,26 +37,4 @@ spec:
       required: false
       usage: Comma-separated list of collections to restore. If not provided, all collections will be restored.
     singleton: true
-  - driver: Restic
-    executor: Job
-    function: kubedbmanifest-restore
-    name: manifest-restore
-    parameters:
-    - default: "true"
-      name: enableCache
-      required: false
-      usage: Enable or disable caching. Disabling caching may impact backup performance.
-    - default: /kubestash-tmp
-      name: scratchDir
-      required: false
-      usage: Directory for holding temporary files and restic cache.
-    singleton: true
-    volumeMounts:
-    - mountPath: /kubestash-tmp
-      name: kubestash-tmp-volume
-    volumeTemplate:
-    - name: kubestash-tmp-volume
-      source:
-        emptyDir: {}
-      usage: Holds temporary files and restic cache.
 {{ end }}
