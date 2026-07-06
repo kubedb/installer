@@ -1,0 +1,60 @@
+# Default values for courier-addon-manager.
+
+# nameOverride / fullnameOverride let you rename the release-derived resources.
+nameOverride: ""
+fullnameOverride: ""
+
+# The kubedb-courier image is shared by the hub manager (manager) and the
+# per-cluster agent (run), so one build serves both.
+image:
+  registry: ghcr.io/kubedb
+  repository: kubedb-courier
+  tag: ""            # defaults to .Chart.AppVersion
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+
+# Hub manager workload (kubedb-courier manager).
+manager:
+  replicaCount: 1
+  # maxFeedbackWatch caps concurrent watch-based status feedbacks; branches past
+  # the cap fall back to Poll (design.md Section 7).
+  maxFeedbackWatch: 100
+  leaderElection: true
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: "1"
+      memory: 512Mi
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  podAnnotations: {}
+  securityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+
+# The courier CRDs (migrations, branches, branchworks) ship under crds/ and are
+# installed by Helm on first install. Manage them out of band by removing that
+# directory if you prefer.
+
+# Per-cluster branch agent (kubedb-courier run), deployed to managed clusters
+# by the OCM addon.
+agent:
+  # image defaults to the shared image above when unset.
+  image:
+    registry: ""
+    repository: ""
+    tag: ""
+  # installNamespace is where the addon agent is installed on each managed cluster.
+  installNamespace: kubedb
+  # Choose which managed clusters receive the branch agent. When placementRef is
+  # empty the ClusterManagementAddOn uses manual placement (install per cluster
+  # via ManagedClusterAddOn).
+  placement:
+    # name of an existing OCM Placement in the placementNamespace.
+    name: ""
+    namespace: open-cluster-management

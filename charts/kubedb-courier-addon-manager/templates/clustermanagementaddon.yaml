@@ -1,0 +1,28 @@
+apiVersion: addon.open-cluster-management.io/v1alpha1
+kind: ClusterManagementAddOn
+metadata:
+  name: courier
+  labels:
+    {{- include "courier-addon-manager.labels" . | nindent 4 }}
+spec:
+  addOnMeta:
+    displayName: KubeDB Courier
+    description: |
+      Per-cluster KubeDB Courier branch operator (kubedb-courier run) that runs
+      the Branch flow (Local, Initiator, Creator) on each managed cluster.
+  supportedConfigs:
+    - group: addon.open-cluster-management.io
+      resource: addontemplates
+      defaultConfig:
+        name: courier-{{ .Chart.AppVersion }}
+  installStrategy:
+    {{- if .Values.agent.placement.name }}
+    type: Placements
+    placements:
+      - name: {{ .Values.agent.placement.name }}
+        namespace: {{ .Values.agent.placement.namespace }}
+        rolloutStrategy:
+          type: All
+    {{- else }}
+    type: Manual
+    {{- end }}
