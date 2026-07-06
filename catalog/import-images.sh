@@ -340,7 +340,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-z
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-zookeeper-3.9.1.tar $IMAGE_REGISTRY/appscode-images/zookeeper:3.9.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-kubectl-nonroot-1.34.tar $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.34
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.1.0.tar $IMAGE_REGISTRY/appscode/petset:v0.1.0
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.14.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.14
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.15.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.15
 $CMD push --allow-nondistributable-artifacts --insecure images/documentdb-documentdb-documentdb-local-pg17-0.109.0.tar $IMAGE_REGISTRY/documentdb/documentdb/documentdb-local:pg17-0.109.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-4.1.6-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
@@ -364,10 +363,15 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-hazelcast-
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-ignite-init-2.17.0-v2.tar $IMAGE_REGISTRY/kubedb/ignite-init:2.17.0-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kafka-init-4.0-v2.tar $IMAGE_REGISTRY/kubedb/kafka-init:4.0-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-autoscaler-v0.50.0.tar $IMAGE_REGISTRY/kubedb/kubedb-autoscaler:v0.50.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-courier-v0.5.0.tar $IMAGE_REGISTRY/kubedb/kubedb-courier:v0.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-crd-manager-v0.20.0.tar $IMAGE_REGISTRY/kubedb/kubedb-crd-manager:v0.20.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-gitops-v0.13.0.tar $IMAGE_REGISTRY/kubedb/kubedb-gitops:v0.13.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-kibana-v0.41.0.tar $IMAGE_REGISTRY/kubedb/kubedb-kibana:v0.41.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-manifest-plugin-v0.28.0.tar $IMAGE_REGISTRY/kubedb/kubedb-manifest-plugin:v0.28.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-migrator-mariadb-v0.5.0.tar $IMAGE_REGISTRY/kubedb/kubedb-migrator-mariadb:v0.5.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-migrator-mongodb-v0.5.0.tar $IMAGE_REGISTRY/kubedb/kubedb-migrator-mongodb:v0.5.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-migrator-mysql-v0.5.0.tar $IMAGE_REGISTRY/kubedb/kubedb-migrator-mysql:v0.5.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-migrator-postgresql-v0.5.0.tar $IMAGE_REGISTRY/kubedb/kubedb-migrator-postgresql:v0.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-ops-manager-v0.52.0.tar $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.52.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-provisioner-v0.65.0.tar $IMAGE_REGISTRY/kubedb/kubedb-provisioner:v0.65.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-schema-manager-v0.41.0.tar $IMAGE_REGISTRY/kubedb/kubedb-schema-manager:v0.41.0
@@ -385,12 +389,9 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-ar
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-coordinator-v0.45.0.tar $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.45.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-csi-snapshotter-plugin-v0.25.0.tar $IMAGE_REGISTRY/kubedb/mariadb-csi-snapshotter-plugin:v0.25.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-init-0.9.0.tar $IMAGE_REGISTRY/kubedb/mariadb-init:0.9.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-migrator-cli-v0.5.0.tar $IMAGE_REGISTRY/kubedb/mariadb-migrator-cli:v0.5.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-migrator-operator-v0.5.0.tar $IMAGE_REGISTRY/kubedb/migrator-operator:v0.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-csi-snapshotter-plugin-v0.26.0.tar $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.26.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-4.2-v9.tar $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-6.0-v11.tar $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v11
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-migrator-cli-v0.5.0.tar $IMAGE_REGISTRY/kubedb/mongodb-migrator-cli:v0.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb_exporter-v0.47.2.tar $IMAGE_REGISTRY/kubedb/mongodb_exporter:v0.47.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-coordinator-v0.20.0.tar $IMAGE_REGISTRY/kubedb/mssql-coordinator:v0.20.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-exporter-1.4.0.tar $IMAGE_REGISTRY/kubedb/mssql-exporter:1.4.0
@@ -407,7 +408,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-coor
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-csi-snapshotter-plugin-v0.26.0.tar $IMAGE_REGISTRY/kubedb/mysql-csi-snapshotter-plugin:v0.26.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-0.1.0.tar $IMAGE_REGISTRY/kubedb/mysql-init:0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-5.7-v9.tar $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v9
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-migrator-cli-v0.5.0.tar $IMAGE_REGISTRY/kubedb/mysql-migrator-cli:v0.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-router-init-v0.43.0.tar $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.43.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysqld-exporter-v0.18.0.tar $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.18.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-neo4j-backup-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/neo4j-backup-plugin:v0.1.0
@@ -440,7 +440,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-a
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-csi-snapshotter-plugin-v0.26.0.tar $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.26.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-init-0.19.0.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.19.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.28.0_16.4.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.28.0_16.4
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgresql-migrator-cli-v0.5.0.tar $IMAGE_REGISTRY/kubedb/postgresql-migrator-cli:v0.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-aws-v0.26.0.tar $IMAGE_REGISTRY/kubedb/provider-aws:v0.26.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-azure-v0.26.0.tar $IMAGE_REGISTRY/kubedb/provider-azure:v0.26.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-gcp-v0.26.0.tar $IMAGE_REGISTRY/kubedb/provider-gcp:v0.26.0

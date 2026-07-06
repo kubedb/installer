@@ -42,6 +42,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.6.2-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.6.2-noble
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.8.5-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.8.5-noble
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-12.1.2-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:12.1.2-noble
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-migrator-mariadb-v0.5.0.tar $IMAGE_REGISTRY/kubedb/kubedb-migrator-mariadb:v0.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.25.0_10.10.7-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.25.0_10.10.7-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.25.0_10.11.6-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.25.0_10.11.6-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.25.0_10.4.32-focal.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.25.0_10.4.32-focal
@@ -52,4 +53,3 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-ar
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.25.0_11.2.2-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.25.0_11.2.2-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-coordinator-v0.45.0.tar $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.45.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-init-0.9.0.tar $IMAGE_REGISTRY/kubedb/mariadb-init:0.9.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-migrator-cli-v0.5.0.tar $IMAGE_REGISTRY/kubedb/mariadb-migrator-cli:v0.5.0

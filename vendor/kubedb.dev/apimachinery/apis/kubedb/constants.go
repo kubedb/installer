@@ -2480,6 +2480,11 @@ const (
 	KubeSlicePodIPFileName                     = "podip"
 	KubeSliceNSMContainerName                  = "cmd-nsc-grpc"
 
+	// BranchedFromAnnotation gates the KubeDB provisioner's "branched" mode: a Database carrying it is
+	// adopted onto cloned PVCs (created by the Courier Branch operator) instead of being provisioned
+	// empty. Its value records the branch provenance, e.g. {"cluster": "prod-east", "source": "demo/prod-pg"}.
+	BranchedFromAnnotation = "kubedb.com/branched-from"
+
 	// Archiver
 	OwnerDatabasesAnnotation                  = "kubedb.com/owner-databases"
 	DistributedArchiverSnapshotInfoAnnotation = "distributedsnapshotinfo"

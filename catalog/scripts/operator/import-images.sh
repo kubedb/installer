@@ -29,13 +29,13 @@ CMD="./crane"
 $CMD push --allow-nondistributable-artifacts --insecure images/tianon-toybox-0.8.11.tar $IMAGE_REGISTRY/tianon/toybox:0.8.11
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-kubectl-nonroot-1.34.tar $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.34
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.1.0.tar $IMAGE_REGISTRY/appscode/petset:v0.1.0
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.14.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.14
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.15.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.15
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-medusa-plugin-v0.12.0.tar $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.12.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-clickhouse-backup-plugin-v0.2.0.tar $IMAGE_REGISTRY/kubedb/clickhouse-backup-plugin:v0.2.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.23.0.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.23.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-elasticsearch-restic-plugin-v0.28.0.tar $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.28.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-autoscaler-v0.50.0.tar $IMAGE_REGISTRY/kubedb/kubedb-autoscaler:v0.50.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-courier-v0.5.0.tar $IMAGE_REGISTRY/kubedb/kubedb-courier:v0.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-crd-manager-v0.20.0.tar $IMAGE_REGISTRY/kubedb/kubedb-crd-manager:v0.20.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-gitops-v0.13.0.tar $IMAGE_REGISTRY/kubedb/kubedb-gitops:v0.13.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-kibana-v0.41.0.tar $IMAGE_REGISTRY/kubedb/kubedb-kibana:v0.41.0
@@ -47,7 +47,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-ui-
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-verifier-v0.16.0.tar $IMAGE_REGISTRY/kubedb/kubedb-verifier:v0.16.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-webhook-server-v0.41.0.tar $IMAGE_REGISTRY/kubedb/kubedb-webhook-server:v0.41.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-csi-snapshotter-plugin-v0.25.0.tar $IMAGE_REGISTRY/kubedb/mariadb-csi-snapshotter-plugin:v0.25.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-migrator-operator-v0.5.0.tar $IMAGE_REGISTRY/kubedb/migrator-operator:v0.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-csi-snapshotter-plugin-v0.26.0.tar $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.26.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssqlserver-walg-plugin-v0.19.0.tar $IMAGE_REGISTRY/kubedb/mssqlserver-walg-plugin:v0.19.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-csi-snapshotter-plugin-v0.26.0.tar $IMAGE_REGISTRY/kubedb/mysql-csi-snapshotter-plugin:v0.26.0
