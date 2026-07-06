@@ -61,4 +61,4 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-arc
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.25.0_11.2.2-jammy $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.25.0_11.2.2-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-coordinator:v0.45.0 $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.45.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-init:0.9.0 $IMAGE_REGISTRY/kubedb/mariadb-init:0.9.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-mariadb-migrator:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-mariadb-migrator:v0.5.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mariadb:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-mariadb:v0.5.0
