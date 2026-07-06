@@ -52,4 +52,4 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-ar
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.25.0_11.2.2-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.25.0_11.2.2-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-coordinator-v0.45.0.tar $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.45.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-init-0.9.0.tar $IMAGE_REGISTRY/kubedb/mariadb-init:0.9.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-courier-cli-v0.5.0.tar $IMAGE_REGISTRY/kubedb/mariadb-courier-cli:v0.5.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-migration-cli-v0.5.0.tar $IMAGE_REGISTRY/kubedb/mariadb-migration-cli:v0.5.0

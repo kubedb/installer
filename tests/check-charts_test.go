@@ -30,8 +30,8 @@ var ignoreMissingList = []string{
 	"container-registry.oracle.com/database/observability-exporter:2.2.1",
 	"ghcr.io/kubedb/db2-coordinator:*-ubi",
 	// TODO: remove once the MySQL/MariaDB courier CLI images are published.
-	"ghcr.io/kubedb/mysql-courier-cli:*",
-	"ghcr.io/kubedb/mariadb-courier-cli:*",
+	"ghcr.io/kubedb/mysql-migration-cli:*",
+	"ghcr.io/kubedb/mariadb-migration-cli:*",
 }
 
 var archSkipList = []string{
