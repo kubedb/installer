@@ -5207,6 +5207,11 @@ func (in *Neo4jTLSConfig) DeepCopyInto(out *Neo4jTLSConfig) {
 		*out = new(ProtocolTLSConfig)
 		**out = **in
 	}
+	if in.Backup != nil {
+		in, out := &in.Backup, &out.Backup
+		*out = new(ProtocolTLSConfig)
+		**out = **in
+	}
 	if in.KeystoreCredSecret != nil {
 		in, out := &in.KeystoreCredSecret, &out.KeystoreCredSecret
 		*out = new(SecretReference)

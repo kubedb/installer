@@ -20,7 +20,7 @@ import (
 	kmapi "kmodules.xyz/client-go/api/v1"
 )
 
-// MigrationConfig defines the desired state of Migrator
+// MigrationConfig defines the desired state of Migration
 type MigrationConfig struct {
 	Source Source `yaml:"source" json:"source"`
 	Target Target `yaml:"target" json:"target"`
@@ -88,19 +88,19 @@ type TLSConfig struct {
 	ServerName string `yaml:"serverName" json:"serverName,omitempty"`
 }
 
-type DBMigratorImages struct {
+type DBCourierImages struct {
 	// CLI specifies the migrator CLI image
 	// +optional
-	CLI DBMigratorCLI `json:"cli"`
+	CLI DBCourierCLI `json:"cli"`
 	// StatusReporter is the sidecar image used to report migration progress
 	// +optional
-	StatusReporter DBMigratorStatusReporter `json:"statusReporter"`
+	StatusReporter DBCourierStatusReporter `json:"statusReporter"`
 }
 
-type DBMigratorCLI struct {
+type DBCourierCLI struct {
 	Image string `json:"image"`
 }
 
-type DBMigratorStatusReporter struct {
+type DBCourierStatusReporter struct {
 	Image string `json:"image"`
 }

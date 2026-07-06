@@ -14,11 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package migrator
+package courier
 
 const (
 	// GroupName is the group name use in this package
-	GroupName = "migrator.kubedb.com"
+	GroupName = "courier.kubedb.com"
 	// MutatorGroupName is the group name used to implement mutating webhooks for types in this package
 	MutatorGroupName = "mutators." + GroupName
 	// ValidatorGroupName is the group name used to implement validating webhooks for types in this package

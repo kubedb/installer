@@ -187,6 +187,11 @@ func (r *Neo4j) SetTLSDefaults() {
 			Mode: TLSModeMTLS,
 		}
 	}
+	if r.Spec.TLS.Backup == nil {
+		r.Spec.TLS.Backup = &ProtocolTLSConfig{
+			Mode: TLSModeMTLS,
+		}
+	}
 	r.Spec.TLS.Certificates = kmapi.SetMissingSecretNameForCertificate(r.Spec.TLS.Certificates, string(Neo4jCertificateTypeServer), r.CertificateName(Neo4jCertificateTypeServer))
 	r.Spec.TLS.Certificates = kmapi.SetMissingSecretNameForCertificate(r.Spec.TLS.Certificates, string(Neo4jCertificateTypeClient), r.CertificateName(Neo4jCertificateTypeClient))
 	if r.Spec.TLS.KeystoreCredSecret == nil {

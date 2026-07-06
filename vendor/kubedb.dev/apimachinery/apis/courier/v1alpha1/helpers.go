@@ -26,11 +26,19 @@ func GetFinalizer() string {
 	return SchemeGroupVersion.Group
 }
 
-func (Migrator) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
-	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralMigrator))
+func (Migration) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralMigrations))
 }
 
-func (m Migrator) GetDBKindAndCommand() (string, string) {
+func (Branch) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralBranches))
+}
+
+func (BranchWork) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralBranchWorks))
+}
+
+func (m Migration) GetDBKindAndCommand() (string, string) {
 	switch {
 	case m.Spec.Source.Postgres != nil && m.Spec.Target.Postgres != nil:
 		return "Postgres", "postgres"
@@ -45,7 +53,7 @@ func (m Migrator) GetDBKindAndCommand() (string, string) {
 	return "", ""
 }
 
-func (m Migrator) GetConnectionInfos() (*ConnectionInfo, *ConnectionInfo) {
+func (m Migration) GetConnectionInfos() (*ConnectionInfo, *ConnectionInfo) {
 	switch {
 	case m.Spec.Source.Postgres != nil && m.Spec.Target.Postgres != nil:
 		return &m.Spec.Source.Postgres.ConnectionInfo, &m.Spec.Target.Postgres.ConnectionInfo
