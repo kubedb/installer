@@ -51,6 +51,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ma
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.6.2-noble $IMAGE_REGISTRY/appscode-images/mariadb:11.6.2-noble
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.8.5-noble $IMAGE_REGISTRY/appscode-images/mariadb:11.8.5-noble
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:12.1.2-noble $IMAGE_REGISTRY/appscode-images/mariadb:12.1.2-noble
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mariadb:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-mariadb:v0.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.25.0_10.10.7-jammy $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.25.0_10.10.7-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.25.0_10.11.6-jammy $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.25.0_10.11.6-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.25.0_10.4.32-focal $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.25.0_10.4.32-focal
@@ -61,4 +62,3 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-arc
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-archiver:v0.25.0_11.2.2-jammy $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.25.0_11.2.2-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-coordinator:v0.45.0 $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.45.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-init:0.9.0 $IMAGE_REGISTRY/kubedb/mariadb-init:0.9.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mariadb:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-mariadb:v0.5.0

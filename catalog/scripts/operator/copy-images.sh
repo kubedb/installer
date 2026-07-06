@@ -38,13 +38,13 @@ CMD="./crane"
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/tianon/toybox:0.8.11 $IMAGE_REGISTRY/tianon/toybox:0.8.11
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.34 $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.34
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.1.0 $IMAGE_REGISTRY/appscode/petset:v0.1.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.14 $IMAGE_REGISTRY/appscode/sidekick:v0.0.14
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.15 $IMAGE_REGISTRY/appscode/sidekick:v0.0.15
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-medusa-plugin:v0.12.0 $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.12.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-backup-plugin:v0.2.0 $IMAGE_REGISTRY/kubedb/clickhouse-backup-plugin:v0.2.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.23.0 $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.23.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.28.0 $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.28.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-autoscaler:v0.50.0 $IMAGE_REGISTRY/kubedb/kubedb-autoscaler:v0.50.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-courier:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-courier:v0.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-crd-manager:v0.20.0 $IMAGE_REGISTRY/kubedb/kubedb-crd-manager:v0.20.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-gitops:v0.13.0 $IMAGE_REGISTRY/kubedb/kubedb-gitops:v0.13.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-kibana:v0.41.0 $IMAGE_REGISTRY/kubedb/kubedb-kibana:v0.41.0
@@ -56,7 +56,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ui-s
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-verifier:v0.16.0 $IMAGE_REGISTRY/kubedb/kubedb-verifier:v0.16.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-webhook-server:v0.41.0 $IMAGE_REGISTRY/kubedb/kubedb-webhook-server:v0.41.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-csi-snapshotter-plugin:v0.25.0 $IMAGE_REGISTRY/kubedb/mariadb-csi-snapshotter-plugin:v0.25.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-courier:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-courier:v0.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.26.0 $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.26.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssqlserver-walg-plugin:v0.19.0 $IMAGE_REGISTRY/kubedb/mssqlserver-walg-plugin:v0.19.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-csi-snapshotter-plugin:v0.26.0 $IMAGE_REGISTRY/kubedb/mysql-csi-snapshotter-plugin:v0.26.0

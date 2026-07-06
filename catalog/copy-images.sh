@@ -349,7 +349,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zo
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.9.1 $IMAGE_REGISTRY/appscode-images/zookeeper:3.9.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.34 $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.34
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.1.0 $IMAGE_REGISTRY/appscode/petset:v0.1.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.14 $IMAGE_REGISTRY/appscode/sidekick:v0.0.14
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.15 $IMAGE_REGISTRY/appscode/sidekick:v0.0.15
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/documentdb/documentdb/documentdb-local:pg17-0.109.0 $IMAGE_REGISTRY/documentdb/documentdb/documentdb-local:pg17-0.109.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-init:4.1.6-v2 $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
@@ -373,10 +372,15 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hazelcast-i
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/ignite-init:2.17.0-v2 $IMAGE_REGISTRY/kubedb/ignite-init:2.17.0-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kafka-init:4.0-v2 $IMAGE_REGISTRY/kubedb/kafka-init:4.0-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-autoscaler:v0.50.0 $IMAGE_REGISTRY/kubedb/kubedb-autoscaler:v0.50.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-courier:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-courier:v0.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-crd-manager:v0.20.0 $IMAGE_REGISTRY/kubedb/kubedb-crd-manager:v0.20.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-gitops:v0.13.0 $IMAGE_REGISTRY/kubedb/kubedb-gitops:v0.13.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-kibana:v0.41.0 $IMAGE_REGISTRY/kubedb/kubedb-kibana:v0.41.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-manifest-plugin:v0.28.0 $IMAGE_REGISTRY/kubedb/kubedb-manifest-plugin:v0.28.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mariadb:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-mariadb:v0.5.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mongodb:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-mongodb:v0.5.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mysql:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-mysql:v0.5.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-postgresql:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-postgresql:v0.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.52.0 $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.52.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-provisioner:v0.65.0 $IMAGE_REGISTRY/kubedb/kubedb-provisioner:v0.65.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-schema-manager:v0.41.0 $IMAGE_REGISTRY/kubedb/kubedb-schema-manager:v0.41.0
@@ -394,12 +398,9 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-arc
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-coordinator:v0.45.0 $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.45.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-csi-snapshotter-plugin:v0.25.0 $IMAGE_REGISTRY/kubedb/mariadb-csi-snapshotter-plugin:v0.25.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-init:0.9.0 $IMAGE_REGISTRY/kubedb/mariadb-init:0.9.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mariadb:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-mariadb:v0.5.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-courier:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-courier:v0.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.26.0 $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.26.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v11 $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v11
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mongodb:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-mongodb:v0.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb_exporter:v0.47.2 $IMAGE_REGISTRY/kubedb/mongodb_exporter:v0.47.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-coordinator:v0.20.0 $IMAGE_REGISTRY/kubedb/mssql-coordinator:v0.20.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-exporter:1.4.0 $IMAGE_REGISTRY/kubedb/mssql-exporter:1.4.0
@@ -416,7 +417,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-coord
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-csi-snapshotter-plugin:v0.26.0 $IMAGE_REGISTRY/kubedb/mysql-csi-snapshotter-plugin:v0.26.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:0.1.0 $IMAGE_REGISTRY/kubedb/mysql-init:0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:5.7-v9 $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v9
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mysql:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-mysql:v0.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.43.0 $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.43.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.18.0 $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.18.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/neo4j-backup-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/neo4j-backup-plugin:v0.1.0
@@ -449,7 +449,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-ar
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.26.0 $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.26.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.19.0 $IMAGE_REGISTRY/kubedb/postgres-init:0.19.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.28.0_16.4 $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.28.0_16.4
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-postgresql:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-postgresql:v0.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-aws:v0.26.0 $IMAGE_REGISTRY/kubedb/provider-aws:v0.26.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-azure:v0.26.0 $IMAGE_REGISTRY/kubedb/provider-azure:v0.26.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-gcp:v0.26.0 $IMAGE_REGISTRY/kubedb/provider-gcp:v0.26.0

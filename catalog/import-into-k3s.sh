@@ -338,7 +338,6 @@ k3s ctr images import images/appscode-images-zookeeper-3.8.3.tar
 k3s ctr images import images/appscode-images-zookeeper-3.9.1.tar
 k3s ctr images import images/appscode-kubectl-nonroot-1.34.tar
 k3s ctr images import images/appscode-petset-v0.1.0.tar
-k3s ctr images import images/appscode-sidekick-v0.0.14.tar
 k3s ctr images import images/appscode-sidekick-v0.0.15.tar
 k3s ctr images import images/documentdb-documentdb-documentdb-local-pg17-0.109.0.tar
 k3s ctr images import images/kubedb-cassandra-init-4.1.6-v2.tar
@@ -362,10 +361,15 @@ k3s ctr images import images/kubedb-hazelcast-init-5.5.2.tar
 k3s ctr images import images/kubedb-ignite-init-2.17.0-v2.tar
 k3s ctr images import images/kubedb-kafka-init-4.0-v2.tar
 k3s ctr images import images/kubedb-kubedb-autoscaler-v0.50.0.tar
+k3s ctr images import images/kubedb-kubedb-courier-v0.5.0.tar
 k3s ctr images import images/kubedb-kubedb-crd-manager-v0.20.0.tar
 k3s ctr images import images/kubedb-kubedb-gitops-v0.13.0.tar
 k3s ctr images import images/kubedb-kubedb-kibana-v0.41.0.tar
 k3s ctr images import images/kubedb-kubedb-manifest-plugin-v0.28.0.tar
+k3s ctr images import images/kubedb-kubedb-migrator-mariadb-v0.5.0.tar
+k3s ctr images import images/kubedb-kubedb-migrator-mongodb-v0.5.0.tar
+k3s ctr images import images/kubedb-kubedb-migrator-mysql-v0.5.0.tar
+k3s ctr images import images/kubedb-kubedb-migrator-postgresql-v0.5.0.tar
 k3s ctr images import images/kubedb-kubedb-ops-manager-v0.52.0.tar
 k3s ctr images import images/kubedb-kubedb-provisioner-v0.65.0.tar
 k3s ctr images import images/kubedb-kubedb-schema-manager-v0.41.0.tar
@@ -383,12 +387,9 @@ k3s ctr images import images/kubedb-mariadb-archiver-v0.25.0_11.2.2-jammy.tar
 k3s ctr images import images/kubedb-mariadb-coordinator-v0.45.0.tar
 k3s ctr images import images/kubedb-mariadb-csi-snapshotter-plugin-v0.25.0.tar
 k3s ctr images import images/kubedb-mariadb-init-0.9.0.tar
-k3s ctr images import images/kubedb-kubedb-migrator-mariadb-v0.5.0.tar
-k3s ctr images import images/kubedb-kubedb-courier-v0.5.0.tar
 k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.26.0.tar
 k3s ctr images import images/kubedb-mongodb-init-4.2-v9.tar
 k3s ctr images import images/kubedb-mongodb-init-6.0-v11.tar
-k3s ctr images import images/kubedb-kubedb-migrator-mongodb-v0.5.0.tar
 k3s ctr images import images/kubedb-mongodb_exporter-v0.47.2.tar
 k3s ctr images import images/kubedb-mssql-coordinator-v0.20.0.tar
 k3s ctr images import images/kubedb-mssql-exporter-1.4.0.tar
@@ -405,7 +406,6 @@ k3s ctr images import images/kubedb-mysql-coordinator-v0.43.0.tar
 k3s ctr images import images/kubedb-mysql-csi-snapshotter-plugin-v0.26.0.tar
 k3s ctr images import images/kubedb-mysql-init-0.1.0.tar
 k3s ctr images import images/kubedb-mysql-init-5.7-v9.tar
-k3s ctr images import images/kubedb-kubedb-migrator-mysql-v0.5.0.tar
 k3s ctr images import images/kubedb-mysql-router-init-v0.43.0.tar
 k3s ctr images import images/kubedb-mysqld-exporter-v0.18.0.tar
 k3s ctr images import images/kubedb-neo4j-backup-plugin-v0.1.0.tar
@@ -438,7 +438,6 @@ k3s ctr images import images/kubedb-postgres-archiver-v0.26.0_18.2-bookworm.tar
 k3s ctr images import images/kubedb-postgres-csi-snapshotter-plugin-v0.26.0.tar
 k3s ctr images import images/kubedb-postgres-init-0.19.0.tar
 k3s ctr images import images/kubedb-postgres-restic-plugin-v0.28.0_16.4.tar
-k3s ctr images import images/kubedb-kubedb-migrator-postgresql-v0.5.0.tar
 k3s ctr images import images/kubedb-provider-aws-v0.26.0.tar
 k3s ctr images import images/kubedb-provider-azure-v0.26.0.tar
 k3s ctr images import images/kubedb-provider-gcp-v0.26.0.tar

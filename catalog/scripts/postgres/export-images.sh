@@ -120,6 +120,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.2-bookworm images/appscode-images-postgres-18.2-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.3-alpine images/appscode-images-postgres-18.3-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.3-bookworm images/appscode-images-postgres-18.3-bookworm.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-postgresql:v0.5.0 images/kubedb-kubedb-migrator-postgresql-v0.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/pg-coordinator:v0.49.0 images/kubedb-pg-coordinator-v0.49.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.26.0_11.22-alpine images/kubedb-postgres-archiver-v0.26.0_11.22-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.26.0_11.22-bookworm images/kubedb-postgres-archiver-v0.26.0_11.22-bookworm.tar
@@ -138,6 +139,5 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.26.0_18.2-alpine images/kubedb-postgres-archiver-v0.26.0_18.2-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.26.0_18.2-bookworm images/kubedb-postgres-archiver-v0.26.0_18.2-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.19.0 images/kubedb-postgres-init-0.19.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-postgresql:v0.5.0 images/kubedb-kubedb-migrator-postgresql-v0.5.0.tar
 
 tar -czvf images.tar.gz images

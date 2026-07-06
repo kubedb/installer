@@ -27,13 +27,13 @@ tar -zxvf $TARBALL
 k3s ctr images import images/tianon-toybox-0.8.11.tar
 k3s ctr images import images/appscode-kubectl-nonroot-1.34.tar
 k3s ctr images import images/appscode-petset-v0.1.0.tar
-k3s ctr images import images/appscode-sidekick-v0.0.14.tar
 k3s ctr images import images/appscode-sidekick-v0.0.15.tar
 k3s ctr images import images/kubedb-cassandra-medusa-plugin-v0.12.0.tar
 k3s ctr images import images/kubedb-clickhouse-backup-plugin-v0.2.0.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.23.0.tar
 k3s ctr images import images/kubedb-elasticsearch-restic-plugin-v0.28.0.tar
 k3s ctr images import images/kubedb-kubedb-autoscaler-v0.50.0.tar
+k3s ctr images import images/kubedb-kubedb-courier-v0.5.0.tar
 k3s ctr images import images/kubedb-kubedb-crd-manager-v0.20.0.tar
 k3s ctr images import images/kubedb-kubedb-gitops-v0.13.0.tar
 k3s ctr images import images/kubedb-kubedb-kibana-v0.41.0.tar
@@ -45,7 +45,6 @@ k3s ctr images import images/kubedb-kubedb-ui-server-v0.41.0.tar
 k3s ctr images import images/kubedb-kubedb-verifier-v0.16.0.tar
 k3s ctr images import images/kubedb-kubedb-webhook-server-v0.41.0.tar
 k3s ctr images import images/kubedb-mariadb-csi-snapshotter-plugin-v0.25.0.tar
-k3s ctr images import images/kubedb-kubedb-courier-v0.5.0.tar
 k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.26.0.tar
 k3s ctr images import images/kubedb-mssqlserver-walg-plugin-v0.19.0.tar
 k3s ctr images import images/kubedb-mysql-csi-snapshotter-plugin-v0.26.0.tar
