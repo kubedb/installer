@@ -130,4 +130,4 @@ k3s ctr images import images/kubedb-postgres-archiver-v0.26.0_17.2-bookworm.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.26.0_18.2-alpine.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.26.0_18.2-bookworm.tar
 k3s ctr images import images/kubedb-postgres-init-0.19.0.tar
-k3s ctr images import images/kubedb-postgresql-kubedb-migrator-v0.5.0.tar
+k3s ctr images import images/kubedb-kubedb-postgresql-migrator-v0.5.0.tar
