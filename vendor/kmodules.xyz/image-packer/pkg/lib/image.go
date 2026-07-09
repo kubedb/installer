@@ -92,6 +92,10 @@ func mapChartImages(rootDir string, values map[string]string, sh *shell.Session,
 		args = append(args, "--values="+tmpfile.Name())
 	}
 
+	if _, err := os.Stat(filepath.Join(rootDir, chartName, "ci", "ci-values.yaml")); err == nil {
+		args = append(args, "--values="+chartName+"/ci/ci-values.yaml")
+	}
+
 	if chartName == "cluster-manager-spoke" {
 		args = append(args, "--dry-run=server")
 	} else {
