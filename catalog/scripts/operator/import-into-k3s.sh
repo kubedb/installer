@@ -54,5 +54,6 @@ k3s ctr images import images/kubedb-postgres-restic-plugin-v0.28.0_16.4.tar
 k3s ctr images import images/kubedb-provider-aws-v0.26.0.tar
 k3s ctr images import images/kubedb-provider-azure-v0.26.0.tar
 k3s ctr images import images/kubedb-provider-gcp-v0.26.0.tar
+k3s ctr images import images/kubedb-qdrant-restic-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-redis-restic-plugin-v0.28.0.tar
 k3s ctr images import images/kubedb-zookeeper-restic-plugin-v0.20.0.tar

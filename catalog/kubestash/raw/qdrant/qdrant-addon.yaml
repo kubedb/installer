@@ -1,0 +1,29 @@
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Addon
+metadata:
+  name: qdrant-addon
+spec:
+  backupTasks:
+  - name: logical-backup
+    function: qdrant-backup
+    driver: Restic
+    executor: Job
+    singleton: true
+    parameters:
+    - name: collections
+      usage: Comma-separated list of collections to backup. If not specified, all collections will be backed up.
+      required: false
+    - name: maxParallelDump
+      usage: Maximum number of concurrent dump workers across all Qdrant nodes. Each worker streams one collection snapshot from a node to restic.
+      required: false
+      default: "10"
+  restoreTasks:
+  - name: logical-backup-restore
+    function: qdrant-restore
+    driver: Restic
+    executor: Job
+    singleton: true
+    parameters:
+    - name: collections
+      usage: Comma-separated list of collections to restore. If not provided, all collections will be restored.
+      required: false
