@@ -56,5 +56,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-r
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-aws-v0.26.0.tar $IMAGE_REGISTRY/kubedb/provider-aws:v0.26.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-azure-v0.26.0.tar $IMAGE_REGISTRY/kubedb/provider-azure:v0.26.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-gcp-v0.26.0.tar $IMAGE_REGISTRY/kubedb/provider-gcp:v0.26.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-qdrant-restic-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/qdrant-restic-plugin:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-restic-plugin-v0.28.0.tar $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.28.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-restic-plugin-v0.20.0.tar $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.20.0
