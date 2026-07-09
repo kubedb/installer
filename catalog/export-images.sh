@@ -112,6 +112,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.1.9 images/appscode-images-elastic-9.1.9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.2.3 images/appscode-images-elastic-9.2.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ignite:2.17.0 images/appscode-images-ignite-2.17.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ignite:2.18.0 images/appscode-images-ignite-2.18.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.5.2 images/appscode-images-kafka-connect-cluster-3.5.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.6.1 images/appscode-images-kafka-connect-cluster-3.6.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.7.2 images/appscode-images-kafka-connect-cluster-3.7.2.tar
@@ -367,6 +368,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hanadb-co
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hanadb-exporter:1.0.0 images/kubedb-hanadb-exporter-1.0.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hazelcast-init:5.5.2 images/kubedb-hazelcast-init-5.5.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/ignite-init:2.17.0-v2 images/kubedb-ignite-init-2.17.0-v2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/ignite-init:2.18.0-v1 images/kubedb-ignite-init-2.18.0-v1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kafka-init:4.0-v2 images/kubedb-kafka-init-4.0-v2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-autoscaler:v0.50.0 images/kubedb-kubedb-autoscaler-v0.50.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-courier:v0.5.0 images/kubedb-kubedb-courier-v0.5.0.tar
