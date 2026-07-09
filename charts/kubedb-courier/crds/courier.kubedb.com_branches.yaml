@@ -23,9 +23,9 @@ spec:
     - jsonPath: .status.targetRef.name
       name: Target
       type: string
-    - jsonPath: .status.freshnessSeconds
+    - jsonPath: .status.freshness
       name: Freshness
-      type: integer
+      type: string
     - jsonPath: .metadata.creationTimestamp
       name: Age
       type: date
@@ -91,8 +91,21 @@ spec:
                 type: object
               target:
                 properties:
-                  cluster:
+                  clusterName:
                     type: string
+                  issuerRef:
+                    properties:
+                      apiGroup:
+                        type: string
+                      kind:
+                        type: string
+                      name:
+                        type: string
+                    required:
+                    - kind
+                    - name
+                    type: object
+                    x-kubernetes-map-type: atomic
                   name:
                     type: string
                   namespace:
@@ -133,10 +146,11 @@ spec:
                   storageClassName:
                     type: string
                 required:
-                - cluster
                 - name
                 - namespace
                 type: object
+              volumeSnapshotClassName:
+                type: string
             required:
             - source
             - target
@@ -171,9 +185,8 @@ spec:
                 x-kubernetes-list-map-keys:
                 - type
                 x-kubernetes-list-type: map
-              freshnessSeconds:
-                format: int64
-                type: integer
+              freshness:
+                type: string
               history:
                 items:
                   properties:

@@ -124,6 +124,8 @@ rules:
       - rolebindings
       - roles
     verbs: ["*"]
+  # Branch creates/manages the target KubeDB Database (read alone is not enough)
+  # and the RotateAuth OpsRequest used by resetRootPassword.
   - apiGroups:
       - kubedb.com
       - catalog.kubedb.com
@@ -131,6 +133,65 @@ rules:
       - appcatalog.appscode.com
     resources:
       - "*"
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ops.kubedb.com
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  # CSI snapshot support: the Branch flow snapshots source PVCs and clones from
+  # them (VolumeSnapshot, with VolumeGroupSnapshot for multi-PVC sources). Also
+  # needs deletecollection for the label-based teardown/refresh deletes.
+  - apiGroups:
+      - snapshot.storage.k8s.io
+    resources:
+      - volumesnapshots
+      - volumesnapshotcontents
+      - volumesnapshotclasses
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - groupsnapshot.storage.k8s.io
+    resources:
+      - volumegroupsnapshots
+      - volumegroupsnapshotcontents
+      - volumegroupsnapshotclasses
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  # Driver resolution: map a source PVC's StorageClass to its CSI provisioner to
+  # pick the matching VolumeSnapshotClass.
+  - apiGroups:
+      - storage.k8s.io
+    resources:
+      - storageclasses
     verbs:
       - get
       - list
