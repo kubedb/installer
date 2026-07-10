@@ -43,7 +43,7 @@ const (
 // +kubebuilder:printcolumn:name="Phase",type="string",JSONPath=".status.phase"
 // +kubebuilder:printcolumn:name="Mode",type="string",JSONPath=".status.mode"
 // +kubebuilder:printcolumn:name="Target",type="string",JSONPath=".status.targetRef.name"
-// +kubebuilder:printcolumn:name="Freshness",type="integer",JSONPath=".status.freshnessSeconds"
+// +kubebuilder:printcolumn:name="Freshness",type="string",JSONPath=".status.freshness"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 type Branch struct {
 	metav1.TypeMeta `json:",inline"`
@@ -89,6 +89,13 @@ type BranchSpec struct {
 	// +optional
 	HistoryLimit *BranchHistoryLimit `json:"historyLimit,omitempty"`
 
+	// VolumeSnapshotClassName is the VolumeSnapshotClass used wherever courier creates a
+	// VolumeSnapshot — snapshotting the source PVCs and, for cross-namespace/cross-cluster
+	// branches, the importing snapshot in the target. It must match the CSI driver backing the
+	// volumes. When empty, courier auto-resolves the default class for the driver.
+	// +optional
+	VolumeSnapshotClassName string `json:"volumeSnapshotClassName,omitempty"`
+
 	// DeletionPolicy decides the target's fate on Branch deletion.
 	// +kubebuilder:default=Delete
 	// +optional
@@ -106,10 +113,13 @@ type BranchSource struct {
 }
 
 // BranchTarget describes the target Database. spec.target.cluster equal to the source's cluster is a
-// same-cluster branch; a different cluster is a cross-cluster branch.
+// same-cluster branch; a different cluster is a cross-cluster branch. Omit cluster for a same-cluster
+// (Local) branch.
 type BranchTarget struct {
-	// Cluster is the target cluster name. The source's own cluster means a same-cluster branch.
-	Cluster string `json:"cluster"`
+	// ClusterName is the target cluster name. Empty (or equal to the source's own cluster) means a
+	// same-cluster (Local) branch; a different ClusterName selects cross-cluster (OCM).
+	// +optional
+	ClusterName string `json:"clusterName,omitempty"`
 
 	// Namespace of the target Database.
 	Namespace string `json:"namespace"`
@@ -124,6 +134,13 @@ type BranchTarget struct {
 	// Resources are the cpu/memory requests and limits in the TARGET cluster.
 	// +optional
 	Resources corev1.ResourceRequirements `json:"resources,omitempty"`
+
+	// IssuerRef references a cert-manager Issuer or ClusterIssuer in the TARGET cluster. TLS secrets are
+	// namespace and cluster scoped, so a branch cannot reuse the source's; when the source Database has
+	// TLS enabled the operator points the branch's TLS at this issuer and KubeDB mints fresh
+	// certificates for the branch. Required for a TLS-enabled source, ignored otherwise.
+	// +optional
+	IssuerRef *corev1.TypedLocalObjectReference `json:"issuerRef,omitempty"`
 }
 
 // BranchSchedule holds the refresh cadence.
@@ -178,9 +195,9 @@ type BranchStatus struct {
 	// +optional
 	LastRefreshAt *metav1.Time `json:"lastRefreshAt,omitempty"`
 
-	// FreshnessSeconds is the age of the branch data relative to the source at the last refresh.
+	// Freshness is the human-readable age of the branch data since the last refresh (e.g. "3m", "1h2m").
 	// +optional
-	FreshnessSeconds *int64 `json:"freshnessSeconds,omitempty"`
+	Freshness metav1.Duration `json:"freshness,omitempty"`
 
 	// History is the bounded refresh history (bounded by spec.historyLimit).
 	// +optional

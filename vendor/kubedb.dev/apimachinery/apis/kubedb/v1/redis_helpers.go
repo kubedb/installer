@@ -445,6 +445,8 @@ func (r *Redis) setDefaultContainerResourceLimits(podTemplate *ofstv2.PodTemplat
 			apis.SetDefaultResourceLimits(&coordinatorContainer.Resources, kubedb.CoordinatorDefaultResources)
 		}
 	}
+
+	apis.SetDefaultResizePolicy(podTemplate.Spec.Containers, podTemplate.Spec.InitContainers)
 }
 
 func (r Redis) ShardNodeTemplate() string {
