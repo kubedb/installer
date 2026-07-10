@@ -33,7 +33,7 @@ spec:
   exporter:
     image: docker.io/prometheuscommunity/postgres-exporter:v0.18.1
   initContainer:
-    image: ghcr.io/kubedb/postgres-init:0.19.0
+    image: ghcr.io/kubedb/postgres-init:0.20.0
   podSecurityPolicies:
     databasePolicyName: postgres-db
   securityContext:
@@ -91,12 +91,128 @@ spec:
   exporter:
     image: docker.io/prometheuscommunity/postgres-exporter:v0.18.1
   initContainer:
-    image: ghcr.io/kubedb/postgres-init:0.19.0
+    image: ghcr.io/kubedb/postgres-init:0.20.0
   podSecurityPolicies:
     databasePolicyName: postgres-db
   securityContext:
     runAsAnyNonRoot: true
     runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-16.1
+      restoreTask:
+        name: postgres-restore-16.1
+  ui:
+  - name: pgadmin
+    version: v2026.3.30
+  - name: dbgate
+    version: v2026.3.30
+  updateConstraints:
+    allowlist:
+    - '>= 16.13'
+  version: "16.13"
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: 16.13-bookworm-ext
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        fullBackup:
+          name: physical-backup
+        fullBackupRestore:
+          name: physical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: ghcr.io/kubedb/postgres-archiver:(v0.26.0)_16.1-bookworm
+  coordinator:
+    image: ghcr.io/kubedb/pg-coordinator:v0.49.0
+  courier:
+    cli:
+      image: ghcr.io/kubedb/kubedb-migrator-postgresql:v0.5.0
+    statusReporter:
+      image: ghcr.io/kubedb/kubedb-courier:v0.5.0
+  db:
+    baseOS: bookworm
+    image: ghcr.io/appscode-images/postgres:16.13-bookworm-ext
+  distribution: Official
+  exporter:
+    image: docker.io/prometheuscommunity/postgres-exporter:v0.18.1
+  initContainer:
+    image: ghcr.io/kubedb/postgres-init:0.20.0
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-16.1
+      restoreTask:
+        name: postgres-restore-16.1
+  ui:
+  - name: pgadmin
+    version: v2026.3.30
+  - name: dbgate
+    version: v2026.3.30
+  updateConstraints:
+    allowlist:
+    - '>= 16.13'
+  version: "16.13"
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: 16.13-ext
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        fullBackup:
+          name: physical-backup
+        fullBackupRestore:
+          name: physical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: ghcr.io/kubedb/postgres-archiver:(v0.26.0)_16.1-alpine
+  coordinator:
+    image: ghcr.io/kubedb/pg-coordinator:v0.49.0
+  courier:
+    cli:
+      image: ghcr.io/kubedb/kubedb-migrator-postgresql:v0.5.0
+    statusReporter:
+      image: ghcr.io/kubedb/kubedb-courier:v0.5.0
+  db:
+    baseOS: alpine
+    image: ghcr.io/appscode-images/postgres:16.13-alpine-ext
+  distribution: Official
+  exporter:
+    image: docker.io/prometheuscommunity/postgres-exporter:v0.18.1
+  initContainer:
+    image: ghcr.io/kubedb/postgres-init:0.20.0
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: false
+    runAsUser: 70
   stash:
     addon:
       backupTask:
