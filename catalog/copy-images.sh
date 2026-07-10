@@ -381,6 +381,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-kiba
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-manifest-plugin:v0.28.0 $IMAGE_REGISTRY/kubedb/kubedb-manifest-plugin:v0.28.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mariadb:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-mariadb:v0.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mongodb:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-mongodb:v0.5.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mssqlserver:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-mssqlserver:v0.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mysql:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-mysql:v0.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-postgresql:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-postgresql:v0.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.52.0 $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.52.0

@@ -370,6 +370,7 @@ k3s ctr images import images/kubedb-kubedb-kibana-v0.41.0.tar
 k3s ctr images import images/kubedb-kubedb-manifest-plugin-v0.28.0.tar
 k3s ctr images import images/kubedb-kubedb-migrator-mariadb-v0.5.0.tar
 k3s ctr images import images/kubedb-kubedb-migrator-mongodb-v0.5.0.tar
+k3s ctr images import images/kubedb-kubedb-migrator-mssqlserver-v0.5.0.tar
 k3s ctr images import images/kubedb-kubedb-migrator-mysql-v0.5.0.tar
 k3s ctr images import images/kubedb-kubedb-migrator-postgresql-v0.5.0.tar
 k3s ctr images import images/kubedb-kubedb-ops-manager-v0.52.0.tar
