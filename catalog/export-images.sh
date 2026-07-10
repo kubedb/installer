@@ -53,6 +53,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/busybo
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.10.1-enterprise images/library-neo4j-2025.10.1-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.11.2-enterprise images/library-neo4j-2025.11.2-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.12.1-enterprise images/library-neo4j-2025.12.1-enterprise.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.05.0-enterprise images/library-neo4j-2026.05.0-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/mariadb/maxscale:24.02.4 images/mariadb-maxscale-24.02.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:4.4.26 images/percona-percona-server-mongodb-4.4.26.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:5.0.29 images/percona-percona-server-mongodb-5.0.29.tar
@@ -378,6 +379,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ki
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-manifest-plugin:v0.28.0 images/kubedb-kubedb-manifest-plugin-v0.28.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mariadb:v0.5.0 images/kubedb-kubedb-migrator-mariadb-v0.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mongodb:v0.5.0 images/kubedb-kubedb-migrator-mongodb-v0.5.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mssqlserver:v0.5.0 images/kubedb-kubedb-migrator-mssqlserver-v0.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mysql:v0.5.0 images/kubedb-kubedb-migrator-mysql-v0.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-postgresql:v0.5.0 images/kubedb-kubedb-migrator-postgresql-v0.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.52.0 images/kubedb-kubedb-ops-manager-v0.52.0.tar

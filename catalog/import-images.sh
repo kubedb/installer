@@ -47,6 +47,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/library-busybox-1
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2025.10.1-enterprise.tar $IMAGE_REGISTRY/neo4j:2025.10.1-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2025.11.2-enterprise.tar $IMAGE_REGISTRY/neo4j:2025.11.2-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2025.12.1-enterprise.tar $IMAGE_REGISTRY/neo4j:2025.12.1-enterprise
+$CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2026.05.0-enterprise.tar $IMAGE_REGISTRY/neo4j:2026.05.0-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/mariadb-maxscale-24.02.4.tar $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-4.4.26.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:4.4.26
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-5.0.29.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:5.0.29
@@ -372,6 +373,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-kib
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-manifest-plugin-v0.28.0.tar $IMAGE_REGISTRY/kubedb/kubedb-manifest-plugin:v0.28.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-migrator-mariadb-v0.5.0.tar $IMAGE_REGISTRY/kubedb/kubedb-migrator-mariadb:v0.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-migrator-mongodb-v0.5.0.tar $IMAGE_REGISTRY/kubedb/kubedb-migrator-mongodb:v0.5.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-migrator-mssqlserver-v0.5.0.tar $IMAGE_REGISTRY/kubedb/kubedb-migrator-mssqlserver:v0.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-migrator-mysql-v0.5.0.tar $IMAGE_REGISTRY/kubedb/kubedb-migrator-mysql:v0.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-migrator-postgresql-v0.5.0.tar $IMAGE_REGISTRY/kubedb/kubedb-migrator-postgresql:v0.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-ops-manager-v0.52.0.tar $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.52.0

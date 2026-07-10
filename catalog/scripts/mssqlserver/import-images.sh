@@ -26,6 +26,7 @@ tar -zxvf $TARBALL
 
 CMD="./crane"
 
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-migrator-mssqlserver-v0.5.0.tar $IMAGE_REGISTRY/kubedb/kubedb-migrator-mssqlserver:v0.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-coordinator-v0.20.0.tar $IMAGE_REGISTRY/kubedb/mssql-coordinator:v0.20.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-exporter-1.4.0.tar $IMAGE_REGISTRY/kubedb/mssql-exporter:1.4.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mssql-init-v2026.1.19.tar $IMAGE_REGISTRY/kubedb/mssql-init:v2026.1.19
