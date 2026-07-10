@@ -53,6 +53,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/busybo
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.10.1-enterprise images/library-neo4j-2025.10.1-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.11.2-enterprise images/library-neo4j-2025.11.2-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.12.1-enterprise images/library-neo4j-2025.12.1-enterprise.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.05.0-enterprise images/library-neo4j-2026.05.0-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/mariadb/maxscale:24.02.4 images/mariadb-maxscale-24.02.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:4.4.26 images/percona-percona-server-mongodb-4.4.26.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:5.0.29 images/percona-percona-server-mongodb-5.0.29.tar
