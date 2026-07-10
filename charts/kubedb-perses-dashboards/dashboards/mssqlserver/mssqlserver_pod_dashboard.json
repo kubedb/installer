@@ -1,0 +1,975 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
+{
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "9J6ObCEMz",
+    "createdAt": "0001-01-01T00:00:00Z",
+    "updatedAt": "0001-01-01T00:00:00Z",
+    "version": 0,
+    "project": "pp"
+  },
+  "spec": {
+    "display": {
+      "name": "KubeDB / MSSQLServer / Pod"
+    },
+    "variables": [
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "hidden": false
+          },
+          "defaultValue": "ms-ag-mon-stats",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "job",
+              "matchers": [
+                "mssql_local_time_seconds"
+              ]
+            }
+          },
+          "name": "Job"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "hidden": false
+          },
+          "defaultValue": "$__all",
+          "allowAllValue": true,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "db",
+              "matchers": [
+                "mssql_connections"
+              ]
+            }
+          },
+          "name": "database"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "hidden": false
+          },
+          "defaultValue": "Prometheus",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "plugin": {
+            "kind": "DatasourceVariable",
+            "spec": {
+              "datasourcePluginKind": "PrometheusDatasource"
+            }
+          },
+          "name": "datasource"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Namespace",
+            "hidden": false
+          },
+          "defaultValue": "demo",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "namespace",
+              "matchers": [
+                "up{target=\"mssqlserver_database\"}"
+              ]
+            }
+          },
+          "name": "namespace"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "mssqlserver",
+            "hidden": false
+          },
+          "defaultValue": "ms-ag-mon",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "alphabetical-asc",
+          "plugin": {
+            "kind": "PrometheusPromQLVariable",
+            "spec": {
+              "expr": "kubedb_com_mssqlserver_created{namespace=\"$namespace\"}",
+              "labelName": "app"
+            }
+          },
+          "name": "app"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "name": "Pod Name",
+            "hidden": false
+          },
+          "defaultValue": "ms-ag-mon-2",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "alphabetical-asc",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "pod",
+              "matchers": [
+                "up{target=\"mssqlserver_database\",namespace=~\"$namespace\",pod=~\"${app}-.*\"}"
+              ]
+            }
+          },
+          "name": "pod"
+        }
+      }
+    ],
+    "panels": {
+      "0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Pod Name"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "value",
+              "format": {
+                "unit": "decimal"
+              },
+              "metricLabel": "pod}} ",
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#3274d9",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "mssql_hostname{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
+                    "seriesNameFormat": "{{ `{{pod}}` }} "
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Status"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "none",
+              "format": {
+                "decimalPlaces": 1,
+                "unit": "decimal"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "rgba(50, 172, 45, 0.97)",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "up{pod=~\"$pod\", target=\"mssql_database\"}",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "10": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Database ${database} wait by I/O stall "
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "mssql_io_stall_seconds{db=\"$database\", pod=\"$pod\"}",
+                    "seriesNameFormat": "{{ `{{db}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "11": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Database ${database} wait by I/O stall "
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "mssql_io_stall_seconds{db=\"$database\", pod=\"$pod\"}",
+                    "seriesNameFormat": "{{ `{{db}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "12": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Database ${database} wait by I/O stall "
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "mssql_io_stall_seconds{db=\"$database\", pod=\"$pod\"}",
+                    "seriesNameFormat": "{{ `{{db}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Role"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "none",
+              "format": {
+                "decimalPlaces": 0,
+                "unit": "decimal"
+              },
+              "metricLabel": "role",
+              "mappings": [
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "value": "master",
+                    "result": {
+                      "color": "#5794f2",
+                      "value": "master"
+                    }
+                  }
+                },
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "value": "slave",
+                    "result": {
+                      "color": "#8ab8ff",
+                      "value": "slave"
+                    }
+                  }
+                },
+                {
+                  "kind": "Misc",
+                  "spec": {
+                    "value": "null",
+                    "result": {
+                      "value": "N/A"
+                    }
+                  }
+                }
+              ],
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "mssql_pod_role{pod=~\"$pod\"}",
+                    "seriesNameFormat": "{{ `{{role}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Uptime"
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "none",
+              "format": {
+                "unit": "seconds"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "max(max_over_time(mssql_uptime_seconds{pod=~\"$pod\"}[$__interval]))",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Server Resource Overview"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [
+                {
+                  "header": "Server local time",
+                  "name": "value #1"
+                },
+                {
+                  "header": "Total Available RAM",
+                  "name": "value #2"
+                },
+                {
+                  "header": "Total pagefile size (available)",
+                  "name": "value #4"
+                },
+                {
+                  "header": "Pagefile size (used)",
+                  "name": "value #5"
+                },
+                {
+                  "header": "RAM used",
+                  "name": "value #3"
+                },
+                {
+                  "header": "Batch reqs / sec",
+                  "name": "Value #BR"
+                },
+                {
+                  "header": "Page life expectancy (sec)",
+                  "name": "Value #PLE"
+                },
+                {
+                  "header": "Deadlocks",
+                  "name": "Value #DL"
+                },
+                {
+                  "header": "User errors / sec",
+                  "name": "Value #UE"
+                },
+                {
+                  "header": "Kill conn errors / sec",
+                  "name": "Value #KC"
+                },
+                {
+                  "header": "Total databases",
+                  "name": "Value #DBC"
+                },
+                {
+                  "align": "right",
+                  "header": "",
+                  "hide": true,
+                  "name": "/.*/"
+                }
+              ]
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "(mssql_local_time_seconds{job=~\"$Job\", pod=\"$pod\"}*1000)",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "mssql_os_memory{state=\"available\",job=~\"$Job\", pod=\"$pod\"}-0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "mssql_os_memory{state=\"used\",job=~\"$Job\", pod=\"$pod\"}-0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "mssql_os_page_file{state=\"available\",job=~\"$Job\", pod=\"$pod\"}-0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "mssql_os_page_file{state=\"used\",job=~\"$Job\", pod=\"$pod\"}-0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Server Resouce Overview"
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [
+                {
+                  "header": "Server local time",
+                  "name": "Value #LT"
+                },
+                {
+                  "header": "Total RAM (available)",
+                  "name": "Value #TM"
+                },
+                {
+                  "header": "Total page faults",
+                  "name": "value #1"
+                },
+                {
+                  "header": "Total RAM",
+                  "name": "Value #TM"
+                },
+                {
+                  "header": "Total pagefile size (available)",
+                  "name": "Value #PF"
+                },
+                {
+                  "header": "Pagefile size (used)",
+                  "name": "Value #APF"
+                },
+                {
+                  "header": "RAM used",
+                  "name": "Value #RA"
+                },
+                {
+                  "header": "Batch reqs / sec",
+                  "name": "value #2"
+                },
+                {
+                  "header": "Page life expectancy (sec)",
+                  "name": "value #3"
+                },
+                {
+                  "header": "Deadlocks",
+                  "name": "value #4"
+                },
+                {
+                  "header": "User errors / sec",
+                  "name": "value #5"
+                },
+                {
+                  "header": "Kill conn errors / sec",
+                  "name": "value #6"
+                },
+                {
+                  "header": "Total databases",
+                  "name": "value #7"
+                },
+                {
+                  "align": "right",
+                  "header": "",
+                  "hide": true,
+                  "name": "/.*/"
+                }
+              ]
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "mssql_page_fault_count{job=~\"$Job\", pod=\"$pod\"}-0",
+                    "seriesNameFormat": "Total page faults"
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "mssql_batch_requests{job=~\"$Job\", pod=\"$pod\"}-0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "mssql_page_life_expectancy_seconds{job=~\"$Job\", pod=\"$pod\"}-0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "mssql_deadlocks{job=~\"$Job\", pod=\"$pod\"}-0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "mssql_user_errors{job=~\"$Job\", pod=\"$pod\"}-0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "mssql_kill_connection_errors{job=~\"$Job\", pod=\"$pod\"}-0",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            },
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "sum(mssql_database_state{job=~\"$Job\", pod=\"$pod\"})",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Current database connections"
+          },
+          "plugin": {
+            "kind": "BarChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "decimal"
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "mssql_connections{pod=\"$pod\"}",
+                    "seriesNameFormat": "{{ `{{db}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "DB Log growth since last restart"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "mssql_log_growths{pod=\"$pod\"}",
+                    "seriesNameFormat": "{{ `{{db}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "8": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Total wait time of I/O stall"
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "mssql_io_stall_total_seconds{pod=\"$pod\"}",
+                    "seriesNameFormat": "{{ `{{db}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Database ${database} wait by I/O stall "
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "mssql_io_stall_seconds{db=\"$database\", pod=\"$pod\"}",
+                    "seriesNameFormat": "{{ `{{db}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "layouts": [
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Panel Group 1"
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/0"
+              }
+            },
+            {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/1"
+              }
+            },
+            {
+              "x": 12,
+              "y": 0,
+              "width": 6,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/2"
+              }
+            },
+            {
+              "x": 18,
+              "y": 0,
+              "width": 6,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/3"
+              }
+            },
+            {
+              "x": 0,
+              "y": 7,
+              "width": 24,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/4"
+              }
+            },
+            {
+              "x": 0,
+              "y": 14,
+              "width": 24,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/5"
+              }
+            },
+            {
+              "x": 0,
+              "y": 22,
+              "width": 7,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/6"
+              }
+            },
+            {
+              "x": 7,
+              "y": 22,
+              "width": 9,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/7"
+              }
+            },
+            {
+              "x": 16,
+              "y": 22,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/8"
+              }
+            },
+            {
+              "x": 0,
+              "y": 30,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/9"
+              }
+            },
+            {
+              "x": 8,
+              "y": 30,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/10"
+              }
+            },
+            {
+              "x": 16,
+              "y": 30,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/11"
+              }
+            },
+            {
+              "x": 0,
+              "y": 37,
+              "width": 8,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/12"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "duration": "1h"
+  }
+}

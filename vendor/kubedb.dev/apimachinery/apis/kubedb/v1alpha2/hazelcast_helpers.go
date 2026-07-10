@@ -174,6 +174,7 @@ func (h *Hazelcast) SetDefaults(kc client.Client) {
 	h.setDefaultContainerSecurityContext(&hzVersion, &h.Spec.PodTemplate)
 	h.setDefaultContainerResourceLimits(&h.Spec.PodTemplate)
 	h.setDefaultProbes(&h.Spec.PodTemplate)
+	apis.SetDefaultResizePolicy(h.Spec.PodTemplate.Spec.Containers, h.Spec.PodTemplate.Spec.InitContainers)
 
 	if h.Spec.Monitor != nil {
 		h.Spec.Monitor.SetDefaults()
@@ -333,7 +334,9 @@ func (h *Hazelcast) GetPersistentSecrets() []string {
 	}
 
 	var secrets []string
-	secrets = append(secrets, h.GetAuthSecretName())
+	if !IsVirtualAuthSecretReferred(h.Spec.AuthSecret) && h.Spec.AuthSecret != nil && h.Spec.AuthSecret.Name != "" {
+		secrets = append(secrets, h.GetAuthSecretName())
+	}
 
 	return secrets
 }

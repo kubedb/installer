@@ -28,6 +28,11 @@ import (
 var ignoreMissingList = []string{
 	"container-registry.oracle.com/database/enterprise:21.3.0.0",
 	"container-registry.oracle.com/database/observability-exporter:2.2.1",
+	"ghcr.io/kubedb/db2-coordinator:*-ubi",
+	// TODO: remove once the MySQL/MariaDB/MSSQLServer courier CLI images are published.
+	"ghcr.io/kubedb/kubedb-migrator-mysql:*",
+	"ghcr.io/kubedb/kubedb-migrator-mariadb:*",
+	"ghcr.io/kubedb/kubedb-migrator-mssqlserver:*",
 }
 
 var archSkipList = []string{

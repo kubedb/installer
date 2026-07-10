@@ -19,7 +19,6 @@ metadata:
                 "DocumentDB": false,
                 "Druid": false,
                 "Elasticsearch": true,
-                "FerretDB": false,
                 "HanaDB": false,
                 "Hazelcast": false,
                 "Ignite": false,
@@ -60,8 +59,8 @@ metadata:
       ]
     capabilities: Auto Pilot
     categories: Database
-    containerImage: ghcr.io/kubedb/kubedb-installer:v2026.5.18-rc.0
-    createdAt: "2026-05-21T07:16:26Z"
+    containerImage: ghcr.io/kubedb/kubedb-installer:v2026.6.19
+    createdAt: "2026-06-20T11:20:31Z"
     description: Database-as-a-Service (DBaaS) Anywhere with Any Storage
     features.operators.openshift.io/disconnected: "true"
     features.operators.openshift.io/fips-compliant: "false"
@@ -75,7 +74,7 @@ metadata:
     operators.operatorframework.io/project_layout: helm.sdk.operatorframework.io/v1
     repository: https://github.com/kubedb/installer
     support: https://support.appscode.com
-  name: kubedb-installer.v2026.5.18-rc.0
+  name: kubedb-installer.v2026.6.19
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
@@ -110,7 +109,7 @@ spec:
     | Category | Engines |
     |---|---|
     | **Relational** | PostgreSQL, MySQL, MariaDB, Microsoft SQL Server, PerconaXtraDB |
-    | **NoSQL / Document** | MongoDB, FerretDB, Cassandra |
+    | **NoSQL / Document** | MongoDB, Cassandra |
     | **In-Memory / Cache** | Redis, Valkey, Memcached |
     | **Search** | Elasticsearch, OpenSearch, Solr |
     | **Analytics** | Druid, ClickHouse, SingleStore |
@@ -550,6 +549,15 @@ spec:
           verbs:
           - create
         - apiGroups:
+          - cilium.io
+          resources:
+          - ciliumnetworkpolicies
+          verbs:
+          - create
+          - get
+          - list
+          - patch
+        - apiGroups:
           - cluster.open-cluster-management.io
           resourceNames:
           - features.ace.info
@@ -929,27 +937,57 @@ spec:
           - list
           - watch
         - apiGroups:
-          - migrator.kubedb.com
+          - courier.kubedb.com
           resources:
-          - migratoraddons
+          - branches
           verbs:
           - '*'
         - apiGroups:
-          - migrator.kubedb.com
+          - courier.kubedb.com
           resources:
-          - migrators/finalizers
+          - branches/finalizers
           verbs:
           - '*'
         - apiGroups:
-          - migrator.kubedb.com
+          - courier.kubedb.com
           resources:
-          - migrators/status
+          - branches/status
           verbs:
           - '*'
         - apiGroups:
-          - migrator.kubedb.com
+          - courier.kubedb.com
           resources:
-          - migrators
+          - branchworks
+          verbs:
+          - '*'
+        - apiGroups:
+          - courier.kubedb.com
+          resources:
+          - branchworks/finalizers
+          verbs:
+          - '*'
+        - apiGroups:
+          - courier.kubedb.com
+          resources:
+          - branchworks/status
+          verbs:
+          - '*'
+        - apiGroups:
+          - courier.kubedb.com
+          resources:
+          - migrations
+          verbs:
+          - '*'
+        - apiGroups:
+          - courier.kubedb.com
+          resources:
+          - migrations/finalizers
+          verbs:
+          - '*'
+        - apiGroups:
+          - courier.kubedb.com
+          resources:
+          - migrations/status
           verbs:
           - '*'
         - apiGroups:
@@ -1672,7 +1710,7 @@ spec:
                 - --leader-elect
                 - --leader-election-id=kubedb-installer
                 - --health-probe-bind-address=:8081
-                image: ghcr.io/kubedb/kubedb-installer:v2026.5.18-rc.0
+                image: ghcr.io/kubedb/kubedb-installer:v2026.6.19
                 livenessProbe:
                   httpGet:
                     path: /healthz
@@ -1764,4 +1802,4 @@ spec:
   provider:
     name: AppsCode Inc.
     url: https://appscode.com
-  version: 2026.5.18-rc.0
+  version: 2026.6.19

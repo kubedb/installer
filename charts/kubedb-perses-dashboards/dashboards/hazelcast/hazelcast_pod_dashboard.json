@@ -1,4 +1,5 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "kind": "Dashboard",
   "metadata": {
@@ -132,6 +133,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "sparkline": {},
               "thresholds": {
                 "steps": [
@@ -179,7 +181,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "com_hazelcast_Metrics_systemLoadAverage{namespace=~\"$namespace\",service=~\"$app-stats\",pod=~\"$pod\"}\n",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -206,7 +208,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "increase(com_hazelcast_Metrics_putCount{namespace=\"$namespace\", pod=~\"$pod\", service=~\"$app-stats\", tag0=~'$map'}[1m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{tag0}}` }} - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -225,8 +227,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "bottom",
-                "values": []
+                "position": "bottom"
               },
               "visual": {
                 "areaOpacity": 0.1,
@@ -250,7 +251,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "increase(com_hazelcast_Metrics_getCount{namespace=\"$namespace\", pod=~\"$pod\", service=~\"$app-stats\", tag0=~'$map'}[1m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{tag0}}` }} - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -269,8 +270,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "bottom",
-                "values": []
+                "position": "bottom"
               },
               "visual": {
                 "areaOpacity": 0.1,
@@ -294,7 +294,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "com_hazelcast_Metrics_totalGetLatency{namespace=\"$namespace\", pod=~\"$pod\", service=~\"$app-stats\", tag0=~'$map'} / ignoring(unit) com_hazelcast_Metrics_getCount{namespace=\"$namespace\", pod=~\"$pod\", service=~\"$app-stats\", tag0=~'$map'}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }} - {{ `{{tag0}}` }}"
                   }
                 }
               }
@@ -313,8 +313,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "bottom",
-                "values": []
+                "position": "bottom"
               },
               "visual": {
                 "areaOpacity": 0.1,
@@ -357,8 +356,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "bottom",
-                "values": []
+                "position": "bottom"
               },
               "visual": {
                 "areaOpacity": 0.1,
@@ -382,7 +380,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "com_hazelcast_Metrics_totalPutLatency{namespace=\"$namespace\", pod=~\"$pod\", service=~\"$app-stats\", tag0=~'$map'} / ignoring(unit) com_hazelcast_Metrics_putCount{namespace=\"$namespace\", pod=~\"$pod\", service=~\"$app-stats\", tag0=~'$map'}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }} - {{ `{{tag0}}` }}"
                   }
                 }
               }
@@ -409,7 +407,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "com_hazelcast_Metrics_totalRemoveLatency{namespace=\"$namespace\", pod=~\"$pod\", service=~\"$app-stats\", tag0=~'$map'} / ignoring(unit) com_hazelcast_Metrics_removeCount{namespace=\"$namespace\", pod=~\"$pod\", service=~\"$app-stats\", tag0=~'$map'}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }} - {{ `{{tag0}}` }}"
                   }
                 }
               }
@@ -428,7 +426,7 @@
             "spec": {
               "calculation": "last-number",
               "format": {
-                "unit": "bytes"
+                "unit": "decbytes"
               },
               "thresholds": {
                 "steps": [
@@ -449,7 +447,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "com_hazelcast_Metrics_usedHeap{namespace=~\"$namespace\",service=~\"$app-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -481,7 +479,7 @@
             "spec": {
               "calculation": "last-number",
               "format": {
-                "unit": "bytes"
+                "unit": "decbytes"
               },
               "thresholds": {
                 "steps": [
@@ -502,7 +500,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "(com_hazelcast_Metrics_totalPhysicalMemorySize{namespace=~\"$namespace\",service=~\"$app-stats\",pod=~\"$pod\"}-com_hazelcast_Metrics_freePhysicalMemorySize{namespace=~\"$namespace\",service=~\"$app-stats\",pod=~\"$pod\"})",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -534,7 +532,7 @@
             "spec": {
               "calculation": "last-number",
               "format": {
-                "unit": "bytes"
+                "unit": "decbytes"
               },
               "thresholds": {
                 "steps": [
@@ -555,7 +553,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum(com_hazelcast_Metrics_totalPhysicalMemorySize{namespace=\"$namespace\", service=~\"$app-stats\", pod=~\"$pod\"}) by (pod) - sum(com_hazelcast_Metrics_freePhysicalMemorySize{namespace=\"$namespace\", service=~\"$app-stats\", pod=~\"$pod\"}) by (pod) - sum(com_hazelcast_Metrics_committedHeap{namespace=\"$namespace\", service=~\"$app-stats\", pod=~\"$pod\"}) by (pod)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -587,8 +585,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "bottom",
-                "values": []
+                "position": "bottom"
               },
               "visual": {
                 "areaOpacity": 0.1,
@@ -612,7 +609,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "com_hazelcast_Metrics_freePhysicalMemorySize{namespace=\"$namespace\", service=~\"$app-stats\", pod=~\"$pod\"} / 1024",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -631,7 +628,7 @@
             "spec": {
               "calculation": "last-number",
               "format": {
-                "unit": "bytes"
+                "unit": "decbytes"
               },
               "thresholds": {
                 "steps": [
@@ -652,7 +649,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "( sum(com_hazelcast_Metrics_totalPhysicalMemorySize{namespace=\"$namespace\", service=~\"$app-stats\", pod=~\"$pod\"}) by (pod) - sum(com_hazelcast_Metrics_freePhysicalMemorySize{namespace=\"$namespace\", service=~\"$app-stats\", pod=~\"$pod\"}) by (pod) - sum(com_hazelcast_Metrics_committedHeap{namespace=\"$namespace\", service=~\"$app-stats\", pod=~\"$pod\"}) by (pod) )",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -684,8 +681,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "bottom",
-                "values": []
+                "position": "bottom"
               },
               "visual": {
                 "areaOpacity": 0.1,
@@ -709,7 +705,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "com_hazelcast_Metrics_ownedEntryMemoryCost{namespace=\"$namespace\", pod=~\"$pod\", service=~\"$app-stats\",tag0=~'$map'}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "owned-entry-{{ `{{pod}}` }}-{{ `{{tag0}}` }}"
                   }
                 }
               }
@@ -722,7 +718,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "com_hazelcast_Metrics_backupEntryMemoryCost{namespace=\"$namespace\", pod=~\"$pod\", service=~\"$app-stats\",tag0=~'$map'}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "backup-entry-{{ `{{pod}}` }}-{{ `{{tag0}}` }}"
                   }
                 }
               }
@@ -735,7 +731,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "com_hazelcast_Metrics_heapCost{namespace=\"$namespace\", pod=~\"$pod\", service=~\"$app-stats\",tag0=~'$map'}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "heap-cost-{{ `{{pod}}` }}-{{ `{{tag0}}` }}"
                   }
                 }
               }
@@ -754,8 +750,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "bottom",
-                "values": []
+                "position": "bottom"
               },
               "visual": {
                 "areaOpacity": 0.1,
@@ -779,7 +774,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "com_hazelcast_Metrics_evictionCount{namespace=\"$namespace\", pod=~\"$pod\", service=~\"$app-stats\", tag0=~'$map'}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Owned entries: {{ `{{tag0}}` }} - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -798,8 +793,7 @@
             "spec": {
               "legend": {
                 "mode": "list",
-                "position": "bottom",
-                "values": []
+                "position": "bottom"
               },
               "visual": {
                 "areaOpacity": 0.1,
@@ -823,7 +817,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "com_hazelcast_Metrics_ownedEntryCount{namespace=\"$namespace\", pod=~\"$pod\", service=~\"$app-stats\", tag0=~'$map'}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Owned entries: {{ `{{tag0}}` }} - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -836,7 +830,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "com_hazelcast_Metrics_backupEntryCount{namespace=\"$namespace\", pod=~\"$pod\", service=~\"$app-stats\", tag0=~'$map'}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Backup entries: {{ `{{tag0}}` }} - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -849,7 +843,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "com_hazelcast_Metrics_lockedEntryCount{namespace=\"$namespace\", pod=~\"$pod\", service=~\"$app-stats\", tag0=~'$map'}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Locked entries: {{ `{{tag0}}` }} - {{ `{{pod}}` }}"
                   }
                 }
               }
@@ -862,7 +856,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "com_hazelcast_Metrics_dirtyEntryCount{namespace=\"$namespace\", pod=~\"$pod\", service=~\"$app-stats\", tag0=~'$map'}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Dirty entries: {{ `{{tag0}}` }} - {{ `{{pod}}` }}"
                   }
                 }
               }

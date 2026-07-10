@@ -1,0 +1,28 @@
+{{- template "kubedb-catalog.refresh-versions" . }}
+
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.Aerospike (not (eq $ubi "operator")) }}
+
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: AerospikeVersion
+metadata:
+  name: '8.1.2.2'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  aerospike:
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "aerospike") $) }}:ce-8.1.2.2'
+  securityContext:
+    runAsUser: 999
+  updateConstraints:
+    allowlist:
+    - 8.1.2.2
+  version: 8.1.2.2
+{{ end }}

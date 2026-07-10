@@ -164,8 +164,10 @@ func (q *Qdrant) ConfigSecretName() string {
 
 func (q *Qdrant) GetPersistentSecrets() []string {
 	var secrets []string
-	if q.Spec.AuthSecret != nil {
+	if !IsVirtualAuthSecretReferred(q.Spec.AuthSecret) && q.Spec.AuthSecret != nil && q.Spec.AuthSecret.Name != "" {
 		secrets = append(secrets, q.GetAuthSecretName())
+	}
+	if q.Spec.AuthSecret != nil {
 		secrets = append(secrets, q.ConfigSecretName())
 	}
 	return secrets
@@ -427,4 +429,28 @@ func (q *Qdrant) setDefaultContainerResourceLimits(podTemplate *ofst.PodTemplate
 	if dbContainer != nil {
 		apis.SetDefaultResourceLimits(&dbContainer.Resources, kubedb.DefaultResources)
 	}
+
+	apis.SetDefaultResizePolicy(podTemplate.Spec.Containers, podTemplate.Spec.InitContainers)
+}
+
+type QdrantBind struct {
+	*Qdrant
+}
+
+var _ DBBindInterface = &QdrantBind{}
+
+func (q *QdrantBind) ServiceNames() (string, string) {
+	return q.ServiceName(), q.ServiceName()
+}
+
+func (q *QdrantBind) Ports() (int, int) {
+	return kubedb.QdrantHTTPPort, kubedb.QdrantHTTPPort
+}
+
+func (q *QdrantBind) SecretName() string {
+	return q.GetAuthSecretName()
+}
+
+func (q *QdrantBind) CertSecretName() string {
+	return q.GetCertSecretName(QdrantClientCert)
 }

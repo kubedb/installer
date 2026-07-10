@@ -33,6 +33,11 @@ spec:
           name: volume-snapshot
     walg:
       image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/wal-g") $) }}:v2026.3.30_mongo'
+  courier:
+    cli:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-migrator-mongodb") $) }}:v0.5.0{{ include "catalog.ubi" $ }}'
+    statusReporter:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-courier") $) }}:v0.5.0{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mongo") $) }}:7.0.28'
   distribution: Official
@@ -43,7 +48,7 @@ spec:
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mongodb-init") $) }}:6.0-v11'
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.52.0-rc.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.52.0{{ include "catalog.ubi" $ }}'
   securityContext:
     runAsGroup: 999
     runAsUser: 999

@@ -1,0 +1,40 @@
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.Qdrant (not (eq $ubi "operator")) }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Addon
+metadata:
+  name: 'qdrant-addon'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  backupTasks:
+  - driver: Restic
+    executor: Job
+    function: qdrant-backup
+    name: logical-backup
+    parameters:
+    - name: collections
+      required: false
+      usage: Comma-separated list of collections to backup. If not specified, all collections will be backed up.
+    - default: "10"
+      name: maxParallelDump
+      required: false
+      usage: Maximum number of concurrent dump workers across all Qdrant nodes. Each worker streams one collection snapshot from a node to restic.
+    singleton: true
+  restoreTasks:
+  - driver: Restic
+    executor: Job
+    function: qdrant-restore
+    name: logical-backup-restore
+    parameters:
+    - name: collections
+      required: false
+      usage: Comma-separated list of collections to restore. If not provided, all collections will be restored.
+    singleton: true
+{{ end }}

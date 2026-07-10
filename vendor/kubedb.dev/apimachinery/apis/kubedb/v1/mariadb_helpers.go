@@ -534,6 +534,7 @@ func (m *MariaDB) setDefaultContainerResourceLimits(podTemplate *ofstv2.PodTempl
 			apis.SetDefaultResourceLimits(&coordinatorContainer.Resources, kubedb.CoordinatorDefaultResources)
 		}
 	}
+	apis.SetDefaultResizePolicy(podTemplate.Spec.Containers, podTemplate.Spec.InitContainers)
 }
 
 func (m *MariaDB) setMaxscaleDefaultContainerResourceLimits(podTemplate *ofstv2.PodTemplateSpec) {
@@ -546,6 +547,7 @@ func (m *MariaDB) setMaxscaleDefaultContainerResourceLimits(podTemplate *ofstv2.
 	if initContainer != nil && (initContainer.Resources.Requests == nil && initContainer.Resources.Limits == nil) {
 		apis.SetDefaultResourceLimits(&initContainer.Resources, kubedb.DefaultInitContainerResource)
 	}
+	apis.SetDefaultResizePolicy(podTemplate.Spec.Containers, podTemplate.Spec.InitContainers)
 }
 
 func (m *MariaDB) SetHealthCheckerDefaults() {
@@ -575,7 +577,7 @@ func (m *MariaDB) GetPersistentSecrets() []string {
 	}
 
 	var secrets []string
-	if m.Spec.AuthSecret != nil {
+	if !IsVirtualAuthSecretReferred(m.Spec.AuthSecret) && m.Spec.AuthSecret != nil && m.Spec.AuthSecret.Name != "" {
 		secrets = append(secrets, m.Spec.AuthSecret.Name)
 	}
 

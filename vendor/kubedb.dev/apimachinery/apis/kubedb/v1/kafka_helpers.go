@@ -246,7 +246,7 @@ func (k *Kafka) GetKeystoreSecretName() string {
 
 func (k *Kafka) GetPersistentSecrets() []string {
 	var secrets []string
-	if k.Spec.AuthSecret != nil {
+	if !IsVirtualAuthSecretReferred(k.Spec.AuthSecret) && k.Spec.AuthSecret != nil && k.Spec.AuthSecret.Name != "" {
 		secrets = append(secrets, k.Spec.AuthSecret.Name)
 	}
 	if k.Spec.KeystoreCredSecret != nil {
@@ -474,6 +474,8 @@ func (k *Kafka) setDefaultContainerSecurityContext(kfVersion *catalog.KafkaVersi
 		k.assignDefaultContainerSecurityContext(kfVersion, initContainer.SecurityContext)
 		podTemplate.Spec.InitContainers = coreutil.UpsertContainer(podTemplate.Spec.InitContainers, *initContainer)
 	}
+
+	apis.SetDefaultResizePolicy(podTemplate.Spec.Containers, podTemplate.Spec.InitContainers)
 }
 
 func (k *Kafka) assignDefaultContainerSecurityContext(kfVersion *catalog.KafkaVersion, sc *core.SecurityContext) {

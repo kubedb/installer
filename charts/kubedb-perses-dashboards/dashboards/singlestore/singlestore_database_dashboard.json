@@ -90,26 +90,6 @@
           "plugin": {
             "kind": "Table",
             "spec": {
-              "cellSettings": [
-                {
-                  "condition": {
-                    "kind": "Value",
-                    "spec": {
-                      "value": "0"
-                    }
-                  },
-                  "text": "DOWN"
-                },
-                {
-                  "condition": {
-                    "kind": "Value",
-                    "spec": {
-                      "value": "1"
-                    }
-                  },
-                  "text": "UP"
-                }
-              ],
               "columnSettings": []
             }
           },
@@ -122,7 +102,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "memsql_up{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -151,7 +131,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "memsql_status_uptime{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -178,7 +158,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(memsql_status_queries{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -205,7 +185,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "memsql_status_max_used_connections{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Current - {{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -218,7 +198,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "memsql_variable_max_connections{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "Max - {{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -245,7 +225,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "memsql_variable_load_data_read_size{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "reads - {{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -258,7 +238,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "memsql_variable_load_data_write_size{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "write - {{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -285,7 +265,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(memsql_status_bytes_received{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "received - {{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -298,7 +278,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(memsql_status_bytes_sent{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "sent - {{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -331,7 +311,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "memsql_status_alloc_databases_list_entry{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }} = '{{ `{{ command }}` }}'"
                   }
                 }
               }
@@ -349,6 +329,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "sparkline": {},
               "thresholds": {
                 "steps": [
@@ -373,7 +354,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "memsql_variable_default_partitions_per_leaf{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -391,6 +372,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "sparkline": {},
               "thresholds": {
                 "steps": [
@@ -415,7 +397,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "memsql_distributed_partitions_total{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ database_name }}` }}"
                   }
                 }
               }
@@ -433,6 +415,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "format": {
                 "unit": "decimal"
               },
@@ -460,7 +443,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "memsql_distributed_partitions_offline{namespace=~\"$namespace\",service=~\"$app+-stats\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ database_name }}` }}"
                   }
                 }
               }

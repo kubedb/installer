@@ -245,6 +245,8 @@ func (p *ProxySQL) SetDefaults(psVersion *v1alpha1.ProxySQLVersion, usesAcme boo
 	if dbContainer != nil {
 		apis.SetDefaultResourceLimits(&dbContainer.Resources, kubedb.DefaultResources)
 	}
+
+	apis.SetDefaultResizePolicy(p.Spec.PodTemplate.Spec.Containers, p.Spec.PodTemplate.Spec.InitContainers)
 }
 
 func (p *ProxySQL) setDefaultContainerSecurityContext(proxyVersion *v1alpha1.ProxySQLVersion, podTemplate *ofstv2.PodTemplateSpec) {
@@ -325,7 +327,7 @@ func (p *ProxySQLSpec) GetPersistentSecrets() []string {
 	}
 
 	var secrets []string
-	if p.AuthSecret != nil {
+	if !IsVirtualAuthSecretReferred(p.AuthSecret) && p.AuthSecret != nil && p.AuthSecret.Name != "" {
 		secrets = append(secrets, p.AuthSecret.Name)
 	}
 	return secrets

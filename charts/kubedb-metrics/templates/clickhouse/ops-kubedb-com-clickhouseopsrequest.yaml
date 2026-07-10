@@ -1,0 +1,54 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.ClickHouse }}
+
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: ops-kubedb-com-clickhouseopsrequest
+spec:
+  targetRef:
+    apiVersion: ops.kubedb.com/v1alpha1
+    kind: ClickHouseOpsRequest
+  commonLabels:
+    - key: app
+      valuePath: .spec.databaseRef.name
+    - key: app_namespace
+      valuePath: .metadata.namespace
+    - key: type
+      valuePath: .spec.type
+  metrics:
+    - name: type
+      help: "ClickHouse OpsRequest Type"
+      type: gauge
+      metricValue:
+        value: 1
+    - name: status_phase
+      help: "The current phase of ClickHouse OpsRequest."
+      type: gauge
+      field:
+        path: .status.phase
+        type: String
+      params:
+        - key: phase
+          valuePath: .status.phase
+      states:
+        labelKey: phase
+        values:
+          - labelValue: Progressing
+            metricValue:
+              valueFromExpression: "int(phase == 'Progressing')"
+          - labelValue: Failed
+            metricValue:
+              valueFromExpression: "int(phase == 'Failed')"
+          - labelValue: Pending
+            metricValue:
+              valueFromExpression: "int(phase == 'Pending')"
+          - labelValue: Successful
+            metricValue:
+              valueFromExpression: "int(phase == 'Successful')"
+
+{{ end }}

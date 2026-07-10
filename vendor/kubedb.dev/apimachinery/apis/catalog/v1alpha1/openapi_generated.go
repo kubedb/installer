@@ -611,8 +611,8 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.DB2VersionDatabase":                           schema_apimachinery_apis_catalog_v1alpha1_DB2VersionDatabase(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.DB2VersionList":                               schema_apimachinery_apis_catalog_v1alpha1_DB2VersionList(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.DB2VersionSpec":                               schema_apimachinery_apis_catalog_v1alpha1_DB2VersionSpec(ref),
-		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.DcdbInitContainer":                            schema_apimachinery_apis_catalog_v1alpha1_DcdbInitContainer(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.DocumentDBCoordinator":                        schema_apimachinery_apis_catalog_v1alpha1_DocumentDBCoordinator(ref),
+		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.DocumentDBInitContainer":                      schema_apimachinery_apis_catalog_v1alpha1_DocumentDBInitContainer(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.DocumentDBVersion":                            schema_apimachinery_apis_catalog_v1alpha1_DocumentDBVersion(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.DocumentDBVersionDatabase":                    schema_apimachinery_apis_catalog_v1alpha1_DocumentDBVersionDatabase(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.DocumentDBVersionList":                        schema_apimachinery_apis_catalog_v1alpha1_DocumentDBVersionList(ref),
@@ -632,16 +632,6 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ElasticsearchVersionList":                     schema_apimachinery_apis_catalog_v1alpha1_ElasticsearchVersionList(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ElasticsearchVersionPodSecurityPolicy":        schema_apimachinery_apis_catalog_v1alpha1_ElasticsearchVersionPodSecurityPolicy(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ElasticsearchVersionSpec":                     schema_apimachinery_apis_catalog_v1alpha1_ElasticsearchVersionSpec(ref),
-		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.EtcdVersion":                                  schema_apimachinery_apis_catalog_v1alpha1_EtcdVersion(ref),
-		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.EtcdVersionDatabase":                          schema_apimachinery_apis_catalog_v1alpha1_EtcdVersionDatabase(ref),
-		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.EtcdVersionExporter":                          schema_apimachinery_apis_catalog_v1alpha1_EtcdVersionExporter(ref),
-		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.EtcdVersionList":                              schema_apimachinery_apis_catalog_v1alpha1_EtcdVersionList(ref),
-		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.EtcdVersionSpec":                              schema_apimachinery_apis_catalog_v1alpha1_EtcdVersionSpec(ref),
-		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.FerretDBVersion":                              schema_apimachinery_apis_catalog_v1alpha1_FerretDBVersion(ref),
-		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.FerretDBVersionDatabase":                      schema_apimachinery_apis_catalog_v1alpha1_FerretDBVersionDatabase(ref),
-		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.FerretDBVersionList":                          schema_apimachinery_apis_catalog_v1alpha1_FerretDBVersionList(ref),
-		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.FerretDBVersionPostgres":                      schema_apimachinery_apis_catalog_v1alpha1_FerretDBVersionPostgres(ref),
-		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.FerretDBVersionSpec":                          schema_apimachinery_apis_catalog_v1alpha1_FerretDBVersionSpec(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.FullBackup":                                   schema_apimachinery_apis_catalog_v1alpha1_FullBackup(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.FullBackupRestore":                            schema_apimachinery_apis_catalog_v1alpha1_FullBackupRestore(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer":                                    schema_apimachinery_apis_catalog_v1alpha1_GitSyncer(ref),
@@ -34205,12 +34195,18 @@ func schema_apimachinery_apis_catalog_v1alpha1_CassandraVersionSpec(ref common.R
 							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"),
 						},
 					},
+					"gitSyncer": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer"),
+						},
+					},
 				},
 				Required: []string{"version", "db", "exporter", "medusa", "initContainer"},
 			},
 		},
 		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.CassandraInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.CassandraVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.CassandraVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.CassandraVersionMedusa", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
+			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.CassandraInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.CassandraVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.CassandraVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.CassandraVersionMedusa", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
 	}
 }
 
@@ -34493,12 +34489,18 @@ func schema_apimachinery_apis_catalog_v1alpha1_ClickHouseVersionSpec(ref common.
 							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"),
 						},
 					},
+					"gitSyncer": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer"),
+						},
+					},
 				},
 				Required: []string{"version", "db", "initContainer", "clickHouseKeeper"},
 			},
 		},
 		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ArchiverSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ClickHouseInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ClickHouseKeeperContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ClickHouseVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
+			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ArchiverSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ClickHouseInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ClickHouseKeeperContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ClickHouseVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
 	}
 }
 
@@ -34777,16 +34779,22 @@ func schema_apimachinery_apis_catalog_v1alpha1_DB2VersionSpec(ref common.Referen
 							},
 						},
 					},
+					"gitSyncer": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer"),
+						},
+					},
 				},
 				Required: []string{"version", "db", "coordinator"},
 			},
 		},
 		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.DB2Coordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.DB2VersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
+			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.DB2Coordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.DB2VersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
 	}
 }
 
-func schema_apimachinery_apis_catalog_v1alpha1_DcdbInitContainer(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apimachinery_apis_catalog_v1alpha1_DocumentDBCoordinator(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -34806,7 +34814,7 @@ func schema_apimachinery_apis_catalog_v1alpha1_DcdbInitContainer(ref common.Refe
 	}
 }
 
-func schema_apimachinery_apis_catalog_v1alpha1_DocumentDBCoordinator(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apimachinery_apis_catalog_v1alpha1_DocumentDBInitContainer(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -34976,7 +34984,7 @@ func schema_apimachinery_apis_catalog_v1alpha1_DocumentDBVersionSpec(ref common.
 						SchemaProps: spec.SchemaProps{
 							Description: "Init container image",
 							Default:     map[string]interface{}{},
-							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.DcdbInitContainer"),
+							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.DocumentDBInitContainer"),
 						},
 					},
 					"deprecated": {
@@ -35020,12 +35028,18 @@ func schema_apimachinery_apis_catalog_v1alpha1_DocumentDBVersionSpec(ref common.
 							},
 						},
 					},
+					"gitSyncer": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer"),
+						},
+					},
 				},
 				Required: []string{"version", "db"},
 			},
 		},
 		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.DcdbInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.DocumentDBCoordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.DocumentDBVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
+			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.DocumentDBCoordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.DocumentDBInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.DocumentDBVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
 	}
 }
 
@@ -35609,426 +35623,18 @@ func schema_apimachinery_apis_catalog_v1alpha1_ElasticsearchVersionSpec(ref comm
 							},
 						},
 					},
-				},
-				Required: []string{"version", "authPlugin", "db", "exporter", "initContainer", "podSecurityPolicies"},
-			},
-		},
-		Dependencies: []string{
-			"kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1.StashAddonSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ElasticsearchDashboardVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ElasticsearchSecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ElasticsearchVersionDashboardInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ElasticsearchVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ElasticsearchVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ElasticsearchVersionInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ElasticsearchVersionPodSecurityPolicy", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
-	}
-}
-
-func schema_apimachinery_apis_catalog_v1alpha1_EtcdVersion(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
-				Properties: map[string]spec.Schema{
-					"kind": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"apiVersion": {
-						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"metadata": {
-						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
-						},
-					},
-					"spec": {
-						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.EtcdVersionSpec"),
-						},
-					},
-				},
-			},
-		},
-		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.EtcdVersionSpec"},
-	}
-}
-
-func schema_apimachinery_apis_catalog_v1alpha1_EtcdVersionDatabase(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Description: "EtcdVersionDatabase is the Etcd Database image",
-				Type:        []string{"object"},
-				Properties: map[string]spec.Schema{
-					"image": {
-						SchemaProps: spec.SchemaProps{
-							Default: "",
-							Type:    []string{"string"},
-							Format:  "",
-						},
-					},
-				},
-				Required: []string{"image"},
-			},
-		},
-	}
-}
-
-func schema_apimachinery_apis_catalog_v1alpha1_EtcdVersionExporter(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Description: "EtcdVersionExporter is the image for the Etcd exporter",
-				Type:        []string{"object"},
-				Properties: map[string]spec.Schema{
-					"image": {
-						SchemaProps: spec.SchemaProps{
-							Default: "",
-							Type:    []string{"string"},
-							Format:  "",
-						},
-					},
-				},
-				Required: []string{"image"},
-			},
-		},
-	}
-}
-
-func schema_apimachinery_apis_catalog_v1alpha1_EtcdVersionList(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Description: "EtcdVersionList is a list of EtcdVersions",
-				Type:        []string{"object"},
-				Properties: map[string]spec.Schema{
-					"kind": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"apiVersion": {
-						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"metadata": {
-						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
-						},
-					},
-					"items": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Items is a list of EtcdVersion CRD objects",
-							Type:        []string{"array"},
-							Items: &spec.SchemaOrArray{
-								Schema: &spec.Schema{
-									SchemaProps: spec.SchemaProps{
-										Default: map[string]interface{}{},
-										Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.EtcdVersion"),
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-		},
-		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.EtcdVersion"},
-	}
-}
-
-func schema_apimachinery_apis_catalog_v1alpha1_EtcdVersionSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Description: "EtcdVersionSpec is the spec for postgres version",
-				Type:        []string{"object"},
-				Properties: map[string]spec.Schema{
-					"version": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Version",
-							Default:     "",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"endOfLife": {
-						SchemaProps: spec.SchemaProps{
-							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
-							Default:     false,
-							Type:        []string{"boolean"},
-							Format:      "",
-						},
-					},
-					"db": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Database Image",
-							Default:     map[string]interface{}{},
-							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.EtcdVersionDatabase"),
-						},
-					},
-					"exporter": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Exporter Image",
-							Default:     map[string]interface{}{},
-							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.EtcdVersionExporter"),
-						},
-					},
-					"deprecated": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Deprecated versions usable but regarded as obsolete and best avoided, typically due to having been superseded.",
-							Type:        []string{"boolean"},
-							Format:      "",
-						},
-					},
-					"stash": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Stash defines backup and restore task definitions.",
-							Default:     map[string]interface{}{},
-							Ref:         ref("kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1.StashAddonSpec"),
-						},
-					},
 					"gitSyncer": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
 							Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer"),
 						},
 					},
-					"securityContext": {
-						SchemaProps: spec.SchemaProps{
-							Description: "SecurityContext is for the additional config for the DB container",
-							Default:     map[string]interface{}{},
-							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext"),
-						},
-					},
 				},
-				Required: []string{"version", "db", "exporter"},
+				Required: []string{"version", "authPlugin", "db", "exporter", "initContainer", "podSecurityPolicies"},
 			},
 		},
 		Dependencies: []string{
-			"kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1.StashAddonSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.EtcdVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.EtcdVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext"},
-	}
-}
-
-func schema_apimachinery_apis_catalog_v1alpha1_FerretDBVersion(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
-				Properties: map[string]spec.Schema{
-					"kind": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"apiVersion": {
-						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"metadata": {
-						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
-						},
-					},
-					"spec": {
-						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.FerretDBVersionSpec"),
-						},
-					},
-				},
-			},
-		},
-		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.FerretDBVersionSpec"},
-	}
-}
-
-func schema_apimachinery_apis_catalog_v1alpha1_FerretDBVersionDatabase(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Description: "FerretDBVersionDatabase is the FerretDB Database image",
-				Type:        []string{"object"},
-				Properties: map[string]spec.Schema{
-					"image": {
-						SchemaProps: spec.SchemaProps{
-							Default: "",
-							Type:    []string{"string"},
-							Format:  "",
-						},
-					},
-				},
-				Required: []string{"image"},
-			},
-		},
-	}
-}
-
-func schema_apimachinery_apis_catalog_v1alpha1_FerretDBVersionList(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Description: "FerretDBVersionList contains a list of FerretDBVersion",
-				Type:        []string{"object"},
-				Properties: map[string]spec.Schema{
-					"kind": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"apiVersion": {
-						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"metadata": {
-						SchemaProps: spec.SchemaProps{
-							Default: map[string]interface{}{},
-							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
-						},
-					},
-					"items": {
-						SchemaProps: spec.SchemaProps{
-							Type: []string{"array"},
-							Items: &spec.SchemaOrArray{
-								Schema: &spec.Schema{
-									SchemaProps: spec.SchemaProps{
-										Default: map[string]interface{}{},
-										Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.FerretDBVersion"),
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-		},
-		Dependencies: []string{
-			"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.FerretDBVersion"},
-	}
-}
-
-func schema_apimachinery_apis_catalog_v1alpha1_FerretDBVersionPostgres(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
-				Properties: map[string]spec.Schema{
-					"version": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Which versions pg will be used as backend of ferretdb. default 13.13 when backend internally managed",
-							Default:     "",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-				},
-				Required: []string{"version"},
-			},
-		},
-	}
-}
-
-func schema_apimachinery_apis_catalog_v1alpha1_FerretDBVersionSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Description: "FerretDBVersionSpec defines the desired state of FerretDBVersion",
-				Type:        []string{"object"},
-				Properties: map[string]spec.Schema{
-					"version": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Version",
-							Default:     "",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"endOfLife": {
-						SchemaProps: spec.SchemaProps{
-							Description: "EndOfLife refers if this version reached into its end of the life or not, based on https://endoflife.date/",
-							Default:     false,
-							Type:        []string{"boolean"},
-							Format:      "",
-						},
-					},
-					"db": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Database Image",
-							Default:     map[string]interface{}{},
-							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.FerretDBVersionDatabase"),
-						},
-					},
-					"postgres": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Postgres version",
-							Default:     map[string]interface{}{},
-							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.FerretDBVersionPostgres"),
-						},
-					},
-					"deprecated": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Deprecated versions usable but regarded as obsolete and best avoided, typically due to having been superseded.",
-							Type:        []string{"boolean"},
-							Format:      "",
-						},
-					},
-					"updateConstraints": {
-						SchemaProps: spec.SchemaProps{
-							Description: "update constraints",
-							Default:     map[string]interface{}{},
-							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"),
-						},
-					},
-					"securityContext": {
-						SchemaProps: spec.SchemaProps{
-							Description: "SecurityContext is for the additional security information for the FerretDB container",
-							Default:     map[string]interface{}{},
-							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext"),
-						},
-					},
-					"ui": {
-						SchemaProps: spec.SchemaProps{
-							Type: []string{"array"},
-							Items: &spec.SchemaOrArray{
-								Schema: &spec.Schema{
-									SchemaProps: spec.SchemaProps{
-										Default: map[string]interface{}{},
-										Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo"),
-									},
-								},
-							},
-						},
-					},
-				},
-				Required: []string{"version", "db", "postgres"},
-			},
-		},
-		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.FerretDBVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.FerretDBVersionPostgres", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
+			"kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1.StashAddonSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ElasticsearchDashboardVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ElasticsearchSecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ElasticsearchVersionDashboardInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ElasticsearchVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ElasticsearchVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ElasticsearchVersionInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ElasticsearchVersionPodSecurityPolicy", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
 	}
 }
 
@@ -36319,12 +35925,18 @@ func schema_apimachinery_apis_catalog_v1alpha1_HanaDBVersionSpec(ref common.Refe
 							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"),
 						},
 					},
+					"gitSyncer": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer"),
+						},
+					},
 				},
 				Required: []string{"version", "db", "coordinator", "exporter"},
 			},
 		},
 		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.HanaDBCoordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.HanaDBSecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.HanaDBVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.HanaDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
+			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.HanaDBCoordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.HanaDBSecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.HanaDBVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.HanaDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
 	}
 }
 
@@ -37470,12 +37082,25 @@ func schema_apimachinery_apis_catalog_v1alpha1_MSSQLServerVersionSpec(ref common
 							},
 						},
 					},
+					"gitSyncer": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer"),
+						},
+					},
+					"courier": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Courier defines the courier related CLI/Tools images for this MySQL version",
+							Default:     map[string]interface{}{},
+							Ref:         ref("kubedb.dev/apimachinery/apis/courier/v1alpha1.DBCourierImages"),
+						},
+					},
 				},
 				Required: []string{"version", "db", "coordinator", "exporter", "initContainer"},
 			},
 		},
 		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ArchiverSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MSSQLServerCoordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MSSQLServerDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MSSQLServerInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MSSQLServerVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
+			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ArchiverSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MSSQLServerCoordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MSSQLServerDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MSSQLServerInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MSSQLServerVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints", "kubedb.dev/apimachinery/apis/courier/v1alpha1.DBCourierImages"},
 	}
 }
 
@@ -37862,12 +37487,19 @@ func schema_apimachinery_apis_catalog_v1alpha1_MariaDBVersionSpec(ref common.Ref
 							},
 						},
 					},
+					"courier": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Courier defines the courier related CLI/Tools images for this MariaDB version",
+							Default:     map[string]interface{}{},
+							Ref:         ref("kubedb.dev/apimachinery/apis/courier/v1alpha1.DBCourierImages"),
+						},
+					},
 				},
 				Required: []string{"version", "db", "exporter", "coordinator", "initContainer", "podSecurityPolicies"},
 			},
 		},
 		Dependencies: []string{
-			"kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1.StashAddonSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ArchiverSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MariaDBVersionCoordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MariaDBVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MariaDBVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MariaDBVersionInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MariaDBVersionMaxscale", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MariaDBVersionPodSecurityPolicy", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
+			"kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1.StashAddonSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ArchiverSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MariaDBVersionCoordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MariaDBVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MariaDBVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MariaDBVersionInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MariaDBVersionMaxscale", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MariaDBVersionPodSecurityPolicy", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints", "kubedb.dev/apimachinery/apis/courier/v1alpha1.DBCourierImages"},
 	}
 }
 
@@ -38617,11 +38249,11 @@ func schema_apimachinery_apis_catalog_v1alpha1_MongoDBVersionSpec(ref common.Ref
 							},
 						},
 					},
-					"migrator": {
+					"courier": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Migrator defines the migration related CLI/Tools images for this MongoDB version",
+							Description: "Courier defines the courier related CLI/Tools images for this MongoDB version",
 							Default:     map[string]interface{}{},
-							Ref:         ref("kubedb.dev/apimachinery/apis/migrator/v1alpha1.DBMigratorImages"),
+							Ref:         ref("kubedb.dev/apimachinery/apis/courier/v1alpha1.DBCourierImages"),
 						},
 					},
 				},
@@ -38629,7 +38261,7 @@ func schema_apimachinery_apis_catalog_v1alpha1_MongoDBVersionSpec(ref common.Ref
 			},
 		},
 		Dependencies: []string{
-			"kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1.StashAddonSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ArchiverSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MongoDBSecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MongoDBVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MongoDBVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MongoDBVersionInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MongoDBVersionPodSecurityPolicy", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ReplicationModeDetector", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints", "kubedb.dev/apimachinery/apis/migrator/v1alpha1.DBMigratorImages"},
+			"kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1.StashAddonSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ArchiverSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MongoDBSecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MongoDBVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MongoDBVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MongoDBVersionInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MongoDBVersionPodSecurityPolicy", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ReplicationModeDetector", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints", "kubedb.dev/apimachinery/apis/courier/v1alpha1.DBCourierImages"},
 	}
 }
 
@@ -39120,12 +38752,19 @@ func schema_apimachinery_apis_catalog_v1alpha1_MySQLVersionSpec(ref common.Refer
 							},
 						},
 					},
+					"courier": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Courier defines the courier related CLI/Tools images for this MySQL version",
+							Default:     map[string]interface{}{},
+							Ref:         ref("kubedb.dev/apimachinery/apis/courier/v1alpha1.DBCourierImages"),
+						},
+					},
 				},
 				Required: []string{"version", "db", "exporter", "coordinator", "initContainer", "podSecurityPolicies"},
 			},
 		},
 		Dependencies: []string{
-			"kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1.StashAddonSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ArchiverSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MySQLUpdateConstraints", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MySQLVersionCoordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MySQLVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MySQLVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MySQLVersionInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MySQLVersionPodSecurityPolicy", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MySQLVersionRouter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MySQLVersionRouterInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ReplicationModeDetector", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext"},
+			"kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1.StashAddonSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ArchiverSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MySQLUpdateConstraints", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MySQLVersionCoordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MySQLVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MySQLVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MySQLVersionInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MySQLVersionPodSecurityPolicy", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MySQLVersionRouter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MySQLVersionRouterInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ReplicationModeDetector", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/courier/v1alpha1.DBCourierImages"},
 	}
 }
 
@@ -39303,12 +38942,18 @@ func schema_apimachinery_apis_catalog_v1alpha1_Neo4jVersionSpec(ref common.Refer
 							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"),
 						},
 					},
+					"gitSyncer": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer"),
+						},
+					},
 				},
 				Required: []string{"version", "db"},
 			},
 		},
 		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.Neo4jVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
+			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.Neo4jVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
 	}
 }
 
@@ -39658,12 +39303,18 @@ func schema_apimachinery_apis_catalog_v1alpha1_OracleVersionSpec(ref common.Refe
 							},
 						},
 					},
+					"gitSyncer": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer"),
+						},
+					},
 				},
 				Required: []string{"version", "db", "exporter", "coordinator"},
 			},
 		},
 		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleDataGuard", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleSecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleVersionCoordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleVersionInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
+			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleDataGuard", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleSecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleVersionCoordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.OracleVersionInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
 	}
 }
 
@@ -40856,11 +40507,11 @@ func schema_apimachinery_apis_catalog_v1alpha1_PostgresVersionSpec(ref common.Re
 							},
 						},
 					},
-					"migrator": {
+					"courier": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Migrator defines the migration related CLI/Tools images for this Postgres version",
+							Description: "Courier defines the courier related CLI/Tools images for this Postgres version",
 							Default:     map[string]interface{}{},
-							Ref:         ref("kubedb.dev/apimachinery/apis/migrator/v1alpha1.DBMigratorImages"),
+							Ref:         ref("kubedb.dev/apimachinery/apis/courier/v1alpha1.DBCourierImages"),
 						},
 					},
 				},
@@ -40868,7 +40519,7 @@ func schema_apimachinery_apis_catalog_v1alpha1_PostgresVersionSpec(ref common.Re
 			},
 		},
 		Dependencies: []string{
-			"kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1.StashAddonSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ArchiverSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.PostgresSecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.PostgresVersionCoordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.PostgresVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.PostgresVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.PostgresVersionInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.PostgresVersionPodSecurityPolicy", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.PostgresVersionTLSSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints", "kubedb.dev/apimachinery/apis/migrator/v1alpha1.DBMigratorImages"},
+			"kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1.StashAddonSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ArchiverSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.PostgresSecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.PostgresVersionCoordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.PostgresVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.PostgresVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.PostgresVersionInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.PostgresVersionPodSecurityPolicy", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.PostgresVersionTLSSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints", "kubedb.dev/apimachinery/apis/courier/v1alpha1.DBCourierImages"},
 	}
 }
 
@@ -42339,12 +41990,18 @@ func schema_apimachinery_apis_catalog_v1alpha1_SinglestoreVersionSpec(ref common
 							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.SinglestoreSecurityContext"),
 						},
 					},
+					"gitSyncer": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer"),
+						},
+					},
 				},
 				Required: []string{"version", "db", "coordinator"},
 			},
 		},
 		Dependencies: []string{
-			"kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1.StashAddonSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SinglestoreCoordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SinglestoreInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SinglestoreSecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SinglestoreStandaloneVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SinglestoreVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
+			"kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1.StashAddonSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SinglestoreCoordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SinglestoreInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SinglestoreSecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SinglestoreStandaloneVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SinglestoreVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
 	}
 }
 

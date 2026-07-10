@@ -229,7 +229,7 @@ gen-custom-role: role-aggregator ## Generate custom role for kubedb from selecte
 		--chart charts/kubedb-crd-manager \
 		--chart charts/kubedb-dashboard \
 		--chart charts/kubedb-gitops \
-		--chart charts/kubedb-migrator \
+		--chart charts/kubedb-courier \
 		--chart charts/kubedb-ops-manager \
 		--chart charts/kubedb-provisioner \
 		--chart charts/kubedb-schema-manager \

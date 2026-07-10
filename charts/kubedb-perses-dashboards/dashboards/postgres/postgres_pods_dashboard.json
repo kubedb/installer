@@ -1,4 +1,5 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "kind": "Dashboard",
   "metadata": {
@@ -111,6 +112,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "mean",
+              "colorMode": "none",
               "format": {
                 "unit": "decimal"
               },
@@ -152,9 +154,32 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "format": {
-                "unit": "bytes"
+                "unit": "decimal"
               },
+              "mappings": [
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "value": "0",
+                    "result": {
+                      "color": "#ffffff",
+                      "value": "Primary"
+                    }
+                  }
+                },
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "value": "1",
+                    "result": {
+                      "color": "#ffffff",
+                      "value": "Standby"
+                    }
+                  }
+                }
+              ],
               "thresholds": {
                 "steps": [
                   {
@@ -173,7 +198,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "count(pg_stat_replication_reply_time{namespace = \"$namespace\", pod=\"$pod\"})",
+                    "query": "pg_replication_is_replica{namespace = \"$namespace\", pod=\"$pod\"}",
                     "seriesNameFormat": ""
                   }
                 }
@@ -192,6 +217,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "format": {
                 "unit": "bytes"
               },
@@ -236,6 +262,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "format": {
                 "unit": "bytes"
               },
@@ -280,6 +307,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "format": {
                 "unit": "bytes"
               },
@@ -324,6 +352,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "format": {
                 "unit": "bytes"
               },
@@ -368,6 +397,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "format": {
                 "decimalPlaces": 1,
                 "unit": "bytes"
@@ -413,6 +443,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "format": {
                 "unit": "decimal"
               },
@@ -457,6 +488,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "mean",
+              "colorMode": "none",
               "format": {
                 "unit": "decimal"
               },
@@ -501,6 +533,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "format": {
                 "unit": "decimal"
               },
@@ -546,6 +579,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "thresholds": {
                 "steps": [
                   {
@@ -583,8 +617,9 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "format": {
-                "unit": "bytes"
+                "unit": "decbytes"
               },
               "thresholds": {
                 "steps": [
@@ -623,8 +658,9 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "format": {
-                "unit": "bytes"
+                "unit": "decbytes"
               },
               "thresholds": {
                 "steps": [
@@ -663,8 +699,9 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "format": {
-                "unit": "bytes"
+                "unit": "decbytes"
               },
               "thresholds": {
                 "steps": [
@@ -703,6 +740,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "mean",
+              "colorMode": "none",
               "format": {
                 "unit": "decimal"
               },
@@ -754,19 +792,6 @@
                     "minStep": "",
                     "query": "avg(rate(process_cpu_seconds_total{pod=\"$pod\", namespace=\"$namespace\"}[5m]) * 1000)",
                     "seriesNameFormat": "CPU Time"
-                  }
-                }
-              }
-            },
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "",
-                    "seriesNameFormat": ""
                   }
                 }
               }

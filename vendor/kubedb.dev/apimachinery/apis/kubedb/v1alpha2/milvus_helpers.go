@@ -171,7 +171,7 @@ func (m *Milvus) ConfigSecretName() string {
 
 func (m *Milvus) GetPersistentSecrets() []string {
 	var secrets []string
-	if m.Spec.AuthSecret != nil {
+	if !IsVirtualAuthSecretReferred(m.Spec.AuthSecret) && m.Spec.AuthSecret != nil && m.Spec.AuthSecret.Name != "" {
 		secrets = append(secrets, m.GetAuthSecretName())
 	}
 	secrets = append(secrets, m.ConfigSecretName())
@@ -220,7 +220,7 @@ func (m *Milvus) SetHealthCheckerDefaults() {
 }
 
 func (m *Milvus) EtcdServiceName() string {
-	return fmt.Sprintf("%s-%s", m.Namespace, kubedb.EtcdName)
+	return fmt.Sprintf("%s-%s", m.Name, kubedb.EtcdName)
 }
 
 func (m *Milvus) MetaStorageEndpoints() []string {
@@ -312,6 +312,7 @@ func (m *Milvus) setComponentDefaults(mvVersion *catalog.MilvusVersion, node any
 
 	m.setDefaultContainerSecurityContext(mvVersion, *podTemplate)
 	m.setDefaultContainerResourceLimits(*podTemplate)
+	apis.SetDefaultResizePolicy((*podTemplate).Spec.Containers, (*podTemplate).Spec.InitContainers)
 }
 
 func (m *Milvus) SetDefaults(kc client.Client) {
@@ -352,6 +353,7 @@ func (m *Milvus) SetDefaults(kc client.Client) {
 	} else {
 		m.setDefaultContainerSecurityContext(&mvVersion, m.Spec.PodTemplate)
 		m.setDefaultContainerResourceLimits(m.Spec.PodTemplate)
+		apis.SetDefaultResizePolicy(m.Spec.PodTemplate.Spec.Containers, m.Spec.PodTemplate.Spec.InitContainers)
 	}
 
 	m.setMetaStorageDefaults()
@@ -548,4 +550,30 @@ func (m *Milvus) GetCertSecretName(alias MilvusCertificateType) string {
 
 func (m *Milvus) CertificateName(alias MilvusCertificateType) string {
 	return meta_util.NameWithSuffix(m.Name, fmt.Sprintf("%s-cert", string(alias)))
+}
+
+func (m *Milvus) GetStorageClassName() string {
+	return *m.Spec.Storage.StorageClassName
+}
+
+type MilvusBind struct {
+	*Milvus
+}
+
+var _ DBBindInterface = &MilvusBind{}
+
+func (m *MilvusBind) ServiceNames() (string, string) {
+	return m.ServiceName(), ""
+}
+
+func (m *MilvusBind) Ports() (int, int) {
+	return int(kubedb.MilvusHttpPort), 0
+}
+
+func (m *MilvusBind) SecretName() string {
+	return m.GetAuthSecretName()
+}
+
+func (m *MilvusBind) CertSecretName() string {
+	return m.GetCertSecretName(MilvusCertificateTypeClient)
 }

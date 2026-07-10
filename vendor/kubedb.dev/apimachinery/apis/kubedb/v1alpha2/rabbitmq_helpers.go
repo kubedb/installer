@@ -83,7 +83,9 @@ func (r *RabbitMQ) GetAuthSecretName() string {
 
 func (r *RabbitMQ) GetPersistentSecrets() []string {
 	var secrets []string
-	secrets = append(secrets, r.GetAuthSecretName())
+	if !IsVirtualAuthSecretReferred(r.Spec.AuthSecret) && r.Spec.AuthSecret != nil && r.Spec.AuthSecret.Name != "" {
+		secrets = append(secrets, r.GetAuthSecretName())
+	}
 	secrets = append(secrets, r.DefaultErlangCookieSecretName())
 	return secrets
 }
@@ -373,6 +375,8 @@ func (r *RabbitMQ) setDefaultContainerSecurityContext(rmVersion *catalog.RabbitM
 		initContainer.SecurityContext = &core.SecurityContext{}
 	}
 	r.assignDefaultInitContainerSecurityContext(rmVersion, initContainer.SecurityContext)
+
+	apis.SetDefaultResizePolicy(podTemplate.Spec.Containers, podTemplate.Spec.InitContainers)
 }
 
 func (r *RabbitMQ) assignDefaultInitContainerSecurityContext(rmVersion *catalog.RabbitMQVersion, rc *core.SecurityContext) {

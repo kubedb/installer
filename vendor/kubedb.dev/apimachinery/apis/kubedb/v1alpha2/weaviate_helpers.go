@@ -25,16 +25,19 @@ import (
 	"kubedb.dev/apimachinery/apis/kubedb"
 	"kubedb.dev/apimachinery/crds"
 
+	promapi "github.com/prometheus-operator/prometheus-operator/pkg/apis/monitoring/v1"
 	"gomodules.xyz/pointer"
 	core "k8s.io/api/core/v1"
 	meta "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/klog/v2"
+	kmapi "kmodules.xyz/client-go/api/v1"
 	"kmodules.xyz/client-go/apiextensions"
 	coreutil "kmodules.xyz/client-go/core/v1"
 	meta_util "kmodules.xyz/client-go/meta"
 	"kmodules.xyz/client-go/policy/secomp"
 	appcat "kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1"
+	mona "kmodules.xyz/monitoring-agent-api/api/v1"
 	ofst "kmodules.xyz/offshoot-api/api/v2"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -61,7 +64,16 @@ func (w *Weaviate) AppBindingMeta() appcat.AppBindingMeta {
 
 func (w *Weaviate) GetPersistentSecrets() []string {
 	var secrets []string
-	secrets = append(secrets, w.GetAuthSecretName())
+	if !w.Spec.DisableSecurity {
+		secrets = append(secrets, w.GetAuthSecretName())
+	}
+	if w.Spec.TLS != nil {
+		secrets = append(secrets, w.GetCertSecretName(WeaviateServerCert))
+		secrets = append(secrets, w.GetCertSecretName(WeaviateClientCert))
+	}
+	if !IsVirtualAuthSecretReferred(w.Spec.AuthSecret) && w.Spec.AuthSecret != nil && w.Spec.AuthSecret.Name != "" {
+		secrets = append(secrets, w.GetAuthSecretName())
+	}
 	return secrets
 }
 
@@ -82,7 +94,7 @@ func (w *Weaviate) ResourcePlural() string {
 }
 
 func (w *Weaviate) AsOwner() *meta.OwnerReference {
-	return meta.NewControllerRef(w, SchemeGroupVersion.WithKind(ResourceKindRabbitmq))
+	return meta.NewControllerRef(w, SchemeGroupVersion.WithKind(ResourceKindWeaviate))
 }
 
 func (w *Weaviate) ResourceFQN() string {
@@ -100,6 +112,14 @@ func (w *Weaviate) OffshootName() string {
 
 func (w *Weaviate) ServiceName() string {
 	return w.OffshootName()
+}
+
+func (w *Weaviate) ServiceDNS() string {
+	return fmt.Sprintf("%s.%s.svc", w.ServiceName(), w.Namespace)
+}
+
+func (w *Weaviate) ServiceFQDN() string {
+	return fmt.Sprintf("%s.cluster.local", w.ServiceDNS())
 }
 
 func (w *Weaviate) GoverningServiceName() string {
@@ -149,6 +169,10 @@ func (w *Weaviate) PetSetName() string {
 	return w.OffshootName()
 }
 
+func (q *Weaviate) PVCName(alias string) string {
+	return alias
+}
+
 func (w *Weaviate) GetAuthSecretName() string {
 	if w.Spec.AuthSecret != nil && w.Spec.AuthSecret.Name != "" {
 		return w.Spec.AuthSecret.Name
@@ -190,7 +214,26 @@ func (w *Weaviate) SetDefaults(kc client.Client) {
 		apis.SetDefaultResourceLimits(&dbContainer.Resources, kubedb.DefaultResources)
 	}
 
+	apis.SetDefaultResizePolicy(w.Spec.PodTemplate.Spec.Containers, w.Spec.PodTemplate.Spec.InitContainers)
+
 	w.SetHealthCheckerDefaults()
+	w.SetTLSDefaults()
+
+	if w.Spec.Monitor != nil {
+		if w.Spec.Monitor.Prometheus == nil {
+			w.Spec.Monitor.Prometheus = &mona.PrometheusSpec{}
+		}
+		if w.Spec.Monitor.Prometheus.Exporter.Port == 0 {
+			w.Spec.Monitor.Prometheus.Exporter.Port = kubedb.WeaviateMetricsPort
+		}
+		w.Spec.Monitor.SetDefaults()
+		if w.Spec.Monitor.Prometheus.Exporter.SecurityContext.RunAsUser == nil {
+			w.Spec.Monitor.Prometheus.Exporter.SecurityContext.RunAsUser = wvVersion.Spec.SecurityContext.RunAsUser
+		}
+		if w.Spec.Monitor.Prometheus.Exporter.SecurityContext.RunAsGroup == nil {
+			w.Spec.Monitor.Prometheus.Exporter.SecurityContext.RunAsGroup = wvVersion.Spec.SecurityContext.RunAsUser
+		}
+	}
 }
 
 func (w *Weaviate) setDefaultContainerSecurityContext(wvVersion *catalog.WeaviateVersion, podTemplate *ofst.PodTemplateSpec) {
@@ -251,12 +294,137 @@ func (w *Weaviate) GetAPIKey(ctx context.Context, kc client.Client) string {
 	return string(apiKey)
 }
 
+type weaviateStatsService struct {
+	*Weaviate
+}
+
+func (w weaviateStatsService) GetNamespace() string {
+	return w.Weaviate.GetNamespace()
+}
+
+func (w weaviateStatsService) ServiceName() string {
+	return w.OffshootName() + "-stats"
+}
+
+func (w weaviateStatsService) ServiceMonitorName() string {
+	return w.ServiceName()
+}
+
+func (w weaviateStatsService) ServiceMonitorAdditionalLabels() map[string]string {
+	return w.OffshootLabels()
+}
+
+func (w weaviateStatsService) Path() string {
+	return kubedb.DefaultStatsPath
+}
+
+func (w weaviateStatsService) Scheme() string {
+	return "http"
+}
+
+func (w weaviateStatsService) TLSConfig() *promapi.TLSConfig {
+	return nil
+}
+
+func (w Weaviate) StatsService() mona.StatsAccessor {
+	return &weaviateStatsService{&w}
+}
+
+func (w Weaviate) StatsServiceLabels() map[string]string {
+	return w.ServiceLabels(StatsServiceAlias, map[string]string{kubedb.LabelRole: kubedb.RoleStats})
+}
+
 func (w *Weaviate) GetConnectionScheme() string {
 	scheme := "http"
+	if w.Spec.TLS != nil {
+		scheme = "https"
+	}
 	return scheme
 }
 
 func (w *Weaviate) ConfigSecretName() string {
 	uid := string(w.UID)
 	return meta_util.NameWithSuffix(w.OffshootName(), uid[len(uid)-6:])
+}
+
+// CertificateName returns the default certificate name and/or certificate secret name for a certificate alias.
+func (w *Weaviate) CertificateName(alias WeaviateCertificateAlias) string {
+	return meta_util.NameWithSuffix(w.Name, fmt.Sprintf("%s-cert", string(alias)))
+}
+
+// GetCertSecretName returns the secret name for a certificate alias if any,
+// otherwise returns default certificate secret name for the given alias.
+func (w *Weaviate) GetCertSecretName(alias WeaviateCertificateAlias) string {
+	if w.Spec.TLS != nil {
+		name, ok := kmapi.GetCertificateSecretName(w.Spec.TLS.Certificates, string(alias))
+		if ok {
+			return name
+		}
+	}
+	return w.CertificateName(alias)
+}
+
+// CertSecretVolumeName returns the volume name for a certificate alias.
+func (w *Weaviate) CertSecretVolumeName(alias WeaviateCertificateAlias) string {
+	return meta_util.NameWithSuffix(string(alias), "cert")
+}
+
+// CertSecretVolumeMountPath returns the volume mount path for a certificate alias.
+func (w *Weaviate) CertSecretVolumeMountPath(alias WeaviateCertificateAlias) string {
+	if alias == WeaviateClientCert {
+		return kubedb.WeaviateTLSClientMountPath
+	}
+	return kubedb.WeaviateTLSServerMountPath
+}
+
+func (w *Weaviate) TLSClientAuthEnabled() bool {
+	if w.Spec.TLS == nil {
+		return false
+	}
+	return w.Spec.TLS.ClientAuth == nil || *w.Spec.TLS.ClientAuth
+}
+
+func (w *Weaviate) SetTLSDefaults() {
+	if w.Spec.TLS == nil || w.Spec.TLS.IssuerRef == nil {
+		return
+	}
+	w.Spec.TLS.Certificates = kmapi.SetMissingSecretNameForCertificate(
+		w.Spec.TLS.Certificates,
+		string(WeaviateServerCert),
+		w.CertificateName(WeaviateServerCert),
+	)
+	w.Spec.TLS.Certificates = kmapi.SetMissingSecretNameForCertificate(
+		w.Spec.TLS.Certificates,
+		string(WeaviateClientCert),
+		w.CertificateName(WeaviateClientCert),
+	)
+}
+
+func (w *Weaviate) GetStorageClassName() string {
+	return *w.Spec.Storage.StorageClassName
+}
+
+type WeaviateBind struct {
+	*Weaviate
+}
+
+var _ DBBindInterface = &WeaviateBind{}
+
+func (w *WeaviateBind) ServiceNames() (string, string) {
+	return w.ServiceName(), ""
+}
+
+func (w *WeaviateBind) Ports() (int, int) {
+	if w.Spec.TLS != nil {
+		return kubedb.WeaviateHTTPSPort, 0
+	}
+	return kubedb.WeaviateHTTPPort, 0
+}
+
+func (w *WeaviateBind) SecretName() string {
+	return w.GetAuthSecretName()
+}
+
+func (w *WeaviateBind) CertSecretName() string {
+	return w.GetCertSecretName(WeaviateClientCert)
 }

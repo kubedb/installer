@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb-catalog --version=v2026.5.18-rc.0
-$ helm upgrade -i kubedb-catalog appscode/kubedb-catalog -n kubedb --create-namespace --version=v2026.5.18-rc.0
+$ helm search repo appscode/kubedb-catalog --version=v2026.6.19
+$ helm upgrade -i kubedb-catalog appscode/kubedb-catalog -n kubedb --create-namespace --version=v2026.6.19
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys KubeDB catalog on a [Kubernetes](http://kubernetes.io) cluste
 To install/upgrade the chart with the release name `kubedb-catalog`:
 
 ```bash
-$ helm upgrade -i kubedb-catalog appscode/kubedb-catalog -n kubedb --create-namespace --version=v2026.5.18-rc.0
+$ helm upgrade -i kubedb-catalog appscode/kubedb-catalog -n kubedb --create-namespace --version=v2026.6.19
 ```
 
 The command deploys KubeDB catalog on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -58,13 +58,13 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | proxies.appscode                           |                                                 | <code>r.appscode.com</code>                |
 | proxies.oracle                             |                                                 | <code>container-registry.oracle.com</code> |
 | proxies.weaviate                           |                                                 | <code>cr.weaviate.io</code>                |
+| featureGates.Aerospike                     |                                                 | <code>true</code>                          |
 | featureGates.Cassandra                     |                                                 | <code>true</code>                          |
 | featureGates.ClickHouse                    |                                                 | <code>true</code>                          |
 | featureGates.DB2                           |                                                 | <code>true</code>                          |
 | featureGates.DocumentDB                    |                                                 | <code>true</code>                          |
 | featureGates.Druid                         |                                                 | <code>true</code>                          |
 | featureGates.Elasticsearch                 |                                                 | <code>true</code>                          |
-| featureGates.FerretDB                      |                                                 | <code>true</code>                          |
 | featureGates.HanaDB                        |                                                 | <code>true</code>                          |
 | featureGates.Hazelcast                     |                                                 | <code>true</code>                          |
 | featureGates.Ignite                        |                                                 | <code>true</code>                          |
@@ -112,9 +112,9 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | psp.kafka.privileged                       |                                                 | <code>false</code>                         |
 | skipDeprecated                             | Set true to avoid deploying deprecated versions | <code>true</code>                          |
 | skipEndOfLife                              |                                                 | <code>false</code>                         |
+| enableVersions.Aerospike                   |                                                 | <code>[]</code>                            |
 | enableVersions.Druid                       |                                                 | <code>[]</code>                            |
 | enableVersions.Elasticsearch               |                                                 | <code>[]</code>                            |
-| enableVersions.FerretDB                    |                                                 | <code>[]</code>                            |
 | enableVersions.Hazelcast                   |                                                 | <code>[]</code>                            |
 | enableVersions.Ignite                      |                                                 | <code>[]</code>                            |
 | enableVersions.Kafka                       |                                                 | <code>[]</code>                            |
@@ -146,12 +146,12 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-catalog appscode/kubedb-catalog -n kubedb --create-namespace --version=v2026.5.18-rc.0 --set proxies.dockerHub=docker.io
+$ helm upgrade -i kubedb-catalog appscode/kubedb-catalog -n kubedb --create-namespace --version=v2026.6.19 --set proxies.dockerHub=docker.io
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-catalog appscode/kubedb-catalog -n kubedb --create-namespace --version=v2026.5.18-rc.0 --values values.yaml
+$ helm upgrade -i kubedb-catalog appscode/kubedb-catalog -n kubedb --create-namespace --version=v2026.6.19 --values values.yaml
 ```

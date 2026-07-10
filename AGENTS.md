@@ -4,7 +4,7 @@ This file provides instructions for AI coding agents working in this repository.
 
 ## Project Overview
 
-KubeDB installer repository: Helm charts, CRDs, catalog manifests, and deployment scripts for the KubeDB Kubernetes database operator platform. Hosts 23+ Helm charts (provisioner, ops-manager, autoscaler, dashboard, schema-manager, webhook-server, catalog, gitops, metrics, migrator, certified, opscenter, ui-server, providers for AWS/Azure/GCP, etc.) and DBVersion catalog manifests for 30+ databases. Also packages an OLM bundle (`bundle/`) using `helm-operator` to deliver KubeDB on OpenShift.
+KubeDB installer repository: Helm charts, CRDs, catalog manifests, and deployment scripts for the KubeDB Kubernetes database operator platform. Hosts 23+ Helm charts (provisioner, ops-manager, autoscaler, dashboard, schema-manager, webhook-server, catalog, gitops, metrics, courier, certified, opscenter, ui-server, providers for AWS/Azure/GCP, etc.) and DBVersion catalog manifests for 30+ databases. Also packages an OLM bundle (`bundle/`) using `helm-operator` to deliver KubeDB on OpenShift.
 
 Module: `kubedb.dev/installer` (Go 1.25). Apps under `apis/`, `catalog/`, and `tests/` are non-vendored source; everything else is config/manifests/generated code.
 
@@ -115,7 +115,7 @@ charts/                       # 23+ Helm charts (see list below)
   kubedb-gitops/
   kubedb-grafana-dashboards/
   kubedb-metrics/             # PrometheusRule + ServiceMonitor configs
-  kubedb-migrator/
+  kubedb-courier/
   kubedb-opscenter/           # Umbrella for ops-only install (no provisioner)
   kubedb-perses-dashboards/
   kubedb-provider-aws/
@@ -160,7 +160,7 @@ Makefile / olm.mk             # Top-level + OLM-specific targets
 ## Key Packages / APIs
 
 - `apis/installer/v1` (Group `installer.kubedb.com`, Version `v1`) - defines a Kubernetes-style spec object per chart, used as the Helm `values.yaml` schema source. Kinds registered in `register.go`:
-  `Kubedb`, `KubedbAutoscaler`, `KubedbCatalog`, `KubedbCrdManager`, `KubedbDashboard`, `KubedbGitops`, `KubedbKubestashCatalog`, `KubedbMigrator`, `KubedbOpsManager`, `KubedbProvisioner`, `KubedbSchemaManager`, `KubedbWebhookServer`, `KubedbUiServer`, `PrepareCluster` (plus `KubedbProviderAws/Azure/Gcp` types). Shared building blocks (`ImageRef`, `Container`, `ServiceAccountSpec`, `WebHookSpec`, `Monitoring`, `MonitoringAgent`, `ServingCerts`, `CertManagerCerts`, `NetworkPolicySpec`, ...) live in `types.go`.
+  `Kubedb`, `KubedbAutoscaler`, `KubedbCatalog`, `KubedbCrdManager`, `KubedbDashboard`, `KubedbGitops`, `KubedbKubestashCatalog`, `KubedbCourier`, `KubedbOpsManager`, `KubedbProvisioner`, `KubedbSchemaManager`, `KubedbWebhookServer`, `KubedbUiServer`, `PrepareCluster` (plus `KubedbProviderAws/Azure/Gcp` types). Shared building blocks (`ImageRef`, `Container`, `ServiceAccountSpec`, `WebHookSpec`, `Monitoring`, `MonitoringAgent`, `ServingCerts`, `CertManagerCerts`, `NetworkPolicySpec`, ...) live in `types.go`.
 - `catalog/kubedb` (package `catalog`) - embeds `raw/**` plus `active_versions.json`, `backup_tasks.json`, `restore_tasks.json` via `//go:embed`. `FS()` returns the embedded FS or an override via `--kubedb-catalog-dir` flag (use `AddFlags`/`AddGoFlags`). Helpers: `ActiveDBVersions()`, `BackupTasks()`, `RestoreTasks()`.
 - `catalog/kubedb/fmt` - regenerates DBVersion YAMLs in `catalog/kubedb/raw/` from text templates (uses Masterminds sprig + semver).
 - `catalog/kubedb/gen-version-matrix` - writes `catalog/VersionMatrix.md`.
@@ -221,6 +221,17 @@ External tooling (pulled in via `docker run` in Makefile targets):
 - **Generated files**: `zz_generated.deepcopy.go` (apis), `.crds/*.yaml`, `bundle/manifests/*`, `config/crd/bases/*`, `charts/*/values.openapiv3_schema.yaml`, `charts/*/values.schema.json`, `charts/*/README.md`, `catalog/kubedb/raw/*.yaml`, `catalog/VersionMatrix.md` - never edit by hand; rerun the appropriate `make` target.
 - **Chart conventions**: each `charts/<name>/` has `Chart.yaml`, `values.yaml`, `doc.yaml` (chart-doc-gen input), generated `README.md`, generated `values.openapiv3_schema.yaml`/`values.schema.json`, `ci/*-values.yaml` for chart-testing. The umbrella `charts/kubedb` and `charts/kubedb-opscenter` declare `file://` dependencies on sibling charts plus OCI deps on `petset`, `operator-shard-manager`, `sidekick`, `supervisor`, `ace-user-roles` from `oci://ghcr.io/appscode-charts`.
 - **Chart version bumps**: always go through `make update-charts CHART_VERSION=...` (or per-chart `make chart-<name>`) so `Chart.yaml`, sibling chart deps in `charts/kubedb/Chart.yaml`, and `charts/kubedb-opscenter/Chart.yaml` stay in sync.
+- **Certified charts are generated**: never edit `charts/kubedb-certified` or `charts/kubedb-certified-crds` directly. They are derived from `charts/kubedb` and its subcharts. Whenever `charts/kubedb` or a subchart changes, regenerate them:
+
+  ```bash
+  rm -rf charts/kubedb-certified charts/kubedb-certified-crds
+  chart-packer crd-less --input charts/kubedb --output charts
+  chart-packer crd-only --input charts/kubedb --output charts
+  make gen-chart-doc
+  ```
+
+  - If any subcharts changed, also run `./hack/scripts/update-chart-dependencies.sh`.
+  - If any chart changed, run `./hack/scripts/update-catalog.sh`.
 - **Catalog edits**: never edit `catalog/kubedb/raw/*.yaml` directly. Update `catalog/kubedb/fmt/templates/` (or `active_versions.json`) and run `make fmt` - it executes `catalog/kubedb/fmt/main.go` and `catalog/kubedb/gen-version-matrix/main.go`. Same pattern for KubeStash via `catalog/kubestash/fmt/main.go`.
 - **Image lists**: regenerate with `./hack/scripts/update-catalog.sh` (runs `image-packer list` over `charts/` plus per-component `image-packer generate-scripts`).
 - **Build versioning**: `hack/build.sh` injects `main.Version`, `main.GitTag`, `main.CommitHash`, etc. via `-ldflags`. `VERSION` derives from `git describe --tags --always --dirty`, overridden when on a release branch or tag.

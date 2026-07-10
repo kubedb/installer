@@ -90,6 +90,8 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
+              "metricLabel": "phase",
               "thresholds": {
                 "steps": [
                   {
@@ -132,9 +134,11 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "format": {
                 "unit": "seconds"
               },
+              "metricLabel": "",
               "thresholds": {
                 "steps": [
                   {
@@ -171,11 +175,7 @@
           "plugin": {
             "kind": "Table",
             "spec": {
-              "columnSettings": [
-                {
-                  "name": "IsUnderreplicated"
-                }
-              ]
+              "columnSettings": []
             }
           },
           "queries": [
@@ -415,7 +415,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "kafka_server_kafkaserver_linux_disk_read_bytes{namespace=~\"$namespace\",pod=~\"$app.+$\"} / 1024 /1024",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -443,7 +443,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "kafka_server_kafkaserver_linux_disk_write_bytes{namespace=~\"$namespace\",pod=~\"$app.+$\"} / 1024 /1024",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -477,7 +477,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "kafka_server_brokertopicmetrics_messagesin_total{namespace=\"$namespace\", pod=~\"$app-.+$\", topic!~\"\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ topic }}` }}"
                   }
                 }
               }
@@ -496,6 +496,8 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
+              "metricLabel": "",
               "thresholds": {
                 "steps": [
                   {
@@ -549,7 +551,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "kafka_server_brokertopicmetrics_totalproducerequests_total{namespace=\"$namespace\", pod=~\"$app-.+$\"} != 0",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -577,7 +579,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "kafka_server_raft_metrics_commit_latency_avg{namespace=~\"$namespace\",pod=~\"$app.+$\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -605,7 +607,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "kafka_server_raft_metrics_current_epoch{namespace=~\"$namespace\",pod=~\"$app.+$\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -633,7 +635,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum(rate(kafka_server_brokertopicmetrics_bytesin_total{pod=~\"$app-.+$\",namespace=~\"$namespace\",topic!~\"\"}[5m])) by (topic)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ topic }}` }} (in)"
                   }
                 }
               }
@@ -646,7 +648,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "sum(rate(kafka_server_brokertopicmetrics_bytesout_total{pod=~\"$app-.+$\",namespace=~\"$namespace\",topic!~\"\"}[5m])) by (topic)",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ topic }}` }} (out)"
                   }
                 }
               }
@@ -680,7 +682,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "kafka_server_kafkarequesthandlerpool_requesthandleravgidle_percent{namespace=\"$namespace\",pod=~\"$app-.+$\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ pod }}` }}"
                   }
                 }
               }
@@ -782,6 +784,8 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
+              "metricLabel": "pod",
               "thresholds": {
                 "steps": [
                   {
@@ -820,6 +824,8 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
+              "metricLabel": "jdk",
               "thresholds": {
                 "steps": [
                   {
@@ -878,7 +884,7 @@
                     },
                     "minStep": "",
                     "query": "kafka_controller_kafkacontroller_globaltopiccount{namespace=\"$namespace\", pod=~\"$app-.+$\"}",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{ $pod }}` }}"
                   }
                 }
               }

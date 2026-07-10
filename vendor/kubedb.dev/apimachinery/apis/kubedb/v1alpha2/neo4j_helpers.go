@@ -97,7 +97,7 @@ func (r *Neo4j) ResourcePlural() string {
 
 func (r *Neo4j) GetPersistentSecrets() []string {
 	var secrets []string
-	if !r.Spec.DisableSecurity {
+	if !r.Spec.DisableSecurity && !IsVirtualAuthSecretReferred(r.Spec.AuthSecret) && r.Spec.AuthSecret != nil && r.Spec.AuthSecret.Name != "" {
 		secrets = append(secrets, r.GetAuthSecretName())
 	}
 	return secrets
@@ -166,6 +166,8 @@ func (r *Neo4j) SetDefaults(kc client.Client) {
 	if dbContainer != nil {
 		apis.SetDefaultResourceLimits(&dbContainer.Resources, kubedb.DefaultResourcesNeo4j)
 	}
+
+	apis.SetDefaultResizePolicy(r.Spec.PodTemplate.Spec.Containers, r.Spec.PodTemplate.Spec.InitContainers)
 }
 
 func (r *Neo4j) SetTLSDefaults() {
@@ -187,8 +189,22 @@ func (r *Neo4j) SetTLSDefaults() {
 			Mode: TLSModeMTLS,
 		}
 	}
+	if r.Spec.TLS.Backup == nil {
+		r.Spec.TLS.Backup = &ProtocolTLSConfig{
+			Mode: TLSModeMTLS,
+		}
+	}
 	r.Spec.TLS.Certificates = kmapi.SetMissingSecretNameForCertificate(r.Spec.TLS.Certificates, string(Neo4jCertificateTypeServer), r.CertificateName(Neo4jCertificateTypeServer))
 	r.Spec.TLS.Certificates = kmapi.SetMissingSecretNameForCertificate(r.Spec.TLS.Certificates, string(Neo4jCertificateTypeClient), r.CertificateName(Neo4jCertificateTypeClient))
+	if r.Spec.TLS.KeystoreCredSecret == nil {
+		r.Spec.TLS.KeystoreCredSecret = &SecretReference{}
+	}
+	if r.Spec.TLS.KeystoreCredSecret.Kind == "" {
+		r.Spec.TLS.KeystoreCredSecret.Kind = kubedb.ResourceKindSecret
+	}
+	if r.Spec.TLS.KeystoreCredSecret.Name == "" {
+		r.Spec.TLS.KeystoreCredSecret.Name = r.GetKeystoreSecretName()
+	}
 }
 
 func (r *Neo4j) setDefaultContainerSecurityContext(neoVersion *catalog.Neo4jVersion, podTemplate *ofst.PodTemplateSpec) {

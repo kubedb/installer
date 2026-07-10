@@ -92,7 +92,7 @@ func (i *Ignite) GetAuthSecretName() string {
 
 func (i *Ignite) GetPersistentSecrets() []string {
 	var secrets []string
-	if i.Spec.AuthSecret != nil {
+	if !IsVirtualAuthSecretReferred(i.Spec.AuthSecret) && i.Spec.AuthSecret != nil && i.Spec.AuthSecret.Name != "" {
 		secrets = append(secrets, i.GetAuthSecretName())
 	}
 	return secrets
@@ -139,6 +139,8 @@ func (i *Ignite) SetDefaults(kc client.Client) {
 	if dbContainer != nil && (dbContainer.Resources.Requests == nil || dbContainer.Resources.Limits == nil) {
 		apis.SetDefaultResourceLimits(&dbContainer.Resources, kubedb.IgniteDefaultResources)
 	}
+
+	apis.SetDefaultResizePolicy(i.Spec.PodTemplate.Spec.Containers, i.Spec.PodTemplate.Spec.InitContainers)
 
 	i.SetHealthCheckerDefaults()
 

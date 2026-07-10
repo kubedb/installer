@@ -49,6 +49,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mo
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.28 $IMAGE_REGISTRY/appscode-images/mongo:7.0.28
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.10 $IMAGE_REGISTRY/appscode-images/mongo:8.0.10
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.17 $IMAGE_REGISTRY/appscode-images/mongo:8.0.17
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mongodb:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-mongodb:v0.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v11 $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v11
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb_exporter:v0.47.2 $IMAGE_REGISTRY/kubedb/mongodb_exporter:v0.47.2

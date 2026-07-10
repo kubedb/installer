@@ -1,4 +1,5 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "kind": "Dashboard",
   "metadata": {
@@ -90,6 +91,8 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "background_solid",
+              "metricLabel": "wsrep_cluster_name",
               "thresholds": {
                 "steps": [
                   {
@@ -113,7 +116,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "avg by(wsrep_cluster_name)(mysql_galera_variables_info{namespace=~\"$namespace\",service=~\"$app+-stats\"})",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{wsrep_cluster_name}}` }}"
                   }
                 }
               }
@@ -131,6 +134,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "background_solid",
               "thresholds": {
                 "steps": [
                   {
@@ -154,7 +158,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "avg by(pod)(mysql_galera_variables_info{namespace=~\"$namespace\",service=~\"$app+-stats\"})",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -181,7 +185,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "avg_over_time(mysql_galera_evs_repl_latency_avg_seconds{namespace=~\"$namespace\",service=~\"$app+-stats\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }} - Latency Average"
                   }
                 }
               }
@@ -208,7 +212,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_galera_evs_repl_latency_stdev{namespace=~\"$namespace\",service=~\"$app+-stats\"}[1m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }} - Latency Average"
                   }
                 }
               }
@@ -235,7 +239,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "rate(mysql_galera_evs_repl_latency_sample_size{namespace=~\"$namespace\",service=~\"$app+-stats\"}[1m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }} - Latency Average"
                   }
                 }
               }

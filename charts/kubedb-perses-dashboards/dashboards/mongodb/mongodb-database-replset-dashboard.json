@@ -3,7 +3,7 @@
 {
   "kind": "Dashboard",
   "metadata": {
-    "name": "76a6bafe-2c40-485d-b7a7-cb9be4bfbff1",
+    "name": "d0259b78-49c0-4614-bb8b-2ed302a5a8ec",
     "createdAt": "0001-01-01T00:00:00Z",
     "updatedAt": "0001-01-01T00:00:00Z",
     "version": 0,
@@ -21,17 +21,13 @@
             "name": "Interval",
             "hidden": false
           },
-          "defaultValue": "$__auto_interval_interval",
+          "defaultValue": "1m",
           "allowAllValue": false,
           "allowMultiple": false,
           "plugin": {
             "kind": "StaticListVariable",
             "spec": {
               "values": [
-                {
-                  "label": "auto",
-                  "value": "$__auto_interval_interval"
-                },
                 "1s",
                 "5s",
                 "1m",
@@ -146,10 +142,94 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "format": {
                 "decimalPlaces": 0,
                 "unit": "decimal"
               },
+              "mappings": [
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "value": "1",
+                    "result": {
+                      "value": "PRIMARY"
+                    }
+                  }
+                },
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "value": "2",
+                    "result": {
+                      "value": "SECONDARY"
+                    }
+                  }
+                },
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "value": "3",
+                    "result": {
+                      "value": "RECOVERING"
+                    }
+                  }
+                },
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "value": "5",
+                    "result": {
+                      "value": "STARTUP2"
+                    }
+                  }
+                },
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "value": "6",
+                    "result": {
+                      "value": "UNKNOWN"
+                    }
+                  }
+                },
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "value": "7",
+                    "result": {
+                      "value": "ARBITER"
+                    }
+                  }
+                },
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "value": "8",
+                    "result": {
+                      "value": "DOWN"
+                    }
+                  }
+                },
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "value": "9",
+                    "result": {
+                      "value": "ROLLBACK"
+                    }
+                  }
+                },
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "value": "10",
+                    "result": {
+                      "value": "REMOVED"
+                    }
+                  }
+                }
+              ],
               "thresholds": {
                 "steps": [
                   {
@@ -192,6 +272,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "format": {
                 "decimalPlaces": 0,
                 "unit": "decimal"
@@ -265,6 +346,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "format": {
                 "decimalPlaces": 1,
                 "unit": "seconds"
@@ -311,6 +393,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "format": {
                 "decimalPlaces": 1,
                 "unit": "seconds"
@@ -357,6 +440,7 @@
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "none",
               "format": {
                 "decimalPlaces": 0,
                 "unit": "decimal"
@@ -411,7 +495,7 @@
                   "spec": {
                     "minStep": "$interval",
                     "query": "rate(mongodb_ss_opcountersRepl{pod=~\"$pod\", legacy_op_type!~\"(command|getmore|query)\"}[$interval]) or irate(mongodb_ss_opcountersRepl{pod=~\"$pod\", legacy_op_type!~\"(command|getmore|query)\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{legacy_op_type}}` }}"
                   }
                 }
               }
@@ -466,7 +550,7 @@
                   "spec": {
                     "minStep": "$interval",
                     "query": "rate(mongodb_mongod_metrics_repl_network_getmores_total_milliseconds{pod=~\"$pod\"}[$interval]) or irate(mongodb_mongod_metrics_repl_network_getmores_total_milliseconds{pod=~\"$pod\"}[5m]) or rate(mongodb_ss_metrics_repl_network_getmores_totalMillis{pod=~\"$pod\"}[$interval]) or irate(mongodb_ss_metrics_repl_network_getmores_totalMillis{pod=~\"$pod\"}[5m])",
-                    "seriesNameFormat": ""
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }

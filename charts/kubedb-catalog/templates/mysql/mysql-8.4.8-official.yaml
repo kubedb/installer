@@ -32,9 +32,14 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-archiver") $) }}:v0.26.0-rc.0_8.4.3'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-archiver") $) }}:v0.26.0_8.4.3'
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.43.0-rc.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.43.0{{ include "catalog.ubi" $ }}'
+  courier:
+    cli:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-migrator-mysql") $) }}:v0.5.0{{ include "catalog.ubi" $ }}'
+    statusReporter:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-courier") $) }}:v0.5.0{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql") $) }}:8.4.8-oracle'
   distribution: Official
@@ -45,11 +50,11 @@ spec:
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:0.1.0'
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.52.0-rc.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.52.0{{ include "catalog.ubi" $ }}'
   router:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql-router") $) }}:8.4.8'
   routerInitContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-router-init") $) }}:v0.41.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-router-init") $) }}:v0.43.0'
   securityContext:
     runAsUser: 999
   stash:
