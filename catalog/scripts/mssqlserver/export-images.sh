@@ -32,6 +32,7 @@ mv /tmp/crane images
 
 CMD="./images/crane"
 
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mssqlserver:v0.5.0 images/kubedb-kubedb-migrator-mssqlserver-v0.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-coordinator:v0.20.0 images/kubedb-mssql-coordinator-v0.20.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-exporter:1.4.0 images/kubedb-mssql-exporter-1.4.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssql-init:v2026.1.19 images/kubedb-mssql-init-v2026.1.19.tar

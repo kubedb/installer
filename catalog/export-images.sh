@@ -378,6 +378,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ki
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-manifest-plugin:v0.28.0 images/kubedb-kubedb-manifest-plugin-v0.28.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mariadb:v0.5.0 images/kubedb-kubedb-migrator-mariadb-v0.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mongodb:v0.5.0 images/kubedb-kubedb-migrator-mongodb-v0.5.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mssqlserver:v0.5.0 images/kubedb-kubedb-migrator-mssqlserver-v0.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mysql:v0.5.0 images/kubedb-kubedb-migrator-mysql-v0.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-postgresql:v0.5.0 images/kubedb-kubedb-migrator-postgresql-v0.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.52.0 images/kubedb-kubedb-ops-manager-v0.52.0.tar
