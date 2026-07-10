@@ -2079,6 +2079,7 @@ func (in *MSSQLServerVersionSpec) DeepCopyInto(out *MSSQLServerVersionSpec) {
 		}
 	}
 	out.GitSyncer = in.GitSyncer
+	out.Courier = in.Courier
 	return
 }
 

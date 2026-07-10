@@ -166,6 +166,8 @@ func (r *Neo4j) SetDefaults(kc client.Client) {
 	if dbContainer != nil {
 		apis.SetDefaultResourceLimits(&dbContainer.Resources, kubedb.DefaultResourcesNeo4j)
 	}
+
+	apis.SetDefaultResizePolicy(r.Spec.PodTemplate.Spec.Containers, r.Spec.PodTemplate.Spec.InitContainers)
 }
 
 func (r *Neo4j) SetTLSDefaults() {

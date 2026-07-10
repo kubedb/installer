@@ -56,6 +56,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/busybox:
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.10.1-enterprise $IMAGE_REGISTRY/neo4j:2025.10.1-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.11.2-enterprise $IMAGE_REGISTRY/neo4j:2025.11.2-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.12.1-enterprise $IMAGE_REGISTRY/neo4j:2025.12.1-enterprise
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.05.0-enterprise $IMAGE_REGISTRY/neo4j:2026.05.0-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/mariadb/maxscale:24.02.4 $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:4.4.26 $IMAGE_REGISTRY/percona/percona-server-mongodb:4.4.26
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:5.0.29 $IMAGE_REGISTRY/percona/percona-server-mongodb:5.0.29
@@ -288,7 +289,9 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/po
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.12-alpine $IMAGE_REGISTRY/appscode-images/postgres:16.12-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.12-bookworm $IMAGE_REGISTRY/appscode-images/postgres:16.12-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.13-alpine $IMAGE_REGISTRY/appscode-images/postgres:16.13-alpine
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.13-alpine-ext $IMAGE_REGISTRY/appscode-images/postgres:16.13-alpine-ext
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.13-bookworm $IMAGE_REGISTRY/appscode-images/postgres:16.13-bookworm
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.13-bookworm-ext $IMAGE_REGISTRY/appscode-images/postgres:16.13-bookworm-ext
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.4-alpine $IMAGE_REGISTRY/appscode-images/postgres:16.4-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.4-bookworm $IMAGE_REGISTRY/appscode-images/postgres:16.4-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.6-alpine $IMAGE_REGISTRY/appscode-images/postgres:16.6-alpine
@@ -306,11 +309,15 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/po
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.8-alpine $IMAGE_REGISTRY/appscode-images/postgres:17.8-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.8-bookworm $IMAGE_REGISTRY/appscode-images/postgres:17.8-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-alpine $IMAGE_REGISTRY/appscode-images/postgres:17.9-alpine
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-alpine-ext $IMAGE_REGISTRY/appscode-images/postgres:17.9-alpine-ext
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-bookworm $IMAGE_REGISTRY/appscode-images/postgres:17.9-bookworm
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-bookworm-ext $IMAGE_REGISTRY/appscode-images/postgres:17.9-bookworm-ext
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.2-alpine $IMAGE_REGISTRY/appscode-images/postgres:18.2-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.2-bookworm $IMAGE_REGISTRY/appscode-images/postgres:18.2-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.3-alpine $IMAGE_REGISTRY/appscode-images/postgres:18.3-alpine
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.3-alpine-ext $IMAGE_REGISTRY/appscode-images/postgres:18.3-alpine-ext
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.3-bookworm $IMAGE_REGISTRY/appscode-images/postgres:18.3-bookworm
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.3-bookworm-ext $IMAGE_REGISTRY/appscode-images/postgres:18.3-bookworm-ext
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/rabbitmq:3.12.12-management-alpine $IMAGE_REGISTRY/appscode-images/rabbitmq:3.12.12-management-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/rabbitmq:3.13.2-management-alpine $IMAGE_REGISTRY/appscode-images/rabbitmq:3.13.2-management-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/rabbitmq:4.0.4-management-alpine $IMAGE_REGISTRY/appscode-images/rabbitmq:4.0.4-management-alpine
@@ -381,6 +388,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-kiba
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-manifest-plugin:v0.28.0 $IMAGE_REGISTRY/kubedb/kubedb-manifest-plugin:v0.28.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mariadb:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-mariadb:v0.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mongodb:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-mongodb:v0.5.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mssqlserver:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-mssqlserver:v0.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mysql:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-mysql:v0.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-postgresql:v0.5.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-postgresql:v0.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.52.0 $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.52.0
@@ -450,6 +458,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-ar
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.26.0_18.2-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.26.0_18.2-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.26.0 $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.26.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.19.0 $IMAGE_REGISTRY/kubedb/postgres-init:0.19.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.20.0 $IMAGE_REGISTRY/kubedb/postgres-init:0.20.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.28.0_16.4 $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.28.0_16.4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-aws:v0.26.0 $IMAGE_REGISTRY/kubedb/provider-aws:v0.26.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-azure:v0.26.0 $IMAGE_REGISTRY/kubedb/provider-azure:v0.26.0

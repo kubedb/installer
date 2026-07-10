@@ -24,6 +24,7 @@ fi
 TARBALL=${1:-}
 tar -zxvf $TARBALL
 
+k3s ctr images import images/kubedb-kubedb-migrator-mssqlserver-v0.5.0.tar
 k3s ctr images import images/kubedb-mssql-coordinator-v0.20.0.tar
 k3s ctr images import images/kubedb-mssql-exporter-1.4.0.tar
 k3s ctr images import images/kubedb-mssql-init-v2026.1.19.tar

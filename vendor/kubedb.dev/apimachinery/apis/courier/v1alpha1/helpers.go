@@ -26,8 +26,29 @@ func GetFinalizer() string {
 	return SchemeGroupVersion.Group
 }
 
-func (Migration) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
-	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralMigrations))
+// Migration is the duck type projected from the per-engine {DB}Migration
+// underlying types; it is not served as its own CRD, so it has no
+// CustomResourceDefinition helper. The concrete resources users create are the
+// per-engine kinds below.
+
+func (PostgresMigration) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralPostgresMigrations))
+}
+
+func (MySQLMigration) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralMySQLMigrations))
+}
+
+func (MariaDBMigration) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralMariaDBMigrations))
+}
+
+func (MongoDBMigration) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralMongoDBMigrations))
+}
+
+func (MSSQLServerMigration) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
+	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralMSSQLServerMigrations))
 }
 
 func (Branch) CustomResourceDefinition() *apiextensions.CustomResourceDefinition {
@@ -40,14 +61,16 @@ func (BranchWork) CustomResourceDefinition() *apiextensions.CustomResourceDefini
 
 func (m Migration) GetDBKindAndCommand() (string, string) {
 	switch {
-	case m.Spec.Source.Postgres != nil && m.Spec.Target.Postgres != nil:
+	case m.Spec.Source.PostgresSource != nil && m.Spec.Target.PostgresTarget != nil:
 		return "Postgres", "postgres"
-	case m.Spec.Source.MongoDB != nil && m.Spec.Target.MongoDB != nil:
+	case m.Spec.Source.MongoDBSource != nil && m.Spec.Target.MongoDBTarget != nil:
 		return "MongoDB", "mongodb"
-	case m.Spec.Source.MySQL != nil && m.Spec.Target.MySQL != nil:
+	case m.Spec.Source.MySQLSource != nil && m.Spec.Target.MySQLTarget != nil:
 		return "MySQL", "mysql"
-	case m.Spec.Source.MariaDB != nil && m.Spec.Target.MariaDB != nil:
+	case m.Spec.Source.MariaDBSource != nil && m.Spec.Target.MariaDBTarget != nil:
 		return "MariaDB", "mariadb"
+	case m.Spec.Source.MSSQLServerSource != nil && m.Spec.Target.MSSQLServerTarget != nil:
+		return "MSSQLServer", "mssqlserver"
 	}
 
 	return "", ""
@@ -55,14 +78,24 @@ func (m Migration) GetDBKindAndCommand() (string, string) {
 
 func (m Migration) GetConnectionInfos() (*ConnectionInfo, *ConnectionInfo) {
 	switch {
-	case m.Spec.Source.Postgres != nil && m.Spec.Target.Postgres != nil:
-		return &m.Spec.Source.Postgres.ConnectionInfo, &m.Spec.Target.Postgres.ConnectionInfo
-	case m.Spec.Source.MongoDB != nil && m.Spec.Target.MongoDB != nil:
-		return &m.Spec.Source.MongoDB.ConnectionInfo, &m.Spec.Target.MongoDB.ConnectionInfo
-	case m.Spec.Source.MySQL != nil && m.Spec.Target.MySQL != nil:
-		return m.Spec.Source.MySQL.ConnectionInfo, m.Spec.Target.MySQL.ConnectionInfo
-	case m.Spec.Source.MariaDB != nil && m.Spec.Target.MariaDB != nil:
-		return m.Spec.Source.MariaDB.ConnectionInfo, m.Spec.Target.MariaDB.ConnectionInfo
+	case m.Spec.Source.PostgresSource != nil && m.Spec.Target.PostgresTarget != nil:
+		return &m.Spec.Source.PostgresSource.ConnectionInfo, &m.Spec.Target.PostgresTarget.ConnectionInfo
+	case m.Spec.Source.MongoDBSource != nil && m.Spec.Target.MongoDBTarget != nil:
+		return &m.Spec.Source.MongoDBSource.ConnectionInfo, &m.Spec.Target.MongoDBTarget.ConnectionInfo
+	case m.Spec.Source.MySQLSource != nil && m.Spec.Target.MySQLTarget != nil:
+		return m.Spec.Source.MySQLSource.ConnectionInfo, m.Spec.Target.MySQLTarget.ConnectionInfo
+	case m.Spec.Source.MariaDBSource != nil && m.Spec.Target.MariaDBTarget != nil:
+		return m.Spec.Source.MariaDBSource.ConnectionInfo, m.Spec.Target.MariaDBTarget.ConnectionInfo
+	case m.Spec.Source.MSSQLServerSource != nil && m.Spec.Target.MSSQLServerTarget != nil:
+		src := &ConnectionInfo{
+			AppBinding: m.Spec.Source.MSSQLServerSource.ConnectionInfo.AppBinding,
+			DBName:     m.Spec.Source.MSSQLServerSource.ConnectionInfo.Database,
+		}
+		tgt := &ConnectionInfo{
+			AppBinding: m.Spec.Target.MSSQLServerTarget.ConnectionInfo.AppBinding,
+			DBName:     m.Spec.Target.MSSQLServerTarget.ConnectionInfo.Database,
+		}
+		return src, tgt
 	}
 	return nil, nil
 }

@@ -38,3 +38,4 @@ CMD="./crane"
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.10.1-enterprise $IMAGE_REGISTRY/neo4j:2025.10.1-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.11.2-enterprise $IMAGE_REGISTRY/neo4j:2025.11.2-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.12.1-enterprise $IMAGE_REGISTRY/neo4j:2025.12.1-enterprise
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.05.0-enterprise $IMAGE_REGISTRY/neo4j:2026.05.0-enterprise

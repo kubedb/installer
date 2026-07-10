@@ -23,26 +23,8 @@ import (
 	ofst "kmodules.xyz/offshoot-api/api/v1"
 )
 
-const (
-	ResourceKindMigration     = "Migration"
-	ResourceSingularMigration = "migration"
-	ResourcePluralMigrations  = "migrations"
-)
-
-// +genclient
-// +k8s:openapi-gen=true
+// +k8s:openapi-gen=false
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-
-// +kubebuilder:object:root=true
-// +kubebuilder:resource:path=migrations,singular=migration,shortName=mg,categories={kubedb,appscode,all}
-// +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Namespaced
-// +kubebuilder:printcolumn:name="Phase",type="string",JSONPath=".status.phase"
-// +kubebuilder:printcolumn:name="DBType",type="string",JSONPath=".status.progress.dbType"
-// +kubebuilder:printcolumn:name="Stage",type="string",JSONPath=".status.progress.info.Stage"
-// +kubebuilder:printcolumn:name="Lag",type="string",JSONPath=".status.progress.info.Lag"
-// +kubebuilder:printcolumn:name="Progress",type="string",JSONPath=".status.progress.info.Progress"
-// +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 type Migration struct {
 	metav1.TypeMeta `json:",inline"`
 
@@ -142,7 +124,6 @@ type Progress struct {
 
 // MigrationList contains a list of Migration
 
-// +kubebuilder:object:root=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 type MigrationList struct {
 	metav1.TypeMeta `json:",inline"`

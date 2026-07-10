@@ -140,4 +140,5 @@ const (
 	MongoDBDistroOfficaial MongoDBDistro = "Official"
 	MongoDBDistroPercona   MongoDBDistro = "Percona"
 	MongoDBDistroKubeDB    MongoDBDistro = "KubeDB"
+	MongoDBDistroMongoDB   MongoDBDistro = "MongoDB"
 )
