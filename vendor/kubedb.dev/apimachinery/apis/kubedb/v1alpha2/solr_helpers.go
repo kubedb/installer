@@ -490,6 +490,8 @@ func (s *Solr) setDefaultContainerResourceLimits(podTemplate *ofst.PodTemplateSp
 	if initContainer != nil && (initContainer.Resources.Requests == nil && initContainer.Resources.Limits == nil) {
 		apis.SetDefaultResourceLimits(&initContainer.Resources, kubedb.DefaultInitContainerResource)
 	}
+
+	apis.SetDefaultResizePolicy(podTemplate.Spec.Containers, podTemplate.Spec.InitContainers)
 }
 
 func (s *Solr) SetHealthCheckerDefaults() {

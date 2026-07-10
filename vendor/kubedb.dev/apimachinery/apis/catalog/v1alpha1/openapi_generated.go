@@ -37088,12 +37088,19 @@ func schema_apimachinery_apis_catalog_v1alpha1_MSSQLServerVersionSpec(ref common
 							Ref:     ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer"),
 						},
 					},
+					"courier": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Courier defines the courier related CLI/Tools images for this MySQL version",
+							Default:     map[string]interface{}{},
+							Ref:         ref("kubedb.dev/apimachinery/apis/courier/v1alpha1.DBCourierImages"),
+						},
+					},
 				},
 				Required: []string{"version", "db", "coordinator", "exporter", "initContainer"},
 			},
 		},
 		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ArchiverSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MSSQLServerCoordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MSSQLServerDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MSSQLServerInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MSSQLServerVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
+			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ArchiverSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MSSQLServerCoordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MSSQLServerDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MSSQLServerInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MSSQLServerVersionExporter", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints", "kubedb.dev/apimachinery/apis/courier/v1alpha1.DBCourierImages"},
 	}
 }
 
