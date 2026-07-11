@@ -27,7 +27,13 @@ tar -zxvf $TARBALL
 CMD="./crane"
 
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-percona-xtradb-cluster-5.7.44.tar $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:5.7.44
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-percona-xtradb-cluster-8.0.26.tar $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.0.26
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-percona-xtradb-cluster-8.0.28.tar $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.0.28
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-percona-xtradb-cluster-8.0.31.tar $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.0.31
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-percona-xtradb-cluster-8.0.40.tar $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.0.40
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-percona-xtradb-cluster-8.4.3.tar $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.4.3
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-coordinator-v0.38.0.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-coordinator:v0.38.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysqld-exporter-v0.11.0.tar $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.11.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-cluster-5.7.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-cluster:5.7
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-coordinator-v0.39.0.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-coordinator:v0.39.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-xtradb-init-0.2.3.tar $IMAGE_REGISTRY/kubedb/percona-xtradb-init:0.2.3
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-percona-5.7.tar $IMAGE_REGISTRY/kubedb/percona:5.7

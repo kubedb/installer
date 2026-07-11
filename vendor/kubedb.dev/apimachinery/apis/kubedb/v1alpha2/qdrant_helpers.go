@@ -122,7 +122,8 @@ func (q *Qdrant) ServiceDNS() string {
 }
 
 func (q *Qdrant) PodDNS(ordinal string) string {
-	return fmt.Sprintf("%s-%s.%s.%s.svc",
+	return fmt.Sprintf(
+		"%s-%s.%s.%s.svc",
 		q.OffshootName(),
 		ordinal,
 		q.GoverningServiceName(),

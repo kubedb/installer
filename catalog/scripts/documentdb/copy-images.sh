@@ -36,5 +36,5 @@ mv /tmp/crane .
 CMD="./crane"
 
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/documentdb/documentdb/documentdb-local:pg17-0.109.0 $IMAGE_REGISTRY/documentdb/documentdb/documentdb-local:pg17-0.109.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/documentdb-coordinator:v0.1.0 $IMAGE_REGISTRY/kubedb/documentdb-coordinator:v0.1.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/documentdb-coordinator:v0.2.0 $IMAGE_REGISTRY/kubedb/documentdb-coordinator:v0.2.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/documentdb-init:0.1.0 $IMAGE_REGISTRY/kubedb/documentdb-init:0.1.0

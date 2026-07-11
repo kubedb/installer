@@ -26,9 +26,11 @@ tar -zxvf $TARBALL
 
 k3s ctr images import images/kubedb-proxysql-exporter-v1.1.0.tar
 k3s ctr images import images/kubedb-proxysql-2.3.2-centos-v2.tar
+k3s ctr images import images/kubedb-proxysql-2.3.2-debian.tar
 k3s ctr images import images/kubedb-proxysql-2.3.2-debian-v2.tar
 k3s ctr images import images/kubedb-proxysql-2.4.4-centos.tar
 k3s ctr images import images/kubedb-proxysql-2.4.4-debian.tar
 k3s ctr images import images/kubedb-proxysql-2.6.3-debian.tar
 k3s ctr images import images/kubedb-proxysql-2.7.3-debian.tar
 k3s ctr images import images/kubedb-proxysql-3.0.1-debian.tar
+k3s ctr images import images/kubedb-proxysql-v2.0.4.tar

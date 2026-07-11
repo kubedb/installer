@@ -35,12 +35,16 @@ mv /tmp/crane .
 
 CMD="./crane"
 
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/apache/druid:25.0.0 $IMAGE_REGISTRY/apache/druid:25.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:28.0.1 $IMAGE_REGISTRY/appscode-images/druid:28.0.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:30.0.0 $IMAGE_REGISTRY/appscode-images/druid:30.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:30.0.1 $IMAGE_REGISTRY/appscode-images/druid:30.0.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:31.0.0 $IMAGE_REGISTRY/appscode-images/druid:31.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:35.0.1 $IMAGE_REGISTRY/appscode-images/druid:35.0.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/druid:36.0.0 $IMAGE_REGISTRY/appscode-images/druid:36.0.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:25.0.0 $IMAGE_REGISTRY/kubedb/druid-init:25.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:28.0.1 $IMAGE_REGISTRY/kubedb/druid-init:28.0.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:30.0.0 $IMAGE_REGISTRY/kubedb/druid-init:30.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:30.0.1 $IMAGE_REGISTRY/kubedb/druid-init:30.0.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:31.0.0 $IMAGE_REGISTRY/kubedb/druid-init:31.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:35.0.1 $IMAGE_REGISTRY/kubedb/druid-init:35.0.1
