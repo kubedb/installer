@@ -439,8 +439,8 @@ k3s ctr images import images/kubedb-postgres-archiver-v0.26.0_14.10-alpine.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.26.0_14.10-bookworm.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.26.0_15.5-alpine.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.26.0_15.5-bookworm.tar
-k3s ctr images import images/kubedb-postgres-archiver-v0.26.0_16.1-alpine.tar
-k3s ctr images import images/kubedb-postgres-archiver-v0.26.0_16.1-bookworm.tar
+k3s ctr images import images/kubedb-postgres-archiver-v0.26.0_16.4-alpine.tar
+k3s ctr images import images/kubedb-postgres-archiver-v0.26.0_16.4-bookworm.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.26.0_17.2-alpine.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.26.0_17.2-bookworm.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.26.0_18.2-alpine.tar
