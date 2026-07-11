@@ -26,7 +26,28 @@ spec:
           source:
             emptyDir: {}
           usage: Holds temporary files and clickhouse-backup cache.
-
+    - name: manifest-backup
+      function: kubedbmanifest-backup
+      driver: Restic
+      executor: Job
+      singleton: true
+      parameters:
+        - name: enableCache
+          usage: Enable or disable caching. Disabling caching may impact backup performance.
+          required: false
+          default: "true"
+        - name: scratchDir
+          usage: Directory for holding temporary files and restic cache.
+          required: false
+          default: /kubestash-tmp
+      volumeTemplate:
+        - name: kubestash-tmp-volume
+          usage: Holds temporary files and restic cache.
+          source:
+            emptyDir: { }
+      volumeMounts:
+        - name: kubestash-tmp-volume
+          mountPath: /kubestash-tmp
   restoreTasks:
     - driver: ClickHouseBackup
       executor: Job
@@ -50,3 +71,52 @@ spec:
           source:
             emptyDir: {}
           usage: Holds temporary files and clickhouse-backup cache.
+    - driver: ClickHouseBackup
+      executor: Job
+      function: clickhouse-incremental-restore
+      name: incremental-restore
+      parameters:
+        - default: "true"
+          name: enableCache
+          required: false
+          usage: Enable or disable caching. Disabling caching may impact backup performance.
+        - default: /kubestash-tmp
+          name: scratchDir
+          required: false
+          usage: Directory for holding temporary files and clickhouse-backup cache.
+        - default: ""
+          name: pitrTime
+          required: true
+          usage: Recovery timestamp for PITR restore
+      singleton: true
+      volumeMounts:
+        - mountPath: /kubestash-tmp
+          name: kubestash-tmp-volume
+      volumeTemplate:
+        - name: kubestash-tmp-volume
+          source:
+            emptyDir: { }
+          usage: Holds temporary files and clickhouse-backup cache.
+
+    - name: manifest-restore
+      function: kubedbmanifest-restore
+      driver: Restic
+      executor: Job
+      singleton: true
+      parameters:
+        - name: enableCache
+          usage: Enable or disable caching. Disabling caching may impact backup performance.
+          required: false
+          default: "true"
+        - name: scratchDir
+          usage: Directory for holding temporary files and restic cache.
+          required: false
+          default: /kubestash-tmp
+      volumeTemplate:
+        - name: kubestash-tmp-volume
+          usage: Holds temporary files and restic cache.
+          source:
+            emptyDir: { }
+      volumeMounts:
+        - name: kubestash-tmp-volume
+          mountPath: /kubestash-tmp

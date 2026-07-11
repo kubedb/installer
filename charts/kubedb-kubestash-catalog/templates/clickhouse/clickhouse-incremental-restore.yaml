@@ -9,15 +9,16 @@
 apiVersion: addons.kubestash.com/v1alpha1
 kind: Function
 metadata:
-  name: 'clickhouse-restore'
+  name: 'clickhouse-incremental-restore'
   labels:
     {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
 spec:
   args:
-  - restore
+  - pitr-restore
   - --namespace=${namespace:=default}
   - --restoresession=${restoreSession:=}
   - --wait-timeout=${waitTimeout:={{ .Values.waitTimeout}}}
   - --snapshot=${snapshot:=}
+  - --pitr-time=${pitrTime:=}
   image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/clickhouse-backup-plugin") $) }}:v0.3.0{{ include "catalog.ubi" $ }}'
 {{ end }}
