@@ -46,7 +46,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.28 images/appscode-images-mongo-7.0.28.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.10 images/appscode-images-mongo-8.0.10.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.17 images/appscode-images-mongo-8.0.17.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mongodb:v0.5.0 images/kubedb-kubedb-migrator-mongodb-v0.5.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mongodb:v0.6.0 images/kubedb-kubedb-migrator-mongodb-v0.6.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 images/kubedb-mongodb-init-4.2-v9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v11 images/kubedb-mongodb-init-6.0-v11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb_exporter:v0.47.2 images/kubedb-mongodb_exporter-v0.47.2.tar

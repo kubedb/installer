@@ -133,7 +133,7 @@ func (s *Solr) Merge(opt map[string]string) map[string]string {
 }
 
 func (s *Solr) Append(opt map[string]string) string {
-	key := make([]string, 0)
+	key := make([]string, 0, len(opt))
 	for x := range opt {
 		key = append(key, x)
 	}
