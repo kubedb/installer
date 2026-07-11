@@ -222,6 +222,10 @@ endif
 
 .PHONY: gen-custom-role
 gen-custom-role: role-aggregator ## Generate custom role for kubedb from selected charts.
+	@# role-aggregator runs `helm template` on each chart, so any chart with
+	@# dependencies (e.g. kubedb-autoscaler -> storage-metrics-server) must have
+	@# them fetched into its charts/ directory first.
+	helm dependency build charts/kubedb-autoscaler
 	$(ROLE_AGGREGATOR) \
 		--name kubedb-role \
 		--dir config/rbac/role.yaml \
