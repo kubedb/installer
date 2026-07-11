@@ -372,7 +372,7 @@ func (d *DocumentDB) initializePodTemplates() {
 }
 
 func (d *DocumentDB) GetPersistentSecrets() []string {
-	var secrets []string
+	secrets := make([]string, 0, 2)
 	secrets = append(secrets, d.GetAuthSecretName())
 	secrets = append(secrets, d.GetAdminAuthSecretName())
 	return secrets
