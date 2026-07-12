@@ -33,8 +33,3 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached-1.6.33-alpine.tar $IMAGE_REGISTRY/appscode-images/memcached:1.6.33-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached-1.6.40-alpine.tar $IMAGE_REGISTRY/appscode-images/memcached:1.6.40-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached_exporter-v0.14.3-ac.tar $IMAGE_REGISTRY/appscode-images/memcached_exporter:v0.14.3-ac
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-memcached-exporter-v0.4.1.tar $IMAGE_REGISTRY/kubedb/memcached-exporter:v0.4.1
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-memcached-1.5.tar $IMAGE_REGISTRY/kubedb/memcached:1.5
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-memcached-1.5-v1.tar $IMAGE_REGISTRY/kubedb/memcached:1.5-v1
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-memcached-1.5.4.tar $IMAGE_REGISTRY/kubedb/memcached:1.5.4
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-memcached-1.5.4-v1.tar $IMAGE_REGISTRY/kubedb/memcached:1.5.4-v1

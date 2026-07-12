@@ -42,8 +42,3 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/me
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.33-alpine $IMAGE_REGISTRY/appscode-images/memcached:1.6.33-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.40-alpine $IMAGE_REGISTRY/appscode-images/memcached:1.6.40-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached_exporter:v0.14.3-ac $IMAGE_REGISTRY/appscode-images/memcached_exporter:v0.14.3-ac
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/memcached-exporter:v0.4.1 $IMAGE_REGISTRY/kubedb/memcached-exporter:v0.4.1
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/memcached:1.5 $IMAGE_REGISTRY/kubedb/memcached:1.5
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/memcached:1.5-v1 $IMAGE_REGISTRY/kubedb/memcached:1.5-v1
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/memcached:1.5.4 $IMAGE_REGISTRY/kubedb/memcached:1.5.4
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/memcached:1.5.4-v1 $IMAGE_REGISTRY/kubedb/memcached:1.5.4-v1

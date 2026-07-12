@@ -31,8 +31,3 @@ k3s ctr images import images/appscode-images-memcached-1.6.29-alpine.tar
 k3s ctr images import images/appscode-images-memcached-1.6.33-alpine.tar
 k3s ctr images import images/appscode-images-memcached-1.6.40-alpine.tar
 k3s ctr images import images/appscode-images-memcached_exporter-v0.14.3-ac.tar
-k3s ctr images import images/kubedb-memcached-exporter-v0.4.1.tar
-k3s ctr images import images/kubedb-memcached-1.5.tar
-k3s ctr images import images/kubedb-memcached-1.5-v1.tar
-k3s ctr images import images/kubedb-memcached-1.5.4.tar
-k3s ctr images import images/kubedb-memcached-1.5.4-v1.tar

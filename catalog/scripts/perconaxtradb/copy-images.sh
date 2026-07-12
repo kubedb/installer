@@ -36,13 +36,7 @@ mv /tmp/crane .
 CMD="./crane"
 
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:5.7.44 $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:5.7.44
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.0.26 $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.0.26
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.0.28 $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.0.28
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.0.31 $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.0.31
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.0.40 $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.0.40
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.4.3 $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.4.3
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.11.0 $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.11.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-cluster:5.7 $IMAGE_REGISTRY/kubedb/percona-xtradb-cluster:5.7
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-coordinator:v0.39.0 $IMAGE_REGISTRY/kubedb/percona-xtradb-coordinator:v0.39.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-init:0.2.3 $IMAGE_REGISTRY/kubedb/percona-xtradb-init:0.2.3
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona:5.7 $IMAGE_REGISTRY/kubedb/percona:5.7

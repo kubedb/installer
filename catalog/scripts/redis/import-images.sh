@@ -26,17 +26,6 @@ tar -zxvf $TARBALL
 
 CMD="./crane"
 
-$CMD push --allow-nondistributable-artifacts --insecure images/library-redis-6.0.18.tar $IMAGE_REGISTRY/redis:6.0.18
-$CMD push --allow-nondistributable-artifacts --insecure images/library-redis-6.2.11.tar $IMAGE_REGISTRY/redis:6.2.11
-$CMD push --allow-nondistributable-artifacts --insecure images/library-redis-6.2.5.tar $IMAGE_REGISTRY/redis:6.2.5
-$CMD push --allow-nondistributable-artifacts --insecure images/library-redis-6.2.7.tar $IMAGE_REGISTRY/redis:6.2.7
-$CMD push --allow-nondistributable-artifacts --insecure images/library-redis-6.2.8.tar $IMAGE_REGISTRY/redis:6.2.8
-$CMD push --allow-nondistributable-artifacts --insecure images/library-redis-7.0.10.tar $IMAGE_REGISTRY/redis:7.0.10
-$CMD push --allow-nondistributable-artifacts --insecure images/library-redis-7.0.4.tar $IMAGE_REGISTRY/redis:7.0.4
-$CMD push --allow-nondistributable-artifacts --insecure images/library-redis-7.0.5.tar $IMAGE_REGISTRY/redis:7.0.5
-$CMD push --allow-nondistributable-artifacts --insecure images/library-redis-7.0.6.tar $IMAGE_REGISTRY/redis:7.0.6
-$CMD push --allow-nondistributable-artifacts --insecure images/library-redis-7.0.9.tar $IMAGE_REGISTRY/redis:7.0.9
-$CMD push --allow-nondistributable-artifacts --insecure images/library-redis-7.2.0.tar $IMAGE_REGISTRY/redis:7.2.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-5.0.14-bullseye.tar $IMAGE_REGISTRY/appscode-images/redis:5.0.14-bullseye
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-6.0.20-bookworm.tar $IMAGE_REGISTRY/appscode-images/redis:6.0.20-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-redis-6.2.14-bookworm.tar $IMAGE_REGISTRY/appscode-images/redis:6.2.14-bookworm
@@ -55,22 +44,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-v
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-valkey-7.2.9.tar $IMAGE_REGISTRY/appscode-images/valkey:7.2.9
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-valkey-8.0.3.tar $IMAGE_REGISTRY/appscode-images/valkey:8.0.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-valkey-8.1.1.tar $IMAGE_REGISTRY/appscode-images/valkey:8.1.1
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-operator-0.8.0.tar $IMAGE_REGISTRY/kubedb/operator:0.8.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-coordinator-v0.45.0.tar $IMAGE_REGISTRY/kubedb/redis-coordinator:v0.45.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-init-0.12.2.tar $IMAGE_REGISTRY/kubedb/redis-init:0.12.2
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-4.tar $IMAGE_REGISTRY/kubedb/redis:4
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-4-v1.tar $IMAGE_REGISTRY/kubedb/redis:4-v1
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-4.0.tar $IMAGE_REGISTRY/kubedb/redis:4.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-4.0-v1.tar $IMAGE_REGISTRY/kubedb/redis:4.0-v1
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-4.0-v2.tar $IMAGE_REGISTRY/kubedb/redis:4.0-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-4.0.11.tar $IMAGE_REGISTRY/kubedb/redis:4.0.11
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-4.0.6.tar $IMAGE_REGISTRY/kubedb/redis:4.0.6
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-4.0.6-v1.tar $IMAGE_REGISTRY/kubedb/redis:4.0.6-v1
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-4.0.6-v2.tar $IMAGE_REGISTRY/kubedb/redis:4.0.6-v2
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-5.0.tar $IMAGE_REGISTRY/kubedb/redis:5.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-5.0-v1.tar $IMAGE_REGISTRY/kubedb/redis:5.0-v1
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-5.0.3.tar $IMAGE_REGISTRY/kubedb/redis:5.0.3
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-5.0.3-v1.tar $IMAGE_REGISTRY/kubedb/redis:5.0.3-v1
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-6.0.6.tar $IMAGE_REGISTRY/kubedb/redis:6.0.6
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis_exporter-1.66.0.tar $IMAGE_REGISTRY/kubedb/redis_exporter:1.66.0
 $CMD push --allow-nondistributable-artifacts --insecure images/git-sync-git-sync-v4.4.2.tar $IMAGE_REGISTRY/git-sync/git-sync:v4.4.2

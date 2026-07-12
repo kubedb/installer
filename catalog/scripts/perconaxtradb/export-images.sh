@@ -33,15 +33,9 @@ mv /tmp/crane images
 CMD="./images/crane"
 
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:5.7.44 images/appscode-images-percona-xtradb-cluster-5.7.44.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.0.26 images/appscode-images-percona-xtradb-cluster-8.0.26.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.0.28 images/appscode-images-percona-xtradb-cluster-8.0.28.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.0.31 images/appscode-images-percona-xtradb-cluster-8.0.31.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.0.40 images/appscode-images-percona-xtradb-cluster-8.0.40.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.4.3 images/appscode-images-percona-xtradb-cluster-8.4.3.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.11.0 images/kubedb-mysqld-exporter-v0.11.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-cluster:5.7 images/kubedb-percona-xtradb-cluster-5.7.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-coordinator:v0.39.0 images/kubedb-percona-xtradb-coordinator-v0.39.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-init:0.2.3 images/kubedb-percona-xtradb-init-0.2.3.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona:5.7 images/kubedb-percona-5.7.tar
 
 tar -czvf images.tar.gz images

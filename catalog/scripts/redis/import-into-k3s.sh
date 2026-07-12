@@ -24,17 +24,6 @@ fi
 TARBALL=${1:-}
 tar -zxvf $TARBALL
 
-k3s ctr images import images/library-redis-6.0.18.tar
-k3s ctr images import images/library-redis-6.2.11.tar
-k3s ctr images import images/library-redis-6.2.5.tar
-k3s ctr images import images/library-redis-6.2.7.tar
-k3s ctr images import images/library-redis-6.2.8.tar
-k3s ctr images import images/library-redis-7.0.10.tar
-k3s ctr images import images/library-redis-7.0.4.tar
-k3s ctr images import images/library-redis-7.0.5.tar
-k3s ctr images import images/library-redis-7.0.6.tar
-k3s ctr images import images/library-redis-7.0.9.tar
-k3s ctr images import images/library-redis-7.2.0.tar
 k3s ctr images import images/appscode-images-redis-5.0.14-bullseye.tar
 k3s ctr images import images/appscode-images-redis-6.0.20-bookworm.tar
 k3s ctr images import images/appscode-images-redis-6.2.14-bookworm.tar
@@ -53,22 +42,8 @@ k3s ctr images import images/appscode-images-valkey-7.2.5.tar
 k3s ctr images import images/appscode-images-valkey-7.2.9.tar
 k3s ctr images import images/appscode-images-valkey-8.0.3.tar
 k3s ctr images import images/appscode-images-valkey-8.1.1.tar
-k3s ctr images import images/kubedb-operator-0.8.0.tar
 k3s ctr images import images/kubedb-redis-coordinator-v0.45.0.tar
 k3s ctr images import images/kubedb-redis-init-0.12.2.tar
-k3s ctr images import images/kubedb-redis-4.tar
-k3s ctr images import images/kubedb-redis-4-v1.tar
-k3s ctr images import images/kubedb-redis-4.0.tar
-k3s ctr images import images/kubedb-redis-4.0-v1.tar
-k3s ctr images import images/kubedb-redis-4.0-v2.tar
 k3s ctr images import images/kubedb-redis-4.0.11.tar
-k3s ctr images import images/kubedb-redis-4.0.6.tar
-k3s ctr images import images/kubedb-redis-4.0.6-v1.tar
-k3s ctr images import images/kubedb-redis-4.0.6-v2.tar
-k3s ctr images import images/kubedb-redis-5.0.tar
-k3s ctr images import images/kubedb-redis-5.0-v1.tar
-k3s ctr images import images/kubedb-redis-5.0.3.tar
-k3s ctr images import images/kubedb-redis-5.0.3-v1.tar
-k3s ctr images import images/kubedb-redis-6.0.6.tar
 k3s ctr images import images/kubedb-redis_exporter-1.66.0.tar
 k3s ctr images import images/git-sync-git-sync-v4.4.2.tar

@@ -37,11 +37,9 @@ CMD="./crane"
 
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql-exporter:v1.1.0 $IMAGE_REGISTRY/kubedb/proxysql-exporter:v1.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.3.2-centos-v2 $IMAGE_REGISTRY/kubedb/proxysql:2.3.2-centos-v2
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.3.2-debian $IMAGE_REGISTRY/kubedb/proxysql:2.3.2-debian
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.3.2-debian-v2 $IMAGE_REGISTRY/kubedb/proxysql:2.3.2-debian-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.4.4-centos $IMAGE_REGISTRY/kubedb/proxysql:2.4.4-centos
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.4.4-debian $IMAGE_REGISTRY/kubedb/proxysql:2.4.4-debian
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.6.3-debian $IMAGE_REGISTRY/kubedb/proxysql:2.6.3-debian
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.7.3-debian $IMAGE_REGISTRY/kubedb/proxysql:2.7.3-debian
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:3.0.1-debian $IMAGE_REGISTRY/kubedb/proxysql:3.0.1-debian
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:v2.0.4 $IMAGE_REGISTRY/kubedb/proxysql:v2.0.4

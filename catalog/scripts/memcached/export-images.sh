@@ -39,10 +39,5 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.33-alpine images/appscode-images-memcached-1.6.33-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.40-alpine images/appscode-images-memcached-1.6.40-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached_exporter:v0.14.3-ac images/appscode-images-memcached_exporter-v0.14.3-ac.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/memcached-exporter:v0.4.1 images/kubedb-memcached-exporter-v0.4.1.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/memcached:1.5 images/kubedb-memcached-1.5.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/memcached:1.5-v1 images/kubedb-memcached-1.5-v1.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/memcached:1.5.4 images/kubedb-memcached-1.5.4.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/memcached:1.5.4-v1 images/kubedb-memcached-1.5.4-v1.tar
 
 tar -czvf images.tar.gz images
