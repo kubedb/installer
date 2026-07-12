@@ -50,7 +50,6 @@ k3s ctr images import images/kubedb-mssqlserver-walg-plugin-v0.20.0.tar
 k3s ctr images import images/kubedb-mysql-csi-snapshotter-plugin-v0.27.0.tar
 k3s ctr images import images/kubedb-neo4j-backup-plugin-v0.2.0.tar
 k3s ctr images import images/kubedb-postgres-csi-snapshotter-plugin-v0.27.0.tar
-k3s ctr images import images/kubedb-postgres-restic-plugin-v0.29.0_16.1.tar
 k3s ctr images import images/kubedb-provider-aws-v0.27.0.tar
 k3s ctr images import images/kubedb-provider-azure-v0.27.0.tar
 k3s ctr images import images/kubedb-provider-gcp-v0.27.0.tar

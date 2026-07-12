@@ -61,7 +61,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mssqlserver
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-csi-snapshotter-plugin:v0.27.0 $IMAGE_REGISTRY/kubedb/mysql-csi-snapshotter-plugin:v0.27.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/neo4j-backup-plugin:v0.2.0 $IMAGE_REGISTRY/kubedb/neo4j-backup-plugin:v0.2.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.27.0 $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.27.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.29.0_16.1 $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.29.0_16.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-aws:v0.27.0 $IMAGE_REGISTRY/kubedb/provider-aws:v0.27.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-azure:v0.27.0 $IMAGE_REGISTRY/kubedb/provider-azure:v0.27.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-gcp:v0.27.0 $IMAGE_REGISTRY/kubedb/provider-gcp:v0.27.0

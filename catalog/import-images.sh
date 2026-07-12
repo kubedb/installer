@@ -839,7 +839,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-a
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-csi-snapshotter-plugin-v0.27.0.tar $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.27.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-init-0.19.0.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.19.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-init-0.20.0.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.20.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.29.0_16.1.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.29.0_16.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-10.2.tar $IMAGE_REGISTRY/kubedb/postgres:10.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-10.2-v2.tar $IMAGE_REGISTRY/kubedb/postgres:10.2-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-10.2-v3.tar $IMAGE_REGISTRY/kubedb/postgres:10.2-v3
