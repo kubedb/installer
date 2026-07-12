@@ -459,7 +459,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-ar
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.27.0 $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.27.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.19.0 $IMAGE_REGISTRY/kubedb/postgres-init:0.19.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.20.0 $IMAGE_REGISTRY/kubedb/postgres-init:0.20.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.29.0_16.1 $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.29.0_16.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.29.0_16.4 $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.29.0_16.4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-aws:v0.27.0 $IMAGE_REGISTRY/kubedb/provider-aws:v0.27.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-azure:v0.27.0 $IMAGE_REGISTRY/kubedb/provider-azure:v0.27.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-gcp:v0.27.0 $IMAGE_REGISTRY/kubedb/provider-gcp:v0.27.0
