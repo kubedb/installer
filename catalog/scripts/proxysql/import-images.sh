@@ -28,9 +28,11 @@ CMD="./crane"
 
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-exporter-v1.1.0.tar $IMAGE_REGISTRY/kubedb/proxysql-exporter:v1.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2.3.2-centos-v2.tar $IMAGE_REGISTRY/kubedb/proxysql:2.3.2-centos-v2
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2.3.2-debian.tar $IMAGE_REGISTRY/kubedb/proxysql:2.3.2-debian
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2.3.2-debian-v2.tar $IMAGE_REGISTRY/kubedb/proxysql:2.3.2-debian-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2.4.4-centos.tar $IMAGE_REGISTRY/kubedb/proxysql:2.4.4-centos
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2.4.4-debian.tar $IMAGE_REGISTRY/kubedb/proxysql:2.4.4-debian
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2.6.3-debian.tar $IMAGE_REGISTRY/kubedb/proxysql:2.6.3-debian
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2.7.3-debian.tar $IMAGE_REGISTRY/kubedb/proxysql:2.7.3-debian
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-3.0.1-debian.tar $IMAGE_REGISTRY/kubedb/proxysql:3.0.1-debian
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-v2.0.4.tar $IMAGE_REGISTRY/kubedb/proxysql:v2.0.4

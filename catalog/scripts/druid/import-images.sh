@@ -26,12 +26,16 @@ tar -zxvf $TARBALL
 
 CMD="./crane"
 
+$CMD push --allow-nondistributable-artifacts --insecure images/apache-druid-25.0.0.tar $IMAGE_REGISTRY/apache/druid:25.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-28.0.1.tar $IMAGE_REGISTRY/appscode-images/druid:28.0.1
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-30.0.0.tar $IMAGE_REGISTRY/appscode-images/druid:30.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-30.0.1.tar $IMAGE_REGISTRY/appscode-images/druid:30.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-31.0.0.tar $IMAGE_REGISTRY/appscode-images/druid:31.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-35.0.1.tar $IMAGE_REGISTRY/appscode-images/druid:35.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-druid-36.0.0.tar $IMAGE_REGISTRY/appscode-images/druid:36.0.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-25.0.0.tar $IMAGE_REGISTRY/kubedb/druid-init:25.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-28.0.1.tar $IMAGE_REGISTRY/kubedb/druid-init:28.0.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-30.0.0.tar $IMAGE_REGISTRY/kubedb/druid-init:30.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-30.0.1.tar $IMAGE_REGISTRY/kubedb/druid-init:30.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-31.0.0.tar $IMAGE_REGISTRY/kubedb/druid-init:31.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-35.0.1.tar $IMAGE_REGISTRY/kubedb/druid-init:35.0.1

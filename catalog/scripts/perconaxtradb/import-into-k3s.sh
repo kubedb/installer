@@ -25,7 +25,13 @@ TARBALL=${1:-}
 tar -zxvf $TARBALL
 
 k3s ctr images import images/appscode-images-percona-xtradb-cluster-5.7.44.tar
+k3s ctr images import images/appscode-images-percona-xtradb-cluster-8.0.26.tar
+k3s ctr images import images/appscode-images-percona-xtradb-cluster-8.0.28.tar
+k3s ctr images import images/appscode-images-percona-xtradb-cluster-8.0.31.tar
 k3s ctr images import images/appscode-images-percona-xtradb-cluster-8.0.40.tar
 k3s ctr images import images/appscode-images-percona-xtradb-cluster-8.4.3.tar
+k3s ctr images import images/kubedb-mysqld-exporter-v0.11.0.tar
+k3s ctr images import images/kubedb-percona-xtradb-cluster-5.7.tar
 k3s ctr images import images/kubedb-percona-xtradb-coordinator-v0.39.0.tar
 k3s ctr images import images/kubedb-percona-xtradb-init-0.2.3.tar
+k3s ctr images import images/kubedb-percona-5.7.tar

@@ -35,6 +35,17 @@ mv /tmp/crane .
 
 CMD="./crane"
 
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/redis:6.0.18 $IMAGE_REGISTRY/redis:6.0.18
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/redis:6.2.11 $IMAGE_REGISTRY/redis:6.2.11
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/redis:6.2.5 $IMAGE_REGISTRY/redis:6.2.5
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/redis:6.2.7 $IMAGE_REGISTRY/redis:6.2.7
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/redis:6.2.8 $IMAGE_REGISTRY/redis:6.2.8
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/redis:7.0.10 $IMAGE_REGISTRY/redis:7.0.10
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/redis:7.0.4 $IMAGE_REGISTRY/redis:7.0.4
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/redis:7.0.5 $IMAGE_REGISTRY/redis:7.0.5
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/redis:7.0.6 $IMAGE_REGISTRY/redis:7.0.6
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/redis:7.0.9 $IMAGE_REGISTRY/redis:7.0.9
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/redis:7.2.0 $IMAGE_REGISTRY/redis:7.2.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:5.0.14-bullseye $IMAGE_REGISTRY/appscode-images/redis:5.0.14-bullseye
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:6.0.20-bookworm $IMAGE_REGISTRY/appscode-images/redis:6.0.20-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/redis:6.2.14-bookworm $IMAGE_REGISTRY/appscode-images/redis:6.2.14-bookworm
@@ -53,8 +64,22 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/va
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:7.2.9 $IMAGE_REGISTRY/appscode-images/valkey:7.2.9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:8.0.3 $IMAGE_REGISTRY/appscode-images/valkey:8.0.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:8.1.1 $IMAGE_REGISTRY/appscode-images/valkey:8.1.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/operator:0.8.0 $IMAGE_REGISTRY/kubedb/operator:0.8.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-coordinator:v0.45.0 $IMAGE_REGISTRY/kubedb/redis-coordinator:v0.45.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-init:0.12.2 $IMAGE_REGISTRY/kubedb/redis-init:0.12.2
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4 $IMAGE_REGISTRY/kubedb/redis:4
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4-v1 $IMAGE_REGISTRY/kubedb/redis:4-v1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4.0 $IMAGE_REGISTRY/kubedb/redis:4.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4.0-v1 $IMAGE_REGISTRY/kubedb/redis:4.0-v1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4.0-v2 $IMAGE_REGISTRY/kubedb/redis:4.0-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4.0.11 $IMAGE_REGISTRY/kubedb/redis:4.0.11
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4.0.6 $IMAGE_REGISTRY/kubedb/redis:4.0.6
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4.0.6-v1 $IMAGE_REGISTRY/kubedb/redis:4.0.6-v1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:4.0.6-v2 $IMAGE_REGISTRY/kubedb/redis:4.0.6-v2
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:5.0 $IMAGE_REGISTRY/kubedb/redis:5.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:5.0-v1 $IMAGE_REGISTRY/kubedb/redis:5.0-v1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:5.0.3 $IMAGE_REGISTRY/kubedb/redis:5.0.3
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:5.0.3-v1 $IMAGE_REGISTRY/kubedb/redis:5.0.3-v1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis:6.0.6 $IMAGE_REGISTRY/kubedb/redis:6.0.6
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis_exporter:1.66.0 $IMAGE_REGISTRY/kubedb/redis_exporter:1.66.0
 $CMD cp --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.4.2 $IMAGE_REGISTRY/git-sync/git-sync:v4.4.2
