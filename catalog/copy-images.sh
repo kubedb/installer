@@ -523,3 +523,4 @@ $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/se
 $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU22-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2022-CU22-ubuntu-22.04
 $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2025-RTM-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2025-RTM-ubuntu-22.04
 $CMD cp --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.4.2 $IMAGE_REGISTRY/git-sync/git-sync:v4.4.2
+$CMD cp --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.7.0 $IMAGE_REGISTRY/git-sync/git-sync:v4.7.0
