@@ -514,3 +514,4 @@ $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU22-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU22-ubuntu-22.04
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2025-RTM-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2025-RTM-ubuntu-22.04
 $CMD push --allow-nondistributable-artifacts --insecure images/git-sync-git-sync-v4.4.2.tar $IMAGE_REGISTRY/git-sync/git-sync:v4.4.2
+$CMD push --allow-nondistributable-artifacts --insecure images/git-sync-git-sync-v4.7.0.tar $IMAGE_REGISTRY/git-sync/git-sync:v4.7.0

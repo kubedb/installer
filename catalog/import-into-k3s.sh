@@ -512,3 +512,4 @@ k3s ctr images import images/mssql-server-2022-CU19-ubuntu-22.04.tar
 k3s ctr images import images/mssql-server-2022-CU22-ubuntu-22.04.tar
 k3s ctr images import images/mssql-server-2025-RTM-ubuntu-22.04.tar
 k3s ctr images import images/git-sync-git-sync-v4.4.2.tar
+k3s ctr images import images/git-sync-git-sync-v4.7.0.tar
