@@ -46,6 +46,10 @@ make gen-chart-doc
 make manifests
 make gen           # clientset + manifests
 
+# Refresh all generated artifacts: gen + update-catalog + fmt.
+# ALWAYS run this before opening a PR so generated files are current.
+make refresh
+
 # Bump chart version and chart deps. Pass CHART_VERSION (and optionally APP_VERSION).
 make update-charts CHART_VERSION=v0.64.0
 # Or update one chart:
