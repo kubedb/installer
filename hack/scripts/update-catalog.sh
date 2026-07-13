@@ -16,6 +16,13 @@
 
 set -eou pipefail
 
+# image-packer embeds the resourceeditors hub, but the reloader used by
+# kmodules.xyz/resource-metadata will shadow the embedded copy with
+# /tmp/hub/resourceeditors if that directory exists. A stale/empty leftover
+# there makes image-packer load zero editors and emit a broken catalog, so
+# remove it before running.
+rm -rf /tmp/hub/resourceeditors
+
 image-packer list --root-dir=charts --output-dir=catalog
 
 image-packer generate-scripts --insecure --allow-nondistributable-artifacts \
