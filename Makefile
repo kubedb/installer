@@ -244,6 +244,9 @@ manifests: gen-crds gen-values-schema gen-chart-doc
 .PHONY: gen
 gen: clientset manifests
 
+.PHONY: refresh
+refresh: gen update-catalog fmt
+
 BIN_DIR ?= $(CURDIR)/bin/$(OS)_$(ARCH)
 
 .PHONY: install-image-packer
