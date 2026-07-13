@@ -138,5 +138,4 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-a
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.27.0_17.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_17.2-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.27.0_18.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_18.2-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.27.0_18.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_18.2-bookworm
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-init-0.19.0.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.19.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-init-0.20.0.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.20.0
