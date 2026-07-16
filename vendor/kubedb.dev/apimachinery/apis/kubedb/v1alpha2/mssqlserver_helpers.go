@@ -669,3 +669,7 @@ func SecondaryAccessSQL(mode SecondaryAccessMode) string {
 		return "NO"
 	}
 }
+
+func (m *MSSQLServer) GetDeletionPolicy() string {
+	return string(m.Spec.DeletionPolicy)
+}

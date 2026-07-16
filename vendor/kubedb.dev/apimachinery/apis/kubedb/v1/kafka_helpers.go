@@ -613,3 +613,7 @@ func (k *Kafka) GetKafkaBrokerCounts() int {
 	}
 	return int(*k.Spec.Replicas)
 }
+
+func (k *Kafka) GetDeletionPolicy() string {
+	return string(k.Spec.DeletionPolicy)
+}

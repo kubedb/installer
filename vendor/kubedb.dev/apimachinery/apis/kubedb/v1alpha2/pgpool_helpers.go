@@ -426,3 +426,7 @@ func (p *Pgpool) ReplicasAreReady(lister pslister.PetSetLister) (bool, string, e
 	expectedItems := 1
 	return checkReplicasOfPetSet(lister.PetSets(p.Namespace), labels.SelectorFromSet(p.OffshootLabels()), expectedItems)
 }
+
+func (p *Pgpool) GetDeletionPolicy() string {
+	return string(p.Spec.DeletionPolicy)
+}

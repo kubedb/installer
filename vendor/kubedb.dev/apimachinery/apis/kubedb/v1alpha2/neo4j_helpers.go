@@ -398,3 +398,7 @@ func (r *Neo4j) CertificateName(alias Neo4jCertificateType) string {
 func (r Neo4j) GetStorageClassName() string {
 	return *r.Spec.Storage.StorageClassName
 }
+
+func (r *Neo4j) GetDeletionPolicy() string {
+	return string(r.Spec.DeletionPolicy)
+}

@@ -476,3 +476,7 @@ func (d *RabbitMQBind) SecretName() string {
 func (d *RabbitMQBind) CertSecretName() string {
 	return d.GetCertSecretName(RabbitmqClientCert)
 }
+
+func (r *RabbitMQ) GetDeletionPolicy() string {
+	return string(r.Spec.DeletionPolicy)
+}

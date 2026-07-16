@@ -544,3 +544,7 @@ func (p *Oracle) GetCertSecretName(alias OracleCertificateAlias) string {
 	}
 	return p.CertificateName(alias)
 }
+
+func (o *Oracle) GetDeletionPolicy() string {
+	return string(o.Spec.DeletionPolicy)
+}

@@ -373,7 +373,9 @@ func (d *DocumentDB) initializePodTemplates() {
 
 func (d *DocumentDB) GetPersistentSecrets() []string {
 	secrets := make([]string, 0, 2)
-	secrets = append(secrets, d.GetAuthSecretName())
+	if !IsVirtualAuthSecretReferred(d.Spec.AuthSecret) && d.Spec.AuthSecret != nil && d.Spec.AuthSecret.Name != "" {
+		secrets = append(secrets, d.GetAuthSecretName())
+	}
 	secrets = append(secrets, d.GetAdminAuthSecretName())
 	return secrets
 }
@@ -427,4 +429,8 @@ func GetSharedBufferSizeForDocumentdb(resource *resource.Quantity) string {
 	}
 
 	return sharedBuffer
+}
+
+func (d *DocumentDB) GetDeletionPolicy() string {
+	return string(d.Spec.DeletionPolicy)
 }
