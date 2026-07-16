@@ -30,3 +30,4 @@ $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-202
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2025.11.2-enterprise.tar $IMAGE_REGISTRY/neo4j:2025.11.2-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2025.12.1-enterprise.tar $IMAGE_REGISTRY/neo4j:2025.12.1-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2026.05.0-enterprise.tar $IMAGE_REGISTRY/neo4j:2026.05.0-enterprise
+$CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2026.06.0-enterprise.tar $IMAGE_REGISTRY/neo4j:2026.06.0-enterprise
