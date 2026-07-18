@@ -103,6 +103,14 @@ spec:
         - --enable-network-policy=true
         - --network-policy-flavor={{ default "kubernetes" .Values.global.networkPolicy.flavor }}
         {{- end }}
+        {{- if .Values.dcDR.enabled }}
+        # Cross data center (DC-DR) failover orchestrator. localDC is this operator
+        # instance's data center (the OCM spoke cluster name); the coord kubeconfig points
+        # at the coordination control plane that holds the primary-DC Leases.
+        - --dc-dr-enabled
+        - --dc-dr-local-dc={{ required "dcDR.localDC is required when dcDR.enabled is true" .Values.dcDR.localDC }}
+        - --dc-dr-coord-kubeconfig=/etc/dr/coord/kubeconfig
+        {{- end }}
         {{- with .Values.envFrom }}
         envFrom:
         {{- toYaml . | nindent 8 }}
@@ -137,6 +145,11 @@ spec:
         - mountPath: /var/run/secrets/appscode/license
           name: license
         {{- end }}
+        {{- if .Values.dcDR.enabled }}
+        - mountPath: /etc/dr/coord
+          name: dcdr-coord-kubeconfig
+          readOnly: true
+        {{- end }}
       {{- if .Values.apiserver.healthcheck.enabled }}
         readinessProbe:
           httpGet:
@@ -161,6 +174,12 @@ spec:
         secret:
           defaultMode: 420
           secretName: {{ include "appscode.licenseSecretName" . }}
+      {{- end }}
+      {{- if .Values.dcDR.enabled }}
+      - name: dcdr-coord-kubeconfig
+        secret:
+          defaultMode: 420
+          secretName: {{ required "dcDR.coordKubeconfigSecret is required when dcDR.enabled is true" .Values.dcDR.coordKubeconfigSecret }}
       {{- end }}
       {{- if eq "true" ( include "distro.openshift" . ) }}
       securityContext:
