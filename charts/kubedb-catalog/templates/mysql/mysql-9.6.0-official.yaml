@@ -9,7 +9,7 @@
 
 {{ if and $featureGates.MySQL (not (eq $ubi "operator")) }}
 
-
+{{ if or (not .Values.skipEndOfLife) (has "9.6.0" .Values.enableVersions.MySQL) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
@@ -80,4 +80,6 @@ spec:
   version: 9.6.0
   podSecurityPolicies:
     databasePolicyName: {{ ternary "mysql-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+  endOfLife: {{ not (has "9.6.0" .Values.enableVersions.MySQL) }}
+{{ end }}
 {{ end }}
