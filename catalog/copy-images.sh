@@ -179,6 +179,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ma
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.6.2-noble $IMAGE_REGISTRY/appscode-images/mariadb:11.6.2-noble
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.8.5-noble $IMAGE_REGISTRY/appscode-images/mariadb:11.8.5-noble
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:12.1.2-noble $IMAGE_REGISTRY/appscode-images/mariadb:12.1.2-noble
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:12.3.2-noble $IMAGE_REGISTRY/appscode-images/mariadb:12.3.2-noble
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.5.22-alpine $IMAGE_REGISTRY/appscode-images/memcached:1.5.22-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.22-alpine $IMAGE_REGISTRY/appscode-images/memcached:1.6.22-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.29-alpine $IMAGE_REGISTRY/appscode-images/memcached:1.6.29-alpine
@@ -201,6 +202,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/my
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.1.0 $IMAGE_REGISTRY/appscode-images/mysql-router:9.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.4.0 $IMAGE_REGISTRY/appscode-images/mysql-router:9.4.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.6.0 $IMAGE_REGISTRY/appscode-images/mysql-router:9.6.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.7.1 $IMAGE_REGISTRY/appscode-images/mysql-router:9.7.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:5.7.42-debian $IMAGE_REGISTRY/appscode-images/mysql:5.7.42-debian
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:5.7.44-oracle $IMAGE_REGISTRY/appscode-images/mysql:5.7.44-oracle
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:8.0.31-oracle $IMAGE_REGISTRY/appscode-images/mysql:8.0.31-oracle
@@ -215,6 +217,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/my
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.1.0-oracle $IMAGE_REGISTRY/appscode-images/mysql:9.1.0-oracle
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.4.0-oracle $IMAGE_REGISTRY/appscode-images/mysql:9.4.0-oracle
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.6.0-oracle $IMAGE_REGISTRY/appscode-images/mysql:9.6.0-oracle
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.7.1-oracle $IMAGE_REGISTRY/appscode-images/mysql:9.7.1-oracle
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:1.3.13 $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:1.3.13
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:1.3.20 $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:1.3.20
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:2.19.2 $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.19.2

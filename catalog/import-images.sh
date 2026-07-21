@@ -170,6 +170,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.6.2-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.6.2-noble
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.8.5-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.8.5-noble
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-12.1.2-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:12.1.2-noble
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-12.3.2-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:12.3.2-noble
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached-1.5.22-alpine.tar $IMAGE_REGISTRY/appscode-images/memcached:1.5.22-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached-1.6.22-alpine.tar $IMAGE_REGISTRY/appscode-images/memcached:1.6.22-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-memcached-1.6.29-alpine.tar $IMAGE_REGISTRY/appscode-images/memcached:1.6.29-alpine
@@ -192,6 +193,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.1.0.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.4.0.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.4.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.6.0.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.6.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.7.1.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.7.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-5.7.42-debian.tar $IMAGE_REGISTRY/appscode-images/mysql:5.7.42-debian
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-5.7.44-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:5.7.44-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-8.0.31-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:8.0.31-oracle
@@ -206,6 +208,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-9.1.0-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:9.1.0-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-9.4.0-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:9.4.0-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-9.6.0-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:9.6.0-oracle
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-9.7.1-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:9.7.1-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-1.3.13.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:1.3.13
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-1.3.20.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:1.3.20
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-2.19.2.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.19.2
