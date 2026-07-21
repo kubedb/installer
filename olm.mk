@@ -259,6 +259,10 @@ bundle: kustomize operator-sdk ## Generate bundle manifests and metadata, then v
 	$(OPERATOR_SDK) bundle validate ./bundle --select-optional name=good-practices
 	@awk 'BEGIN{s=0} {if(!s && ($$0=="" || $$0=="---")){next} s=1; print}' config/crd/bases/installer.kubedb.com_kubedbs.yaml > bundle/manifests/installer.kubedb.com_kubedbs.yaml
 
+.PHONY: bundle-replace-image-digest
+bundle-replace-image-digest: install-image-packer ## Replace image tags with digests in the bundle CSV.
+	PATH="$(BIN_DIR):$$PATH" image-packer replace-image-digest bundle/manifests/kubedb-installer.clusterserviceversion.yaml bundle/manifests/kubedb-installer.clusterserviceversion.yaml
+
 .PHONY: bundle-build
 bundle-build: ## Build the bundle image.
 	$(CONTAINER_TOOL) build -f bundle.Dockerfile -t $(BUNDLE_IMG) .
