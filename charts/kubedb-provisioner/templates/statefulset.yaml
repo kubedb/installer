@@ -110,6 +110,12 @@ spec:
         - --dc-dr-enabled
         - --dc-dr-local-dc={{ required "dcDR.localDC is required when dcDR.enabled is true" .Values.dcDR.localDC }}
         - --dc-dr-coord-kubeconfig=/etc/dr/coord/kubeconfig
+        {{- with .Values.dcDR.coordQPS }}
+        - --dc-dr-coord-qps={{ . }}
+        {{- end }}
+        {{- with .Values.dcDR.coordBurst }}
+        - --dc-dr-coord-burst={{ . }}
+        {{- end }}
         {{- end }}
         {{- with .Values.envFrom }}
         envFrom:
