@@ -63,9 +63,6 @@ if ! kubectl cluster-info >/dev/null 2>&1; then
     exit 1
 fi
 
-echo "==> Packaging charts/kubedb-certified ($CHART_VERSION)"
-helm dependency build "$REPO_ROOT/charts/kubedb-certified"
-
 PACKAGE_DIR="$(mktemp -d)"
 trap 'rm -rf "$PACKAGE_DIR"' EXIT
 helm package "$REPO_ROOT/charts/kubedb-certified" --destination "$PACKAGE_DIR"
