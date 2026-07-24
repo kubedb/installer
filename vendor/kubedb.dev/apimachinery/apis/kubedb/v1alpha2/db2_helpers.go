@@ -170,3 +170,7 @@ func (d *DB2) SetHealthCheckerDefaults() {
 		d.Spec.HealthChecker.FailureThreshold = pointer.Int32P(3)
 	}
 }
+
+func (d *DB2) GetDeletionPolicy() string {
+	return string(d.Spec.DeletionPolicy)
+}

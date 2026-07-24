@@ -567,3 +567,7 @@ func (d *SinglestoreBind) SecretName() string {
 func (d *SinglestoreBind) CertSecretName() string {
 	return d.GetCertSecretName(SinglestoreClientCert)
 }
+
+func (s *Singlestore) GetDeletionPolicy() string {
+	return string(s.Spec.DeletionPolicy)
+}

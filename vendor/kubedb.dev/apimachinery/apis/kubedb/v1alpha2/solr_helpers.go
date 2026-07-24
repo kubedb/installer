@@ -595,3 +595,7 @@ func (d *SolrBind) SecretName() string {
 func (d *SolrBind) CertSecretName() string {
 	return d.GetCertSecretName(SolrClientCert)
 }
+
+func (s *Solr) GetDeletionPolicy() string {
+	return string(s.Spec.DeletionPolicy)
+}
