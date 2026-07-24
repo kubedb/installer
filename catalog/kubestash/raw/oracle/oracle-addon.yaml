@@ -1,0 +1,57 @@
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Addon
+metadata:
+  name: oracle-addon
+spec:
+  backupTasks:
+    - driver: OracleBackup
+      executor: Job
+      function: oracle-backup
+      name: physical-backup
+      parameters:
+        - default: "true"
+          name: enableCache
+          required: false
+          usage: Enable or disable caching. Disabling caching may impact backup performance.
+        - default: /kubestash-tmp
+          name: scratchDir
+          required: false
+          usage: Directory for holding temporary files and oracle-backup cache.
+        - name: walletSecret
+          required: false
+          usage: Wallet secret for OSBWS config.
+        - name: targetPod
+          required: false
+          usage: Oracle pod to run RMAN on.
+      singleton: true
+      volumeMounts:
+        - mountPath: /kubestash-tmp
+          name: kubestash-tmp-volume
+      volumeTemplate:
+        - name: kubestash-tmp-volume
+          source:
+            emptyDir: {}
+          usage: Holds temporary files and oracle-backup cache.
+  restoreTasks:
+    - driver: OracleBackup
+      executor: Job
+      function: oracle-restore
+      name: logical-backup-restore
+      parameters:
+        - default: "true"
+          name: enableCache
+          required: false
+          usage: Enable or disable caching. Disabling caching may impact backup performance.
+        - default: /kubestash-tmp
+          name: scratchDir
+          required: false
+          usage: Directory for holding temporary files and oracle-backup cache.
+      singleton: true
+      volumeMounts:
+        - mountPath: /kubestash-tmp
+          name: kubestash-tmp-volume
+      volumeTemplate:
+        - name: kubestash-tmp-volume
+          source:
+            emptyDir: {}
+          usage: Holds temporary files and oracle-backup cache.
