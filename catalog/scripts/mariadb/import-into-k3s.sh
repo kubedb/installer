@@ -40,6 +40,7 @@ k3s ctr images import images/appscode-images-mariadb-11.5.2-noble.tar
 k3s ctr images import images/appscode-images-mariadb-11.6.2-noble.tar
 k3s ctr images import images/appscode-images-mariadb-11.8.5-noble.tar
 k3s ctr images import images/appscode-images-mariadb-12.1.2-noble.tar
+k3s ctr images import images/appscode-images-mariadb-12.3.2-noble.tar
 k3s ctr images import images/kubedb-kubedb-migrator-mariadb-v0.6.0.tar
 k3s ctr images import images/kubedb-mariadb-archiver-v0.26.0_10.10.7-jammy.tar
 k3s ctr images import images/kubedb-mariadb-archiver-v0.26.0_10.11.6-jammy.tar

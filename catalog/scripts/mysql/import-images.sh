@@ -32,6 +32,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.1.0.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.4.0.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.4.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.6.0.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.6.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.7.1.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.7.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-5.7.42-debian.tar $IMAGE_REGISTRY/appscode-images/mysql:5.7.42-debian
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-5.7.44-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:5.7.44-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-8.0.31-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:8.0.31-oracle
@@ -46,6 +47,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-9.1.0-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:9.1.0-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-9.4.0-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:9.4.0-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-9.6.0-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:9.6.0-oracle
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-9.7.1-oracle.tar $IMAGE_REGISTRY/appscode-images/mysql:9.7.1-oracle
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-migrator-mysql-v0.6.0.tar $IMAGE_REGISTRY/kubedb/kubedb-migrator-mysql:v0.6.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-archiver-v0.27.0_5.7.44.tar $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.27.0_5.7.44
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-archiver-v0.27.0_8.0.35.tar $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.27.0_8.0.35

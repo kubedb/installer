@@ -9,11 +9,11 @@
 
 {{ if and $featureGates.MySQL (not (eq $ubi "operator")) }}
 
-{{ if or (not .Values.skipEndOfLife) (has "9.4.0" .Values.enableVersions.MySQL) }}
+
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
-  name: '9.4.0'
+  name: '9.7.1'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -41,7 +41,7 @@ spec:
     statusReporter:
       image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-courier") $) }}:v0.6.0{{ include "catalog.ubi" $ }}'
   db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql") $) }}:9.4.0-oracle'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql") $) }}:9.7.1-oracle'
   distribution: Official
   exporter:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysqld-exporter") $) }}:v0.18.0'
@@ -52,7 +52,7 @@ spec:
   replicationModeDetector:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.53.0{{ include "catalog.ubi" $ }}'
   router:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql-router") $) }}:9.4.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql-router") $) }}:9.7.1'
   routerInitContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-router-init") $) }}:v0.44.0'
   securityContext:
@@ -69,17 +69,15 @@ spec:
   updateConstraints:
     allowlist:
       groupReplication:
-      - '>= 9.4.0, <= 9.7.1'
+      - '>= 9.7.1'
       standalone:
-      - '>= 9.4.0, <= 9.7.1'
+      - '>= 9.7.1'
     denylist:
       groupReplication:
-      - < 9.4.0
+      - < 9.7.1
       standalone:
-      - < 9.4.0
-  version: 9.4.0
+      - < 9.7.1
+  version: 9.7.1
   podSecurityPolicies:
     databasePolicyName: {{ ternary "mysql-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
-  endOfLife: {{ not (has "9.4.0" .Values.enableVersions.MySQL) }}
-{{ end }}
 {{ end }}
