@@ -345,6 +345,7 @@ k3s ctr images import images/appscode-images-valkey-7.2.9.tar
 k3s ctr images import images/appscode-images-valkey-8.0.3.tar
 k3s ctr images import images/appscode-images-valkey-8.1.1.tar
 k3s ctr images import images/appscode-images-weaviate-1.33.1.tar
+k3s ctr images import images/appscode-images-weaviate-1.37.12.tar
 k3s ctr images import images/appscode-images-zookeeper-3.7.2.tar
 k3s ctr images import images/appscode-images-zookeeper-3.8.3.tar
 k3s ctr images import images/appscode-images-zookeeper-3.9.1.tar

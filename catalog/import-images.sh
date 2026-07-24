@@ -347,6 +347,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-v
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-valkey-8.0.3.tar $IMAGE_REGISTRY/appscode-images/valkey:8.0.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-valkey-8.1.1.tar $IMAGE_REGISTRY/appscode-images/valkey:8.1.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-weaviate-1.33.1.tar $IMAGE_REGISTRY/appscode-images/weaviate:1.33.1
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-weaviate-1.37.12.tar $IMAGE_REGISTRY/appscode-images/weaviate:1.37.12
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-zookeeper-3.7.2.tar $IMAGE_REGISTRY/appscode-images/zookeeper:3.7.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-zookeeper-3.8.3.tar $IMAGE_REGISTRY/appscode-images/zookeeper:3.8.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-zookeeper-3.9.1.tar $IMAGE_REGISTRY/appscode-images/zookeeper:3.9.1

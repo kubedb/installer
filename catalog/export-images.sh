@@ -353,6 +353,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:8.0.3 images/appscode-images-valkey-8.0.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:8.1.1 images/appscode-images-valkey-8.1.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/weaviate:1.33.1 images/appscode-images-weaviate-1.33.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/weaviate:1.37.12 images/appscode-images-weaviate-1.37.12.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.7.2 images/appscode-images-zookeeper-3.7.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.8.3 images/appscode-images-zookeeper-3.8.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.9.1 images/appscode-images-zookeeper-3.9.1.tar
