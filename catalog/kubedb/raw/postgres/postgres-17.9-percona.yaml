@@ -1,0 +1,59 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: 17.9-percona
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        fullBackup:
+          name: physical-backup
+        fullBackupRestore:
+          name: physical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: ghcr.io/kubedb/postgres-archiver:v0.27.0_17.9-percona
+  coordinator:
+    image: ghcr.io/kubedb/pg-coordinator:v0.50.0
+  courier:
+    cli:
+      image: ghcr.io/kubedb/kubedb-migrator-postgresql:v0.6.0
+    statusReporter:
+      image: ghcr.io/kubedb/kubedb-courier:v0.6.0
+  db:
+    baseOS: bookworm
+    image: ghcr.io/appscode-images/percona-distribution-postgresql:17.9
+  distribution: Percona
+  exporter:
+    image: docker.io/prometheuscommunity/postgres-exporter:v0.18.1
+  initContainer:
+    image: ghcr.io/kubedb/postgres-init:0.20.0
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-17.2
+      restoreTask:
+        name: postgres-restore-17.2
+  tde:
+    extensionName: pg_tde
+    supported: true
+  ui:
+  - name: pgadmin
+    version: v2026.3.30
+  - name: dbgate
+    version: v2026.3.30
+  updateConstraints:
+    allowlist:
+    - '>= 17.9'
+  version: "17.9"
