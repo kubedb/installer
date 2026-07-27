@@ -42,6 +42,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.6.2-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.6.2-noble
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.8.5-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.8.5-noble
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-12.1.2-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:12.1.2-noble
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-12.3.2-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:12.3.2-noble
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-migrator-mariadb-v0.6.0.tar $IMAGE_REGISTRY/kubedb/kubedb-migrator-mariadb:v0.6.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.26.0_10.10.7-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.26.0_10.10.7-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.26.0_10.11.6-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.26.0_10.11.6-jammy

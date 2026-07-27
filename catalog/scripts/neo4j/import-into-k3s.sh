@@ -28,3 +28,4 @@ k3s ctr images import images/library-neo4j-2025.10.1-enterprise.tar
 k3s ctr images import images/library-neo4j-2025.11.2-enterprise.tar
 k3s ctr images import images/library-neo4j-2025.12.1-enterprise.tar
 k3s ctr images import images/library-neo4j-2026.05.0-enterprise.tar
+k3s ctr images import images/library-neo4j-2026.06.0-enterprise.tar

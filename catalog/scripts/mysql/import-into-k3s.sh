@@ -30,6 +30,7 @@ k3s ctr images import images/appscode-images-mysql-router-9.0.1.tar
 k3s ctr images import images/appscode-images-mysql-router-9.1.0.tar
 k3s ctr images import images/appscode-images-mysql-router-9.4.0.tar
 k3s ctr images import images/appscode-images-mysql-router-9.6.0.tar
+k3s ctr images import images/appscode-images-mysql-router-9.7.1.tar
 k3s ctr images import images/appscode-images-mysql-5.7.42-debian.tar
 k3s ctr images import images/appscode-images-mysql-5.7.44-oracle.tar
 k3s ctr images import images/appscode-images-mysql-8.0.31-oracle.tar
@@ -44,6 +45,7 @@ k3s ctr images import images/appscode-images-mysql-9.0.1-oracle.tar
 k3s ctr images import images/appscode-images-mysql-9.1.0-oracle.tar
 k3s ctr images import images/appscode-images-mysql-9.4.0-oracle.tar
 k3s ctr images import images/appscode-images-mysql-9.6.0-oracle.tar
+k3s ctr images import images/appscode-images-mysql-9.7.1-oracle.tar
 k3s ctr images import images/kubedb-kubedb-migrator-mysql-v0.6.0.tar
 k3s ctr images import images/kubedb-mysql-archiver-v0.27.0_5.7.44.tar
 k3s ctr images import images/kubedb-mysql-archiver-v0.27.0_8.0.35.tar
