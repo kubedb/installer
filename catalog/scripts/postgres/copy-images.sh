@@ -46,6 +46,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure docker.io/timescale/timesc
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg14-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg14-oss
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg15-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg15-oss
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg16-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg16-oss
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-distribution-postgresql:17.9 $IMAGE_REGISTRY/appscode-images/percona-distribution-postgresql:17.9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:15-0.102.0-ferretdb-2.0.0 $IMAGE_REGISTRY/appscode-images/postgres-documentdb:15-0.102.0-ferretdb-2.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:16-0.102.0-ferretdb-2.0.0 $IMAGE_REGISTRY/appscode-images/postgres-documentdb:16-0.102.0-ferretdb-2.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:17-0.102.0-ferretdb-2.0.0 $IMAGE_REGISTRY/appscode-images/postgres-documentdb:17-0.102.0-ferretdb-2.0.0
@@ -145,6 +146,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-ar
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_16.1-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_16.1-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_17.2-alpine $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_17.2-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_17.2-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_17.2-bookworm
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_17.9-percona $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_17.9-percona
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_18.2-alpine $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_18.2-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_18.2-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_18.2-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.20.0 $IMAGE_REGISTRY/kubedb/postgres-init:0.20.0

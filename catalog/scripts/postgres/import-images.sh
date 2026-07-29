@@ -37,6 +37,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timesca
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg14-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg14-oss
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg15-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg15-oss
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg16-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg16-oss
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-percona-distribution-postgresql-17.9.tar $IMAGE_REGISTRY/appscode-images/percona-distribution-postgresql:17.9
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-documentdb-15-0.102.0-ferretdb-2.0.0.tar $IMAGE_REGISTRY/appscode-images/postgres-documentdb:15-0.102.0-ferretdb-2.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-documentdb-16-0.102.0-ferretdb-2.0.0.tar $IMAGE_REGISTRY/appscode-images/postgres-documentdb:16-0.102.0-ferretdb-2.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-documentdb-17-0.102.0-ferretdb-2.0.0.tar $IMAGE_REGISTRY/appscode-images/postgres-documentdb:17-0.102.0-ferretdb-2.0.0
@@ -136,6 +137,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-a
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.27.0_16.1-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_16.1-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.27.0_17.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_17.2-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.27.0_17.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_17.2-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.27.0_17.9-percona.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_17.9-percona
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.27.0_18.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_18.2-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.27.0_18.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_18.2-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-init-0.20.0.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.20.0

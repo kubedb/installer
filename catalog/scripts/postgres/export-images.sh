@@ -43,6 +43,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure docker.io/timescale/time
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg14-oss images/timescale-timescaledb-2.14.2-pg14-oss.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg15-oss images/timescale-timescaledb-2.14.2-pg15-oss.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg16-oss images/timescale-timescaledb-2.14.2-pg16-oss.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-distribution-postgresql:17.9 images/appscode-images-percona-distribution-postgresql-17.9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:15-0.102.0-ferretdb-2.0.0 images/appscode-images-postgres-documentdb-15-0.102.0-ferretdb-2.0.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:16-0.102.0-ferretdb-2.0.0 images/appscode-images-postgres-documentdb-16-0.102.0-ferretdb-2.0.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:17-0.102.0-ferretdb-2.0.0 images/appscode-images-postgres-documentdb-17-0.102.0-ferretdb-2.0.0.tar
@@ -142,6 +143,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_16.1-bookworm images/kubedb-postgres-archiver-v0.27.0_16.1-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_17.2-alpine images/kubedb-postgres-archiver-v0.27.0_17.2-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_17.2-bookworm images/kubedb-postgres-archiver-v0.27.0_17.2-bookworm.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_17.9-percona images/kubedb-postgres-archiver-v0.27.0_17.9-percona.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_18.2-alpine images/kubedb-postgres-archiver-v0.27.0_18.2-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_18.2-bookworm images/kubedb-postgres-archiver-v0.27.0_18.2-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.20.0 images/kubedb-postgres-init-0.20.0.tar

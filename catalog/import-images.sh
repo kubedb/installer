@@ -221,6 +221,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-o
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-2.5.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:2.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-3.1.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:3.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-3.4.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:3.4.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-percona-distribution-postgresql-17.9.tar $IMAGE_REGISTRY/appscode-images/percona-distribution-postgresql:17.9
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-percona-xtradb-cluster-5.7.44.tar $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:5.7.44
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-percona-xtradb-cluster-8.0.40.tar $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.0.40
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-percona-xtradb-cluster-8.4.3.tar $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.4.3
@@ -464,6 +465,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-a
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.27.0_16.1-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_16.1-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.27.0_17.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_17.2-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.27.0_17.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_17.2-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.27.0_17.9-percona.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_17.9-percona
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.27.0_18.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_18.2-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.27.0_18.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_18.2-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-csi-snapshotter-plugin-v0.27.0.tar $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.27.0

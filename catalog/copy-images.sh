@@ -230,6 +230,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/op
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.5.0 $IMAGE_REGISTRY/appscode-images/opensearch:2.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:3.1.0 $IMAGE_REGISTRY/appscode-images/opensearch:3.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:3.4.0 $IMAGE_REGISTRY/appscode-images/opensearch:3.4.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-distribution-postgresql:17.9 $IMAGE_REGISTRY/appscode-images/percona-distribution-postgresql:17.9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:5.7.44 $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:5.7.44
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.0.40 $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.0.40
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.4.3 $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.4.3
@@ -473,6 +474,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-ar
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_16.1-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_16.1-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_17.2-alpine $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_17.2-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_17.2-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_17.2-bookworm
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_17.9-percona $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_17.9-percona
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_18.2-alpine $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_18.2-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_18.2-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_18.2-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.27.0 $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.27.0
