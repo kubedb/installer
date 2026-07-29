@@ -57,6 +57,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:20
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.11.2-enterprise $IMAGE_REGISTRY/neo4j:2025.11.2-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.12.1-enterprise $IMAGE_REGISTRY/neo4j:2025.12.1-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.05.0-enterprise $IMAGE_REGISTRY/neo4j:2026.05.0-enterprise
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.06.0-enterprise $IMAGE_REGISTRY/neo4j:2026.06.0-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/mariadb/maxscale:24.02.4 $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:4.4.26 $IMAGE_REGISTRY/percona/percona-server-mongodb:4.4.26
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:5.0.29 $IMAGE_REGISTRY/percona/percona-server-mongodb:5.0.29
@@ -178,6 +179,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ma
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.6.2-noble $IMAGE_REGISTRY/appscode-images/mariadb:11.6.2-noble
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.8.5-noble $IMAGE_REGISTRY/appscode-images/mariadb:11.8.5-noble
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:12.1.2-noble $IMAGE_REGISTRY/appscode-images/mariadb:12.1.2-noble
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:12.3.2-noble $IMAGE_REGISTRY/appscode-images/mariadb:12.3.2-noble
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.5.22-alpine $IMAGE_REGISTRY/appscode-images/memcached:1.5.22-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.22-alpine $IMAGE_REGISTRY/appscode-images/memcached:1.6.22-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.29-alpine $IMAGE_REGISTRY/appscode-images/memcached:1.6.29-alpine
@@ -200,6 +202,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/my
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.1.0 $IMAGE_REGISTRY/appscode-images/mysql-router:9.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.4.0 $IMAGE_REGISTRY/appscode-images/mysql-router:9.4.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.6.0 $IMAGE_REGISTRY/appscode-images/mysql-router:9.6.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.7.1 $IMAGE_REGISTRY/appscode-images/mysql-router:9.7.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:5.7.42-debian $IMAGE_REGISTRY/appscode-images/mysql:5.7.42-debian
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:5.7.44-oracle $IMAGE_REGISTRY/appscode-images/mysql:5.7.44-oracle
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:8.0.31-oracle $IMAGE_REGISTRY/appscode-images/mysql:8.0.31-oracle
@@ -214,6 +217,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/my
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.1.0-oracle $IMAGE_REGISTRY/appscode-images/mysql:9.1.0-oracle
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.4.0-oracle $IMAGE_REGISTRY/appscode-images/mysql:9.4.0-oracle
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.6.0-oracle $IMAGE_REGISTRY/appscode-images/mysql:9.6.0-oracle
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.7.1-oracle $IMAGE_REGISTRY/appscode-images/mysql:9.7.1-oracle
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:1.3.13 $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:1.3.13
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:1.3.20 $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:1.3.20
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:2.19.2 $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.19.2
@@ -408,10 +412,10 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-arc
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-coordinator:v0.46.0 $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.46.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-csi-snapshotter-plugin:v0.26.0 $IMAGE_REGISTRY/kubedb/mariadb-csi-snapshotter-plugin:v0.26.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-init:0.9.0 $IMAGE_REGISTRY/kubedb/mariadb-init:0.9.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.0_10.11.6-jammy $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.24.0_10.11.6-jammy
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.0_10.4.32-focal $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.24.0_10.4.32-focal
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.0_10.6.16-focal $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.24.0_10.6.16-focal
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.0_11.1.3-jammy $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.24.0_11.1.3-jammy
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.1_10.11.6-jammy $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.24.1_10.11.6-jammy
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.1_10.4.32-focal $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.24.1_10.4.32-focal
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.1_10.6.16-focal $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.24.1_10.6.16-focal
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.1_11.1.3-jammy $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.24.1_11.1.3-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.27.0 $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.27.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v11 $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v11

@@ -46,6 +46,7 @@ k3s ctr images import images/library-neo4j-2025.10.1-enterprise.tar
 k3s ctr images import images/library-neo4j-2025.11.2-enterprise.tar
 k3s ctr images import images/library-neo4j-2025.12.1-enterprise.tar
 k3s ctr images import images/library-neo4j-2026.05.0-enterprise.tar
+k3s ctr images import images/library-neo4j-2026.06.0-enterprise.tar
 k3s ctr images import images/mariadb-maxscale-24.02.4.tar
 k3s ctr images import images/percona-percona-server-mongodb-4.4.26.tar
 k3s ctr images import images/percona-percona-server-mongodb-5.0.29.tar
@@ -167,6 +168,7 @@ k3s ctr images import images/appscode-images-mariadb-11.5.2-noble.tar
 k3s ctr images import images/appscode-images-mariadb-11.6.2-noble.tar
 k3s ctr images import images/appscode-images-mariadb-11.8.5-noble.tar
 k3s ctr images import images/appscode-images-mariadb-12.1.2-noble.tar
+k3s ctr images import images/appscode-images-mariadb-12.3.2-noble.tar
 k3s ctr images import images/appscode-images-memcached-1.5.22-alpine.tar
 k3s ctr images import images/appscode-images-memcached-1.6.22-alpine.tar
 k3s ctr images import images/appscode-images-memcached-1.6.29-alpine.tar
@@ -189,6 +191,7 @@ k3s ctr images import images/appscode-images-mysql-router-9.0.1.tar
 k3s ctr images import images/appscode-images-mysql-router-9.1.0.tar
 k3s ctr images import images/appscode-images-mysql-router-9.4.0.tar
 k3s ctr images import images/appscode-images-mysql-router-9.6.0.tar
+k3s ctr images import images/appscode-images-mysql-router-9.7.1.tar
 k3s ctr images import images/appscode-images-mysql-5.7.42-debian.tar
 k3s ctr images import images/appscode-images-mysql-5.7.44-oracle.tar
 k3s ctr images import images/appscode-images-mysql-8.0.31-oracle.tar
@@ -203,6 +206,7 @@ k3s ctr images import images/appscode-images-mysql-9.0.1-oracle.tar
 k3s ctr images import images/appscode-images-mysql-9.1.0-oracle.tar
 k3s ctr images import images/appscode-images-mysql-9.4.0-oracle.tar
 k3s ctr images import images/appscode-images-mysql-9.6.0-oracle.tar
+k3s ctr images import images/appscode-images-mysql-9.7.1-oracle.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-1.3.13.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-1.3.20.tar
 k3s ctr images import images/appscode-images-opensearch-dashboards-2.19.2.tar
@@ -397,10 +401,10 @@ k3s ctr images import images/kubedb-mariadb-archiver-v0.26.0_11.2.2-jammy.tar
 k3s ctr images import images/kubedb-mariadb-coordinator-v0.46.0.tar
 k3s ctr images import images/kubedb-mariadb-csi-snapshotter-plugin-v0.26.0.tar
 k3s ctr images import images/kubedb-mariadb-init-0.9.0.tar
-k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.24.0_10.11.6-jammy.tar
-k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.24.0_10.4.32-focal.tar
-k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.24.0_10.6.16-focal.tar
-k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.24.0_11.1.3-jammy.tar
+k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.24.1_10.11.6-jammy.tar
+k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.24.1_10.4.32-focal.tar
+k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.24.1_10.6.16-focal.tar
+k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.24.1_11.1.3-jammy.tar
 k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.27.0.tar
 k3s ctr images import images/kubedb-mongodb-init-4.2-v9.tar
 k3s ctr images import images/kubedb-mongodb-init-6.0-v11.tar

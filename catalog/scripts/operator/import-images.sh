@@ -47,10 +47,10 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-ui-
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-verifier-v0.17.0.tar $IMAGE_REGISTRY/kubedb/kubedb-verifier:v0.17.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-webhook-server-v0.42.0.tar $IMAGE_REGISTRY/kubedb/kubedb-webhook-server:v0.42.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-csi-snapshotter-plugin-v0.26.0.tar $IMAGE_REGISTRY/kubedb/mariadb-csi-snapshotter-plugin:v0.26.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.24.0_10.11.6-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.24.0_10.11.6-jammy
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.24.0_10.4.32-focal.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.24.0_10.4.32-focal
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.24.0_10.6.16-focal.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.24.0_10.6.16-focal
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.24.0_11.1.3-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.24.0_11.1.3-jammy
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.24.1_10.11.6-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.24.1_10.11.6-jammy
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.24.1_10.4.32-focal.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.24.1_10.4.32-focal
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.24.1_10.6.16-focal.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.24.1_10.6.16-focal
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.24.1_11.1.3-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.24.1_11.1.3-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-csi-snapshotter-plugin-v0.27.0.tar $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.27.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-restic-plugin-v0.29.0_4.2.3.tar $IMAGE_REGISTRY/kubedb/mongodb-restic-plugin:v0.29.0_4.2.3
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-restic-plugin-v0.29.0_4.4.6.tar $IMAGE_REGISTRY/kubedb/mongodb-restic-plugin:v0.29.0_4.4.6

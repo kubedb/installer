@@ -54,6 +54,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.11.2-enterprise images/library-neo4j-2025.11.2-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.12.1-enterprise images/library-neo4j-2025.12.1-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.05.0-enterprise images/library-neo4j-2026.05.0-enterprise.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.06.0-enterprise images/library-neo4j-2026.06.0-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/mariadb/maxscale:24.02.4 images/mariadb-maxscale-24.02.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:4.4.26 images/percona-percona-server-mongodb-4.4.26.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:5.0.29 images/percona-percona-server-mongodb-5.0.29.tar
@@ -175,6 +176,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.6.2-noble images/appscode-images-mariadb-11.6.2-noble.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.8.5-noble images/appscode-images-mariadb-11.8.5-noble.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:12.1.2-noble images/appscode-images-mariadb-12.1.2-noble.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:12.3.2-noble images/appscode-images-mariadb-12.3.2-noble.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.5.22-alpine images/appscode-images-memcached-1.5.22-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.22-alpine images/appscode-images-memcached-1.6.22-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.29-alpine images/appscode-images-memcached-1.6.29-alpine.tar
@@ -197,6 +199,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.1.0 images/appscode-images-mysql-router-9.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.4.0 images/appscode-images-mysql-router-9.4.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.6.0 images/appscode-images-mysql-router-9.6.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.7.1 images/appscode-images-mysql-router-9.7.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:5.7.42-debian images/appscode-images-mysql-5.7.42-debian.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:5.7.44-oracle images/appscode-images-mysql-5.7.44-oracle.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:8.0.31-oracle images/appscode-images-mysql-8.0.31-oracle.tar
@@ -211,6 +214,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.1.0-oracle images/appscode-images-mysql-9.1.0-oracle.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.4.0-oracle images/appscode-images-mysql-9.4.0-oracle.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.6.0-oracle images/appscode-images-mysql-9.6.0-oracle.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.7.1-oracle images/appscode-images-mysql-9.7.1-oracle.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:1.3.13 images/appscode-images-opensearch-dashboards-1.3.13.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:1.3.20 images/appscode-images-opensearch-dashboards-1.3.20.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:2.19.2 images/appscode-images-opensearch-dashboards-2.19.2.tar
@@ -405,10 +409,10 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-a
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-coordinator:v0.46.0 images/kubedb-mariadb-coordinator-v0.46.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-csi-snapshotter-plugin:v0.26.0 images/kubedb-mariadb-csi-snapshotter-plugin-v0.26.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-init:0.9.0 images/kubedb-mariadb-init-0.9.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.0_10.11.6-jammy images/kubedb-mariadb-restic-plugin-v0.24.0_10.11.6-jammy.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.0_10.4.32-focal images/kubedb-mariadb-restic-plugin-v0.24.0_10.4.32-focal.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.0_10.6.16-focal images/kubedb-mariadb-restic-plugin-v0.24.0_10.6.16-focal.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.0_11.1.3-jammy images/kubedb-mariadb-restic-plugin-v0.24.0_11.1.3-jammy.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.1_10.11.6-jammy images/kubedb-mariadb-restic-plugin-v0.24.1_10.11.6-jammy.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.1_10.4.32-focal images/kubedb-mariadb-restic-plugin-v0.24.1_10.4.32-focal.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.1_10.6.16-focal images/kubedb-mariadb-restic-plugin-v0.24.1_10.6.16-focal.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.1_11.1.3-jammy images/kubedb-mariadb-restic-plugin-v0.24.1_11.1.3-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.27.0 images/kubedb-mongodb-csi-snapshotter-plugin-v0.27.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 images/kubedb-mongodb-init-4.2-v9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v11 images/kubedb-mongodb-init-6.0-v11.tar

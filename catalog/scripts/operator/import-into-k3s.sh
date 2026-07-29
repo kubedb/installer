@@ -45,10 +45,10 @@ k3s ctr images import images/kubedb-kubedb-ui-server-v0.42.0.tar
 k3s ctr images import images/kubedb-kubedb-verifier-v0.17.0.tar
 k3s ctr images import images/kubedb-kubedb-webhook-server-v0.42.0.tar
 k3s ctr images import images/kubedb-mariadb-csi-snapshotter-plugin-v0.26.0.tar
-k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.24.0_10.11.6-jammy.tar
-k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.24.0_10.4.32-focal.tar
-k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.24.0_10.6.16-focal.tar
-k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.24.0_11.1.3-jammy.tar
+k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.24.1_10.11.6-jammy.tar
+k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.24.1_10.4.32-focal.tar
+k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.24.1_10.6.16-focal.tar
+k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.24.1_11.1.3-jammy.tar
 k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.27.0.tar
 k3s ctr images import images/kubedb-mongodb-restic-plugin-v0.29.0_4.2.3.tar
 k3s ctr images import images/kubedb-mongodb-restic-plugin-v0.29.0_4.4.6.tar

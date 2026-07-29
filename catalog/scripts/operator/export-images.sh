@@ -53,10 +53,10 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ui
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-verifier:v0.17.0 images/kubedb-kubedb-verifier-v0.17.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-webhook-server:v0.42.0 images/kubedb-kubedb-webhook-server-v0.42.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-csi-snapshotter-plugin:v0.26.0 images/kubedb-mariadb-csi-snapshotter-plugin-v0.26.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.0_10.11.6-jammy images/kubedb-mariadb-restic-plugin-v0.24.0_10.11.6-jammy.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.0_10.4.32-focal images/kubedb-mariadb-restic-plugin-v0.24.0_10.4.32-focal.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.0_10.6.16-focal images/kubedb-mariadb-restic-plugin-v0.24.0_10.6.16-focal.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.0_11.1.3-jammy images/kubedb-mariadb-restic-plugin-v0.24.0_11.1.3-jammy.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.1_10.11.6-jammy images/kubedb-mariadb-restic-plugin-v0.24.1_10.11.6-jammy.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.1_10.4.32-focal images/kubedb-mariadb-restic-plugin-v0.24.1_10.4.32-focal.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.1_10.6.16-focal images/kubedb-mariadb-restic-plugin-v0.24.1_10.6.16-focal.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.1_11.1.3-jammy images/kubedb-mariadb-restic-plugin-v0.24.1_11.1.3-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.27.0 images/kubedb-mongodb-csi-snapshotter-plugin-v0.27.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-restic-plugin:v0.29.0_4.2.3 images/kubedb-mongodb-restic-plugin-v0.29.0_4.2.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-restic-plugin:v0.29.0_4.4.6 images/kubedb-mongodb-restic-plugin-v0.29.0_4.4.6.tar
