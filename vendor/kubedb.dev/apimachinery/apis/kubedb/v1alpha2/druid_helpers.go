@@ -858,3 +858,7 @@ func (d *DruidBind) SecretName() string {
 func (d *DruidBind) CertSecretName() string {
 	return d.GetCertSecretName(DruidClientCert)
 }
+
+func (d *Druid) GetDeletionPolicy() string {
+	return string(d.Spec.DeletionPolicy)
+}

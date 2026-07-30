@@ -577,3 +577,7 @@ func (m *MilvusBind) SecretName() string {
 func (m *MilvusBind) CertSecretName() string {
 	return m.GetCertSecretName(MilvusCertificateTypeClient)
 }
+
+func (m *Milvus) GetDeletionPolicy() string {
+	return string(m.Spec.DeletionPolicy)
+}
