@@ -634,7 +634,7 @@ func (p *PostgresSpec) GetPersistentSecrets() []string {
 	}
 
 	var secrets []string
-	if p.AuthSecret != nil {
+	if !IsVirtualAuthSecretReferred(p.AuthSecret) && p.AuthSecret != nil && p.AuthSecret.Name != "" {
 		secrets = append(secrets, p.AuthSecret.Name)
 	}
 	return secrets
@@ -706,4 +706,12 @@ func (m *Postgres) SetHealthCheckerDefaults() {
 
 func (m *Postgres) IsRemoteReplica() bool {
 	return m.Spec.RemoteReplica != nil
+}
+
+func (p *Postgres) GetDeletionPolicy() string {
+	return string(p.Spec.DeletionPolicy)
+}
+
+func (p *Postgres) GetPersistentSecrets() []string {
+	return p.Spec.GetPersistentSecrets()
 }

@@ -264,6 +264,14 @@ func (c *ClickHouse) GetCertSecretName(alias ClickHouseCertificateAlias) string 
 	return c.CertificateName(alias)
 }
 
+func (c *ClickHouse) GetPersistentSecrets() []string {
+	var secrets []string
+	if !c.Spec.DisableSecurity && !IsVirtualAuthSecretReferred(c.Spec.AuthSecret) && c.Spec.AuthSecret != nil && c.Spec.AuthSecret.Name != "" {
+		secrets = append(secrets, c.GetAuthSecretName())
+	}
+	return secrets
+}
+
 func (c *ClickHouse) SetHealthCheckerDefaults() {
 	if c.Spec.HealthChecker.PeriodSeconds == nil {
 		c.Spec.HealthChecker.PeriodSeconds = pointer.Int32P(10)
@@ -579,4 +587,8 @@ func (c *ClickHouse) ReplicasAreReady(lister pslister.PetSetLister) (bool, strin
 
 func (c *ClickHouse) ClickHouseInlineConfigSecretKey(key string) string {
 	return fmt.Sprintf("%s-%s", kubedb.InlineConfigKeyPrefix, key)
+}
+
+func (c *ClickHouse) GetDeletionPolicy() string {
+	return string(c.Spec.DeletionPolicy)
 }

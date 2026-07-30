@@ -1029,7 +1029,7 @@ func (m *MongoDBSpec) GetPersistentSecrets() []string {
 	}
 
 	var secrets []string
-	if m.AuthSecret != nil {
+	if !IsVirtualAuthSecretReferred(m.AuthSecret) && m.AuthSecret != nil && m.AuthSecret.Name != "" {
 		secrets = append(secrets, m.AuthSecret.Name)
 	}
 	if m.KeyFileSecret != nil {
@@ -1102,4 +1102,12 @@ func (m *MongoDB) ConfigSecretName(nodeType string) string {
 	}
 	uid := string(m.UID)
 	return meta_util.NameWithSuffix(m.OffshootName()+nodeType, uid[len(uid)-6:])
+}
+
+func (m *MongoDB) GetDeletionPolicy() string {
+	return string(m.Spec.DeletionPolicy)
+}
+
+func (m *MongoDB) GetPersistentSecrets() []string {
+	return m.Spec.GetPersistentSecrets()
 }
