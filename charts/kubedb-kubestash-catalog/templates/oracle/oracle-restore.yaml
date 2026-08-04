@@ -1,9 +1,11 @@
+{{ $featureGates := .Values.featureGates }}
 {{ $ubi := .Values.distro.ubi }}
 {{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
   {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
 {{- end }}
 
-{{ if and .Values.oracle.enabled (not (eq $ubi "operator")) }}
+{{ if and $featureGates.Oracle (not (eq $ubi "operator")) }}
 apiVersion: addons.kubestash.com/v1alpha1
 kind: Function
 metadata:
@@ -22,5 +24,5 @@ spec:
   - --restore-spfile=${restoreSPFile:=false}
   - --recover-to-latest=${recoverToLatest:=false}
   - --allow-autobackup-search=${allowAutobackupSearch:=false}
-  image: '{{ include "image.dockerHub" (merge (dict "_repo" "sadi74/oracle-backup-plugin") $) }}:xrestore3{{ include "catalog.ubi" $ }}'
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/oracle-backup-plugin") $) }}:v0.1.0{{ include "catalog.ubi" $ }}'
 {{ end }}
