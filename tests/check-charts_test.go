@@ -33,6 +33,8 @@ var ignoreMissingList = []string{
 	"ghcr.io/kubedb/kubedb-migrator-mysql:*",
 	"ghcr.io/kubedb/kubedb-migrator-mariadb:*",
 	"ghcr.io/kubedb/kubedb-migrator-mssqlserver:*",
+	// TODO: remove once the Oracle physical backup plugin images are published.
+	"ghcr.io/kubedb/oracle-backup-plugin:*",
 }
 
 var archSkipList = []string{
