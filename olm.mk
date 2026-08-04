@@ -222,6 +222,10 @@ endif
 
 .PHONY: gen-custom-role
 gen-custom-role: role-aggregator ## Generate custom role for kubedb from selected charts.
+	@# role-aggregator runs `helm template` on each chart, so any chart with
+	@# dependencies (e.g. kubedb-autoscaler -> storage-metrics-server) must have
+	@# them fetched into its charts/ directory first.
+	helm dependency build charts/kubedb-autoscaler
 	$(ROLE_AGGREGATOR) \
 		--name kubedb-role \
 		--dir config/rbac/role.yaml \
@@ -229,7 +233,7 @@ gen-custom-role: role-aggregator ## Generate custom role for kubedb from selecte
 		--chart charts/kubedb-crd-manager \
 		--chart charts/kubedb-dashboard \
 		--chart charts/kubedb-gitops \
-		--chart charts/kubedb-migrator \
+		--chart charts/kubedb-courier \
 		--chart charts/kubedb-ops-manager \
 		--chart charts/kubedb-provisioner \
 		--chart charts/kubedb-schema-manager \
@@ -254,6 +258,17 @@ bundle: kustomize operator-sdk ## Generate bundle manifests and metadata, then v
 	$(OPERATOR_SDK) bundle validate ./bundle --select-optional name=categories
 	$(OPERATOR_SDK) bundle validate ./bundle --select-optional name=good-practices
 	@awk 'BEGIN{s=0} {if(!s && ($$0=="" || $$0=="---")){next} s=1; print}' config/crd/bases/installer.kubedb.com_kubedbs.yaml > bundle/manifests/installer.kubedb.com_kubedbs.yaml
+
+BUNDLE_CSV := bundle/manifests/kubedb-installer.clusterserviceversion.yaml
+
+# Previous stable (non-rc) release tag, used to populate spec.replaces: the
+# highest version-sorted tag immediately below the one being built.
+PREV_VERSION ?= $(shell { git tag | grep -v -- '-rc'; echo v$(VERSION_NO_PREFIX); } | sort -V | awk -v cur="v$(VERSION_NO_PREFIX)" '$$0==cur{print p; exit} {p=$$0}')
+
+.PHONY: bundle-replace-image-digest
+bundle-replace-image-digest: install-image-packer ## Replace image tags with digests and populate relatedImages/replaces in the bundle CSV.
+	PATH="$(BIN_DIR):$$PATH" image-packer replace-image-digest $(BUNDLE_CSV) $(BUNDLE_CSV)
+	./hack/scripts/bundle-add-related-images.sh $(BUNDLE_CSV) $(PREV_VERSION)
 
 .PHONY: bundle-build
 bundle-build: ## Build the bundle image.

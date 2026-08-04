@@ -6,6 +6,8 @@
   {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
 {{- end }}
 
+{{ $featureGates = merge $featureGates (dict "ConnectCluster" $featureGates.Kafka) }}
+
 {{- $gkr := .Files.Get "data/resources.yaml" | fromYaml -}}
 {{ range $k, $enabled := $featureGates }}
 {{ $singular := lower $k }}

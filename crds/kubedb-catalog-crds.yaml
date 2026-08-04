@@ -3,6 +3,123 @@ kind: CustomResourceDefinition
 metadata:
   labels:
     app.kubernetes.io/name: kubedb
+  name: aerospikeversions.catalog.kubedb.com
+spec:
+  group: catalog.kubedb.com
+  names:
+    categories:
+    - catalog
+    - kubedb
+    - appscode
+    kind: AerospikeVersion
+    listKind: AerospikeVersionList
+    plural: aerospikeversions
+    shortNames:
+    - arversion
+    singular: aerospikeversion
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.version
+      name: Version
+      type: string
+    - jsonPath: .spec.aerospike.image
+      name: AEROSPIKE_IMAGE
+      type: string
+    - jsonPath: .spec.deprecated
+      name: Deprecated
+      type: boolean
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              aerospike:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              deprecated:
+                type: boolean
+              endOfLife:
+                type: boolean
+              exporter:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              gitSyncer:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              securityContext:
+                properties:
+                  runAsAnyNonRoot:
+                    type: boolean
+                  runAsUser:
+                    format: int64
+                    type: integer
+                type: object
+              ui:
+                items:
+                  properties:
+                    disable:
+                      type: boolean
+                    name:
+                      type: string
+                    values:
+                      x-kubernetes-preserve-unknown-fields: true
+                    version:
+                      type: string
+                  required:
+                  - name
+                  type: object
+                type: array
+              updateConstraints:
+                properties:
+                  allowlist:
+                    items:
+                      type: string
+                    type: array
+                  denylist:
+                    items:
+                      type: string
+                    type: array
+                type: object
+              version:
+                type: string
+            required:
+            - aerospike
+            - version
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubedb
   name: cassandraversions.catalog.kubedb.com
 spec:
   group: catalog.kubedb.com
@@ -54,6 +171,13 @@ spec:
               endOfLife:
                 type: boolean
               exporter:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              gitSyncer:
                 properties:
                   image:
                     type: string
@@ -175,6 +299,73 @@ spec:
             type: object
           spec:
             properties:
+              archiver:
+                properties:
+                  addon:
+                    properties:
+                      name:
+                        enum:
+                        - mongodb-addon
+                        - postgres-addon
+                        - mysql-addon
+                        - mariadb-addon
+                        - mssqlserver-addon
+                        - clickhouse-addon
+                        type: string
+                      tasks:
+                        properties:
+                          fullBackup:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                          fullBackupRestore:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                          incBackupRestore:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                          manifestBackup:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                          manifestRestore:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                          volumeSnapshot:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                        type: object
+                    type: object
+                  walg:
+                    properties:
+                      image:
+                        type: string
+                    required:
+                    - image
+                    type: object
+                type: object
               clickHouseKeeper:
                 properties:
                   image:
@@ -191,6 +382,13 @@ spec:
                 type: object
               endOfLife:
                 type: boolean
+              gitSyncer:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
               initContainer:
                 properties:
                   image:
@@ -310,6 +508,13 @@ spec:
                 type: boolean
               endOfLife:
                 type: boolean
+              gitSyncer:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
               securityContext:
                 properties:
                   runAsUser:
@@ -401,6 +606,13 @@ spec:
             type: object
           spec:
             properties:
+              coordinator:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
               db:
                 properties:
                   image:
@@ -412,6 +624,20 @@ spec:
                 type: boolean
               endOfLife:
                 type: boolean
+              gitSyncer:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              initContainer:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
               postgresVersion:
                 type: string
               securityContext:
@@ -663,6 +889,13 @@ spec:
                 required:
                 - image
                 type: object
+              gitSyncer:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
               initContainer:
                 properties:
                   image:
@@ -782,252 +1015,6 @@ kind: CustomResourceDefinition
 metadata:
   labels:
     app.kubernetes.io/name: kubedb
-  name: etcdversions.catalog.kubedb.com
-spec:
-  group: catalog.kubedb.com
-  names:
-    categories:
-    - catalog
-    - kubedb
-    - appscode
-    kind: EtcdVersion
-    listKind: EtcdVersionList
-    plural: etcdversions
-    shortNames:
-    - etcversion
-    singular: etcdversion
-  scope: Cluster
-  versions:
-  - additionalPrinterColumns:
-    - jsonPath: .spec.version
-      name: Version
-      type: string
-    - jsonPath: .spec.db.image
-      name: DB_IMAGE
-      type: string
-    - jsonPath: .spec.deprecated
-      name: Deprecated
-      type: boolean
-    - jsonPath: .metadata.creationTimestamp
-      name: Age
-      type: date
-    name: v1alpha1
-    schema:
-      openAPIV3Schema:
-        properties:
-          apiVersion:
-            type: string
-          kind:
-            type: string
-          metadata:
-            type: object
-          spec:
-            properties:
-              db:
-                properties:
-                  image:
-                    type: string
-                required:
-                - image
-                type: object
-              deprecated:
-                type: boolean
-              endOfLife:
-                type: boolean
-              exporter:
-                properties:
-                  image:
-                    type: string
-                required:
-                - image
-                type: object
-              gitSyncer:
-                properties:
-                  image:
-                    type: string
-                required:
-                - image
-                type: object
-              securityContext:
-                properties:
-                  runAsUser:
-                    format: int64
-                    type: integer
-                type: object
-              stash:
-                properties:
-                  addon:
-                    properties:
-                      backupTask:
-                        properties:
-                          name:
-                            type: string
-                          params:
-                            items:
-                              properties:
-                                name:
-                                  type: string
-                                value:
-                                  type: string
-                              required:
-                              - name
-                              - value
-                              type: object
-                            type: array
-                        required:
-                        - name
-                        type: object
-                      restoreTask:
-                        properties:
-                          name:
-                            type: string
-                          params:
-                            items:
-                              properties:
-                                name:
-                                  type: string
-                                value:
-                                  type: string
-                              required:
-                              - name
-                              - value
-                              type: object
-                            type: array
-                        required:
-                        - name
-                        type: object
-                    required:
-                    - backupTask
-                    - restoreTask
-                    type: object
-                type: object
-              version:
-                type: string
-            required:
-            - db
-            - exporter
-            - version
-            type: object
-        type: object
-    served: true
-    storage: true
-    subresources: {}
-
----
-apiVersion: apiextensions.k8s.io/v1
-kind: CustomResourceDefinition
-metadata:
-  labels:
-    app.kubernetes.io/name: kubedb
-  name: ferretdbversions.catalog.kubedb.com
-spec:
-  group: catalog.kubedb.com
-  names:
-    categories:
-    - catalog
-    - kubedb
-    - appscode
-    kind: FerretDBVersion
-    listKind: FerretDBVersionList
-    plural: ferretdbversions
-    shortNames:
-    - frversion
-    singular: ferretdbversion
-  scope: Cluster
-  versions:
-  - additionalPrinterColumns:
-    - jsonPath: .spec.version
-      name: Version
-      type: string
-    - jsonPath: .spec.db.image
-      name: DB_IMAGE
-      type: string
-    - jsonPath: .spec.deprecated
-      name: Deprecated
-      type: boolean
-    - jsonPath: .metadata.creationTimestamp
-      name: Age
-      type: date
-    name: v1alpha1
-    schema:
-      openAPIV3Schema:
-        properties:
-          apiVersion:
-            type: string
-          kind:
-            type: string
-          metadata:
-            type: object
-          spec:
-            properties:
-              db:
-                properties:
-                  image:
-                    type: string
-                required:
-                - image
-                type: object
-              deprecated:
-                type: boolean
-              endOfLife:
-                type: boolean
-              postgres:
-                properties:
-                  version:
-                    type: string
-                required:
-                - version
-                type: object
-              securityContext:
-                properties:
-                  runAsUser:
-                    format: int64
-                    type: integer
-                type: object
-              ui:
-                items:
-                  properties:
-                    disable:
-                      type: boolean
-                    name:
-                      type: string
-                    values:
-                      x-kubernetes-preserve-unknown-fields: true
-                    version:
-                      type: string
-                  required:
-                  - name
-                  type: object
-                type: array
-              updateConstraints:
-                properties:
-                  allowlist:
-                    items:
-                      type: string
-                    type: array
-                  denylist:
-                    items:
-                      type: string
-                    type: array
-                type: object
-              version:
-                type: string
-            required:
-            - db
-            - postgres
-            - version
-            type: object
-        type: object
-    served: true
-    storage: true
-    subresources: {}
-
----
-apiVersion: apiextensions.k8s.io/v1
-kind: CustomResourceDefinition
-metadata:
-  labels:
-    app.kubernetes.io/name: kubedb
   name: hanadbversions.catalog.kubedb.com
 spec:
   group: catalog.kubedb.com
@@ -1086,6 +1073,13 @@ spec:
               deprecated:
                 type: boolean
               exporter:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              gitSyncer:
                 properties:
                   image:
                     type: string
@@ -1612,6 +1606,7 @@ spec:
                         - mysql-addon
                         - mariadb-addon
                         - mssqlserver-addon
+                        - clickhouse-addon
                         type: string
                       tasks:
                         properties:
@@ -1623,6 +1618,13 @@ spec:
                             - name
                             type: object
                           fullBackupRestore:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                          incBackupRestore:
                             properties:
                               name:
                                 type: string
@@ -1667,6 +1669,23 @@ spec:
                 required:
                 - image
                 type: object
+              courier:
+                properties:
+                  cli:
+                    properties:
+                      image:
+                        type: string
+                    required:
+                    - image
+                    type: object
+                  statusReporter:
+                    properties:
+                      image:
+                        type: string
+                    required:
+                    - image
+                    type: object
+                type: object
               db:
                 properties:
                   image:
@@ -1679,6 +1698,13 @@ spec:
               endOfLife:
                 type: boolean
               exporter:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              gitSyncer:
                 properties:
                   image:
                     type: string
@@ -1796,6 +1822,7 @@ spec:
                         - mysql-addon
                         - mariadb-addon
                         - mssqlserver-addon
+                        - clickhouse-addon
                         type: string
                       tasks:
                         properties:
@@ -1807,6 +1834,13 @@ spec:
                             - name
                             type: object
                           fullBackupRestore:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                          incBackupRestore:
                             properties:
                               name:
                                 type: string
@@ -1850,6 +1884,23 @@ spec:
                     type: string
                 required:
                 - image
+                type: object
+              courier:
+                properties:
+                  cli:
+                    properties:
+                      image:
+                        type: string
+                    required:
+                    - image
+                    type: object
+                  statusReporter:
+                    properties:
+                      image:
+                        type: string
+                    required:
+                    - image
+                    type: object
                 type: object
               db:
                 properties:
@@ -2279,6 +2330,7 @@ spec:
                         - mysql-addon
                         - mariadb-addon
                         - mssqlserver-addon
+                        - clickhouse-addon
                         type: string
                       tasks:
                         properties:
@@ -2290,6 +2342,13 @@ spec:
                             - name
                             type: object
                           fullBackupRestore:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                          incBackupRestore:
                             properties:
                               name:
                                 type: string
@@ -2320,6 +2379,23 @@ spec:
                         type: object
                     type: object
                   walg:
+                    properties:
+                      image:
+                        type: string
+                    required:
+                    - image
+                    type: object
+                type: object
+              courier:
+                properties:
+                  cli:
+                    properties:
+                      image:
+                        type: string
+                    required:
+                    - image
+                    type: object
+                  statusReporter:
                     properties:
                       image:
                         type: string
@@ -2538,6 +2614,7 @@ spec:
                         - mysql-addon
                         - mariadb-addon
                         - mssqlserver-addon
+                        - clickhouse-addon
                         type: string
                       tasks:
                         properties:
@@ -2549,6 +2626,13 @@ spec:
                             - name
                             type: object
                           fullBackupRestore:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                          incBackupRestore:
                             properties:
                               name:
                                 type: string
@@ -2592,6 +2676,23 @@ spec:
                     type: string
                 required:
                 - image
+                type: object
+              courier:
+                properties:
+                  cli:
+                    properties:
+                      image:
+                        type: string
+                    required:
+                    - image
+                    type: object
+                  statusReporter:
+                    properties:
+                      image:
+                        type: string
+                    required:
+                    - image
+                    type: object
                 type: object
               db:
                 properties:
@@ -2827,6 +2928,13 @@ spec:
                 type: boolean
               endOfLife:
                 type: boolean
+              gitSyncer:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
               securityContext:
                 properties:
                   runAsUser:
@@ -2964,6 +3072,13 @@ spec:
               endOfLife:
                 type: boolean
               exporter:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              gitSyncer:
                 properties:
                   image:
                     type: string
@@ -3505,6 +3620,7 @@ spec:
                         - mysql-addon
                         - mariadb-addon
                         - mssqlserver-addon
+                        - clickhouse-addon
                         type: string
                       tasks:
                         properties:
@@ -3516,6 +3632,13 @@ spec:
                             - name
                             type: object
                           fullBackupRestore:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                          incBackupRestore:
                             properties:
                               name:
                                 type: string
@@ -3560,6 +3683,23 @@ spec:
                 required:
                 - image
                 type: object
+              courier:
+                properties:
+                  cli:
+                    properties:
+                      image:
+                        type: string
+                    required:
+                    - image
+                    type: object
+                  statusReporter:
+                    properties:
+                      image:
+                        type: string
+                    required:
+                    - image
+                    type: object
+                type: object
               db:
                 properties:
                   baseOS:
@@ -3603,23 +3743,6 @@ spec:
                     type: string
                 required:
                 - image
-                type: object
-              migrator:
-                properties:
-                  cli:
-                    properties:
-                      image:
-                        type: string
-                    required:
-                    - image
-                    type: object
-                  statusReporter:
-                    properties:
-                      image:
-                        type: string
-                    required:
-                    - image
-                    type: object
                 type: object
               podSecurityPolicies:
                 properties:
@@ -4412,6 +4535,13 @@ spec:
                 type: boolean
               endOfLife:
                 type: boolean
+              gitSyncer:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
               initContainer:
                 properties:
                   image:

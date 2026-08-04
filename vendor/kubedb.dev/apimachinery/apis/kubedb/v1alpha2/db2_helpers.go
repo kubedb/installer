@@ -119,7 +119,9 @@ func (d *DB2) GetAuthSecretName() string {
 
 func (d *DB2) GetPersistentSecrets() []string {
 	var secrets []string
-	secrets = append(secrets, d.GetAuthSecretName())
+	if !IsVirtualAuthSecretReferred(d.Spec.AuthSecret) && d.Spec.AuthSecret != nil && d.Spec.AuthSecret.Name != "" {
+		secrets = append(secrets, d.GetAuthSecretName())
+	}
 	return secrets
 }
 
@@ -148,6 +150,7 @@ func (d *DB2) SetDefaults(kc client.Client) {
 		klog.Errorf("Failed to get database version %s: %s", err.Error(), d.Spec.Version)
 		return
 	}
+	apis.SetDefaultResizePolicy(d.Spec.PodTemplate.Spec.Containers, d.Spec.PodTemplate.Spec.InitContainers)
 }
 
 func (d *DB2) initializePodTemplates() {
@@ -166,4 +169,8 @@ func (d *DB2) SetHealthCheckerDefaults() {
 	if d.Spec.HealthChecker.FailureThreshold == nil {
 		d.Spec.HealthChecker.FailureThreshold = pointer.Int32P(3)
 	}
+}
+
+func (d *DB2) GetDeletionPolicy() string {
+	return string(d.Spec.DeletionPolicy)
 }

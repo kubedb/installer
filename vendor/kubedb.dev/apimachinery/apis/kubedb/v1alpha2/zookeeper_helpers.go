@@ -174,7 +174,7 @@ func (z *ZooKeeper) GetPersistentSecrets() []string {
 	}
 
 	var secrets []string
-	if z.Spec.AuthSecret != nil {
+	if !IsVirtualAuthSecretReferred(z.Spec.AuthSecret) && z.Spec.AuthSecret != nil && z.Spec.AuthSecret.Name != "" {
 		secrets = append(secrets, z.Spec.AuthSecret.Name)
 	}
 	return secrets
@@ -235,6 +235,8 @@ func (z *ZooKeeper) SetDefaults(kc client.Client) {
 	if initContainer != nil && (initContainer.Resources.Requests == nil && initContainer.Resources.Limits == nil) {
 		apis.SetDefaultResourceLimits(&initContainer.Resources, kubedb.DefaultInitContainerResource)
 	}
+
+	apis.SetDefaultResizePolicy(z.Spec.PodTemplate.Spec.Containers, z.Spec.PodTemplate.Spec.InitContainers)
 
 	if z.Spec.EnableSSL {
 		z.SetTLSDefaults()
@@ -422,4 +424,8 @@ func (z *ZooKeeper) GetCertSecretName(alias ZooKeeperCertificateAlias) string {
 // Values will be like: client-certs, server-certs etc.
 func (k *ZooKeeper) CertSecretVolumeName(alias ZooKeeperCertificateAlias) string {
 	return string(alias) + "-certs"
+}
+
+func (z *ZooKeeper) GetDeletionPolicy() string {
+	return string(z.Spec.DeletionPolicy)
 }

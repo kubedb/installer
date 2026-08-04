@@ -55,6 +55,7 @@ type AceUserRolesSpec struct {
 type UserClusterRoles struct {
 	Ace                bool `json:"ace"`
 	Appcatalog         bool `json:"appcatalog"`
+	Audit              bool `json:"audit"`
 	Catalog            bool `json:"catalog"`
 	CertManager        bool `json:"cert-manager"`
 	Kubedb             bool `json:"kubedb"`

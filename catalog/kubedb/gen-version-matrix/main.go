@@ -254,7 +254,7 @@ func canUpdate(src string, upc UpdateConstraints) (Decision, error) {
 		return DecisionUnknown, err
 	}
 	for _, deny := range upc.Denylist {
-		cc, err := semver.NewConstraint(deny)
+		cc, err := semver.NewConstraint(normalizeConstraint(deny))
 		if err != nil {
 			return DecisionUnknown, err
 		}
@@ -263,7 +263,7 @@ func canUpdate(src string, upc UpdateConstraints) (Decision, error) {
 		}
 	}
 	for _, allow := range upc.Allowlist {
-		cc, err := semver.NewConstraint(allow)
+		cc, err := semver.NewConstraint(normalizeConstraint(allow))
 		if err != nil {
 			return DecisionUnknown, err
 		}
@@ -274,11 +274,27 @@ func canUpdate(src string, upc UpdateConstraints) (Decision, error) {
 	return DecisionUnknown, nil
 }
 
+// normalizeConstraint truncates 4-part version strings in constraints to 3-part semver.
+func normalizeConstraint(c string) string {
+	parts := strings.Fields(c)
+	for i, p := range parts {
+		segs := strings.Split(p, ".")
+		if len(segs) > 3 {
+			parts[i] = strings.Join(segs[:3], ".")
+		}
+	}
+	return strings.Join(parts, " ")
+}
+
 func parseVersion(v string) (*semver.Version, error) {
 	if after, ok := strings.CutPrefix(v, "alma-"); ok {
 		v = after
 	} else if pre, _, ok := strings.Cut(v, "_"); ok {
 		v = pre
+	}
+	// Truncate 4-part versions (e.g., 8.1.2.2) to 3-part semver
+	if parts := strings.Split(v, "."); len(parts) > 3 {
+		v = strings.Join(parts[:3], ".")
 	}
 	return semver.NewVersion(v)
 }

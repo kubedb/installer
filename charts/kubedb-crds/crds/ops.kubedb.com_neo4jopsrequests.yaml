@@ -125,12 +125,30 @@ spec:
                 default: 1
                 format: int32
                 type: integer
+              migration:
+                properties:
+                  oldPVReclaimPolicy:
+                    type: string
+                  storageClassName:
+                    type: string
+                required:
+                - storageClassName
+                type: object
               restart:
                 type: object
               timeout:
                 type: string
               tls:
                 properties:
+                  backup:
+                    properties:
+                      mode:
+                        enum:
+                        - Disabled
+                        - TLS
+                        - mTLS
+                        type: string
+                    type: object
                   bolt:
                     properties:
                       mode:
@@ -291,10 +309,11 @@ spec:
                 - ReconfigureTLS
                 - RotateAuth
                 - Reconfigure
-                - VerticalScaling
                 - HorizontalScaling
+                - VerticalScaling
                 - VolumeExpansion
                 - UpdateVersion
+                - StorageMigration
                 type: string
               updateVersion:
                 properties:
@@ -303,6 +322,12 @@ spec:
                 type: object
               verticalScaling:
                 properties:
+                  mode:
+                    default: Restart
+                    enum:
+                    - Restart
+                    - InPlace
+                    type: string
                   server:
                     properties:
                       nodeSelectionPolicy:

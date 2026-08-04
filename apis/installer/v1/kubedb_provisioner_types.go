@@ -104,7 +104,8 @@ type KubedbProvisionerSpec struct {
 	// +patchStrategy=merge
 	// +listType=map
 	// +listMapKey=name
-	Env []core.EnvVar `json:"env"`
+	Env           []core.EnvVar     `json:"env"`
+	NetworkPolicy NetworkPolicySpec `json:"networkPolicy"`
 	// +optional
 	Distro shared.DistroSpec `json:"distro"`
 }

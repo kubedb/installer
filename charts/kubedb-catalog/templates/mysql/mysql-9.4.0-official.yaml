@@ -32,9 +32,14 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-archiver") $) }}:v0.25.0_9.1.0'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-archiver") $) }}:v0.27.0_9.1.0'
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.42.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.44.0{{ include "catalog.ubi" $ }}'
+  courier:
+    cli:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-migrator-mysql") $) }}:v0.6.0{{ include "catalog.ubi" $ }}'
+    statusReporter:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-courier") $) }}:v0.6.0{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql") $) }}:9.4.0-oracle'
   distribution: Official
@@ -43,9 +48,13 @@ spec:
   gitSyncer:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.4.2'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:9.0.1-v4'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:0.1.0'
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.51.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.53.0{{ include "catalog.ubi" $ }}'
+  router:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql-router") $) }}:9.4.0'
+  routerInitContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-router-init") $) }}:v0.44.0'
   securityContext:
     runAsUser: 999
   stash:
@@ -60,9 +69,9 @@ spec:
   updateConstraints:
     allowlist:
       groupReplication:
-      - '>= 9.4.0, <= 9.6.0'
+      - '>= 9.4.0, <= 9.7.1'
       standalone:
-      - '>= 9.4.0, <= 9.6.0'
+      - '>= 9.4.0, <= 9.7.1'
     denylist:
       groupReplication:
       - < 9.4.0

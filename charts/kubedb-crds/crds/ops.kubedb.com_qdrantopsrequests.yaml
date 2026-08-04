@@ -105,6 +105,15 @@ spec:
                 default: 1
                 format: int32
                 type: integer
+              migration:
+                properties:
+                  oldPVReclaimPolicy:
+                    type: string
+                  storageClassName:
+                    type: string
+                required:
+                - storageClassName
+                type: object
               restart:
                 type: object
               timeout:
@@ -228,6 +237,7 @@ spec:
                 - Reconfigure
                 - ReconfigureTLS
                 - RotateAuth
+                - StorageMigration
                 type: string
               updateVersion:
                 properties:
@@ -236,6 +246,12 @@ spec:
                 type: object
               verticalScaling:
                 properties:
+                  mode:
+                    default: Restart
+                    enum:
+                    - Restart
+                    - InPlace
+                    type: string
                   node:
                     properties:
                       nodeSelectionPolicy:

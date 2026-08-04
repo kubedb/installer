@@ -94,16 +94,16 @@ if [ "$update_kubedb_crds" = true ] && [ -d ${crd_dir} ]; then
     crd-importer \
         --no-description \
         --input=${crd_dir} \
-        --out=./charts/kubedb-migrator/crds \
-        --group=migrator.kubedb.com
+        --out=./charts/kubedb-courier/crds \
+        --group=courier.kubedb.com
 fi
 
-CERT_MANAGER_CERT_MANAGER_TAG=${CERT_MANAGER_CERT_MANAGER_TAG:-v1.19.3}
+CERT_MANAGER_CERT_MANAGER_TAG=${CERT_MANAGER_CERT_MANAGER_TAG:-v1.19.2}
 KMODULES_CUSTOM_RESOURCES_TAG=${KMODULES_CUSTOM_RESOURCES_TAG:-v0.34.0}
 KMODULES_RESOURCE_METADATA_TAG=${KMODULES_RESOURCE_METADATA_TAG:-v0.40.2}
 KUBEOPS_OPERATOR_SHARD_MANAGER_TAG=${KUBEOPS_OPERATOR_SHARD_MANAGER_TAG:-v0.0.5}
 KUBEOPS_SUPERVISOR_TAG=${KUBEOPS_SUPERVISOR_TAG:-v0.0.12}
-KUBESTASH_APIMACHINERY_TAG=${KUBESTASH_APIMACHINERY_TAG:-v0.27.0-rc.0}
+KUBESTASH_APIMACHINERY_TAG=${KUBESTASH_APIMACHINERY_TAG:-v0.28.0}
 OPEN_VIZ_APIMACHINERY_TAG=${OPEN_VIZ_APIMACHINERY_TAG:-v0.0.10}
 
 crd-importer \
@@ -140,8 +140,8 @@ crd-importer \
 
 crd-importer \
     --no-description \
-    --input=https://github.com/cert-manager/cert-manager/raw/${CERT_MANAGER_CERT_MANAGER_TAG}/deploy/crds/cert-manager.io_certificates.yaml \
-    --input=https://github.com/cert-manager/cert-manager/raw/${CERT_MANAGER_CERT_MANAGER_TAG}/deploy/crds/cert-manager.io_issuers.yaml \
+    --input=https://github.com/cert-manager/cert-manager/releases/download/${CERT_MANAGER_CERT_MANAGER_TAG}/cert-manager.crds.yaml \
+    --gk=Certificate.cert-manager.io --gk=Issuer.cert-manager.io \
     --out=./charts/kubedb-webhook-server/crds
 
 {

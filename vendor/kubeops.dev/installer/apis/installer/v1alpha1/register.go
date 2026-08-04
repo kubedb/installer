@@ -66,6 +66,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&FalcoUiServerList{},
 		&Fargocd{},
 		&FargocdList{},
+		&FargocdManager{},
+		&FargocdManagerList{},
 		&GatekeeperGrafanaDashboards{},
 		&GatekeeperGrafanaDashboardsList{},
 		&KubeUiServer{},
@@ -80,10 +82,14 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&ScannerList{},
 		&Sidekick{},
 		&SidekickList{},
+		&StorageMetricsServer{},
+		&StorageMetricsServerList{},
 		&Supervisor{},
 		&SupervisorList{},
 		&Taskqueue{},
 		&TaskqueueList{},
+		&VcdLbGc{},
+		&VcdLbGcList{},
 	)
 
 	scheme.AddKnownTypes(SchemeGroupVersion,

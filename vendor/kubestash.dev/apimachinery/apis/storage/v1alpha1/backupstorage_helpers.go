@@ -93,12 +93,23 @@ func (b *BackupStorage) LocalNetworkVolume() bool {
 	return false
 }
 
+// LocalBackendPVC returns true if the local backend is backed by a PersistentVolumeClaim.
+// Like network volumes, a PVC can be mounted by the backend accessor deployment,
+// so snapshot download and repository maintenance commands can be served through it.
+func (b *BackupStorage) LocalBackendPVC() bool {
+	if b.Spec.Storage.Provider == ProviderLocal &&
+		b.Spec.Storage.Local.PersistentVolumeClaim != nil {
+		return true
+	}
+	return false
+}
+
 func (b *BackupStorage) IsCredentialLessModeEnabled() bool {
 	switch b.Spec.Storage.Provider {
 	case ProviderS3:
 		return b.Spec.Storage.S3.SecretName == ""
-		// case ProviderGCS:
-		// case ProviderAzure:
+	case ProviderAzure:
+		return b.Spec.Storage.Azure.SecretName == ""
 	default:
 		return false
 	}

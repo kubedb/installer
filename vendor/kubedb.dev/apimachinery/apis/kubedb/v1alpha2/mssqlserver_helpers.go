@@ -267,10 +267,9 @@ func (m *MSSQLServer) PodControllerLabel(podTemplate *ofst.PodTemplateSpec) map[
 
 func (m *MSSQLServer) GetPersistentSecrets() []string {
 	var secrets []string
-	if m.Spec.AuthSecret != nil {
+	if !IsVirtualAuthSecretReferred(m.Spec.AuthSecret) && m.Spec.AuthSecret != nil && m.Spec.AuthSecret.Name != "" {
 		secrets = append(secrets, m.Spec.AuthSecret.Name)
 	}
-
 	secrets = append(secrets, m.EndpointCertSecretName())
 	secrets = append(secrets, m.DbmLoginSecretName())
 	secrets = append(secrets, m.MasterKeySecretName())
@@ -559,6 +558,8 @@ func (m *MSSQLServer) setDefaultContainerResourceLimits(podTemplate *ofst.PodTem
 			apis.SetDefaultResourceLimits(&coordinatorContainer.Resources, kubedb.CoordinatorDefaultResources)
 		}
 	}
+
+	apis.SetDefaultResizePolicy(podTemplate.Spec.Containers, podTemplate.Spec.InitContainers)
 }
 
 func (m *MSSQLServer) SetArbiterDefault() {
@@ -667,4 +668,8 @@ func SecondaryAccessSQL(mode SecondaryAccessMode) string {
 		// Fallback to NO if unset or unknown
 		return "NO"
 	}
+}
+
+func (m *MSSQLServer) GetDeletionPolicy() string {
+	return string(m.Spec.DeletionPolicy)
 }

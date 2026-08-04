@@ -35,7 +35,13 @@ mv /tmp/crane .
 
 CMD="./crane"
 
-$CMD cp --allow-nondistributable-artifacts --insecure docker.io/mysql/mysql-router:8.0.31 $IMAGE_REGISTRY/mysql/mysql-router:8.0.31
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:8.0.45 $IMAGE_REGISTRY/appscode-images/mysql-router:8.0.45
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:8.4.8 $IMAGE_REGISTRY/appscode-images/mysql-router:8.4.8
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.0.1 $IMAGE_REGISTRY/appscode-images/mysql-router:9.0.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.1.0 $IMAGE_REGISTRY/appscode-images/mysql-router:9.1.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.4.0 $IMAGE_REGISTRY/appscode-images/mysql-router:9.4.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.6.0 $IMAGE_REGISTRY/appscode-images/mysql-router:9.6.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.7.1 $IMAGE_REGISTRY/appscode-images/mysql-router:9.7.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:5.7.42-debian $IMAGE_REGISTRY/appscode-images/mysql:5.7.42-debian
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:5.7.44-oracle $IMAGE_REGISTRY/appscode-images/mysql:5.7.44-oracle
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:8.0.31-oracle $IMAGE_REGISTRY/appscode-images/mysql:8.0.31-oracle
@@ -50,17 +56,17 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/my
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.1.0-oracle $IMAGE_REGISTRY/appscode-images/mysql:9.1.0-oracle
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.4.0-oracle $IMAGE_REGISTRY/appscode-images/mysql:9.4.0-oracle
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.6.0-oracle $IMAGE_REGISTRY/appscode-images/mysql:9.6.0-oracle
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.25.0_5.7.44 $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.25.0_5.7.44
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.25.0_8.0.35 $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.25.0_8.0.35
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.25.0_8.1.0 $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.25.0_8.1.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.25.0_8.2.0 $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.25.0_8.2.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.25.0_8.4.3 $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.25.0_8.4.3
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.25.0_9.1.0 $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.25.0_9.1.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-coordinator:v0.42.0 $IMAGE_REGISTRY/kubedb/mysql-coordinator:v0.42.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:5.7-v8 $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v8
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:8.0.31-v7 $IMAGE_REGISTRY/kubedb/mysql-init:8.0.31-v7
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:8.4.2-v6 $IMAGE_REGISTRY/kubedb/mysql-init:8.4.2-v6
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:9.0.1-v4 $IMAGE_REGISTRY/kubedb/mysql-init:9.0.1-v4
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.42.0 $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.42.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.7.1-oracle $IMAGE_REGISTRY/appscode-images/mysql:9.7.1-oracle
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mysql:v0.6.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-mysql:v0.6.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.27.0_5.7.44 $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.27.0_5.7.44
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.27.0_8.0.35 $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.27.0_8.0.35
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.27.0_8.1.0 $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.27.0_8.1.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.27.0_8.2.0 $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.27.0_8.2.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.27.0_8.4.3 $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.27.0_8.4.3
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.27.0_9.1.0 $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.27.0_9.1.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-coordinator:v0.44.0 $IMAGE_REGISTRY/kubedb/mysql-coordinator:v0.44.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:0.1.0 $IMAGE_REGISTRY/kubedb/mysql-init:0.1.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:5.7-v9 $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v9
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.44.0 $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.44.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.18.0 $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.18.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/replication-mode-detector:v0.51.0 $IMAGE_REGISTRY/kubedb/replication-mode-detector:v0.51.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/replication-mode-detector:v0.53.0 $IMAGE_REGISTRY/kubedb/replication-mode-detector:v0.53.0

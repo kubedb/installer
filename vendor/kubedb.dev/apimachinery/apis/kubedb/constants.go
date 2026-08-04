@@ -83,7 +83,9 @@ const (
 	ProxySQLKey      = "proxysql" + "." + GroupName
 
 	// Auth related constants
-	AuthActiveFromAnnotation = GroupName + "/auth-active-from"
+	AuthActiveFromAnnotation     = GroupName + "/auth-active-from"
+	HanaDBTLSResetModeAnnotation = GroupName + "/hanadb-tls-reset-mode"
+	HanaDBTLSResetModeClientPKI  = "clientpki"
 
 	// =========================== Elasticsearch Constants ============================
 	ElasticsearchRestPort                        = 9200
@@ -244,11 +246,13 @@ const (
 	MySQLDatabasePortName                  = "db"
 	MySQLRouterReadWritePortName           = "rw"
 	MySQLRouterReadOnlyPortName            = "ro"
+	MySQLRouterReadWriteSplitPortName      = "rwsplit"
 	MySQLPrimaryServicePortName            = "primary"
 	MySQLStandbyServicePortName            = "standby"
 	MySQLDatabasePort                      = 3306
 	MySQLRouterReadWritePort               = 6446
 	MySQLRouterReadOnlyPort                = 6447
+	MySQLRouterReadWriteSplitPort          = 6450
 
 	MySQLCoordinatorClientPort = 2379
 	MySQLCoordinatorPort       = 2380
@@ -269,6 +273,7 @@ const (
 	MySQLTLSConfigTrue       = "true"
 	MySQLTLSConfigFalse      = "false"
 	MySQLTLSConfigPreferred  = "preferred"
+	MySQLRouterSuffix        = "router"
 
 	MySQLContainerName            = "mysql"
 	MySQLRouterContainerName      = "mysql-router"
@@ -689,6 +694,18 @@ const (
 	PgBouncerInitVolumePath                 = "/init-scripts"
 	PgBouncerInitVolumeName                 = "init-scripts"
 
+	// =========================== Aerospike Constants ============================
+	AerospikeConfigVolumeName      = "config"
+	AerospikeConfigVolumeMountPath = "/opt/aerospike/conf"
+	AerospikeContainerName         = "aerospike"
+	AerospikeDataVolumeName        = "data"
+	AerospikeDataVolumeMountPath   = "/opt/aerospike/data"
+	AerospikeConfigKey             = "aerospike.conf"
+	AerospikeDatabasePortName      = "db"
+	AerospikeDatabasePort          = 3000
+	AerospikeMeshPortName          = "heartbeat"
+	AerospikeMeshPort              = 3002
+
 	// =========================== Pgpool Constants ============================
 	EnvPostgresUsername                = "POSTGRES_USERNAME"
 	EnvPgpoolPcpUser                   = "PGPOOL_PCP_USER"
@@ -887,6 +904,8 @@ const (
 
 	MilvusGrpcPortName    = "grpc"
 	MilvusMetricsPortName = "metrics"
+	MilvusHttpPortName    = "http"
+	MilvusUIPortName      = "ui"
 	MilvusGrpcPort        = int32(19530)
 
 	MilvusVolumeNameData = "data"
@@ -912,9 +931,22 @@ const (
 	MinioSecretKey     = "secretkey"
 
 	MilvusMetricsPort       = 9091
+	MilvusUIPort            = 9091
+	MilvusHttpPort          = 8080
 	MilvusPortDataNode      = 21124
 	MilvusPortQueryNode     = 21123
 	MilvusPortStreamingNode = 22222
+
+	MilvusTLSVolName      = "milvus-tls"
+	MilvusTLSVolDir       = "/milvus/tls"
+	MilvusTLSCACert       = "ca.crt"
+	MilvusTLSCAPem        = "ca.pem"
+	MilvusTLSCert         = "tls.crt"
+	MilvusTLSKey          = "tls.key"
+	MilvusTLSServerPem    = "server.pem"
+	MilvusTLSServerKeyPem = "server.key"
+	MilvusTLSClientPem    = "client.pem"
+	MilvusTLSClientKeyPem = "client.key"
 )
 
 const (
@@ -1550,21 +1582,25 @@ const (
 )
 
 const (
-	WeaviateHTTPPortName   = "http"
-	WeaviateHTTPPort       = 8080
-	WeaviateGRPCPortName   = "grpc"
-	WeaviateGRPCPort       = 50051
-	WeaviateRAFTPortName   = "raft"
-	WeaviateRAFTPort       = 8300
-	WeaviateGOSSIPPortName = "gossip"
-	WeaviateGOSSIPPort     = 7102
-	WeaviateDATAPortName   = "data"
-	WeaviateDATAPort       = 7103
+	WeaviateHTTPPortName    = "http"
+	WeaviateHTTPPort        = 8080
+	WeaviateHTTPSPortName   = "https"
+	WeaviateHTTPSPort       = 8443
+	WeaviateMetricsPortName = "metrics"
+	WeaviateMetricsPort     = 2112
+	WeaviateGRPCPortName    = "grpc"
+	WeaviateGRPCPort        = 50051
+	WeaviateRAFTPortName    = "raft"
+	WeaviateRAFTPort        = 8300
+	WeaviateGOSSIPPortName  = "gossip"
+	WeaviateGOSSIPPort      = 7102
+	WeaviateDATAPortName    = "data"
+	WeaviateDATAPort        = 7103
 
 	WeaviateClassNameKubeDBSystem = "KubeDBSystem"
 
 	WeaviateVolumeData    = "data"
-	WeaviateDataDir       = "/weaviate/storage"
+	WeaviateDataDir       = "/var/lib/weaviate"
 	WeaviateContainerName = "weaviate"
 	WeaviateAPIKey        = "AUTHENTICATION_APIKEY_ALLOWED_KEYS"
 	WeaviateAPIKeyEnabled = "AUTHENTICATION_APIKEY_ENABLED"
@@ -1573,14 +1609,18 @@ const (
 	WeaviateConfigFileName  = "conf.yaml"
 	WeaviateCustomConfigDir = "/weaviate-config/conf.yaml"
 	WeaviateConfigVolName   = "config"
+
+	WeaviateTLSServerMountPath = "/weaviate/certs/server"
+	WeaviateTLSClientMountPath = "/weaviate/certs/client"
+	WeaviateTLSCACert          = "ca.crt"
+	WeaviateTLSCert            = "tls.crt"
+	WeaviateTLSKey             = "tls.key"
 )
 
 // =========================== DocumentDB Constants ============================
 const (
 
 	// envs
-	EnvDocumentDBUser      = "DOCUMENTDB_PG_USER"
-	EnvDocumentDBPassword  = "DOCUMENTDB_PG_PASSWORD"
 	EnvDocumentDBHandler   = "DOCUMENTDB_HANDLER"
 	EnvDocumentDBPgURL     = "DOCUMENTDB_POSTGRESQL_URL"
 	EnvDocumentDBTLSPort   = "DOCUMENTDB_LISTEN_TLS"
@@ -1594,29 +1634,50 @@ const (
 	DocumentDBSqlNetPort          = 10260
 	DocumentDBDefaultPort         = 10260
 
+	DocumentDBDatabasePortName = "postgres"
+	DocumentDBDatabasePort     = 9712
+
+	DocumentDBGatewayPortName = "gateway"
+	DocumentDBGatewayPort     = 10260
+
+	DocumentDBCoordinatorPortName       = "coordinator"
+	DocumentDBCoordinatorPort           = 2380
+	DocumentDBCoordinatorClientPortName = "coordinatclient"
+	DocumentDBCoordinatorClientPort     = 2379
+	DocumentDBGRPCServerPortName        = "grpcserver"
+	DocumentDBGRPCServerPort            = 2384
+
 	DocumentDBPrimaryRole = "primary"
 	DocumentDBStandbyRole = "standby"
 
 	DocumentDBDatabaseRoleKey      = "documentdb.db/role"
 	DocumentDBDatabaseRoleInstance = "instance"
 
-	DocumentDBDefaultUsername = "default_user"
-	DocumentDBDefaultPassword = "1234"
+	DocumentDBDefaultUsername       = "default_user"
+	DocumentDBAdminUsername         = "documentdb"
+	DocumentDBAdminAuthSecretSuffix = "admin-auth"
 
 	DefaultDocumentDBDatabase = "sampledb"
 
 	// volume related constants
-	DocumentDBVolumeScripts = "documentdb-data"
-	DocumentDBDataDir       = "/data"
+	DocumentDBVolumeMountData = "data"
+	DocumentDBDataDir         = "/var/pv"
+
+	DocumentDBScripts    = "scripts"
+	DocumentDBScriptsDir = "/scripts"
+
+	DocumentDBInitScripts    = "run-scripts"
+	DocumentDBInitScriptsDir = "/run_scripts"
+
+	DocumentDBBootstrapScripts    = "bootstrap-scripts"
+	DocumentDBBootstrapScriptsDir = "/bootstrap_scripts"
 
 	DocumentDBVolumeNameInitScript      = "init-scripts"
 	DocumentDBVolumeMountPathInitScript = "/scripts"
 
-	DocumentDBContainerName     = "documentdb"
-	DocumentDBInitContainerName = "documentdb-init"
-	DocumentDBMainImage         = "ghcr.io/documentdb/documentdb"
-	DocumentDBUser              = "postgres"
-	DocumentDBLinkedDBName      = "documentdb"
+	DocumentDBContainerName            = "documentdb"
+	DocumentDBInitContainerName        = "documentdb-init"
+	DocumentDBCoordinatorContainerName = "documentdb-coordinator"
 
 	DocumentDBServerPath = "/etc/certs/server"
 
@@ -1633,50 +1694,52 @@ const (
 	DocumentDBBackendInitShellFile = "data.sh"
 	DocumentDBBackendInitSqlFile   = "data.sql"
 	DocumentDBBackendConfigFile    = "user.conf"
+
+	// DocumentDBCustomConfigVolumeName is the projected volume that carries the user-provided
+	// custom config secret along with the operator-generated tuning/inline config.
+	DocumentDBCustomConfigVolumeName = "custom-config"
+	// DocumentDBCustomConfigDir is the mount path where config files (user.conf, inline.conf,
+	// pgtune.conf) are made available to the database container. The init-docker scripts
+	// reference this path via include_if_exists directives.
+	DocumentDBCustomConfigDir = "/etc/config"
+	// DocumentDBCustomConfigFile is the key/path of the user-provided custom config file.
+	DocumentDBCustomConfigFile = "user.conf"
+	// DocumentDBTuningConfigFile is the key/path of the operator-generated pgtune config file.
+	DocumentDBTuningConfigFile = "pgtune.conf"
 )
 
-// =========================== FerretDB Constants ============================
 const (
-
-	// envs
-	EnvFerretDBUser      = "FERRETDB_PG_USER"
-	EnvFerretDBPassword  = "FERRETDB_PG_PASSWORD"
-	EnvFerretDBHandler   = "FERRETDB_HANDLER"
-	EnvFerretDBPgURL     = "FERRETDB_POSTGRESQL_URL"
-	EnvFerretDBTLSPort   = "FERRETDB_LISTEN_TLS"
-	EnvFerretDBCAPath    = "FERRETDB_LISTEN_TLS_CA_FILE"
-	EnvFerretDBCertPath  = "FERRETDB_LISTEN_TLS_CERT_FILE"
-	EnvFerretDBKeyPath   = "FERRETDB_LISTEN_TLS_KEY_FILE"
-	EnvFerretDBDebugAddr = "FERRETDB_DEBUG_ADDR"
-
-	FerretDBDatabasePortName       = "db"
-	FerretDBPrimaryServicePortName = "primary"
-
-	FerretDBContainerName = "ferretdb"
-	FerretDBMainImage     = "ghcr.io/ferretdb/ferretdb"
-	FerretDBUser          = "postgres"
-	FerretDBLinkedDBName  = "ferretdb"
-
-	FerretDBServerPath = "/etc/certs/server"
-
-	FerretDBExternalClientPath = "/etc/certs/ext"
-
-	FerretDBDefaultPort = 27017
-	FerretDBMetricsPort = 56790
-	FerretDBTLSPort     = 27018
-
-	FerretDBMetricsPath     = "/debug/metrics"
-	FerretDBMetricsPortName = "metrics"
-
-	FerretDBServerTypePrimary   = "primary"
-	FerretDBServerTypeSecondary = "secondary"
-
-	FerretDBPrimaryLabelKey   = "ferretdb.kubedb.com/server.primary"
-	FerretDBSecondaryLabelKey = "ferretdb.kubedb.com/server.secondary"
-
-	FerretDBBackendInitShellFile = "data.sh"
-	FerretDBBackendInitSqlFile   = "data.sql"
-	FerretDBBackendConfigFile    = "user.conf"
+	EnvPetsetName                          = "PETSET_NAME"
+	EnvDBName                              = "DB_NAME"
+	EnvDBNamespace                         = "DB_NAMESPACE"
+	EnvNamespace                           = "NAMESPACE"
+	EnvPodName                             = "POD_NAME"
+	EnvReplicas                            = "REPLICAS"
+	EnvPGMajorVersion                      = "MAJOR_PG_VERSION"
+	EnvDBVersion                           = "DB_VERSION"
+	EnvGoverningServiceDns                 = "GOVERNING_SERVICE_DNS"
+	EnvPrimaryServiceDns                   = "PRIMARY_SERVICE_DNS"
+	EnvPrimaryHost                         = "PRIMARY_HOST"
+	EnvDocumentDBUser                      = "POSTGRES_USER"
+	EnvDocumentDBPassword                  = "POSTGRES_PASSWORD"
+	EnvSSL                                 = "SSL"
+	EnvSSLMode                             = "SSL_MODE"
+	EnvClientAuthMode                      = "CLIENT_AUTH_MODE"
+	EnvMaxLagBeforeFailover                = "MAX_LAG_BEFORE_FAILOVER"
+	EnvPeriod                              = "PERIOD"
+	EnvElectionTick                        = "ELECTION_TICK"
+	EnvHeartbeatTick                       = "HEARTBEAT_TICK"
+	EnvTransferLeadershipInterval          = "TRANSFER_LEADERSHIP_INTERVAL"
+	EnvTransferLeadershipTimeout           = "TRANSFER_LEADERSHIP_TIMEOUT"
+	EnvIsArbiterEnabled                    = "IS_ARBITER"
+	EnvIsDistributed                       = "IS_DISTRIBUTED"
+	EnvWalLimitPolicy                      = "WAL_LIMIT_POLICY"
+	EnvArchiverEnabled                     = "ARCHIVER_ENABLED"
+	EnvArchivePath                         = "ARCHIVE_PATH"
+	EnvArchiverCompletePath                = "LAST_ARCHIVED_FILE_INFO_DIR"
+	EnvForceFailOverAcceptingDataLossAfter = "FORCE_FAILOVER_ACCEPTING_DATA_LOSS_AFTER"
+	EnvArbiterPod                          = "ARBITER_POD"
+	EnvReadReplica                         = "READ_REPLICA"
 )
 
 // =========================== Ignite Constants ============================
@@ -2340,12 +2403,15 @@ const (
 	HanaDBVolumeMountScripts = "/scripts"
 
 	// Container names
-	HanaDBContainerName            = "hanadb"
-	HanaDBCoordinatorContainerName = "hanadb-coordinator"
+	HanaDBContainerName                     = "hanadb"
+	HanaDBCoordinatorContainerName          = "hanadb-coordinator"
+	HanaDBVolumePermissionInitContainerName = "hanadb-volume-permissions"
 
 	// Mount paths
 	HanaDBDataDir         = "/hana/mounts"
 	HanaDBSecretMountPath = "/etc/hana-secrets"
+	HanaDBTLSInputPath    = "/etc/hanadb-tls/server"
+	HanaDBExporterTLSPath = "/etc/hanadb_exporter/certs"
 	HanaDBConfigFileName  = "global.ini"
 	HanaDBConfigDir       = "/hana/mounts/system/config"
 	HanaDBConfigMountPath = "/etc/hanadb-config"
@@ -2353,6 +2419,8 @@ const (
 	// Volume names
 	HanaDBDataVolume           = "data"
 	HanaDBVolumePasswordSecret = "password-secret"
+	HanaDBVolumeTLSInput       = "tls-input"
+	HanaDBVolumeExporterTLS    = "exporter-tls-volume"
 	HanaDBConfigVolumeName     = "hanadb-config"
 
 	// User and Group IDs
@@ -2419,7 +2487,13 @@ const (
 	KubeSlicePodIPFileName                     = "podip"
 	KubeSliceNSMContainerName                  = "cmd-nsc-grpc"
 
+	// BranchedFromAnnotation gates the KubeDB provisioner's "branched" mode: a Database carrying it is
+	// adopted onto cloned PVCs (created by the Courier Branch operator) instead of being provisioned
+	// empty. Its value records the branch provenance, e.g. {"cluster": "prod-east", "source": "demo/prod-pg"}.
+	BranchedFromAnnotation = "kubedb.com/branched-from"
+
 	// Archiver
+	OwnerDatabasesAnnotation                  = "kubedb.com/owner-databases"
 	DistributedArchiverSnapshotInfoAnnotation = "distributedsnapshotinfo"
 	DistributedArchiverCMKeySnapshots         = "snapshots"
 	DistributedArchiverCMKeyRestoreSession    = "restoresession"

@@ -17,6 +17,8 @@ limitations under the License.
 package v1alpha1
 
 import (
+	"kubedb.dev/apimachinery/apis/courier/v1alpha1"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -82,6 +84,12 @@ type MSSQLServerVersionSpec struct {
 
 	// +optional
 	UI []ChartInfo `json:"ui,omitempty"`
+
+	// +optional
+	GitSyncer GitSyncer `json:"gitSyncer,omitempty"`
+	// Courier defines the courier related CLI/Tools images for this MySQL version
+	// +optional
+	Courier v1alpha1.DBCourierImages `json:"courier,omitempty"`
 }
 
 // MSSQLServerDatabase is the MSSQLServer Database image

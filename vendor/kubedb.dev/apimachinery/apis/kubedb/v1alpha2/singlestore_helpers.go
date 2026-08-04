@@ -310,7 +310,7 @@ func (s *Singlestore) GetAuthSecretName() string {
 
 func (s *Singlestore) GetPersistentSecrets() []string {
 	var secrets []string
-	if s.Spec.AuthSecret != nil {
+	if !IsVirtualAuthSecretReferred(s.Spec.AuthSecret) && s.Spec.AuthSecret != nil && s.Spec.AuthSecret.Name != "" {
 		secrets = append(secrets, s.Spec.AuthSecret.Name)
 	}
 	return secrets
@@ -513,6 +513,8 @@ func (s *Singlestore) setDefaultContainerResourceLimits(podTemplate *ofst.PodTem
 			apis.SetDefaultResourceLimits(&coordinatorContainer.Resources, kubedb.CoordinatorDefaultResources)
 		}
 	}
+
+	apis.SetDefaultResizePolicy(podTemplate.Spec.Containers, podTemplate.Spec.InitContainers)
 }
 
 func (s *Singlestore) SetTLSDefaults() {
@@ -564,4 +566,8 @@ func (d *SinglestoreBind) SecretName() string {
 
 func (d *SinglestoreBind) CertSecretName() string {
 	return d.GetCertSecretName(SinglestoreClientCert)
+}
+
+func (s *Singlestore) GetDeletionPolicy() string {
+	return string(s.Spec.DeletionPolicy)
 }

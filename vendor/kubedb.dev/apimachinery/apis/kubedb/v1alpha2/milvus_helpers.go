@@ -32,6 +32,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/klog/v2"
+	kmapi "kmodules.xyz/client-go/api/v1"
 	"kmodules.xyz/client-go/apiextensions"
 	coreutil "kmodules.xyz/client-go/core/v1"
 	meta_util "kmodules.xyz/client-go/meta"
@@ -80,6 +81,9 @@ func (m Milvus) Type() appcat.AppType {
 
 func (m *Milvus) GetConnectionScheme() string {
 	scheme := "http"
+	if m.Spec.TLS != nil && m.Spec.TLS.External != nil && m.Spec.TLS.External.Mode != TLSModeDisabled {
+		scheme = "https"
+	}
 	return scheme
 }
 
@@ -167,7 +171,7 @@ func (m *Milvus) ConfigSecretName() string {
 
 func (m *Milvus) GetPersistentSecrets() []string {
 	var secrets []string
-	if m.Spec.AuthSecret != nil {
+	if !IsVirtualAuthSecretReferred(m.Spec.AuthSecret) && m.Spec.AuthSecret != nil && m.Spec.AuthSecret.Name != "" {
 		secrets = append(secrets, m.GetAuthSecretName())
 	}
 	secrets = append(secrets, m.ConfigSecretName())
@@ -216,7 +220,7 @@ func (m *Milvus) SetHealthCheckerDefaults() {
 }
 
 func (m *Milvus) EtcdServiceName() string {
-	return fmt.Sprintf("%s-%s", m.Namespace, kubedb.EtcdName)
+	return fmt.Sprintf("%s-%s", m.Name, kubedb.EtcdName)
 }
 
 func (m *Milvus) MetaStorageEndpoints() []string {
@@ -308,6 +312,7 @@ func (m *Milvus) setComponentDefaults(mvVersion *catalog.MilvusVersion, node any
 
 	m.setDefaultContainerSecurityContext(mvVersion, *podTemplate)
 	m.setDefaultContainerResourceLimits(*podTemplate)
+	apis.SetDefaultResizePolicy((*podTemplate).Spec.Containers, (*podTemplate).Spec.InitContainers)
 }
 
 func (m *Milvus) SetDefaults(kc client.Client) {
@@ -348,11 +353,14 @@ func (m *Milvus) SetDefaults(kc client.Client) {
 	} else {
 		m.setDefaultContainerSecurityContext(&mvVersion, m.Spec.PodTemplate)
 		m.setDefaultContainerResourceLimits(m.Spec.PodTemplate)
+		apis.SetDefaultResizePolicy(m.Spec.PodTemplate.Spec.Containers, m.Spec.PodTemplate.Spec.InitContainers)
 	}
 
 	m.setMetaStorageDefaults()
 
 	m.SetHealthCheckerDefaults()
+
+	m.SetTLSDefaults()
 
 	if m.Spec.Monitor != nil {
 		if m.Spec.Monitor.Prometheus == nil {
@@ -369,6 +377,27 @@ func (m *Milvus) SetDefaults(kc client.Client) {
 			m.Spec.Monitor.Prometheus.Exporter.SecurityContext.RunAsGroup = mvVersion.Spec.SecurityContext.RunAsUser
 		}
 	}
+}
+
+func (m *Milvus) SetTLSDefaults() {
+	if m.Spec.TLS == nil || m.Spec.TLS.IssuerRef == nil {
+		return
+	}
+
+	if m.Spec.TLS.External == nil {
+		m.Spec.TLS.External = &ProtocolTLSConfig{
+			Mode: TLSModeDisabled,
+		}
+	}
+
+	if m.Spec.TLS.Internal == nil {
+		m.Spec.TLS.Internal = &ProtocolTLSConfig{
+			Mode: TLSModeDisabled,
+		}
+	}
+
+	m.Spec.TLS.Certificates = kmapi.SetMissingSecretNameForCertificate(m.Spec.TLS.Certificates, string(MilvusCertificateTypeServer), m.CertificateName(MilvusCertificateTypeServer))
+	m.Spec.TLS.Certificates = kmapi.SetMissingSecretNameForCertificate(m.Spec.TLS.Certificates, string(MilvusCertificateTypeClient), m.CertificateName(MilvusCertificateTypeClient))
 }
 
 func (m *Milvus) setMetaStorageDefaults() {
@@ -507,4 +536,48 @@ func (m milvusStatsService) TLSConfig() *promapi.TLSConfig {
 
 func (m Milvus) StatsService() mona.StatsAccessor {
 	return &milvusStatsService{&m}
+}
+
+func (m *Milvus) GetCertSecretName(alias MilvusCertificateType) string {
+	if m.Spec.TLS != nil {
+		name, ok := kmapi.GetCertificateSecretName(m.Spec.TLS.Certificates, string(alias))
+		if ok {
+			return name
+		}
+	}
+	return m.CertificateName(alias)
+}
+
+func (m *Milvus) CertificateName(alias MilvusCertificateType) string {
+	return meta_util.NameWithSuffix(m.Name, fmt.Sprintf("%s-cert", string(alias)))
+}
+
+func (m *Milvus) GetStorageClassName() string {
+	return *m.Spec.Storage.StorageClassName
+}
+
+type MilvusBind struct {
+	*Milvus
+}
+
+var _ DBBindInterface = &MilvusBind{}
+
+func (m *MilvusBind) ServiceNames() (string, string) {
+	return m.ServiceName(), ""
+}
+
+func (m *MilvusBind) Ports() (int, int) {
+	return int(kubedb.MilvusHttpPort), 0
+}
+
+func (m *MilvusBind) SecretName() string {
+	return m.GetAuthSecretName()
+}
+
+func (m *MilvusBind) CertSecretName() string {
+	return m.GetCertSecretName(MilvusCertificateTypeClient)
+}
+
+func (m *Milvus) GetDeletionPolicy() string {
+	return string(m.Spec.DeletionPolicy)
 }

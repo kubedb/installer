@@ -122,7 +122,8 @@ func (q *Qdrant) ServiceDNS() string {
 }
 
 func (q *Qdrant) PodDNS(ordinal string) string {
-	return fmt.Sprintf("%s-%s.%s.%s.svc",
+	return fmt.Sprintf(
+		"%s-%s.%s.%s.svc",
 		q.OffshootName(),
 		ordinal,
 		q.GoverningServiceName(),
@@ -164,8 +165,10 @@ func (q *Qdrant) ConfigSecretName() string {
 
 func (q *Qdrant) GetPersistentSecrets() []string {
 	var secrets []string
-	if q.Spec.AuthSecret != nil {
+	if !IsVirtualAuthSecretReferred(q.Spec.AuthSecret) && q.Spec.AuthSecret != nil && q.Spec.AuthSecret.Name != "" {
 		secrets = append(secrets, q.GetAuthSecretName())
+	}
+	if q.Spec.AuthSecret != nil {
 		secrets = append(secrets, q.ConfigSecretName())
 	}
 	return secrets
@@ -196,6 +199,10 @@ func (q *Qdrant) PodLabels(extraLabels ...map[string]string) map[string]string {
 func (q *Qdrant) ServiceLabels(alias ServiceAlias, extraLabels ...map[string]string) map[string]string {
 	svcTemplate := GetServiceTemplate(q.Spec.ServiceTemplates, alias)
 	return q.offshootLabels(meta_util.OverwriteKeys(q.OffshootSelectors(), extraLabels...), svcTemplate.Labels)
+}
+
+func (q *Qdrant) GetStorageClassName() string {
+	return *q.Spec.Storage.StorageClassName
 }
 
 type qdrantStatsService struct {
@@ -350,6 +357,8 @@ func (q *Qdrant) SetDefaults(kc client.Client) {
 		apis.SetDefaultResourceLimits(&dbContainer.Resources, kubedb.DefaultResources)
 	}
 
+	q.Spec.Monitor.SetDefaults()
+
 	q.SetHealthCheckerDefaults()
 
 	q.setDefaultContainerResourceLimits(q.Spec.PodTemplate)
@@ -421,4 +430,32 @@ func (q *Qdrant) setDefaultContainerResourceLimits(podTemplate *ofst.PodTemplate
 	if dbContainer != nil {
 		apis.SetDefaultResourceLimits(&dbContainer.Resources, kubedb.DefaultResources)
 	}
+
+	apis.SetDefaultResizePolicy(podTemplate.Spec.Containers, podTemplate.Spec.InitContainers)
+}
+
+type QdrantBind struct {
+	*Qdrant
+}
+
+var _ DBBindInterface = &QdrantBind{}
+
+func (q *QdrantBind) ServiceNames() (string, string) {
+	return q.ServiceName(), q.ServiceName()
+}
+
+func (q *QdrantBind) Ports() (int, int) {
+	return kubedb.QdrantHTTPPort, kubedb.QdrantHTTPPort
+}
+
+func (q *QdrantBind) SecretName() string {
+	return q.GetAuthSecretName()
+}
+
+func (q *QdrantBind) CertSecretName() string {
+	return q.GetCertSecretName(QdrantClientCert)
+}
+
+func (q *Qdrant) GetDeletionPolicy() string {
+	return string(q.Spec.DeletionPolicy)
 }

@@ -20,6 +20,7 @@ import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	kmapi "kmodules.xyz/client-go/api/v1"
+	mona "kmodules.xyz/monitoring-agent-api/api/v1"
 	ofstv2 "kmodules.xyz/offshoot-api/api/v2"
 )
 
@@ -60,6 +61,11 @@ type WeaviateSpec struct {
 	// +optional
 	Replicas *int32 `json:"replicas,omitempty"`
 
+	// Replication configuration for the Weaviate cluster.
+	// This controls the data replication factor per collection.
+	// +optional
+	Replication *ReplicationConfig `json:"replication,omitempty"`
+
 	// StorageType can be durable (default) or ephemeral
 	StorageType StorageType `json:"storageType,omitempty"`
 
@@ -75,11 +81,19 @@ type WeaviateSpec struct {
 	// +optional
 	AuthSecret *SecretReference `json:"authSecret,omitempty"`
 
+	// Init is used to initialize database
+	// +optional
+	Init *InitSpec `json:"init,omitempty"`
+
 	// Configuration is an optional field to provide custom configuration file for database (i.e conf.yaml).
 	// If specified, this file will be used as configuration file otherwise default configuration file will be used.
 	// You can provide custom configurations using Secret or ApplyConfig.
 	// +optional
-	Configuration *ConfigurationSpec `json:"configuration,omitempty"`
+	Configuration *WeaviateConfiguration `json:"configuration,omitempty"`
+
+	// TLS contains tls configurations for client and server.
+	// +optional
+	TLS *WeaviateTLSConfig `json:"tls,omitempty"`
 
 	// PodTemplate is an optional configuration for pods used to expose database
 	// +optional
@@ -97,6 +111,10 @@ type WeaviateSpec struct {
 	// +optional
 	// +kubebuilder:default={periodSeconds: 10, timeoutSeconds: 10, failureThreshold: 3}
 	HealthChecker kmapi.HealthCheckSpec `json:"healthChecker"`
+
+	// Monitor is used to monitor database instance
+	// +optional
+	Monitor *mona.AgentSpec `json:"monitor,omitempty"`
 }
 
 // WeaviateStatus defines the observed state of Weaviate.
@@ -119,4 +137,59 @@ type WeaviateList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []Weaviate `json:"items"`
+}
+
+// ReplicationConfig defines replication settings for Weaviate.
+type ReplicationConfig struct {
+	// Factor is the number of replicas for each data object.
+	// Set to 1 for no replication (default), 2-3 for production HA.
+	// +optional
+	// +kubebuilder:minimum=1
+	// +kubebuilder:maximum=5
+	Factor int32 `json:"factor,omitempty"`
+}
+
+type WeaviateTLSConfig struct {
+	kmapi.TLSConfig `json:",inline"`
+
+	// ClientAuth controls whether the REST HTTPS listener requires clients to present a valid certificate.
+	// If unset, client certificate authentication is enabled for backward compatibility.
+	// +optional
+	ClientAuth *bool `json:"clientAuth,omitempty"`
+}
+
+// +kubebuilder:validation:Enum=server;client
+type WeaviateCertificateAlias string
+
+const (
+	WeaviateServerCert WeaviateCertificateAlias = "server"
+	WeaviateClientCert WeaviateCertificateAlias = "client"
+)
+
+type WeaviateConfiguration struct {
+	ConfigurationSpec `json:",inline,omitempty"`
+
+	// BackupConfigSecret is an optional field to provide environment variables
+	// from a Kubernetes Secret for backup or other purposes.
+	// These env vars will be injected into the database container.
+	// +optional
+	BackupConfigSecret *core.LocalObjectReference `json:"backupConfigSecret,omitempty"`
+}
+
+var _ Accessor = &Weaviate{}
+
+func (w *Weaviate) GetObjectMeta() metav1.ObjectMeta {
+	return w.ObjectMeta
+}
+
+func (w *Weaviate) GetConditions() []kmapi.Condition {
+	return w.Status.Conditions
+}
+
+func (w *Weaviate) SetCondition(cond kmapi.Condition) {
+	w.Status.Conditions = setCondition(w.Status.Conditions, cond)
+}
+
+func (w *Weaviate) RemoveCondition(typ string) {
+	w.Status.Conditions = removeCondition(w.Status.Conditions, typ)
 }

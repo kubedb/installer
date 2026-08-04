@@ -74,11 +74,17 @@ type ClickHouseVersionSpec struct {
 	// +optional
 	SecurityContext SecurityContext `json:"securityContext"`
 
+	// Archiver defines the walg & stash-addon related specifications
+	Archiver ArchiverSpec `json:"archiver,omitempty"`
+
 	// +optional
 	UI []ChartInfo `json:"ui,omitempty"`
 
 	// update constraints
 	UpdateConstraints UpdateConstraints `json:"updateConstraints,omitempty"`
+
+	// +optional
+	GitSyncer GitSyncer `json:"gitSyncer,omitempty"`
 }
 
 // ClickHouseVersionDatabase is the ClickHouse Database image

@@ -189,6 +189,10 @@ func (m MySQL) GetAuthSecretName() string {
 	return meta_util.NameWithSuffix(m.OffshootName(), "auth")
 }
 
+func (m MySQL) GetRouterServiceName() string {
+	return meta_util.NameWithSuffix(m.OffshootName(), kubedb.MySQLRouterSuffix)
+}
+
 func (m MySQL) GetStorageClassName() string {
 	return *m.Spec.Storage.StorageClassName
 }
@@ -352,6 +356,8 @@ func (m *MySQL) SetDefaults(myVersion *v1alpha1.MySQLVersion) error {
 			if routerContainer != nil && (routerContainer.Resources.Requests == nil && routerContainer.Resources.Limits == nil) {
 				apis.SetDefaultResourceLimits(&routerContainer.Resources, kubedb.CoordinatorDefaultResources)
 			}
+
+			apis.SetDefaultResizePolicy(m.Spec.Topology.InnoDBCluster.Router.PodTemplate.Spec.Containers, m.Spec.Topology.InnoDBCluster.Router.PodTemplate.Spec.InitContainers)
 		}
 	}
 
@@ -418,7 +424,7 @@ func (m *MySQL) GetPersistentSecrets() []string {
 	}
 
 	var secrets []string
-	if m.Spec.AuthSecret != nil {
+	if !IsVirtualAuthSecretReferred(m.Spec.AuthSecret) && m.Spec.AuthSecret != nil && m.Spec.AuthSecret.Name != "" {
 		secrets = append(secrets, m.Spec.AuthSecret.Name)
 	}
 	if m.Spec.Monitor != nil && m.Spec.TLS != nil {
@@ -473,7 +479,7 @@ func (m *MySQL) MySQLTLSArgs() []string {
 }
 
 func (m *MySQL) GetRouterName() string {
-	return fmt.Sprintf("%s-router", m.Name)
+	return fmt.Sprintf("%s-%s", m.Name, kubedb.MySQLRouterSuffix)
 }
 
 func (m *MySQL) setDefaultContainerSecurityContext(myVersion *v1alpha1.MySQLVersion, podTemplate *ofstv2.PodTemplateSpec) {
@@ -592,9 +598,15 @@ func (m *MySQL) setDefaultContainerResourceLimits(podTemplate *ofstv2.PodTemplat
 			apis.SetDefaultResourceLimits(&coordinatorContainer.Resources, kubedb.CoordinatorDefaultResources)
 		}
 	}
+
+	apis.SetDefaultResizePolicy(podTemplate.Spec.Containers, podTemplate.Spec.InitContainers)
 }
 
 func (m *MySQL) ConfigSecretName() string {
 	uid := string(m.UID)
 	return meta_util.NameWithSuffix(m.OffshootName(), uid[len(uid)-6:])
+}
+
+func (m *MySQL) GetDeletionPolicy() string {
+	return string(m.Spec.DeletionPolicy)
 }

@@ -35,9 +35,6 @@ func main() {
 			VersionConstraint: "*",
 			Distributions:     []string{"OpenSearch"},
 		}},
-		dbv1a2.ResourceKindFerretDB: configdata.Restrictions{{
-			VersionConstraint: "*",
-		}},
 		dbv1.ResourceKindKafka: configdata.Restrictions{{
 			VersionConstraint: "*",
 		}},

@@ -132,7 +132,7 @@ type OracleSpec struct {
 	// If specified, this file will be used as configuration file otherwise default configuration file will be used.
 	// You can provide custom configurations using Secret or ApplyConfig.
 	// +optional
-	Configuration *ConfigurationSpec `json:"configuration,omitempty"`
+	Configuration *OracleConfiguration `json:"configuration,omitempty"`
 
 	// Database authentication secret
 	// +optional
@@ -178,6 +178,16 @@ type OracleSpec struct {
 	// TLS configuration for secure client connections
 	// +optional
 	TCPSConfig *OracleTCPSConfig `json:"tcpsConfig,omitempty"`
+}
+
+type OracleConfiguration struct {
+	// +optional
+	ConfigurationSpec `json:",inline,omitempty"`
+
+	// WalletConfigSecret is an optional field to provide the configuration
+	// details for the db to connect with different online storage provider
+	// +optional
+	WalletConfigSecret string `json:"walletConfigSecret,omitempty"`
 }
 
 type OracleTCPSConfig struct {
@@ -277,4 +287,22 @@ type OracleList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []Oracle `json:"items"`
+}
+
+var _ Accessor = &Oracle{}
+
+func (m *Oracle) GetObjectMeta() metav1.ObjectMeta {
+	return m.ObjectMeta
+}
+
+func (m *Oracle) GetConditions() []kmapi.Condition {
+	return m.Status.Conditions
+}
+
+func (m *Oracle) SetCondition(cond kmapi.Condition) {
+	m.Status.Conditions = setCondition(m.Status.Conditions, cond)
+}
+
+func (m *Oracle) RemoveCondition(typ string) {
+	m.Status.Conditions = removeCondition(m.Status.Conditions, typ)
 }

@@ -9,7 +9,7 @@
 
 {{ if and $featureGates.MariaDB (not (eq $ubi "operator")) }}
 
-
+{{ if or (not .Values.skipEndOfLife) (has "12.1.2" .Values.enableVersions.MariaDB) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MariaDBVersion
 metadata:
@@ -32,9 +32,14 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-archiver") $) }}:v0.24.0_11.2.2-jammy'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-archiver") $) }}:v0.26.0_11.2.2-jammy'
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-coordinator") $) }}:v0.44.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-coordinator") $) }}:v0.46.0{{ include "catalog.ubi" $ }}'
+  courier:
+    cli:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-migrator-mariadb") $) }}:v0.6.0{{ include "catalog.ubi" $ }}'
+    statusReporter:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-courier") $) }}:v0.6.0{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mariadb") $) }}:12.1.2-noble'
   exporter:
@@ -42,7 +47,7 @@ spec:
   gitSyncer:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.4.2'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-init") $) }}:0.8.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mariadb-init") $) }}:0.9.0'
   maxscale:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "mariadb/maxscale") $) }}:24.02.4'
     securityContext:
@@ -60,8 +65,10 @@ spec:
     version: v2026.3.30
   updateConstraints:
     allowlist:
-    - '>= 12.1.2, <= 12.1.2'
+    - '>= 12.1.2, <= 12.3.2'
   version: 12.1.2
   podSecurityPolicies:
     databasePolicyName: {{ ternary "maria-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+  endOfLife: {{ not (has "12.1.2" .Values.enableVersions.MariaDB) }}
+{{ end }}
 {{ end }}
