@@ -178,3 +178,25 @@ func (a *Aerospike) assignDefaultContainerSecurityContext(arVersion *catalog.Aer
 		sc.SeccompProfile = secomp.DefaultSeccompProfile()
 	}
 }
+
+func (a *Aerospike) GetDeletionPolicy() string {
+	return string(a.Spec.DeletionPolicy)
+}
+
+func (a *Aerospike) GetAuthSecretName() string {
+	if a.Spec.DisableAuth {
+		return ""
+	}
+	if a.Spec.AuthSecret != nil && a.Spec.AuthSecret.Name != "" {
+		return a.Spec.AuthSecret.Name
+	}
+	return meta_util.NameWithSuffix(a.OffshootName(), "auth")
+}
+
+func (a *Aerospike) GetPersistentSecrets() []string {
+	var secrets []string
+	if !a.Spec.DisableAuth && !IsVirtualAuthSecretReferred(a.Spec.AuthSecret) && a.Spec.AuthSecret != nil && a.Spec.AuthSecret.Name != "" {
+		secrets = append(secrets, a.GetAuthSecretName())
+	}
+	return secrets
+}

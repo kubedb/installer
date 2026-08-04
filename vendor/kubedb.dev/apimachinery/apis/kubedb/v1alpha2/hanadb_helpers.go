@@ -778,3 +778,7 @@ func (h *HanaDB) ReplicasAreReady(lister pslister.PetSetLister) (bool, string, e
 	expectedItems := 1
 	return checkReplicasOfPetSet(lister.PetSets(h.Namespace), labels.SelectorFromSet(h.OffshootLabels()), expectedItems)
 }
+
+func (h *HanaDB) GetDeletionPolicy() string {
+	return string(h.Spec.DeletionPolicy)
+}

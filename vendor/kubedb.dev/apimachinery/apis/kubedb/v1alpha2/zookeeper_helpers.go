@@ -425,3 +425,7 @@ func (z *ZooKeeper) GetCertSecretName(alias ZooKeeperCertificateAlias) string {
 func (k *ZooKeeper) CertSecretVolumeName(alias ZooKeeperCertificateAlias) string {
 	return string(alias) + "-certs"
 }
+
+func (z *ZooKeeper) GetDeletionPolicy() string {
+	return string(z.Spec.DeletionPolicy)
+}

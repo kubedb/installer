@@ -455,3 +455,7 @@ func (q *QdrantBind) SecretName() string {
 func (q *QdrantBind) CertSecretName() string {
 	return q.GetCertSecretName(QdrantClientCert)
 }
+
+func (q *Qdrant) GetDeletionPolicy() string {
+	return string(q.Spec.DeletionPolicy)
+}

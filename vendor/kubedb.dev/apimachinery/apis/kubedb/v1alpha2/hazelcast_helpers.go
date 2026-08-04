@@ -468,3 +468,7 @@ func (d *HazelcastBind) SecretName() string {
 func (d *HazelcastBind) CertSecretName() string {
 	return d.GetCertSecretName(HazelcastClientCert)
 }
+
+func (h *Hazelcast) GetDeletionPolicy() string {
+	return string(h.Spec.DeletionPolicy)
+}
