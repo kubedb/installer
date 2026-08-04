@@ -7,15 +7,16 @@
 apiVersion: addons.kubestash.com/v1alpha1
 kind: Function
 metadata:
-  name: 'oracle-backup'
+  name: 'oracle-differential-backup'
   labels:
     {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
 spec:
   args:
-  - performBackup
+  - differential-backup
   - --namespace=${namespace:=default}
   - --backupsession=${backupSession:=}
   - --wait-timeout=${waitTimeout:={{ .Values.waitTimeout}}}
   - --target-pod=${targetPod:=}
-  image: '{{ include "image.dockerHub" (merge (dict "_repo" "sadi74/oracle-backup-plugin") $) }}:xrestore3{{ include "catalog.ubi" $ }}'
+  - --interval=${interval:=3600}
+  image: '{{ include "image.dockerHub" (merge (dict "_repo" "sadi74/oracle-backup-plugin") $) }}:diff-test2{{ include "catalog.ubi" $ }}'
 {{ end }}
