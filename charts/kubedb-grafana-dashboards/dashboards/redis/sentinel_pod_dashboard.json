@@ -1,4 +1,5 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "annotations": {
     "list": [
@@ -22,8 +23,7 @@
   "editable": true,
   "gnetId": 11835,
   "graphTooltip": 0,
-  "id": 29,
-  "iteration": 1710837869762,
+  "iteration": 1710923185050,
   "links": [],
   "panels": [
     {
@@ -116,7 +116,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "targets": [
         {
           "exemplar": true,
@@ -199,7 +199,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "targets": [
         {
           "exemplar": true,
@@ -261,7 +261,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -377,7 +377,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "targets": [
         {
           "exemplar": true,
@@ -451,7 +451,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "targets": [
         {
           "exemplar": false,
@@ -515,7 +515,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -530,7 +530,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": {{ `"{{input}}"` }},
+          "legendFormat": {{ `"{{ input }}"` }},
           "refId": "A",
           "step": 240
         },
@@ -540,7 +540,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": {{ `"{{output}}"` }},
+          "legendFormat": {{ `"{{ output }}"` }},
           "refId": "B",
           "step": 240
         }
@@ -626,7 +626,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -748,7 +748,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -860,7 +860,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -933,7 +933,7 @@
       }
     }
   ],
-  "refresh": "10s",
+  "refresh": false,
   "schemaVersion": 27,
   "style": "dark",
   "tags": [
@@ -962,16 +962,18 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
-      },
+      }
+      {{- if not $alerts }}
+      ,
       {
         "allValue": null,
         "current": {
-          "isNone": true,
           "selected": false,
-          "text": "None",
-          "value": ""
+          "text": "demo",
+          "value": "demo"
         },
         "datasource": "${datasource}",
+        "definition": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -1002,12 +1004,12 @@
       {
         "allValue": null,
         "current": {
-          "isNone": true,
           "selected": false,
-          "text": "None",
-          "value": ""
+          "text": "sentinel",
+          "value": "sentinel"
         },
         "datasource": "${datasource}",
+        "definition": "query_result(kubedb_com_redissentinel_created{namespace=\"$namespace\"})",
         "description": null,
         "error": null,
         "hide": 0,
@@ -1038,7 +1040,6 @@
       {
         "allValue": null,
         "current": {
-          "isNone": true,
           "selected": false,
           "text": "sentinel-0",
           "value": "sentinel-0"
@@ -1067,11 +1068,12 @@
         "type": "query",
         "useTags": false
       }
+      {{- end }}
     ]
   },
   "time": {
-  "from": "now-6h",
-  "to": "now"
+    "from": "now-6h",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -1104,6 +1106,6 @@
   {{- else }}
   "title": {{ printf "KubeDB / RedisSentinel / Pod / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
   {{- end }}
-  "uid": "fF-N4cH7k",
-  "version": 4
+  "uid": "kubedb-redissentinel-pod",
+  "version": 1
 }
