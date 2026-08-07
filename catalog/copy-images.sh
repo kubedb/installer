@@ -58,6 +58,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:20
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.12.1-enterprise $IMAGE_REGISTRY/neo4j:2025.12.1-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.05.0-enterprise $IMAGE_REGISTRY/neo4j:2026.05.0-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.06.0-enterprise $IMAGE_REGISTRY/neo4j:2026.06.0-enterprise
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:5.26.28-enterprise $IMAGE_REGISTRY/neo4j:5.26.28-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/mariadb/maxscale:24.02.4 $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:4.4.26 $IMAGE_REGISTRY/percona/percona-server-mongodb:4.4.26
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:5.0.29 $IMAGE_REGISTRY/percona/percona-server-mongodb:5.0.29
@@ -430,7 +431,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archi
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.27.0_9.1.0 $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.27.0_9.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-coordinator:v0.44.0 $IMAGE_REGISTRY/kubedb/mysql-coordinator:v0.44.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-csi-snapshotter-plugin:v0.27.0 $IMAGE_REGISTRY/kubedb/mysql-csi-snapshotter-plugin:v0.27.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:0.1.0 $IMAGE_REGISTRY/kubedb/mysql-init:0.1.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:0.2.0 $IMAGE_REGISTRY/kubedb/mysql-init:0.2.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:5.7-v9 $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.44.0 $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.44.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.18.0 $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.18.0

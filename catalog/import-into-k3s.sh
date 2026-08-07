@@ -47,6 +47,7 @@ k3s ctr images import images/library-neo4j-2025.11.2-enterprise.tar
 k3s ctr images import images/library-neo4j-2025.12.1-enterprise.tar
 k3s ctr images import images/library-neo4j-2026.05.0-enterprise.tar
 k3s ctr images import images/library-neo4j-2026.06.0-enterprise.tar
+k3s ctr images import images/library-neo4j-5.26.28-enterprise.tar
 k3s ctr images import images/mariadb-maxscale-24.02.4.tar
 k3s ctr images import images/percona-percona-server-mongodb-4.4.26.tar
 k3s ctr images import images/percona-percona-server-mongodb-5.0.29.tar
@@ -419,7 +420,7 @@ k3s ctr images import images/kubedb-mysql-archiver-v0.27.0_8.4.3.tar
 k3s ctr images import images/kubedb-mysql-archiver-v0.27.0_9.1.0.tar
 k3s ctr images import images/kubedb-mysql-coordinator-v0.44.0.tar
 k3s ctr images import images/kubedb-mysql-csi-snapshotter-plugin-v0.27.0.tar
-k3s ctr images import images/kubedb-mysql-init-0.1.0.tar
+k3s ctr images import images/kubedb-mysql-init-0.2.0.tar
 k3s ctr images import images/kubedb-mysql-init-5.7-v9.tar
 k3s ctr images import images/kubedb-mysql-router-init-v0.44.0.tar
 k3s ctr images import images/kubedb-mysqld-exporter-v0.18.0.tar

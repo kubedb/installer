@@ -49,6 +49,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-202
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2025.12.1-enterprise.tar $IMAGE_REGISTRY/neo4j:2025.12.1-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2026.05.0-enterprise.tar $IMAGE_REGISTRY/neo4j:2026.05.0-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2026.06.0-enterprise.tar $IMAGE_REGISTRY/neo4j:2026.06.0-enterprise
+$CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-5.26.28-enterprise.tar $IMAGE_REGISTRY/neo4j:5.26.28-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/mariadb-maxscale-24.02.4.tar $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-4.4.26.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:4.4.26
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-5.0.29.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:5.0.29
@@ -421,7 +422,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-arch
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-archiver-v0.27.0_9.1.0.tar $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.27.0_9.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-coordinator-v0.44.0.tar $IMAGE_REGISTRY/kubedb/mysql-coordinator:v0.44.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-csi-snapshotter-plugin-v0.27.0.tar $IMAGE_REGISTRY/kubedb/mysql-csi-snapshotter-plugin:v0.27.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-0.1.0.tar $IMAGE_REGISTRY/kubedb/mysql-init:0.1.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-0.2.0.tar $IMAGE_REGISTRY/kubedb/mysql-init:0.2.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-5.7-v9.tar $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v9
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-router-init-v0.44.0.tar $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.44.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysqld-exporter-v0.18.0.tar $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.18.0

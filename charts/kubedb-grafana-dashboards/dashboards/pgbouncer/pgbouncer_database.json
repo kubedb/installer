@@ -1,0 +1,1144 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "$$hashKey": "object:263",
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "showIn": 0,
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "iteration": 1729053434692,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "pgbouncer"
+      ],
+      "targetBlank": false,
+      "title": "",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
+  "panels": [
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 64,
+      "panels": [],
+      "title": "Status",
+      "type": "row"
+    },
+    {
+      "datasource": "${datasource}",
+      "description": "For each PgBouncer it shows if the Database is disabled",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "text": "Running",
+              "to": "",
+              "type": 1,
+              "value": "0"
+            },
+            {
+              "from": "",
+              "id": 2,
+              "text": "Disabled",
+              "to": "",
+              "type": 1,
+              "value": "1"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 1
+      },
+      "id": 7665753456,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "editorMode": "builder",
+          "exemplar": true,
+          "expr": "(sum by (pod) (pgbouncer_databases_disabled{hostname=~\"$backend_nodes\",namespace=~\"$namespace\",pod=~\"$pod\"}))/2",
+          "format": "time_series",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{pod}} ({{role}} )"` }},
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "PGBouncer Disabled",
+      "type": "stat"
+    },
+    {
+      "datasource": "${datasource}",
+      "description": "For each PgBouncer it shows if the Database is paused",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "text": "Resumed",
+              "to": "",
+              "type": 1,
+              "value": "0"
+            },
+            {
+              "from": "",
+              "id": 2,
+              "text": "Paused",
+              "to": "",
+              "type": 1,
+              "value": "1"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 1
+      },
+      "id": 67457459,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "editorMode": "builder",
+          "exemplar": true,
+          "expr": "(sum by (pod) (pgbouncer_databases_paused{hostname=~\"$backend_nodes\",namespace=~\"$namespace\",pod=~\"$pod\"}))/2",
+          "format": "time_series",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{pod}} ({{role}} )"` }},
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "PGBouncer Status",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
+      "id": 28,
+      "panels": [],
+      "title": "Backend Database Info",
+      "type": "row"
+    },
+    {
+      "datasource": "${datasource}",
+      "description": "Ratio of used child processes to total child processes (0.0 to 1.0)",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "graph": false,
+              "legend": false,
+              "tooltip": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltipOptions": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "editorMode": "builder",
+          "exemplar": true,
+          "expr": "(sum by (pod) (pgbouncer_databases_current_connections{namespace=~\"$namespace\",pod=~\"$pod\"}))/(sum by (pod) (pgbouncer_databases_max_connections{namespace=~\"$namespace\",pod=~\"$pod\"}))",
+          "instant": false,
+          "interval": "",
+          "legendFormat": {{ `"{{pod}}"` }},
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Active Connections Ratio",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "${datasource}",
+      "description": "Number of total backend database connected",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 6,
+      "options": {
+        "displayLabels": [
+          "value"
+        ],
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "values": []
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {}
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "editorMode": "builder",
+          "exemplar": true,
+          "expr": "(sum by (pod) (pgbouncer_databases_current_connections{namespace=~\"$namespace\",pod=~\"$pod\"}))-(sum by (pod) (pgbouncer_databases_current_connections{namespace=~\"$namespace\",pod=~\"$pod\", name=\"pgbouncer\"}))",
+          "format": "time_series",
+          "instant": true,
+          "interval": "",
+          "legendFormat": {{ `"{{pod}}  (Used child process)"` }},
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": "Prometheus",
+          "editorMode": "builder",
+          "exemplar": true,
+          "expr": "pgbouncer_databases_current_connections{namespace=~\"$namespace\",pod=~\"$pod\", name=\"pgbouncer\"}",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": {{ `"{{pod}} (Total child process)"` }},
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Active Database Connectios",
+      "type": "piechart"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "id": 26,
+      "panels": [],
+      "title": "Error Message Counts",
+      "type": "row"
+    },
+    {
+      "datasource": "${datasource}",
+      "description": "Error message counts returned from backend PostgreSQL",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "graph": false,
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 9,
+        "x": 0,
+        "y": 16
+      },
+      "id": 12,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "tooltipOptions": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "editorMode": "builder",
+          "exemplar": true,
+          "expr": "pgbouncer_config_log_pooler_errors{hostname=~\"$backend_nodes\",namespace=~\"$namespace\",pod=~\"$pod\"}",
+          "interval": "",
+          "legendFormat": {{ `"{{pod}} ({{role}})"` }},
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Error Message Counts",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 24
+      },
+      "id": 20,
+      "panels": [],
+      "title": "Query Info",
+      "type": "row"
+    },
+    {
+      "datasource": "${datasource}",
+      "description": "Total number of Query",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "graph": false,
+              "legend": false,
+              "tooltip": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 0,
+        "y": 25
+      },
+      "id": 62,
+      "options": {
+        "graph": {},
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltipOptions": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "editorMode": "builder",
+          "exemplar": true,
+          "expr": "sum by (pod) (pgbouncer_stats_query_count_total{namespace=~\"$namespace\",pod=~\"$pod\"})",
+          "interval": "",
+          "legendFormat": {{ `"{{pod}}"` }},
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Query Count",
+      "type": "timeseries"
+    },
+    {
+      "datasource": null,
+      "description": "Average Query Time in microseconds within stat period",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 8,
+        "y": 25
+      },
+      "id": 14556575,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum by (pod) (pgbouncer_stats_avg_query_time_microseconds{namespace=~\"$namespace\",pod=~\"$pod\"})",
+          "interval": "",
+          "legendFormat": {{ `"{{pod}}"` }},
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Avg Query time in Microseconds",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "Amount of Seconds for Timeout of an Query",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 16,
+        "y": 25
+      },
+      "id": 75,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "pgbouncer_config_query_wait_timeout_seconds{namespace=~\"$namespace\",pod=~\"$pod\"}",
+          "interval": "",
+          "legendFormat": {{ `"{{pod}}"` }},
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Query Timeout in Seconds",
+      "type": "stat"
+    },
+    {
+      "datasource": "${datasource}",
+      "description": "Total number of Microseconds Connecting Postgresql, Executing Query",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 0,
+        "y": 32
+      },
+      "id": 6345432,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "editorMode": "builder",
+          "exemplar": true,
+          "expr": "sum(irate(pgbouncer_stats_query_time_microseconds_total{namespace=~\"$namespace\",pod=~\"$pod\"}[5m]))",
+          "interval": "",
+          "legendFormat": {{ `"{{pod}}"` }},
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Total Time Of Query Execution",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 39
+      },
+      "id": 22,
+      "panels": [],
+      "title": "Transaction Info",
+      "type": "row"
+    },
+    {
+      "datasource": "${datasource}",
+      "description": "Average Transaction Count",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 0,
+        "y": 40
+      },
+      "id": 52,
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "text": {}
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "editorMode": "builder",
+          "exemplar": true,
+          "expr": "sum by (pod) (pgbouncer_stats_avg_xact_count{hostname=~\"$backend_nodes\",namespace=~\"$namespace\",pod=~\"$pod\"})",
+          "interval": "",
+          "legendFormat": {{ `"{{pod}} ({{role}})"` }},
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Average of Total Transaction",
+      "type": "gauge"
+    },
+    {
+      "datasource": "${datasource}",
+      "description": "Total Number of Transaction",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "graph": false,
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 4,
+        "y": 40
+      },
+      "id": 56,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "tooltipOptions": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "editorMode": "builder",
+          "exemplar": true,
+          "expr": "sum by (pod) (pgbouncer_stats_xact_count_total{hostname=~\"$backend_nodes\",namespace=~\"$namespace\",pod=~\"$pod\"})",
+          "interval": "",
+          "legendFormat": {{ `"{{pod}} ({{role}})"` }},
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Total Number Of Transaction",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 27,
+  "style": "dark",
+  "tags": [
+    "db",
+    "stats",
+    "kubedb",
+    "pgbouncer"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "Prometheus",
+          "value": "Prometheus"
+        },
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Datasource",
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "queryValue": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      }
+      {{- if not $alerts }}
+      ,
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "demo",
+          "value": "demo"
+        },
+        "datasource": "${datasource}",
+        "definition": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Namespace",
+        "multi": false,
+        "name": "namespace",
+        "options": [],
+        {{- if $shared }}
+        "query": {
+          "query": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
+          "refId": "Prometheus-namespace-Variable-Query"
+        },
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.namespace | quote }},
+        "type": "constant",
+        {{- end }}
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "pb",
+          "value": "pb"
+        },
+        "datasource": "${datasource}",
+        "definition": "label_values(kubedb_com_pgbouncer_status_phase{namespace=~\"$namespace\"},app)",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "PgBouncer",
+        "multi": false,
+        "name": "app",
+        "options": [],
+        {{- if $shared }}
+        "query": {
+          "query": "label_values(kubedb_com_pgbouncer_status_phase{namespace=~\"$namespace\"},app)",
+          "refId": "Prometheus-app-Variable-Query"
+        },
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": [
+            "pb-0"
+          ],
+          "value": [
+            "pb-0"
+          ]
+        },
+        "datasource": "${datasource}",
+        "definition": "label_values(pgbouncer_up{namespace=~\"$namespace\", service=~\"$app-stats\"}, pod)",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": "Pod",
+        "multi": true,
+        "name": "pod",
+        "options": [],
+        "query": {
+          "query": "label_values(pgbouncer_up{namespace=~\"$namespace\", service=~\"$app-stats\"}, pod)",
+          "refId": "Prometheus-pod-Variable-Query"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": ".*",
+        "current": {
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
+        },
+        "datasource": "Prometheus",
+        "definition": "label_values(pgbouncer_pool_nodes_status{namespace=~\"$namespace\",pod=~\"$pod\"}, hostname)",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": true,
+        "name": "backend_nodes",
+        "options": [],
+        "query": {
+          "query": "label_values(pgbouncer_pool_nodes_status{namespace=~\"$namespace\",pod=~\"$pod\"}, hostname)",
+          "refId": "Prometheus-backend-Variable-Query"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+      {{- end }}
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  {{- if $shared }}
+  "title": "KubeDB / PgBouncer / Database",
+  {{- else }}
+  "title": {{ printf "KubeDB / PgBouncer / Database / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
+  {{- end }}
+  "uid": "kubedb-pgbouncer-database",
+  "version": 11
+}

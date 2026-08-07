@@ -336,3 +336,11 @@ func (m *Memcached) SetTLSDefaults() {
 	m.Spec.TLS.Certificates = kmapi.SetMissingSecretNameForCertificate(m.Spec.TLS.Certificates, string(MemcachedClientCert), m.CertificateName(MemcachedClientCert))
 	m.Spec.TLS.Certificates = kmapi.SetMissingSecretNameForCertificate(m.Spec.TLS.Certificates, string(MemcachedMetricsExporterCert), m.CertificateName(MemcachedMetricsExporterCert))
 }
+
+func (m *Memcached) GetDeletionPolicy() string {
+	return string(m.Spec.DeletionPolicy)
+}
+
+func (m *Memcached) GetPersistentSecrets() []string {
+	return m.Spec.GetPersistentSecrets()
+}

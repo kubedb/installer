@@ -385,3 +385,7 @@ func (i Ignite) SetTLSDefaults() {
 	i.Spec.TLS.Certificates = kmapi.SetMissingSecretNameForCertificate(i.Spec.TLS.Certificates, string(IgniteServerCert), i.IgniteCertificateName(IgniteServerCert))
 	i.Spec.TLS.Certificates = kmapi.SetMissingSecretNameForCertificate(i.Spec.TLS.Certificates, string(IgniteClientCert), i.IgniteCertSecretVolumeName(IgniteClientCert))
 }
+
+func (i *Ignite) GetDeletionPolicy() string {
+	return string(i.Spec.DeletionPolicy)
+}
