@@ -1,0 +1,103 @@
+apiVersion: addon.open-cluster-management.io/v1alpha1
+kind: AddOnTemplate
+metadata:
+  name: courier-{{ .Chart.AppVersion }}
+  labels:
+    {{- include "courier-addon-manager.labels" . | nindent 4 }}
+spec:
+  addonName: courier
+  agentSpec:
+    workload:
+      manifests:
+        - apiVersion: v1
+          kind: ServiceAccount
+          metadata:
+            name: courier-agent
+            namespace: {{ .Values.agent.installNamespace }}
+        - apiVersion: rbac.authorization.k8s.io/v1
+          kind: ClusterRole
+          metadata:
+            name: courier-agent
+          rules:
+            # The branch operator's Branch data plane on the managed cluster.
+            - apiGroups: ["courier.kubedb.com"]
+              resources: ["branches", "branches/status", "branches/finalizers", "migrations", "migrations/status"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+            - apiGroups: ["kubedb.com"]
+              resources: ["*"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+            - apiGroups: ["ops.kubedb.com"]
+              resources: ["*"]
+              verbs: ["get", "list", "watch", "create"]
+            - apiGroups: ["snapshot.storage.k8s.io"]
+              resources: ["volumesnapshots", "volumesnapshotcontents"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+            - apiGroups: ["groupsnapshot.storage.k8s.io"]
+              resources: ["volumegroupsnapshots", "volumegroupsnapshotclasses"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+            - apiGroups: [""]
+              resources: ["persistentvolumeclaims", "secrets"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+            - apiGroups: ["batch"]
+              resources: ["jobs"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+            - apiGroups: ["storage.k8s.io"]
+              resources: ["storageclasses"]
+              verbs: ["get", "list", "watch"]
+        - apiVersion: rbac.authorization.k8s.io/v1
+          kind: ClusterRoleBinding
+          metadata:
+            name: courier-agent
+          roleRef:
+            apiGroup: rbac.authorization.k8s.io
+            kind: ClusterRole
+            name: courier-agent
+          subjects:
+            - kind: ServiceAccount
+              name: courier-agent
+              namespace: {{ .Values.agent.installNamespace }}
+        - apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: courier-agent
+            namespace: {{ .Values.agent.installNamespace }}
+            labels:
+              app: courier-agent
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                app: courier-agent
+            template:
+              metadata:
+                labels:
+                  app: courier-agent
+              spec:
+                serviceAccountName: courier-agent
+                containers:
+                  - name: agent
+                    image: {{ include "courier-addon-manager.agentImage" . | quote }}
+                    args:
+                      - run
+                      - --cluster-name={{ `{{CLUSTER_NAME}}` }}
+                      - --leader-elect=true
+                    ports:
+                      - name: healthz
+                        containerPort: 8081
+                    livenessProbe:
+                      httpGet:
+                        path: /healthz
+                        port: healthz
+                    readinessProbe:
+                      httpGet:
+                        path: /readyz
+                        port: healthz
+  registration:
+    # The manager mints each agent a hub kubeconfig scoped by RBAC to the
+    # spoke's own hub namespace, so it can drive BranchWork there.
+    - type: KubeClient
+      kubeClient:
+        hubPermissions:
+          - type: CurrentCluster
+            currentCluster:
+              clusterRoleName: courier-branchwork
