@@ -1,7 +1,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: timescaledb-2.14.2-pg13
+  name: 17.9-percona
 spec:
   archiver:
     addon:
@@ -18,7 +18,7 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: ghcr.io/kubedb/postgres-archiver:(v0.27.0)_13.13-alpine
+      image: ghcr.io/kubedb/postgres-archiver:(v0.27.0)_17.9-percona
   coordinator:
     image: ghcr.io/kubedb/pg-coordinator:v0.50.0
   courier:
@@ -27,10 +27,9 @@ spec:
     statusReporter:
       image: ghcr.io/kubedb/kubedb-courier:v0.6.0
   db:
-    baseOS: alpine
-    image: docker.io/timescale/timescaledb:2.14.2-pg13-oss
-  distribution: TimescaleDB
-  endOfLife: true
+    baseOS: bookworm
+    image: ghcr.io/appscode-images/postgres:17.9-percona
+  distribution: Percona
   exporter:
     image: docker.io/prometheuscommunity/postgres-exporter:v0.18.1
   initContainer:
@@ -38,14 +37,17 @@ spec:
   podSecurityPolicies:
     databasePolicyName: postgres-db
   securityContext:
-    runAsAnyNonRoot: false
-    runAsUser: 70
+    runAsAnyNonRoot: true
+    runAsUser: 999
   stash:
     addon:
       backupTask:
-        name: postgres-backup-13.1
+        name: postgres-backup-17.2
       restoreTask:
-        name: postgres-restore-13.1
+        name: postgres-restore-17.2
+  tde:
+    extensionName: pg_tde
+    supported: true
   ui:
   - name: pgadmin
     version: v2026.3.30
@@ -53,5 +55,5 @@ spec:
     version: v2026.3.30
   updateConstraints:
     allowlist:
-    - '>= 13.14'
-  version: "13.14"
+    - '>= 17.9'
+  version: "17.9"
