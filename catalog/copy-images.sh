@@ -356,6 +356,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/va
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:8.0.3 $IMAGE_REGISTRY/appscode-images/valkey:8.0.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:8.1.1 $IMAGE_REGISTRY/appscode-images/valkey:8.1.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/weaviate:1.33.1 $IMAGE_REGISTRY/appscode-images/weaviate:1.33.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/weaviate:1.37.12 $IMAGE_REGISTRY/appscode-images/weaviate:1.37.12
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.7.2 $IMAGE_REGISTRY/appscode-images/zookeeper:3.7.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.8.3 $IMAGE_REGISTRY/appscode-images/zookeeper:3.8.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.9.1 $IMAGE_REGISTRY/appscode-images/zookeeper:3.9.1
