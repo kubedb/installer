@@ -18,31 +18,76 @@ spec:
           kind: ClusterRole
           metadata:
             name: courier-agent
+          # ⚠️ Keep this in lockstep with the +kubebuilder:rbac markers on
+          # NewCmdRun() in kubedb/courier pkg/cmds/run.go. This list is hand-written
+          # and had drifted from them, which cost a debugging session: courier tears
+          # cloned PVCs, secrets and snapshots down with client.DeleteAllOf, and
+          # `delete` does NOT imply `deletecollection`, so branch teardown failed with
+          #   persistentvolumeclaims is forbidden: User
+          #   "system:serviceaccount:kubedb:courier-agent" cannot deletecollection
+          #   resource "persistentvolumeclaims" in API group "" in the namespace "demo"
+          # and the Branch sat in Deleting forever holding its finalizer.
           rules:
-            # The branch operator's Branch data plane on the managed cluster.
+            # The Branch/Migration data plane on the managed cluster.
             - apiGroups: ["courier.kubedb.com"]
-              resources: ["branches", "branches/status", "branches/finalizers", "migrations", "migrations/status"]
+              resources: ["branches", "branchworks", "migrations"]
               verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+            - apiGroups: ["courier.kubedb.com"]
+              resources: ["branches/status", "branchworks/status", "migrations/status"]
+              verbs: ["get", "update", "patch"]
+            - apiGroups: ["courier.kubedb.com"]
+              resources: ["branches/finalizers", "branchworks/finalizers", "migrations/finalizers"]
+              verbs: ["update"]
             - apiGroups: ["kubedb.com"]
               resources: ["*"]
               verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
             - apiGroups: ["ops.kubedb.com"]
               resources: ["*"]
               verbs: ["get", "list", "watch", "create"]
+            # deletecollection: torn down via DeleteAllOf on refresh / branch delete.
             - apiGroups: ["snapshot.storage.k8s.io"]
               resources: ["volumesnapshots", "volumesnapshotcontents"]
-              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete", "deletecollection"]
+            - apiGroups: ["snapshot.storage.k8s.io"]
+              resources: ["volumesnapshotclasses"]
+              verbs: ["get", "list", "watch"]
             - apiGroups: ["groupsnapshot.storage.k8s.io"]
-              resources: ["volumegroupsnapshots", "volumegroupsnapshotclasses"]
-              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+              resources: ["volumegroupsnapshots"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete", "deletecollection"]
+            - apiGroups: ["groupsnapshot.storage.k8s.io"]
+              resources: ["volumegroupsnapshotclasses"]
+              verbs: ["get", "list", "watch"]
+            # deletecollection: cloned PVCs and branch secrets are torn down the same way.
             - apiGroups: [""]
               resources: ["persistentvolumeclaims", "secrets"]
-              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete", "deletecollection"]
+            # deletecollection: post-action Jobs are torn down via DeleteAllOf too.
             - apiGroups: ["batch"]
               resources: ["jobs"]
-              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete", "deletecollection"]
             - apiGroups: ["storage.k8s.io"]
               resources: ["storageclasses"]
+              verbs: ["get", "list", "watch"]
+            # Leader election. The agent runs with --leader-elect=true, so without
+            # this it can never acquire kubedb/<id>.kubedb.com and its controllers
+            # NEVER START -- while the pod sits at 1/1 Running and Ready, because the
+            # health probes bind before leader election begins:
+            #   error retrieving resource lock kubedb/fcf6fc81.kubedb.com:
+            #   leases.coordination.k8s.io is forbidden: User
+            #   "system:serviceaccount:kubedb:courier-agent" cannot get resource "leases"
+            # Nothing is reconciled, no Branch ever changes phase, and every surface
+            # signal (addon Available, ManifestApplied, pod Ready) still reads green.
+            # Observed on the dedicated-hub rig 2026-08-07.
+            - apiGroups: ["coordination.k8s.io"]
+              resources: ["leases"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+            # Leader election and the controllers both record Events.
+            - apiGroups: [""]
+              resources: ["events"]
+              verbs: ["create", "patch"]
+            # Needed to resolve the source/target Database's own resources.
+            - apiGroups: [""]
+              resources: ["configmaps", "services", "pods"]
               verbs: ["get", "list", "watch"]
         - apiVersion: rbac.authorization.k8s.io/v1
           kind: ClusterRoleBinding
