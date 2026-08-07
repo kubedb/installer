@@ -15,3 +15,34 @@ rules:
   - apiGroups: ["courier.kubedb.com"]
     resources: ["branchworks/status"]
     verbs: ["get"]
+---
+# Kubernetes forbids granting RBAC you do not hold yourself. The RoleBinding that
+# scopes a spoke's hub kubeconfig to the ClusterRole above is created by OCM's OWN
+# addon-manager (`addon-manager-controller-sa` in the OCM hub namespace) -- not by the
+# courier manager -- and that ServiceAccount knows nothing about courier.kubedb.com.
+# Without this binding, addon registration fails with:
+#
+#   RegistrationApplied=False  reason=SetPermissionFailed
+#   Failed to set permission for hub agent: rolebindings ... is forbidden: user
+#   "system:serviceaccount:open-cluster-management-hub:addon-manager-controller-sa"
+#   is attempting to grant RBAC permissions not currently held:
+#   {APIGroups:["courier.kubedb.com"], Resources:["branchworks"], ...}
+#
+# The addon still reports Available=True and the agent Deployment still rolls out, so
+# the failure is easy to miss -- but no spoke ever receives a hub kubeconfig, the
+# Initiator has nowhere to write BranchWork, and cross-cluster branching cannot work.
+# Observed on the dedicated-hub rig 2026-08-07.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "courier-addon-manager.fullname" . }}:ocm-addon-manager-delegate
+  labels:
+    {{- include "courier-addon-manager.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: courier-branchwork
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Values.ocm.addonManager.serviceAccountName }}
+    namespace: {{ .Values.ocm.addonManager.namespace }}

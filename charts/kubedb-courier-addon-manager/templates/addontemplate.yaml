@@ -81,6 +81,18 @@ spec:
                       - run
                       - --cluster-name={{ `{{CLUSTER_NAME}}` }}
                       - --leader-elect=true
+                      # The addon framework mints this spoke a hub kubeconfig (see
+                      # `registration:` below) and auto-mounts it at
+                      # /managed/hub-kubeconfig. Courier does NOT auto-detect that
+                      # path: --hub-kubeconfig and --hub-namespace both default to ""
+                      # and reconcileInitiator() gates on
+                      # `HubClient == nil || HubNamespace == ""`, so without these two
+                      # flags a cross-cluster Branch parks in Pending forever while
+                      # everything else — registration, RBAC, the agent rollout —
+                      # looks perfectly healthy.
+                      # The spoke's own hub namespace is its managed-cluster name.
+                      - --hub-kubeconfig=/managed/hub-kubeconfig/kubeconfig
+                      - --hub-namespace={{ `{{CLUSTER_NAME}}` }}
                     ports:
                       - name: healthz
                         containerPort: 8081
