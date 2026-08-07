@@ -307,7 +307,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-p
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.9-alpine-ext.tar $IMAGE_REGISTRY/appscode-images/postgres:17.9-alpine-ext
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.9-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:17.9-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.9-bookworm-ext.tar $IMAGE_REGISTRY/appscode-images/postgres:17.9-bookworm-ext
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.9-bookworm-tde.tar $IMAGE_REGISTRY/appscode-images/postgres:17.9-bookworm-tde
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.9-percona.tar $IMAGE_REGISTRY/appscode-images/postgres:17.9-percona
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-18.2-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:18.2-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-18.2-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:18.2-bookworm

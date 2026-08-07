@@ -119,7 +119,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-alpine-ext images/appscode-images-postgres-17.9-alpine-ext.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-bookworm images/appscode-images-postgres-17.9-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-bookworm-ext images/appscode-images-postgres-17.9-bookworm-ext.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-bookworm-tde images/appscode-images-postgres-17.9-bookworm-tde.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-percona images/appscode-images-postgres-17.9-percona.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.2-alpine images/appscode-images-postgres-18.2-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.2-bookworm images/appscode-images-postgres-18.2-bookworm.tar
