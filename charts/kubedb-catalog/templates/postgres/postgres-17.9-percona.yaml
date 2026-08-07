@@ -13,7 +13,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: '17.9-percona'
+  name: '17.9-bookworm-tde'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -42,12 +42,12 @@ spec:
       image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-courier") $) }}:v0.6.0{{ include "catalog.ubi" $ }}'
   db:
     baseOS: bookworm
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/percona-distribution-postgresql") $) }}:17.9'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres") $) }}:17.9-bookworm-tde'
   distribution: Percona
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.18.1'
   initContainer:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.20.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.21.0'
   securityContext:
     runAsAnyNonRoot: true
     runAsUser: 999

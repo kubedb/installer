@@ -35,7 +35,6 @@ k3s ctr images import images/timescale-timescaledb-2.14.2-pg13-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg14-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg15-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg16-oss.tar
-k3s ctr images import images/appscode-images-percona-distribution-postgresql-17.9.tar
 k3s ctr images import images/appscode-images-postgres-documentdb-15-0.102.0-ferretdb-2.0.0.tar
 k3s ctr images import images/appscode-images-postgres-documentdb-16-0.102.0-ferretdb-2.0.0.tar
 k3s ctr images import images/appscode-images-postgres-documentdb-17-0.102.0-ferretdb-2.0.0.tar
@@ -109,10 +108,11 @@ k3s ctr images import images/appscode-images-postgres-17.5-alpine.tar
 k3s ctr images import images/appscode-images-postgres-17.5-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-17.8-alpine.tar
 k3s ctr images import images/appscode-images-postgres-17.8-bookworm.tar
-k3s ctr images import images/appscode-images-postgres-17.9-alpine.tar
 k3s ctr images import images/appscode-images-postgres-17.9-alpine-ext.tar
 k3s ctr images import images/appscode-images-postgres-17.9-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-17.9-bookworm-ext.tar
+k3s ctr images import images/appscode-images-postgres-17.9-bookworm-tde.tar
+k3s ctr images import images/appscode-images-postgres-17.9-percona.tar
 k3s ctr images import images/appscode-images-postgres-18.2-alpine.tar
 k3s ctr images import images/appscode-images-postgres-18.2-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-18.3-alpine.tar
@@ -138,4 +138,4 @@ k3s ctr images import images/kubedb-postgres-archiver-v0.27.0_17.2-bookworm.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.27.0_17.9-percona.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.27.0_18.2-alpine.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.27.0_18.2-bookworm.tar
-k3s ctr images import images/kubedb-postgres-init-0.20.0.tar
+k3s ctr images import images/kubedb-postgres-init-0.21.0.tar
