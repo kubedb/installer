@@ -430,7 +430,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-arch
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-archiver-v0.27.0_9.1.0.tar $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.27.0_9.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-coordinator-v0.44.0.tar $IMAGE_REGISTRY/kubedb/mysql-coordinator:v0.44.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-csi-snapshotter-plugin-v0.27.0.tar $IMAGE_REGISTRY/kubedb/mysql-csi-snapshotter-plugin:v0.27.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-0.1.1.tar $IMAGE_REGISTRY/kubedb/mysql-init:0.1.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-0.2.0.tar $IMAGE_REGISTRY/kubedb/mysql-init:0.2.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-5.7-v9.tar $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v9
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-restic-plugin-v0.29.0_5.7.25.tar $IMAGE_REGISTRY/kubedb/mysql-restic-plugin:v0.29.0_5.7.25
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-restic-plugin-v0.29.0_8.0.21.tar $IMAGE_REGISTRY/kubedb/mysql-restic-plugin:v0.29.0_8.0.21

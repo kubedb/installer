@@ -428,7 +428,7 @@ k3s ctr images import images/kubedb-mysql-archiver-v0.27.0_8.4.3.tar
 k3s ctr images import images/kubedb-mysql-archiver-v0.27.0_9.1.0.tar
 k3s ctr images import images/kubedb-mysql-coordinator-v0.44.0.tar
 k3s ctr images import images/kubedb-mysql-csi-snapshotter-plugin-v0.27.0.tar
-k3s ctr images import images/kubedb-mysql-init-0.1.1.tar
+k3s ctr images import images/kubedb-mysql-init-0.2.0.tar
 k3s ctr images import images/kubedb-mysql-init-5.7-v9.tar
 k3s ctr images import images/kubedb-mysql-restic-plugin-v0.29.0_5.7.25.tar
 k3s ctr images import images/kubedb-mysql-restic-plugin-v0.29.0_8.0.21.tar
