@@ -38,3 +38,4 @@ k3s ctr images import images/kubedb-singlestore-coordinator-v0.21.0.tar
 k3s ctr images import images/kubedb-singlestore-init-8.1-v2.tar
 k3s ctr images import images/kubedb-singlestore-init-8.5-v2.tar
 k3s ctr images import images/kubedb-singlestore-init-8.7.10-v1.tar
+k3s ctr images import images/git-sync-git-sync-v4.4.2.tar
