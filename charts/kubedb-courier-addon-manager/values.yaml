@@ -49,6 +49,8 @@ agent:
     registry: ""
     repository: ""
     tag: ""
+    # falls back to .Values.image.pullPolicy when empty
+    pullPolicy: ""
   # installNamespace is where the addon agent is installed on each managed cluster.
   installNamespace: kubedb
   # Choose which managed clusters receive the branch agent. When placementRef is
@@ -67,3 +69,9 @@ ocm:
   addonManager:
     namespace: open-cluster-management-hub
     serviceAccountName: addon-manager-controller-sa
+  # The OCM work agent on each SPOKE. It applies ManifestWork payloads under its own
+  # identity, so it needs RBAC for the custom types courier delivers (see
+  # addontemplate.yaml). Override if the klusterlet was installed elsewhere.
+  workAgent:
+    namespace: open-cluster-management-agent
+    serviceAccountName: klusterlet-work-sa

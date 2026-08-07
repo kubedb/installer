@@ -101,6 +101,64 @@ spec:
             - kind: ServiceAccount
               name: courier-agent
               namespace: {{ .Values.agent.installNamespace }}
+        # ⚠️ RBAC for the OCM WORK AGENT, which is a different identity from
+        # courier-agent above. ManifestWork manifests are applied by
+        # klusterlet-work-sa, whose default bindings (…:agent, …:aggregate,
+        # execution-admin -> ClusterRole/admin) do not cover custom CRDs, because
+        # `admin` only aggregates roles labelled rbac.../aggregate-to-admin. Every
+        # delivered manifest then fails:
+        #
+        #   Failed to apply manifest: volumesnapshotcontents.snapshot.storage.k8s.io
+        #   "..." is forbidden: User
+        #   "system:serviceaccount:open-cluster-management-agent:klusterlet-work-sa"
+        #   cannot get resource "volumesnapshotcontents" ... at the cluster scope
+        #
+        # which reads like a courier bug but is an OCM deployment requirement: any
+        # addon that ships CRs through ManifestWork must grant the work agent those
+        # types. Scoped to exactly what buildDeliveredManifests() emits.
+        #
+        # A tighter alternative is a ManifestWork spec.executor pointing at
+        # courier-agent, which would reuse the RBAC above instead of widening the
+        # work agent cluster-wide; that needs the executor feature gate enabled on the
+        # spoke, so it is deliberately not the default here.
+        - apiVersion: rbac.authorization.k8s.io/v1
+          kind: ClusterRole
+          metadata:
+            name: courier-klusterlet-work-payload
+          rules:
+            # The shared-backend import: a cluster-scoped pre-provisioned
+            # VolumeSnapshotContent plus a VolumeSnapshot in the target namespace.
+            - apiGroups: ["snapshot.storage.k8s.io"]
+              resources: ["volumesnapshots", "volumesnapshotcontents"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+            # The branched Database.
+            - apiGroups: ["kubedb.com"]
+              resources: ["*"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+            # The delivered Branch carrying the creator marker.
+            - apiGroups: ["courier.kubedb.com"]
+              resources: ["branches"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+            - apiGroups: ["appcatalog.appscode.com"]
+              resources: ["appbindings"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+            # Auth/config secrets travelling with the branch, and the target
+            # namespace courier now delivers so a clean spoke needs no preparation.
+            - apiGroups: [""]
+              resources: ["secrets", "namespaces"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+        - apiVersion: rbac.authorization.k8s.io/v1
+          kind: ClusterRoleBinding
+          metadata:
+            name: courier-klusterlet-work-payload
+          roleRef:
+            apiGroup: rbac.authorization.k8s.io
+            kind: ClusterRole
+            name: courier-klusterlet-work-payload
+          subjects:
+            - kind: ServiceAccount
+              name: {{ .Values.ocm.workAgent.serviceAccountName }}
+              namespace: {{ .Values.ocm.workAgent.namespace }}
         - apiVersion: apps/v1
           kind: Deployment
           metadata:
@@ -122,6 +180,10 @@ spec:
                 containers:
                   - name: agent
                     image: {{ include "courier-addon-manager.agentImage" . | quote }}
+                    # The manager honours .Values.image.pullPolicy; the agent did not,
+                    # so it silently kept a stale image whenever a mutable tag was
+                    # repushed. Same knob for both.
+                    imagePullPolicy: {{ .Values.agent.image.pullPolicy | default .Values.image.pullPolicy }}
                     args:
                       - run
                       - --cluster-name={{ `{{CLUSTER_NAME}}` }}
