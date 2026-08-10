@@ -68,6 +68,15 @@ spec:
             - apiGroups: ["storage.k8s.io"]
               resources: ["storageclasses"]
               verbs: ["get", "list", "watch"]
+            # Teardown reads the AppliedManifestWork owning the delivered Database to tell
+            # "OCM still owns this" from "OCM is gone and never will" -- without that the
+            # Creator waits forever for PVCs the Database keeps re-creating (issue #39).
+            # `get` only, and courier reads it UNCACHED so no cluster-wide list/watch is
+            # needed. The check degrades to a no-op if this rule is missing, so teardown
+            # still completes; it just cannot rescue an abandoned target.
+            - apiGroups: ["work.open-cluster-management.io"]
+              resources: ["appliedmanifestworks"]
+              verbs: ["get"]
             # Leader election. The agent runs with --leader-elect=true, so without
             # this it can never acquire kubedb/<id>.kubedb.com and its controllers
             # NEVER START -- while the pod sits at 1/1 Running and Ready, because the
