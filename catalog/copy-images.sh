@@ -167,6 +167,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ki
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.1.9 $IMAGE_REGISTRY/appscode-images/kibana:9.1.9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.2.3 $IMAGE_REGISTRY/appscode-images/kibana:9.2.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.10.7-jammy $IMAGE_REGISTRY/appscode-images/mariadb:10.10.7-jammy
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.11.16-jammy $IMAGE_REGISTRY/appscode-images/mariadb:10.11.16-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.11.6-jammy $IMAGE_REGISTRY/appscode-images/mariadb:10.11.6-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.4.32-focal $IMAGE_REGISTRY/appscode-images/mariadb:10.4.32-focal
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.5.23-focal $IMAGE_REGISTRY/appscode-images/mariadb:10.5.23-focal
@@ -175,6 +176,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ma
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.1.3-jammy $IMAGE_REGISTRY/appscode-images/mariadb:11.1.3-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.2.2-jammy $IMAGE_REGISTRY/appscode-images/mariadb:11.2.2-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.3.2-jammy $IMAGE_REGISTRY/appscode-images/mariadb:11.3.2-jammy
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.4.10-noble $IMAGE_REGISTRY/appscode-images/mariadb:11.4.10-noble
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.4.3-noble $IMAGE_REGISTRY/appscode-images/mariadb:11.4.3-noble
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.5.2-noble $IMAGE_REGISTRY/appscode-images/mariadb:11.5.2-noble
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.6.2-noble $IMAGE_REGISTRY/appscode-images/mariadb:11.6.2-noble
