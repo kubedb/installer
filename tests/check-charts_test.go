@@ -33,6 +33,7 @@ var ignoreMissingList = []string{
 	"ghcr.io/kubedb/kubedb-migrator-mysql:*",
 	"ghcr.io/kubedb/kubedb-migrator-mariadb:*",
 	"ghcr.io/kubedb/kubedb-migrator-mssqlserver:*",
+	"ghcr.io/kubedb/postgres-archiver:v0.27.0_17.9-percona",
 }
 
 var archSkipList = []string{
