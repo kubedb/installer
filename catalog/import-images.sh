@@ -158,6 +158,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-k
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-9.1.9.tar $IMAGE_REGISTRY/appscode-images/kibana:9.1.9
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-9.2.3.tar $IMAGE_REGISTRY/appscode-images/kibana:9.2.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-10.10.7-jammy.tar $IMAGE_REGISTRY/appscode-images/mariadb:10.10.7-jammy
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-10.11.16-jammy.tar $IMAGE_REGISTRY/appscode-images/mariadb:10.11.16-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-10.11.6-jammy.tar $IMAGE_REGISTRY/appscode-images/mariadb:10.11.6-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-10.4.32-focal.tar $IMAGE_REGISTRY/appscode-images/mariadb:10.4.32-focal
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-10.5.23-focal.tar $IMAGE_REGISTRY/appscode-images/mariadb:10.5.23-focal
@@ -166,6 +167,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.1.3-jammy.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.1.3-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.2.2-jammy.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.2.2-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.3.2-jammy.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.3.2-jammy
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.4.10-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.4.10-noble
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.4.3-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.4.3-noble
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.5.2-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.5.2-noble
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.6.2-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.6.2-noble
