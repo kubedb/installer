@@ -98,13 +98,80 @@ spec:
               valueFromExpression: "int(phase == 'DataRestoring')"
 
     - name: tls_enabled
-      help: "Neo4j tls information"
+      help: "Neo4j TLS enabled (1 when an issuerRef is configured, else 0)"
       type: gauge
-      params:
+      labels:
         - key: issuers_name
           valuePath: .spec.tls.issuerRef.name
+      params:
+        - key: issuer
+          valuePath: .spec.tls.issuerRef.name
+        - key: bolt
+          valuePath: .spec.tls.bolt.mode
+        - key: http
+          valuePath: .spec.tls.http.mode
+        - key: cluster
+          valuePath: .spec.tls.cluster.mode
+        - key: backup
+          valuePath: .spec.tls.backup.mode
       metricValue:
-        value: 1
+        valueFromExpression: "int(bolt == 'TLS' || bolt == 'mTLS' || http == 'TLS' || http == 'mTLS' || cluster == 'TLS' || cluster == 'mTLS' || backup == 'TLS' || backup == 'mTLS')"
+
+    - name: tls_bolt_mode
+      help: "Neo4j bolt TLS (1 when TLS/mTLS with an issuer, else 0). Label `mode` shows the configured mode."
+      type: gauge
+      labels:
+        - key: mode
+          valuePath: .spec.tls.bolt.mode
+      params:
+        - key: issuer
+          valuePath: .spec.tls.issuerRef.name
+        - key: mode
+          valuePath: .spec.tls.bolt.mode
+      metricValue:
+        valueFromExpression: "int(issuer != '' && (mode == 'TLS' || mode == 'mTLS'))"
+
+    - name: tls_http_mode
+      help: "Neo4j http TLS (1 when TLS/mTLS with an issuer, else 0). Label `mode` shows the configured mode."
+      type: gauge
+      labels:
+        - key: mode
+          valuePath: .spec.tls.http.mode
+      params:
+        - key: issuer
+          valuePath: .spec.tls.issuerRef.name
+        - key: mode
+          valuePath: .spec.tls.http.mode
+      metricValue:
+        valueFromExpression: "int(issuer != '' && (mode == 'TLS' || mode == 'mTLS'))"
+
+    - name: tls_cluster_mode
+      help: "Neo4j cluster TLS (1 when TLS/mTLS with an issuer, else 0). Label `mode` shows the configured mode."
+      type: gauge
+      labels:
+        - key: mode
+          valuePath: .spec.tls.cluster.mode
+      params:
+        - key: issuer
+          valuePath: .spec.tls.issuerRef.name
+        - key: mode
+          valuePath: .spec.tls.cluster.mode
+      metricValue:
+        valueFromExpression: "int(issuer != '' && (mode == 'TLS' || mode == 'mTLS'))"
+
+    - name: tls_backup_mode
+      help: "Neo4j backup TLS (1 when TLS/mTLS with an issuer, else 0). Label `mode` shows the configured mode."
+      type: gauge
+      labels:
+        - key: mode
+          valuePath: .spec.tls.backup.mode
+      params:
+        - key: issuer
+          valuePath: .spec.tls.issuerRef.name
+        - key: mode
+          valuePath: .spec.tls.backup.mode
+      metricValue:
+        valueFromExpression: "int(issuer != '' && (mode == 'TLS' || mode == 'mTLS'))"
 
     - name: resource_request_cpu
       help: "Requested CPU by Neo4j in core"

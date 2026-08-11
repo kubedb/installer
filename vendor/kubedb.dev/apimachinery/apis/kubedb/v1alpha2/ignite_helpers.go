@@ -140,6 +140,8 @@ func (i *Ignite) SetDefaults(kc client.Client) {
 		apis.SetDefaultResourceLimits(&dbContainer.Resources, kubedb.IgniteDefaultResources)
 	}
 
+	apis.SetDefaultResizePolicy(i.Spec.PodTemplate.Spec.Containers, i.Spec.PodTemplate.Spec.InitContainers)
+
 	i.SetHealthCheckerDefaults()
 
 	i.Spec.Monitor.SetDefaults()
@@ -382,4 +384,8 @@ func (i Ignite) SetTLSDefaults() {
 	}
 	i.Spec.TLS.Certificates = kmapi.SetMissingSecretNameForCertificate(i.Spec.TLS.Certificates, string(IgniteServerCert), i.IgniteCertificateName(IgniteServerCert))
 	i.Spec.TLS.Certificates = kmapi.SetMissingSecretNameForCertificate(i.Spec.TLS.Certificates, string(IgniteClientCert), i.IgniteCertSecretVolumeName(IgniteClientCert))
+}
+
+func (i *Ignite) GetDeletionPolicy() string {
+	return string(i.Spec.DeletionPolicy)
 }

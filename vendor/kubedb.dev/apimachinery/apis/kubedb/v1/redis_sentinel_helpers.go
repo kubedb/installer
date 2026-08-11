@@ -347,6 +347,8 @@ func (rs *RedisSentinel) setDefaultContainerResourceLimits(podTemplate *ofstv2.P
 	if initContainer != nil && (initContainer.Resources.Requests == nil && initContainer.Resources.Limits == nil) {
 		apis.SetDefaultResourceLimits(&initContainer.Resources, kubedb.DefaultInitContainerResource)
 	}
+
+	apis.SetDefaultResizePolicy(podTemplate.Spec.Containers, podTemplate.Spec.InitContainers)
 }
 
 // CertificateName returns the default certificate name and/or certificate secret name for a certificate alias
@@ -370,4 +372,8 @@ func (rs *RedisSentinel) ReplicasAreReady(lister pslister.PetSetLister) (bool, s
 	// Desire number of statefulSets
 	expectedItems := 1
 	return checkReplicas(lister.PetSets(rs.Namespace), labels.SelectorFromSet(rs.OffshootLabels()), expectedItems)
+}
+
+func (rs *RedisSentinel) GetDeletionPolicy() string {
+	return string(rs.Spec.DeletionPolicy)
 }

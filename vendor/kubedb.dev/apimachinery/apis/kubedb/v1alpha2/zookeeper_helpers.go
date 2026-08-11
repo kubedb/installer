@@ -236,6 +236,8 @@ func (z *ZooKeeper) SetDefaults(kc client.Client) {
 		apis.SetDefaultResourceLimits(&initContainer.Resources, kubedb.DefaultInitContainerResource)
 	}
 
+	apis.SetDefaultResizePolicy(z.Spec.PodTemplate.Spec.Containers, z.Spec.PodTemplate.Spec.InitContainers)
+
 	if z.Spec.EnableSSL {
 		z.SetTLSDefaults()
 	}
@@ -422,4 +424,8 @@ func (z *ZooKeeper) GetCertSecretName(alias ZooKeeperCertificateAlias) string {
 // Values will be like: client-certs, server-certs etc.
 func (k *ZooKeeper) CertSecretVolumeName(alias ZooKeeperCertificateAlias) string {
 	return string(alias) + "-certs"
+}
+
+func (z *ZooKeeper) GetDeletionPolicy() string {
+	return string(z.Spec.DeletionPolicy)
 }

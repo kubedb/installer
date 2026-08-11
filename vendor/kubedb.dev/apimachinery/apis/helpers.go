@@ -24,6 +24,11 @@ import (
 
 const (
 	Finalizer = "kubedb.com"
+
+	// ResourcePolicyKeepOnAnnotation, when set to ResourcePolicyKeepOnHalt on a
+	// generated resource (e.g. a Service), makes the halt path skip deleting it.
+	ResourcePolicyKeepOnAnnotation = "kubedb.com/resource-policy-keep-on"
+	ResourcePolicyKeepOnHalt       = "halt"
 )
 
 type ResourceInfo interface {
@@ -33,6 +38,22 @@ type ResourceInfo interface {
 	ResourceSingular() string
 	ResourcePlural() string
 	CustomResourceDefinition() *apiextensions.CustomResourceDefinition
+}
+
+// SetDefaultResizePolicy sets a NotRequired in-place resize policy for cpu & memory
+// on every passed container whose ResizePolicy is not already set.
+func SetDefaultResizePolicy(containers ...[]core.Container) {
+	for _, list := range containers {
+		for i := range list {
+			if list[i].ResizePolicy != nil {
+				continue
+			}
+			list[i].ResizePolicy = []core.ContainerResizePolicy{
+				{ResourceName: core.ResourceCPU, RestartPolicy: core.NotRequired},
+				{ResourceName: core.ResourceMemory, RestartPolicy: core.NotRequired},
+			}
+		}
+	}
 }
 
 func SetDefaultResourceLimits(req *core.ResourceRequirements, defaultResources core.ResourceRequirements) {

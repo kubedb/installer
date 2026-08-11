@@ -45,7 +45,7 @@ jobs:
 
       - name: Publish Red Hat Operator Bundle
         run: |
-          ./hack/scripts/update-chart-dependencies.sh
+          make update-chart-dependencies
           make docker-buildx
           make bundle-build bundle-push
 
@@ -77,7 +77,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.LGTM_GITHUB_TOKEN }}
           CHART_REPOSITORY: ${{ secrets.CHART_REPOSITORY }}
         run: |
-          ./hack/scripts/update-chart-dependencies.sh
+          make update-chart-dependencies
           cd $RUNNER_WORKSPACE/$(basename $CHART_REPOSITORY)
           GIT_TAG=${GITHUB_REF#"refs/tags/"}
           if [[ $GIT_TAG =~ "-alpha." ]] || [[ $GIT_TAG =~ "-beta." ]]; then

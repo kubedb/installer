@@ -338,6 +338,8 @@ func (p *PerconaXtraDB) setDefaultContainerResourceLimits(podTemplate *ofstv2.Po
 	if coordinatorContainer != nil && (coordinatorContainer.Resources.Requests == nil && coordinatorContainer.Resources.Limits == nil) {
 		apis.SetDefaultResourceLimits(&coordinatorContainer.Resources, kubedb.CoordinatorDefaultResources)
 	}
+
+	apis.SetDefaultResizePolicy(podTemplate.Spec.Containers, podTemplate.Spec.InitContainers)
 }
 
 func (p *PerconaXtraDB) SetHealthCheckerDefaults() {
@@ -426,4 +428,8 @@ func (p *PerconaXtraDB) CertFilePath(certAlias PerconaXtraDBCertificateAlias, ce
 func (p *PerconaXtraDB) ConfigSecretName() string {
 	uid := string(p.UID)
 	return meta_util.NameWithSuffix(p.OffshootName(), uid[len(uid)-6:])
+}
+
+func (p *PerconaXtraDB) GetDeletionPolicy() string {
+	return string(p.Spec.DeletionPolicy)
 }

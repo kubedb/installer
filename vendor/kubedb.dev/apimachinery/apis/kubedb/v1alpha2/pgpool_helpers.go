@@ -409,6 +409,7 @@ func (p *Pgpool) SetDefaults(client client.Client) {
 	p.SetHealthCheckerDefaults()
 	p.SetSecurityContext(&ppVersion, p.Spec.PodTemplate)
 	p.setContainerResourceLimits(p.Spec.PodTemplate)
+	apis.SetDefaultResizePolicy(p.Spec.PodTemplate.Spec.Containers, p.Spec.PodTemplate.Spec.InitContainers)
 }
 
 func (p *Pgpool) GetPersistentSecrets() []string {
@@ -424,4 +425,8 @@ func (p *Pgpool) ReplicasAreReady(lister pslister.PetSetLister) (bool, string, e
 	// Desire number of petSets
 	expectedItems := 1
 	return checkReplicasOfPetSet(lister.PetSets(p.Namespace), labels.SelectorFromSet(p.OffshootLabels()), expectedItems)
+}
+
+func (p *Pgpool) GetDeletionPolicy() string {
+	return string(p.Spec.DeletionPolicy)
 }

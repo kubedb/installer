@@ -3,7 +3,7 @@
 {
   "kind": "Dashboard",
   "metadata": {
-    "name": "9J6ObCEMz",
+    "name": "kubedb-mssqlserver-pod",
     "createdAt": "0001-01-01T00:00:00Z",
     "updatedAt": "0001-01-01T00:00:00Z",
     "version": 0,
@@ -92,7 +92,7 @@
             "spec": {
               "labelName": "namespace",
               "matchers": [
-                "up{target=\"mssqlserver_database\"}"
+                "kube_namespace_status_phase{phase=\"Active\"}"
               ]
             }
           },
@@ -136,7 +136,7 @@
             "spec": {
               "labelName": "pod",
               "matchers": [
-                "up{target=\"mssqlserver_database\",namespace=~\"$namespace\",pod=~\"${app}-.*\"}"
+                "mssql_hostname{namespace=~\"$namespace\",service=~\"${app}-stats\",pod=~\"${app}-.*\"}"
               ]
             }
           },
@@ -326,6 +326,37 @@
                 "unit": "decimal"
               },
               "metricLabel": "role",
+              "mappings": [
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "value": "master",
+                    "result": {
+                      "color": "#5794f2",
+                      "value": "master"
+                    }
+                  }
+                },
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "value": "slave",
+                    "result": {
+                      "color": "#8ab8ff",
+                      "value": "slave"
+                    }
+                  }
+                },
+                {
+                  "kind": "Misc",
+                  "spec": {
+                    "value": "null",
+                    "result": {
+                      "value": "N/A"
+                    }
+                  }
+                }
+              ],
               "thresholds": {
                 "steps": [
                   {

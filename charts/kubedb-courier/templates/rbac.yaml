@@ -1,0 +1,228 @@
+# permissions to do leader election.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "kubedb-courier.fullname" . }}:leader-election
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubedb-courier.labels" . | nindent 4 }}
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+      - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "kubedb-courier.fullname" . }}:leader-election-rolebinding
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "kubedb-courier.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "kubedb-courier.fullname" . }}:leader-election
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "kubedb-courier.serviceAccountName" . }}
+    namespace: {{ .Release.Namespace }}
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "kubedb-courier.fullname" . }}
+  labels:
+    {{- include "kubedb-courier.labels" . | nindent 4 }}
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+      - persistentvolumeclaims
+      - secrets
+      - serviceaccounts
+    verbs: ["*"]
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - batch
+    resources:
+      - cronjobs
+      - jobs
+    verbs: ["*"]
+  - apiGroups:
+      - courier.kubedb.com
+    resources:
+      - postgresmigrations
+      - postgresmigrations/finalizers
+      - postgresmigrations/status
+      - mysqlmigrations
+      - mysqlmigrations/finalizers
+      - mysqlmigrations/status
+      - mariadbmigrations
+      - mariadbmigrations/finalizers
+      - mariadbmigrations/status
+      - mongodbmigrations
+      - mongodbmigrations/finalizers
+      - mongodbmigrations/status
+      - mssqlservermigrations
+      - mssqlservermigrations/finalizers
+      - mssqlservermigrations/status
+      - branches
+      - branches/finalizers
+      - branches/status
+      - branchworks
+      - branchworks/finalizers
+      - branchworks/status
+    verbs: ["*"]
+  - apiGroups:
+      - rbac.authorization.k8s.io
+    resources:
+      - clusterrolebindings
+      - clusterroles
+      - rolebindings
+      - roles
+    verbs: ["*"]
+  # Branch creates/manages the target KubeDB Database (read alone is not enough)
+  # and the RotateAuth OpsRequest used by resetRootPassword.
+  - apiGroups:
+      - kubedb.com
+      - catalog.kubedb.com
+      - postgres.kubedb.com
+      - appcatalog.appscode.com
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ops.kubedb.com
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  # CSI snapshot support: the Branch flow snapshots source PVCs and clones from
+  # them (VolumeSnapshot, with VolumeGroupSnapshot for multi-PVC sources). Also
+  # needs deletecollection for the label-based teardown/refresh deletes.
+  - apiGroups:
+      - snapshot.storage.k8s.io
+    resources:
+      - volumesnapshots
+      - volumesnapshotcontents
+      - volumesnapshotclasses
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - groupsnapshot.storage.k8s.io
+    resources:
+      - volumegroupsnapshots
+      - volumegroupsnapshotcontents
+      - volumegroupsnapshotclasses
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  # Driver resolution: map a source PVC's StorageClass to its CSI provisioner to
+  # pick the matching VolumeSnapshotClass.
+  - apiGroups:
+      - storage.k8s.io
+    resources:
+      - storageclasses
+    verbs:
+      - get
+      - list
+      - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "kubedb-courier.fullname" . }}
+  labels:
+    {{- include "kubedb-courier.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name:  {{ include "kubedb-courier.fullname" . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "kubedb-courier.serviceAccountName" . }}
+    namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "kubedb-courier.fullname" . }}:metrics-auth
+  labels:
+    {{- include "kubedb-courier.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:auth-delegator
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "kubedb-courier.serviceAccountName" . }}
+    namespace: {{ .Release.Namespace }}

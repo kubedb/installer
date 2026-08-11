@@ -86,7 +86,7 @@ type KubedbSpec struct {
 	KubedbMetrics KubedbMetricsValues `json:"kubedb-metrics"`
 
 	//+optional
-	KubedbMigrator KubedbMigratorValues `json:"kubedb-migrator"`
+	KubedbCourier KubedbCourierValues `json:"kubedb-courier"`
 
 	//+optional
 	AceUserRoles AceUserRolesValues `json:"ace-user-roles"`
@@ -184,9 +184,9 @@ type KubedbGitopsValues struct {
 	*KubedbGitopsSpec `json:",inline,omitempty"`
 }
 
-type KubedbMigratorValues struct {
-	Enabled             bool `json:"enabled"`
-	*KubedbMigratorSpec `json:",inline,omitempty"`
+type KubedbCourierValues struct {
+	Enabled            bool `json:"enabled"`
+	*KubedbCourierSpec `json:",inline,omitempty"`
 }
 
 type AceUserRolesValues struct {

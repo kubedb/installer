@@ -82,10 +82,14 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&ScannerList{},
 		&Sidekick{},
 		&SidekickList{},
+		&StorageMetricsServer{},
+		&StorageMetricsServerList{},
 		&Supervisor{},
 		&SupervisorList{},
 		&Taskqueue{},
 		&TaskqueueList{},
+		&VcdLbGc{},
+		&VcdLbGcList{},
 	)
 
 	scheme.AddKnownTypes(SchemeGroupVersion,

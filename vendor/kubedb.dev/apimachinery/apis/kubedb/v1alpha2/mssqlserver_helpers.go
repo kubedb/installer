@@ -558,6 +558,8 @@ func (m *MSSQLServer) setDefaultContainerResourceLimits(podTemplate *ofst.PodTem
 			apis.SetDefaultResourceLimits(&coordinatorContainer.Resources, kubedb.CoordinatorDefaultResources)
 		}
 	}
+
+	apis.SetDefaultResizePolicy(podTemplate.Spec.Containers, podTemplate.Spec.InitContainers)
 }
 
 func (m *MSSQLServer) SetArbiterDefault() {
@@ -666,4 +668,8 @@ func SecondaryAccessSQL(mode SecondaryAccessMode) string {
 		// Fallback to NO if unset or unknown
 		return "NO"
 	}
+}
+
+func (m *MSSQLServer) GetDeletionPolicy() string {
+	return string(m.Spec.DeletionPolicy)
 }

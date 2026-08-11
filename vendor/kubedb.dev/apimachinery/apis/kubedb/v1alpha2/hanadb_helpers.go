@@ -769,10 +769,16 @@ func (h *HanaDB) setDefaultContainerResourceLimits(podTemplate *ofst.PodTemplate
 			apis.SetDefaultResourceLimits(&coordinatorContainer.Resources, kubedb.CoordinatorDefaultResources)
 		}
 	}
+
+	apis.SetDefaultResizePolicy(podTemplate.Spec.Containers, podTemplate.Spec.InitContainers)
 }
 
 func (h *HanaDB) ReplicasAreReady(lister pslister.PetSetLister) (bool, string, error) {
 	// Desire number of petSets
 	expectedItems := 1
 	return checkReplicasOfPetSet(lister.PetSets(h.Namespace), labels.SelectorFromSet(h.OffshootLabels()), expectedItems)
+}
+
+func (h *HanaDB) GetDeletionPolicy() string {
+	return string(h.Spec.DeletionPolicy)
 }

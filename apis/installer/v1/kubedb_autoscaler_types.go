@@ -20,6 +20,7 @@ import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"kmodules.xyz/resource-metadata/apis/shared"
+	kubeopsinstaller "kubeops.dev/installer/apis/installer/v1alpha1"
 )
 
 const (
@@ -88,6 +89,13 @@ type KubedbAutoscalerSpec struct {
 	MaxConcurrentReconciles int `json:"maxConcurrentReconciles"`
 	// +optional
 	Distro shared.DistroSpec `json:"distro"`
+	//+optional
+	StorageMetricsServer StorageMetricsServerValues `json:"storage-metrics-server"`
+}
+
+type StorageMetricsServerValues struct {
+	Enabled                                    *bool `json:"enabled"`
+	*kubeopsinstaller.StorageMetricsServerSpec `json:",inline,omitempty"`
 }
 
 type Recommender struct {

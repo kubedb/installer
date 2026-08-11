@@ -513,6 +513,8 @@ func (s *Singlestore) setDefaultContainerResourceLimits(podTemplate *ofst.PodTem
 			apis.SetDefaultResourceLimits(&coordinatorContainer.Resources, kubedb.CoordinatorDefaultResources)
 		}
 	}
+
+	apis.SetDefaultResizePolicy(podTemplate.Spec.Containers, podTemplate.Spec.InitContainers)
 }
 
 func (s *Singlestore) SetTLSDefaults() {
@@ -564,4 +566,8 @@ func (d *SinglestoreBind) SecretName() string {
 
 func (d *SinglestoreBind) CertSecretName() string {
 	return d.GetCertSecretName(SinglestoreClientCert)
+}
+
+func (s *Singlestore) GetDeletionPolicy() string {
+	return string(s.Spec.DeletionPolicy)
 }

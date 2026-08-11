@@ -245,6 +245,8 @@ func (p *ProxySQL) SetDefaults(psVersion *v1alpha1.ProxySQLVersion, usesAcme boo
 	if dbContainer != nil {
 		apis.SetDefaultResourceLimits(&dbContainer.Resources, kubedb.DefaultResources)
 	}
+
+	apis.SetDefaultResizePolicy(p.Spec.PodTemplate.Spec.Containers, p.Spec.PodTemplate.Spec.InitContainers)
 }
 
 func (p *ProxySQL) setDefaultContainerSecurityContext(proxyVersion *v1alpha1.ProxySQLVersion, podTemplate *ofstv2.PodTemplateSpec) {
@@ -386,4 +388,12 @@ func (p *ProxySQL) copyConfigurationFields() {
 	// Clear deprecated fields after copying
 	p.Spec.ConfigSecret = nil
 	p.Spec.InitConfiguration = nil
+}
+
+func (p *ProxySQL) GetDeletionPolicy() string {
+	return string(p.Spec.DeletionPolicy)
+}
+
+func (p *ProxySQL) GetPersistentSecrets() []string {
+	return p.Spec.GetPersistentSecrets()
 }
