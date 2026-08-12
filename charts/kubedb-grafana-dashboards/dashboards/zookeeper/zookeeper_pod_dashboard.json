@@ -1,4 +1,5 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "annotations": {
     "list": [
@@ -16,13 +17,16 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 30,
-  "iteration": 1708073172472,
+  "iteration": 1716976464702,
   "links": [],
   "panels": [
     {
       "collapsed": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -60,13 +64,6 @@
               "text": "Running",
               "type": 1,
               "value": "1"
-            },
-            {
-              "from": "",
-              "id": null,
-              "text": "",
-              "to": "",
-              "type": 1
             }
           ],
           "max": 100,
@@ -110,7 +107,7 @@
         "text": {},
         "textMode": "value"
       },
-     "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
@@ -130,118 +127,145 @@
       "type": "stat"
     },
     {
-      "id": 23763571992,
-      "gridPos": {
-        "h": 3,
-        "w": 4,
-        "x": 4,
-        "y": 1
-      },
-      "type": "stat",
-      "title": "Is Leader ?",
-      "pluginVersion": "8.0.7",
-      "maxDataPoints": 100,
-      "description": "Role of ZooKeeper Node",
-      "links": [],
-      "fieldConfig": {
-      "defaults": {
-        "thresholds": {
-          "mode": "absolute",
-          "steps": [
-            {
-              "color": "dark-red",
-              "value": null
-            },
-            {
-              "value": 0,
-              "color": "green"
-            }
-          ]
-        },
-        "mappings": [],
-        "unit": "ms",
-        "color": {
-          "mode": "thresholds"
-        }
-      },
-        "overrides": []
-      },
-      "targets": [
-        {
-          "expr": "leader_uptime{namespace=~\"$namespace\",pod=~\"$pod\"}",
-          "legendFormat": "Yes",
-          "interval": "",
-          "exemplar": false,
-          "format": "heatmap",
-          "intervalFactor": 1,
-          "refId": "A"
-        }
-      ],
-      "options": {
-        "reduceOptions": {
-          "values": false,
-          "calcs": [
-            "mean"
-          ],
-          "fields": ""
-        },
-        "orientation": "horizontal",
-        "text": {},
-        "textMode": "name",
-        "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "auto"
-      },
       "cacheTimeout": null,
-      "interval": null,
-      "timeFrom": null,
-      "timeShift": null,
-      "datasource": null
-    },
-    {
-      "id": 23763571993,
-      "gridPos": {
-        "h": 3,
-        "w": 4,
-        "x": 8,
-        "y": 1
-      },
-      "type": "stat",
-      "title": "Uptime",
-      "pluginVersion": "8.0.7",
-      "maxDataPoints": 100,
-      "links": [],
-      "cacheTimeout": null,
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "Follower"
+                }
+              },
+              "type": "special"
+            }
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
           },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 4,
+        "y": 1
+      },
+      "id": 242,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "name"
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "leader_uptime{namespace=~\"$namespace\",pod=~\"$pod\"}",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Leader",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Role",
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [
             {
-              "type": "special",
               "options": {
                 "match": "null",
                 "result": {
                   "text": "N/A"
                 }
-              }
+              },
+              "type": "special"
             }
           ],
-        "unit": "ms",
-        "color": {
-          "mode": "thresholds"
-        }
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
       },
-      "overrides": []
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 8,
+        "y": 1
       },
+      "id": 244,
       "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
@@ -255,22 +279,8 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "options": {
-        "reduceOptions": {
-            "values": false,
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": ""
-          },
-          "orientation": "horizontal",
-          "text": {},
-          "textMode": "auto",
-          "colorMode": "background",
-          "graphMode": "none",
-          "justifyMode": "auto"
-        },
-        "datasource": null
+      "title": "Uptime",
+      "type": "stat"
     },
     {
       "cacheTimeout": null,
@@ -347,7 +357,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
@@ -441,7 +451,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
@@ -535,7 +545,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
@@ -595,7 +605,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -705,7 +715,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-     "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -826,7 +836,7 @@
         "showUnfilled": true,
         "text": {}
       },
-     "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "expr": "global_sessions{namespace=~\"$namespace\",pod=~\"$pod\"}",
@@ -893,7 +903,7 @@
         "showUnfilled": true,
         "text": {}
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "expr": "local_sessions{namespace=~\"$namespace\",pod=~\"$pod\"}",
@@ -945,7 +955,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-     "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1040,7 +1050,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1136,7 +1146,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1231,7 +1241,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-     "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1326,7 +1336,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1421,7 +1431,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1537,7 +1547,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1633,7 +1643,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1728,7 +1738,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1839,7 +1849,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1950,7 +1960,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2027,6 +2037,10 @@
     {
       "collapsed": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2040,27 +2054,43 @@
     },
     {
       "cacheTimeout": null,
-      "colorBackground": true,
-      "colorPostfix": false,
-      "colorPrefix": false,
-      "colorValue": false,
-      "colors": [
-        "#73BF69",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
       "datasource": "${datasource}",
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#73BF69",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 50
+              },
+              {
+                "color": "#d44a3a",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
         "overrides": []
-      },
-      "format": "short",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
       },
       "gridPos": {
         "h": 8,
@@ -2071,39 +2101,23 @@
       "id": 124,
       "interval": null,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "postfix": "",
-      "postfixFontSize": "80%",
-      "prefix": "",
-      "prefixFontSize": "80%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
       },
-      "tableColumn": "",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "expr": "max(quorum_size{namespace=~\"$namespace\",pod=~\"$pod\"})",
@@ -2113,42 +2127,46 @@
           "refId": "A"
         }
       ],
-      "thresholds": "50,80",
       "timeFrom": null,
       "timeShift": null,
       "title": "quorum_size",
-      "type": "singlestat",
-      "valueFontSize": "200%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "type": "stat"
     },
     {
       "cacheTimeout": null,
-      "colorBackground": true,
-      "colorValue": false,
-      "colors": [
-        "#F2495C",
-        "#F2495C",
-        "#F2495C"
-      ],
       "datasource": "${datasource}",
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
         "overrides": []
-      },
-      "format": "ms",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
       },
       "gridPos": {
         "h": 8,
@@ -2159,41 +2177,23 @@
       "id": 225,
       "interval": null,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "$$hashKey": "object:464",
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "$$hashKey": "object:465",
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "name"
       },
-      "tableColumn": "",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
@@ -2205,43 +2205,46 @@
           "refId": "A"
         }
       ],
-      "thresholds": "",
       "timeFrom": null,
       "timeShift": null,
       "title": "leader",
-      "type": "singlestat",
-      "valueFontSize": "120%",
-      "valueMaps": [
-        {
-          "$$hashKey": "object:467",
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "name"
+      "type": "stat"
     },
     {
       "cacheTimeout": null,
-      "colorBackground": true,
-      "colorValue": false,
-      "colors": [
-        "#5794F2",
-        "#5794F2",
-        "#5794F2"
-      ],
       "datasource": "${datasource}",
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
         "overrides": []
-      },
-      "format": "ms",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
       },
       "gridPos": {
         "h": 8,
@@ -2252,41 +2255,23 @@
       "id": 222,
       "interval": null,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "$$hashKey": "object:545",
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "$$hashKey": "object:546",
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
       },
-      "tableColumn": "",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "expr": "leader_uptime{namespace=~\"$namespace\",pod=~\"$pod\"}",
@@ -2296,21 +2281,10 @@
           "refId": "A"
         }
       ],
-      "thresholds": "",
       "timeFrom": null,
       "timeShift": null,
       "title": "leader_uptime",
-      "type": "singlestat",
-      "valueFontSize": "120%",
-      "valueMaps": [
-        {
-          "$$hashKey": "object:548",
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "type": "stat"
     },
     {
       "cacheTimeout": null,
@@ -2362,7 +2336,7 @@
         "showUnfilled": true,
         "text": {}
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "expr": "max(learners{namespace=~\"$namespace\",pod=~\"$pod\"})",
@@ -2428,7 +2402,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2523,7 +2497,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2618,7 +2592,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2713,7 +2687,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2808,7 +2782,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2903,7 +2877,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3012,7 +2986,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3107,7 +3081,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3202,7 +3176,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3297,7 +3271,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3365,6 +3339,10 @@
     {
       "collapsed": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3413,7 +3391,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3508,7 +3486,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3603,7 +3581,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3698,7 +3676,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3793,7 +3771,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3888,7 +3866,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3983,7 +3961,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4078,7 +4056,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4187,7 +4165,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4248,6 +4226,10 @@
     {
       "collapsed": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -4296,7 +4278,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4391,7 +4373,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4500,7 +4482,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4595,7 +4577,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4690,7 +4672,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4785,7 +4767,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4880,7 +4862,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4975,7 +4957,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -5070,7 +5052,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -5165,7 +5147,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -5226,6 +5208,10 @@
     {
       "collapsed": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -5287,7 +5273,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "expr": "open_file_descriptor_count{namespace=~\"$namespace\",pod=~\"$pod\"}",
@@ -5342,7 +5328,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -5475,7 +5461,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -5553,6 +5539,10 @@
     {
       "collapsed": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -5601,7 +5591,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -5696,7 +5686,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -5791,7 +5781,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -5886,7 +5876,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -5981,7 +5971,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -6083,7 +6073,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -6144,6 +6134,10 @@
     {
       "collapsed": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -6193,7 +6187,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -6288,7 +6282,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -6383,7 +6377,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -6478,7 +6472,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -6573,7 +6567,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -6634,6 +6628,10 @@
     {
       "collapsed": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -6682,7 +6680,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -6791,7 +6789,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -6900,7 +6898,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -6995,7 +6993,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -7097,7 +7095,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -7192,7 +7190,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -7288,7 +7286,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -7383,7 +7381,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -7478,7 +7476,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -7573,7 +7571,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -7669,7 +7667,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -7764,7 +7762,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -7859,7 +7857,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -7954,7 +7952,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -8015,6 +8013,10 @@
     {
       "collapsed": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -8063,7 +8065,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -8158,7 +8160,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -8219,6 +8221,10 @@
     {
       "collapsed": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -8267,7 +8273,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -8362,7 +8368,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -8461,7 +8467,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -8571,7 +8577,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -8666,7 +8672,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -8761,7 +8767,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -8856,7 +8862,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -8951,7 +8957,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -9012,6 +9018,10 @@
     {
       "collapsed": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -9060,7 +9070,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -9162,7 +9172,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -9237,6 +9247,10 @@
     {
       "collapsed": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -9250,25 +9264,39 @@
     },
     {
       "cacheTimeout": null,
-      "colorBackground": true,
-      "colorValue": false,
-      "colors": [
-        "#37872D",
-        "#37872D",
-        "#37872D"
-      ],
       "datasource": "${datasource}",
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
         "overrides": []
-      },
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
       },
       "gridPos": {
         "h": 8,
@@ -9279,38 +9307,23 @@
       "id": 204,
       "interval": null,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
       },
-      "tableColumn": "",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "expr": "max(jvm_classes_loaded{namespace=~\"$namespace\",pod=~\"$pod\"})",
@@ -9320,42 +9333,46 @@
           "refId": "C"
         }
       ],
-      "thresholds": "",
       "timeFrom": null,
       "timeShift": null,
       "title": "jvm_classes_loaded",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "type": "stat"
     },
     {
       "cacheTimeout": null,
-      "colorBackground": true,
-      "colorValue": false,
-      "colors": [
-        "#1F60C4",
-        "#1F60C4",
-        "#1F60C4"
-      ],
       "datasource": "${datasource}",
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
         "overrides": []
-      },
-      "format": "short",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
       },
       "gridPos": {
         "h": 8,
@@ -9366,38 +9383,23 @@
       "id": 229,
       "interval": null,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
       },
-      "tableColumn": "",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "expr": "max(jvm_threads_current{namespace=~\"$namespace\",pod=~\"$pod\"})",
@@ -9407,42 +9409,46 @@
           "refId": "C"
         }
       ],
-      "thresholds": "",
       "timeFrom": null,
       "timeShift": null,
       "title": "jvm_threads_current",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "type": "stat"
     },
     {
       "cacheTimeout": null,
-      "colorBackground": true,
-      "colorValue": false,
-      "colors": [
-        "#E0B400",
-        "#E0B400",
-        "#E0B400"
-      ],
       "datasource": "${datasource}",
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
         "overrides": []
-      },
-      "format": "short",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
       },
       "gridPos": {
         "h": 8,
@@ -9453,38 +9459,23 @@
       "id": 230,
       "interval": null,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
       },
-      "tableColumn": "",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "expr": "max(jvm_threads_deadlocked{namespace=~\"$namespace\",pod=~\"$pod\"})",
@@ -9494,20 +9485,10 @@
           "refId": "C"
         }
       ],
-      "thresholds": "",
       "timeFrom": null,
       "timeShift": null,
       "title": "jvm_threads_deadlocked",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "type": "stat"
     },
     {
       "aliasColors": {},
@@ -9546,7 +9527,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -9641,7 +9622,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -9736,7 +9717,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -9831,7 +9812,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -9916,7 +9897,9 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
-      },
+      }
+      {{- if not $alerts }}
+      ,
       {
         "allValue": null,
         "current": {
@@ -9992,9 +9975,9 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
-          "text": "zk-cluster-0",
-          "value": "zk-cluster-0"
+          "selected": false,
+          "text": "zk-cluster-2",
+          "value": "zk-cluster-2"
         },
         "datasource": "${datasource}",
         "definition": "label_values(up{namespace=~\"$namespace\",pod=~\"${app}-.*\"},pod)",
@@ -10010,7 +9993,6 @@
           "query": "label_values(up{namespace=~\"$namespace\",pod=~\"${app}-.*\"},pod)",
           "refId": "StandardVariableQuery"
         },
-        "type": "query",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -10018,8 +10000,10 @@
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
+        "type": "query",
         "useTags": false
       }
+      {{- end }}
     ]
   },
   "time": {
@@ -10057,6 +10041,6 @@
   {{- else }}
   "title": {{ printf "KubeDB / ZooKeeper / Pod / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
   {{- end }}
-  "uid": "fF-N4cH7ksss",
-  "version": 6
+  "uid": "kubedb-zookeeper-pod",
+  "version": 1
 }

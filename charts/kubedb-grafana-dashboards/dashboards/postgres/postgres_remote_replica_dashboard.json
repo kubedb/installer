@@ -1,5 +1,11 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
+  {{- if $shared }}
   "title": "KubeDB / Postgres / Remote Replica",
+  {{- else }}
+  "title": {{ printf "KubeDB / Postgres / Remote Replica / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
+  {{- end }}
   "uid": "kubedb-postgres-remote-replica",
   "schemaVersion": 27,
   "version": 1,
@@ -25,33 +31,46 @@
         "current": {},
         "options": [],
         "hide": 0
-      },
+      }
+      {{- if not $alerts }}
+      ,
       {
         "name": "namespace",
-        "type": "query",
         "datasource": "$datasource",
+        {{- if $shared }}
         "query": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
         "refresh": 2,
         "multi": false,
         "includeAll": false,
         "sort": 1,
         "current": {},
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.namespace | quote }},
+        "type": "constant",
+        {{- end }}
         "options": [],
         "hide": 0
       },
       {
         "name": "app",
-        "type": "query",
         "datasource": "$datasource",
+        {{- if $shared }}
         "query": "label_values(kubedb_com_postgres_info{namespace=\"$namespace\"}, app)",
         "refresh": 2,
         "multi": false,
         "includeAll": false,
         "sort": 1,
         "current": {},
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
         "options": [],
         "hide": 0
       }
+      {{- end }}
     ]
   },
   "panels": [

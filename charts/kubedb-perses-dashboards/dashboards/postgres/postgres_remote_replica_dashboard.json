@@ -3,31 +3,29 @@
 {
   "kind": "Dashboard",
   "metadata": {
-    "name": "kubedb-pgpool-pod",
+    "name": "kubedb-postgres-remotereplica",
     "createdAt": "0001-01-01T00:00:00Z",
     "updatedAt": "0001-01-01T00:00:00Z",
     "version": 0,
     "tags": [
-      "db",
+      "dr",
       "kubedb",
-      "pgpool",
-      "stats"
+      "postgres",
+      "remote-replica"
     ],
     "project": "pp"
   },
   "spec": {
     "display": {
-      "name": "KubeDB / Pgpool / Pod"
+      "name": "KubeDB / Postgres / Remote Replica"
     },
     "variables": [
       {
         "kind": "ListVariable",
         "spec": {
           "display": {
-            "name": "Datasource",
             "hidden": false
           },
-          "defaultValue": "Prometheus",
           "allowAllValue": false,
           "allowMultiple": false,
           "plugin": {
@@ -43,13 +41,11 @@
         "kind": "ListVariable",
         "spec": {
           "display": {
-            "name": "Namespace",
             "hidden": false
           },
-          "defaultValue": "pool",
           "allowAllValue": false,
           "allowMultiple": false,
-          "sort": "none",
+          "sort": "alphabetical-asc",
           "plugin": {
             "kind": "PrometheusLabelValuesVariable",
             "spec": {
@@ -66,48 +62,21 @@
         "kind": "ListVariable",
         "spec": {
           "display": {
-            "name": "Pgpool",
             "hidden": false
           },
-          "defaultValue": "pgpool-monitoring",
           "allowAllValue": false,
           "allowMultiple": false,
-          "sort": "none",
+          "sort": "alphabetical-asc",
           "plugin": {
             "kind": "PrometheusLabelValuesVariable",
             "spec": {
               "labelName": "app",
               "matchers": [
-                "kubedb_com_pgpool_status_phase{namespace=~\"$namespace\"}"
+                "kubedb_com_postgres_info{namespace=\"$namespace\"}"
               ]
             }
           },
           "name": "app"
-        }
-      },
-      {
-        "kind": "ListVariable",
-        "spec": {
-          "display": {
-            "name": "Pod",
-            "hidden": false
-          },
-          "defaultValue": [
-            "$__all"
-          ],
-          "allowAllValue": false,
-          "allowMultiple": true,
-          "sort": "none",
-          "plugin": {
-            "kind": "PrometheusLabelValuesVariable",
-            "spec": {
-              "labelName": "pod",
-              "matchers": [
-                "pgpool2_up{namespace=~\"$namespace\", service=~\"$app-stats\"}"
-              ]
-            }
-          },
-          "name": "pod"
         }
       }
     ],
@@ -116,23 +85,26 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Pod Name",
-            "description": "Running Pgpool pod names"
+            "name": "Streaming",
+            "description": "1: every pod is confirmed streaming by the source (in pg_stat_replication). 0: at least one pod is not — the standby role label is cleared for it."
           },
           "plugin": {
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
-              "colorMode": "value",
+              "colorMode": "background_solid",
               "format": {
                 "unit": "decimal"
               },
-              "metricLabel": "pod",
               "thresholds": {
                 "steps": [
                   {
-                    "color": "#3274d9",
+                    "color": "#f2495c",
                     "value": 0
+                  },
+                  {
+                    "color": "#73bf69",
+                    "value": 1
                   }
                 ]
               }
@@ -145,9 +117,7 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "minStep": "",
-                    "query": "pgpool2_up{namespace=~\"$namespace\",pod=~\"$pod\"}",
-                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                    "query": "min(pg_coordinator_remote_replica_streaming{namespace=\"$namespace\", pod=~\"${app}-.*\"})"
                   }
                 }
               }
@@ -159,26 +129,26 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Pgpool Pod Uptime",
-            "description": "Uptime of each Pgpool pod"
+            "name": "Source Reachable",
+            "description": "1: the coordinator can query the source primary. 0: it cannot — a DR replica that cannot see its source is not protecting anything."
           },
           "plugin": {
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
-              "colorMode": "value",
+              "colorMode": "background_solid",
               "format": {
-                "unit": "seconds"
+                "unit": "decimal"
               },
               "thresholds": {
                 "steps": [
                   {
-                    "color": "#e02f44",
+                    "color": "#f2495c",
                     "value": 0
                   },
                   {
                     "color": "#73bf69",
-                    "value": 90
+                    "value": 1
                   }
                 ]
               }
@@ -191,53 +161,7 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "minStep": "",
-                    "query": "time() - kube_pod_start_time{namespace=~\"$namespace\",pod=~\"$pod\"}",
-                    "seriesNameFormat": "{{ `{{pod}}` }}"
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "10": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Total Scrapes",
-            "description": "Total scareps till now"
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "colorMode": "value",
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  },
-                  {
-                    "color": "#73bf69",
-                    "value": 80
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "pgpool2_scrapes_total{namespace=~\"$namespace\",pod=~\"$pod\"}",
-                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                    "query": "min(pg_coordinator_remote_replica_source_reachable{namespace=\"$namespace\", pod=~\"${app}-.*\"})"
                   }
                 }
               }
@@ -249,16 +173,32 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "CPU Usage",
-            "description": "CPU usage of each Pgpool pod"
+            "name": "Replication Lag (RPO)",
+            "description": "Bytes of WAL the source has written beyond what this replica has replayed — the data at risk if the source DC is lost right now."
           },
           "plugin": {
-            "kind": "TimeSeriesChart",
+            "kind": "StatChart",
             "spec": {
-              "yAxis": {
-                "format": {
-                  "unit": "decimal"
-                }
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "format": {
+                "unit": "decbytes"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#fade2a",
+                    "value": 16777216
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 134217728
+                  }
+                ]
               }
             }
           },
@@ -269,9 +209,7 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "minStep": "",
-                    "query": "sum(rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\", pod=~\"$pod\", container!=\"\", image!=\"\"}[5m])) by (pod)",
-                    "seriesNameFormat": "{{ `{{container}}` }}"
+                    "query": "max(pg_coordinator_remote_replica_lag_bytes{namespace=\"$namespace\", pod=~\"${app}-.*\"})"
                   }
                 }
               }
@@ -283,16 +221,32 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Memory Usage",
-            "description": "Memory usage of each Pgpool pod"
+            "name": "Lag Data Age",
+            "description": "Seconds since the last successful lag measurement. The monitor backs off to 300s while in sync; sustained values above ~330s mean measurements are failing."
           },
           "plugin": {
-            "kind": "TimeSeriesChart",
+            "kind": "StatChart",
             "spec": {
-              "yAxis": {
-                "format": {
-                  "unit": "bytes"
-                }
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "format": {
+                "unit": "seconds"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#fade2a",
+                    "value": 330
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 900
+                  }
+                ]
               }
             }
           },
@@ -303,9 +257,7 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "minStep": "",
-                    "query": "sum(container_memory_working_set_bytes{namespace=~\"$namespace\", pod=~\"$pod\", container!=\"\", image!=\"\"}) by (pod)",
-                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                    "query": "time() - min(pg_coordinator_remote_replica_last_lag_check_timestamp_seconds{namespace=\"$namespace\", pod=~\"${app}-.*\"})"
                   }
                 }
               }
@@ -317,18 +269,17 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Total possible connections",
-            "description": "Total possible connection each Pgpool pod can make"
+            "name": "Recoveries (24h)",
+            "description": "pg_rewind / pg_basebackup actions in the last 24h. Every recovery deserves an incident review: something made the replica diverge or fall off."
           },
           "plugin": {
             "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
-              "colorMode": "value",
+              "colorMode": "background_solid",
               "format": {
                 "unit": "decimal"
               },
-              "sparkline": {},
               "thresholds": {
                 "steps": [
                   {
@@ -336,8 +287,12 @@
                     "value": 0
                   },
                   {
-                    "color": "#73bf69",
-                    "value": 80
+                    "color": "#fade2a",
+                    "value": 1
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 3
                   }
                 ]
               }
@@ -350,9 +305,7 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "minStep": "",
-                    "query": "pgpool2_backend_total{namespace=~\"$namespace\",pod=~\"$pod\"}",
-                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                    "query": "sum(increase(pg_coordinator_remote_replica_recovery_total{namespace=\"$namespace\", pod=~\"${app}-.*\"}[24h])) or vector(0)"
                   }
                 }
               }
@@ -364,31 +317,12 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Opened connections",
-            "description": "Currently opened connection for each Pgpool pod"
+            "name": "Lag Behind Source (bytes)",
+            "description": "From the coordinator: source pg_current_wal_lsn() minus local replay LSN. Sampled every 5s while catching up, backing off to 300s while in sync — spikes shorter than the sampling interval may not appear."
           },
           "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "colorMode": "value",
-              "format": {
-                "unit": "decimal"
-              },
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  },
-                  {
-                    "color": "#73bf69",
-                    "value": 80
-                  }
-                ]
-              }
-            }
+            "kind": "TimeSeriesChart",
+            "spec": {}
           },
           "queries": [
             {
@@ -397,8 +331,7 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "minStep": "",
-                    "query": "sum by (pod) (pgpool2_backend_by_process_total{namespace=~\"$namespace\",pod=~\"$pod\"})",
+                    "query": "pg_coordinator_remote_replica_lag_bytes{namespace=\"$namespace\", pod=~\"${app}-.*\"}",
                     "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
@@ -411,28 +344,12 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Connections in use",
-            "description": "Currently used connection for each Pgpool pod"
+            "name": "Apply Lag (seconds, exporter)",
+            "description": "From postgres_exporter: seconds since the last replayed transaction. CAVEAT: grows without bound while the SOURCE IS IDLE — read it together with the bytes panel."
           },
           "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "colorMode": "value",
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  },
-                  {
-                    "color": "#f2495c",
-                    "value": 80
-                  }
-                ]
-              }
-            }
+            "kind": "TimeSeriesChart",
+            "spec": {}
           },
           "queries": [
             {
@@ -441,8 +358,7 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "minStep": "",
-                    "query": "pgpool2_backend_used{namespace=~\"$namespace\",pod=~\"$pod\"}",
+                    "query": "pg_replication_lag_seconds{namespace=\"$namespace\", pod=~\"${app}-.*\"}",
                     "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
@@ -455,18 +371,12 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Ratio of used connections",
-            "description": "Ratio of backend connections in use to total backend connection slot"
+            "name": "Recovery Actions (rate/h)",
+            "description": "Coordinator-initiated pg_rewind and pg_basebackup attempts."
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {
-              "yAxis": {
-                "format": {
-                  "unit": "percent-decimal"
-                }
-              }
-            }
+            "spec": {}
           },
           "queries": [
             {
@@ -475,9 +385,8 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "minStep": "",
-                    "query": "pgpool2_backend_used_ratio{namespace=~\"$namespace\",pod=~\"$pod\"}",
-                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                    "query": "sum by (action,result) (increase(pg_coordinator_remote_replica_recovery_total{namespace=\"$namespace\", pod=~\"${app}-.*\"}[1h]))",
+                    "seriesNameFormat": "{{ `{{action}}` }}/{{ `{{result}}` }}"
                   }
                 }
               }
@@ -489,31 +398,12 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Last Scrape",
-            "description": "Show the status if last scrape to the exporter was successful or not"
+            "name": "Replica Mode (is_replica)",
+            "description": "1 while in recovery. A pod dropping to 0 here without a planned promotion is an incident."
           },
           "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "colorMode": "value",
-              "format": {
-                "unit": "decimal"
-              },
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  },
-                  {
-                    "color": "#f2495c",
-                    "value": 80
-                  }
-                ]
-              }
-            }
+            "kind": "TimeSeriesChart",
+            "spec": {}
           },
           "queries": [
             {
@@ -522,8 +412,7 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "minStep": "",
-                    "query": "pgpool2_last_scrape_error{namespace=~\"$namespace\",pod=~\"$pod\"}",
+                    "query": "pg_replication_is_replica{namespace=\"$namespace\", pod=~\"${app}-.*\"}",
                     "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
@@ -536,18 +425,12 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Last Scrape Duration",
-            "description": "Last scrape duration in Pgpool exporter"
+            "name": "Backend Connections",
+            "description": "Total postgres backends per pod, summed over all databases and all connection states (pg_stat_activity, sampled at each Prometheus scrape). On an idle remote replica this is just the monitoring exporter and the KubeDB health checker — expect 0-2. A sustained rise means clients are connected through the standby service and actually reading from this replica. Legend values such as avg can be fractional because they average the sampled counts over the visible time window."
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {
-              "yAxis": {
-                "format": {
-                  "unit": "seconds"
-                }
-              }
-            }
+            "spec": {}
           },
           "queries": [
             {
@@ -556,8 +439,7 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "minStep": "",
-                    "query": "pgpool2_last_scrape_duration_seconds{namespace=~\"$namespace\",pod=~\"$pod\"}",
+                    "query": "sum by (pod) (pg_stat_activity_count{namespace=\"$namespace\", pod=~\"${app}-.*\"})",
                     "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
@@ -578,100 +460,91 @@
             {
               "x": 0,
               "y": 1,
-              "width": 12,
-              "height": 7,
+              "width": 4,
+              "height": 4,
               "content": {
                 "$ref": "#/spec/panels/0"
               }
             },
             {
-              "x": 12,
+              "x": 4,
               "y": 1,
-              "width": 12,
-              "height": 7,
+              "width": 4,
+              "height": 4,
               "content": {
                 "$ref": "#/spec/panels/1"
               }
             },
             {
-              "x": 0,
-              "y": 9,
-              "width": 12,
-              "height": 7,
+              "x": 8,
+              "y": 1,
+              "width": 5,
+              "height": 4,
               "content": {
                 "$ref": "#/spec/panels/2"
               }
             },
             {
-              "x": 12,
-              "y": 9,
-              "width": 12,
-              "height": 7,
+              "x": 13,
+              "y": 1,
+              "width": 5,
+              "height": 4,
               "content": {
                 "$ref": "#/spec/panels/3"
               }
             },
             {
-              "x": 0,
-              "y": 17,
-              "width": 7,
-              "height": 5,
+              "x": 18,
+              "y": 1,
+              "width": 6,
+              "height": 4,
               "content": {
                 "$ref": "#/spec/panels/4"
               }
             },
             {
-              "x": 7,
-              "y": 17,
-              "width": 5,
-              "height": 5,
+              "x": 0,
+              "y": 6,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/5"
               }
             },
             {
               "x": 12,
-              "y": 17,
-              "width": 6,
-              "height": 5,
+              "y": 6,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/6"
               }
             },
             {
-              "x": 18,
-              "y": 17,
-              "width": 6,
-              "height": 5,
+              "x": 0,
+              "y": 15,
+              "width": 8,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/7"
               }
             },
             {
-              "x": 0,
-              "y": 23,
-              "width": 9,
-              "height": 5,
+              "x": 8,
+              "y": 15,
+              "width": 8,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/8"
               }
             },
             {
-              "x": 9,
-              "y": 23,
+              "x": 16,
+              "y": 15,
               "width": 8,
-              "height": 5,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/9"
-              }
-            },
-            {
-              "x": 17,
-              "y": 23,
-              "width": 7,
-              "height": 5,
-              "content": {
-                "$ref": "#/spec/panels/10"
               }
             }
           ]
