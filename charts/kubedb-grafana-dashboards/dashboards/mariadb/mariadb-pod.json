@@ -1,10 +1,11 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "annotations": {
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": "${datasource}",
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -16,7 +17,6 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 29,
   "iteration": 1637732366226,
   "links": [],
   "panels": [
@@ -83,7 +83,7 @@
           "exemplar": true,
           "expr": "mysql_up{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
           "interval": "",
-          "legendFormat": {{ `"{{pod}}"` }},
+          "legendFormat": {{ `"{{pod}} "` }},
           "refId": "A"
         }
       ],
@@ -1069,7 +1069,7 @@
           "expr": "mysql_global_status_threads_cached{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
           "hide": false,
           "interval": "",
-          "legendFormat": {{ `"Threads Cached - {{pod}}"` }},
+          "legendFormat": {{ `"Threads Cached - {{pod}} "` }},
           "refId": "B"
         },
         {
@@ -3435,7 +3435,9 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
-      },
+      }
+      {{- if not $alerts }}
+      ,
       {
         "allValue": null,
         "current": {
@@ -3444,6 +3446,7 @@
           "value": "demo"
         },
         "datasource": "${datasource}",
+        "definition": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -3454,17 +3457,17 @@
         "options": [],
         {{- if $shared }}
         "query": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
-        "type": "query",
-        {{- else }}
-        "query": {{ $.Values.app.namespace | quote }},
-        "type": "constant",
-        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
         "tags": [],
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.namespace | quote }},
+        "type": "constant",
+        {{- end }}
         "tagsQuery": "",
         "useTags": false
       },
@@ -3476,6 +3479,7 @@
           "value": "sample-mariadb-stats"
         },
         "datasource": "${datasource}",
+        "definition": "label_values(kubedb_com_mariadb_status_phase{namespace=~\"$namespace\"},app)",
         "description": "",
         "error": null,
         "hide": 0,
@@ -3486,17 +3490,17 @@
         "options": [],
         {{- if $shared }}
         "query": "label_values(kubedb_com_mariadb_status_phase{namespace=~\"$namespace\"},app)",
-        "type": "query",
-        {{- else }}
-        "query": {{ $.Values.app.name | quote }},
-        "type": "constant",
-        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
         "tags": [],
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
         "tagsQuery": "",
         "useTags": false
       },
@@ -3533,6 +3537,7 @@
         "type": "query",
         "useTags": false
       }
+      {{- end }}
     ]
   },
   "time": {
@@ -3546,6 +3551,6 @@
   {{- else }}
   "title": {{ printf "KubeDB / MariaDB / Pod / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
   {{- end }}
-  "uid": "FktZiiOnz",
+  "uid": "kubedb-mariadb-pod",
   "version": 3
 }
