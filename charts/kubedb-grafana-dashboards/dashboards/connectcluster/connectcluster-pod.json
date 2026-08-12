@@ -1,4 +1,5 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "annotations": {
     "list": [
@@ -26,8 +27,7 @@
   "editable": true,
   "gnetId": 8878,
   "graphTooltip": 0,
-  "id": 66,
-  "iteration": 1711612175110,
+  "iteration": 1711614080798,
   "links": [],
   "panels": [
     {
@@ -3716,7 +3716,9 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
-      },
+      }
+      {{- if not $alerts }}
+      ,
       {
         "allValue": null,
         "current": {
@@ -3793,7 +3795,6 @@
         "allValue": null,
         "current": {
           "selected": true,
-          "tags": [],
           "text": [
             "All"
           ],
@@ -3829,7 +3830,6 @@
         "allValue": null,
         "current": {
           "selected": true,
-          "tags": [],
           "text": [
             "All"
           ],
@@ -3861,6 +3861,7 @@
         "type": "query",
         "useTags": false
       }
+      {{- end }}
     ]
   },
   "time": {
@@ -3898,6 +3899,6 @@
   {{- else }}
   "title": {{ printf "KubeDB / Kafka / ConnectCluster / Pod / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
   {{- end }}
-  "uid": "sdfgtgytrg",
-  "version": 32
+  "uid": "kubedb-kafka-connectcluster-pod",
+  "version": 1
 }

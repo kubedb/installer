@@ -7,6 +7,12 @@
     "createdAt": "0001-01-01T00:00:00Z",
     "updatedAt": "0001-01-01T00:00:00Z",
     "version": 0,
+    "tags": [
+      "db",
+      "kubedb",
+      "pgpool",
+      "stats"
+    ],
     "project": "pp"
   },
   "spec": {
@@ -130,13 +136,12 @@
           "plugin": {
             "kind": "StatChart",
             "spec": {
-              "calculation": "mean",
+              "calculation": "last-number",
               "colorMode": "none",
               "format": {
                 "unit": "decimal"
               },
-              "metricLabel": " version ",
-              "sparkline": {},
+              "metricLabel": "version",
               "thresholds": {
                 "steps": [
                   {
@@ -161,7 +166,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "kubedb_com_pgpool_info{namespace=\"$namespace\", app=\"$app\"}",
-                    "seriesNameFormat": "{{ `{{ version }}` }}"
+                    "seriesNameFormat": "{{ `{{version}}` }}"
                   }
                 }
               }
@@ -249,11 +254,25 @@
                   "name": "value #5"
                 },
                 {
-                  "format": {
-                    "unit": "decimal"
-                  },
                   "header": "Pod",
-                  "name": "pod"
+                  "name": "pod #1",
+                  "align": "left"
+                },
+                {
+                  "name": "pod #2",
+                  "hide": true
+                },
+                {
+                  "name": "pod #3",
+                  "hide": true
+                },
+                {
+                  "name": "pod #4",
+                  "hide": true
+                },
+                {
+                  "name": "pod #5",
+                  "hide": true
                 }
               ]
             }
@@ -279,7 +298,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
+                    "query": "sum(kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\", resource=\"cpu\"}) by (pod)",
                     "seriesNameFormat": ""
                   }
                 }
@@ -292,7 +311,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod) / sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
+                    "query": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod) / sum(kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\", resource=\"cpu\"}) by (pod)",
                     "seriesNameFormat": ""
                   }
                 }
@@ -305,7 +324,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
+                    "query": "sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\", resource=\"cpu\"}) by (pod)",
                     "seriesNameFormat": ""
                   }
                 }
@@ -318,7 +337,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod) / sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
+                    "query": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod) / sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\", resource=\"cpu\"}) by (pod)",
                     "seriesNameFormat": ""
                   }
                 }
@@ -432,11 +451,37 @@
                   "name": "value #8"
                 },
                 {
-                  "format": {
-                    "unit": "decimal"
-                  },
                   "header": "Pod",
-                  "name": "pod"
+                  "name": "pod #1",
+                  "align": "left"
+                },
+                {
+                  "name": "pod #2",
+                  "hide": true
+                },
+                {
+                  "name": "pod #3",
+                  "hide": true
+                },
+                {
+                  "name": "pod #4",
+                  "hide": true
+                },
+                {
+                  "name": "pod #5",
+                  "hide": true
+                },
+                {
+                  "name": "pod #6",
+                  "hide": true
+                },
+                {
+                  "name": "pod #7",
+                  "hide": true
+                },
+                {
+                  "name": "pod #8",
+                  "hide": true
                 }
               ]
             }
@@ -462,7 +507,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"}) by (pod)",
+                    "query": "sum(kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\", resource=\"memory\"}) by (pod)",
                     "seriesNameFormat": ""
                   }
                 }
@@ -475,7 +520,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"}) by (pod)",
+                    "query": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\", resource=\"memory\"}) by (pod)",
                     "seriesNameFormat": ""
                   }
                 }
@@ -488,7 +533,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"}) by (pod)",
+                    "query": "sum(kube_pod_container_resource_limits{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\", resource=\"memory\"}) by (pod)",
                     "seriesNameFormat": ""
                   }
                 }
@@ -501,7 +546,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
+                    "query": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\", resource=\"memory\"}) by (pod)",
                     "seriesNameFormat": ""
                   }
                 }
@@ -768,8 +813,7 @@
             "spec": {
               "calculation": "last-number",
               "colorMode": "value",
-              "metricLabel": " backend ",
-              "sparkline": {},
+              "metricLabel": "backend",
               "thresholds": {
                 "steps": [
                   {
@@ -794,7 +838,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "kubedb_com_pgpool_info{namespace=\"$namespace\", app=\"$app\"}",
-                    "seriesNameFormat": "{{ `{{ backend }}` }}"
+                    "seriesNameFormat": "{{ `{{backend}}` }}"
                   }
                 }
               }
@@ -825,7 +869,8 @@
                     "value": 80
                   }
                 ]
-              }
+              },
+              "metricLabel": "ssl"
             }
           },
           "queries": [
@@ -1066,7 +1111,48 @@
             "spec": {
               "calculation": "last-number",
               "colorMode": "none",
-              "sparkline": {},
+              "mappings": [
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "result": {
+                      "color": "#fade2a",
+                      "value": "Delete"
+                    },
+                    "value": "Delete"
+                  }
+                },
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "result": {
+                      "color": "#73bf69",
+                      "value": "DoNotTerminate"
+                    },
+                    "value": "DoNotTerminate"
+                  }
+                },
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "result": {
+                      "color": "#5794f2",
+                      "value": "Halt"
+                    },
+                    "value": "Halt"
+                  }
+                },
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "result": {
+                      "color": "#c4162a",
+                      "value": "WipeOut"
+                    },
+                    "value": "WipeOut"
+                  }
+                }
+              ],
               "thresholds": {
                 "steps": [
                   {
@@ -1074,7 +1160,8 @@
                     "value": 0
                   }
                 ]
-              }
+              },
+              "metricLabel": "deletionPolicy"
             }
           },
           "queries": [

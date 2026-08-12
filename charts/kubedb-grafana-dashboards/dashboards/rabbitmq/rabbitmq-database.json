@@ -24,7 +24,6 @@
   "editable": true,
   "gnetId": 13106,
   "graphTooltip": 0,
-  "id": 29,
   "iteration": 1707477799551,
   "links": [],
   "panels": [
@@ -17931,8 +17930,8 @@
       {
         "current": {
           "selected": false,
-          "text": "Prometheus",
-          "value": "Prometheus"
+          "text": "default",
+          "value": "default"
         },
         "description": null,
         "error": null,
@@ -17950,15 +17949,16 @@
         "type": "datasource"
       }
       {{- if not $alerts }}
-    ,
+      ,
       {
-        "allValue": "\".+\"",
+        "allValue": null,
         "current": {
           "selected": false,
-          "text": "demo",
-          "value": "demo"
+          "text": "rabbit",
+          "value": "rabbit"
         },
         "datasource": "${datasource}",
+        "definition": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -17967,59 +17967,60 @@
         "multi": false,
         "name": "namespace",
         "options": [],
-      {{- if $shared }}
-      "query": {
-        "query": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
-        "refId": "Prometheus-namespace-Variable-Query"
-      },
-      "type": "query",
-      {{- else }}
-      "query": {{ $.Values.app.namespace | quote }},
-      "type": "constant",
-      {{- end }}
-      "refresh": 1,
-      "regex": "",
-      "skipUrlSync": false,
-      "sort": 0,
-      "tagValuesQuery": "",
-      "tags": [],
-      "tagsQuery": "",
-      "useTags": false
+        {{- if $shared }}
+        "query": {
+          "query": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
+          "refId": "Prometheus-namespace-Variable-Query"
+        },
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.namespace | quote }},
+        "type": "constant",
+        {{- end }}
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "useTags": false
       },
       {
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "mg4",
-          "value": "mg4"
+          "text": "rabbit-dev",
+          "value": "rabbit-dev"
         },
         "datasource": "${datasource}",
+        "definition": "label_values(rabbitmq_identity_info{namespace=\"$namespace\"}, rabbitmq_cluster)",
         "description": null,
         "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": "RabbitMQ",
+        "label": null,
         "multi": false,
         "name": "app",
         "options": [],
-      {{- if $shared }}
-      "query": {
-        "query": "label_values(kubedb_com_rabbitmq_status_phase{namespace=~\"$namespace\"},app)",
-        "refId": "Prometheus-app-Variable-Query"
-      },
-      "type": "query",
-      {{- else }}
-      "query": {{ $.Values.app.name | quote }},
-      "type": "constant",
-      {{- end }}
-      "refresh": 1,
-      "regex": "",
-      "skipUrlSync": false,
-      "sort": 0,
-      "tagValuesQuery": "",
-      "tags": [],
-      "tagsQuery": "",
-      "useTags": false
+        {{- if $shared }}
+        "query": {
+          "query": "label_values(rabbitmq_identity_info{namespace=\"$namespace\"}, rabbitmq_cluster)",
+          "refId": "StandardVariableQuery"
+        },
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "useTags": false
       }
       {{- end }}
     ]
@@ -18035,6 +18036,6 @@
   {{- else }}
   "title": {{ printf "KubeDB / RabbitMQ / Database / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
   {{- end }}
-  "uid": "ohrdrabbitmq",
+  "uid": "kubedb-rabbitmq-database",
   "version": 4
 }
