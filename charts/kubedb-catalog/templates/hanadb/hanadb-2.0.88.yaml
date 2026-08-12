@@ -1,0 +1,33 @@
+{{- template "kubedb-catalog.refresh-versions" . }}
+
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.HanaDB (not (eq $ubi "operator")) }}
+
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: HanaDBVersion
+metadata:
+  name: '2.0.88'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/hanadb-coordinator") $) }}:v0.6.0{{ include "catalog.ubi" $ }}'
+  db:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "saplabs/hanaexpress") $) }}:2.00.088.00.20251110.1'
+  exporter:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/hanadb-exporter") $) }}:1.0.0'
+  securityContext:
+    runAsGroup: 79
+    runAsUser: 12000
+  updateConstraints:
+    allowlist:
+    - 2.0.88
+  version: 2.0.88
+{{ end }}

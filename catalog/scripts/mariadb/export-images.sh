@@ -35,6 +35,7 @@ CMD="./images/crane"
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/mariadb/maxscale:24.02.4 images/mariadb-maxscale-24.02.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/prom/mysqld-exporter:v0.18.0 images/prom-mysqld-exporter-v0.18.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.10.7-jammy images/appscode-images-mariadb-10.10.7-jammy.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.11.16-jammy images/appscode-images-mariadb-10.11.16-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.11.6-jammy images/appscode-images-mariadb-10.11.6-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.4.32-focal images/appscode-images-mariadb-10.4.32-focal.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.5.23-focal images/appscode-images-mariadb-10.5.23-focal.tar
@@ -43,6 +44,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.1.3-jammy images/appscode-images-mariadb-11.1.3-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.2.2-jammy images/appscode-images-mariadb-11.2.2-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.3.2-jammy images/appscode-images-mariadb-11.3.2-jammy.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.4.10-noble images/appscode-images-mariadb-11.4.10-noble.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.4.3-noble images/appscode-images-mariadb-11.4.3-noble.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.5.2-noble images/appscode-images-mariadb-11.5.2-noble.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.6.2-noble images/appscode-images-mariadb-11.6.2-noble.tar

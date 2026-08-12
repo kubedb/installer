@@ -55,6 +55,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.12.1-enterprise images/library-neo4j-2025.12.1-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.05.0-enterprise images/library-neo4j-2026.05.0-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.06.0-enterprise images/library-neo4j-2026.06.0-enterprise.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:5.26.28-enterprise images/library-neo4j-5.26.28-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/mariadb/maxscale:24.02.4 images/mariadb-maxscale-24.02.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:4.4.26 images/percona-percona-server-mongodb-4.4.26.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:5.0.29 images/percona-percona-server-mongodb-5.0.29.tar
@@ -76,7 +77,9 @@ $CMD pull --allow-nondistributable-artifacts --insecure docker.io/prometheuscomm
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/qdrant/qdrant:v1.15.4-unprivileged images/qdrant-qdrant-v1.15.4-unprivileged.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/qdrant/qdrant:v1.16.2-unprivileged images/qdrant-qdrant-v1.16.2-unprivileged.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/qdrant/qdrant:v1.17.0-unprivileged images/qdrant-qdrant-v1.17.0-unprivileged.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/saplabs/hanaexpress:2.00.076.00.20240701.1 images/saplabs-hanaexpress-2.00.076.00.20240701.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/saplabs/hanaexpress:2.00.082.00.20250528.1 images/saplabs-hanaexpress-2.00.082.00.20250528.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/saplabs/hanaexpress:2.00.088.00.20251110.1 images/saplabs-hanaexpress-2.00.088.00.20251110.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6 images/singlestore-cluster-in-a-box-alma-8.1.32-e3d3cde6da-4.0.16-1.17.6.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11 images/singlestore-cluster-in-a-box-alma-8.5.22-fe61f40cd1-4.1.0-1.17.11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8 images/singlestore-cluster-in-a-box-alma-8.5.7-bf633c1a54-4.0.17-1.17.8.tar
@@ -163,6 +166,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.1.9 images/appscode-images-kibana-9.1.9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.2.3 images/appscode-images-kibana-9.2.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.10.7-jammy images/appscode-images-mariadb-10.10.7-jammy.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.11.16-jammy images/appscode-images-mariadb-10.11.16-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.11.6-jammy images/appscode-images-mariadb-10.11.6-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.4.32-focal images/appscode-images-mariadb-10.4.32-focal.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.5.23-focal images/appscode-images-mariadb-10.5.23-focal.tar
@@ -171,6 +175,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.1.3-jammy images/appscode-images-mariadb-11.1.3-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.2.2-jammy images/appscode-images-mariadb-11.2.2-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.3.2-jammy images/appscode-images-mariadb-11.3.2-jammy.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.4.10-noble images/appscode-images-mariadb-11.4.10-noble.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.4.3-noble images/appscode-images-mariadb-11.4.3-noble.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.5.2-noble images/appscode-images-mariadb-11.5.2-noble.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.6.2-noble images/appscode-images-mariadb-11.6.2-noble.tar
@@ -309,10 +314,10 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.5-bookworm images/appscode-images-postgres-17.5-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.8-alpine images/appscode-images-postgres-17.8-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.8-bookworm images/appscode-images-postgres-17.8-bookworm.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-alpine images/appscode-images-postgres-17.9-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-alpine-ext images/appscode-images-postgres-17.9-alpine-ext.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-bookworm images/appscode-images-postgres-17.9-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-bookworm-ext images/appscode-images-postgres-17.9-bookworm-ext.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-percona images/appscode-images-postgres-17.9-percona.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.2-alpine images/appscode-images-postgres-18.2-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.2-bookworm images/appscode-images-postgres-18.2-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.3-alpine images/appscode-images-postgres-18.3-alpine.tar
@@ -415,7 +420,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-r
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.1_11.1.3-jammy images/kubedb-mariadb-restic-plugin-v0.24.1_11.1.3-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.27.0 images/kubedb-mongodb-csi-snapshotter-plugin-v0.27.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 images/kubedb-mongodb-init-4.2-v9.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v11 images/kubedb-mongodb-init-6.0-v11.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v12 images/kubedb-mongodb-init-6.0-v12.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-restic-plugin:v0.29.0_4.2.3 images/kubedb-mongodb-restic-plugin-v0.29.0_4.2.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-restic-plugin:v0.29.0_4.4.6 images/kubedb-mongodb-restic-plugin-v0.29.0_4.4.6.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-restic-plugin:v0.29.0_5.0.15 images/kubedb-mongodb-restic-plugin-v0.29.0_5.0.15.tar
@@ -436,7 +441,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-arc
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.27.0_9.1.0 images/kubedb-mysql-archiver-v0.27.0_9.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-coordinator:v0.44.0 images/kubedb-mysql-coordinator-v0.44.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-csi-snapshotter-plugin:v0.27.0 images/kubedb-mysql-csi-snapshotter-plugin-v0.27.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:0.1.0 images/kubedb-mysql-init-0.1.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:0.2.0 images/kubedb-mysql-init-0.2.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:5.7-v9 images/kubedb-mysql-init-5.7-v9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-restic-plugin:v0.29.0_5.7.25 images/kubedb-mysql-restic-plugin-v0.29.0_5.7.25.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-restic-plugin:v0.29.0_8.0.21 images/kubedb-mysql-restic-plugin-v0.29.0_8.0.21.tar
@@ -470,10 +475,11 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_16.1-bookworm images/kubedb-postgres-archiver-v0.27.0_16.1-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_17.2-alpine images/kubedb-postgres-archiver-v0.27.0_17.2-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_17.2-bookworm images/kubedb-postgres-archiver-v0.27.0_17.2-bookworm.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_17.9-percona images/kubedb-postgres-archiver-v0.27.0_17.9-percona.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_18.2-alpine images/kubedb-postgres-archiver-v0.27.0_18.2-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_18.2-bookworm images/kubedb-postgres-archiver-v0.27.0_18.2-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.27.0 images/kubedb-postgres-csi-snapshotter-plugin-v0.27.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.20.0 images/kubedb-postgres-init-0.20.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.21.0 images/kubedb-postgres-init-0.21.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.29.0_12.17 images/kubedb-postgres-restic-plugin-v0.29.0_12.17.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.29.0_14.10 images/kubedb-postgres-restic-plugin-v0.29.0_14.10.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.29.0_16.4 images/kubedb-postgres-restic-plugin-v0.29.0_16.4.tar

@@ -110,10 +110,10 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-p
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.5-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:17.5-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.8-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:17.8-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.8-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:17.8-bookworm
-$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.9-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:17.9-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.9-alpine-ext.tar $IMAGE_REGISTRY/appscode-images/postgres:17.9-alpine-ext
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.9-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:17.9-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.9-bookworm-ext.tar $IMAGE_REGISTRY/appscode-images/postgres:17.9-bookworm-ext
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.9-percona.tar $IMAGE_REGISTRY/appscode-images/postgres:17.9-percona
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-18.2-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:18.2-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-18.2-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:18.2-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-18.3-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:18.3-alpine
@@ -136,6 +136,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-a
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.27.0_16.1-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_16.1-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.27.0_17.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_17.2-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.27.0_17.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_17.2-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.27.0_17.9-percona.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_17.9-percona
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.27.0_18.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_18.2-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.27.0_18.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_18.2-bookworm
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-init-0.20.0.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.20.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-init-0.21.0.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.21.0

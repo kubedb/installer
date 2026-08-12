@@ -58,6 +58,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:20
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.12.1-enterprise $IMAGE_REGISTRY/neo4j:2025.12.1-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.05.0-enterprise $IMAGE_REGISTRY/neo4j:2026.05.0-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.06.0-enterprise $IMAGE_REGISTRY/neo4j:2026.06.0-enterprise
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:5.26.28-enterprise $IMAGE_REGISTRY/neo4j:5.26.28-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/mariadb/maxscale:24.02.4 $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:4.4.26 $IMAGE_REGISTRY/percona/percona-server-mongodb:4.4.26
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:5.0.29 $IMAGE_REGISTRY/percona/percona-server-mongodb:5.0.29
@@ -79,7 +80,9 @@ $CMD cp --allow-nondistributable-artifacts --insecure docker.io/prometheuscommun
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/qdrant/qdrant:v1.15.4-unprivileged $IMAGE_REGISTRY/qdrant/qdrant:v1.15.4-unprivileged
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/qdrant/qdrant:v1.16.2-unprivileged $IMAGE_REGISTRY/qdrant/qdrant:v1.16.2-unprivileged
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/qdrant/qdrant:v1.17.0-unprivileged $IMAGE_REGISTRY/qdrant/qdrant:v1.17.0-unprivileged
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/saplabs/hanaexpress:2.00.076.00.20240701.1 $IMAGE_REGISTRY/saplabs/hanaexpress:2.00.076.00.20240701.1
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/saplabs/hanaexpress:2.00.082.00.20250528.1 $IMAGE_REGISTRY/saplabs/hanaexpress:2.00.082.00.20250528.1
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/saplabs/hanaexpress:2.00.088.00.20251110.1 $IMAGE_REGISTRY/saplabs/hanaexpress:2.00.088.00.20251110.1
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6 $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11 $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8 $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8
@@ -166,6 +169,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ki
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.1.9 $IMAGE_REGISTRY/appscode-images/kibana:9.1.9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.2.3 $IMAGE_REGISTRY/appscode-images/kibana:9.2.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.10.7-jammy $IMAGE_REGISTRY/appscode-images/mariadb:10.10.7-jammy
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.11.16-jammy $IMAGE_REGISTRY/appscode-images/mariadb:10.11.16-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.11.6-jammy $IMAGE_REGISTRY/appscode-images/mariadb:10.11.6-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.4.32-focal $IMAGE_REGISTRY/appscode-images/mariadb:10.4.32-focal
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.5.23-focal $IMAGE_REGISTRY/appscode-images/mariadb:10.5.23-focal
@@ -174,6 +178,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ma
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.1.3-jammy $IMAGE_REGISTRY/appscode-images/mariadb:11.1.3-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.2.2-jammy $IMAGE_REGISTRY/appscode-images/mariadb:11.2.2-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.3.2-jammy $IMAGE_REGISTRY/appscode-images/mariadb:11.3.2-jammy
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.4.10-noble $IMAGE_REGISTRY/appscode-images/mariadb:11.4.10-noble
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.4.3-noble $IMAGE_REGISTRY/appscode-images/mariadb:11.4.3-noble
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.5.2-noble $IMAGE_REGISTRY/appscode-images/mariadb:11.5.2-noble
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:11.6.2-noble $IMAGE_REGISTRY/appscode-images/mariadb:11.6.2-noble
@@ -312,10 +317,10 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/po
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.5-bookworm $IMAGE_REGISTRY/appscode-images/postgres:17.5-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.8-alpine $IMAGE_REGISTRY/appscode-images/postgres:17.8-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.8-bookworm $IMAGE_REGISTRY/appscode-images/postgres:17.8-bookworm
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-alpine $IMAGE_REGISTRY/appscode-images/postgres:17.9-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-alpine-ext $IMAGE_REGISTRY/appscode-images/postgres:17.9-alpine-ext
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-bookworm $IMAGE_REGISTRY/appscode-images/postgres:17.9-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-bookworm-ext $IMAGE_REGISTRY/appscode-images/postgres:17.9-bookworm-ext
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-percona $IMAGE_REGISTRY/appscode-images/postgres:17.9-percona
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.2-alpine $IMAGE_REGISTRY/appscode-images/postgres:18.2-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.2-bookworm $IMAGE_REGISTRY/appscode-images/postgres:18.2-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.3-alpine $IMAGE_REGISTRY/appscode-images/postgres:18.3-alpine
@@ -418,7 +423,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-res
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.24.1_11.1.3-jammy $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.24.1_11.1.3-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.27.0 $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.27.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v11 $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v11
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v12 $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v12
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-restic-plugin:v0.29.0_4.2.3 $IMAGE_REGISTRY/kubedb/mongodb-restic-plugin:v0.29.0_4.2.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-restic-plugin:v0.29.0_4.4.6 $IMAGE_REGISTRY/kubedb/mongodb-restic-plugin:v0.29.0_4.4.6
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-restic-plugin:v0.29.0_5.0.15 $IMAGE_REGISTRY/kubedb/mongodb-restic-plugin:v0.29.0_5.0.15
@@ -439,7 +444,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archi
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.27.0_9.1.0 $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.27.0_9.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-coordinator:v0.44.0 $IMAGE_REGISTRY/kubedb/mysql-coordinator:v0.44.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-csi-snapshotter-plugin:v0.27.0 $IMAGE_REGISTRY/kubedb/mysql-csi-snapshotter-plugin:v0.27.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:0.1.0 $IMAGE_REGISTRY/kubedb/mysql-init:0.1.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:0.2.0 $IMAGE_REGISTRY/kubedb/mysql-init:0.2.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:5.7-v9 $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-restic-plugin:v0.29.0_5.7.25 $IMAGE_REGISTRY/kubedb/mysql-restic-plugin:v0.29.0_5.7.25
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-restic-plugin:v0.29.0_8.0.21 $IMAGE_REGISTRY/kubedb/mysql-restic-plugin:v0.29.0_8.0.21
@@ -473,10 +478,11 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-ar
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_16.1-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_16.1-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_17.2-alpine $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_17.2-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_17.2-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_17.2-bookworm
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_17.9-percona $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_17.9-percona
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_18.2-alpine $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_18.2-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.27.0_18.2-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.27.0_18.2-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.27.0 $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.27.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.20.0 $IMAGE_REGISTRY/kubedb/postgres-init:0.20.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.21.0 $IMAGE_REGISTRY/kubedb/postgres-init:0.21.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.29.0_12.17 $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.29.0_12.17
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.29.0_14.10 $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.29.0_14.10
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.29.0_16.4 $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.29.0_16.4
