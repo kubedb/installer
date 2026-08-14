@@ -66,6 +66,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-rest
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-restic-plugin-v0.29.0_8.4.2.tar $IMAGE_REGISTRY/kubedb/mysql-restic-plugin:v0.29.0_8.4.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-restic-plugin-v0.29.0_9.0.1.tar $IMAGE_REGISTRY/kubedb/mysql-restic-plugin:v0.29.0_9.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-neo4j-backup-plugin-v0.2.0.tar $IMAGE_REGISTRY/kubedb/neo4j-backup-plugin:v0.2.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-backup-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/oracle-backup-plugin:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-csi-snapshotter-plugin-v0.27.0.tar $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.27.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.29.0_12.17.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.29.0_12.17
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.29.0_14.10.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.29.0_14.10

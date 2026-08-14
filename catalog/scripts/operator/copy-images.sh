@@ -75,6 +75,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-resti
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-restic-plugin:v0.29.0_8.4.2 $IMAGE_REGISTRY/kubedb/mysql-restic-plugin:v0.29.0_8.4.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-restic-plugin:v0.29.0_9.0.1 $IMAGE_REGISTRY/kubedb/mysql-restic-plugin:v0.29.0_9.0.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/neo4j-backup-plugin:v0.2.0 $IMAGE_REGISTRY/kubedb/neo4j-backup-plugin:v0.2.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-backup-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/oracle-backup-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.27.0 $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.27.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.29.0_12.17 $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.29.0_12.17
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.29.0_14.10 $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.29.0_14.10

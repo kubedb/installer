@@ -1,0 +1,93 @@
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Addon
+metadata:
+  name: oracle-addon
+spec:
+  backupTasks:
+    - driver: OracleBackup
+      executor: Job
+      function: oracle-backup
+      name: physical-backup
+      parameters:
+        - default: "true"
+          name: enableCache
+          required: false
+          usage: Enable or disable caching. Disabling caching may impact backup performance.
+        - default: /kubestash-tmp
+          name: scratchDir
+          required: false
+          usage: Directory for holding temporary files and oracle-backup cache.
+        - name: walletSecret
+          required: false
+          usage: Wallet secret for OSBWS config.
+        - name: targetPod
+          required: false
+          usage: Oracle pod to run RMAN on.
+      singleton: true
+      volumeMounts:
+        - mountPath: /kubestash-tmp
+          name: kubestash-tmp-volume
+      volumeTemplate:
+        - name: kubestash-tmp-volume
+          source:
+            emptyDir: {}
+          usage: Holds temporary files and oracle-backup cache.
+  restoreTasks:
+    - driver: OracleBackup
+      executor: Job
+      function: oracle-restore
+      name: logical-backup-restore
+      parameters:
+        - default: "true"
+          name: enableCache
+          required: false
+          usage: Enable or disable caching. Disabling caching may impact backup performance.
+        - default: /kubestash-tmp
+          name: scratchDir
+          required: false
+          usage: Directory for holding temporary files and oracle-backup cache.
+        - name: untilTime
+          required: false
+          usage: >-
+            Point-in-time recovery target in UTC (YYYY-MM-DD HH24:MI:SS).
+            Overrides the snapshot's own recovery boundary and rolls forward to
+            this instant instead. RMAN stops *before* it, so leave a few seconds
+            of margin. Mutually exclusive with untilSCN.
+        - name: untilSCN
+          required: false
+          usage: >-
+            Recovery target as an SCN. Defaults to the boundary recorded on the
+            snapshot, which stops recovery exactly at the backup so no redo
+            written after it is applied. Only set this to override that.
+        - default: "false"
+          name: restoreSPFile
+          required: false
+          usage: >-
+            When restoring into a different database, also restore the source
+            SPFILE instead of keeping the target's operator managed one.
+        - default: "false"
+          name: recoverToLatest
+          required: false
+          usage: >-
+            Roll recovery forward past the snapshot, applying every redo record
+            the database can still reach. Required to restore a snapshot that
+            recorded no recovery boundary, since such a restore cannot be
+            stopped at the snapshot. Mutually exclusive with untilTime and
+            untilSCN.
+        - default: "false"
+          name: allowAutobackupSearch
+          required: false
+          usage: >-
+            When restoring into a different database from a snapshot that
+            recorded no control file handle, allow locating one by autobackup
+            search. The search returns the newest matching piece in the backend,
+            which may be a later backup's control file.
+      singleton: true
+      volumeMounts:
+        - mountPath: /kubestash-tmp
+          name: kubestash-tmp-volume
+      volumeTemplate:
+        - name: kubestash-tmp-volume
+          source:
+            emptyDir: {}
+          usage: Holds temporary files and oracle-backup cache.

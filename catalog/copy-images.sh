@@ -454,6 +454,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-resti
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.44.0 $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.44.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.18.0 $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.18.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/neo4j-backup-plugin:v0.2.0 $IMAGE_REGISTRY/kubedb/neo4j-backup-plugin:v0.2.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-backup-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/oracle-backup-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-coordinator:v0.12.0 $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.12.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-init:v0.2.0 $IMAGE_REGISTRY/kubedb/oracle-init:v0.2.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/percona-xtradb-coordinator:v0.39.0 $IMAGE_REGISTRY/kubedb/percona-xtradb-coordinator:v0.39.0

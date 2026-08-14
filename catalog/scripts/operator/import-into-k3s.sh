@@ -64,6 +64,7 @@ k3s ctr images import images/kubedb-mysql-restic-plugin-v0.29.0_8.0.3.tar
 k3s ctr images import images/kubedb-mysql-restic-plugin-v0.29.0_8.4.2.tar
 k3s ctr images import images/kubedb-mysql-restic-plugin-v0.29.0_9.0.1.tar
 k3s ctr images import images/kubedb-neo4j-backup-plugin-v0.2.0.tar
+k3s ctr images import images/kubedb-oracle-backup-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-postgres-csi-snapshotter-plugin-v0.27.0.tar
 k3s ctr images import images/kubedb-postgres-restic-plugin-v0.29.0_12.17.tar
 k3s ctr images import images/kubedb-postgres-restic-plugin-v0.29.0_14.10.tar

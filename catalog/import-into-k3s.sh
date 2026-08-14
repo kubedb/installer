@@ -443,6 +443,7 @@ k3s ctr images import images/kubedb-mysql-restic-plugin-v0.29.0_9.0.1.tar
 k3s ctr images import images/kubedb-mysql-router-init-v0.44.0.tar
 k3s ctr images import images/kubedb-mysqld-exporter-v0.18.0.tar
 k3s ctr images import images/kubedb-neo4j-backup-plugin-v0.2.0.tar
+k3s ctr images import images/kubedb-oracle-backup-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-oracle-coordinator-v0.12.0.tar
 k3s ctr images import images/kubedb-oracle-init-v0.2.0.tar
 k3s ctr images import images/kubedb-percona-xtradb-coordinator-v0.39.0.tar
