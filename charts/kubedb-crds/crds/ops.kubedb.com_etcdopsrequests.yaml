@@ -65,7 +65,50 @@ spec:
                     type: object
                     x-kubernetes-map-type: atomic
                 type: object
+              compact:
+                properties:
+                  revision:
+                    format: int64
+                    type: integer
+                type: object
               configuration:
+                properties:
+                  applyConfig:
+                    additionalProperties:
+                      type: string
+                    type: object
+                  configSecret:
+                    properties:
+                      name:
+                        default: ""
+                        type: string
+                    type: object
+                    x-kubernetes-map-type: atomic
+                  removeCustomConfig:
+                    type: boolean
+                  restart:
+                    default: auto
+                    enum:
+                    - auto
+                    - "true"
+                    - "false"
+                    type: string
+                  tuning:
+                    properties:
+                      autoCompactionMode:
+                        enum:
+                        - periodic
+                        - revision
+                        type: string
+                      autoCompactionRetention:
+                        type: string
+                      quotaBackendBytes:
+                        format: int64
+                        type: integer
+                      snapshotCount:
+                        format: int64
+                        type: integer
+                    type: object
                 type: object
               databaseRef:
                 properties:
@@ -74,14 +117,36 @@ spec:
                     type: string
                 type: object
                 x-kubernetes-map-type: atomic
+              defragment:
+                type: object
               horizontalScaling:
+                properties:
+                  replicas:
+                    format: int32
+                    type: integer
                 type: object
               maxRetries:
                 default: 1
                 format: int32
                 type: integer
+              migration:
+                properties:
+                  oldPVReclaimPolicy:
+                    type: string
+                  storageClassName:
+                    type: string
+                required:
+                - storageClassName
+                type: object
+              moveLeader:
+                properties:
+                  newLeader:
+                    type: string
+                type: object
               restart:
                 type: object
+              timeout:
+                type: string
               tls:
                 properties:
                   certificates:
@@ -197,20 +262,112 @@ spec:
                 - Reconfigure
                 - ReconfigureTLS
                 - RotateAuth
+                - StorageMigration
+                - MoveLeader
+                - Defragment
+                - Compact
                 type: string
               updateVersion:
                 properties:
-                  readinessCriteria:
-                    type: object
                   targetVersion:
                     type: string
                 type: object
               verticalScaling:
                 properties:
-                  readinessCriteria:
+                  etcd:
+                    properties:
+                      resources:
+                        properties:
+                          claims:
+                            items:
+                              properties:
+                                name:
+                                  type: string
+                                request:
+                                  type: string
+                              required:
+                              - name
+                              type: object
+                            type: array
+                            x-kubernetes-list-map-keys:
+                            - name
+                            x-kubernetes-list-type: map
+                          limits:
+                            additionalProperties:
+                              anyOf:
+                              - type: integer
+                              - type: string
+                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                              x-kubernetes-int-or-string: true
+                            type: object
+                          requests:
+                            additionalProperties:
+                              anyOf:
+                              - type: integer
+                              - type: string
+                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                              x-kubernetes-int-or-string: true
+                            type: object
+                        type: object
                     type: object
+                  exporter:
+                    properties:
+                      resources:
+                        properties:
+                          claims:
+                            items:
+                              properties:
+                                name:
+                                  type: string
+                                request:
+                                  type: string
+                              required:
+                              - name
+                              type: object
+                            type: array
+                            x-kubernetes-list-map-keys:
+                            - name
+                            x-kubernetes-list-type: map
+                          limits:
+                            additionalProperties:
+                              anyOf:
+                              - type: integer
+                              - type: string
+                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                              x-kubernetes-int-or-string: true
+                            type: object
+                          requests:
+                            additionalProperties:
+                              anyOf:
+                              - type: integer
+                              - type: string
+                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                              x-kubernetes-int-or-string: true
+                            type: object
+                        type: object
+                    type: object
+                  mode:
+                    default: Restart
+                    enum:
+                    - Restart
+                    - InPlace
+                    type: string
                 type: object
               volumeExpansion:
+                properties:
+                  etcd:
+                    anyOf:
+                    - type: integer
+                    - type: string
+                    pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                    x-kubernetes-int-or-string: true
+                  mode:
+                    enum:
+                    - Offline
+                    - Online
+                    type: string
+                required:
+                - mode
                 type: object
             required:
             - databaseRef

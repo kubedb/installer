@@ -119,6 +119,8 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/el
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.1.4 $IMAGE_REGISTRY/appscode-images/elastic:9.1.4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.1.9 $IMAGE_REGISTRY/appscode-images/elastic:9.1.9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.2.3 $IMAGE_REGISTRY/appscode-images/elastic:9.2.3
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/etcd:v3.5.21 $IMAGE_REGISTRY/appscode-images/etcd:v3.5.21
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/etcd:v3.6.4 $IMAGE_REGISTRY/appscode-images/etcd:v3.6.4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ignite:2.17.0 $IMAGE_REGISTRY/appscode-images/ignite:2.17.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ignite:2.18.0 $IMAGE_REGISTRY/appscode-images/ignite:2.18.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kafka-connect-cluster:3.5.2 $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.5.2
@@ -384,6 +386,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:35.0.1 $IMAGE_REGISTRY/kubedb/druid-init:35.0.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:36.0.0 $IMAGE_REGISTRY/kubedb/druid-init:36.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.30.0-rc.0 $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.30.0-rc.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/etcd-restic-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/etcd-restic-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hanadb-coordinator:v0.7.0-rc.0 $IMAGE_REGISTRY/kubedb/hanadb-coordinator:v0.7.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hanadb-exporter:1.0.0 $IMAGE_REGISTRY/kubedb/hanadb-exporter:1.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/hazelcast-init:5.5.2 $IMAGE_REGISTRY/kubedb/hazelcast-init:5.5.2

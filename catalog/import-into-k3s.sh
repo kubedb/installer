@@ -108,6 +108,8 @@ k3s ctr images import images/appscode-images-elastic-9.0.8.tar
 k3s ctr images import images/appscode-images-elastic-9.1.4.tar
 k3s ctr images import images/appscode-images-elastic-9.1.9.tar
 k3s ctr images import images/appscode-images-elastic-9.2.3.tar
+k3s ctr images import images/appscode-images-etcd-v3.5.21.tar
+k3s ctr images import images/appscode-images-etcd-v3.6.4.tar
 k3s ctr images import images/appscode-images-ignite-2.17.0.tar
 k3s ctr images import images/appscode-images-ignite-2.18.0.tar
 k3s ctr images import images/appscode-images-kafka-connect-cluster-3.5.2.tar
@@ -373,6 +375,7 @@ k3s ctr images import images/kubedb-druid-init-31.0.0.tar
 k3s ctr images import images/kubedb-druid-init-35.0.1.tar
 k3s ctr images import images/kubedb-druid-init-36.0.0.tar
 k3s ctr images import images/kubedb-elasticsearch-restic-plugin-v0.30.0-rc.0.tar
+k3s ctr images import images/kubedb-etcd-restic-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-hanadb-coordinator-v0.7.0-rc.0.tar
 k3s ctr images import images/kubedb-hanadb-exporter-1.0.0.tar
 k3s ctr images import images/kubedb-hazelcast-init-5.5.2.tar

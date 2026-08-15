@@ -110,6 +110,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-e
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-9.1.4.tar $IMAGE_REGISTRY/appscode-images/elastic:9.1.4
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-9.1.9.tar $IMAGE_REGISTRY/appscode-images/elastic:9.1.9
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-9.2.3.tar $IMAGE_REGISTRY/appscode-images/elastic:9.2.3
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-etcd-v3.5.21.tar $IMAGE_REGISTRY/appscode-images/etcd:v3.5.21
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-etcd-v3.6.4.tar $IMAGE_REGISTRY/appscode-images/etcd:v3.6.4
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-ignite-2.17.0.tar $IMAGE_REGISTRY/appscode-images/ignite:2.17.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-ignite-2.18.0.tar $IMAGE_REGISTRY/appscode-images/ignite:2.18.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kafka-connect-cluster-3.5.2.tar $IMAGE_REGISTRY/appscode-images/kafka-connect-cluster:3.5.2
@@ -375,6 +377,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-35.0.1.tar $IMAGE_REGISTRY/kubedb/druid-init:35.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-druid-init-36.0.0.tar $IMAGE_REGISTRY/kubedb/druid-init:36.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-elasticsearch-restic-plugin-v0.30.0-rc.0.tar $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.30.0-rc.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-etcd-restic-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/etcd-restic-plugin:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-hanadb-coordinator-v0.7.0-rc.0.tar $IMAGE_REGISTRY/kubedb/hanadb-coordinator:v0.7.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-hanadb-exporter-1.0.0.tar $IMAGE_REGISTRY/kubedb/hanadb-exporter:1.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-hazelcast-init-5.5.2.tar $IMAGE_REGISTRY/kubedb/hazelcast-init:5.5.2
