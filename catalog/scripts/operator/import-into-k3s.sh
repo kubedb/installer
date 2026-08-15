@@ -33,6 +33,7 @@ k3s ctr images import images/kubedb-clickhouse-backup-plugin-v0.3.0.tar
 k3s ctr images import images/kubedb-clickhouse-backup-plugin-v0.4.0-rc.0.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.25.0-rc.0.tar
 k3s ctr images import images/kubedb-elasticsearch-restic-plugin-v0.30.0-rc.0.tar
+k3s ctr images import images/kubedb-etcd-restic-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-kubedb-autoscaler-v0.52.0-rc.0.tar
 k3s ctr images import images/kubedb-kubedb-courier-v0.7.0-rc.0.tar
 k3s ctr images import images/kubedb-kubedb-crd-manager-v0.22.0-rc.0.tar
