@@ -54,18 +54,18 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.4.0-oracle images/appscode-images-mysql-9.4.0-oracle.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.6.0-oracle images/appscode-images-mysql-9.6.0-oracle.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql:9.7.1-oracle images/appscode-images-mysql-9.7.1-oracle.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mysql:v0.6.0 images/kubedb-kubedb-migrator-mysql-v0.6.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.27.0_5.7.44 images/kubedb-mysql-archiver-v0.27.0_5.7.44.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.27.0_8.0.35 images/kubedb-mysql-archiver-v0.27.0_8.0.35.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.27.0_8.1.0 images/kubedb-mysql-archiver-v0.27.0_8.1.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.27.0_8.2.0 images/kubedb-mysql-archiver-v0.27.0_8.2.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.27.0_8.4.3 images/kubedb-mysql-archiver-v0.27.0_8.4.3.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.27.0_9.1.0 images/kubedb-mysql-archiver-v0.27.0_9.1.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-coordinator:v0.44.0 images/kubedb-mysql-coordinator-v0.44.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mysql:v0.7.0-rc.0 images/kubedb-kubedb-migrator-mysql-v0.7.0-rc.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.28.0-rc.0_5.7.44 images/kubedb-mysql-archiver-v0.28.0-rc.0_5.7.44.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.28.0-rc.0_8.0.35 images/kubedb-mysql-archiver-v0.28.0-rc.0_8.0.35.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.28.0-rc.0_8.1.0 images/kubedb-mysql-archiver-v0.28.0-rc.0_8.1.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.28.0-rc.0_8.2.0 images/kubedb-mysql-archiver-v0.28.0-rc.0_8.2.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.28.0-rc.0_8.4.3 images/kubedb-mysql-archiver-v0.28.0-rc.0_8.4.3.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.28.0-rc.0_9.1.0 images/kubedb-mysql-archiver-v0.28.0-rc.0_9.1.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-coordinator:v0.45.0-rc.0 images/kubedb-mysql-coordinator-v0.45.0-rc.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:0.2.0 images/kubedb-mysql-init-0.2.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:5.7-v9 images/kubedb-mysql-init-5.7-v9.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.44.0 images/kubedb-mysql-router-init-v0.44.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.45.0-rc.0 images/kubedb-mysql-router-init-v0.45.0-rc.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.18.0 images/kubedb-mysqld-exporter-v0.18.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/replication-mode-detector:v0.53.0 images/kubedb-replication-mode-detector-v0.53.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/replication-mode-detector:v0.54.0-rc.0 images/kubedb-replication-mode-detector-v0.54.0-rc.0.tar
 
 tar -czvf images.tar.gz images
