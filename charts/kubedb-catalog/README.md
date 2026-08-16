@@ -65,6 +65,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | featureGates.DocumentDB                    |                                                 | <code>true</code>                          |
 | featureGates.Druid                         |                                                 | <code>true</code>                          |
 | featureGates.Elasticsearch                 |                                                 | <code>true</code>                          |
+| featureGates.Etcd                          |                                                 | <code>true</code>                          |
 | featureGates.HanaDB                        |                                                 | <code>true</code>                          |
 | featureGates.Hazelcast                     |                                                 | <code>true</code>                          |
 | featureGates.Ignite                        |                                                 | <code>true</code>                          |

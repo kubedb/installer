@@ -33,6 +33,9 @@ var ignoreMissingList = []string{
 	"ghcr.io/kubedb/kubedb-migrator-mysql:*",
 	"ghcr.io/kubedb/kubedb-migrator-mariadb:*",
 	"ghcr.io/kubedb/kubedb-migrator-mssqlserver:*",
+	// TODO: remove once the Etcd catalog images and the etcd-restic-plugin image are published.
+	"ghcr.io/appscode-images/etcd:*",
+	"ghcr.io/kubedb/etcd-restic-plugin:*",
 }
 
 var archSkipList = []string{
