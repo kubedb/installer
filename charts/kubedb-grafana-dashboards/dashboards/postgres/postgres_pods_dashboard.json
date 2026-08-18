@@ -1,10 +1,11 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "annotations": {
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": "${datasource}",
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -20,10 +21,9 @@
     ]
   },
   "description": "This dashboard works with postgres_exporter for prometheus",
-  "editable": true,
+  "editable": false,
   "gnetId": 9628,
   "graphTooltip": 0,
-  "id": 20,
   "iteration": 1633324643830,
   "links": [],
   "panels": [
@@ -135,27 +135,19 @@
           "custom": {},
           "mappings": [
             {
-              "from": "1",
-              "id": 1,
-              "text": "Primary",
-              "to": "100000000000",
-              "type": 2
-            },
-            {
-              "from": "",
-              "id": 2,
-              "text": "Secondary",
-              "to": "",
-              "type": 1,
-              "value": "Null"
-            },
-            {
-              "from": "",
-              "id": 3,
-              "text": "Secondary",
-              "to": "",
-              "type": 1,
-              "value": "null"
+              "options": {
+                "0": {
+                  "color": "light-blue",
+                  "index": 0,
+                  "text": "Primary"
+                },
+                "1": {
+                  "color": "super-light-blue",
+                  "index": 1,
+                  "text": "Standby"
+                }
+              },
+              "type": "value"
             }
           ],
           "thresholds": {
@@ -167,7 +159,7 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "none"
         },
         "overrides": []
       },
@@ -197,7 +189,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "count(pg_stat_replication_reply_time{namespace = \"$namespace\", pod=\"$pod\"})",
+          "expr": "pg_replication_is_replica{namespace = \"$namespace\", pod=\"$pod\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -1577,7 +1569,9 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
-      },
+      }
+      {{- if not $alerts }}
+      ,
       {
         "allValue": "\".+\"",
         "current": {
@@ -1586,6 +1580,7 @@
           "value": "demo"
         },
         "datasource": "${datasource}",
+        "definition": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -1596,17 +1591,17 @@
         "options": [],
         {{- if $shared }}
         "query": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
-        "type": "query",
-        {{- else }}
-        "query": {{ $.Values.app.namespace | quote }},
-        "type": "constant",
-        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
         "tags": [],
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.namespace | quote }},
+        "type": "constant",
+        {{- end }}
         "tagsQuery": "",
         "useTags": false
       },
@@ -1618,6 +1613,7 @@
           "value": "ps-demo"
         },
         "datasource": "${datasource}",
+        "definition": "query_result(kubedb_com_postgres_created{namespace=\"$namespace\"})",
         "description": null,
         "error": null,
         "hide": 0,
@@ -1628,17 +1624,17 @@
         "options": [],
         {{- if $shared }}
         "query": "query_result(kubedb_com_postgres_created{namespace=\"$namespace\"})",
-        "type": "query",
-        {{- else }}
-        "query": {{ $.Values.app.name | quote }},
-        "type": "constant",
-        {{- end }}
         "refresh": 1,
         "regex": "/.*app=\"([^\"]+).*/",
         "skipUrlSync": false,
         "sort": 1,
         "tagValuesQuery": "",
         "tags": [],
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
         "tagsQuery": "",
         "useTags": false
       },
@@ -1670,6 +1666,7 @@
         "type": "query",
         "useTags": false
       }
+      {{- end }}
     ]
   },
   "time": {
@@ -1707,7 +1704,7 @@
   {{- else }}
   "title": {{ printf "KubeDB / Postgres / Pod / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
   {{- end }}
-  "uid": "IgXOThN7ztest",
+  "uid": "kubedb-postgres-pod",
   "version": 2
 }
 

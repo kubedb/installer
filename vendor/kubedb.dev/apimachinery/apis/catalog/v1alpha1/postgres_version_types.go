@@ -17,7 +17,7 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"kubedb.dev/apimachinery/apis/migrator/v1alpha1"
+	"kubedb.dev/apimachinery/apis/courier/v1alpha1"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	appcat "kmodules.xyz/custom-resources/apis/appcatalog/v1alpha1"
@@ -93,9 +93,25 @@ type PostgresVersionSpec struct {
 	Archiver ArchiverSpec `json:"archiver,omitempty"`
 	// +optional
 	UI []ChartInfo `json:"ui,omitempty"`
-	// Migrator defines the migration related CLI/Tools images for this Postgres version
+	// Courier defines the courier related CLI/Tools images for this Postgres version
 	// +optional
-	Migrator v1alpha1.DBMigratorImages `json:"migrator,omitempty"`
+	Courier v1alpha1.DBCourierImages `json:"courier,omitempty"`
+	// TDE describes Transparent Data Encryption (pg_tde) support for this version.
+	// +optional
+	TDE *PostgresVersionTDE `json:"tde,omitempty"`
+}
+
+// PostgresVersionTDE describes Transparent Data Encryption support for a
+// PostgresVersion. It is only non-nil for Percona Server for PostgreSQL builds
+// that bundle the pg_tde extension and the tde_heap access method.
+type PostgresVersionTDE struct {
+	// Supported is true when this image bundles pg_tde and a Percona Server for
+	// PostgreSQL build capable of the tde_heap access method.
+	Supported bool `json:"supported"`
+	// ExtensionName is the extension to preload and CREATE. Defaults to "pg_tde".
+	// +optional
+	// +kubebuilder:default="pg_tde"
+	ExtensionName string `json:"extensionName,omitempty"`
 }
 
 // PostgresVersionInitContainer is the Postgres init container image

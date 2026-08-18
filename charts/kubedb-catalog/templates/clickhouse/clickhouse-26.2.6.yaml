@@ -17,6 +17,22 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  archiver:
+    addon:
+      name: clickhouse-addon
+      tasks:
+        fullBackup:
+          name: logical-backup
+        fullBackupRestore:
+          name: logical-backup-restore
+        incBackupRestore:
+          name: incremental-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+    walg:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/clickhouse-backup-plugin") $) }}:v0.3.0'
   clickHouseKeeper:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "clickhouse/clickhouse-keeper") $) }}:26.2.6'
   db:

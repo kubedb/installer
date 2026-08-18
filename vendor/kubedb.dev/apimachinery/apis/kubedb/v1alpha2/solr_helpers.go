@@ -63,11 +63,6 @@ func (s *Solr) PetSetName(suffix string) string {
 	return strings.Join(sts, "-")
 }
 
-// Owner returns owner reference to resources
-func (s *Solr) Owner() *meta.OwnerReference {
-	return meta.NewControllerRef(s, SchemeGroupVersion.WithKind(s.ResourceKind()))
-}
-
 func (s *Solr) ResourceKind() string {
 	return ResourceKindSolr
 }
@@ -118,6 +113,24 @@ func (s *Solr) SolrInlineConfigSecretKey(key string) string {
 	return fmt.Sprintf("%s-%s", kubedb.InlineConfigKeyPrefix, key)
 }
 
+func (s *Solr) S3BackupCredential() *v1.LocalObjectReference {
+	if s.Spec.Configuration == nil || s.Spec.Configuration.BackupSpec == nil {
+		return nil
+	}
+	return s.Spec.Configuration.BackupSpec.S3Secret
+}
+
+func (s *Solr) GCSBackupCredential() *v1.LocalObjectReference {
+	if s.Spec.Configuration == nil || s.Spec.Configuration.BackupSpec == nil {
+		return nil
+	}
+	return s.Spec.Configuration.BackupSpec.GCSSecret
+}
+
+func GCSCredentialPath() string {
+	return filepath.Join(kubedb.SolrBackupCredentialsDir, kubedb.SolrGCSCredentialFileName)
+}
+
 func (s *Solr) Merge(opt map[string]string) map[string]string {
 	if len(s.Spec.SolrOpts) == 0 {
 		return opt
@@ -133,7 +146,7 @@ func (s *Solr) Merge(opt map[string]string) map[string]string {
 }
 
 func (s *Solr) Append(opt map[string]string) string {
-	key := make([]string, 0)
+	key := make([]string, 0, len(opt))
 	for x := range opt {
 		key = append(key, x)
 	}
@@ -490,6 +503,8 @@ func (s *Solr) setDefaultContainerResourceLimits(podTemplate *ofst.PodTemplateSp
 	if initContainer != nil && (initContainer.Resources.Requests == nil && initContainer.Resources.Limits == nil) {
 		apis.SetDefaultResourceLimits(&initContainer.Resources, kubedb.DefaultInitContainerResource)
 	}
+
+	apis.SetDefaultResizePolicy(podTemplate.Spec.Containers, podTemplate.Spec.InitContainers)
 }
 
 func (s *Solr) SetHealthCheckerDefaults() {
@@ -592,4 +607,12 @@ func (d *SolrBind) SecretName() string {
 
 func (d *SolrBind) CertSecretName() string {
 	return d.GetCertSecretName(SolrClientCert)
+}
+
+func (s *Solr) GetDeletionPolicy() string {
+	return string(s.Spec.DeletionPolicy)
+}
+
+func (s *Solr) AsOwner() *meta.OwnerReference {
+	return meta.NewControllerRef(s, SchemeGroupVersion.WithKind(s.ResourceKind()))
 }

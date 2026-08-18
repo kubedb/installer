@@ -78,11 +78,6 @@ func (k *Kafka) ResourceFQN() string {
 	return fmt.Sprintf("%s.%s", k.ResourcePlural(), kubedb.GroupName)
 }
 
-// Owner returns owner reference to resources
-func (k *Kafka) Owner() *meta.OwnerReference {
-	return meta.NewControllerRef(k, SchemeGroupVersion.WithKind(k.ResourceKind()))
-}
-
 func (k *Kafka) OffshootName() string {
 	return k.Name
 }
@@ -474,6 +469,8 @@ func (k *Kafka) setDefaultContainerSecurityContext(kfVersion *catalog.KafkaVersi
 		k.assignDefaultContainerSecurityContext(kfVersion, initContainer.SecurityContext)
 		podTemplate.Spec.InitContainers = coreutil.UpsertContainer(podTemplate.Spec.InitContainers, *initContainer)
 	}
+
+	apis.SetDefaultResizePolicy(podTemplate.Spec.Containers, podTemplate.Spec.InitContainers)
 }
 
 func (k *Kafka) assignDefaultContainerSecurityContext(kfVersion *catalog.KafkaVersion, sc *core.SecurityContext) {
@@ -610,4 +607,8 @@ func (k *Kafka) GetKafkaBrokerCounts() int {
 		return int(*k.Spec.Topology.Broker.Replicas)
 	}
 	return int(*k.Spec.Replicas)
+}
+
+func (k *Kafka) GetDeletionPolicy() string {
+	return string(k.Spec.DeletionPolicy)
 }

@@ -24,7 +24,6 @@
   "editable": true,
   "gnetId": 9628,
   "graphTooltip": 0,
-  "id": 28,
   "iteration": 1723728705422,
   "links": [],
   "panels": [
@@ -206,7 +205,7 @@
           "instant": true,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": {{ `"{{version}}"` }},
+          "legendFormat": {{ `"{{ version }}"` }},
           "refId": "A"
         }
       ],
@@ -1076,7 +1075,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}) by (pod)",
+          "expr": "sum(kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\", resource=\"cpu\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1087,7 +1086,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(sum by(namespace,pod,container)(irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}[5m]))* on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}))) by (pod) / sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}) by (pod)",
+          "expr": "sum(sum by(namespace,pod,container)(irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}[5m]))* on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}))) by (pod) / sum(kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\", resource=\"cpu\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1098,7 +1097,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}) by (pod)",
+          "expr": "sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\", resource=\"cpu\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1109,7 +1108,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(sum by(namespace,pod,container)(irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}[5m]))* on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}))) by (pod) / sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-aggregator\\\\d+$|$app-leaf\\\\d+$|$app-\\\\d+$\"}) by (pod)",
+          "expr": "sum(sum by(namespace,pod,container)(irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}[5m]))* on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}))) by (pod) / sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-aggregator\\\\d+$|$app-leaf\\\\d+$|$app-\\\\d+$\", resource=\"cpu\"}) by (pod)",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1551,7 +1550,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}) by (pod)",
+          "expr": "sum(kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\", resource=\"memory\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1562,7 +1561,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-\\\\d+$\"}) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-\\\\d+$\", resource=\"memory\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1573,7 +1572,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{namespace=\"$namespace\",pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}) by (pod)",
+          "expr": "sum(kube_pod_container_resource_limits{namespace=\"$namespace\",pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\", resource=\"memory\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1584,7 +1583,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+\"}) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+\", resource=\"memory\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1704,7 +1703,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubelet_volume_stats_used_bytes{namespace=\"$namespace\", persistentvolumeclaim=~\"data-$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+\"}",
+          "expr": "avg(container_blkio_device_usage_total{namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+\"}) by (pod)",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
@@ -2520,7 +2519,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "(kubelet_volume_stats_used_bytes / on(persistentvolumeclaim) group_left(pod) (kubelet_volume_stats_capacity_bytes + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"^$app.*\",namespace=~\"$namespace\"}) )* 100",
+          "expr": "(kubelet_volume_stats_used_bytes{job=\"kubelet\"} / kubelet_volume_stats_capacity_bytes{job=\"kubelet\"}) * on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"^$app.*\",namespace=~\"$namespace\"} * 100",
           "instant": true,
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
@@ -2846,7 +2845,7 @@
           "text": "Prometheus",
           "value": "Prometheus"
         },
-        "description": "MSSQLServer Overview",
+        "description": null,
         "error": null,
         "hide": 0,
         "includeAll": false,
@@ -2862,7 +2861,7 @@
         "type": "datasource"
       }
       {{- if not $alerts }}
-     ,
+      ,
       {
         "allValue": "\".+\"",
         "current": {
@@ -2872,7 +2871,7 @@
         },
         "datasource": "${datasource}",
         "definition": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
-        "description": "MSSQLServer Overview",
+        "description": null,
         "error": null,
         "hide": 0,
         "includeAll": false,
@@ -2897,7 +2896,6 @@
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
-        "type": "query",
         "useTags": false
       },
       {
@@ -2909,7 +2907,7 @@
         },
         "datasource": "${datasource}",
         "definition": "label_values(kubedb_com_mssqlserver_status_phase{namespace=~\"$namespace\"},app)",
-        "description": "MSSQLServer Overview",
+        "description": null,
         "error": null,
         "hide": 0,
         "includeAll": false,
@@ -2924,7 +2922,7 @@
         },
         "type": "query",
         {{- else }}
-        "query": {{ $.Values.app.namespace | quote }},
+        "query": {{ $.Values.app.name | quote }},
         "type": "constant",
         {{- end }}
         "refresh": 1,
@@ -2974,6 +2972,6 @@
   {{- else }}
   "title": {{ printf "KubeDB / MSSQLServer / Summary / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
   {{- end }}
-  "uid": "qDMhbh0Iz",
+  "uid": "kubedb-mssqlserver-summary",
   "version": 9
 }

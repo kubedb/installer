@@ -120,6 +120,14 @@ func (r Redis) GetAuthSecretName() string {
 	return meta_util.NameWithSuffix(r.OffshootName(), "auth")
 }
 
+// ACLSecretName returns the name of the ACL secret maintained by the operator.
+// It is seeded from spec.configuration.acl.secretRef (if provided) and updated
+// on each reconfigure ops request.
+func (r Redis) ACLSecretName() string {
+	uid := string(r.UID)
+	return meta_util.NameWithSuffix(meta_util.NameWithSuffix(r.OffshootName(), "acl"), uid[len(uid)-6:])
+}
+
 func (r Redis) ServiceName() string {
 	return r.OffshootName()
 }
@@ -445,6 +453,8 @@ func (r *Redis) setDefaultContainerResourceLimits(podTemplate *ofstv2.PodTemplat
 			apis.SetDefaultResourceLimits(&coordinatorContainer.Resources, kubedb.CoordinatorDefaultResources)
 		}
 	}
+
+	apis.SetDefaultResizePolicy(podTemplate.Spec.Containers, podTemplate.Spec.InitContainers)
 }
 
 func (r Redis) ShardNodeTemplate() string {
@@ -478,4 +488,12 @@ func (r *Redis) ReplicasAreReady(lister pslister.PetSetLister) (bool, string, er
 		expectedItems = int(pointer.Int32(r.Spec.Cluster.Shards))
 	}
 	return checkReplicas(lister.PetSets(r.Namespace), labels.SelectorFromSet(r.OffshootLabels()), expectedItems)
+}
+
+func (r *Redis) GetDeletionPolicy() string {
+	return string(r.Spec.DeletionPolicy)
+}
+
+func (r *Redis) GetPersistentSecrets() []string {
+	return r.Spec.GetPersistentSecrets()
 }

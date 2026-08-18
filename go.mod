@@ -15,11 +15,11 @@ require (
 	k8s.io/apimachinery v0.34.3
 	kmodules.xyz/client-go v0.34.3
 	kmodules.xyz/go-containerregistry v0.0.15
-	kmodules.xyz/image-packer v0.0.0-20260603060232-aba754904b6a
-	kmodules.xyz/resource-metadata v0.46.1
+	kmodules.xyz/image-packer v0.0.0-20260708055132-ed3c452e3c7f
+	kmodules.xyz/resource-metadata v0.47.0
 	kmodules.xyz/schema-checker v0.4.2
-	kubedb.dev/apimachinery v0.65.0
-	kubeops.dev/installer v0.0.0-20260604074414-f8eed8b7cc8b
+	kubedb.dev/apimachinery v0.67.0-rc.0
+	kubeops.dev/installer v0.0.0-20260709042603-f9ac9c90c456
 	sigs.k8s.io/yaml v1.6.0
 	stash.appscode.dev/installer v0.12.2-0.20260224175756-ac464b38bf6c
 )
@@ -99,12 +99,12 @@ require (
 	github.com/x448/float16 v0.8.4 // indirect
 	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
 	github.com/zeebo/xxh3 v1.0.2 // indirect
-	go.virtual-secrets.dev/apimachinery v0.0.1 // indirect
+	go.virtual-secrets.dev/apimachinery v0.2.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.3 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/crypto v0.52.0 // indirect
 	golang.org/x/net v0.55.0 // indirect
-	golang.org/x/oauth2 v0.34.0 // indirect
+	golang.org/x/oauth2 v0.36.0 // indirect
 	golang.org/x/sync v0.20.0 // indirect
 	golang.org/x/sys v0.45.0 // indirect
 	golang.org/x/term v0.43.0 // indirect
@@ -130,10 +130,10 @@ require (
 	kmodules.xyz/monitoring-agent-api v0.34.1 // indirect
 	kmodules.xyz/offshoot-api v0.34.0 // indirect
 	kubeops.dev/operator-shard-manager v0.0.6-0.20260418091213-65daf7da824d // indirect
-	kubeops.dev/petset v0.0.17-0.20260418091244-7f666912d240 // indirect
+	kubeops.dev/petset v0.1.1-0.20260709161836-19b3570c41ab // indirect
 	kubeops.dev/scanner v0.0.19 // indirect
-	kubeops.dev/sidekick v0.0.15-0.20260418091208-a1cb9f4a3553 // indirect
-	kubestash.dev/apimachinery v0.28.0 // indirect
+	kubeops.dev/sidekick v0.0.16-0.20260711064558-9f0ad344e447 // indirect
+	kubestash.dev/apimachinery v0.29.0 // indirect
 	open-cluster-management.io/api v1.2.0 // indirect
 	sigs.k8s.io/controller-runtime v0.22.4 // indirect
 	sigs.k8s.io/gateway-api v1.4.0 // indirect

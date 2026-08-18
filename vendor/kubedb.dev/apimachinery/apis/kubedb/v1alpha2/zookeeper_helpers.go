@@ -49,11 +49,6 @@ func (z *ZooKeeper) CustomResourceDefinition() *apiextensions.CustomResourceDefi
 	return crds.MustCustomResourceDefinition(SchemeGroupVersion.WithResource(ResourcePluralZooKeeper))
 }
 
-// Owner returns owner reference to resources
-func (z *ZooKeeper) Owner() *meta.OwnerReference {
-	return meta.NewControllerRef(z, SchemeGroupVersion.WithKind(z.ResourceKind()))
-}
-
 func (z *ZooKeeper) OffshootName() string {
 	return z.Name
 }
@@ -235,6 +230,8 @@ func (z *ZooKeeper) SetDefaults(kc client.Client) {
 	if initContainer != nil && (initContainer.Resources.Requests == nil && initContainer.Resources.Limits == nil) {
 		apis.SetDefaultResourceLimits(&initContainer.Resources, kubedb.DefaultInitContainerResource)
 	}
+
+	apis.SetDefaultResizePolicy(z.Spec.PodTemplate.Spec.Containers, z.Spec.PodTemplate.Spec.InitContainers)
 
 	if z.Spec.EnableSSL {
 		z.SetTLSDefaults()
@@ -422,4 +419,12 @@ func (z *ZooKeeper) GetCertSecretName(alias ZooKeeperCertificateAlias) string {
 // Values will be like: client-certs, server-certs etc.
 func (k *ZooKeeper) CertSecretVolumeName(alias ZooKeeperCertificateAlias) string {
 	return string(alias) + "-certs"
+}
+
+func (z *ZooKeeper) GetDeletionPolicy() string {
+	return string(z.Spec.DeletionPolicy)
+}
+
+func (z *ZooKeeper) AsOwner() *meta.OwnerReference {
+	return meta.NewControllerRef(z, SchemeGroupVersion.WithKind(z.ResourceKind()))
 }

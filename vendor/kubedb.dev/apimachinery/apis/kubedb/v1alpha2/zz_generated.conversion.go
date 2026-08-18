@@ -3831,6 +3831,7 @@ func autoConvert_v1_PostgresSpec_To_v1alpha2_PostgresSpec(in *v1.PostgresSpec, o
 	out.Replicas = (*int32)(unsafe.Pointer(in.Replicas))
 	out.StandbyMode = (*PostgresStandbyMode)(unsafe.Pointer(in.StandbyMode))
 	out.StreamingMode = (*PostgresStreamingMode)(unsafe.Pointer(in.StreamingMode))
+	// WARNING: in.SynchronousReplicationConfig requires manual conversion: does not exist in peer-type
 	out.Mode = (*PostgreSQLMode)(unsafe.Pointer(in.Mode))
 	out.RemoteReplica = (*RemoteReplicaSpec)(unsafe.Pointer(in.RemoteReplica))
 	out.LeaderElection = (*PostgreLeaderElectionConfig)(unsafe.Pointer(in.LeaderElection))
@@ -3857,6 +3858,7 @@ func autoConvert_v1_PostgresSpec_To_v1alpha2_PostgresSpec(in *v1.PostgresSpec, o
 	out.Arbiter = (*ArbiterSpec)(unsafe.Pointer(in.Arbiter))
 	out.Replication = (*PostgresReplication)(unsafe.Pointer(in.Replication))
 	// WARNING: in.ReadReplicas requires manual conversion: does not exist in peer-type
+	// WARNING: in.TDE requires manual conversion: does not exist in peer-type
 	return nil
 }
 

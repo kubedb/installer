@@ -904,6 +904,8 @@ const (
 
 	MilvusGrpcPortName    = "grpc"
 	MilvusMetricsPortName = "metrics"
+	MilvusHttpPortName    = "http"
+	MilvusUIPortName      = "ui"
 	MilvusGrpcPort        = int32(19530)
 
 	MilvusVolumeNameData = "data"
@@ -924,11 +926,17 @@ const (
 	MinioAddressName   = "MINIO_ADDRESS"
 	MinioAddressKey    = "address"
 	MinioAccessKeyName = "MINIO_ACCESS_KEY"
-	MinioAccessKey     = "accesskey"
+	MinioAccessKey     = "accessKeyID"
 	MinioSecretKeyName = "MINIO_SECRET_KEY"
-	MinioSecretKey     = "secretkey"
+	MinioSecretKey     = "secretAccessKey"
+	MinioPortName      = "MINIO_PORT"
+	MinioPortKey       = "port"
+	MinioBucketName    = "MINIO_BUCKET_NAME"
+	MinioBucketKey     = "bucketName"
 
 	MilvusMetricsPort       = 9091
+	MilvusUIPort            = 9091
+	MilvusHttpPort          = 8080
 	MilvusPortDataNode      = 21124
 	MilvusPortQueryNode     = 21123
 	MilvusPortStreamingNode = 22222
@@ -1121,11 +1129,12 @@ const (
 	SolrZkDigest          = "zk-digest"
 	SolrZkReadonlyDigest  = "zk-digest-readonly"
 
-	SolrVolumeDefaultConfig = "default-config"
-	SolrVolumeCustomConfig  = "custom-config"
-	SolrVolumeAuthConfig    = "auth-config"
-	SolrVolumeData          = "data"
-	SolrVolumeConfig        = "slconfig"
+	SolrVolumeDefaultConfig     = "default-config"
+	SolrVolumeCustomConfig      = "custom-config"
+	SolrVolumeAuthConfig        = "auth-config"
+	SolrVolumeData              = "data"
+	SolrVolumeConfig            = "slconfig"
+	SolrVolumeBackupCredentials = "backup-credentials"
 
 	DistLibs              = "/opt/solr/dist"
 	ContribLibs           = "/opt/solr/contrib/%s/lib"
@@ -1137,6 +1146,10 @@ const (
 	SolrSecurityConfigDir = "/var/security"
 	SolrZkReadyCondition  = "SolrZkReady"
 	SolrZkReady           = "ZookeeperReady"
+
+	// Must stay under SolrHomeDir; the Java SecurityManager policy denies reads elsewhere.
+	SolrBackupCredentialsDir  = "/var/solr/backup-credentials"
+	SolrGCSCredentialFileName = "cred.json"
 
 	SolrCloudHostKey                       = "host"
 	SolrCloudHostValue                     = ""
@@ -1578,18 +1591,20 @@ const (
 )
 
 const (
-	WeaviateHTTPPortName   = "http"
-	WeaviateHTTPPort       = 8080
-	WeaviateHTTPSPortName  = "https"
-	WeaviateHTTPSPort      = 8443
-	WeaviateGRPCPortName   = "grpc"
-	WeaviateGRPCPort       = 50051
-	WeaviateRAFTPortName   = "raft"
-	WeaviateRAFTPort       = 8300
-	WeaviateGOSSIPPortName = "gossip"
-	WeaviateGOSSIPPort     = 7102
-	WeaviateDATAPortName   = "data"
-	WeaviateDATAPort       = 7103
+	WeaviateHTTPPortName    = "http"
+	WeaviateHTTPPort        = 8080
+	WeaviateHTTPSPortName   = "https"
+	WeaviateHTTPSPort       = 8443
+	WeaviateMetricsPortName = "metrics"
+	WeaviateMetricsPort     = 2112
+	WeaviateGRPCPortName    = "grpc"
+	WeaviateGRPCPort        = 50051
+	WeaviateRAFTPortName    = "raft"
+	WeaviateRAFTPort        = 8300
+	WeaviateGOSSIPPortName  = "gossip"
+	WeaviateGOSSIPPort      = 7102
+	WeaviateDATAPortName    = "data"
+	WeaviateDATAPort        = 7103
 
 	WeaviateClassNameKubeDBSystem = "KubeDBSystem"
 
@@ -1875,6 +1890,16 @@ const (
 	ClickHouseInternalServerListFile     = "server_list.yaml"
 	ClickHouseKeeperServerIdNo           = "serverid"
 	ClickHouseKeeperServerID             = "KEEPERID"
+
+	// The raft membership lives in its own overlay file inside the keeper_config.d
+	// directory (ClickHouse merges <config>.d/*.xml into the main config). The
+	// overlay is mounted straight from the config Secret into the running keeper
+	// container, so a membership change written by the ops-manager is picked up by
+	// ClickHouse's config reloader and applied via add_srv/remove_srv without
+	// restarting any keeper pod.
+	ClickHouseKeeperRaftConfigFileName   = "raft_configuration.xml"
+	ClickHouseKeeperRaftConfigVolumeName = "keeper-raft-config"
+	ClickHouseKeeperRaftConfigDir        = "/etc/clickhouse-keeper/keeper_config.d"
 )
 
 // =========================== Neo4j Constants ============================
@@ -2397,17 +2422,19 @@ const (
 	HanaDBVolumeMountScripts = "/scripts"
 
 	// Container names
-	HanaDBContainerName            = "hanadb"
-	HanaDBCoordinatorContainerName = "hanadb-coordinator"
+	HanaDBContainerName                     = "hanadb"
+	HanaDBCoordinatorContainerName          = "hanadb-coordinator"
+	HanaDBVolumePermissionInitContainerName = "hanadb-volume-permissions"
 
 	// Mount paths
-	HanaDBDataDir         = "/hana/mounts"
-	HanaDBSecretMountPath = "/etc/hana-secrets"
-	HanaDBTLSInputPath    = "/etc/hanadb-tls/server"
-	HanaDBExporterTLSPath = "/etc/hanadb_exporter/certs"
-	HanaDBConfigFileName  = "global.ini"
-	HanaDBConfigDir       = "/hana/mounts/system/config"
-	HanaDBConfigMountPath = "/etc/hanadb-config"
+	HanaDBDataDir                   = "/hana/mounts"
+	HanaDBVolumePermissionMountPath = "/tmp/volume-mount-permission"
+	HanaDBSecretMountPath           = "/etc/hana-secrets"
+	HanaDBTLSInputPath              = "/etc/hanadb-tls/server"
+	HanaDBExporterTLSPath           = "/etc/hanadb_exporter/certs"
+	HanaDBConfigFileName            = "global.ini"
+	HanaDBConfigDir                 = "/hana/mounts/system/config"
+	HanaDBConfigMountPath           = "/etc/hanadb-config"
 
 	// Volume names
 	HanaDBDataVolume           = "data"
@@ -2479,6 +2506,15 @@ const (
 	KubeSlicePodIPVolumeName                   = "podip"
 	KubeSlicePodIPFileName                     = "podip"
 	KubeSliceNSMContainerName                  = "cmd-nsc-grpc"
+
+	// BranchedFromAnnotation gates the KubeDB provisioner's "branched" mode: a Database carrying it is
+	// adopted onto cloned PVCs (created by the Courier Branch operator) instead of being provisioned
+	// empty. Its value records the branch provenance, e.g. {"cluster": "prod-east", "source": "demo/prod-pg"}.
+	BranchedFromAnnotation = "kubedb.com/branched-from"
+
+	// SkipBackupPauseAnnotation, when set to "true" on an OpsRequest, prevents the
+	// ops-manager from pausing the BackupConfiguration before executing the operation.
+	SkipBackupPauseAnnotation = "kubedb.com/skip-backup-pause"
 
 	// Archiver
 	OwnerDatabasesAnnotation                  = "kubedb.com/owner-databases"

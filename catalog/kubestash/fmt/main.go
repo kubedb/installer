@@ -98,6 +98,7 @@ var appToKind = map[string]string{
 	"pgpool":             "Pgpool",
 	"postgres":           "Postgres",
 	"proxysql":           "ProxySQL",
+	"qdrant":             "Qdrant",
 	"rabbitmq":           "RabbitMQ",
 	"redis":              "Redis",
 	"singlestore":        "Singlestore",

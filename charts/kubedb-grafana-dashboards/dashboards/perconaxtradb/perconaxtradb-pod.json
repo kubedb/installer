@@ -1,10 +1,11 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "annotations": {
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": "${datasource}",
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -16,7 +17,6 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 29,
   "iteration": 1637732366226,
   "links": [],
   "panels": [
@@ -83,7 +83,7 @@
           "exemplar": true,
           "expr": "mysql_up{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
           "interval": "",
-          "legendFormat": {{ `"{{pod}}"` }},
+          "legendFormat": {{ `"{{pod}} "` }},
           "refId": "A"
         }
       ],
@@ -422,7 +422,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", pod=\"$pod\", container!=\"\", image!=\"\"}[5m])) by (pod)",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", pod=~\"$pod\", container!=\"\", image!=\"\"}[5m])) by (pod)",
           "interval": "",
           "legendFormat": {{ `"{{container}}"` }},
           "refId": "A"
@@ -519,7 +519,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\", pod=\"$pod\", container!=\"\", image!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\", pod=~\"$pod\", container!=\"\", image!=\"\"}) by (pod)",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
@@ -617,7 +617,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(process_open_fds{pod=\"$pod\", namespace=\"$namespace\"}) by (pod)",
+          "expr": "sum(process_open_fds{pod=~\"$pod\", namespace=\"$namespace\"}) by (pod)",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
@@ -1069,7 +1069,7 @@
           "expr": "mysql_global_status_threads_cached{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
           "hide": false,
           "interval": "",
-          "legendFormat": {{ `"Threads Cached - {{pod}}"` }},
+          "legendFormat": {{ `"Threads Cached - {{pod}} "` }},
           "refId": "B"
         },
         {
@@ -2151,7 +2151,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "mysql_global_variables_innodb_buffer_pool_size{namespace=\"$namespace\",service=\"$app\",pod=\"$pod\"}",
+          "expr": "mysql_global_variables_innodb_buffer_pool_size{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
           "hide": false,
           "interval": "",
           "legendFormat": {{ `"InnoDB Buffer Pool Size - {{pod}}"` }},
@@ -2159,7 +2159,7 @@
         },
         {
           "exemplar": true,
-          "expr": "mysql_global_variables_innodb_log_buffer_size{namespace=\"$namespace\",service=\"$app\",pod=\"$pod\"}",
+          "expr": "mysql_global_variables_innodb_log_buffer_size{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
           "hide": false,
           "interval": "",
           "legendFormat": {{ `"InnoDB Log Buffer Size - {{pod}}"` }},
@@ -2167,7 +2167,7 @@
         },
         {
           "exemplar": true,
-          "expr": "mysql_global_status_innodb_mem_dictionary{namespace=\"$namespace\",service=\"$app\",pod=\"$pod\"}",
+          "expr": "mysql_global_status_innodb_mem_dictionary{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
           "hide": false,
           "interval": "",
           "legendFormat": {{ `"InnoDB Dictionary Size - {{pod}}"` }},
@@ -2175,7 +2175,7 @@
         },
         {
           "exemplar": false,
-          "expr": "mysql_global_variables_key_buffer_size{namespace=\"$namespace\",service=\"$app\",pod=\"$pod\"}",
+          "expr": "mysql_global_variables_key_buffer_size{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
           "hide": false,
           "interval": "",
           "legendFormat": {{ `"Key Buffer Size - {{pod}}"` }},
@@ -2183,7 +2183,7 @@
         },
         {
           "exemplar": true,
-          "expr": "mysql_global_variables_query_cache_size{namespace=\"$namespace\",service=\"$app\",pod=\"$pod\"}",
+          "expr": "mysql_global_variables_query_cache_size{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
           "hide": false,
           "interval": "",
           "legendFormat": {{ `"Query Cache Size - {{pod}}"` }},
@@ -2191,7 +2191,7 @@
         },
         {
           "exemplar": true,
-          "expr": "mysql_global_status_innodb_mem_adaptive_hash{namespace=\"$namespace\",service=\"$app\",pod=\"$pod\"}",
+          "expr": "mysql_global_status_innodb_mem_adaptive_hash{namespace=~\"$namespace\",service=~\"$app\",pod=~\"$pod\"}",
           "hide": false,
           "interval": "",
           "legendFormat": {{ `"Adaptive Hash Index Size - {{pod}}"` }},
@@ -3435,7 +3435,9 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
-      },
+      }
+      {{- if not $alerts }}
+      ,
       {
         "allValue": null,
         "current": {
@@ -3444,6 +3446,7 @@
           "value": "demo"
         },
         "datasource": "${datasource}",
+        "definition": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -3454,17 +3457,17 @@
         "options": [],
         {{- if $shared }}
         "query": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
-        "type": "query",
-        {{- else }}
-        "query": {{ $.Values.app.namespace | quote }},
-        "type": "constant",
-        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
         "tags": [],
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.namespace | quote }},
+        "type": "constant",
+        {{- end }}
         "tagsQuery": "",
         "useTags": false
       },
@@ -3476,6 +3479,7 @@
           "value": "sample-perconaxtradb-stats"
         },
         "datasource": "${datasource}",
+        "definition": "label_values(mysql_up{namespace=~\"$namespace\"}, service)",
         "description": "",
         "error": null,
         "hide": 0,
@@ -3486,17 +3490,17 @@
         "options": [],
         {{- if $shared }}
         "query": "label_values(mysql_up{namespace=~\"$namespace\"}, service)",
-        "type": "query",
-        {{- else }}
-        "query": {{ $.Values.app.name | quote }},
-        "type": "constant",
-        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
         "tags": [],
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
         "tagsQuery": "",
         "useTags": false
       },
@@ -3533,6 +3537,7 @@
         "type": "query",
         "useTags": false
       }
+      {{- end }}
     ]
   },
   "time": {
@@ -3546,6 +3551,6 @@
   {{- else }}
   "title": {{ printf "KubeDB / PerconaXtraDB / Pod / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
   {{- end }}
-  "uid": "FktZiiOnz",
+  "uid": "kubedb-perconaxtradb-pod",
   "version": 3
 }

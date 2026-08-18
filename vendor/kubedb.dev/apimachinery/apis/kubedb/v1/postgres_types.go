@@ -79,6 +79,11 @@ type PostgresSpec struct {
 	// Streaming mode
 	StreamingMode *PostgresStreamingMode `json:"streamingMode,omitempty"`
 
+	// SynchronousReplicationConfig holds fine-grained config for synchronous replication.
+	// Only applicable when StreamingMode is Synchronous.
+	// +optional
+	SynchronousReplicationConfig *PostgresSynchronousReplicationSpec `json:"synchronousReplicationConfig,omitempty"`
+
 	// + optional
 	Mode *PostgreSQLMode `json:"mode,omitempty"`
 	// RemoteReplica implies that the instance will be a MySQL Read Only Replica,
@@ -173,6 +178,99 @@ type PostgresSpec struct {
 
 	// +optional
 	ReadReplicas []ReadReplicaSpec `json:"readReplicas,omitempty"`
+
+	// TDE configures Transparent Data Encryption (encryption at rest) using the
+	// Percona pg_tde extension. It is only valid when the referenced
+	// PostgresVersion has spec.tde.supported = true (a Percona distribution).
+	// +optional
+	TDE *PostgresTDESpec `json:"tde,omitempty"`
+}
+
+// PostgresTDESpec configures Transparent Data Encryption (encryption at rest)
+// for a Postgres instance using the Percona pg_tde extension.
+type PostgresTDESpec struct {
+	// KeyProvider selects and configures the KMS that backs the principal key.
+	KeyProvider TDEKeyProvider `json:"keyProvider"`
+
+	// EncryptWAL turns on cluster-wide WAL encryption (pg_tde.wal_encrypt=on).
+	// It requires a global provider (Vault or KMIP) and a rolling restart.
+	// +optional
+	EncryptWAL bool `json:"encryptWAL,omitempty"`
+
+	// EnforceEncryption sets pg_tde.enforce_encryption=on so that no unencrypted
+	// table can be created.
+	// +optional
+	EnforceEncryption bool `json:"enforceEncryption,omitempty"`
+
+	// DefaultEncryptedTables makes tde_heap the default table access method
+	// (default_table_access_method=tde_heap) so all new tables are encrypted.
+	// +optional
+	DefaultEncryptedTables bool `json:"defaultEncryptedTables,omitempty"`
+
+	// Cipher selects the encryption algorithm. One of aes_128 (default) or aes_256.
+	// +kubebuilder:validation:Enum=aes_128;aes_256
+	// +optional
+	Cipher string `json:"cipher,omitempty"`
+}
+
+// TDEKeyProvider selects exactly one KMS backend for the principal key.
+type TDEKeyProvider struct {
+	// Vault configures a HashiCorp Vault (KVv2) global key provider.
+	// +optional
+	Vault *TDEVaultProvider `json:"vault,omitempty"`
+
+	// KMIP configures a KMIP server global key provider.
+	// +optional
+	KMIP *TDEKMIPProvider `json:"kmip,omitempty"`
+
+	// File configures a local keyring file provider. Discouraged: it is only
+	// valid for a single-node (standalone) Postgres and cannot back WAL encryption.
+	// +optional
+	File *TDEFileProvider `json:"file,omitempty"`
+}
+
+// TDEVaultProvider configures a HashiCorp Vault KVv2 global key provider.
+type TDEVaultProvider struct {
+	// Address is the Vault server URL, e.g. https://vault.example.com:8200.
+	Address string `json:"address"`
+
+	// MountPath is the KVv2 secrets engine mount, e.g. "secret".
+	MountPath string `json:"mountPath"`
+
+	// TokenSecretRef references a Secret holding the Vault token under the key
+	// "token". It is mounted outside PGDATA at an identical path on every pod.
+	TokenSecretRef core.LocalObjectReference `json:"tokenSecretRef"`
+
+	// CASecretRef optionally references a Secret holding the CA bundle used to
+	// verify Vault's TLS certificate under the key "ca.crt".
+	// +optional
+	CASecretRef *core.LocalObjectReference `json:"caSecretRef,omitempty"`
+
+	// Namespace is an optional Vault Enterprise namespace.
+	// +optional
+	Namespace string `json:"namespace,omitempty"`
+}
+
+// TDEKMIPProvider configures a KMIP server global key provider.
+type TDEKMIPProvider struct {
+	// Address is the KMIP server host.
+	Address string `json:"address"`
+
+	// Port is the KMIP server port.
+	// +kubebuilder:validation:Minimum=1
+	// +kubebuilder:validation:Maximum=65535
+	Port int32 `json:"port"`
+
+	// CredentialSecretRef references a Secret holding the KMIP client credentials
+	// under the keys "ca.crt", "client.crt" and "client.key". It is mounted
+	// outside PGDATA at an identical path on every pod.
+	CredentialSecretRef core.LocalObjectReference `json:"credentialSecretRef"`
+}
+
+// TDEFileProvider configures a local keyring file provider (standalone only).
+type TDEFileProvider struct {
+	// Path is the keyring file path on a mounted volume outside PGDATA.
+	Path string `json:"path"`
 }
 
 type PostgresConfiguration struct {
@@ -380,6 +478,141 @@ const (
 	SynchronousPostgresStreamingMode  PostgresStreamingMode = "Synchronous"
 	AsynchronousPostgresStreamingMode PostgresStreamingMode = "Asynchronous"
 )
+
+// PostgresSyncReplicationMode defines how standby replicas are selected for synchronous replication.
+// +kubebuilder:validation:Enum=Any;First
+type PostgresSyncReplicationMode string
+
+const (
+	// PostgresSyncReplicationModeAny uses quorum-based selection: wait for any NumSyncReplicas standbys.
+	PostgresSyncReplicationModeAny PostgresSyncReplicationMode = "Any"
+	// PostgresSyncReplicationModeFirst uses priority-based selection: wait for the first NumSyncReplicas standbys in list order.
+	PostgresSyncReplicationModeFirst PostgresSyncReplicationMode = "First"
+)
+
+// PostgresSynchronousCommitLevel maps to PostgreSQL's synchronous_commit parameter.
+// +kubebuilder:validation:Enum=On;RemoteApply;RemoteWrite;Local;Off
+type PostgresSynchronousCommitLevel string
+
+const (
+	// PostgresSynchronousCommitOn waits until the standby has written and flushed WAL to disk.
+	PostgresSynchronousCommitOn PostgresSynchronousCommitLevel = "On"
+	// PostgresSynchronousCommitRemoteApply waits until the standby has applied the WAL.
+	PostgresSynchronousCommitRemoteApply PostgresSynchronousCommitLevel = "RemoteApply"
+	// PostgresSynchronousCommitRemoteWrite waits until the standby has written WAL to its OS buffer (default).
+	PostgresSynchronousCommitRemoteWrite PostgresSynchronousCommitLevel = "RemoteWrite"
+	// PostgresSynchronousCommitLocal waits for local WAL flush only; standby is not waited on.
+	PostgresSynchronousCommitLocal PostgresSynchronousCommitLevel = "Local"
+	// PostgresSynchronousCommitOff allows commit without waiting for WAL flush.
+	PostgresSynchronousCommitOff PostgresSynchronousCommitLevel = "Off"
+)
+
+// PostgresSynchronousReplicationSpec configures fine-grained synchronous replication behavior.
+// Only applicable when spec.streamingMode is Synchronous.
+//
+// Sample configurations:
+//
+//	# Case 1 — Minimal: all defaults (Any 1, RemoteWrite, auto-generated pod list)
+//	streamingMode: Synchronous
+//	# synchronousReplicationConfig omitted → ANY 1 ("pg-0","pg-1","pg-2")
+//
+//	# Case 2 — Quorum: wait for any 2 of N standbys
+//	synchronousReplicationConfig:
+//	  mode: Any
+//	  numSyncReplicas: 2
+//	  commitLevel: RemoteWrite
+//
+//	# Case 3 — Priority: ordered list, first live standby wins
+//	synchronousReplicationConfig:
+//	  mode: First
+//	  numSyncReplicas: 1
+//	  commitLevel: On
+//
+//	# Case 4 — Explicit standby names with Any mode
+//	synchronousReplicationConfig:
+//	  mode: Any
+//	  numSyncReplicas: 2
+//	  standbyNames: [pg-1, pg-2, pg-3]
+//	  commitLevel: RemoteWrite
+//
+//	# Case 5 — Explicit standby names with First mode (order = priority)
+//	synchronousReplicationConfig:
+//	  mode: First
+//	  numSyncReplicas: 1
+//	  standbyNames: [pg-3, pg-1, pg-2]   # pg-3 has highest priority
+//	  commitLevel: RemoteApply
+//
+//	# Case 6 — Strongest durability: WAL flushed on standby before commit returns
+//	synchronousReplicationConfig:
+//	  mode: Any
+//	  numSyncReplicas: 1
+//	  commitLevel: On
+//
+//	# Case 7 — Relaxed durability: only local WAL flush, standby not waited on
+//	synchronousReplicationConfig:
+//	  mode: Any
+//	  numSyncReplicas: 1
+//	  commitLevel: Local
+//
+//	# Case 8 — No WAL flush guarantee at all
+//	synchronousReplicationConfig:
+//	  mode: Any
+//	  numSyncReplicas: 1
+//	  commitLevel: Off
+//
+//	# Case 9 — Wildcard: accept any connected standby (useful when standby
+//	#           application_names are unknown, e.g. external DR replicas).
+//	#           Mutually exclusive with standbyNames.
+//	#           With First mode, avoid wildcard — priority order is non-deterministic.
+//	synchronousReplicationConfig:
+//	  mode: Any
+//	  numSyncReplicas: 1
+//	  useWildcard: true
+//	  # renders: ANY 1 (*)
+//
+//	# Case 10 — Wildcard quorum: any 2 standbys regardless of name
+//	synchronousReplicationConfig:
+//	  mode: Any
+//	  numSyncReplicas: 2
+//	  useWildcard: true
+//	  # renders: ANY 2 (*)
+type PostgresSynchronousReplicationSpec struct {
+	// Mode controls how standbys are selected: Any (quorum) or First (priority).
+	// Defaults to Any.
+	// +optional
+	Mode *PostgresSyncReplicationMode `json:"mode,omitempty"`
+
+	// NumSyncReplicas is the number of synchronous standby replicas to wait for.
+	// Must be >= 1 and less than spec.replicas.
+	// Defaults to 1.
+	// +optional
+	NumSyncReplicas *int32 `json:"numSyncReplicas,omitempty"`
+
+	// CommitLevel maps to PostgreSQL's synchronous_commit parameter, controlling the
+	// durability vs. performance trade-off for synchronous standbys.
+	// Defaults to RemoteWrite.
+	// +optional
+	CommitLevel *PostgresSynchronousCommitLevel `json:"commitLevel,omitempty"`
+
+	// StandbyNames is an explicit ordered list of standby application_names to include in
+	// synchronous_standby_names. When set, only these names participate in synchronous
+	// replication instead of the auto-generated list of all pod names.
+	// For FIRST mode the order determines priority (first entry = highest priority).
+	// Must not contain duplicates or empty strings.
+	// When absent, all standby pods are included in ascending pod-index order.
+	// Mutually exclusive with UseWildcard.
+	// +optional
+	// +listType=atomic
+	StandbyNames []string `json:"standbyNames,omitempty"`
+
+	// UseWildcard, when true, uses '*' in synchronous_standby_names to match any
+	// connected standby regardless of its application_name. Useful when standby names
+	// are not known in advance (e.g. external DR replicas with custom application_name).
+	// Avoid combining with mode: First — connection-order priority is non-deterministic.
+	// Mutually exclusive with StandbyNames.
+	// +optional
+	UseWildcard *bool `json:"useWildcard,omitempty"`
+}
 
 // ref: https://www.postgresql.org/docs/13/libpq-ssl.html
 // +kubebuilder:validation:Enum=disable;allow;prefer;require;verify-ca;verify-full

@@ -1,0 +1,212 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.Weaviate }}
+
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: kubedb-com-weaviate
+spec:
+  targetRef:
+    apiVersion: kubedb.com/v1alpha2
+    kind: Weaviate
+  commonLabels:
+    - key: app
+      valuePath: .metadata.name
+    - key: app_namespace
+      valuePath: .metadata.namespace
+  metrics:
+    - name: created
+      help: "Unix creation time stamp"
+      type: gauge
+      field:
+        path: .metadata.creationTimestamp
+        type: DateTime
+      metricValue:
+        valueFromPath: .metadata.creationTimestamp
+
+    - name: replicas
+      help: "Number of replicas of Weaviate instance"
+      type: gauge
+      params:
+        - key: obj
+          valuePath: .
+      metricValue:
+        valueFromExpression: resource_replicas(obj)
+
+    - name: status_phase
+      help: "Weaviate instance current phase"
+      type: gauge
+      field:
+        path: .status.phase
+        type: String
+      params:
+        - key: phase
+          valuePath: .status.phase
+      states:
+        labelKey: phase
+        values:
+          - labelValue: Ready
+            metricValue:
+              valueFromExpression: "int(phase == 'Ready')"
+          - labelValue: Halted
+            metricValue:
+              valueFromExpression: "int(phase == 'Halted')"
+          - labelValue: Provisioning
+            metricValue:
+              valueFromExpression: "int(phase == 'Provisioning')"
+          - labelValue: Critical
+            metricValue:
+              valueFromExpression: "int(phase == 'Critical')"
+          - labelValue: NotReady
+            metricValue:
+              valueFromExpression: "int(phase == 'NotReady')"
+          - labelValue: DataRestoring
+            metricValue:
+              valueFromExpression: "int(phase == 'DataRestoring')"
+
+    - name: info
+      help: "Weaviate instance information"
+      type: gauge
+      labels:
+        - key: version
+          valuePath: .spec.version
+        - key: deletionPolicy
+          valuePath: .spec.deletionPolicy
+        - key: storageType
+          valuePath: .spec.storageType
+        - key: storageClassName
+          valuePath: .spec.storage.storageClassName
+        - key: disableSecurity
+          valuePath: .spec.disableSecurity
+        - key: replication_factor
+          valuePath: .spec.replication.factor
+        - key: authSecret
+          valuePath: .spec.authSecret.name
+        - key: tls
+          valuePath: .spec.tls
+        - key: tls_client_auth
+          valuePath: .spec.tls.clientAuth
+      metricValue:
+        value: 1
+
+    - name: security_authentication_enabled
+      help: "Weaviate authentication security information"
+      type: gauge
+      params:
+        - key: disableSecurity
+          valuePath: .spec.disableSecurity
+      metricValue:
+        valueFromExpression: int(disableSecurity != 'true')
+
+    - name: certmanager_managed_tls_enabled
+      help: "Weaviate cert manager managed tls info"
+      type: gauge
+      params:
+        - key: tls_issuerRef
+          valuePath: .spec.tls.issuerRef
+      metricValue:
+        valueFromExpression: int(tls_issuerRef != 'nil')
+
+    - name: status_conditions
+      help: "Weaviate instance status condition"
+      type: gauge
+      field:
+        path: .status.conditions
+        type: Array
+      labels:
+        - key: type
+          valuePath: .status.conditions[*].type
+        - key: status
+          valuePath: .status.conditions[*].status
+      metricValue:
+        value: 1
+
+    - name: resource_request_cpu
+      help: "Requested CPU by Weaviate in core"
+      type: gauge
+      labels:
+        - key: unit
+          value: core
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: cpu
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: resource_request_memory
+      help: "Requested memory by Weaviate in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: memory
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: resource_request_storage
+      help: "Requested storage by Weaviate in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: storage
+      metricValue:
+        valueFromExpression: total_resource_requests(obj, resourceType)
+
+    - name: resource_limit_cpu
+      help: "CPU limit for Weaviate in core"
+      type: gauge
+      labels:
+        - key: unit
+          value: core
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: cpu
+      metricValue:
+        valueFromExpression: total_resource_limits(obj, resourceType)
+
+    - name: resource_limit_memory
+      help: "Memory limit for Weaviate in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: memory
+      metricValue:
+        valueFromExpression: total_resource_limits(obj, resourceType)
+
+    - name: resource_limit_storage
+      help: "Storage limit for Weaviate in byte"
+      type: gauge
+      labels:
+        - key: unit
+          value: byte
+      params:
+        - key: obj
+          valuePath: .
+        - key: resourceType
+          value: storage
+      metricValue:
+        valueFromExpression: total_resource_limits(obj, resourceType)
+
+{{ end }}

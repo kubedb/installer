@@ -3,10 +3,15 @@
 {
   "kind": "Dashboard",
   "metadata": {
-    "name": "IgXOThN7ztest",
+    "name": "kubedb-postgres-pod",
     "createdAt": "0001-01-01T00:00:00Z",
     "updatedAt": "0001-01-01T00:00:00Z",
     "version": 0,
+    "tags": [
+      "db",
+      "postgres",
+      "stats"
+    ],
     "project": "pp"
   },
   "spec": {
@@ -156,8 +161,30 @@
               "calculation": "last-number",
               "colorMode": "none",
               "format": {
-                "unit": "bytes"
+                "unit": "decimal"
               },
+              "mappings": [
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "result": {
+                      "color": "#ffffff",
+                      "value": "Primary"
+                    },
+                    "value": "0"
+                  }
+                },
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "result": {
+                      "color": "#ffffff",
+                      "value": "Standby"
+                    },
+                    "value": "1"
+                  }
+                }
+              ],
               "thresholds": {
                 "steps": [
                   {
@@ -176,7 +203,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "count(pg_stat_replication_reply_time{namespace = \"$namespace\", pod=\"$pod\"})",
+                    "query": "pg_replication_is_replica{namespace = \"$namespace\", pod=\"$pod\"}",
                     "seriesNameFormat": ""
                   }
                 }

@@ -160,11 +160,6 @@ func (o *Oracle) ServiceAccountName() string {
 	return o.OffshootName()
 }
 
-// Owner returns owner reference to resources
-func (o *Oracle) Owner() *meta.OwnerReference {
-	return meta.NewControllerRef(o, SchemeGroupVersion.WithKind(o.ResourceKind()))
-}
-
 func (o *Oracle) GetAuthSecretName() string {
 	if o.Spec.AuthSecret != nil && o.Spec.AuthSecret.Name != "" {
 		return o.Spec.AuthSecret.Name
@@ -329,12 +324,14 @@ func (o *Oracle) SetDefaults(kc client.Client) {
 		o.SetDefaultPodSecurityContext(o.Spec.DataGuard.Observer.PodTemplate, oraVersion)
 		o.SetObserverInitContainerDefaults(o.Spec.DataGuard.Observer.PodTemplate, oraVersion)
 		o.SetOracleObserverContainerDefaults(o.Spec.DataGuard.Observer.PodTemplate, oraVersion)
+		apis.SetDefaultResizePolicy(o.Spec.DataGuard.Observer.PodTemplate.Spec.Containers, o.Spec.DataGuard.Observer.PodTemplate.Spec.InitContainers)
 	}
 
 	o.SetDefaultPodSecurityContext(o.Spec.PodTemplate, oraVersion)
 	o.SetOracleContainerDefaults(o.Spec.PodTemplate, oraVersion)
 	o.SetCoordinatorContainerDefaults(o.Spec.PodTemplate, oraVersion)
 	o.SetInitContainerDefaults(o.Spec.PodTemplate, oraVersion)
+	apis.SetDefaultResizePolicy(o.Spec.PodTemplate.Spec.Containers, o.Spec.PodTemplate.Spec.InitContainers)
 	o.SetHealthCheckerDefaults()
 	o.Spec.Monitor.SetDefaults()
 	o.SetTcpsDefaults()
@@ -541,4 +538,12 @@ func (p *Oracle) GetCertSecretName(alias OracleCertificateAlias) string {
 		}
 	}
 	return p.CertificateName(alias)
+}
+
+func (o *Oracle) GetDeletionPolicy() string {
+	return string(o.Spec.DeletionPolicy)
+}
+
+func (o *Oracle) AsOwner() *meta.OwnerReference {
+	return meta.NewControllerRef(o, SchemeGroupVersion.WithKind(o.ResourceKind()))
 }

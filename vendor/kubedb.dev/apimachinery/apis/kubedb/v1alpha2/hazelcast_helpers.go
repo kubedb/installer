@@ -73,11 +73,6 @@ func (h *Hazelcast) GetAuthSecretName() string {
 	return meta_util.NameWithSuffix(h.OffshootName(), "auth")
 }
 
-// Owner returns owner reference to resources
-func (h *Hazelcast) Owner() *meta.OwnerReference {
-	return meta.NewControllerRef(h, SchemeGroupVersion.WithKind(h.ResourceKind()))
-}
-
 func (h *Hazelcast) ServiceAccountName() string {
 	return h.OffshootName()
 }
@@ -174,6 +169,7 @@ func (h *Hazelcast) SetDefaults(kc client.Client) {
 	h.setDefaultContainerSecurityContext(&hzVersion, &h.Spec.PodTemplate)
 	h.setDefaultContainerResourceLimits(&h.Spec.PodTemplate)
 	h.setDefaultProbes(&h.Spec.PodTemplate)
+	apis.SetDefaultResizePolicy(h.Spec.PodTemplate.Spec.Containers, h.Spec.PodTemplate.Spec.InitContainers)
 
 	if h.Spec.Monitor != nil {
 		h.Spec.Monitor.SetDefaults()
@@ -466,4 +462,12 @@ func (d *HazelcastBind) SecretName() string {
 
 func (d *HazelcastBind) CertSecretName() string {
 	return d.GetCertSecretName(HazelcastClientCert)
+}
+
+func (h *Hazelcast) GetDeletionPolicy() string {
+	return string(h.Spec.DeletionPolicy)
+}
+
+func (h *Hazelcast) AsOwner() *meta.OwnerReference {
+	return meta.NewControllerRef(h, SchemeGroupVersion.WithKind(h.ResourceKind()))
 }

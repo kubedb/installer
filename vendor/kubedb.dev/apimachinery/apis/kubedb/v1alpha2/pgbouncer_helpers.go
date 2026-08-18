@@ -247,8 +247,10 @@ func (p *PgBouncer) GetPersistentSecrets() []string {
 	if p == nil {
 		return nil
 	}
-	var secrets []string
-	secrets = append(secrets, p.GetAuthSecretName())
+	secrets := make([]string, 0, 3)
+	if !IsVirtualAuthSecretReferred(p.Spec.AuthSecret) && p.Spec.AuthSecret != nil && p.Spec.AuthSecret.Name != "" {
+		secrets = append(secrets, p.GetAuthSecretName())
+	}
 	secrets = append(secrets, p.GetBackendSecretName())
 	secrets = append(secrets, p.ConfigSecretName())
 
@@ -361,4 +363,8 @@ func (p *PgBouncer) SetSecurityContext(pgBouncerVersion *catalog.PgBouncerVersio
 	// So that /var/pv directory have the group permission for the RunAsGroup user GID.
 	// Otherwise, We will get write permission denied.
 	p.Spec.PodTemplate.Spec.SecurityContext.FSGroup = p.Spec.PodTemplate.Spec.ContainerSecurityContext.RunAsGroup
+}
+
+func (p *PgBouncer) GetDeletionPolicy() string {
+	return string(p.Spec.TerminationPolicy)
 }

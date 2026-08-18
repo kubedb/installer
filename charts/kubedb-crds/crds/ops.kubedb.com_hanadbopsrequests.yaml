@@ -95,6 +95,12 @@ spec:
                     type: string
                 type: object
                 x-kubernetes-map-type: atomic
+              horizontalScaling:
+                properties:
+                  replicas:
+                    format: int32
+                    type: integer
+                type: object
               maxRetries:
                 default: 1
                 format: int32
@@ -219,6 +225,8 @@ spec:
                 type: object
               type:
                 enum:
+                - UpdateVersion
+                - HorizontalScaling
                 - VerticalScaling
                 - VolumeExpansion
                 - Restart
@@ -227,6 +235,11 @@ spec:
                 - RotateAuth
                 - StorageMigration
                 type: string
+              updateVersion:
+                properties:
+                  targetVersion:
+                    type: string
+                type: object
               verticalScaling:
                 properties:
                   coordinator:
@@ -349,6 +362,12 @@ spec:
                         - value
                         type: object
                     type: object
+                  mode:
+                    default: Restart
+                    enum:
+                    - Restart
+                    - InPlace
+                    type: string
                 type: object
               volumeExpansion:
                 properties:

@@ -103,11 +103,6 @@ func (r *Neo4j) GetPersistentSecrets() []string {
 	return secrets
 }
 
-// Owner returns owner reference to resources
-func (r *Neo4j) Owner() *meta.OwnerReference {
-	return meta.NewControllerRef(r, SchemeGroupVersion.WithKind(r.ResourceKind()))
-}
-
 func (r *Neo4j) ResourceKind() string {
 	return ResourceKindNeo4j
 }
@@ -166,6 +161,8 @@ func (r *Neo4j) SetDefaults(kc client.Client) {
 	if dbContainer != nil {
 		apis.SetDefaultResourceLimits(&dbContainer.Resources, kubedb.DefaultResourcesNeo4j)
 	}
+
+	apis.SetDefaultResizePolicy(r.Spec.PodTemplate.Spec.Containers, r.Spec.PodTemplate.Spec.InitContainers)
 }
 
 func (r *Neo4j) SetTLSDefaults() {
@@ -184,6 +181,11 @@ func (r *Neo4j) SetTLSDefaults() {
 	}
 	if r.Spec.TLS.Cluster == nil {
 		r.Spec.TLS.Cluster = &ProtocolTLSConfig{
+			Mode: TLSModeMTLS,
+		}
+	}
+	if r.Spec.TLS.Backup == nil {
+		r.Spec.TLS.Backup = &ProtocolTLSConfig{
 			Mode: TLSModeMTLS,
 		}
 	}
@@ -354,9 +356,6 @@ func (r neo4jStatsService) Path() string {
 
 func (r neo4jStatsService) Scheme() string {
 	scheme := "http"
-	if r.Spec.TLS != nil && r.Spec.TLS.HTTP.Mode != TLSModeDisabled {
-		scheme = "https"
-	}
 	return scheme
 }
 
@@ -390,4 +389,12 @@ func (r *Neo4j) CertificateName(alias Neo4jCertificateType) string {
 
 func (r Neo4j) GetStorageClassName() string {
 	return *r.Spec.Storage.StorageClassName
+}
+
+func (r *Neo4j) GetDeletionPolicy() string {
+	return string(r.Spec.DeletionPolicy)
+}
+
+func (r *Neo4j) AsOwner() *meta.OwnerReference {
+	return meta.NewControllerRef(r, SchemeGroupVersion.WithKind(r.ResourceKind()))
 }

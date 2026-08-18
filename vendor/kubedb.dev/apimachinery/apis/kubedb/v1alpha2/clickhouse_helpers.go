@@ -70,11 +70,6 @@ func (c ClickhouseApp) Type() appcat.AppType {
 	return appcat.AppType(fmt.Sprintf("%s/%s", kubedb.GroupName, ResourceSingularClickHouse))
 }
 
-// Owner returns owner reference to resources
-func (c *ClickHouse) Owner() *meta.OwnerReference {
-	return meta.NewControllerRef(c, SchemeGroupVersion.WithKind(c.ResourceKind()))
-}
-
 func (c *ClickHouse) ResourceKind() string {
 	return ResourceKindClickHouse
 }
@@ -190,6 +185,10 @@ func (c *ClickHouse) GoverningServiceDNS(podName string) string {
 	return fmt.Sprintf("%s.%s.%s.svc", podName, c.GoverningServiceName(), c.GetNamespace())
 }
 
+func (c *ClickHouse) KeeperGoverningServiceDNS(podName string) string {
+	return fmt.Sprintf("%s.%s.%s.svc", podName, c.KeeperGoverningServiceName(), c.GetNamespace())
+}
+
 func (c *ClickHouse) GetAuthSecretName() string {
 	if c.Spec.AuthSecret != nil && c.Spec.AuthSecret.Name != "" {
 		return c.Spec.AuthSecret.Name
@@ -262,6 +261,14 @@ func (c *ClickHouse) GetCertSecretName(alias ClickHouseCertificateAlias) string 
 		}
 	}
 	return c.CertificateName(alias)
+}
+
+func (c *ClickHouse) GetPersistentSecrets() []string {
+	var secrets []string
+	if !c.Spec.DisableSecurity && !IsVirtualAuthSecretReferred(c.Spec.AuthSecret) && c.Spec.AuthSecret != nil && c.Spec.AuthSecret.Name != "" {
+		secrets = append(secrets, c.GetAuthSecretName())
+	}
+	return secrets
 }
 
 func (c *ClickHouse) SetHealthCheckerDefaults() {
@@ -401,6 +408,7 @@ func (c *ClickHouse) SetDefaults(kc client.Client) {
 			apis.SetDefaultResourceLimits(&dbContainer.Resources, kubedb.ClickHouseDefaultResources)
 		}
 		c.setDefaultContainerSecurityContext(&chVersion, cluster.PodTemplate)
+		apis.SetDefaultResizePolicy(cluster.PodTemplate.Spec.Containers, cluster.PodTemplate.Spec.InitContainers)
 		c.Spec.ClusterTopology.Cluster = cluster
 
 		if c.Spec.ClusterTopology.ClickHouseKeeper != nil && !c.Spec.ClusterTopology.ClickHouseKeeper.ExternallyManaged && c.Spec.ClusterTopology.ClickHouseKeeper.Spec != nil {
@@ -420,6 +428,7 @@ func (c *ClickHouse) SetDefaults(kc client.Client) {
 			if dbContainer != nil {
 				apis.SetDefaultResourceLimits(&dbContainer.Resources, kubedb.DefaultResources)
 			}
+			apis.SetDefaultResizePolicy(c.Spec.ClusterTopology.ClickHouseKeeper.Spec.PodTemplate.Spec.Containers, c.Spec.ClusterTopology.ClickHouseKeeper.Spec.PodTemplate.Spec.InitContainers)
 		}
 	} else {
 		if c.Spec.Replicas == nil {
@@ -440,6 +449,7 @@ func (c *ClickHouse) SetDefaults(kc client.Client) {
 		if dbContainer != nil {
 			apis.SetDefaultResourceLimits(&dbContainer.Resources, kubedb.ClickHouseDefaultResources)
 		}
+		apis.SetDefaultResizePolicy(c.Spec.PodTemplate.Spec.Containers, c.Spec.PodTemplate.Spec.InitContainers)
 	}
 	c.SetTLSDefaults()
 	c.SetHealthCheckerDefaults()
@@ -576,4 +586,12 @@ func (c *ClickHouse) ReplicasAreReady(lister pslister.PetSetLister) (bool, strin
 
 func (c *ClickHouse) ClickHouseInlineConfigSecretKey(key string) string {
 	return fmt.Sprintf("%s-%s", kubedb.InlineConfigKeyPrefix, key)
+}
+
+func (c *ClickHouse) GetDeletionPolicy() string {
+	return string(c.Spec.DeletionPolicy)
+}
+
+func (c *ClickHouse) AsOwner() *meta.OwnerReference {
+	return meta.NewControllerRef(c, SchemeGroupVersion.WithKind(c.ResourceKind()))
 }
