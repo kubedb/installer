@@ -1,10 +1,11 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "annotations": {
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": "${datasource}",
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -23,7 +24,6 @@
   "editable": true,
   "gnetId": 13106,
   "graphTooltip": 0,
-  "id": 28,
   "iteration": 1637752208210,
   "links": [],
   "panels": [
@@ -139,7 +139,7 @@
           "instant": true,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": {{ `"{{pod}}"` }},
+          "legendFormat": {{ `"{{ pod }}"` }},
           "refId": "A"
         }
       ],
@@ -243,7 +243,7 @@
           "format": "table",
           "instant": true,
           "interval": "",
-          "legendFormat": {{ `"{{pod}}"` }},
+          "legendFormat": {{ `"{{ pod }}"` }},
           "refId": "A"
         }
       ],
@@ -1027,7 +1027,7 @@
           "exemplar": true,
           "expr": "rate(mysql_global_status_opened_files{namespace=~\"$namespace\",service=~\"$app+-stats\"}[1m])",
           "interval": "",
-          "legendFormat": {{ `"{{pod}}"` }},
+          "legendFormat": {{ `"{{ pod }}"` }},
           "refId": "A"
         }
       ],
@@ -1419,7 +1419,9 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
-      },
+      }
+      {{- if not $alerts }}
+      ,
       {
         "allValue": null,
         "current": {
@@ -1428,6 +1430,7 @@
           "value": "demo"
         },
         "datasource": "${datasource}",
+        "definition": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -1438,17 +1441,17 @@
         "options": [],
         {{- if $shared }}
         "query": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
-        "type": "query",
-        {{- else }}
-        "query": {{ $.Values.app.namespace | quote }},
-        "type": "constant",
-        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
         "tags": [],
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.namespace | quote }},
+        "type": "constant",
+        {{- end }}
         "tagsQuery": "",
         "useTags": false
       },
@@ -1460,6 +1463,7 @@
           "value": "sample-mariadb-stats"
         },
         "datasource": "${datasource}",
+        "definition": "label_values(kubedb_com_mariadb_status_phase{namespace=~\"$namespace\"},app)",
         "description": "MariaDB stats service name",
         "error": null,
         "hide": 0,
@@ -1470,20 +1474,21 @@
         "options": [],
         {{- if $shared }}
         "query": "label_values(kubedb_com_mariadb_status_phase{namespace=~\"$namespace\"},app)",
-        "type": "query",
-        {{- else }}
-        "query": {{ $.Values.app.name | quote }},
-        "type": "constant",
-        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
         "tags": [],
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
         "tagsQuery": "",
         "useTags": false
       }
+      {{- end }}
     ]
   },
   "time": {
@@ -1497,6 +1502,6 @@
   {{- else }}
   "title": {{ printf "KubeDB / MariaDB / Database / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
   {{- end }}
-  "uid": "ohrahgv7z",
+  "uid": "kubedb-mariadb-database",
   "version": 8
 }

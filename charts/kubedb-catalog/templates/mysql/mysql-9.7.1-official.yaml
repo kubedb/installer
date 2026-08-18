@@ -1,0 +1,83 @@
+{{- template "kubedb-catalog.refresh-versions" . }}
+
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.MySQL (not (eq $ubi "operator")) }}
+
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  name: '9.7.1'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  archiver:
+    addon:
+      name: mysql-addon
+      tasks:
+        fullBackup:
+          name: physical-backup
+        fullBackupRestore:
+          name: physical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-archiver") $) }}:v0.28.0-rc.0_9.1.0'
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.45.0-rc.0{{ include "catalog.ubi" $ }}'
+  courier:
+    cli:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-migrator-mysql") $) }}:v0.7.0-rc.0{{ include "catalog.ubi" $ }}'
+    statusReporter:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-courier") $) }}:v0.7.0-rc.0{{ include "catalog.ubi" $ }}'
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql") $) }}:9.7.1-oracle'
+  distribution: Official
+  exporter:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysqld-exporter") $) }}:v0.18.0'
+  gitSyncer:
+    image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.4.2'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:0.2.0'
+  replicationModeDetector:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.54.0-rc.0{{ include "catalog.ubi" $ }}'
+  router:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/mysql-router") $) }}:9.7.1'
+  routerInitContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-router-init") $) }}:v0.45.0-rc.0'
+  securityContext:
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: mysql-backup-8.0.21
+      restoreTask:
+        name: mysql-restore-8.0.21
+  ui:
+  - name: phpmyadmin
+    version: v2026.3.30
+  updateConstraints:
+    allowlist:
+      groupReplication:
+      - '>= 9.7.1'
+      standalone:
+      - '>= 9.7.1'
+    denylist:
+      groupReplication:
+      - < 9.7.1
+      standalone:
+      - < 9.7.1
+  version: 9.7.1
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "mysql-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+{{ end }}

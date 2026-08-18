@@ -3,7 +3,7 @@
 {
   "kind": "Dashboard",
   "metadata": {
-    "name": "9J6ObCEMz",
+    "name": "kubedb-mssqlserver-pod",
     "createdAt": "0001-01-01T00:00:00Z",
     "updatedAt": "0001-01-01T00:00:00Z",
     "version": 0,
@@ -92,7 +92,7 @@
             "spec": {
               "labelName": "namespace",
               "matchers": [
-                "up{target=\"mssqlserver_database\"}"
+                "kube_namespace_status_phase{phase=\"Active\"}"
               ]
             }
           },
@@ -159,7 +159,7 @@
               "format": {
                 "unit": "decimal"
               },
-              "metricLabel": "pod}} ",
+              "metricLabel": "pod",
               "thresholds": {
                 "steps": [
                   {
@@ -179,7 +179,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "mssql_hostname{namespace=~\"$namespace\",service=~\"$app+-stats\",pod=~\"$pod\"}",
-                    "seriesNameFormat": "{{ `{{pod}}` }} "
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
                   }
                 }
               }
@@ -202,6 +202,27 @@
                 "decimalPlaces": 1,
                 "unit": "decimal"
               },
+              "mappings": [
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "result": {
+                      "color": "#fade2a",
+                      "value": "Down"
+                    },
+                    "value": "0"
+                  }
+                },
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "result": {
+                      "value": "Running"
+                    },
+                    "value": "1"
+                  }
+                }
+              ],
               "thresholds": {
                 "steps": [
                   {
@@ -325,38 +346,38 @@
                 "decimalPlaces": 0,
                 "unit": "decimal"
               },
-              "metricLabel": "role",
               "mappings": [
                 {
                   "kind": "Value",
                   "spec": {
-                    "value": "master",
                     "result": {
                       "color": "#5794f2",
                       "value": "master"
-                    }
+                    },
+                    "value": "master"
                   }
                 },
                 {
                   "kind": "Value",
                   "spec": {
-                    "value": "slave",
                     "result": {
                       "color": "#8ab8ff",
                       "value": "slave"
-                    }
+                    },
+                    "value": "slave"
                   }
                 },
                 {
                   "kind": "Misc",
                   "spec": {
-                    "value": "null",
                     "result": {
                       "value": "N/A"
-                    }
+                    },
+                    "value": "null"
                   }
                 }
               ],
+              "metricLabel": "role",
               "thresholds": {
                 "steps": [
                   {

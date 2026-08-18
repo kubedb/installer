@@ -3,7 +3,7 @@
 {
   "kind": "Dashboard",
   "metadata": {
-    "name": "fifRHuGDz",
+    "name": "kubedb-neo4j-database",
     "createdAt": "0001-01-01T00:00:00Z",
     "updatedAt": "0001-01-01T00:00:00Z",
     "version": 0,
@@ -177,21 +177,19 @@
             "name": "Nodes"
           },
           "plugin": {
-            "kind": "GaugeChart",
+            "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "format": {
                 "unit": "decimal"
               },
+              "sparkline": {},
               "thresholds": {
                 "steps": [
                   {
                     "color": "#73bf69",
                     "value": 0
-                  },
-                  {
-                    "color": "#f2495c",
-                    "value": 80
                   }
                 ]
               }
@@ -222,7 +220,28 @@
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {}
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
           },
           "queries": [
             {
@@ -277,6 +296,21 @@
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
               "yAxis": {
                 "format": {
                   "unit": "decimal"
@@ -292,7 +326,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "neo4j_database_neo4j_transaction_active_read{namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "query": "neo4j_database_${database}_transaction_active_read{namespace=~\"$namespace\",job=~\"$app-stats\"}",
                     "seriesNameFormat": "Active read {{ `{{instance}}` }}"
                   }
                 }
@@ -305,7 +339,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "neo4j_database_neo4j_transaction_active_write{namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "query": "neo4j_database_${database}_transaction_active_write{namespace=~\"$namespace\",job=~\"$app-stats\"}",
                     "seriesNameFormat": "Active write {{ `{{instance}}` }}"
                   }
                 }
@@ -318,7 +352,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "neo4j_database_neo4j_transaction_peak_concurrent_total{namespace=~\"$namespace\",job=~\"$app-stats\"}",
+                    "query": "neo4j_database_${database}_transaction_peak_concurrent_total{namespace=~\"$namespace\",job=~\"$app-stats\"}",
                     "seriesNameFormat": "Peak concurrent {{ `{{instance}}` }}"
                   }
                 }
@@ -335,7 +369,28 @@
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {}
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
           },
           "queries": [
             {
@@ -362,7 +417,28 @@
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {}
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
           },
           "queries": [
             {
@@ -389,8 +465,30 @@
             "description": "The ratio of hits to the total number of lookups in the page cache"
           },
           "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
+            "kind": "GaugeChart",
+            "spec": {
+              "calculation": "last-number",
+              "format": {
+                "unit": "percent-decimal"
+              },
+              "max": 1,
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#f2495c",
+                    "value": 0
+                  },
+                  {
+                    "color": "#fade2a",
+                    "value": 0.8
+                  },
+                  {
+                    "color": "#73bf69",
+                    "value": 0.95
+                  }
+                ]
+              }
+            }
           },
           "queries": [
             {
@@ -418,7 +516,28 @@
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {}
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
           },
           "queries": [
             {
@@ -446,7 +565,28 @@
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {}
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
           },
           "queries": [
             {
@@ -474,7 +614,28 @@
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {}
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
           },
           "queries": [
             {
@@ -484,7 +645,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "label_replace({__name__=~\"neo4j_database_${database}_check_point_(events|total_time)_total\", namespace=~\"$namespace\",job=~\"$app-stats\"}, \"label\", \"$1\", \"__name__\", \"neo4j_(.*)\")",
+                    "query": "label_replace({__name__=~\"neo4j_database_${database}_check_point_(events|total_time)_total\", namespace=~\"$namespace\",job=~\"$app-stats\"}, \"label\", \"$1\", \"__name__\", \".*check_point_(events|total_time)_total\")",
                     "seriesNameFormat": "{{ `{{label}}` }} {{ `{{instance}}` }}"
                   }
                 }
@@ -501,7 +662,28 @@
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {}
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "seconds"
+                }
+              }
+            }
           },
           "queries": [
             {
@@ -529,7 +711,28 @@
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {}
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
           },
           "queries": [
             {
@@ -594,21 +797,19 @@
             "name": "Relationships"
           },
           "plugin": {
-            "kind": "GaugeChart",
+            "kind": "StatChart",
             "spec": {
               "calculation": "last-number",
+              "colorMode": "value",
               "format": {
                 "unit": "decimal"
               },
+              "sparkline": {},
               "thresholds": {
                 "steps": [
                   {
                     "color": "#73bf69",
                     "value": 0
-                  },
-                  {
-                    "color": "#f2495c",
-                    "value": 80
                   }
                 ]
               }
@@ -639,7 +840,28 @@
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {}
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
           },
           "queries": [
             {
@@ -668,9 +890,24 @@
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
               "yAxis": {
                 "format": {
-                  "unit": "decbytes"
+                  "unit": "bytes"
                 }
               }
             }
@@ -700,7 +937,28 @@
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {}
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
           },
           "queries": [
             {
@@ -727,7 +985,28 @@
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {}
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "bytes"
+                }
+              }
+            }
           },
           "queries": [
             {
@@ -768,7 +1047,28 @@
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {}
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "milliseconds"
+                }
+              }
+            }
           },
           "queries": [
             {
@@ -817,39 +1117,32 @@
         "kind": "Panel",
         "spec": {
           "display": {
-            "name": "Cyper wait time",
-            "description": "The total number of seconds waited between query replans"
+            "name": "Cypher replan events"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {}
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "neo4j_database_${database}_cypher_replan_wait_time{namespace=~\"$namespace\",job=~\"$app-stats\"}",
-                    "seriesNameFormat": "{{ `{{__name__}}` }} {{ `{{instance}}` }}"
-                  }
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
                 }
               }
             }
-          ]
-        }
-      },
-      "26": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Cyper replan events"
-          },
-          "plugin": {
-            "kind": "TimeSeriesChart",
-            "spec": {}
           },
           "queries": [
             {
@@ -876,7 +1169,28 @@
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {}
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "bytes"
+                }
+              }
+            }
           },
           "queries": [
             {
@@ -886,7 +1200,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(container_memory_working_set_bytes{namespace=~\"$namespace\",pod=~\"$app-.*\"}) / 1024 / 1024",
+                    "query": "sum(container_memory_working_set_bytes{namespace=~\"$namespace\",pod=~\"$app-.*\"})",
                     "seriesNameFormat": "used memory"
                   }
                 }
@@ -904,7 +1218,28 @@
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {}
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "percent"
+                }
+              }
+            }
           },
           "queries": [
             {
@@ -1086,6 +1421,21 @@
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
               "yAxis": {
                 "format": {
                   "unit": "decimal"
@@ -1101,7 +1451,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "label_replace({__name__=~\"neo4j_database_${database}_transaction_(committed|rollbacks)_total\", namespace=~\"$namespace\",job=~\"$app-stats\"}, \"label\", \"$1\", \"__name__\", \"neo4j_transaction_(.+)\")",
+                    "query": "label_replace({__name__=~\"neo4j_database_${database}_transaction_(committed|rollbacks)_total\", namespace=~\"$namespace\",job=~\"$app-stats\"}, \"label\", \"$1\", \"__name__\", \".*transaction_(committed|rollbacks)_total\")",
                     "seriesNameFormat": "{{ `{{label}}` }} {{ `{{instance}}` }}"
                   }
                 }
@@ -1119,7 +1469,28 @@
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {}
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
           },
           "queries": [
             {
@@ -1159,14 +1530,14 @@
             {
               "x": 8,
               "y": 1,
-              "width": 6,
+              "width": 8,
               "height": 4,
               "content": {
                 "$ref": "#/spec/panels/1"
               }
             },
             {
-              "x": 15,
+              "x": 16,
               "y": 1,
               "width": 8,
               "height": 4,
@@ -1178,7 +1549,7 @@
               "x": 0,
               "y": 6,
               "width": 12,
-              "height": 11,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/3"
               }
@@ -1187,140 +1558,140 @@
               "x": 12,
               "y": 6,
               "width": 12,
-              "height": 11,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/4"
               }
             },
             {
               "x": 0,
-              "y": 18,
-              "width": 4,
-              "height": 4,
+              "y": 15,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/5"
               }
             },
             {
-              "x": 4,
-              "y": 18,
-              "width": 10,
-              "height": 5,
+              "x": 12,
+              "y": 15,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/6"
               }
             },
             {
-              "x": 15,
-              "y": 18,
-              "width": 9,
-              "height": 13,
+              "x": 0,
+              "y": 23,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/7"
               }
             },
             {
-              "x": 0,
+              "x": 12,
               "y": 23,
-              "width": 7,
+              "width": 12,
               "height": 8,
               "content": {
                 "$ref": "#/spec/panels/8"
               }
             },
             {
-              "x": 7,
-              "y": 23,
-              "width": 8,
+              "x": 0,
+              "y": 31,
+              "width": 12,
               "height": 8,
               "content": {
                 "$ref": "#/spec/panels/9"
               }
             },
             {
-              "x": 0,
+              "x": 12,
               "y": 31,
-              "width": 9,
-              "height": 6,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/10"
               }
             },
             {
-              "x": 9,
-              "y": 31,
-              "width": 15,
-              "height": 5,
+              "x": 0,
+              "y": 39,
+              "width": 24,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/11"
               }
             },
             {
               "x": 0,
-              "y": 38,
-              "width": 7,
-              "height": 7,
+              "y": 48,
+              "width": 6,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/12"
               }
             },
             {
-              "x": 7,
-              "y": 38,
-              "width": 8,
-              "height": 6,
+              "x": 6,
+              "y": 48,
+              "width": 6,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/13"
               }
             },
             {
-              "x": 15,
-              "y": 38,
-              "width": 9,
-              "height": 7,
+              "x": 12,
+              "y": 48,
+              "width": 6,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/14"
               }
             },
             {
-              "x": 0,
-              "y": 45,
+              "x": 18,
+              "y": 48,
               "width": 6,
-              "height": 7,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/15"
               }
             },
             {
-              "x": 6,
-              "y": 45,
-              "width": 6,
-              "height": 6,
+              "x": 0,
+              "y": 56,
+              "width": 8,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/16"
               }
             },
             {
-              "x": 12,
-              "y": 45,
-              "width": 6,
-              "height": 6,
+              "x": 8,
+              "y": 56,
+              "width": 8,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/17"
               }
             },
             {
-              "x": 18,
-              "y": 45,
-              "width": 6,
-              "height": 6,
+              "x": 16,
+              "y": 56,
+              "width": 8,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/18"
               }
             },
             {
               "x": 0,
-              "y": 53,
+              "y": 65,
               "width": 12,
               "height": 9,
               "content": {
@@ -1329,8 +1700,8 @@
             },
             {
               "x": 12,
-              "y": 53,
-              "width": 11,
+              "y": 65,
+              "width": 12,
               "height": 9,
               "content": {
                 "$ref": "#/spec/panels/20"
@@ -1338,56 +1709,47 @@
             },
             {
               "x": 0,
-              "y": 63,
-              "width": 13,
-              "height": 9,
+              "y": 75,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/21"
               }
             },
             {
-              "x": 14,
-              "y": 63,
-              "width": 8,
-              "height": 9,
+              "x": 12,
+              "y": 75,
+              "width": 12,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/22"
               }
             },
             {
               "x": 0,
-              "y": 72,
+              "y": 83,
               "width": 12,
-              "height": 9,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/23"
               }
             },
             {
               "x": 12,
-              "y": 72,
+              "y": 83,
               "width": 12,
-              "height": 9,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/24"
               }
             },
             {
               "x": 0,
-              "y": 82,
-              "width": 11,
-              "height": 9,
-              "content": {
-                "$ref": "#/spec/panels/25"
-              }
-            },
-            {
-              "x": 11,
-              "y": 82,
-              "width": 13,
+              "y": 92,
+              "width": 24,
               "height": 8,
               "content": {
-                "$ref": "#/spec/panels/26"
+                "$ref": "#/spec/panels/25"
               }
             }
           ]

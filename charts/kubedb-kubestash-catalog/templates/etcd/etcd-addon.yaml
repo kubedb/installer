@@ -1,0 +1,151 @@
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.Etcd (not (eq $ubi "operator")) }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Addon
+metadata:
+  name: 'etcd-addon'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  backupTasks:
+  - driver: Restic
+    executor: Job
+    function: etcd-backup
+    name: etcd-backup
+    parameters:
+    - name: endpoint
+      required: false
+      usage: Etcd client endpoint to snapshot from. Defaults to the AppBinding's URL, then the Etcd object's client Service.
+    - name: user
+      required: false
+      usage: Etcd username. Defaults to the username stored in the auth secret.
+    - default: 10s
+      name: dialTimeout
+      required: false
+      usage: Timeout for the initial connection to the etcd cluster.
+    - default: "false"
+      name: insecureSkipTLSVerify
+      required: false
+      usage: Skip verification of the etcd server certificate (discouraged).
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+  - driver: Restic
+    executor: Job
+    function: kubedbmanifest-backup
+    name: manifest-backup
+    parameters:
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+  restoreTasks:
+  - driver: Restic
+    executor: Job
+    function: etcd-backup-restore
+    name: etcd-backup-restore
+    parameters:
+    - default: /var/lib/etcd
+      name: dataDir
+      required: false
+      usage: Etcd data directory to rebuild, i.e. the mounted ordinal-0 PVC.
+    - name: memberName
+      required: false
+      usage: Etcd member name recorded in the rebuilt data dir. Defaults to the ordinal-0 pod name.
+    - name: initialCluster
+      required: false
+      usage: Bootstrap membership recorded in the rebuilt data dir. Defaults to the seed member alone.
+    - name: initialClusterToken
+      required: false
+      usage: Bootstrap cluster token recorded in the rebuilt data dir. Defaults to the Etcd object's offshoot name.
+    - name: peerURLs
+      required: false
+      usage: Comma separated advertised peer URLs of the seed member. Defaults to the ordinal-0 pod's peer URL.
+    - default: "true"
+      name: skipHashCheck
+      required: false
+      usage: Skip the snapshot integrity hash check (required for snapshots streamed over the client API).
+    - default: "false"
+      name: skipVersionCheck
+      required: false
+      usage: Skip the etcdutl/cluster major.minor compatibility pre-flight.
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact restore performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /var/lib/etcd
+      name: kubestash-data-volume
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-data-volume
+      source:
+        persistentVolumeClaim:
+          claimName: ${PVC_NAME}
+      usage: The seed member's PersistentVolumeClaim, into which the snapshot is restored.
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+  - driver: Restic
+    executor: Job
+    function: kubedbmanifest-restore
+    name: manifest-restore
+    parameters:
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+{{ end }}

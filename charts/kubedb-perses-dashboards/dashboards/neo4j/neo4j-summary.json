@@ -3,10 +3,16 @@
 {
   "kind": "Dashboard",
   "metadata": {
-    "name": "neo4jSumMaRy",
+    "name": "kubedb-neo4j-summary",
     "createdAt": "0001-01-01T00:00:00Z",
     "updatedAt": "0001-01-01T00:00:00Z",
     "version": 0,
+    "tags": [
+      "db",
+      "kubedb",
+      "neo4j",
+      "stats"
+    ],
     "project": "pp"
   },
   "spec": {
@@ -138,13 +144,12 @@
           "plugin": {
             "kind": "StatChart",
             "spec": {
-              "calculation": "mean",
+              "calculation": "last-number",
               "colorMode": "background_solid",
               "format": {
                 "unit": "decimal"
               },
-              "metricLabel": " version ",
-              "sparkline": {},
+              "metricLabel": "version",
               "thresholds": {
                 "steps": [
                   {
@@ -169,7 +174,7 @@
                   "spec": {
                     "minStep": "",
                     "query": "kubedb_com_neo4j_info{namespace=\"$namespace\", app=\"$app\"}",
-                    "seriesNameFormat": "{{ `{{ version }}` }}"
+                    "seriesNameFormat": "{{ `{{version}}` }}"
                   }
                 }
               }
@@ -181,12 +186,68 @@
         "kind": "Panel",
         "spec": {
           "display": {
+            "name": "TLS Channels",
+            "description": "TLS mode per Neo4j channel. On when the channel uses TLS/mTLS with a configured issuer; Off otherwise."
+          },
+          "plugin": {
+            "kind": "Table",
+            "spec": {
+              "columnSettings": [
+                {
+                  "name": "Channel",
+                  "width": 160
+                }
+              ]
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "label_replace({__name__=~\"kubedb_com_neo4j_tls_(bolt|http|cluster|backup)_mode\", namespace=\"$namespace\", app=\"$app\"}, \"channel\", \"$1\", \"__name__\", \"kubedb_com_neo4j_tls_(.+)_mode\")",
+                    "seriesNameFormat": ""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "11": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
             "name": "CPU Usage",
             "description": "CPU Usage by NEO4J pods"
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {}
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "decimal"
+                }
+              }
+            }
           },
           "queries": [
             {
@@ -205,7 +266,7 @@
           ]
         }
       },
-      "11": {
+      "12": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -257,11 +318,25 @@
                   "name": "value #5"
                 },
                 {
-                  "format": {
-                    "unit": "decimal"
-                  },
                   "header": "Pod",
-                  "name": "pod"
+                  "name": "pod #1",
+                  "align": "left"
+                },
+                {
+                  "name": "pod #2",
+                  "hide": true
+                },
+                {
+                  "name": "pod #3",
+                  "hide": true
+                },
+                {
+                  "name": "pod #4",
+                  "hide": true
+                },
+                {
+                  "name": "pod #5",
+                  "hide": true
                 }
               ]
             }
@@ -287,7 +362,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
+                    "query": "sum(kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\", resource=\"cpu\"}) by (pod)",
                     "seriesNameFormat": ""
                   }
                 }
@@ -300,7 +375,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod) / sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
+                    "query": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod) / sum(kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\", resource=\"cpu\"}) by (pod)",
                     "seriesNameFormat": ""
                   }
                 }
@@ -313,7 +388,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
+                    "query": "sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\", resource=\"cpu\"}) by (pod)",
                     "seriesNameFormat": ""
                   }
                 }
@@ -326,7 +401,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod) / sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
+                    "query": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod) / sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\", resource=\"cpu\"}) by (pod)",
                     "seriesNameFormat": ""
                   }
                 }
@@ -335,7 +410,7 @@
           ]
         }
       },
-      "12": {
+      "13": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -345,6 +420,21 @@
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
               "yAxis": {
                 "format": {
                   "unit": "bytes"
@@ -369,7 +459,7 @@
           ]
         }
       },
-      "13": {
+      "14": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -440,11 +530,37 @@
                   "name": "value #8"
                 },
                 {
-                  "format": {
-                    "unit": "decimal"
-                  },
                   "header": "Pod",
-                  "name": "pod"
+                  "name": "pod #1",
+                  "align": "left"
+                },
+                {
+                  "name": "pod #2",
+                  "hide": true
+                },
+                {
+                  "name": "pod #3",
+                  "hide": true
+                },
+                {
+                  "name": "pod #4",
+                  "hide": true
+                },
+                {
+                  "name": "pod #5",
+                  "hide": true
+                },
+                {
+                  "name": "pod #6",
+                  "hide": true
+                },
+                {
+                  "name": "pod #7",
+                  "hide": true
+                },
+                {
+                  "name": "pod #8",
+                  "hide": true
                 }
               ]
             }
@@ -470,7 +586,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"}) by (pod)",
+                    "query": "sum(kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\", resource=\"memory\"}) by (pod)",
                     "seriesNameFormat": ""
                   }
                 }
@@ -483,7 +599,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"}) by (pod)",
+                    "query": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\", resource=\"memory\"}) by (pod)",
                     "seriesNameFormat": ""
                   }
                 }
@@ -496,7 +612,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"}) by (pod)",
+                    "query": "sum(kube_pod_container_resource_limits{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\", resource=\"memory\"}) by (pod)",
                     "seriesNameFormat": ""
                   }
                 }
@@ -509,7 +625,7 @@
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
                     "minStep": "",
-                    "query": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
+                    "query": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\", resource=\"memory\"}) by (pod)",
                     "seriesNameFormat": ""
                   }
                 }
@@ -557,7 +673,7 @@
           ]
         }
       },
-      "14": {
+      "15": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -567,6 +683,21 @@
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
               "yAxis": {
                 "format": {
                   "unit": "bytes"
@@ -591,7 +722,7 @@
           ]
         }
       },
-      "15": {
+      "16": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -601,6 +732,21 @@
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
               "yAxis": {
                 "format": {
                   "unit": "decimal"
@@ -638,7 +784,7 @@
           ]
         }
       },
-      "16": {
+      "17": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -647,6 +793,21 @@
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
               "yAxis": {
                 "format": {
                   "unit": "decimal"
@@ -671,7 +832,7 @@
           ]
         }
       },
-      "17": {
+      "18": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -680,6 +841,21 @@
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
               "yAxis": {
                 "format": {
                   "unit": "bytes/sec"
@@ -704,7 +880,7 @@
           ]
         }
       },
-      "18": {
+      "19": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -761,11 +937,29 @@
                   "name": "value #6"
                 },
                 {
-                  "format": {
-                    "unit": "decimal"
-                  },
                   "header": "Pod",
-                  "name": "pod"
+                  "name": "pod #1",
+                  "align": "left"
+                },
+                {
+                  "name": "pod #2",
+                  "hide": true
+                },
+                {
+                  "name": "pod #3",
+                  "hide": true
+                },
+                {
+                  "name": "pod #4",
+                  "hide": true
+                },
+                {
+                  "name": "pod #5",
+                  "hide": true
+                },
+                {
+                  "name": "pod #6",
+                  "hide": true
                 }
               ]
             }
@@ -852,7 +1046,71 @@
           ]
         }
       },
-      "19": {
+      "2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Require Secure Transport",
+            "description": "When this option is enabled, connections attempted using insecure transport will be rejected."
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "mappings": [
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "result": {
+                      "value": "True"
+                    },
+                    "value": "1"
+                  }
+                },
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "result": {
+                      "value": "False"
+                    },
+                    "value": "0"
+                  }
+                }
+              ],
+              "sparkline": {},
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "minStep": "",
+                    "query": "kubedb_com_neo4j_tls_enabled{namespace=\"$namespace\", app=\"$app\"}",
+                    "seriesNameFormat": "{{ `{{issuers_name}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "20": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -882,51 +1140,7 @@
           ]
         }
       },
-      "2": {
-        "kind": "Panel",
-        "spec": {
-          "display": {
-            "name": "Require Secure Transport",
-            "description": "When this option is enabled, connections attempted using insecure transport will be rejected."
-          },
-          "plugin": {
-            "kind": "StatChart",
-            "spec": {
-              "calculation": "last-number",
-              "colorMode": "background_solid",
-              "sparkline": {},
-              "thresholds": {
-                "steps": [
-                  {
-                    "color": "#73bf69",
-                    "value": 0
-                  },
-                  {
-                    "color": "#f2495c",
-                    "value": 80
-                  }
-                ]
-              }
-            }
-          },
-          "queries": [
-            {
-              "kind": "TimeSeriesQuery",
-              "spec": {
-                "plugin": {
-                  "kind": "PrometheusTimeSeriesQuery",
-                  "spec": {
-                    "minStep": "",
-                    "query": "kubedb_com_neo4j_tls_enable{namespace=\"$namespace\", app=\"$app\"}",
-                    "seriesNameFormat": "{{ `{{issuers_name}}` }}"
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "20": {
+      "21": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -959,7 +1173,7 @@
           ]
         }
       },
-      "21": {
+      "22": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1010,7 +1224,7 @@
           ]
         }
       },
-      "22": {
+      "23": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1018,7 +1232,28 @@
           },
           "plugin": {
             "kind": "TimeSeriesChart",
-            "spec": {}
+            "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
+              "yAxis": {
+                "format": {
+                  "unit": "bytes/sec"
+                }
+              }
+            }
           },
           "queries": [
             {
@@ -1037,7 +1272,7 @@
           ]
         }
       },
-      "23": {
+      "24": {
         "kind": "Panel",
         "spec": {
           "display": {
@@ -1046,6 +1281,21 @@
           "plugin": {
             "kind": "TimeSeriesChart",
             "spec": {
+              "legend": {
+                "mode": "table",
+                "position": "bottom",
+                "values": [
+                  "last-number",
+                  "max",
+                  "mean"
+                ]
+              },
+              "visual": {
+                "areaOpacity": 0.1,
+                "connectNulls": true,
+                "display": "line",
+                "lineWidth": 1
+              },
               "yAxis": {
                 "format": {
                   "unit": "bytes/sec"
@@ -1082,7 +1332,48 @@
             "spec": {
               "calculation": "last-number",
               "colorMode": "background_solid",
-              "sparkline": {},
+              "mappings": [
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "result": {
+                      "color": "#fade2a",
+                      "value": "Delete"
+                    },
+                    "value": "Delete"
+                  }
+                },
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "result": {
+                      "color": "#73bf69",
+                      "value": "DoNotTerminate"
+                    },
+                    "value": "DoNotTerminate"
+                  }
+                },
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "result": {
+                      "color": "#5794f2",
+                      "value": "Halt"
+                    },
+                    "value": "Halt"
+                  }
+                },
+                {
+                  "kind": "Value",
+                  "spec": {
+                    "result": {
+                      "color": "#c4162a",
+                      "value": "WipeOut"
+                    },
+                    "value": "WipeOut"
+                  }
+                }
+              ],
               "thresholds": {
                 "steps": [
                   {
@@ -1090,7 +1381,8 @@
                     "value": 0
                   }
                 ]
-              }
+              },
+              "metricLabel": "deletionPolicy"
             }
           },
           "queries": [
@@ -1463,25 +1755,25 @@
             },
             {
               "x": 0,
-              "y": 8,
-              "width": 24,
-              "height": 7,
+              "y": 7,
+              "width": 12,
+              "height": 6,
               "content": {
                 "$ref": "#/spec/panels/10"
               }
             },
             {
               "x": 0,
-              "y": 15,
+              "y": 14,
               "width": 24,
-              "height": 6,
+              "height": 7,
               "content": {
                 "$ref": "#/spec/panels/11"
               }
             },
             {
               "x": 0,
-              "y": 22,
+              "y": 21,
               "width": 24,
               "height": 6,
               "content": {
@@ -1499,16 +1791,16 @@
             },
             {
               "x": 0,
-              "y": 35,
-              "width": 12,
-              "height": 9,
+              "y": 34,
+              "width": 24,
+              "height": 6,
               "content": {
                 "$ref": "#/spec/panels/14"
               }
             },
             {
-              "x": 12,
-              "y": 35,
+              "x": 0,
+              "y": 41,
               "width": 12,
               "height": 9,
               "content": {
@@ -1516,17 +1808,17 @@
               }
             },
             {
-              "x": 0,
-              "y": 44,
+              "x": 12,
+              "y": 41,
               "width": 12,
-              "height": 7,
+              "height": 9,
               "content": {
                 "$ref": "#/spec/panels/16"
               }
             },
             {
-              "x": 12,
-              "y": 44,
+              "x": 0,
+              "y": 50,
               "width": 12,
               "height": 7,
               "content": {
@@ -1534,9 +1826,9 @@
               }
             },
             {
-              "x": 0,
-              "y": 51,
-              "width": 24,
+              "x": 12,
+              "y": 50,
+              "width": 12,
               "height": 7,
               "content": {
                 "$ref": "#/spec/panels/18"
@@ -1544,16 +1836,16 @@
             },
             {
               "x": 0,
-              "y": 59,
-              "width": 12,
-              "height": 6,
+              "y": 57,
+              "width": 24,
+              "height": 7,
               "content": {
                 "$ref": "#/spec/panels/19"
               }
             },
             {
-              "x": 12,
-              "y": 59,
+              "x": 0,
+              "y": 65,
               "width": 12,
               "height": 6,
               "content": {
@@ -1561,30 +1853,39 @@
               }
             },
             {
-              "x": 0,
+              "x": 12,
               "y": 65,
-              "width": 24,
-              "height": 8,
+              "width": 12,
+              "height": 6,
               "content": {
                 "$ref": "#/spec/panels/21"
               }
             },
             {
               "x": 0,
-              "y": 74,
-              "width": 12,
-              "height": 7,
+              "y": 71,
+              "width": 24,
+              "height": 8,
               "content": {
                 "$ref": "#/spec/panels/22"
               }
             },
             {
-              "x": 12,
-              "y": 74,
+              "x": 0,
+              "y": 80,
               "width": 12,
               "height": 7,
               "content": {
                 "$ref": "#/spec/panels/23"
+              }
+            },
+            {
+              "x": 12,
+              "y": 80,
+              "width": 12,
+              "height": 7,
+              "content": {
+                "$ref": "#/spec/panels/24"
               }
             }
           ]

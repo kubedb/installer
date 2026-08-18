@@ -275,9 +275,10 @@ update-chart-dependencies:
 update-certified-charts: update-chart-dependencies install-chart-packer
 	rm -rf charts/kubedb-certified charts/kubedb-certified-crds
 	PATH="$(BIN_DIR):$$PATH" chart-packer crd-less --input charts/kubedb --output charts
+	helm dependency update charts/kubedb-certified
+	PATH="$(BIN_DIR):$$PATH" chart-packer crd-less --input charts/kubedb --output charts
 	PATH="$(BIN_DIR):$$PATH" chart-packer crd-only --input charts/kubedb --output charts
 	@$(MAKE) gen-chart-doc --no-print-directory
-	helm dependency update charts/kubedb-certified
 	@# Revert Chart.lock if the only change is the `generated:` timestamp line
 	@if ! git diff --quiet -- charts/kubedb-certified/Chart.lock; then \
 		changed=$$(git diff -U0 -- charts/kubedb-certified/Chart.lock | grep -E '^[+-]' | grep -vE '^(\+\+\+|---)' | grep -vE '^[+-]generated:'); \
