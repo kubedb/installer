@@ -1,0 +1,28 @@
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.Etcd (not (eq $ubi "operator")) }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'etcd-backup'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  args:
+  - backup
+  - --namespace=${namespace:=default}
+  - --backupsession=${backupSession:=}
+  - --enable-cache=${enableCache:=}
+  - --scratch-dir=${scratchDir:=}
+  - --wait-timeout=${waitTimeout:={{ .Values.waitTimeout}}}
+  - --endpoint=${endpoint:=}
+  - --user=${user:=}
+  - --dial-timeout=${dialTimeout:=10s}
+  - --insecure-skip-tls-verify=${insecureSkipTLSVerify:=false}
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/etcd-restic-plugin") $) }}:v0.1.0{{ include "catalog.ubi" $ }}'
+{{ end }}

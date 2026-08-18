@@ -1,10 +1,11 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "annotations": {
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": "${datasource}",
         "enable": true,
         "hide": true,
         "iconColor": "#6ed0e0",
@@ -208,7 +209,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "count by (rs_nm) (mongodb_members_state{rs_nm=~\"$repName\", pod=\"$pod\"})",
+          "expr": "count by (rs_nm) (mongodb_members_state{rs_nm=~\"$app\", pod=\"$pod\"})",
           "interval": "5m",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -349,7 +350,7 @@
       "pluginVersion": "8.2.3",
       "targets": [
         {
-          "expr": "(max(mongodb_mongod_replset_member_optime_date{state=\"PRIMARY\", set=\"$repName\"}) - min(mongodb_mongod_replset_member_optime_date{state=\"SECONDARY\"} * on (name) group_left mongodb_mongod_replset_my_name{pod=~\"$pod\"})) or (max(mongodb_members_optimeDate{member_state=\"PRIMARY\", rs_nm=\"$repName\", pod=\"$pod\"}) - min(mongodb_members_optimeDate{pod=\"$pod\", member_idx=~\"$pod.*\"})) or vector(0)",
+          "expr": "(max(mongodb_mongod_replset_member_optime_date{state=\"PRIMARY\", set=\"$app\"}) - min(mongodb_mongod_replset_member_optime_date{state=\"SECONDARY\"} * on (name) group_left mongodb_mongod_replset_my_name{pod=~\"$pod\"})) or (max(mongodb_members_optimeDate{member_state=\"PRIMARY\", rs_nm=\"$app\", pod=\"$pod\"}) - min(mongodb_members_optimeDate{pod=\"$pod\", member_idx=~\"$pod.*\"})) or vector(0)",
           "interval": "5m",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -627,7 +628,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(max(mongodb_mongod_replset_member_optime_date{state=\"PRIMARY\", set=\"$repName\"}) - min(mongodb_mongod_replset_member_optime_date{state=\"SECONDARY\"} * on (name) group_left mongodb_mongod_replset_my_name{pod=~\"$pod\"})) or (max(mongodb_members_optimeDate{member_state=\"PRIMARY\", rs_nm=\"$repName\", pod=\"$pod\"}) - min(mongodb_members_optimeDate{pod=\"$pod\", member_idx=~\"$pod.*\"})) or vector(0)",
+          "expr": "(max(mongodb_mongod_replset_member_optime_date{state=\"PRIMARY\", set=\"$app\"}) - min(mongodb_mongod_replset_member_optime_date{state=\"SECONDARY\"} * on (name) group_left mongodb_mongod_replset_my_name{pod=~\"$pod\"})) or (max(mongodb_members_optimeDate{member_state=\"PRIMARY\", rs_nm=\"$app\", pod=\"$pod\"}) - min(mongodb_members_optimeDate{pod=\"$pod\", member_idx=~\"$pod.*\"})) or vector(0)",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Lag",
@@ -1163,6 +1164,29 @@
   "templating": {
     "list": [
       {
+        "current": {
+          "selected": true,
+          "text": "Prometheus",
+          "value": "Prometheus"
+        },
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Datasource",
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "queryValue": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      }
+      {{- if not $alerts }}
+      ,
+      {
         "allFormat": "glob",
         "auto": true,
         "auto_count": 200,
@@ -1229,27 +1253,6 @@
         "type": "interval"
       },
       {
-        "current": {
-          "selected": true,
-          "text": "Prometheus",
-          "value": "Prometheus"
-        },
-        "description": null,
-        "error": null,
-        "hide": 0,
-        "includeAll": false,
-        "label": "Datasource",
-        "multi": false,
-        "name": "datasource",
-        "options": [],
-        "query": "prometheus",
-        "queryValue": "",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "type": "datasource"
-      },
-      {
         "allValue": null,
         "current": {
           "selected": true,
@@ -1257,6 +1260,7 @@
           "value": "demo"
         },
         "datasource": "${datasource}",
+        "definition": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -1293,6 +1297,7 @@
           "value": "shard1"
         },
         "datasource": "${datasource}",
+        "definition": "",
         "description": null,
         "error": null,
         "hide": 0,
@@ -1300,7 +1305,7 @@
         "label": "Replica Set",
         "multi": false,
         "multiFormat": "glob",
-        "name": "repName",
+        "name": "app",
         "options": [],
         {{- if $shared }}
         "query": {
@@ -1309,11 +1314,8 @@
         },
         "type": "query",
         {{- else }}
-        "query": {
-          "query": {{ printf "label_values(mongodb_members_state{namespace=\"%s\",rs_state=\"1\",member_state=\"PRIMARY\",service=\"%s-stats\"}, rs_nm)" $.Values.app.namespace $.Values.app.name | quote }},
-          "refId": "Prometheus-app-Variable-Query"
-        },
-        "type": "query",
+        "query": {{ $.Values.app.name | quote }},
+        "type": "constant",
         {{- end }}
         "refresh": 2,
         "regex": "",
@@ -1343,7 +1345,7 @@
         "name": "pod",
         "options": [],
         "query": {
-          "query": "label_values(mongodb_members_state{rs_nm=\"$repName\"}, pod)",
+          "query": "label_values(mongodb_members_state{rs_nm=\"$app\"}, pod)",
           "refId": "Prometheus-pod-Variable-Query"
         },
         "refresh": 2,
@@ -1355,6 +1357,7 @@
         "type": "query",
         "useTags": false
       }
+      {{- end }}
     ]
   },
   "time": {

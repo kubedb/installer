@@ -24,13 +24,12 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": null,
-  "iteration": 1710915242629,
+  "iteration": 1711617373222,
   "links": [],
   "panels": [
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": "${datasource}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -750,7 +749,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "${datasource}",
       "description": "Current state of replicas. We are showing down replica here.",
       "fieldConfig": {
         "defaults": {},
@@ -845,7 +844,7 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": "${datasource}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1055,7 +1054,7 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": "${datasource}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1868,7 +1867,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "${datasource}",
       "description": "Total thread size",
       "fieldConfig": {
         "defaults": {},
@@ -1965,7 +1964,7 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": "${datasource}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2482,7 +2481,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "${datasource}",
       "description": "Total node timeout",
       "fieldConfig": {
         "defaults": {},
@@ -2682,7 +2681,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "${datasource}",
       "description": "Total memory consumed by core root file system.",
       "fieldConfig": {
         "defaults": {},
@@ -2982,7 +2981,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "${datasource}",
       "description": "Total number of node thread pool",
       "fieldConfig": {
         "defaults": {},
@@ -3280,7 +3279,11 @@
   ],
   "schemaVersion": 27,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "kubedb",
+    "solr",
+    "database"
+  ],
   "templating": {
     "list": [
       {
@@ -3325,7 +3328,7 @@
         {{- if $shared }}
         "query": {
           "query": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
-          "refId": "Prometheus-namespace-Variable-Query"
+          "refId": "StandardVariableQuery"
         },
         "type": "query",
         {{- else }}
@@ -3377,12 +3380,6 @@
         "tagsQuery": "",
         "useTags": false
       },
-
-      {{- end }}
-
-      {{- if $alerts }}
-       ,
-      {{- end }}
       {
         "allValue": null,
         "current": {
@@ -3404,7 +3401,6 @@
         "multi": true,
         "name": "zk_host",
         "options": [],
-
         "query": {
           "query": "label_values(solr_ping{namespace=~\"$namespace\",service=~\"$app-stats\",zk_host=~\".+\"},zk_host)",
           "refId": "StandardVariableQuery"
@@ -3454,6 +3450,7 @@
         "type": "query",
         "useTags": false
       }
+      {{- end }}
     ]
   },
   "time": {
@@ -3467,6 +3464,6 @@
   {{- else }}
   "title": {{ printf "KubeDB / Solr / Database / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
   {{- end }}
-  "uid": "Vm64KR1Sz",
-  "version": 13
+  "uid": "kubedb-solr-database",
+  "version": 3
 }

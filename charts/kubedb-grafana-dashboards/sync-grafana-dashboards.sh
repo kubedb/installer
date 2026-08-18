@@ -28,7 +28,7 @@
 # Everything else -- panels, exprs, units, id/uid -- is copied verbatim.
 #
 # Usage: charts/kubedb-grafana-dashboards/sync-grafana-dashboards.sh [OPNPULSE_DIR] [DB ...]
-#   OPNPULSE_DIR defaults to ../../../go.open-pulse.dev/dashboards relative to repo root.
+#   OPNPULSE_DIR defaults to ../../go.opnpulse.dev/dashboards relative to repo root.
 #   With no DB args, the DBs in DEFAULT_DBS are re-synced. Older DBs are not in that
 #   list because their chart filenames were renamed away from the upstream basenames
 #   (hazelcast_database_dashboard.json -> hazelcast-database.json), so syncing them by
@@ -39,7 +39,7 @@ set -eou pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 CHART_DIR="${REPO_ROOT}/charts/kubedb-grafana-dashboards"
-OPNPULSE_DIR="${1:-${REPO_ROOT}/../../../go.open-pulse.dev/dashboards}"
+OPNPULSE_DIR="${1:-${REPO_ROOT}/../../go.opnpulse.dev/dashboards}"
 shift || true
 
 if [ ! -d "$OPNPULSE_DIR" ]; then

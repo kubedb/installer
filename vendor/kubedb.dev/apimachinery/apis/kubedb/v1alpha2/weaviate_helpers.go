@@ -94,11 +94,6 @@ func (w *Weaviate) ResourceFQN() string {
 	return fmt.Sprintf("%s.%s", w.ResourcePlural(), kubedb.GroupName)
 }
 
-// Owner returns owner reference to resources
-func (w *Weaviate) Owner() *meta.OwnerReference {
-	return meta.NewControllerRef(w, SchemeGroupVersion.WithKind(w.ResourceKind()))
-}
-
 func (w *Weaviate) OffshootName() string {
 	return w.Name
 }
