@@ -519,6 +519,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-xtrabackup
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.0_8.1.0.tar $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.0_8.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.0_8.2.0.tar $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.0_8.2.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.0_8.4.0.tar $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.0_8.4.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.0_9.7.1.tar $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.0_9.7.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-init-3.7-v1.tar $IMAGE_REGISTRY/kubedb/zookeeper-init:3.7-v1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-restic-plugin-v0.22.0-rc.0.tar $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.22.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU12-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU12-ubuntu-22.04

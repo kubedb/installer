@@ -528,6 +528,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.0_8.1.0 $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.0_8.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.0_8.2.0 $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.0_8.2.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.0_8.4.0 $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.0_8.4.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.0_9.7.1 $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.0_9.7.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-init:3.7-v1 $IMAGE_REGISTRY/kubedb/zookeeper-init:3.7-v1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.22.0-rc.0 $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.22.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2022-CU12-ubuntu-22.04
