@@ -86,4 +86,5 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-xtrabackup
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.0_8.1.0.tar $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.0_8.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.0_8.2.0.tar $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.0_8.2.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.0_8.4.0.tar $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.0_8.4.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.0_9.7.1.tar $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.0_9.7.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-restic-plugin-v0.22.0-rc.0.tar $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.22.0-rc.0
