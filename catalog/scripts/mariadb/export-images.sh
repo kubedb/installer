@@ -32,7 +32,7 @@ mv /tmp/crane images
 
 CMD="./images/crane"
 
-$CMD pull --allow-nondistributable-artifacts --insecure docker.io/mariadb/maxscale:24.02.4 images/mariadb-maxscale-24.02.4.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/mariadb/maxscale:24.02.9 images/mariadb-maxscale-24.02.9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/prom/mysqld-exporter:v0.18.0 images/prom-mysqld-exporter-v0.18.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.10.7-jammy images/appscode-images-mariadb-10.10.7-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.11.16-jammy images/appscode-images-mariadb-10.11.16-jammy.tar
