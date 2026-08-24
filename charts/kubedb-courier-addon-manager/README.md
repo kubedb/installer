@@ -71,9 +71,14 @@ The following table lists the configurable parameters of the `kubedb-courier-add
 | agent.image.registry                        |                                                                                                                               | <code>""</code>                                 |
 | agent.image.repository                      |                                                                                                                               | <code>""</code>                                 |
 | agent.image.tag                             |                                                                                                                               | <code>""</code>                                 |
+| agent.image.pullPolicy                      | falls back to .Values.image.pullPolicy when empty                                                                             | <code>""</code>                                 |
 | agent.installNamespace                      | installNamespace is where the addon agent is installed on each managed cluster.                                               | <code>kubedb</code>                             |
 | agent.placement.name                        | name of an existing OCM Placement in the placementNamespace.                                                                  | <code>""</code>                                 |
 | agent.placement.namespace                   |                                                                                                                               | <code>open-cluster-management</code>            |
+| ocm.addonManager.namespace                  |                                                                                                                               | <code>open-cluster-management-hub</code>        |
+| ocm.addonManager.serviceAccountName         |                                                                                                                               | <code>addon-manager-controller-sa</code>        |
+| ocm.workAgent.namespace                     |                                                                                                                               | <code>open-cluster-management-agent</code>      |
+| ocm.workAgent.serviceAccountName            |                                                                                                                               | <code>klusterlet-work-sa</code>                 |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
