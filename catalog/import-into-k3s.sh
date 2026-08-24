@@ -383,6 +383,7 @@ k3s ctr images import images/kubedb-ignite-init-2.17.0-v2.tar
 k3s ctr images import images/kubedb-ignite-init-2.18.0-v1.tar
 k3s ctr images import images/kubedb-kafka-init-4.0-v2.tar
 k3s ctr images import images/kubedb-kubedb-autoscaler-v0.52.0-rc.0.tar
+k3s ctr images import images/kubedb-kubedb-courier-0.1.0.tar
 k3s ctr images import images/kubedb-kubedb-courier-v0.7.0-rc.0.tar
 k3s ctr images import images/kubedb-kubedb-crd-manager-v0.22.0-rc.0.tar
 k3s ctr images import images/kubedb-kubedb-gitops-v0.15.0-rc.0.tar

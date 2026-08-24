@@ -385,6 +385,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-ignite-ini
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-ignite-init-2.18.0-v1.tar $IMAGE_REGISTRY/kubedb/ignite-init:2.18.0-v1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kafka-init-4.0-v2.tar $IMAGE_REGISTRY/kubedb/kafka-init:4.0-v2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-autoscaler-v0.52.0-rc.0.tar $IMAGE_REGISTRY/kubedb/kubedb-autoscaler:v0.52.0-rc.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-courier-0.1.0.tar $IMAGE_REGISTRY/kubedb/kubedb-courier:0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-courier-v0.7.0-rc.0.tar $IMAGE_REGISTRY/kubedb/kubedb-courier:v0.7.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-crd-manager-v0.22.0-rc.0.tar $IMAGE_REGISTRY/kubedb/kubedb-crd-manager:v0.22.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-gitops-v0.15.0-rc.0.tar $IMAGE_REGISTRY/kubedb/kubedb-gitops:v0.15.0-rc.0

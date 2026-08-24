@@ -37,6 +37,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-elasticsearch-restic-plugin-v0.30.0-rc.0.tar $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.30.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-etcd-restic-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/etcd-restic-plugin:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-autoscaler-v0.52.0-rc.0.tar $IMAGE_REGISTRY/kubedb/kubedb-autoscaler:v0.52.0-rc.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-courier-0.1.0.tar $IMAGE_REGISTRY/kubedb/kubedb-courier:0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-courier-v0.7.0-rc.0.tar $IMAGE_REGISTRY/kubedb/kubedb-courier:v0.7.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-crd-manager-v0.22.0-rc.0.tar $IMAGE_REGISTRY/kubedb/kubedb-crd-manager:v0.22.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-gitops-v0.15.0-rc.0.tar $IMAGE_REGISTRY/kubedb/kubedb-gitops:v0.15.0-rc.0

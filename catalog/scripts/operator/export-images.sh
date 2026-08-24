@@ -43,6 +43,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.30.0-rc.0 images/kubedb-elasticsearch-restic-plugin-v0.30.0-rc.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/etcd-restic-plugin:v0.1.0 images/kubedb-etcd-restic-plugin-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-autoscaler:v0.52.0-rc.0 images/kubedb-kubedb-autoscaler-v0.52.0-rc.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-courier:0.1.0 images/kubedb-kubedb-courier-0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-courier:v0.7.0-rc.0 images/kubedb-kubedb-courier-v0.7.0-rc.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-crd-manager:v0.22.0-rc.0 images/kubedb-kubedb-crd-manager-v0.22.0-rc.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-gitops:v0.15.0-rc.0 images/kubedb-kubedb-gitops-v0.15.0-rc.0.tar

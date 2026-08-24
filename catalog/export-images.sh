@@ -391,6 +391,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/ignite-in
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/ignite-init:2.18.0-v1 images/kubedb-ignite-init-2.18.0-v1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kafka-init:4.0-v2 images/kubedb-kafka-init-4.0-v2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-autoscaler:v0.52.0-rc.0 images/kubedb-kubedb-autoscaler-v0.52.0-rc.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-courier:0.1.0 images/kubedb-kubedb-courier-0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-courier:v0.7.0-rc.0 images/kubedb-kubedb-courier-v0.7.0-rc.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-crd-manager:v0.22.0-rc.0 images/kubedb-kubedb-crd-manager-v0.22.0-rc.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-gitops:v0.15.0-rc.0 images/kubedb-kubedb-gitops-v0.15.0-rc.0.tar
