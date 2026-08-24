@@ -15,7 +15,7 @@ spec:
         - name: neo4jAdminArgs
           required: false
           usage: Arguments to be passed to the neo4j-admin backup command, separate by space.
-          default: "--compress=true,--expand-commands,--remote-address-resolution=true,--type=FULL"
+          default: "--compress=true,--expand-commands,--type=FULL"
         - default: system
           name: excludeDatabases
           required: false
@@ -23,6 +23,9 @@ spec:
         - name: from
           required: false
           usage: Source Database DNS, from where the backup will take
+        - name: remoteAliasCredentialsSecret
+          required: false
+          usage: Name of the Secret containing credentials for authenticating with the remote Neo4j alias during backup.
       singleton: true
       volumeMounts:
         - mountPath: /kubestash-tmp
@@ -46,7 +49,7 @@ spec:
           required: false
           usage: List of databases to restore. If not specified, all databases will be restore.
           default: "*"
-        - default: system,neo4j
+        - default: system
           name: excludeDatabases
           required: false
           usage: Comma-separated Neo4j database names to skip during restore
@@ -57,6 +60,9 @@ spec:
         - name: seedServerName
           required: false
           usage: Name of the seed server to restore from. If not specified, the restore will be done from the primary server.
+        - name: remoteAliasCredentialsSecret
+          required: false
+          usage: Name of the Secret containing credentials for authenticating with the remote Neo4j alias during restore.
       singleton: true
       volumeMounts:
         - mountPath: /kubestash-tmp
