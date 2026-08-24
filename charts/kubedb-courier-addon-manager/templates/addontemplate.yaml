@@ -28,16 +28,13 @@ spec:
           #   resource "persistentvolumeclaims" in API group "" in the namespace "demo"
           # and the Branch sat in Deleting forever holding its finalizer.
           rules:
-            # The Branch/Migration data plane on the managed cluster.
+            # The Branch/Migration data plane on the managed cluster. "*" covers the
+            # per-engine {DB}Migration duck-type kinds the operator watches since #45
+            # (postgresmigrations, mysqlmigrations, ...); a single missing listable
+            # kind blocks the manager cache and no controller ever starts workers.
             - apiGroups: ["courier.kubedb.com"]
-              resources: ["branches", "branchworks", "migrations"]
+              resources: ["*"]
               verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
-            - apiGroups: ["courier.kubedb.com"]
-              resources: ["branches/status", "branchworks/status", "migrations/status"]
-              verbs: ["get", "update", "patch"]
-            - apiGroups: ["courier.kubedb.com"]
-              resources: ["branches/finalizers", "branchworks/finalizers", "migrations/finalizers"]
-              verbs: ["update"]
             - apiGroups: ["kubedb.com"]
               resources: ["*"]
               verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
