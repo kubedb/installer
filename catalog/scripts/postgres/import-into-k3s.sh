@@ -38,6 +38,10 @@ k3s ctr images import images/timescale-timescaledb-2.14.2-pg16-oss.tar
 k3s ctr images import images/appscode-images-postgres-documentdb-15-0.102.0-ferretdb-2.0.0.tar
 k3s ctr images import images/appscode-images-postgres-documentdb-16-0.102.0-ferretdb-2.0.0.tar
 k3s ctr images import images/appscode-images-postgres-documentdb-17-0.102.0-ferretdb-2.0.0.tar
+k3s ctr images import images/appscode-images-postgres-enterprise-16.9-alpine.tar
+k3s ctr images import images/appscode-images-postgres-enterprise-16.9-alpine-ext.tar
+k3s ctr images import images/appscode-images-postgres-enterprise-16.9-bookworm.tar
+k3s ctr images import images/appscode-images-postgres-enterprise-16.9-bookworm-ext.tar
 k3s ctr images import images/appscode-images-postgres-10.23-alpine.tar
 k3s ctr images import images/appscode-images-postgres-10.23-bullseye.tar
 k3s ctr images import images/appscode-images-postgres-11.22-alpine.tar

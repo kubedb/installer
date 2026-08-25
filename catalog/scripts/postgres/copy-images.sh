@@ -49,6 +49,10 @@ $CMD cp --allow-nondistributable-artifacts --insecure docker.io/timescale/timesc
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:15-0.102.0-ferretdb-2.0.0 $IMAGE_REGISTRY/appscode-images/postgres-documentdb:15-0.102.0-ferretdb-2.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:16-0.102.0-ferretdb-2.0.0 $IMAGE_REGISTRY/appscode-images/postgres-documentdb:16-0.102.0-ferretdb-2.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-documentdb:17-0.102.0-ferretdb-2.0.0 $IMAGE_REGISTRY/appscode-images/postgres-documentdb:17-0.102.0-ferretdb-2.0.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-enterprise:16.9-alpine $IMAGE_REGISTRY/appscode-images/postgres-enterprise:16.9-alpine
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-enterprise:16.9-alpine-ext $IMAGE_REGISTRY/appscode-images/postgres-enterprise:16.9-alpine-ext
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-enterprise:16.9-bookworm $IMAGE_REGISTRY/appscode-images/postgres-enterprise:16.9-bookworm
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres-enterprise:16.9-bookworm-ext $IMAGE_REGISTRY/appscode-images/postgres-enterprise:16.9-bookworm-ext
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:10.23-alpine $IMAGE_REGISTRY/appscode-images/postgres:10.23-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:10.23-bullseye $IMAGE_REGISTRY/appscode-images/postgres:10.23-bullseye
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:11.22-alpine $IMAGE_REGISTRY/appscode-images/postgres:11.22-alpine
