@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.Postgres (not (eq $ubi "operator")) }}
+{{ if not (has "17.9-percona" .Values.disableVersions.Postgres) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -71,4 +72,5 @@ spec:
   version: "17.9"
   podSecurityPolicies:
     databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+{{ end }}
 {{ end }}

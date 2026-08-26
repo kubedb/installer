@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.Postgres (not (eq $ubi "operator")) }}
+{{ if not (has "13.13" .Values.disableVersions.Postgres) }}
 
 {{ if or (not .Values.skipEndOfLife) (has "13.13" .Values.enableVersions.Postgres) }}
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -70,8 +71,10 @@ spec:
     databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   endOfLife: {{ not (has "13.13" .Values.enableVersions.Postgres) }}
 {{ end }}
+{{ end }}
 
 ---
+{{ if not (has "13.13-bookworm" .Values.disableVersions.Postgres) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -132,4 +135,5 @@ spec:
   version: "13.13"
   podSecurityPolicies:
     databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+{{ end }}
 {{ end }}

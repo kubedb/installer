@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.ProxySQL (not (eq $ubi "operator")) }}
+{{ if not (has "3.0.1-debian" .Values.disableVersions.ProxySQL) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -29,4 +30,5 @@ spec:
   version: 3.0.1-debian
   podSecurityPolicies:
     databasePolicyName: {{ ternary "proxysql-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+{{ end }}
 {{ end }}

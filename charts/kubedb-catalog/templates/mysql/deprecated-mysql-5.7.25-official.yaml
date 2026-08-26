@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.MySQL (not (eq $ubi "operator")) }}
+{{ if not (has "5.7-v2" .Values.disableVersions.MySQL) }}
 {{ if or (not .Values.skipDeprecated) (has "5.7-v2" .Values.enableVersions.MySQL) }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -43,8 +44,10 @@ spec:
     databasePolicyName: {{ ternary "mysql-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "5.7-v2" .Values.enableVersions.MySQL) }}
 {{ end }}
+{{ end }}
 
 ---
+{{ if not (has "5.7-v3" .Values.disableVersions.MySQL) }}
 {{ if or (not .Values.skipDeprecated) (has "5.7-v3" .Values.enableVersions.MySQL) }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -78,8 +81,10 @@ spec:
     databasePolicyName: {{ ternary "mysql-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "5.7-v3" .Values.enableVersions.MySQL) }}
 {{ end }}
+{{ end }}
 
 ---
+{{ if not (has "5.7.25" .Values.disableVersions.MySQL) }}
 {{ if or (not .Values.skipDeprecated) (has "5.7.25" .Values.enableVersions.MySQL) }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -113,8 +118,10 @@ spec:
     databasePolicyName: {{ ternary "mysql-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "5.7.25" .Values.enableVersions.MySQL) }}
 {{ end }}
+{{ end }}
 
 ---
+{{ if not (has "5.7.25-v1" .Values.disableVersions.MySQL) }}
 {{ if or (not .Values.skipDeprecated) (has "5.7.25-v1" .Values.enableVersions.MySQL) }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -148,8 +155,10 @@ spec:
     databasePolicyName: {{ ternary "mysql-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "5.7.25-v1" .Values.enableVersions.MySQL) }}
 {{ end }}
+{{ end }}
 
 ---
+{{ if not (has "5.7.25-v2" .Values.disableVersions.MySQL) }}
 {{ if or (not .Values.skipDeprecated) (has "5.7.25-v2" .Values.enableVersions.MySQL) }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -189,8 +198,10 @@ spec:
     databasePolicyName: {{ ternary "mysql-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "5.7.25-v2" .Values.enableVersions.MySQL) }}
 {{ end }}
+{{ end }}
 
 ---
+{{ if not (has "5.7.25-v3" .Values.disableVersions.MySQL) }}
 {{ if or (not .Values.skipDeprecated) (has "5.7.25-v3" .Values.enableVersions.MySQL) }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -229,5 +240,6 @@ spec:
   podSecurityPolicies:
     databasePolicyName: {{ ternary "mysql-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "5.7.25-v3" .Values.enableVersions.MySQL) }}
+{{ end }}
 {{ end }}
 {{ end }}

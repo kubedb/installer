@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.Kafka (not (eq $ubi "operator")) }}
+{{ if not (has "3.5.2" .Values.disableVersions.Kafka) }}
 
 {{ if or (not .Values.skipEndOfLife) (has "3.5.2" .Values.enableVersions.Kafka) }}
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -37,5 +38,6 @@ spec:
   podSecurityPolicies:
     databasePolicyName: {{ ternary "kafka-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   endOfLife: {{ not (has "3.5.2" .Values.enableVersions.Kafka) }}
+{{ end }}
 {{ end }}
 {{ end }}

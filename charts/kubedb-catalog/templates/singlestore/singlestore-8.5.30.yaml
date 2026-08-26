@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.Singlestore (not (eq $ubi "operator")) }}
+{{ if not (has "8.5.30" .Values.disableVersions.Singlestore) }}
 
 {{ if or (not .Values.skipEndOfLife) (has "8.5.30" .Values.enableVersions.Singlestore) }}
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -35,5 +36,6 @@ spec:
     - '>= 8.5.30, <= 8.9.3'
   version: 8.5.30
   endOfLife: {{ not (has "8.5.30" .Values.enableVersions.Singlestore) }}
+{{ end }}
 {{ end }}
 {{ end }}

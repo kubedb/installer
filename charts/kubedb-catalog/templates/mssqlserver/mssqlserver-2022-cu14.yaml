@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.MSSQLServer (not (eq $ubi "operator")) }}
+{{ if not (has "2022-cu14" .Values.disableVersions.MSSQLServer) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -52,4 +53,5 @@ spec:
     allowlist:
     - '>= 2022-cu14, < 2025-cu1'
   version: 2022-cu14
+{{ end }}
 {{ end }}

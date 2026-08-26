@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.Neo4j (not (eq $ubi "operator")) }}
+{{ if not (has "5.26.28" .Values.disableVersions.Neo4j) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -29,4 +30,5 @@ spec:
     denylist:
     - '>= 2025.10.1-enterprise'
   version: 5.26.28-enterprise
+{{ end }}
 {{ end }}

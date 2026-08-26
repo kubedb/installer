@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.MariaDB (not (eq $ubi "operator")) }}
+{{ if not (has "10.6.4" .Values.disableVersions.MariaDB) }}
 {{ if or (not .Values.skipDeprecated) (has "10.6.4" .Values.enableVersions.MariaDB) }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -43,5 +44,6 @@ spec:
   podSecurityPolicies:
     databasePolicyName: {{ ternary "maria-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "10.6.4" .Values.enableVersions.MariaDB) }}
+{{ end }}
 {{ end }}
 {{ end }}

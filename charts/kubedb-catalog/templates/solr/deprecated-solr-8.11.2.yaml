@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.Solr (not (eq $ubi "operator")) }}
+{{ if not (has "8.11.2" .Values.disableVersions.Solr) }}
 {{ if or (not .Values.skipDeprecated) (has "8.11.2" .Values.enableVersions.Solr) }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -28,5 +29,6 @@ spec:
     - '>= 8.11.2, < 8.11.5'
   version: 8.11.2
   deprecated: {{ not (has "8.11.2" .Values.enableVersions.Solr) }}
+{{ end }}
 {{ end }}
 {{ end }}

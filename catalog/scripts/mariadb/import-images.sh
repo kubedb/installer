@@ -27,7 +27,6 @@ tar -zxvf $TARBALL
 CMD="./crane"
 
 $CMD push --allow-nondistributable-artifacts --insecure images/mariadb-maxscale-24.02.4.tar $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
-$CMD push --allow-nondistributable-artifacts --insecure images/prom-mysqld-exporter-v0.18.0.tar $IMAGE_REGISTRY/prom/mysqld-exporter:v0.18.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-10.10.7-jammy.tar $IMAGE_REGISTRY/appscode-images/mariadb:10.10.7-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-10.11.16-jammy.tar $IMAGE_REGISTRY/appscode-images/mariadb:10.11.16-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-10.11.6-jammy.tar $IMAGE_REGISTRY/appscode-images/mariadb:10.11.6-jammy

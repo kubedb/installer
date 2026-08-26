@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.MongoDB (not (eq $ubi "operator")) }}
+{{ if not (has "percona-4.0.10" .Values.disableVersions.MongoDB) }}
 {{ if or (not .Values.skipDeprecated) (has "percona-4.0.10" .Values.enableVersions.MongoDB) }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -44,5 +45,6 @@ spec:
   podSecurityPolicies:
     databasePolicyName: {{ ternary "mongodb-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "percona-4.0.10" .Values.enableVersions.MongoDB) }}
+{{ end }}
 {{ end }}
 {{ end }}

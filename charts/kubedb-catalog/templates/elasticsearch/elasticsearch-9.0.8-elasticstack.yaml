@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.Elasticsearch (not (eq $ubi "operator")) }}
+{{ if not (has "xpack-9.0.8" .Values.disableVersions.Elasticsearch) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -53,4 +54,5 @@ spec:
   version: 9.0.8
   podSecurityPolicies:
     databasePolicyName: {{ ternary "elasticsearch-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+{{ end }}
 {{ end }}
