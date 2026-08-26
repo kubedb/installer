@@ -9,7 +9,7 @@
 apiVersion: addons.kubestash.com/v1alpha1
 kind: Function
 metadata:
-  name: 'etcd-backup-restore'
+  name: 'etcd-restore'
   labels:
     {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
 spec:
@@ -28,5 +28,8 @@ spec:
   - --peer-urls=${peerURLs:=}
   - --skip-hash-check=${skipHashCheck:=true}
   - --skip-version-check=${skipVersionCheck:=false}
-  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/etcd-restic-plugin") $) }}:v0.1.0{{ include "catalog.ubi" $ }}'
+  availableVersions:
+  - 3.5.21
+  - 3.6.4
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/etcd-restic-plugin") $) }}:v0.1.0-rc.2_${DB_VERSION}{{ include "catalog.ubi" $ }}'
 {{ end }}
