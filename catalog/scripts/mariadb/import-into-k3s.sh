@@ -25,6 +25,7 @@ TARBALL=${1:-}
 tar -zxvf $TARBALL
 
 k3s ctr images import images/mariadb-maxscale-24.02.4.tar
+k3s ctr images import images/prom-mysqld-exporter-v0.18.0.tar
 k3s ctr images import images/appscode-images-mariadb-10.10.7-jammy.tar
 k3s ctr images import images/appscode-images-mariadb-10.11.16-jammy.tar
 k3s ctr images import images/appscode-images-mariadb-10.11.6-jammy.tar
@@ -42,14 +43,14 @@ k3s ctr images import images/appscode-images-mariadb-11.6.2-noble.tar
 k3s ctr images import images/appscode-images-mariadb-11.8.5-noble.tar
 k3s ctr images import images/appscode-images-mariadb-12.1.2-noble.tar
 k3s ctr images import images/appscode-images-mariadb-12.3.2-noble.tar
-k3s ctr images import images/kubedb-kubedb-migrator-mariadb-v0.7.0-rc.0.tar
-k3s ctr images import images/kubedb-mariadb-archiver-v0.27.0-rc.0_10.10.7-jammy.tar
-k3s ctr images import images/kubedb-mariadb-archiver-v0.27.0-rc.0_10.11.6-jammy.tar
-k3s ctr images import images/kubedb-mariadb-archiver-v0.27.0-rc.0_10.4.32-focal.tar
-k3s ctr images import images/kubedb-mariadb-archiver-v0.27.0-rc.0_10.5.23-focal.tar
-k3s ctr images import images/kubedb-mariadb-archiver-v0.27.0-rc.0_10.6.16-focal.tar
-k3s ctr images import images/kubedb-mariadb-archiver-v0.27.0-rc.0_11.0.4-jammy.tar
-k3s ctr images import images/kubedb-mariadb-archiver-v0.27.0-rc.0_11.1.3-jammy.tar
-k3s ctr images import images/kubedb-mariadb-archiver-v0.27.0-rc.0_11.2.2-jammy.tar
-k3s ctr images import images/kubedb-mariadb-coordinator-v0.47.0-rc.0.tar
+k3s ctr images import images/kubedb-kubedb-migrator-mariadb-v0.7.0-rc.2.tar
+k3s ctr images import images/kubedb-mariadb-archiver-v0.27.0-rc.2_10.10.7-jammy.tar
+k3s ctr images import images/kubedb-mariadb-archiver-v0.27.0-rc.2_10.11.6-jammy.tar
+k3s ctr images import images/kubedb-mariadb-archiver-v0.27.0-rc.2_10.4.32-focal.tar
+k3s ctr images import images/kubedb-mariadb-archiver-v0.27.0-rc.2_10.5.23-focal.tar
+k3s ctr images import images/kubedb-mariadb-archiver-v0.27.0-rc.2_10.6.16-focal.tar
+k3s ctr images import images/kubedb-mariadb-archiver-v0.27.0-rc.2_11.0.4-jammy.tar
+k3s ctr images import images/kubedb-mariadb-archiver-v0.27.0-rc.2_11.1.3-jammy.tar
+k3s ctr images import images/kubedb-mariadb-archiver-v0.27.0-rc.2_11.2.2-jammy.tar
+k3s ctr images import images/kubedb-mariadb-coordinator-v0.47.0-rc.2.tar
 k3s ctr images import images/kubedb-mariadb-init-0.9.0.tar
