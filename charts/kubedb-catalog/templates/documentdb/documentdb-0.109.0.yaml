@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.DocumentDB (not (eq $ubi "operator")) }}
+{{ if not (has "pg17-0.109.0" .Values.disableVersions.DocumentDB) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -27,4 +28,5 @@ spec:
   securityContext:
     runAsUser: 1000
   version: 0.109.0
+{{ end }}
 {{ end }}

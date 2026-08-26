@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.Etcd (not (eq $ubi "operator")) }}
+{{ if not (has "3.6.4" .Values.disableVersions.Etcd) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -27,4 +28,5 @@ spec:
     allowlist:
     - '>= 3.6.4, <= 3.7.0'
   version: 3.6.4
+{{ end }}
 {{ end }}

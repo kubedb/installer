@@ -25,7 +25,6 @@ TARBALL=${1:-}
 tar -zxvf $TARBALL
 
 k3s ctr images import images/mariadb-maxscale-24.02.4.tar
-k3s ctr images import images/prom-mysqld-exporter-v0.18.0.tar
 k3s ctr images import images/appscode-images-mariadb-10.10.7-jammy.tar
 k3s ctr images import images/appscode-images-mariadb-10.11.16-jammy.tar
 k3s ctr images import images/appscode-images-mariadb-10.11.6-jammy.tar

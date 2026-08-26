@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.MongoDB (not (eq $ubi "operator")) }}
+{{ if not (has "3.6.8" .Values.disableVersions.MongoDB) }}
 {{ if or (not .Values.skipDeprecated) (has "3.6.8" .Values.enableVersions.MongoDB) }}
 {{ if or (not .Values.skipEndOfLife) (has "3.6.8" .Values.enableVersions.MongoDB) }}
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -38,8 +39,10 @@ spec:
   endOfLife: {{ not (has "3.6.8" .Values.enableVersions.MongoDB) }}
 {{ end }}
 {{ end }}
+{{ end }}
 
 ---
+{{ if not (has "3.6.8-v1" .Values.disableVersions.MongoDB) }}
 {{ if or (not .Values.skipDeprecated) (has "3.6.8-v1" .Values.enableVersions.MongoDB) }}
 {{ if or (not .Values.skipEndOfLife) (has "3.6.8-v1" .Values.enableVersions.MongoDB) }}
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -93,6 +96,7 @@ spec:
     databasePolicyName: {{ ternary "mongodb-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "3.6.8-v1" .Values.enableVersions.MongoDB) }}
   endOfLife: {{ not (has "3.6.8-v1" .Values.enableVersions.MongoDB) }}
+{{ end }}
 {{ end }}
 {{ end }}
 {{ end }}

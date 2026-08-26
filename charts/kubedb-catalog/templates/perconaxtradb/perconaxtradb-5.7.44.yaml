@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.PerconaXtraDB (not (eq $ubi "operator")) }}
+{{ if not (has "5.7.44" .Values.disableVersions.PerconaXtraDB) }}
 
 {{ if or (not .Values.skipEndOfLife) (has "5.7.44" .Values.enableVersions.PerconaXtraDB) }}
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -42,5 +43,6 @@ spec:
   podSecurityPolicies:
     databasePolicyName: {{ ternary "percona-xtradb-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   endOfLife: {{ not (has "5.7.44" .Values.enableVersions.PerconaXtraDB) }}
+{{ end }}
 {{ end }}
 {{ end }}

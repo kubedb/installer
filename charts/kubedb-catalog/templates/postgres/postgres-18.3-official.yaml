@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.Postgres (not (eq $ubi "operator")) }}
+{{ if not (has "18.3" .Values.disableVersions.Postgres) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -62,8 +63,10 @@ spec:
   version: "18.3"
   podSecurityPolicies:
     databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+{{ end }}
 
 ---
+{{ if not (has "18.3-bookworm" .Values.disableVersions.Postgres) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -118,4 +121,5 @@ spec:
   version: "18.3"
   podSecurityPolicies:
     databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+{{ end }}
 {{ end }}
