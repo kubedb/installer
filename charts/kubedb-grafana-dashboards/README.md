@@ -31,6 +31,38 @@ The command deploys a KubeDB Grafana Dashboards on the Kubernetes cluster in the
 
 > **Tip**: List all releases using `helm list`
 
+### Installing Dashboards for Selected Databases
+
+By default, the chart installs dashboards for all databases enabled in `featureGates`. To install dashboards only for selected databases, use `ci/all-false-values.yaml` to disable every database first, then enable the required databases with `--set`. Helm applies `--set` values after the values file, so the selected database flags override the corresponding `false` values.
+
+For example, the following command installs only the Redis dashboards:
+
+```bash
+$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards \
+  --namespace kubeops --create-namespace \
+  --version=v2026.8.26-rc.2 \
+  --values https://github.com/kubedb/installer/raw/v2026.8.26-rc.2/charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+  --set featureGates.Redis=true
+```
+
+To install dashboards for multiple databases, enable each required feature gate. For example, the following command installs only the Redis, MySQL, and Postgres dashboards:
+
+```bash
+$ helm upgrade -i kubedb-grafana-dashboards appscode/kubedb-grafana-dashboards \
+  --namespace kubeops --create-namespace \
+  --version=v2026.8.26-rc.2 \
+  --values https://github.com/kubedb/installer/raw/v2026.8.26-rc.2/charts/kubedb-grafana-dashboards/ci/all-false-values.yaml \
+  --set featureGates.Redis=true \
+  --set featureGates.MySQL=true \
+  --set featureGates.Postgres=true
+```
+
+When installing from an installer source checkout, the local values file can be used instead:
+
+```bash
+--values charts/kubedb-grafana-dashboards/ci/all-false-values.yaml
+```
+
 ## Uninstalling the Chart
 
 To uninstall the `kubedb-grafana-dashboards`:
