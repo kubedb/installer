@@ -270,4 +270,136 @@ spec:
   podSecurityPolicies:
     databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
 {{ end }}
+
+---
+{{ if not (has "16.9-appscode-stream9" .Values.disableVersions.Postgres) }}
+
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: '16.9-appscode-stream9'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        fullBackup:
+          name: physical-backup
+        fullBackupRestore:
+          name: physical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.28.0-rc.2_16.1-bookworm'
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.51.0-rc.2{{ include "catalog.ubi" $ }}'
+  courier:
+    cli:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-migrator-postgresql") $) }}:v0.7.0-rc.2{{ include "catalog.ubi" $ }}'
+    statusReporter:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-courier") $) }}:v0.7.0-rc.2{{ include "catalog.ubi" $ }}'
+  db:
+    baseOS: stream9
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres-enterprise") $) }}:16.9-stream9'
+  distribution: AppsCode
+  exporter:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.18.1'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.21.0'
+  license:
+    required: true
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-16.1
+      restoreTask:
+        name: postgres-restore-16.1
+  ui:
+  - name: pgadmin
+    version: v2026.3.30
+  - name: dbgate
+    version: v2026.3.30
+  updateConstraints:
+    allowlist:
+    - '>= 16.9'
+  version: "16.9"
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+{{ end }}
+
+---
+{{ if not (has "16.9-appscode-stream9-ext" .Values.disableVersions.Postgres) }}
+
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  name: '16.9-appscode-stream9-ext'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  archiver:
+    addon:
+      name: postgres-addon
+      tasks:
+        fullBackup:
+          name: physical-backup
+        fullBackupRestore:
+          name: physical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.28.0-rc.2_16.1-bookworm'
+  coordinator:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.51.0-rc.2{{ include "catalog.ubi" $ }}'
+  courier:
+    cli:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-migrator-postgresql") $) }}:v0.7.0-rc.2{{ include "catalog.ubi" $ }}'
+    statusReporter:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-courier") $) }}:v0.7.0-rc.2{{ include "catalog.ubi" $ }}'
+  db:
+    baseOS: stream9
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres-enterprise") $) }}:16.9-stream9-ext'
+  distribution: AppsCode
+  exporter:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.18.1'
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-init") $) }}:0.21.0'
+  license:
+    required: true
+  securityContext:
+    runAsAnyNonRoot: true
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-16.1
+      restoreTask:
+        name: postgres-restore-16.1
+  ui:
+  - name: pgadmin
+    version: v2026.3.30
+  - name: dbgate
+    version: v2026.3.30
+  updateConstraints:
+    allowlist:
+    - '>= 16.9'
+  version: "16.9"
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+{{ end }}
 {{ end }}

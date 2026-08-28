@@ -32,6 +32,10 @@ var ignoreMissingList = []string{
 }
 
 var archSkipList = []string{
+	// Postgres Enterprise by AppsCode is published amd64-only by design; there is
+	// no arm64 build. Added late: the 16.9 catalog entries landed in #2425 without
+	// this, which has failed Test_CheckImageArchitectures on master since then.
+	"ghcr.io/appscode-images/postgres-enterprise:*",
 	"ghcr.io/appscode-images/weaviate:1.33.1", // Docker inspect not showing any arm64 image
 	"docker.io/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0",
 	"ghcr.io/appscode-images/druid:28.0.1",
