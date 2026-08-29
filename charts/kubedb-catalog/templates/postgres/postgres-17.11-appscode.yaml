@@ -8,13 +8,13 @@
 {{- end }}
 
 {{ if and $featureGates.Postgres (not (eq $ubi "operator")) }}
-{{ if not (has "16.9-appscode" .Values.disableVersions.Postgres) }}
+{{ if not (has "17.11-appscode" .Values.disableVersions.Postgres) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: '16.9-appscode'
+  name: '17.11-appscode'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -33,7 +33,7 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.28.0-rc.2_16.1-alpine'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.28.0-rc.2_17.2-alpine'
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.51.0-rc.2{{ include "catalog.ubi" $ }}'
   courier:
@@ -43,7 +43,7 @@ spec:
       image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-courier") $) }}:v0.7.0-rc.2{{ include "catalog.ubi" $ }}'
   db:
     baseOS: alpine
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres-enterprise") $) }}:16.9-alpine'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres-enterprise") $) }}:17.11-alpine'
   distribution: AppsCode
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.18.1'
@@ -57,9 +57,9 @@ spec:
   stash:
     addon:
       backupTask:
-        name: postgres-backup-16.1
+        name: postgres-backup-17.2
       restoreTask:
-        name: postgres-restore-16.1
+        name: postgres-restore-17.2
   ui:
   - name: pgadmin
     version: v2026.3.30
@@ -67,20 +67,20 @@ spec:
     version: v2026.3.30
   updateConstraints:
     allowlist:
-    - '>= 16.9'
-  version: "16.9"
+    - '>= 17.11'
+  version: "17.11"
   podSecurityPolicies:
     databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
 {{ end }}
 
 ---
-{{ if not (has "16.9-appscode-bookworm" .Values.disableVersions.Postgres) }}
+{{ if not (has "17.11-appscode-bookworm" .Values.disableVersions.Postgres) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: '16.9-appscode-bookworm'
+  name: '17.11-appscode-bookworm'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -99,7 +99,7 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.28.0-rc.2_16.1-bookworm'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.28.0-rc.2_17.2-bookworm'
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.51.0-rc.2{{ include "catalog.ubi" $ }}'
   courier:
@@ -109,7 +109,7 @@ spec:
       image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-courier") $) }}:v0.7.0-rc.2{{ include "catalog.ubi" $ }}'
   db:
     baseOS: bookworm
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres-enterprise") $) }}:16.9-bookworm'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres-enterprise") $) }}:17.11-bookworm'
   distribution: AppsCode
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.18.1'
@@ -123,9 +123,9 @@ spec:
   stash:
     addon:
       backupTask:
-        name: postgres-backup-16.1
+        name: postgres-backup-17.2
       restoreTask:
-        name: postgres-restore-16.1
+        name: postgres-restore-17.2
   ui:
   - name: pgadmin
     version: v2026.3.30
@@ -133,20 +133,20 @@ spec:
     version: v2026.3.30
   updateConstraints:
     allowlist:
-    - '>= 16.9'
-  version: "16.9"
+    - '>= 17.11'
+  version: "17.11"
   podSecurityPolicies:
     databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
 {{ end }}
 
 ---
-{{ if not (has "16.9-appscode-bookworm-ext" .Values.disableVersions.Postgres) }}
+{{ if not (has "17.11-appscode-bookworm-ext" .Values.disableVersions.Postgres) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: '16.9-appscode-bookworm-ext'
+  name: '17.11-appscode-bookworm-ext'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -165,7 +165,7 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.28.0-rc.2_16.1-bookworm'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.28.0-rc.2_17.2-bookworm'
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.51.0-rc.2{{ include "catalog.ubi" $ }}'
   courier:
@@ -175,7 +175,7 @@ spec:
       image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-courier") $) }}:v0.7.0-rc.2{{ include "catalog.ubi" $ }}'
   db:
     baseOS: bookworm
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres-enterprise") $) }}:16.9-bookworm-ext'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres-enterprise") $) }}:17.11-bookworm-ext'
   distribution: AppsCode
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.18.1'
@@ -189,9 +189,9 @@ spec:
   stash:
     addon:
       backupTask:
-        name: postgres-backup-16.1
+        name: postgres-backup-17.2
       restoreTask:
-        name: postgres-restore-16.1
+        name: postgres-restore-17.2
   ui:
   - name: pgadmin
     version: v2026.3.30
@@ -199,20 +199,20 @@ spec:
     version: v2026.3.30
   updateConstraints:
     allowlist:
-    - '>= 16.9'
-  version: "16.9"
+    - '>= 17.11'
+  version: "17.11"
   podSecurityPolicies:
     databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
 {{ end }}
 
 ---
-{{ if not (has "16.9-appscode-ext" .Values.disableVersions.Postgres) }}
+{{ if not (has "17.11-appscode-ext" .Values.disableVersions.Postgres) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: '16.9-appscode-ext'
+  name: '17.11-appscode-ext'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -231,7 +231,7 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.28.0-rc.2_16.1-alpine'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.28.0-rc.2_17.2-alpine'
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.51.0-rc.2{{ include "catalog.ubi" $ }}'
   courier:
@@ -241,7 +241,7 @@ spec:
       image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-courier") $) }}:v0.7.0-rc.2{{ include "catalog.ubi" $ }}'
   db:
     baseOS: alpine
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres-enterprise") $) }}:16.9-alpine-ext'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres-enterprise") $) }}:17.11-alpine-ext'
   distribution: AppsCode
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.18.1'
@@ -255,9 +255,9 @@ spec:
   stash:
     addon:
       backupTask:
-        name: postgres-backup-16.1
+        name: postgres-backup-17.2
       restoreTask:
-        name: postgres-restore-16.1
+        name: postgres-restore-17.2
   ui:
   - name: pgadmin
     version: v2026.3.30
@@ -265,20 +265,20 @@ spec:
     version: v2026.3.30
   updateConstraints:
     allowlist:
-    - '>= 16.9'
-  version: "16.9"
+    - '>= 17.11'
+  version: "17.11"
   podSecurityPolicies:
     databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
 {{ end }}
 
 ---
-{{ if not (has "16.9-appscode-stream9" .Values.disableVersions.Postgres) }}
+{{ if not (has "17.11-appscode-stream9" .Values.disableVersions.Postgres) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: '16.9-appscode-stream9'
+  name: '17.11-appscode-stream9'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -297,7 +297,7 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.28.0-rc.2_16.1-bookworm'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.28.0-rc.2_17.2-bookworm'
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.51.0-rc.2{{ include "catalog.ubi" $ }}'
   courier:
@@ -307,7 +307,7 @@ spec:
       image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-courier") $) }}:v0.7.0-rc.2{{ include "catalog.ubi" $ }}'
   db:
     baseOS: stream9
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres-enterprise") $) }}:16.9-stream9'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres-enterprise") $) }}:17.11-stream9'
   distribution: AppsCode
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.18.1'
@@ -321,9 +321,9 @@ spec:
   stash:
     addon:
       backupTask:
-        name: postgres-backup-16.1
+        name: postgres-backup-17.2
       restoreTask:
-        name: postgres-restore-16.1
+        name: postgres-restore-17.2
   ui:
   - name: pgadmin
     version: v2026.3.30
@@ -331,20 +331,20 @@ spec:
     version: v2026.3.30
   updateConstraints:
     allowlist:
-    - '>= 16.9'
-  version: "16.9"
+    - '>= 17.11'
+  version: "17.11"
   podSecurityPolicies:
     databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
 {{ end }}
 
 ---
-{{ if not (has "16.9-appscode-stream9-ext" .Values.disableVersions.Postgres) }}
+{{ if not (has "17.11-appscode-stream9-ext" .Values.disableVersions.Postgres) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: '16.9-appscode-stream9-ext'
+  name: '17.11-appscode-stream9-ext'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -363,7 +363,7 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.28.0-rc.2_16.1-bookworm'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.28.0-rc.2_17.2-bookworm'
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/pg-coordinator") $) }}:v0.51.0-rc.2{{ include "catalog.ubi" $ }}'
   courier:
@@ -373,7 +373,7 @@ spec:
       image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-courier") $) }}:v0.7.0-rc.2{{ include "catalog.ubi" $ }}'
   db:
     baseOS: stream9
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres-enterprise") $) }}:16.9-stream9-ext'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/postgres-enterprise") $) }}:17.11-stream9-ext'
   distribution: AppsCode
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/postgres-exporter") $) }}:v0.18.1'
@@ -387,9 +387,9 @@ spec:
   stash:
     addon:
       backupTask:
-        name: postgres-backup-16.1
+        name: postgres-backup-17.2
       restoreTask:
-        name: postgres-restore-16.1
+        name: postgres-restore-17.2
   ui:
   - name: pgadmin
     version: v2026.3.30
@@ -397,8 +397,8 @@ spec:
     version: v2026.3.30
   updateConstraints:
     allowlist:
-    - '>= 16.9'
-  version: "16.9"
+    - '>= 17.11'
+  version: "17.11"
   podSecurityPolicies:
     databasePolicyName: {{ ternary "postgres-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
 {{ end }}
