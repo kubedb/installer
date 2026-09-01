@@ -1,0 +1,219 @@
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.DocumentDB (not (eq $ubi "operator")) }}
+# A dedicated addon rather than a reuse of postgres-addon.
+#
+# DocumentDB is a MongoDB-wire gateway over a Postgres backend, and its backup AppBinding
+# (<db>-admin) is typed kubedb.com/postgres because the thing being backed up really is a
+# Postgres. It is nevertheless not interchangeable with a Postgres: the collection catalog lives
+# in extension-owned tables that pg_dump does not capture, so only the physical tasks produce a
+# restorable backup. Keeping a separate addon means the DocumentDB tasks can carry DocumentDB
+# defaults and versions without perturbing postgres-addon.
+#
+# The Functions still run the postgres-restic-plugin image - only the addon layer is
+# DocumentDB-specific.
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Addon
+metadata:
+  name: 'documentdb-addon'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  backupTasks:
+  # Declared for parity with postgres-addon, but NOT usable: the plugin rejects a DocumentDB
+  # target for the logical path, because pg_dump omits the extension-owned collection catalog and
+  # the resulting snapshot restores with every document present and zero collections. Selecting
+  # this task fails immediately rather than producing a snapshot that looks valid and is not.
+  # Use physical-backup.
+  - driver: Restic
+    executor: Job
+    function: documentdb-backup
+    name: logical-backup
+    parameters:
+    - name: args
+      required: false
+      usage: Arguments to be passed to the dump command.
+    - default: pg_dumpall
+      name: backupCmd
+      required: false
+      usage: Backup command to take a database dump (can only be pg_dumpall or pg_dump)
+    - name: user
+      required: false
+      usage: Specifies database user (not applicable for basic authentication)
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+  - driver: Restic
+    executor: Job
+    function: documentdb-physical-backup
+    name: physical-backup
+    parameters:
+    - name: args
+      required: false
+      usage: Arguments to be passed to the backup command.
+    - default: pg_basebackup
+      name: backupCmd
+      required: false
+      usage: Backup command to take a physical database backup (pg_basebackup)
+    # No default, unlike postgres-addon: there is no "postgres" role in a DocumentDB backend.
+    # Left empty, the plugin resolves the role from the AppBinding's secret - <db>-admin-auth,
+    # whose user is "documentdb".
+    - name: user
+      required: false
+      usage: Specifies database user (not applicable for basic authentication)
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+  - driver: Restic
+    executor: Job
+    function: kubedbmanifest-backup
+    name: manifest-backup
+    parameters:
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+  restoreTasks:
+  # The counterpart of logical-backup above, and equally unusable; the plugin rejects it.
+  - driver: Restic
+    executor: Job
+    function: documentdb-restore
+    name: logical-backup-restore
+    parameters:
+    - name: args
+      required: false
+      usage: Arguments to be passed to the restore command.
+    - name: user
+      required: false
+      usage: Specifies database user (not applicable for basic authentication)
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+  - driver: Restic
+    executor: Job
+    function: documentdb-physical-backup-restore
+    name: physical-backup-restore
+    parameters:
+    - name: args
+      required: false
+      usage: Arguments to be passed to the restore command.
+    - name: user
+      required: false
+      usage: Specifies database user (not applicable for basic authentication)
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    - default: tar
+      name: restoreCmd
+      required: false
+      usage: Restore command to use on dumped restic tar file
+    - default: /data
+      name: restorePath
+      required: false
+      usage: Path within the mounted volume that becomes PGDATA (/var/pv/data)
+    singleton: true
+    volumeMounts:
+    # ${PVC_NAME} is injected by KubeStash from the RestoreSession's target: a physical restore
+    # targets the data PVC (data-<db>-0) directly, since the DocumentDB itself does not exist yet
+    # while spec.init.waitForInitialRestore holds the gate closed.
+    - mountPath: /kubestash-data
+      name: kubestash-data-volume
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-data-volume
+      source:
+        persistentVolumeClaim:
+          claimName: ${PVC_NAME}
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+  - driver: Restic
+    executor: Job
+    function: kubedbmanifest-restore
+    name: manifest-restore
+    parameters:
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+{{ end }}
