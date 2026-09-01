@@ -3,6 +3,11 @@ kind: DocumentDBVersion
 metadata:
   name: pg17-0.109.0
 spec:
+  # The Postgres version the backend actually runs, in the x.y form the KubeStash addon dispatches
+  # on. Published as spec.version on the <db>-admin AppBinding, which is what resolves ${DB_VERSION}
+  # in the documentdb-* Function image tags. Without it the operator does not create that
+  # AppBinding at all and backup has nothing to target.
+  addonPostgresVersion: "17.2"
   coordinator:
     image: ghcr.io/kubedb/documentdb-coordinator:v0.3.0-rc.2
   db:
