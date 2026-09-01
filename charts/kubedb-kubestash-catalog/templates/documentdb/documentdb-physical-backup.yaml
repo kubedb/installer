@@ -1,0 +1,32 @@
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.DocumentDB (not (eq $ubi "operator")) }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'documentdb-physical-backup'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  args:
+  - physical-backup
+  - --namespace=${namespace:=default}
+  - --backupsession=${backupSession:=}
+  - --enable-cache=${enableCache:=}
+  - --scratch-dir=${scratchDir:=}
+  - --wait-timeout=${waitTimeout:={{ .Values.waitTimeout}}}
+  - --pg-args=${args:={{ .Values.documentdb.backup.args }}}
+  - --backup-cmd=${backupCmd:=}
+  - --user=${user:=}
+  # The version of the AppBinding this Function is dispatched on, not the DocumentDB version.
+  # A physical backup targets the <db>-admin AppBinding, whose spec.version is
+  # DocumentDBVersion.spec.addonPostgresVersion - the Postgres major the backend actually runs.
+  availableVersions:
+  - "17.2"
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-restic-plugin") $) }}:v0.30.0-rc.2_${DB_VERSION}{{ include "catalog.ubi" $ }}'
+{{ end }}
