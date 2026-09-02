@@ -6,6 +6,12 @@
 {{- end }}
 
 {{ if and $featureGates.DocumentDB (not (eq $ubi "operator")) }}
+# Logical (pg_dump) backup of the DocumentDB Postgres backend.
+#
+# Identical in shape to postgres-backup - same plugin binary, same arguments. Everything
+# DocumentDB-specific happens inside the plugin, selected from the AppBinding's appRef Kind:
+# catalog registration, the pg_dump override, --dbname/--format/--exclude-schema. Nothing is
+# passed from here, so this Function stays a drop-in peer of the Postgres one.
 apiVersion: addons.kubestash.com/v1alpha1
 kind: Function
 metadata:
