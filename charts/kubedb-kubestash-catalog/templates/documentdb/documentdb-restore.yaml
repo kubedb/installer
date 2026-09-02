@@ -6,6 +6,10 @@
 {{- end }}
 
 {{ if and $featureGates.DocumentDB (not (eq $ubi "operator")) }}
+# Logical restore, the counterpart of documentdb-backup.
+#
+# The plugin switches to pg_restore for a DocumentDB target because the archive is custom-format,
+# and pre-clears the target's own catalog before replaying. Again nothing is passed from here.
 apiVersion: addons.kubestash.com/v1alpha1
 kind: Function
 metadata:
