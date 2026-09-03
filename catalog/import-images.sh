@@ -50,7 +50,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-202
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2026.05.0-enterprise.tar $IMAGE_REGISTRY/neo4j:2026.05.0-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2026.06.0-enterprise.tar $IMAGE_REGISTRY/neo4j:2026.06.0-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-5.26.28-enterprise.tar $IMAGE_REGISTRY/neo4j:5.26.28-enterprise
-$CMD push --allow-nondistributable-artifacts --insecure images/mariadb-maxscale-24.02.4.tar $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
+$CMD push --allow-nondistributable-artifacts --insecure images/mariadb-maxscale-24.02.9.tar $IMAGE_REGISTRY/mariadb/maxscale:24.02.9
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-4.4.26.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:4.4.26
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-5.0.29.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:5.0.29
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-6.0.24.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:6.0.24
