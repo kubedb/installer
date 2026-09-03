@@ -27,6 +27,7 @@ waitTimeout: 300
 featureGates:
   ClickHouse: true
   Cassandra: true
+  DocumentDB: true
   Druid: true
   Elasticsearch: true
   Etcd: true
@@ -102,6 +103,17 @@ mssqlserver:
   backup:
     args: ""
   restore:
+    args: ""
+documentdb:
+  # DocumentDB is a MongoDB-wire gateway over a Postgres backend and is backed up with the
+  # postgres-restic-plugin. Only physical (pg_basebackup) backup is supported: pg_dump cannot
+  # capture the extension-owned collection catalog, so a logical snapshot restores with no
+  # collections. The logical tasks are declared but rejected by the plugin.
+  backup:
+    # Arguments to pass to `pg_basebackup` during the backup process
+    args: ""
+  restore:
+    # Arguments to pass to the restore command during the restore process
     args: ""
 postgres:
   backup:
