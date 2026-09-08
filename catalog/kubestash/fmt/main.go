@@ -89,6 +89,7 @@ var appToKind = map[string]string{
 	"mariadb":            "MariaDB",
 	"memcached":          "Memcached",
 	"microsoftsqlserver": "MicrosoftSQLServer",
+	"milvus":             "Milvus",
 	"mongodb":            "MongoDB",
 	"mssqlserver":        "MSSQLServer",
 	"mysql":              "MySQL",
