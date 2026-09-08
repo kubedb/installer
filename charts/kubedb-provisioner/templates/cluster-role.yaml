@@ -289,6 +289,20 @@ rules:
     - watch
     - patch
     - delete
+# DC-DR: the provisioner expands a distributed Postgres into one per-DC PlacementPolicy
+# (<pp>-<dc>) and garbage-collects them on delete (they are cluster-scoped with no owner
+# reference), so it needs create/delete in addition to read on placementpolicies.
+- apiGroups:
+    - apps.k8s.appscode.com
+  resources:
+    - placementpolicies
+  verbs:
+    - get
+    - list
+    - watch
+    - create
+    - patch
+    - delete
 - apiGroups:
     - networking.kubeslice.io
   resources:
