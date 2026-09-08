@@ -1,0 +1,27 @@
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Addon
+metadata:
+  name: milvus-addon
+spec:
+  backupTasks:
+    - driver: Milvus
+      executor: Job
+      function: milvus-backup
+      name: logical-backup
+      parameters:
+        - default: ""
+          name: collections
+          required: false
+          usage: Collections to backup (comma-separated, empty means all)
+      singleton: true
+  restoreTasks:
+    - driver: Milvus
+      executor: Job
+      function: milvus-restore
+      name: logical-backup-restore
+      parameters:
+        - default: "_restored"
+          name: restoreSuffix
+          required: false
+          usage: Suffix appended to restored collection names
+      singleton: true
