@@ -55,6 +55,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.12.1-enterprise images/library-neo4j-2025.12.1-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.05.0-enterprise images/library-neo4j-2026.05.0-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.06.0-enterprise images/library-neo4j-2026.06.0-enterprise.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.07.1-enterprise images/library-neo4j-2026.07.1-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:5.26.28-enterprise images/library-neo4j-5.26.28-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/mariadb/maxscale:24.02.9 images/mariadb-maxscale-24.02.9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:4.4.26 images/percona-percona-server-mongodb-4.4.26.tar
@@ -454,6 +455,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-r
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.4.32-focal images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_10.4.32-focal.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.6.16-focal images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_10.6.16-focal.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_11.1.3-jammy images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_11.1.3-jammy.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/milvus-backup-plugin:v0.1.0-rc.0 images/kubedb-milvus-backup-plugin-v0.1.0-rc.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.28.0-rc.2 images/kubedb-mongodb-csi-snapshotter-plugin-v0.28.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 images/kubedb-mongodb-init-4.2-v9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v12 images/kubedb-mongodb-init-6.0-v12.tar

@@ -49,6 +49,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-202
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2025.12.1-enterprise.tar $IMAGE_REGISTRY/neo4j:2025.12.1-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2026.05.0-enterprise.tar $IMAGE_REGISTRY/neo4j:2026.05.0-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2026.06.0-enterprise.tar $IMAGE_REGISTRY/neo4j:2026.06.0-enterprise
+$CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2026.07.1-enterprise.tar $IMAGE_REGISTRY/neo4j:2026.07.1-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-5.26.28-enterprise.tar $IMAGE_REGISTRY/neo4j:5.26.28-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/mariadb-maxscale-24.02.9.tar $IMAGE_REGISTRY/mariadb/maxscale:24.02.9
 $CMD push --allow-nondistributable-artifacts --insecure images/percona-percona-server-mongodb-4.4.26.tar $IMAGE_REGISTRY/percona/percona-server-mongodb:4.4.26
@@ -448,6 +449,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-re
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_10.4.32-focal.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.4.32-focal
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_10.6.16-focal.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.6.16-focal
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_11.1.3-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_11.1.3-jammy
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-milvus-backup-plugin-v0.1.0-rc.0.tar $IMAGE_REGISTRY/kubedb/milvus-backup-plugin:v0.1.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-csi-snapshotter-plugin-v0.28.0-rc.2.tar $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.28.0-rc.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-4.2-v9.tar $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-6.0-v12.tar $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v12
