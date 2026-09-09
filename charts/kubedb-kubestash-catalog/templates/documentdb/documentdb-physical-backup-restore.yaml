@@ -1,0 +1,42 @@
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.DocumentDB (not (eq $ubi "operator")) }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'documentdb-physical-backup-restore'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  args:
+  - physical-restore
+  - --namespace=${namespace:=default}
+  - --restoresession=${restoreSession:=}
+  - --snapshot=${snapshot:=}
+  - --enable-cache=${enableCache:=}
+  - --scratch-dir=${scratchDir:=}
+  - --wait-timeout=${waitTimeout:={{ .Values.waitTimeout}}}
+  - --pg-args=${args:={{ .Values.documentdb.restore.args }}}
+  - --user=${user:=}
+  - --restore-cmd=${restoreCmd:=}
+  - --restore-path=${restorePath:=}
+  availableVersions:
+  - "17.2"
+  # The tag is pinned rather than using ${DB_VERSION}, unlike every other Function here.
+  #
+  # A physical restore targets the data PVC (data-<db>-0) directly - the DocumentDB does not exist
+  # as a running database yet, since spec.init.waitForInitialRestore holds the gate closed.
+  # KubeStash resolves ${DB_VERSION} by fetching an AppBinding named after the RestoreSession's
+  # target, so with a PVC target it looks for AppBinding/data-<db>-0, which never exists, and the
+  # session fails before the job is created:
+  #   Failed to ensure Restore Executor ... failed to get DB version:
+  #   AppBinding.appcatalog.appscode.com "data-dcdb-restored-0" not found
+  # Pinning the tag skips the substitution entirely. 17.2 is the Postgres backend version, and
+  # matches DocumentDBVersion.spec.addonPostgresVersion; revisit if a second backend major ships.
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-restic-plugin") $) }}:v0.30.0-rc.2_17.2{{ include "catalog.ubi" $ }}'
+{{ end }}
