@@ -58,6 +58,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:20
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.12.1-enterprise $IMAGE_REGISTRY/neo4j:2025.12.1-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.05.0-enterprise $IMAGE_REGISTRY/neo4j:2026.05.0-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.06.0-enterprise $IMAGE_REGISTRY/neo4j:2026.06.0-enterprise
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.07.1-enterprise $IMAGE_REGISTRY/neo4j:2026.07.1-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:5.26.28-enterprise $IMAGE_REGISTRY/neo4j:5.26.28-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/mariadb/maxscale:24.02.9 $IMAGE_REGISTRY/mariadb/maxscale:24.02.9
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:4.4.26 $IMAGE_REGISTRY/percona/percona-server-mongodb:4.4.26
@@ -457,6 +458,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-res
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.4.32-focal $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.4.32-focal
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.6.16-focal $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.6.16-focal
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_11.1.3-jammy $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_11.1.3-jammy
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/milvus-backup-plugin:v0.1.0-rc.0 $IMAGE_REGISTRY/kubedb/milvus-backup-plugin:v0.1.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.28.0-rc.2 $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.28.0-rc.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v12 $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v12

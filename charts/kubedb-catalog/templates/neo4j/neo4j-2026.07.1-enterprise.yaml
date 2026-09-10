@@ -8,13 +8,13 @@
 {{- end }}
 
 {{ if and $featureGates.Neo4j (not (eq $ubi "operator")) }}
-{{ if not (has "5.26.28" .Values.disableVersions.Neo4j) }}
+{{ if not (has "2026.07.1" .Values.disableVersions.Neo4j) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: Neo4jVersion
 metadata:
-  name: '5.26.28'
+  name: '2026.07.1'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -33,16 +33,16 @@ spec:
     walg:
       image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/neo4j-backup-plugin") $) }}:v0.3.0-rc.2'
   db:
-    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "neo4j") $) }}:5.26.28-enterprise'
+    image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "neo4j") $) }}:2026.07.1-enterprise'
   gitSyncer:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.4.2'
   securityContext:
     runAsUser: 7474
   updateConstraints:
     allowlist:
-    - '>= 5.26.28-enterprise, <= 5.26.28-enterprise'
+    - '>= 2026.07.1-enterprise'
     denylist:
-    - '>= 2025.10.1-enterprise'
-  version: 5.26.28-enterprise
+    - '>= 5.26.28-enterprise, <= 5.26.28-enterprise'
+  version: 2026.07.1-enterprise
 {{ end }}
 {{ end }}
