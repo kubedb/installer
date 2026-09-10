@@ -63,6 +63,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-res
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.4.32-focal $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.4.32-focal
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.6.16-focal $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.6.16-focal
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_11.1.3-jammy $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_11.1.3-jammy
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/milvus-backup-plugin:v0.1.0-rc.0 $IMAGE_REGISTRY/kubedb/milvus-backup-plugin:v0.1.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.28.0-rc.2 $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.28.0-rc.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-restic-plugin:v0.30.0-rc.2_4.2.3 $IMAGE_REGISTRY/kubedb/mongodb-restic-plugin:v0.30.0-rc.2_4.2.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-restic-plugin:v0.30.0-rc.2_4.4.6 $IMAGE_REGISTRY/kubedb/mongodb-restic-plugin:v0.30.0-rc.2_4.4.6

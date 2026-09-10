@@ -448,6 +448,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-re
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_10.4.32-focal.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.4.32-focal
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_10.6.16-focal.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.6.16-focal
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_11.1.3-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_11.1.3-jammy
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-milvus-backup-plugin-v0.1.0-rc.0.tar $IMAGE_REGISTRY/kubedb/milvus-backup-plugin:v0.1.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-csi-snapshotter-plugin-v0.28.0-rc.2.tar $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.28.0-rc.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-4.2-v9.tar $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-6.0-v12.tar $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v12
