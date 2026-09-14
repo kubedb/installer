@@ -50,12 +50,10 @@ $CMD pull --allow-nondistributable-artifacts --insecure docker.io/hazelcast/haze
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/ibmcom/db2:11.5.8.0 images/ibmcom-db2-11.5.8.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/aerospike:ce-8.1.2.2 images/library-aerospike-ce-8.1.2.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/busybox:1.36 images/library-busybox-1.36.tar
-$CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.10.1-enterprise images/library-neo4j-2025.10.1-enterprise.tar
-$CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.11.2-enterprise images/library-neo4j-2025.11.2-enterprise.tar
-$CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.12.1-enterprise images/library-neo4j-2025.12.1-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.05.0-enterprise images/library-neo4j-2026.05.0-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.06.0-enterprise images/library-neo4j-2026.06.0-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.07.1-enterprise images/library-neo4j-2026.07.1-enterprise.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.08.1-enterprise images/library-neo4j-2026.08.1-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:5.26.28-enterprise images/library-neo4j-5.26.28-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/mariadb/maxscale:24.02.9 images/mariadb-maxscale-24.02.9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:4.4.26 images/percona-percona-server-mongodb-4.4.26.tar

@@ -53,12 +53,10 @@ $CMD cp --allow-nondistributable-artifacts --insecure docker.io/hazelcast/hazelc
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/ibmcom/db2:11.5.8.0 $IMAGE_REGISTRY/ibmcom/db2:11.5.8.0
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/aerospike:ce-8.1.2.2 $IMAGE_REGISTRY/aerospike:ce-8.1.2.2
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/busybox:1.36 $IMAGE_REGISTRY/busybox:1.36
-$CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.10.1-enterprise $IMAGE_REGISTRY/neo4j:2025.10.1-enterprise
-$CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.11.2-enterprise $IMAGE_REGISTRY/neo4j:2025.11.2-enterprise
-$CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2025.12.1-enterprise $IMAGE_REGISTRY/neo4j:2025.12.1-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.05.0-enterprise $IMAGE_REGISTRY/neo4j:2026.05.0-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.06.0-enterprise $IMAGE_REGISTRY/neo4j:2026.06.0-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.07.1-enterprise $IMAGE_REGISTRY/neo4j:2026.07.1-enterprise
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.08.1-enterprise $IMAGE_REGISTRY/neo4j:2026.08.1-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:5.26.28-enterprise $IMAGE_REGISTRY/neo4j:5.26.28-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/mariadb/maxscale:24.02.9 $IMAGE_REGISTRY/mariadb/maxscale:24.02.9
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/percona/percona-server-mongodb:4.4.26 $IMAGE_REGISTRY/percona/percona-server-mongodb:4.4.26
