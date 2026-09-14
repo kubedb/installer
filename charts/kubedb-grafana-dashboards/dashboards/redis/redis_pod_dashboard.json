@@ -1,4 +1,5 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "annotations": {
     "list": [
@@ -22,8 +23,7 @@
   "editable": true,
   "gnetId": 11835,
   "graphTooltip": 0,
-  "id": 30,
-  "iteration": 1633439168797,
+  "iteration": 1707893638290,
   "links": [],
   "panels": [
     {
@@ -116,7 +116,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "targets": [
         {
           "exemplar": true,
@@ -212,7 +212,7 @@
         "text": {},
         "textMode": "name"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "targets": [
         {
           "exemplar": false,
@@ -296,7 +296,7 @@
         },
         "textMode": "value"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "targets": [
         {
           "exemplar": false,
@@ -392,7 +392,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "targets": [
         {
           "exemplar": true,
@@ -475,7 +475,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "targets": [
         {
           "exemplar": true,
@@ -549,7 +549,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "targets": [
         {
           "exemplar": false,
@@ -622,7 +622,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "targets": [
         {
           "exemplar": true,
@@ -700,7 +700,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "targets": [
         {
           "exemplar": true,
@@ -762,7 +762,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -870,7 +870,7 @@
         "alertThreshold": true
       },
       "percentage": true,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -993,7 +993,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1008,7 +1008,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": {{ `"{{input}}"` }},
+          "legendFormat": {{ `"{{ input }}"` }},
           "refId": "A",
           "step": 240
         },
@@ -1018,7 +1018,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": {{ `"{{output}}"` }},
+          "legendFormat": {{ `"{{ output }}"` }},
           "refId": "B",
           "step": 240
         }
@@ -1108,7 +1108,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1123,7 +1123,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": {{ `"{{cmd}}"` }},
+          "legendFormat": {{ `"{{ cmd }}"` }},
           "metric": "redis_command_calls_total",
           "refId": "A",
           "step": 240
@@ -1212,7 +1212,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1335,7 +1335,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1460,7 +1460,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1574,7 +1574,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1651,7 +1651,6 @@
   ],
   "refresh": false,
   "schemaVersion": 27,
-  "refresh": "10s",
   "style": "dark",
   "tags": [
     "redis",
@@ -1679,16 +1678,18 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
-      },
+      }
+      {{- if not $alerts }}
+      ,
       {
         "allValue": null,
         "current": {
-          "isNone": true,
           "selected": false,
-          "text": "None",
-          "value": ""
+          "text": "demo",
+          "value": "demo"
         },
         "datasource": "${datasource}",
+        "definition": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -1719,12 +1720,12 @@
       {
         "allValue": null,
         "current": {
-          "isNone": true,
           "selected": false,
-          "text": "None",
-          "value": ""
+          "text": "redis-cluster",
+          "value": "redis-cluster"
         },
         "datasource": "${datasource}",
+        "definition": "query_result(kubedb_com_redis_created{namespace=\"$namespace\"})",
         "description": null,
         "error": null,
         "hide": 0,
@@ -1755,10 +1756,9 @@
       {
         "allValue": null,
         "current": {
-          "isNone": true,
           "selected": false,
-          "text": "None",
-          "value": ""
+          "text": "redis-cluster-shard0-0",
+          "value": "redis-cluster-shard0-0"
         },
         "datasource": "${datasource}",
         "definition": "label_values(redis_up{namespace=~\"$namespace\",pod=~\"${app}-.*\"},pod)",
@@ -1784,6 +1784,7 @@
         "type": "query",
         "useTags": false
       }
+      {{- end }}
     ]
   },
   "time": {
@@ -1821,6 +1822,6 @@
   {{- else }}
   "title": {{ printf "KubeDB / Redis / Pod / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
   {{- end }}
-  "uid": "fF-N4cH7k",
-  "version": 13
+  "uid": "kubedb-redis-pod",
+  "version": 5
 }

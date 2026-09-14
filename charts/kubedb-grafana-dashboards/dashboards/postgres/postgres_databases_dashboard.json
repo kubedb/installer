@@ -1,10 +1,11 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "annotations": {
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": "${datasource}",
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -20,10 +21,9 @@
     ]
   },
   "description": "This dashboard works with postgres_exporter for prometheus",
-  "editable": true,
+  "editable": false,
   "gnetId": 9628,
   "graphTooltip": 0,
-  "id": 7,
   "iteration": 1633319925526,
   "links": [],
   "panels": [
@@ -1366,7 +1366,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": {{ `"{{datname}}"` }},
+          "legendFormat": {{ `"{{ datname }}"` }},
           "refId": "A"
         }
       ],
@@ -1677,7 +1677,7 @@
       },
       "gridPos": {
         "h": 10,
-        "w": 12,
+        "w": 24,
         "x": 0,
         "y": 36
       },
@@ -1750,129 +1750,6 @@
       "timeShift": null,
       "title": "Rows",
       "type": "graph"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${datasource}",
-      "description": "Tracks the byte difference between the current WAL position and the last confirmed WAL position for each replication slot. Higher values indicate replicas or logical consumers are falling behind, which can lead to disk space issues and potential replication slot invalidation.",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "links": []
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 10,
-        "w": 12,
-        "x": 12,
-        "y": 36
-      },
-      "hiddenSeries": false,
-      "id": 76,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.4.5",
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": false,
-          "expr": "pg_replication_slots_pg_wal_lsn_diff{namespace=\"$namespace\", pod=\"$pod\", database=~\"$datname\"}",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": {{ `"{{slot_name}}"` }},
-          "refId": "A",
-          "step": 2
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 1288490188,
-          "yaxis": "left"
-        },
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 838860800,
-          "yaxis": "left"
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Replication Slot WAL LSN Diff",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "decbytes",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
     }
   ],
   "refresh": "",
@@ -1885,7 +1762,7 @@
   ],
   "templating": {
     "list": [
-        {
+      {
         "current": {
           "selected": false,
           "text": "Prometheus",
@@ -1905,7 +1782,9 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
-      },
+      }
+      {{- if not $alerts }}
+      ,
       {
         "allValue": "\".+\"",
         "current": {
@@ -1914,6 +1793,7 @@
           "value": "demo"
         },
         "datasource": "${datasource}",
+        "definition": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -1924,17 +1804,17 @@
         "options": [],
         {{- if $shared }}
         "query": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
-        "type": "query",
-        {{- else }}
-        "query": {{ $.Values.app.namespace | quote }},
-        "type": "constant",
-        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
         "tags": [],
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.namespace | quote }},
+        "type": "constant",
+        {{- end }}
         "tagsQuery": "",
         "useTags": false
       },
@@ -1946,6 +1826,7 @@
           "value": "ps-demo"
         },
         "datasource": "${datasource}",
+        "definition": "query_result(kubedb_com_postgres_created{namespace=\"$namespace\"})",
         "description": null,
         "error": null,
         "hide": 0,
@@ -1956,17 +1837,17 @@
         "options": [],
         {{- if $shared }}
         "query": "query_result(kubedb_com_postgres_created{namespace=\"$namespace\"})",
-        "type": "query",
-        {{- else }}
-        "query": {{ $.Values.app.name | quote }},
-        "type": "constant",
-        {{- end }}
         "refresh": 1,
         "regex": "/.*app=\"([^\"]+).*/",
         "skipUrlSync": false,
         "sort": 1,
         "tagValuesQuery": "",
         "tags": [],
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
         "tagsQuery": "",
         "useTags": false
       },
@@ -2030,6 +1911,7 @@
         "type": "query",
         "useTags": false
       }
+      {{- end }}
     ]
   },
   "time": {
@@ -2067,6 +1949,6 @@
   {{- else }}
   "title": {{ printf "KubeDB / Postgres / Database / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
   {{- end }}
-  "uid": "6v_W_NNn_kl",
+  "uid": "kubedb-postgres-database",
   "version": 2
 }

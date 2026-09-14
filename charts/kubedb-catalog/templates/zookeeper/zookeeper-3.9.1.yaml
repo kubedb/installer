@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.ZooKeeper (not (eq $ubi "operator")) }}
+{{ if not (has "3.9.1" .Values.disableVersions.ZooKeeper) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -24,4 +25,5 @@ spec:
   securityContext:
     runAsUser: 1000
   version: 3.9.1
+{{ end }}
 {{ end }}

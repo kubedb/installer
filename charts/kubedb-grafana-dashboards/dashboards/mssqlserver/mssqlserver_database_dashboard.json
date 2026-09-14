@@ -24,7 +24,6 @@
   "editable": true,
   "gnetId": 13106,
   "graphTooltip": 0,
-  "id": 29,
   "iteration": 1724933203202,
   "links": [],
   "panels": [
@@ -140,7 +139,7 @@
           "instant": true,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": {{ `"{{pod}}"` }},
+          "legendFormat": {{ `"{{ pod }}"` }},
           "refId": "A"
         }
       ],
@@ -244,7 +243,7 @@
           "format": "table",
           "instant": true,
           "interval": "",
-          "legendFormat": {{ `"{{pod}}"` }},
+          "legendFormat": {{ `"{{ pod }}"` }},
           "refId": "A"
         }
       ],
@@ -1081,7 +1080,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${datasource}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {},
         "overrides": []
@@ -1188,7 +1187,7 @@
           "text": "Prometheus",
           "value": "Prometheus"
         },
-        "description": "MSSQLServer Overview",
+        "description": null,
         "error": null,
         "hide": 0,
         "includeAll": false,
@@ -1202,7 +1201,9 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
-      },
+      }
+      {{- if not $alerts }}
+      ,
       {
         "allValue": null,
         "current": {
@@ -1212,7 +1213,7 @@
         },
         "datasource": "${datasource}",
         "definition": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
-        "description": "MSSQLServer Overview",
+        "description": null,
         "error": null,
         "hide": 0,
         "includeAll": false,
@@ -1237,7 +1238,6 @@
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
-        "type": "query",
         "useTags": false
       },
       {
@@ -1274,9 +1274,9 @@
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
-        "type": "query",
         "useTags": false
       }
+      {{- end }}
     ]
   },
   "time": {
@@ -1290,6 +1290,6 @@
   {{- else }}
   "title": {{ printf "KubeDB / MSSQLServer / Database / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
   {{- end }}
-  "uid": "ohrahgv7T",
+  "uid": "kubedb-mssqlserver-database",
   "version": 37
 }

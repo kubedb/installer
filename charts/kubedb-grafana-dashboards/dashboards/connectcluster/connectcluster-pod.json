@@ -1,4 +1,5 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "annotations": {
     "list": [
@@ -26,13 +27,12 @@
   "editable": true,
   "gnetId": 8878,
   "graphTooltip": 0,
-  "id": 66,
-  "iteration": 1711612175110,
+  "iteration": 1711614080798,
   "links": [],
   "panels": [
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": "${datasource}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -297,7 +297,7 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": "${datasource}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -310,7 +310,7 @@
       "type": "row"
     },
     {
-      "datasource": null,
+      "datasource": "${datasource}",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -389,7 +389,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": null,
+      "datasource": "${datasource}",
       "description": "The average number of network operations (reads or writes) on all connections per second.",
       "fieldConfig": {
         "defaults": {
@@ -470,7 +470,7 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": "${datasource}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -483,7 +483,7 @@
       "type": "row"
     },
     {
-      "datasource": null,
+      "datasource": "${datasource}",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1312,7 +1312,7 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": "${datasource}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1878,7 +1878,7 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": "${datasource}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2512,7 +2512,7 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": "${datasource}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3000,7 +3000,7 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": "${datasource}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3716,7 +3716,9 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
-      },
+      }
+      {{- if not $alerts }}
+      ,
       {
         "allValue": null,
         "current": {
@@ -3724,7 +3726,7 @@
           "text": "demo",
           "value": "demo"
         },
-        "datasource": null,
+        "datasource": "${datasource}",
         "definition": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
         "description": null,
         "error": null,
@@ -3760,7 +3762,7 @@
           "text": "connect-cluster",
           "value": "connect-cluster"
         },
-        "datasource": null,
+        "datasource": "${datasource}",
         "definition": "label_values(kafka_kubedb_com_connectcluster_status_phase{namespace=~\"$namespace\"},app)",
         "description": null,
         "error": null,
@@ -3793,7 +3795,6 @@
         "allValue": null,
         "current": {
           "selected": true,
-          "tags": [],
           "text": [
             "All"
           ],
@@ -3801,7 +3802,7 @@
             "$__all"
           ]
         },
-        "datasource": null,
+        "datasource": "${datasource}",
         "definition": "label_values(kafka_connect_app_info{namespace=~\"$namespace\",pod=~\"$app.+$\"},pod)",
         "description": null,
         "error": null,
@@ -3829,7 +3830,6 @@
         "allValue": null,
         "current": {
           "selected": true,
-          "tags": [],
           "text": [
             "All"
           ],
@@ -3837,7 +3837,7 @@
             "$__all"
           ]
         },
-        "datasource": null,
+        "datasource": "${datasource}",
         "definition": "label_values(kafka_connect_connector_status{namespace=~\"$namespace\",pod=~\"$pod\"},connector)",
         "description": null,
         "error": null,
@@ -3861,6 +3861,7 @@
         "type": "query",
         "useTags": false
       }
+      {{- end }}
     ]
   },
   "time": {
@@ -3898,6 +3899,6 @@
   {{- else }}
   "title": {{ printf "KubeDB / Kafka / ConnectCluster / Pod / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
   {{- end }}
-  "uid": "sdfgtgytrg",
-  "version": 32
+  "uid": "kubedb-kafka-connectcluster-pod",
+  "version": 1
 }

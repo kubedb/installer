@@ -75,11 +75,6 @@ func (c Cassandra) SidekickLabels(skName string) map[string]string {
 	})
 }
 
-// Owner returns owner reference to resources
-func (r *Cassandra) Owner() *meta.OwnerReference {
-	return meta.NewControllerRef(r, SchemeGroupVersion.WithKind(r.ResourceKind()))
-}
-
 func (r *Cassandra) ResourceKind() string {
 	return ResourceKindCassandra
 }
@@ -518,4 +513,8 @@ func (c *Cassandra) GetPersistentSecrets() []string {
 
 func (r *Cassandra) GetDeletionPolicy() string {
 	return string(r.Spec.DeletionPolicy)
+}
+
+func (r *Cassandra) AsOwner() *meta.OwnerReference {
+	return meta.NewControllerRef(r, SchemeGroupVersion.WithKind(r.ResourceKind()))
 }

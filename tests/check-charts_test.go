@@ -29,15 +29,13 @@ var ignoreMissingList = []string{
 	"container-registry.oracle.com/database/enterprise:21.3.0.0",
 	"container-registry.oracle.com/database/observability-exporter:2.2.1",
 	"ghcr.io/kubedb/db2-coordinator:*-ubi",
-	// TODO: remove once the MySQL/MariaDB/MSSQLServer courier CLI images are published.
-	"ghcr.io/kubedb/kubedb-migrator-mysql:*",
-	"ghcr.io/kubedb/kubedb-migrator-mariadb:*",
-	"ghcr.io/kubedb/kubedb-migrator-mssqlserver:*",
-	// TODO: remove once the Oracle physical backup plugin images are published.
-	"ghcr.io/kubedb/oracle-backup-plugin:*",
 }
 
 var archSkipList = []string{
+	// Postgres Enterprise by AppsCode is published amd64-only by design; there is
+	// no arm64 build. Added late: the 16.9 catalog entries landed in #2425 without
+	// this, which has failed Test_CheckImageArchitectures on master since then.
+	"ghcr.io/appscode-images/postgres-enterprise:*",
 	"ghcr.io/appscode-images/weaviate:1.33.1", // Docker inspect not showing any arm64 image
 	"docker.io/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0",
 	"ghcr.io/appscode-images/druid:28.0.1",
@@ -100,7 +98,9 @@ var archSkipList = []string{
 	"docker.io/postgis/postgis:14-3.4",
 	"docker.io/postgis/postgis:15-3.4",
 	"docker.io/postgis/postgis:16-3.4",
+	"docker.io/saplabs/hanaexpress:2.00.076.00.20240701.1",
 	"docker.io/saplabs/hanaexpress:2.00.082.00.20250528.1",
+	"docker.io/saplabs/hanaexpress:2.00.088.00.20251110.1",
 	"docker.io/singlestore/cluster-in-a-box:alma-8.1.32-e3d3cde6da-4.0.16-1.17.6",
 	"docker.io/singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11",
 	"docker.io/singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8",

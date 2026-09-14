@@ -692,6 +692,21 @@ func (in *KubedbCatalogSpec) DeepCopyInto(out *KubedbCatalogSpec) {
 			(*out)[key] = outVal
 		}
 	}
+	if in.DisableVersions != nil {
+		in, out := &in.DisableVersions, &out.DisableVersions
+		*out = make(map[string][]string, len(*in))
+		for key, val := range *in {
+			var outVal []string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				in, out := &val, &outVal
+				*out = make([]string, len(*in))
+				copy(*out, *in)
+			}
+			(*out)[key] = outVal
+		}
+	}
 	if in.CustomVersions != nil {
 		in, out := &in.CustomVersions, &out.CustomVersions
 		*out = make(map[string]*runtime.RawExtension, len(*in))

@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.Weaviate (not (eq $ubi "operator")) }}
+{{ if not (has "1.33.1" .Values.disableVersions.Weaviate) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -20,4 +21,5 @@ spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/weaviate") $) }}:1.33.1'
   version: 1.33.1
+{{ end }}
 {{ end }}

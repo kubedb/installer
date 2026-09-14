@@ -33,24 +33,48 @@
         }
       },
       {
-        "kind": "TextVariable",
+        "kind": "ListVariable",
         "spec": {
           "display": {
+            "name": "Namespace",
             "hidden": false
           },
-          "value": "druid",
-          "constant": true,
+          "defaultValue": "alert-druid",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "namespace",
+              "matchers": [
+                "kube_namespace_status_phase{phase=\"Active\"}"
+              ]
+            }
+          },
           "name": "namespace"
         }
       },
       {
-        "kind": "TextVariable",
+        "kind": "ListVariable",
         "spec": {
           "display": {
+            "name": "App",
             "hidden": false
           },
-          "value": "druid-sample",
-          "constant": true,
+          "defaultValue": "druid-grafana-demo",
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "none",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "app",
+              "matchers": [
+                "kubedb_com_druid_created{druid=~\".+\",namespace=~\"$namespace\"}"
+              ]
+            }
+          },
           "name": "app"
         }
       }
@@ -182,10 +206,6 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "datasource": {
-                      "kind": "PrometheusDatasource",
-                      "name": "prometheusdata"
-                    },
                     "minStep": "",
                     "query": "druid_jvm_gc_cpu_total{service=\"$app-stats\", namespace=\"$namespace\"}",
                     "seriesNameFormat": "{{ `{{pod}}` }}"
@@ -287,10 +307,6 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "datasource": {
-                      "kind": "PrometheusDatasource",
-                      "name": "prometheusdata"
-                    },
                     "query": "count by(le) (druid_query_time_bucket)",
                     "seriesNameFormat": "{{ `{{le}}` }}"
                   }
@@ -322,10 +338,6 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "datasource": {
-                      "kind": "PrometheusDatasource",
-                      "name": "prometheusdata"
-                    },
                     "query": "count by(le) (druid_query_wait_time_bucket)",
                     "seriesNameFormat": "{{ `{{le}}` }}"
                   }
@@ -631,10 +643,6 @@
                 "plugin": {
                   "kind": "PrometheusTimeSeriesQuery",
                   "spec": {
-                    "datasource": {
-                      "kind": "PrometheusDatasource",
-                      "name": "prometheusdata"
-                    },
                     "minStep": "",
                     "query": "druid_jvm_bufferpool_count{bufferpoolName=\"direct\", service=\"$app-stats\", namespace=\"$namespace\"}",
                     "seriesNameFormat": "{{ `{{pod}}` }}"

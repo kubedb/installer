@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.DocumentDB (not (eq $ubi "operator")) }}
+{{ if not (has "pg17-0.109.0" .Values.disableVersions.DocumentDB) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -18,7 +19,7 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/documentdb-coordinator") $) }}:v0.2.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/documentdb-coordinator") $) }}:v0.3.0-rc.2{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "documentdb/documentdb/documentdb-local") $) }}:pg17-0.109.0'
   initContainer:
@@ -27,4 +28,5 @@ spec:
   securityContext:
     runAsUser: 1000
   version: 0.109.0
+{{ end }}
 {{ end }}

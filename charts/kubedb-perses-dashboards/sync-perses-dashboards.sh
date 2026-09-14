@@ -23,13 +23,13 @@
 #   4. escape {{...}} so Helm tpl preserves Perses legends instead of evaluating them
 #   5. prepend the chart-convention $shared / $alerts header lines
 #
-# Usage: hack/scripts/sync-perses-dashboards.sh [OPNPULSE_DIR]
-#   OPNPULSE_DIR defaults to ../../opnpulse/grafana-dashboards relative to repo root.
+# Usage: charts/kubedb-perses-dashboards/sync-perses-dashboards.sh [OPNPULSE_DIR]
+#   OPNPULSE_DIR defaults to ../../go.opnpulse.dev/dashboards relative to repo root.
 
 set -eou pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-OPNPULSE_DIR="${1:-${REPO_ROOT}/../../opnpulse/grafana-dashboards}"
+OPNPULSE_DIR="${1:-${REPO_ROOT}/../../go.opnpulse.dev/dashboards}"
 DEST_ROOT="${REPO_ROOT}/charts/kubedb-perses-dashboards/dashboards"
 
 if [ ! -d "$OPNPULSE_DIR" ]; then

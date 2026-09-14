@@ -1,9 +1,10 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "annotations": {
     "list": [
       {
-        "datasource": "${datasource}",
+        "builtIn": 1,
         "datasource": "${datasource}",
         "enable": true,
         "hide": true,
@@ -22,8 +23,7 @@
   "editable": true,
   "gnetId": 11835,
   "graphTooltip": 0,
-  "id": 32,
-  "iteration": 1633495120866,
+  "iteration": 1707899799028,
   "links": [],
   "panels": [
     {
@@ -107,7 +107,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "targets": [
         {
           "exemplar": true,
@@ -201,7 +201,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "targets": [
         {
           "exemplar": true,
@@ -287,7 +287,7 @@
         },
         "textMode": "value"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "targets": [
         {
           "exemplar": true,
@@ -370,7 +370,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "targets": [
         {
           "exemplar": false,
@@ -488,7 +488,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "targets": [
         {
           "exemplar": true,
@@ -558,7 +558,7 @@
         "text": {},
         "textMode": "name"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "targets": [
         {
           "exemplar": false,
@@ -646,7 +646,7 @@
         },
         "textMode": "value"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.17",
       "targets": [
         {
           "exemplar": true,
@@ -667,7 +667,6 @@
     }
   ],
   "refresh": false,
-  "refresh": "10s",
   "schemaVersion": 27,
   "style": "dark",
   "tags": [
@@ -679,7 +678,7 @@
     "list": [
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "Prometheus",
           "value": "Prometheus"
         },
@@ -697,16 +696,18 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
-      },
+      }
+      {{- if not $alerts }}
+      ,
       {
         "allValue": null,
         "current": {
-          "isNone": true,
           "selected": false,
-          "text": "None",
-          "value": ""
+          "text": "demo",
+          "value": "demo"
         },
         "datasource": "${datasource}",
+        "definition": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -737,12 +738,12 @@
       {
         "allValue": null,
         "current": {
-          "isNone": true,
           "selected": false,
-          "text": "None",
-          "value": ""
+          "text": "redis-cluster",
+          "value": "redis-cluster"
         },
         "datasource": "${datasource}",
+        "definition": "query_result(kubedb_com_redis_created{namespace=\"$namespace\"})",
         "description": null,
         "error": null,
         "hide": 0,
@@ -773,10 +774,9 @@
       {
         "allValue": null,
         "current": {
-          "isNone": true,
-          "selected": false,
-          "text": "None",
-          "value": ""
+          "selected": true,
+          "text": "redis-cluster-shard0-0",
+          "value": "redis-cluster-shard0-0"
         },
         "datasource": "${datasource}",
         "definition": "label_values(redis_up{namespace=~\"$namespace\",pod=~\"${app}-shard.*\"},pod)",
@@ -813,6 +813,7 @@
         "skipUrlSync": false,
         "type": "adhoc"
       }
+      {{- end }}
     ]
   },
   "time": {
@@ -850,6 +851,6 @@
   {{- else }}
   "title": {{ printf "KubeDB / Redis / Shard / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
   {{- end }}
-  "uid": "fF-N4cHsh",
-  "version": 7
+  "uid": "kubedb-redis-shard",
+  "version": 2
 }

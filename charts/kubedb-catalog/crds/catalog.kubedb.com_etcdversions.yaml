@@ -15,7 +15,7 @@ spec:
     listKind: EtcdVersionList
     plural: etcdversions
     shortNames:
-    - etcversion
+    - etcdversion
     singular: etcdversion
   scope: Cluster
   versions:
@@ -44,8 +44,77 @@ spec:
             type: object
           spec:
             properties:
+              archiver:
+                properties:
+                  addon:
+                    properties:
+                      name:
+                        enum:
+                        - mongodb-addon
+                        - postgres-addon
+                        - mysql-addon
+                        - mariadb-addon
+                        - mssqlserver-addon
+                        - clickhouse-addon
+                        type: string
+                      tasks:
+                        properties:
+                          fullBackup:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                          fullBackupRestore:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                          incBackupRestore:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                          manifestBackup:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                          manifestRestore:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                          volumeSnapshot:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                        type: object
+                    type: object
+                  walg:
+                    properties:
+                      image:
+                        type: string
+                    required:
+                    - image
+                    type: object
+                type: object
               db:
                 properties:
+                  baseOS:
+                    type: string
                   image:
                     type: string
                 required:
@@ -69,8 +138,24 @@ spec:
                 required:
                 - image
                 type: object
+              initContainer:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              podSecurityPolicies:
+                properties:
+                  databasePolicyName:
+                    type: string
+                required:
+                - databasePolicyName
+                type: object
               securityContext:
                 properties:
+                  runAsAnyNonRoot:
+                    type: boolean
                   runAsUser:
                     format: int64
                     type: integer
@@ -121,6 +206,32 @@ spec:
                     - backupTask
                     - restoreTask
                     type: object
+                type: object
+              ui:
+                items:
+                  properties:
+                    disable:
+                      type: boolean
+                    name:
+                      type: string
+                    values:
+                      x-kubernetes-preserve-unknown-fields: true
+                    version:
+                      type: string
+                  required:
+                  - name
+                  type: object
+                type: array
+              updateConstraints:
+                properties:
+                  allowlist:
+                    items:
+                      type: string
+                    type: array
+                  denylist:
+                    items:
+                      type: string
+                    type: array
                 type: object
               version:
                 type: string

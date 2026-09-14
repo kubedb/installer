@@ -1,9 +1,11 @@
 {{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
 {
   "annotations": {
     "list": [
       {
-        "datasource": "-- Grafana --",
+        "builtIn": 1,
+        "datasource": "${datasource}",
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -21,7 +23,6 @@
   "editable": false,
   "gnetId": null,
   "graphTooltip": 1,
-  "id": 32,
   "iteration": 1633414218007,
   "links": [],
   "panels": [
@@ -1587,7 +1588,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": {{ `"{{name}}"` }},
+          "legendFormat": {{ `"{{ name }}"` }},
           "metric": "elasticsearch_breakers_tripped",
           "metrics": [
             {
@@ -1700,7 +1701,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": {{ `"{{name}}"` }},
+          "legendFormat": {{ `"{{ name }}"` }},
           "refId": "A",
           "step": 240
         }
@@ -1972,6 +1973,7 @@
   "style": "dark",
   "tags": [
     "infra",
+    "b2c",
     "elastic",
     "kubedb",
     "elasticsearch"
@@ -1998,7 +2000,9 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
-      },
+      }
+      {{- if not $alerts }}
+      ,
       {
         "allValue": null,
         "current": {
@@ -2007,6 +2011,7 @@
           "value": "default"
         },
         "datasource": "${datasource}",
+        "definition": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -2017,17 +2022,17 @@
         "options": [],
         {{- if $shared }}
         "query": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
-        "type": "query",
-        {{- else }}
-        "query": {{ $.Values.app.namespace | quote }},
-        "type": "constant",
-        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
         "tags": [],
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.namespace | quote }},
+        "type": "constant",
+        {{- end }}
         "tagsQuery": "",
         "useTags": false
       },
@@ -2043,6 +2048,7 @@
           ]
         },
         "datasource": "${datasource}",
+        "definition": "label_values(elasticsearch_cluster_health_status{namespace=~\"$namespace\"},cluster)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -2053,20 +2059,21 @@
         "options": [],
         {{- if $shared }}
         "query": "label_values(elasticsearch_cluster_health_status{namespace=~\"$namespace\"},cluster)",
-        "type": "query",
-        {{- else }}
-        "query": {{ $.Values.app.name | quote }},
-        "type": "constant",
-        {{- end }}
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
         "tags": [],
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
         "tagsQuery": "",
         "useTags": false
       }
+      {{- end }}
     ]
   },
   "time": {
@@ -2104,6 +2111,6 @@
   {{- else }}
   "title": {{ printf "KubeDB / Elasticsearch / Database / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
   {{- end }}
-  "uid": "0dBMIuN7k",
+  "uid": "kubedb-elasticsearch-database",
   "version": 4
 }

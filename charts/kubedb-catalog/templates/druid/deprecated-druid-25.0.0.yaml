@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.Druid (not (eq $ubi "operator")) }}
+{{ if not (has "25.0.0" .Values.disableVersions.Druid) }}
 {{ if or (not .Values.skipDeprecated) (has "25.0.0" .Values.enableVersions.Druid) }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -25,5 +26,6 @@ spec:
     runAsUser: 1000
   version: 25.0.0
   deprecated: {{ not (has "25.0.0" .Values.enableVersions.Druid) }}
+{{ end }}
 {{ end }}
 {{ end }}

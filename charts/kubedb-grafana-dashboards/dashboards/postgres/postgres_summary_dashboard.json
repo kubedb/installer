@@ -5,7 +5,7 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": "${datasource}",
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -24,8 +24,7 @@
   "editable": true,
   "gnetId": 9628,
   "graphTooltip": 0,
-  "id": null,
-  "iteration": 1705573409553,
+  "iteration": 1682833714433,
   "links": [],
   "panels": [
     {
@@ -92,7 +91,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": false,
@@ -153,7 +152,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": false,
@@ -215,7 +214,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": false,
@@ -302,7 +301,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": false,
@@ -370,7 +369,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": false,
@@ -450,7 +449,7 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": false,
@@ -510,7 +509,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": false,
@@ -568,7 +567,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": false,
@@ -628,7 +627,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": false,
@@ -687,7 +686,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": false,
@@ -747,7 +746,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": false,
@@ -805,7 +804,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": false,
@@ -820,812 +819,6 @@
       "title": "Max Connections",
       "type": "stat"
     },
-    {{- if $alerts }}
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                100
-              ],
-              "type": "lt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "Postgresql Restarted alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 0,
-        "y": 7
-      },
-      "hiddenSeries": false,
-      "id": 163,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "time() - pg_postmaster_start_time_seconds{job=\"$app-stats\",namespace=\"$namespace\"}",
-          "interval": "",
-          "legendFormat": {{ `"{{pod}}"` }},
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "lt",
-          "value": 100,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Postgresql Restarted",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                1
-              ],
-              "type": "lt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "Postgresql Down alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 7
-      },
-      "hiddenSeries": false,
-      "id": 157,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "pg_up{job=\"$app-stats\",namespace=\"$namespace\"}",
-          "interval": "",
-          "legendFormat": {{ `"{{pod}}"` }},
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "lt",
-          "value": 1,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Postgresql Down",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "Postgresql Phase Not Ready alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 16,
-        "y": 7
-      },
-      "hiddenSeries": false,
-      "id": 171,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.0.7",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "kubedb_com_postgres_status_phase{app=\"$app\",namespace=\"$namespace\",phase=\"NotReady\"}",
-          "interval": "",
-          "legendFormat": {{ `"{{postgres}}"` }},
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 0,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Postgresql Phase Not Ready",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "Postgresql Critical Phase alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 0,
-        "y": 15
-      },
-      "hiddenSeries": false,
-      "id": 173,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.0.7",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "kubedb_com_postgres_status_phase{app=\"$app\",namespace=\"$namespace\",phase=\"Critical\"}",
-          "interval": "",
-          "legendFormat": {{ `"{{postgres}}"` }},
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 0,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Postgresql Critical Phase",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "Postgres Ops Request Failed alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 15
-      },
-      "hiddenSeries": false,
-      "id": 177,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "ops_kubedb_com_postgresopsrequest_status_phase{app=\"$app\",namespace=\"$namespace\",phase=\"Failed\"}",
-          "interval": "",
-          "legendFormat": {{ `"{{postgres}}"` }},
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 0,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Postgres Ops Request Failed",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "30m",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "Postgres Ops Request Progressing Too Long alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 16,
-        "y": 15
-      },
-      "hiddenSeries": false,
-      "id": 175,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "ops_kubedb_com_postgresopsrequest_status_phase{app=\"$app\",namespace=\"$namespace\",phase=\"Progressing\"}",
-          "interval": "",
-          "legendFormat": {{ `"{{postgres}}"` }},
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 0,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Postgres Ops Request Progressing Too Long",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {{- end }}
     {
       "aliasColors": {},
       "bars": false,
@@ -1633,13 +826,17 @@
       "dashes": false,
       "datasource": "${datasource}",
       "description": "The current active line shows the current primary pod",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 23
+        "y": 7
       },
       "hiddenSeries": false,
       "id": 102,
@@ -1670,7 +867,7 @@
         }
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1736,13 +933,17 @@
       "dashes": false,
       "datasource": "${datasource}",
       "description": "Postgres connections information in real time",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 23
+        "y": 7
       },
       "hiddenSeries": false,
       "id": 120,
@@ -1773,7 +974,7 @@
         }
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1880,7 +1081,7 @@
         }
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1957,8 +1158,7 @@
             "hideFrom": {
               "graph": false,
               "legend": false,
-              "tooltip": false,
-              "viz": false
+              "tooltip": false
             },
             "lineInterpolation": "linear",
             "lineWidth": 1,
@@ -1967,14 +1167,7 @@
               "type": "linear"
             },
             "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
+            "spanNulls": true
           },
           "mappings": [],
           "thresholds": {
@@ -1998,7 +1191,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 32
+        "y": 16
       },
       "id": 147,
       "options": {
@@ -2008,7 +1201,7 @@
           "displayMode": "list",
           "placement": "bottom"
         },
-        "tooltip": {
+        "tooltipOptions": {
           "mode": "single"
         }
       },
@@ -2018,7 +1211,7 @@
           "exemplar": true,
           "expr": "pg_coordinator_raft_primary{namespace=\"$namespace\", pod=~\"$app-.\"}",
           "interval": "",
-          "legendFormat": {{ `"{{pod}}"` }},
+          "legendFormat": "",
           "refId": "A"
         }
       ],
@@ -2034,7 +1227,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 40
+        "y": 24
       },
       "id": 138,
       "panels": [],
@@ -2048,13 +1241,17 @@
       "dashes": false,
       "datasource": "${datasource}",
       "description": "CPU Usage by Postgres pods",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 41
+        "y": 25
       },
       "hiddenSeries": false,
       "id": 98,
@@ -2085,7 +1282,7 @@
         }
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2096,7 +1293,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}))) by (pod)",
+          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
@@ -2143,152 +1340,6 @@
         "alignLevel": null
       }
     },
-    {{- if $alerts }}
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0.7
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "CPU Usage Percentage alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 10,
-        "w": 24,
-        "x": 0,
-        "y": 51
-      },
-      "hiddenSeries": false,
-      "id": 179,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-arbiter\\\\d+-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-arbiter\\\\d+-\\\\d+$\"}))) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$|$app-arbiter\\\\d+-\\\\d+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
-          "interval": "",
-          "legendFormat": {{ `"{{pod}}"` }},
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 0.7,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "CPU Usage Percentage",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:82",
-          "format": "percentunit",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:83",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {{- end }}
     {
       "datasource": "${datasource}",
       "description": "CPU Quote information in details",
@@ -2298,7 +1349,7 @@
             "mode": "thresholds"
           },
           "custom": {
-            "align": "center",
+            "align": null,
             "displayMode": "auto",
             "filterable": false
           },
@@ -2333,7 +1384,7 @@
               },
               {
                 "id": "custom.align",
-                "value": "center"
+                "value": null
               }
             ]
           },
@@ -2357,7 +1408,7 @@
               },
               {
                 "id": "custom.align",
-                "value": "center"
+                "value": null
               }
             ]
           },
@@ -2381,7 +1432,7 @@
               },
               {
                 "id": "custom.align",
-                "value": "center"
+                "value": null
               }
             ]
           },
@@ -2405,7 +1456,7 @@
               },
               {
                 "id": "custom.align",
-                "value": "center"
+                "value": null
               }
             ]
           },
@@ -2429,7 +1480,7 @@
               },
               {
                 "id": "custom.align",
-                "value": "center"
+                "value": null
               }
             ]
           },
@@ -2453,7 +1504,7 @@
               },
               {
                 "id": "custom.align",
-                "value": "center"
+                "value": null
               }
             ]
           },
@@ -2487,7 +1538,7 @@
               },
               {
                 "id": "custom.align",
-                "value": "center"
+                "value": null
               }
             ]
           }
@@ -2497,18 +1548,18 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 61
+        "y": 35
       },
       "id": 122,
       "links": [],
       "options": {
         "showHeader": true
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}))) by (pod)",
+          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2519,7 +1570,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\", resource=\"cpu\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2530,7 +1581,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}))) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod) / sum(kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\", resource=\"cpu\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2541,7 +1592,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"} * on (namespace,pod) group_left() max by (namespace, pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\", resource=\"cpu\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2552,7 +1603,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}))) by (pod) / sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"} * on (namespace,pod) group_left() max by (namespace, pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod) / sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\", resource=\"cpu\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2582,7 +1633,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 68
+        "y": 42
       },
       "id": 140,
       "panels": [],
@@ -2608,7 +1659,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 69
+        "y": 43
       },
       "hiddenSeries": false,
       "id": 100,
@@ -2639,7 +1690,7 @@
         }
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2650,7 +1701,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "sum(container_memory_working_set_bytes{image!=\"\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\",container!=\"\"} * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\"}))) by (pod)",
+          "expr": "sum(node_namespace_pod_container:container_memory_working_set_bytes{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\",container!=\"\"}) by (pod)",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
@@ -2976,14 +2027,14 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 79
+        "y": 53
       },
       "id": 124,
       "links": [],
       "options": {
         "showHeader": true
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": false,
@@ -2998,7 +2049,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum (kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\", resource=\"memory\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -3009,7 +2060,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\", resource=\"memory\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -3020,7 +2071,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(kube_pod_container_resource_limits{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\", resource=\"memory\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -3031,7 +2082,7 @@
         },
         {
           "exemplar": false,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\", resource=\"memory\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -3087,150 +2138,6 @@
       ],
       "type": "table"
     },
-    {{- if $alerts }}
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0.8
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "Memory Usage Percentage alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 86
-      },
-      "hiddenSeries": false,
-      "id": 181,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-arbiter\\\\d+-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-arbiter\\\\d+-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
-          "interval": "",
-          "legendFormat": {{ `"{{pod}}"` }},
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 0.8,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Memory Usage Percentage",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "percentunit",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {{- end }}
     {
       "collapsed": false,
       "datasource": "${datasource}",
@@ -3238,7 +2145,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 94
+        "y": 60
       },
       "id": 142,
       "panels": [],
@@ -3264,7 +2171,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 95
+        "y": 61
       },
       "hiddenSeries": false,
       "id": 112,
@@ -3295,7 +2202,7 @@
         }
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3306,7 +2213,7 @@
       "targets": [
         {
           "exemplar": false,
-          "expr": "kubelet_volume_stats_used_bytes{namespace=\"$namespace\", persistentvolumeclaim=~\"data-$app-\\\\d+$\"}",
+          "expr": "avg(container_blkio_device_usage_total{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
@@ -3372,7 +2279,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 95
+        "y": 61
       },
       "hiddenSeries": false,
       "id": 108,
@@ -3403,7 +2310,7 @@
         }
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3490,7 +2397,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 104
+        "y": 70
       },
       "hiddenSeries": false,
       "id": 126,
@@ -3522,7 +2429,7 @@
         }
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3602,7 +2509,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 104
+        "y": 70
       },
       "hiddenSeries": false,
       "id": 128,
@@ -3634,7 +2541,7 @@
         }
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3927,14 +2834,14 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 111
+        "y": 77
       },
       "id": 130,
       "links": [],
       "options": {
         "showHeader": true
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": false,
@@ -4023,7 +2930,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 118
+        "y": 84
       },
       "id": 149,
       "panels": [],
@@ -4061,17 +2968,17 @@
         "h": 6,
         "w": 12,
         "x": 0,
-        "y": 119
+        "y": 85
       },
       "id": 153,
       "options": {
         "showHeader": true
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubelet_volume_stats_capacity_bytes{} + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}",
+          "expr": "kubelet_volume_stats_capacity_bytes + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -4114,8 +3021,6 @@
             "mode": "thresholds"
           },
           "mappings": [],
-          "max": 100,
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -4137,7 +3042,7 @@
         "h": 6,
         "w": 12,
         "x": 12,
-        "y": 119
+        "y": 85
       },
       "id": 155,
       "options": {
@@ -4153,11 +3058,11 @@
         "showUnfilled": true,
         "text": {}
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
-          "expr": "(kubelet_volume_stats_used_bytes{} / on(persistentvolumeclaim) group_left(pod) (kubelet_volume_stats_capacity_bytes{} + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}) )* 100",
+          "expr": "(kubelet_volume_stats_used_bytes{job=\"kubelet\"} / kubelet_volume_stats_capacity_bytes{job=\"kubelet\"}) * on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"} * 100",
           "instant": true,
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
@@ -4188,8 +3093,7 @@
             "hideFrom": {
               "graph": false,
               "legend": false,
-              "tooltip": false,
-              "viz": false
+              "tooltip": false
             },
             "lineInterpolation": "linear",
             "lineStyle": {
@@ -4201,14 +3105,7 @@
               "type": "linear"
             },
             "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
+            "spanNulls": true
           },
           "mappings": [],
           "thresholds": {
@@ -4228,7 +3125,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 125
+        "y": 91
       },
       "id": 151,
       "options": {
@@ -4241,7 +3138,7 @@
           "displayMode": "table",
           "placement": "right"
         },
-        "tooltip": {
+        "tooltipOptions": {
           "mode": "single"
         }
       },
@@ -4249,7 +3146,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "(kubelet_volume_stats_used_bytes{} + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}) ",
+          "expr": "(kubelet_volume_stats_used_bytes + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}) ",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": {{ `"{{pod}}"` }},
@@ -4259,151 +3156,6 @@
       "title": "Persistent Volume Usage History",
       "type": "timeseries"
     },
-    {{- if $alerts }}
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0.8
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "Volume Usage Percentage alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 133
-      },
-      "hiddenSeries": false,
-      "id": 183,
-      "legend": {
-        "alignAsTable": false,
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "(kubelet_volume_stats_used_bytes{job=\"kubelet\"} / kubelet_volume_stats_capacity_bytes{job=\"kubelet\"}) * on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}",
-          "interval": "",
-          "legendFormat": {{ `"{{pod}}"` }},
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 0.8,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Volume Usage Percentage",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "percentunit",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {{- end }}
     {
       "collapsed": false,
       "datasource": "${datasource}",
@@ -4411,7 +3163,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 141
+        "y": 99
       },
       "id": 144,
       "panels": [],
@@ -4436,7 +3188,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 142
+        "y": 100
       },
       "hiddenSeries": false,
       "id": 132,
@@ -4468,7 +3220,7 @@
         }
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4548,7 +3300,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 142
+        "y": 100
       },
       "hiddenSeries": false,
       "id": 134,
@@ -4580,7 +3332,7 @@
         }
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4641,1791 +3393,10 @@
         "align": false,
         "alignLevel": null
       }
-    },
-    {{- if $alerts }}
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "PG Exporter last scrape error alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 0,
-        "y": 149
-      },
-      "hiddenSeries": false,
-      "id": 165,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "pg_exporter_last_scrape_error{job=\"$app-stats\",namespace=\"$namespace\"}",
-          "interval": "",
-          "legendFormat": {{ `"{{pod}}"` }},
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 0,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "PG Exporter last scrape error",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0.2
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "Postgres High RollBack Rate alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 6,
-        "y": 149
-      },
-      "hiddenSeries": false,
-      "id": 167,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.0.7",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "rate(pg_stat_database_xact_rollback{job=\"$app-stats\",namespace=\"$namespace\"}[3m]) / rate(pg_stat_database_xact_commit{job=\"$app-stats\",namespace=\"$namespace\"}[3m])",
-          "interval": "",
-          "legendFormat": {{ `"{{pod}}, {{datname}}"` }},
-        "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 0.2,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Postgres High RollBack Rate",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                -1
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "Postgres Too Many Connections alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 12,
-        "y": 149
-      },
-      "hiddenSeries": false,
-      "id": 169,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum by (pod) (pg_stat_activity_count{job=\"$app-stats\",namespace=\"$namespace\"}) - sum by (pod) (pg_settings_max_connections{job=\"$app-stats\",namespace=\"$namespace\"} * 80) / 100",
-          "interval": "",
-          "legendFormat": {{ `"{{postgres}}"` }},
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": -1,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Postgres Too Many Connections",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0.2
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "Postgresql Too Many Locks Acuired alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 18,
-        "y": 149
-      },
-      "hiddenSeries": false,
-      "id": 161,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "((sum by (pod) (pg_locks_count{job=\"$app-stats\",namespace=\"$namespace\"})) / (sum by (pod) (pg_settings_max_locks_per_transaction{job=\"$app-stats\",namespace=\"$namespace\"}) * sum by (pod) (pg_settings_max_connections{job=\"$app-stats\",namespace=\"$namespace\"})))",
-          "interval": "",
-          "legendFormat": {{ `"{{postgres}}"` }},
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 0.2,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Postgresql Too Many Locks Acuired",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                1
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "Postgresql split brain  alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "description": "More than one primary server online",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 9,
-        "w": 24,
-        "x": 0,
-        "y": 157
-      },
-      "hiddenSeries": false,
-      "id": 185,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "count by (pod) (pg_replication_is_replica{job=\"$app-stats\",namespace=\"$namespace\",service=\"$app-stats\"} == 0)",
-          "interval": "",
-          "legendFormat": {{ `"{{pod}}"` }},
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 1,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Postgresql split brain ",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {{- end }}
-    {
-      "collapsed": false,
-      "datasource": "${datasource}",
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 166
-      },
-      "id": 191,
-      "panels": [],
-      "title": "KubeStash Backup & Restore Info",
-      "type": "row"
-    },
-    {
-      "aliasColors": {},
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${datasource}",
-      "description": "Total number of successful backup",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 0,
-        "y": 167
-      },
-      "hiddenSeries": false,
-      "id": 195,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": false,
-        "total": false,
-        "values": false
-      },
-      "lines": false,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": false
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "count(core_kubestash_com_backupsession_phase{phase=\"Succeeded\"} * on(backup_invoker_kind, backup_invoker_name) group_left(target_kind, target_name, target_namespace) core_kubestash_com_backupconfiguration_info{target_kind=\"Postgres\", target_name=\"$app\", target_namespace=\"$namespace\"} == 1)",
-          "format": "time_series",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "value",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Successful Backups",
-      "tooltip": {
-        "shared": false,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "series",
-        "name": null,
-        "show": true,
-        "values": [
-          "current"
-        ]
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:2118",
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:2119",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {{- if $alerts }}
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "10s",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "0s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "Backup Failed Alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "decimals": null,
-      "description": "Number of backups that have failed",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 5,
-        "y": 167
-      },
-      "hiddenSeries": false,
-      "id": 193,
-      "legend": {
-        "alignAsTable": false,
-        "avg": false,
-        "current": false,
-        "hideZero": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": false,
-        "total": false,
-        "values": false
-      },
-      "lines": false,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "count(core_kubestash_com_backupsession_phase{phase=\"Failed\"} * on(backup_invoker_kind, backup_invoker_name) group_left(target_kind, target_name, target_namespace) core_kubestash_com_backupconfiguration_info{target_kind=\"Postgres\", target_name=\"$app\", target_namespace=\"$namespace\"} == 1)",
-          "format": "time_series",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "value",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 0,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Failed Backups",
-      "tooltip": {
-        "shared": false,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "series",
-        "name": null,
-        "show": true,
-        "values": [
-          "current"
-        ]
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:435",
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:436",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": 2
-      }
-    },
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                18000
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "0s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "Last BackupSession alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "description": "Last triggered BackupSession",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 10,
-        "y": 167
-      },
-      "hiddenSeries": false,
-      "id": 197,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": false,
-        "total": false,
-        "values": false
-      },
-      "lines": false,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "time() - max(core_kubestash_com_backupsession_created * on(backup_invoker_kind, backup_invoker_name) group_left(target_kind, target_name, target_namespace) core_kubestash_com_backupconfiguration_info{target_kind=\"Postgres\", target_name=\"$app\", target_namespace=\"$namespace\"})",
-          "format": "time_series",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "value",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 18000,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Last BackupSession",
-      "tooltip": {
-        "shared": false,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "series",
-        "name": null,
-        "show": true,
-        "values": [
-          "current"
-        ]
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:71",
-          "format": "s",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:72",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {{- end }}
-    {
-      "aliasColors": {},
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${datasource}",
-      "description": "Total number of successful restore",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 15,
-        "y": 167
-      },
-      "hiddenSeries": false,
-      "id": 199,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": false,
-        "total": false,
-        "values": false
-      },
-      "lines": false,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "count(core_kubestash_com_restoresession_phase{target_kind=\"Postgres\", target_name=\"$app\", target_namespace=\"$namespace\", phase=\"Succeeded\"} == 1)",
-          "format": "time_series",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "value",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Successful Restore",
-      "tooltip": {
-        "shared": false,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "series",
-        "name": null,
-        "show": true,
-        "values": [
-          "current"
-        ]
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:207",
-          "decimals": 0,
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:208",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
     }
-    {{- if $alerts }}
-    ,
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "0s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "Failed Restore alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "description": "Number of restores that have failed",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 20,
-        "y": 167
-      },
-      "hiddenSeries": false,
-      "id": 201,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": false,
-        "total": false,
-        "values": false
-      },
-      "lines": false,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "count(core_kubestash_com_restoresession_phase{target_kind=\"Postgres\", target_name=\"$app\", target_namespace=\"$namespace\", phase=\"Failed\"} == 1)",
-          "format": "time_series",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "value",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 0,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Failed Restore",
-      "tooltip": {
-        "shared": false,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "series",
-        "name": null,
-        "show": true,
-        "values": [
-          "current"
-        ]
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:574",
-          "decimals": 0,
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:575",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                1800
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "0s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "BackupSession Duration alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "description": "Represents the duration of BackupSessions",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 171
-      },
-      "hiddenSeries": false,
-      "id": 205,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": false,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": false,
-          "expr": "core_kubestash_com_backupsession_duration_seconds * on(backup_invoker_kind, backup_invoker_name) group_left(target_kind, target_name, target_namespace) core_kubestash_com_backupconfiguration_info{target_kind=\"Postgres\", target_name=\"$app\", target_namespace=\"$namespace\"}",
-          "format": "time_series",
-          "instant": false,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": {{ `"{{namespace}}/{{invoker_name}}"` }},
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 1800,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "BackupSession Duration",
-      "tooltip": {
-        "shared": false,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "series",
-        "name": null,
-        "show": false,
-        "values": [
-          "current"
-        ]
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:1552",
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:1553",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                1800
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "0s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "RestoreSession Duration alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "description": "Represents the duration of RestoreSessions",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 171
-      },
-      "hiddenSeries": false,
-      "id": 207,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": false,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": false,
-          "expr": "core_kubestash_com_restoresession_duration_seconds{target_kind=\"Postgres\", target_name=\"$app\", target_namespace=\"$namespace\"}",
-          "format": "time_series",
-          "instant": false,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": {{ `"{{namespace}}/{{invoker_name}}"` }},
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 1800,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "RestoreSession Duration",
-      "tooltip": {
-        "shared": false,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "series",
-        "name": null,
-        "show": false,
-        "values": [
-          "current"
-        ]
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:511",
-          "format": "s",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:512",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                10737418240
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "5m",
-        "frequency": "10m",
-        "handler": 1,
-        "name": "Repository Size alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "description": "Graph showing how Repository size grows over time",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 2,
-      "fillGradient": 5,
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 179
-      },
-      "hiddenSeries": false,
-      "id": 203,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 3,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 1,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": false,
-          "expr": "storage_kubestash_com_repository_size_bytes{target_kind=~\"Postgres\", target_name=~\"$app\", target_namespace=~\"$namespace\"}",
-          "format": "time_series",
-          "instant": false,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": {{ `"{{namespace}}/{{invoker_name}}"` }},
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 10737418240,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Repository Size",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:62",
-          "format": "bytes",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:63",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    }
-    {{- end }}
   ],
-  "refresh": "",
-  "schemaVersion": 30,
+  "refresh": "5s",
+  "schemaVersion": 27,
   "style": "dark",
   "tags": [
     "postgres",
@@ -6460,78 +3431,80 @@
       {
         "allValue": "\".+\"",
         "current": {
-        "selected": false,
-        "text": "$namespace",
-        "value": "$namespace"
+          "selected": false,
+          "text": "demo",
+          "value": "demo"
+        },
+        "datasource": "${datasource}",
+        "definition": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Namespace",
+        "multi": false,
+        "name": "namespace",
+        "options": [],
+        {{- if $shared }}
+        "query": {
+          "query": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
+          "refId": "Prometheus-namespace-Variable-Query"
+        },
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.namespace | quote }},
+        "type": "constant",
+        {{- end }}
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "useTags": false
       },
-      "datasource": "${datasource}",
-      "description": null,
-      "error": null,
-      "hide": 0,
-      "includeAll": false,
-      "label": "Namespace",
-      "multi": false,
-      "name": "namespace",
-      "options": [],
-      {{- if $shared }}
-      "query": {
-        "query": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
-        "refId": "Prometheus-namespace-Variable-Query"
-      },
-      "type": "query",
-      {{- else }}
-      "query": {{ $.Values.app.namespace | quote }},
-      "type": "constant",
-      {{- end }}
-      "refresh": 1,
-      "regex": "",
-      "skipUrlSync": false,
-      "sort": 0,
-      "tagValuesQuery": "",
-      "tags": [],
-      "tagsQuery": "",
-      "useTags": false
-    },
-    {
-      "allValue": null,
-      "current": {
-      "selected": false,
-      "text": "coreos-prom-postgres",
-      "value": "coreos-prom-postgres"
-    },
-    "datasource": "${datasource}",
-    "description": null,
-    "error": null,
-    "hide": 0,
-    "includeAll": false,
-    "label": "postgres",
-    "multi": false,
-    "name": "app",
-    "options": [],
-    {{- if $shared }}
-    "query": {
-      "query": "query_result(kubedb_com_postgres_created{namespace=\"$namespace\"})",
-      "refId": "Prometheus-app-Variable-Query"
-    },
-    "type": "query",
-    {{- else }}
-    "query": {{ $.Values.app.name | quote }},
-    "type": "constant",
-    {{- end }}
-    "refresh": 1,
-    "regex": "/.*app=\"([^\"]+).*/",
-    "skipUrlSync": false,
-    "sort": 1,
-    "tagValuesQuery": "",
-    "tags": [],
-    "tagsQuery": "",
-    "useTags": false
-  }
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "coreos-prom-postgres",
+          "value": "coreos-prom-postgres"
+        },
+        "datasource": "${datasource}",
+        "definition": "query_result(kubedb_com_postgres_created{namespace=\"$namespace\"})",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "postgres",
+        "multi": false,
+        "name": "app",
+        "options": [],
+        {{- if $shared }}
+        "query": {
+          "query": "query_result(kubedb_com_postgres_created{namespace=\"$namespace\"})",
+          "refId": "Prometheus-app-Variable-Query"
+        },
+        "type": "query",
+        {{- else }}
+        "query": {{ $.Values.app.name | quote }},
+        "type": "constant",
+        {{- end }}
+        "refresh": 1,
+        "regex": "/.*app=\"([^\"]+).*/",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "useTags": false
+      }
       {{- end }}
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {
@@ -6561,10 +3534,11 @@
   },
   "timezone": "",
   {{- if $shared }}
-"title": "KubeDB / Postgres / Summary",
+  "title": "KubeDB / Postgres / Summary",
   {{- else }}
   "title": {{ printf "KubeDB / Postgres / Summary / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
   {{- end }}
-  "uid": "GWlOypcIk",
-  "version": 65
+  "uid": "kubedb-postgres-summary",
+  "version": 2
 }
+

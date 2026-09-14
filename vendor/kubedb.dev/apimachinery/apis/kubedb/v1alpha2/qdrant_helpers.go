@@ -90,11 +90,6 @@ func (q *Qdrant) GetConnectionScheme() string {
 	return scheme
 }
 
-// Owner returns owner reference to resources
-func (q *Qdrant) Owner() *meta.OwnerReference {
-	return meta.NewControllerRef(q, SchemeGroupVersion.WithKind(q.ResourceKind()))
-}
-
 func (q *Qdrant) OffshootName() string {
 	return q.Name
 }
@@ -458,4 +453,8 @@ func (q *QdrantBind) CertSecretName() string {
 
 func (q *Qdrant) GetDeletionPolicy() string {
 	return string(q.Spec.DeletionPolicy)
+}
+
+func (q *Qdrant) AsOwner() *meta.OwnerReference {
+	return meta.NewControllerRef(q, SchemeGroupVersion.WithKind(q.ResourceKind()))
 }

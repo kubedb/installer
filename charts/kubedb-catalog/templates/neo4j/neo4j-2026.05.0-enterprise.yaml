@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.Neo4j (not (eq $ubi "operator")) }}
+{{ if not (has "2026.05.0" .Values.disableVersions.Neo4j) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -23,5 +24,11 @@ spec:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.4.2'
   securityContext:
     runAsUser: 7474
+  updateConstraints:
+    allowlist:
+    - '>= 2026.05.0-enterprise'
+    denylist:
+    - '>= 5.26.28-enterprise, <= 5.26.28-enterprise'
   version: 2026.05.0-enterprise
+{{ end }}
 {{ end }}

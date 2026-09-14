@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb-catalog --version=v2026.7.10
-$ helm upgrade -i kubedb-catalog appscode/kubedb-catalog -n kubedb --create-namespace --version=v2026.7.10
+$ helm search repo appscode/kubedb-catalog --version=v2026.8.26-rc.2
+$ helm upgrade -i kubedb-catalog appscode/kubedb-catalog -n kubedb --create-namespace --version=v2026.8.26-rc.2
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys KubeDB catalog on a [Kubernetes](http://kubernetes.io) cluste
 To install/upgrade the chart with the release name `kubedb-catalog`:
 
 ```bash
-$ helm upgrade -i kubedb-catalog appscode/kubedb-catalog -n kubedb --create-namespace --version=v2026.7.10
+$ helm upgrade -i kubedb-catalog appscode/kubedb-catalog -n kubedb --create-namespace --version=v2026.8.26-rc.2
 ```
 
 The command deploys KubeDB catalog on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -65,6 +65,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | featureGates.DocumentDB                    |                                                 | <code>true</code>                          |
 | featureGates.Druid                         |                                                 | <code>true</code>                          |
 | featureGates.Elasticsearch                 |                                                 | <code>true</code>                          |
+| featureGates.Etcd                          |                                                 | <code>true</code>                          |
 | featureGates.HanaDB                        |                                                 | <code>true</code>                          |
 | featureGates.Hazelcast                     |                                                 | <code>true</code>                          |
 | featureGates.Ignite                        |                                                 | <code>true</code>                          |
@@ -137,6 +138,31 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | enableVersions.Solr                        |                                                 | <code>[]</code>                            |
 | enableVersions.ZooKeeper                   |                                                 | <code>[]</code>                            |
 | enableVersions.Weaviate                    |                                                 | <code>[]</code>                            |
+| disableVersions.Aerospike                  |                                                 | <code>[]</code>                            |
+| disableVersions.Druid                      |                                                 | <code>[]</code>                            |
+| disableVersions.Elasticsearch              |                                                 | <code>[]</code>                            |
+| disableVersions.Hazelcast                  |                                                 | <code>[]</code>                            |
+| disableVersions.Ignite                     |                                                 | <code>[]</code>                            |
+| disableVersions.Kafka                      |                                                 | <code>[]</code>                            |
+| disableVersions.MariaDB                    |                                                 | <code>[]</code>                            |
+| disableVersions.Memcached                  |                                                 | <code>[]</code>                            |
+| disableVersions.Milvus                     |                                                 | <code>[]</code>                            |
+| disableVersions.MSSQLServer                |                                                 | <code>[]</code>                            |
+| disableVersions.MongoDB                    |                                                 | <code>[]</code>                            |
+| disableVersions.MySQL                      |                                                 | <code>[]</code>                            |
+| disableVersions.Oracle                     |                                                 | <code>[]</code>                            |
+| disableVersions.PerconaXtraDB              |                                                 | <code>[]</code>                            |
+| disableVersions.PgBouncer                  |                                                 | <code>[]</code>                            |
+| disableVersions.Pgpool                     |                                                 | <code>[]</code>                            |
+| disableVersions.Postgres                   |                                                 | <code>[]</code>                            |
+| disableVersions.ProxySQL                   |                                                 | <code>[]</code>                            |
+| disableVersions.Qdrant                     |                                                 | <code>[]</code>                            |
+| disableVersions.RabbitMQ                   |                                                 | <code>[]</code>                            |
+| disableVersions.Redis                      |                                                 | <code>[]</code>                            |
+| disableVersions.Singlestore                |                                                 | <code>[]</code>                            |
+| disableVersions.Solr                       |                                                 | <code>[]</code>                            |
+| disableVersions.ZooKeeper                  |                                                 | <code>[]</code>                            |
+| disableVersions.Weaviate                   |                                                 | <code>[]</code>                            |
 | versionConfigMap                           |                                                 | <code>""</code>                            |
 | customVersions                             |                                                 | <code>{}</code>                            |
 | distro.openshift                           |                                                 | <code>false</code>                         |
@@ -146,12 +172,12 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-catalog appscode/kubedb-catalog -n kubedb --create-namespace --version=v2026.7.10 --set proxies.dockerHub=docker.io
+$ helm upgrade -i kubedb-catalog appscode/kubedb-catalog -n kubedb --create-namespace --version=v2026.8.26-rc.2 --set proxies.dockerHub=docker.io
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-catalog appscode/kubedb-catalog -n kubedb --create-namespace --version=v2026.7.10 --values values.yaml
+$ helm upgrade -i kubedb-catalog appscode/kubedb-catalog -n kubedb --create-namespace --version=v2026.8.26-rc.2 --values values.yaml
 ```

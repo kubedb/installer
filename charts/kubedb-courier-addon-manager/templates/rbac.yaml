@@ -1,0 +1,66 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "courier-addon-manager.fullname" . }}
+  labels:
+    {{- include "courier-addon-manager.labels" . | nindent 4 }}
+rules:
+  # BranchWork is the source-cluster delivery object the manager translates.
+  - apiGroups: ["courier.kubedb.com"]
+    resources: ["branchworks", "branchworks/status"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  # ManifestWork is the OCM object the manager fans into target namespaces.
+  - apiGroups: ["work.open-cluster-management.io"]
+    resources: ["manifestworks", "manifestworks/status"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  # Read the managed cluster inventory.
+  - apiGroups: ["cluster.open-cluster-management.io"]
+    resources: ["managedclusters"]
+    verbs: ["get", "list", "watch"]
+  # Manage the addon-framework resources and templates.
+  - apiGroups: ["addon.open-cluster-management.io"]
+    resources:
+      - clustermanagementaddons
+      - managedclusteraddons
+      - addondeploymentconfigs
+      - addontemplates
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["addon.open-cluster-management.io"]
+    resources: ["managedclusteraddons/status", "clustermanagementaddons/status"]
+    verbs: ["get", "update", "patch"]
+  # The CSR / registration flow that mints each spoke a scoped hub kubeconfig.
+  - apiGroups: ["certificates.k8s.io"]
+    resources: ["certificatesigningrequests"]
+    verbs: ["get", "list", "watch", "create", "update"]
+  - apiGroups: ["certificates.k8s.io"]
+    resources: ["certificatesigningrequests/approval"]
+    verbs: ["update"]
+  - apiGroups: ["certificates.k8s.io"]
+    resources: ["signers"]
+    verbs: ["approve", "sign"]
+  # Deliver each spoke its scoped hub kubeconfig as a Secret and namespace RBAC.
+  - apiGroups: [""]
+    resources: ["secrets", "configmaps", "events"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["rbac.authorization.k8s.io"]
+    resources: ["roles", "rolebindings"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  # Leader election.
+  - apiGroups: ["coordination.k8s.io"]
+    resources: ["leases"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "courier-addon-manager.fullname" . }}
+  labels:
+    {{- include "courier-addon-manager.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "courier-addon-manager.fullname" . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "courier-addon-manager.fullname" . }}
+    namespace: {{ .Release.Namespace }}

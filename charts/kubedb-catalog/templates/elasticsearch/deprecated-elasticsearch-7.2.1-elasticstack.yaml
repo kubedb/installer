@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.Elasticsearch (not (eq $ubi "operator")) }}
+{{ if not (has "xpack-7.2.1" .Values.disableVersions.Elasticsearch) }}
 {{ if or (not .Values.skipDeprecated) (has "xpack-7.2.1" .Values.enableVersions.Elasticsearch) }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -45,8 +46,10 @@ spec:
     databasePolicyName: {{ ternary "elasticsearch-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "xpack-7.2.1" .Values.enableVersions.Elasticsearch) }}
 {{ end }}
+{{ end }}
 
 ---
+{{ if not (has "xpack-7.2.1-v1" .Values.disableVersions.Elasticsearch) }}
 {{ if or (not .Values.skipDeprecated) (has "xpack-7.2.1-v1" .Values.enableVersions.Elasticsearch) }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -89,5 +92,6 @@ spec:
   podSecurityPolicies:
     databasePolicyName: {{ ternary "elasticsearch-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "xpack-7.2.1-v1" .Values.enableVersions.Elasticsearch) }}
+{{ end }}
 {{ end }}
 {{ end }}

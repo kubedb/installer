@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.MySQL (not (eq $ubi "operator")) }}
+{{ if not (has "5.7-v2" .Values.disableVersions.MySQL) }}
 {{ if or (not .Values.skipDeprecated) (has "5.7-v2" .Values.enableVersions.MySQL) }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -18,7 +19,7 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.44.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.45.0-rc.2{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql") $) }}:5.7-v2'
   distribution: Official
@@ -29,7 +30,7 @@ spec:
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/busybox") $) }}'
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.53.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.54.0-rc.2{{ include "catalog.ubi" $ }}'
   securityContext:
     runAsUser: 999
   updateConstraints:
@@ -43,8 +44,10 @@ spec:
     databasePolicyName: {{ ternary "mysql-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "5.7-v2" .Values.enableVersions.MySQL) }}
 {{ end }}
+{{ end }}
 
 ---
+{{ if not (has "5.7-v3" .Values.disableVersions.MySQL) }}
 {{ if or (not .Values.skipDeprecated) (has "5.7-v3" .Values.enableVersions.MySQL) }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -55,7 +58,7 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.44.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.45.0-rc.2{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql") $) }}:5.7.25'
   distribution: Official
@@ -64,7 +67,7 @@ spec:
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/busybox") $) }}'
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.53.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.54.0-rc.2{{ include "catalog.ubi" $ }}'
   securityContext:
     runAsUser: 999
   updateConstraints:
@@ -78,8 +81,10 @@ spec:
     databasePolicyName: {{ ternary "mysql-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "5.7-v3" .Values.enableVersions.MySQL) }}
 {{ end }}
+{{ end }}
 
 ---
+{{ if not (has "5.7.25" .Values.disableVersions.MySQL) }}
 {{ if or (not .Values.skipDeprecated) (has "5.7.25" .Values.enableVersions.MySQL) }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -90,7 +95,7 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.44.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.45.0-rc.2{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql") $) }}:5.7.25'
   distribution: Official
@@ -99,7 +104,7 @@ spec:
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/busybox") $) }}'
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.53.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.54.0-rc.2{{ include "catalog.ubi" $ }}'
   securityContext:
     runAsUser: 999
   updateConstraints:
@@ -113,8 +118,10 @@ spec:
     databasePolicyName: {{ ternary "mysql-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "5.7.25" .Values.enableVersions.MySQL) }}
 {{ end }}
+{{ end }}
 
 ---
+{{ if not (has "5.7.25-v1" .Values.disableVersions.MySQL) }}
 {{ if or (not .Values.skipDeprecated) (has "5.7.25-v1" .Values.enableVersions.MySQL) }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -125,7 +132,7 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.44.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.45.0-rc.2{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql") $) }}:5.7.25-v1'
   distribution: Official
@@ -134,7 +141,7 @@ spec:
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/busybox") $) }}'
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.53.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.54.0-rc.2{{ include "catalog.ubi" $ }}'
   securityContext:
     runAsUser: 999
   updateConstraints:
@@ -148,8 +155,10 @@ spec:
     databasePolicyName: {{ ternary "mysql-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "5.7.25-v1" .Values.enableVersions.MySQL) }}
 {{ end }}
+{{ end }}
 
 ---
+{{ if not (has "5.7.25-v2" .Values.disableVersions.MySQL) }}
 {{ if or (not .Values.skipDeprecated) (has "5.7.25-v2" .Values.enableVersions.MySQL) }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -160,7 +169,7 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.44.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.45.0-rc.2{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql") $) }}:5.7.25-v2'
   distribution: Official
@@ -169,7 +178,7 @@ spec:
   initContainer:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "tianon/toybox") $) }}:0.8.11'
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.53.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.54.0-rc.2{{ include "catalog.ubi" $ }}'
   securityContext:
     runAsUser: 999
   stash:
@@ -189,8 +198,10 @@ spec:
     databasePolicyName: {{ ternary "mysql-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "5.7.25-v2" .Values.enableVersions.MySQL) }}
 {{ end }}
+{{ end }}
 
 ---
+{{ if not (has "5.7.25-v3" .Values.disableVersions.MySQL) }}
 {{ if or (not .Values.skipDeprecated) (has "5.7.25-v3" .Values.enableVersions.MySQL) }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -201,7 +212,7 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.44.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-coordinator") $) }}:v0.45.0-rc.2{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "mysql") $) }}:5.7.25'
   distribution: Official
@@ -210,7 +221,7 @@ spec:
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/mysql-init") $) }}:5.7'
   replicationModeDetector:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.53.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/replication-mode-detector") $) }}:v0.54.0-rc.2{{ include "catalog.ubi" $ }}'
   securityContext:
     runAsUser: 999
   stash:
@@ -229,5 +240,6 @@ spec:
   podSecurityPolicies:
     databasePolicyName: {{ ternary "mysql-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "5.7.25-v3" .Values.enableVersions.MySQL) }}
+{{ end }}
 {{ end }}
 {{ end }}

@@ -1,0 +1,231 @@
+apiVersion: addon.open-cluster-management.io/v1alpha1
+kind: AddOnTemplate
+metadata:
+  name: courier-{{ .Chart.AppVersion }}
+  labels:
+    {{- include "courier-addon-manager.labels" . | nindent 4 }}
+spec:
+  addonName: courier
+  agentSpec:
+    workload:
+      manifests:
+        - apiVersion: v1
+          kind: ServiceAccount
+          metadata:
+            name: courier-agent
+            namespace: {{ .Values.agent.installNamespace }}
+        - apiVersion: rbac.authorization.k8s.io/v1
+          kind: ClusterRole
+          metadata:
+            name: courier-agent
+          # ⚠️ Keep this in lockstep with the +kubebuilder:rbac markers on
+          # NewCmdRun() in kubedb/courier pkg/cmds/run.go. This list is hand-written
+          # and had drifted from them, which cost a debugging session: courier tears
+          # cloned PVCs, secrets and snapshots down with client.DeleteAllOf, and
+          # `delete` does NOT imply `deletecollection`, so branch teardown failed with
+          #   persistentvolumeclaims is forbidden: User
+          #   "system:serviceaccount:kubedb:courier-agent" cannot deletecollection
+          #   resource "persistentvolumeclaims" in API group "" in the namespace "demo"
+          # and the Branch sat in Deleting forever holding its finalizer.
+          rules:
+            # The Branch/Migration data plane on the managed cluster.
+            - apiGroups: ["courier.kubedb.com"]
+              resources: ["branches", "branchworks", "migrations"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+            - apiGroups: ["courier.kubedb.com"]
+              resources: ["branches/status", "branchworks/status", "migrations/status"]
+              verbs: ["get", "update", "patch"]
+            - apiGroups: ["courier.kubedb.com"]
+              resources: ["branches/finalizers", "branchworks/finalizers", "migrations/finalizers"]
+              verbs: ["update"]
+            - apiGroups: ["kubedb.com"]
+              resources: ["*"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+            - apiGroups: ["ops.kubedb.com"]
+              resources: ["*"]
+              verbs: ["get", "list", "watch", "create"]
+            # deletecollection: torn down via DeleteAllOf on refresh / branch delete.
+            - apiGroups: ["snapshot.storage.k8s.io"]
+              resources: ["volumesnapshots", "volumesnapshotcontents"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete", "deletecollection"]
+            - apiGroups: ["snapshot.storage.k8s.io"]
+              resources: ["volumesnapshotclasses"]
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["groupsnapshot.storage.k8s.io"]
+              resources: ["volumegroupsnapshots"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete", "deletecollection"]
+            - apiGroups: ["groupsnapshot.storage.k8s.io"]
+              resources: ["volumegroupsnapshotclasses"]
+              verbs: ["get", "list", "watch"]
+            # deletecollection: cloned PVCs and branch secrets are torn down the same way.
+            - apiGroups: [""]
+              resources: ["persistentvolumeclaims", "secrets"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete", "deletecollection"]
+            # deletecollection: post-action Jobs are torn down via DeleteAllOf too.
+            - apiGroups: ["batch"]
+              resources: ["jobs"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete", "deletecollection"]
+            - apiGroups: ["storage.k8s.io"]
+              resources: ["storageclasses"]
+              verbs: ["get", "list", "watch"]
+            # Teardown reads the AppliedManifestWork owning the delivered Database to tell
+            # "OCM still owns this" from "OCM is gone and never will" -- without that the
+            # Creator waits forever for PVCs the Database keeps re-creating (issue #39).
+            # `get` only, and courier reads it UNCACHED so no cluster-wide list/watch is
+            # needed. The check degrades to a no-op if this rule is missing, so teardown
+            # still completes; it just cannot rescue an abandoned target.
+            - apiGroups: ["work.open-cluster-management.io"]
+              resources: ["appliedmanifestworks"]
+              verbs: ["get"]
+            # Leader election. The agent runs with --leader-elect=true, so without
+            # this it can never acquire kubedb/<id>.kubedb.com and its controllers
+            # NEVER START -- while the pod sits at 1/1 Running and Ready, because the
+            # health probes bind before leader election begins:
+            #   error retrieving resource lock kubedb/fcf6fc81.kubedb.com:
+            #   leases.coordination.k8s.io is forbidden: User
+            #   "system:serviceaccount:kubedb:courier-agent" cannot get resource "leases"
+            # Nothing is reconciled, no Branch ever changes phase, and every surface
+            # signal (addon Available, ManifestApplied, pod Ready) still reads green.
+            # Observed on the dedicated-hub rig 2026-08-07.
+            - apiGroups: ["coordination.k8s.io"]
+              resources: ["leases"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+            # Leader election and the controllers both record Events.
+            - apiGroups: [""]
+              resources: ["events"]
+              verbs: ["create", "patch"]
+            # Needed to resolve the source/target Database's own resources.
+            - apiGroups: [""]
+              resources: ["configmaps", "services", "pods"]
+              verbs: ["get", "list", "watch"]
+        - apiVersion: rbac.authorization.k8s.io/v1
+          kind: ClusterRoleBinding
+          metadata:
+            name: courier-agent
+          roleRef:
+            apiGroup: rbac.authorization.k8s.io
+            kind: ClusterRole
+            name: courier-agent
+          subjects:
+            - kind: ServiceAccount
+              name: courier-agent
+              namespace: {{ .Values.agent.installNamespace }}
+        # ⚠️ RBAC for the OCM WORK AGENT, which is a different identity from
+        # courier-agent above. ManifestWork manifests are applied by
+        # klusterlet-work-sa, whose default bindings (…:agent, …:aggregate,
+        # execution-admin -> ClusterRole/admin) do not cover custom CRDs, because
+        # `admin` only aggregates roles labelled rbac.../aggregate-to-admin. Every
+        # delivered manifest then fails:
+        #
+        #   Failed to apply manifest: volumesnapshotcontents.snapshot.storage.k8s.io
+        #   "..." is forbidden: User
+        #   "system:serviceaccount:open-cluster-management-agent:klusterlet-work-sa"
+        #   cannot get resource "volumesnapshotcontents" ... at the cluster scope
+        #
+        # which reads like a courier bug but is an OCM deployment requirement: any
+        # addon that ships CRs through ManifestWork must grant the work agent those
+        # types. Scoped to exactly what buildDeliveredManifests() emits.
+        #
+        # A tighter alternative is a ManifestWork spec.executor pointing at
+        # courier-agent, which would reuse the RBAC above instead of widening the
+        # work agent cluster-wide; that needs the executor feature gate enabled on the
+        # spoke, so it is deliberately not the default here.
+        - apiVersion: rbac.authorization.k8s.io/v1
+          kind: ClusterRole
+          metadata:
+            name: courier-klusterlet-work-payload
+          rules:
+            # The shared-backend import: a cluster-scoped pre-provisioned
+            # VolumeSnapshotContent plus a VolumeSnapshot in the target namespace.
+            - apiGroups: ["snapshot.storage.k8s.io"]
+              resources: ["volumesnapshots", "volumesnapshotcontents"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+            # The branched Database.
+            - apiGroups: ["kubedb.com"]
+              resources: ["*"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+            # The delivered Branch carrying the creator marker.
+            - apiGroups: ["courier.kubedb.com"]
+              resources: ["branches"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+            - apiGroups: ["appcatalog.appscode.com"]
+              resources: ["appbindings"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+            # Auth/config secrets travelling with the branch, and the target
+            # namespace courier now delivers so a clean spoke needs no preparation.
+            - apiGroups: [""]
+              resources: ["secrets", "namespaces"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+        - apiVersion: rbac.authorization.k8s.io/v1
+          kind: ClusterRoleBinding
+          metadata:
+            name: courier-klusterlet-work-payload
+          roleRef:
+            apiGroup: rbac.authorization.k8s.io
+            kind: ClusterRole
+            name: courier-klusterlet-work-payload
+          subjects:
+            - kind: ServiceAccount
+              name: {{ .Values.ocm.workAgent.serviceAccountName }}
+              namespace: {{ .Values.ocm.workAgent.namespace }}
+        - apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: courier-agent
+            namespace: {{ .Values.agent.installNamespace }}
+            labels:
+              app: courier-agent
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                app: courier-agent
+            template:
+              metadata:
+                labels:
+                  app: courier-agent
+              spec:
+                serviceAccountName: courier-agent
+                containers:
+                  - name: agent
+                    image: {{ include "courier-addon-manager.agentImage" . | quote }}
+                    # The manager honours .Values.image.pullPolicy; the agent did not,
+                    # so it silently kept a stale image whenever a mutable tag was
+                    # repushed. Same knob for both.
+                    imagePullPolicy: {{ .Values.agent.image.pullPolicy | default .Values.image.pullPolicy }}
+                    args:
+                      - run
+                      - --cluster-name={{ `{{CLUSTER_NAME}}` }}
+                      - --leader-elect=true
+                      # The addon framework mints this spoke a hub kubeconfig (see
+                      # `registration:` below) and auto-mounts it at
+                      # /managed/hub-kubeconfig. Courier does NOT auto-detect that
+                      # path: --hub-kubeconfig and --hub-namespace both default to ""
+                      # and reconcileInitiator() gates on
+                      # `HubClient == nil || HubNamespace == ""`, so without these two
+                      # flags a cross-cluster Branch parks in Pending forever while
+                      # everything else — registration, RBAC, the agent rollout —
+                      # looks perfectly healthy.
+                      # The spoke's own hub namespace is its managed-cluster name.
+                      - --hub-kubeconfig=/managed/hub-kubeconfig/kubeconfig
+                      - --hub-namespace={{ `{{CLUSTER_NAME}}` }}
+                    ports:
+                      - name: healthz
+                        containerPort: 8081
+                    livenessProbe:
+                      httpGet:
+                        path: /healthz
+                        port: healthz
+                    readinessProbe:
+                      httpGet:
+                        path: /readyz
+                        port: healthz
+  registration:
+    # The manager mints each agent a hub kubeconfig scoped by RBAC to the
+    # spoke's own hub namespace, so it can drive BranchWork there.
+    - type: KubeClient
+      kubeClient:
+        hubPermissions:
+          - type: CurrentCluster
+            currentCluster:
+              clusterRoleName: courier-branchwork

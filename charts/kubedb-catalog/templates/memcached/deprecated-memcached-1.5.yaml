@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.Memcached (not (eq $ubi "operator")) }}
+{{ if not (has "1.5" .Values.disableVersions.Memcached) }}
 {{ if or (not .Values.skipDeprecated) (has "1.5" .Values.enableVersions.Memcached) }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -28,8 +29,10 @@ spec:
     databasePolicyName: {{ ternary "memcached-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "1.5" .Values.enableVersions.Memcached) }}
 {{ end }}
+{{ end }}
 
 ---
+{{ if not (has "1.5-v1" .Values.disableVersions.Memcached) }}
 {{ if or (not .Values.skipDeprecated) (has "1.5-v1" .Values.enableVersions.Memcached) }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -49,5 +52,6 @@ spec:
   podSecurityPolicies:
     databasePolicyName: {{ ternary "memcached-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "1.5-v1" .Values.enableVersions.Memcached) }}
+{{ end }}
 {{ end }}
 {{ end }}

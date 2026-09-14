@@ -96,6 +96,39 @@ type PostgresVersionSpec struct {
 	// Courier defines the courier related CLI/Tools images for this Postgres version
 	// +optional
 	Courier v1alpha1.DBCourierImages `json:"courier,omitempty"`
+	// TDE describes Transparent Data Encryption (pg_tde) support for this version.
+	// +optional
+	TDE *PostgresVersionTDE `json:"tde,omitempty"`
+	// License describes whether this version's image requires an AppsCode
+	// Postgres Enterprise license file to start.
+	// +optional
+	License *PostgresVersionLicense `json:"license,omitempty"`
+}
+
+// PostgresVersionLicense describes whether a PostgresVersion's postgres binary
+// requires an AppsCode Postgres Enterprise license file to start. It is only
+// non-nil for the AppsCode distribution, which enforces certificate-based
+// licensing directly in the postmaster (see doc/LICENSE_ENFORCEMENT.md in the
+// AppsCode Postgres source repo): the process refuses to start, and shuts
+// down if a running server's license expires, without a valid one.
+type PostgresVersionLicense struct {
+	// Required is true when this image's postgres binary refuses to start
+	// without a valid license file. When true, spec.license must be set on
+	// every Postgres using this version.
+	Required bool `json:"required"`
+}
+
+// PostgresVersionTDE describes Transparent Data Encryption support for a
+// PostgresVersion. It is only non-nil for Percona Server for PostgreSQL builds
+// that bundle the pg_tde extension and the tde_heap access method.
+type PostgresVersionTDE struct {
+	// Supported is true when this image bundles pg_tde and a Percona Server for
+	// PostgreSQL build capable of the tde_heap access method.
+	Supported bool `json:"supported"`
+	// ExtensionName is the extension to preload and CREATE. Defaults to "pg_tde".
+	// +optional
+	// +kubebuilder:default="pg_tde"
+	ExtensionName string `json:"extensionName,omitempty"`
 }
 
 // PostgresVersionInitContainer is the Postgres init container image
@@ -153,7 +186,7 @@ type PostgresSecurityContext struct {
 	RunAsAnyNonRoot bool `json:"runAsAnyNonRoot,omitempty"`
 }
 
-// +kubebuilder:validation:Enum=Official;TimescaleDB;PostGIS;KubeDB;DocumentDB;PostgreSQL;Percona
+// +kubebuilder:validation:Enum=Official;TimescaleDB;PostGIS;KubeDB;DocumentDB;PostgreSQL;Percona;AppsCode
 type PostgresDistro string
 
 const (
@@ -163,4 +196,8 @@ const (
 	PostgresDistroKubeDB      PostgresDistro = "KubeDB"
 	PostgresDistroDocumentDB  PostgresDistro = "DocumentDB"
 	PostgresDistroPercona     PostgresDistro = "Percona"
+	// PostgresDistroAppsCode is the "Postgres Enterprise by AppsCode" build:
+	// custom branded, license-enforced, built from the AppsCode Postgres source
+	// repo's AC_<major>_<minor> branch. See PostgresVersionLicense.
+	PostgresDistroAppsCode PostgresDistro = "AppsCode"
 )

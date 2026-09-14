@@ -71,11 +71,6 @@ func (m Memcached) GetMemcachedAuthSecretName() string {
 	return meta_util.NameWithSuffix(m.OffshootName(), "auth")
 }
 
-// Owner returns owner reference to resources
-func (m *Memcached) Owner() *metav1.OwnerReference {
-	return metav1.NewControllerRef(m, SchemeGroupVersion.WithKind(m.ResourceKind()))
-}
-
 func (m Memcached) OffshootLabels() map[string]string {
 	return m.offshootLabels(m.OffshootSelectors(), nil)
 }

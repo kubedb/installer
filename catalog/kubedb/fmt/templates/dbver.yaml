@@ -12,6 +12,7 @@
 {{ if gt $idx 0 }}
 ---
 {{ end }}
+{{- printf "{{ if not (has %q .Values.disableVersions.%s) }}\n" $object.metadata.name $.kind -}}
 {{- if $object.spec.deprecated }}
 {{- printf "{{ if or (not .Values.skipDeprecated) (has %q .Values.enableVersions.%s) }}" $object.metadata.name $.kind -}}
 {{- end }}
@@ -41,6 +42,7 @@ spec:
 {{- end -}}
 {{- if $object.spec.endOfLife }}
 {{ "{{ end }}" }}
-{{- end -}}
+{{- end }}
+{{ "{{ end }}" }}
 {{- end }}
 {{"{{ end }}"}}

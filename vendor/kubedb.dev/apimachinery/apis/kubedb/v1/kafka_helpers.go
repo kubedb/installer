@@ -78,11 +78,6 @@ func (k *Kafka) ResourceFQN() string {
 	return fmt.Sprintf("%s.%s", k.ResourcePlural(), kubedb.GroupName)
 }
 
-// Owner returns owner reference to resources
-func (k *Kafka) Owner() *meta.OwnerReference {
-	return meta.NewControllerRef(k, SchemeGroupVersion.WithKind(k.ResourceKind()))
-}
-
 func (k *Kafka) OffshootName() string {
 	return k.Name
 }

@@ -1,0 +1,556 @@
+{{- $shared := and (eq .Values.app.name "") (eq .Values.app.namespace "") -}}
+{{- $alerts := (eq $.Values.dashboard.alerts true) -}}
+{
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "kubedb-postgres-remotereplica",
+    "createdAt": "0001-01-01T00:00:00Z",
+    "updatedAt": "0001-01-01T00:00:00Z",
+    "version": 0,
+    "tags": [
+      "dr",
+      "kubedb",
+      "postgres",
+      "remote-replica"
+    ],
+    "project": "pp"
+  },
+  "spec": {
+    "display": {
+      "name": "KubeDB / Postgres / Remote Replica"
+    },
+    "variables": [
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "hidden": false
+          },
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "plugin": {
+            "kind": "DatasourceVariable",
+            "spec": {
+              "datasourcePluginKind": "PrometheusDatasource"
+            }
+          },
+          "name": "datasource"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "hidden": false
+          },
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "alphabetical-asc",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "namespace",
+              "matchers": [
+                "kube_namespace_status_phase{phase=\"Active\"}"
+              ]
+            }
+          },
+          "name": "namespace"
+        }
+      },
+      {
+        "kind": "ListVariable",
+        "spec": {
+          "display": {
+            "hidden": false
+          },
+          "allowAllValue": false,
+          "allowMultiple": false,
+          "sort": "alphabetical-asc",
+          "plugin": {
+            "kind": "PrometheusLabelValuesVariable",
+            "spec": {
+              "labelName": "app",
+              "matchers": [
+                "kubedb_com_postgres_info{namespace=\"$namespace\"}"
+              ]
+            }
+          },
+          "name": "app"
+        }
+      }
+    ],
+    "panels": {
+      "0": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Streaming",
+            "description": "1: every pod is confirmed streaming by the source (in pg_stat_replication). 0: at least one pod is not — the standby role label is cleared for it."
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "format": {
+                "unit": "decimal"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#f2495c",
+                    "value": 0
+                  },
+                  {
+                    "color": "#73bf69",
+                    "value": 1
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "min(pg_coordinator_remote_replica_streaming{namespace=\"$namespace\", pod=~\"${app}-.*\"})"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "1": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Source Reachable",
+            "description": "1: the coordinator can query the source primary. 0: it cannot — a DR replica that cannot see its source is not protecting anything."
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "format": {
+                "unit": "decimal"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#f2495c",
+                    "value": 0
+                  },
+                  {
+                    "color": "#73bf69",
+                    "value": 1
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "min(pg_coordinator_remote_replica_source_reachable{namespace=\"$namespace\", pod=~\"${app}-.*\"})"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "2": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Replication Lag (RPO)",
+            "description": "Bytes of WAL the source has written beyond what this replica has replayed — the data at risk if the source DC is lost right now."
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "format": {
+                "unit": "decbytes"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#fade2a",
+                    "value": 16777216
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 134217728
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "max(pg_coordinator_remote_replica_lag_bytes{namespace=\"$namespace\", pod=~\"${app}-.*\"})"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "3": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Lag Data Age",
+            "description": "Seconds since the last successful lag measurement. The monitor backs off to 300s while in sync; sustained values above ~330s mean measurements are failing."
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "format": {
+                "unit": "seconds"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#fade2a",
+                    "value": 330
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 900
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "time() - min(pg_coordinator_remote_replica_last_lag_check_timestamp_seconds{namespace=\"$namespace\", pod=~\"${app}-.*\"})"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "4": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Recoveries (24h)",
+            "description": "pg_rewind / pg_basebackup actions in the last 24h. Every recovery deserves an incident review: something made the replica diverge or fall off."
+          },
+          "plugin": {
+            "kind": "StatChart",
+            "spec": {
+              "calculation": "last-number",
+              "colorMode": "background_solid",
+              "format": {
+                "unit": "decimal"
+              },
+              "thresholds": {
+                "steps": [
+                  {
+                    "color": "#73bf69",
+                    "value": 0
+                  },
+                  {
+                    "color": "#fade2a",
+                    "value": 1
+                  },
+                  {
+                    "color": "#f2495c",
+                    "value": 3
+                  }
+                ]
+              }
+            }
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sum(increase(pg_coordinator_remote_replica_recovery_total{namespace=\"$namespace\", pod=~\"${app}-.*\"}[24h])) or vector(0)"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "5": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Lag Behind Source (bytes)",
+            "description": "From the coordinator: source pg_current_wal_lsn() minus local replay LSN. Sampled every 5s while catching up, backing off to 300s while in sync — spikes shorter than the sampling interval may not appear."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "pg_coordinator_remote_replica_lag_bytes{namespace=\"$namespace\", pod=~\"${app}-.*\"}",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "6": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Apply Lag (seconds, exporter)",
+            "description": "From postgres_exporter: seconds since the last replayed transaction. CAVEAT: grows without bound while the SOURCE IS IDLE — read it together with the bytes panel."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "pg_replication_lag_seconds{namespace=\"$namespace\", pod=~\"${app}-.*\"}",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "7": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Recovery Actions (rate/h)",
+            "description": "Coordinator-initiated pg_rewind and pg_basebackup attempts."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sum by (action,result) (increase(pg_coordinator_remote_replica_recovery_total{namespace=\"$namespace\", pod=~\"${app}-.*\"}[1h]))",
+                    "seriesNameFormat": "{{ `{{action}}` }}/{{ `{{result}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "8": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Replica Mode (is_replica)",
+            "description": "1 while in recovery. A pod dropping to 0 here without a planned promotion is an incident."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "pg_replication_is_replica{namespace=\"$namespace\", pod=~\"${app}-.*\"}",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "9": {
+        "kind": "Panel",
+        "spec": {
+          "display": {
+            "name": "Backend Connections",
+            "description": "Total postgres backends per pod, summed over all databases and all connection states (pg_stat_activity, sampled at each Prometheus scrape). On an idle remote replica this is just the monitoring exporter and the KubeDB health checker — expect 0-2. A sustained rise means clients are connected through the standby service and actually reading from this replica. Legend values such as avg can be fractional because they average the sampled counts over the visible time window."
+          },
+          "plugin": {
+            "kind": "TimeSeriesChart",
+            "spec": {}
+          },
+          "queries": [
+            {
+              "kind": "TimeSeriesQuery",
+              "spec": {
+                "plugin": {
+                  "kind": "PrometheusTimeSeriesQuery",
+                  "spec": {
+                    "query": "sum by (pod) (pg_stat_activity_count{namespace=\"$namespace\", pod=~\"${app}-.*\"})",
+                    "seriesNameFormat": "{{ `{{pod}}` }}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "layouts": [
+      {
+        "kind": "Grid",
+        "spec": {
+          "display": {
+            "title": "Panel Group 1"
+          },
+          "items": [
+            {
+              "x": 0,
+              "y": 1,
+              "width": 4,
+              "height": 4,
+              "content": {
+                "$ref": "#/spec/panels/0"
+              }
+            },
+            {
+              "x": 4,
+              "y": 1,
+              "width": 4,
+              "height": 4,
+              "content": {
+                "$ref": "#/spec/panels/1"
+              }
+            },
+            {
+              "x": 8,
+              "y": 1,
+              "width": 5,
+              "height": 4,
+              "content": {
+                "$ref": "#/spec/panels/2"
+              }
+            },
+            {
+              "x": 13,
+              "y": 1,
+              "width": 5,
+              "height": 4,
+              "content": {
+                "$ref": "#/spec/panels/3"
+              }
+            },
+            {
+              "x": 18,
+              "y": 1,
+              "width": 6,
+              "height": 4,
+              "content": {
+                "$ref": "#/spec/panels/4"
+              }
+            },
+            {
+              "x": 0,
+              "y": 6,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/5"
+              }
+            },
+            {
+              "x": 12,
+              "y": 6,
+              "width": 12,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/6"
+              }
+            },
+            {
+              "x": 0,
+              "y": 15,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/7"
+              }
+            },
+            {
+              "x": 8,
+              "y": 15,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/8"
+              }
+            },
+            {
+              "x": 16,
+              "y": 15,
+              "width": 8,
+              "height": 8,
+              "content": {
+                "$ref": "#/spec/panels/9"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "duration": "1h"
+  }
+}

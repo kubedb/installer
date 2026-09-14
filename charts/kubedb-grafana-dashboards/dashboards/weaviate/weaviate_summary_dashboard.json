@@ -20,12 +20,12 @@
       }
     ]
   },
-  "description": "The dashboard is designed for KubeDB managed RedisSentinel",
+  "description": "The dashboard is designed for KubeDB managed Weaviate",
   "editable": true,
-  "gnetId": 9628,
+  "gnetId": null,
   "graphTooltip": 0,
-  "id": 26,
-  "iteration": 1710836477325,
+  "id": 31,
+  "iteration": 1783415327118,
   "links": [],
   "panels": [
     {
@@ -37,14 +37,14 @@
         "x": 0,
         "y": 0
       },
-      "id": 161,
+      "id": 136,
       "panels": [],
-      "title": "General",
+      "title": "General Info",
       "type": "row"
     },
     {
       "datasource": "${datasource}",
-      "description": "Represent database status",
+      "description": "Represents database status",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -115,11 +115,11 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_redissentinel_status_phase{namespace=\"$namespace\", redissentinel=\"$app\"} == 1\n",
+          "expr": "kubedb_com_weaviate_status_phase{namespace=\"$namespace\", app=\"$app\"} == 1\n",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -133,26 +133,13 @@
     {
       "cacheTimeout": null,
       "datasource": "${datasource}",
-      "description": "RedisVersion CR Name",
+      "description": "Weaviate Version",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "text",
-            "mode": "fixed"
+            "mode": "thresholds"
           },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "index": 0,
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "noValue": "N/A",
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -172,7 +159,7 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 4,
+        "w": 8,
         "x": 8,
         "y": 1
       },
@@ -192,129 +179,64 @@
           "fields": "",
           "values": false
         },
-        "text": {},
+        "text": {
+          "valueSize": 50
+        },
         "textMode": "name"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_redissentinel_info{namespace=\"$namespace\", redissentinel=\"$app\"}",
+          "expr": "kubedb_com_weaviate_info{namespace=\"$namespace\", app=\"$app\"}",
           "format": "time_series",
           "instant": true,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": {{ `"{{version}}"` }},
+          "legendFormat": {{ `"{{ version }}"` }},
           "refId": "A"
         }
       ],
+      "timeFrom": null,
+      "timeShift": null,
       "title": "Version",
       "type": "stat"
     },
     {
-      "cacheTimeout": null,
       "datasource": "${datasource}",
-      "description": "Sentinel Blocked Clients",
+      "description": "Weaviate TLS Modes",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
-          "mappings": [],
-          "noValue": "N/A",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "string"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 4,
-        "x": 12,
-        "y": 1
-      },
-      "id": 151,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "center",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {
-          "valueSize": 25
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "avg(redis_blocked_clients{namespace=\"$namespace\" , pod=~\"$app-\\\\d+$\"}) ",
-          "format": "time_series",
-          "instant": true,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "values",
-          "refId": "A"
-        }
-      ],
-      "title": "Blocked  Clients",
-      "type": "stat"
-    },
-    {
-      "cacheTimeout": null,
-      "datasource": "${datasource}",
-      "description": "Sentinel Storage Type",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "text",
-            "mode": "fixed"
-          },
           "mappings": [
             {
-              "options": {
-                "match": "null",
-                "result": {
-                  "index": 0,
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
+              "id": 0,
+              "text": "Disabled",
+              "type": 1,
+              "value": "0"
+            },
+            {
+              "id": 1,
+              "text": "Enabled",
+              "type": 1,
+              "value": "1"
             }
           ],
-          "noValue": "N/A",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "rgb(255, 255, 255)",
                 "value": null
               },
               {
-                "color": "red",
-                "value": 80
+                "color": "rgb(255, 255, 255)",
+                "value": 1
               }
             ]
-          },
-          "unit": "none"
+          }
         },
         "overrides": []
       },
@@ -324,39 +246,45 @@
         "x": 16,
         "y": 1
       },
-      "id": 145,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 100,
+      "id": 82,
       "options": {
-        "colorMode": "none",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "vertical",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
         },
         "text": {},
-        "textMode": "name"
+        "textMode": "value_and_name"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_redissentinel_info{namespace=\"$namespace\", redissentinel=\"$app\"}",
+          "expr": "max(\n  (\n    kubedb_com_weaviate_info{\n      namespace=\"$namespace\",\n      app=\"$app\",\n      tls!=\"\"\n    } * 1\n  )\n  or vector(0)\n)\n",
           "format": "time_series",
           "instant": true,
           "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": {{ `"{{storageType}}"` }},
-          "refId": "A"
+          "legendFormat": "TLS",
+          "refId": "TLS"
+        },
+        {
+          "exemplar": true,
+          "expr": "max(\n    (\n      kubedb_com_weaviate_info{\n        namespace=\"$namespace\",\n        app=\"$app\",\n        tls_client_auth=\"true\"\n      } * 1\n    )\n    or vector(0)\n  )\n",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Client",
+          "refId": "Client"
         }
       ],
-      "title": "Storage Type",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "TLS Mode",
       "type": "stat"
     },
     {
@@ -424,11 +352,11 @@
         "text": {},
         "textMode": "value"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_redissentinel_info{namespace=\"$namespace\", redissentinel=\"$app\"}",
+          "expr": "kubedb_com_weaviate_info{namespace=\"$namespace\", app=\"$app\"}",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -441,7 +369,7 @@
     },
     {
       "datasource": "${datasource}",
-      "description": "Total node count of RedisSentinel cluster",
+      "description": "Total node count of Weaviate cluster",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -487,11 +415,11 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_redissentinel_replicas{namespace=\"$namespace\",redissentinel=\"$app\"}",
+          "expr": "kubedb_com_weaviate_replicas{namespace=\"$namespace\",app=\"$app\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -503,7 +431,7 @@
     },
     {
       "datasource": "${datasource}",
-      "description": "Initial Requested CPU amount by Postgres Instance",
+      "description": "Initial Requested CPU amount by Weaviate Instance",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -546,11 +474,11 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_redissentinel_resource_request_cpu{namespace=\"$namespace\", redissentinel=\"$app\"}",
+          "expr": "kubedb_com_weaviate_resource_request_cpu{namespace=\"$namespace\", app=\"$app\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -562,7 +490,7 @@
     },
     {
       "datasource": "${datasource}",
-      "description": "CPU Limit in core by RedisSentinel instance",
+      "description": "CPU Limit in core by Weaviate instance",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -604,11 +532,12 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_redissentinel_resource_limit_cpu{namespace=\"$namespace\", redissentinel=\"$app\"}",
+          "expr": "kubedb_com_weaviate_resource_limit_cpu{namespace=\"$namespace\", app=\"$app\"}",
+          "instant": true,
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -619,7 +548,7 @@
     },
     {
       "datasource": "${datasource}",
-      "description": "Initial Requested Memory amount by RedisSentinel Instance",
+      "description": "Initial Requested Memory amount by Weaviate Instance",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -663,11 +592,11 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_redissentinel_resource_request_memory{namespace=\"$namespace\", redissentinel=\"$app\"}",
+          "expr": "kubedb_com_weaviate_resource_request_memory{namespace=\"$namespace\", app=\"$app\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -679,7 +608,7 @@
     },
     {
       "datasource": "${datasource}",
-      "description": "KubeDB RedisSentinel Total Memory Limit",
+      "description": "KubeDB Weaviate Total Memory Limit",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -722,11 +651,12 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_redissentinel_resource_limit_memory{namespace=\"$namespace\", redissentinel=\"$app\"}",
+          "expr": "kubedb_com_weaviate_resource_limit_memory{namespace=\"$namespace\", app=\"$app\"}",
+          "instant": true,
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -737,7 +667,7 @@
     },
     {
       "datasource": "${datasource}",
-      "description": "Total storage request by RedisSentinel nodes",
+      "description": "Total storage request by Weaviate nodes",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -781,11 +711,11 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubedb_com_redissentinel_resource_request_storage{namespace=\"$namespace\", redissentinel=\"$app\"}",
+          "expr": "kubedb_com_weaviate_resource_request_storage{namespace=\"$namespace\", app=\"$app\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -795,572 +725,6 @@
       "title": "Storage Request",
       "type": "stat"
     },
-    {{- if $alerts }}
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "RedisSentinel Down alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 0,
-        "y": 7
-      },
-      "hiddenSeries": false,
-      "id": 165,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "kubedb_com_redissentinel_status_phase{redissentinel=\"$app\",namespace=\"$namespace\",phase=\"NotReady\"}",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": {{ `"{{redissentinel}}"` }},
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 0,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "RedisSentinel Down",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:88",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:89",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "alert": {
-        "alertRuleTags": {
-          "kdb": ""
-        },
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "RedisPhaseCritical",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 6,
-        "y": 7
-      },
-      "hiddenSeries": false,
-      "id": 167,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "kubedb_com_redissentinel_status_phase{redissentinel=\"$app\",namespace=\"$namespace\",phase=\"Critical\"}",
-          "interval": "",
-          "legendFormat": {{ `"{{redissentinel}}"` }},
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 0,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "RedisSentinel Critical Phase",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:70",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:71",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "OpsRequest Status Progressing TooLong alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 12,
-        "y": 7
-      },
-      "hiddenSeries": false,
-      "id": 169,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "ops_kubedb_com_redissentinelopsrequest_status_phase{redissentinel=\"$app\",namespace=\"$namespace\",phase=\"Progressing\"}",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 0,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "OpsRequest Status Progressing TooLong",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:108",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:109",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "KubeDB RedisSentinel OpsRequest Failed alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 18,
-        "y": 7
-      },
-      "hiddenSeries": false,
-      "id": 171,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": false,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "ops_kubedb_com_redissentinelopsrequest_status_phase{redissentinel=\"$app\",namespace=\"$namespace\",phase=\"Failed\"}",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 0,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "OpsRequest Failed",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:259",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:260",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {{- end }}
     {
       "collapsed": false,
       "datasource": "${datasource}",
@@ -1368,7 +732,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 12
+        "y": 7
       },
       "id": 138,
       "panels": [],
@@ -1381,7 +745,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${datasource}",
-      "description": "CPU Usage by RedisSentinel pods",
+      "description": "CPU Usage by Weaviate pods",
       "fieldConfig": {
         "defaults": {},
         "overrides": []
@@ -1392,7 +756,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 13
+        "y": 8
       },
       "hiddenSeries": false,
       "id": 98,
@@ -1409,21 +773,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "alertThreshold": true,
-        "legend": {
-          "calcs": [],
-          "displayMode": "table",
-          "placement": "right"
-        },
-        "tooltip": {
-          "mode": "single"
-        },
-        "tooltipOptions": {
-          "mode": "single"
-        }
+        "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1434,7 +787,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}))) by (pod)",
+          "expr": "sum(sum by(namespace,pod,container)(irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}[5m]))* on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}))) by (pod)",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
@@ -1686,6 +1039,18 @@
                 "value": null
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CPU Limits"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": null
+              }
+            ]
           }
         ]
       },
@@ -1693,7 +1058,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 15
       },
       "id": 122,
       "links": [],
@@ -1701,11 +1066,11 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}))) by (pod)",
+          "expr": "sum(sum by(namespace,pod,container)(irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}[5m]))* on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}))) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1716,7 +1081,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\", resource=\"cpu\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1727,7 +1092,7 @@
         },
         {
           "exemplar": true,
-          "expr":  "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}))) by (pod) / sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"} * on (namespace,pod) group_left() max by (namespace, pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(sum by(namespace,pod,container)(irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}[5m]))* on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}))) by (pod) / sum(kube_pod_container_resource_requests{namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\", resource=\"cpu\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1738,7 +1103,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"} * on (namespace,pod) group_left() max by (namespace, pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\", resource=\"cpu\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1749,7 +1114,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}))) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"cpu\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(sum by(namespace,pod,container)(irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubelet\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}[5m]))* on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}))) by (pod) / sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-aggregator\\\\d+$|$app-leaf\\\\d+$|$app-\\\\d+$\", resource=\"cpu\"}) by (pod)",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1773,153 +1138,6 @@
       ],
       "type": "table"
     },
-    {{- if $alerts }}
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0.8
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "CPU Usage Percentage Alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 7,
-        "w": 24,
-        "x": 0,
-        "y": 26
-      },
-      "hiddenSeries": false,
-      "id": 173,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum(sum by (namespace, pod, container) (irate(container_cpu_usage_seconds_total{image!=\"\",job=\"kubernetes-nodes-cadvisor\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])) * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}))) by (pod) / sum(kube_pod_container_resource_requests{job=\"kubernetes-service-endpoints\",resource=\"cpu\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"} * on (namespace,pod) group_left () max by (namespace,pod) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": {{ `"{{pod}}"` }},
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 0.8,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "CPU Usage Percentage",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:1116",
-          "format": "percentunit",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:1117",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {{- end }}
     {
       "collapsed": false,
       "datasource": "${datasource}",
@@ -1927,9 +1145,9 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 33
+        "y": 21
       },
-      "id": 163,
+      "id": 140,
       "panels": [],
       "title": "Memory Info",
       "type": "row"
@@ -1940,7 +1158,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${datasource}",
-      "description": "Memory Usage by RedisSentinel pods",
+      "description": "Memory Usage by Weaviate pods",
       "fieldConfig": {
         "defaults": {
           "unit": "bytes"
@@ -1953,7 +1171,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 34
+        "y": 22
       },
       "hiddenSeries": false,
       "id": 100,
@@ -1970,21 +1188,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "alertThreshold": true,
-        "legend": {
-          "calcs": [],
-          "displayMode": "table",
-          "placement": "right"
-        },
-        "tooltip": {
-          "mode": "single"
-        },
-        "tooltipOptions": {
-          "mode": "single"
-        }
+        "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1995,7 +1202,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{image!=\"\",metrics_path=\"/metrics/cadvisor\",namespace=\"$namespace\", pod=~\"$app-\\\\d+$\",container!=\"\"} * on (namespace, pod) group_left (node) topk by (namespace, pod) (1, max by (namespace, pod, node) (kube_pod_info{node!=\"\"}))) by (pod)",
+          "expr": "sum(node_namespace_pod_container:container_memory_working_set_bytes{namespace=\"$namespace\", pod=~\"$app-leaf-\\\\d+$|$app-aggregator-\\\\d+$|$app-\\\\d+$\",container!=\"\"}) by (pod)",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
@@ -2044,6 +1251,7 @@
     },
     {
       "datasource": "${datasource}",
+      "description": "Memory quota information in details",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2321,7 +1529,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 40
+        "y": 28
       },
       "id": 124,
       "links": [],
@@ -2334,11 +1542,11 @@
           }
         ]
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2349,7 +1557,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum (kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\", resource=\"memory\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2360,7 +1568,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_requests{namespace=\"$namespace\",pod=~\"$app-\\\\d+$|$app-\\\\d+$\", resource=\"memory\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2371,7 +1579,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(kube_pod_container_resource_limits{job=\"kube-state-metrics\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
+          "expr": "sum(kube_pod_container_resource_limits{namespace=\"$namespace\",pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\", resource=\"memory\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2382,7 +1590,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_limits{namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+\", resource=\"memory\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2393,7 +1601,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(container_memory_rss{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_rss{namespace=\"$namespace\",pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+\",container!=\"\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2404,7 +1612,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(container_memory_cache{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_cache{namespace=\"$namespace\",pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+\",container!=\"\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2415,7 +1623,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(container_memory_swap{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_swap{namespace=\"$namespace\",pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+\",container!=\"\"}) by (pod)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -2438,152 +1646,6 @@
       ],
       "type": "table"
     },
-    {{- if $alerts }}
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0.8
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "Memory Usage Percentage alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 6,
-        "w": 24,
-        "x": 0,
-        "y": 46
-      },
-      "hiddenSeries": false,
-      "id": 175,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$app-\\\\d+$\",container!=\"\", image!=\"\"}) by (pod) / sum(kube_pod_container_resource_requests{job=\"kubernetes-service-endpoints\",resource=\"memory\",namespace=\"$namespace\",pod=~\"$app-\\\\d+$\"} * on (namespace, pod, cluster) group_left () max by (namespace, pod, cluster) ((kube_pod_status_phase{phase=~\"Pending|Running\"} == 1))) by (pod)",
-          "interval": "",
-          "legendFormat": {{ `"{{pod}}"` }},
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 0.8,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Memory Usage Percentage",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:236",
-          "format": "percentunit",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:237",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {{- end }}
     {
       "collapsed": false,
       "datasource": "${datasource}",
@@ -2591,7 +1653,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 52
+        "y": 34
       },
       "id": 142,
       "panels": [],
@@ -2604,7 +1666,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${datasource}",
-      "description": "Disk usage by RedisSentinel pods",
+      "description": "Disk usage by Weaviate pods",
       "fieldConfig": {
         "defaults": {
           "unit": "bytes"
@@ -2617,7 +1679,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 53
+        "y": 35
       },
       "hiddenSeries": false,
       "id": 112,
@@ -2634,21 +1696,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "alertThreshold": true,
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        },
-        "tooltipOptions": {
-          "mode": "single"
-        }
+        "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2659,7 +1710,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubelet_volume_stats_used_bytes{namespace=\"$namespace\", persistentvolumeclaim=~\"data-$app-\\\\d+$\"}",
+          "expr": "avg(container_blkio_device_usage_total{namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+\"}) by (pod)",
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
           "refId": "A"
@@ -2725,7 +1776,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 53
+        "y": 35
       },
       "hiddenSeries": false,
       "id": 108,
@@ -2742,21 +1793,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "alertThreshold": true,
-        "legend": {
-          "calcs": [],
-          "displayMode": "table",
-          "placement": "right"
-        },
-        "tooltip": {
-          "mode": "single"
-        },
-        "tooltipOptions": {
-          "mode": "single"
-        }
+        "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2767,7 +1807,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(rate(container_fs_writes_total{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m]))by(pod)",
+          "expr": "sum(rate(container_fs_writes_total{namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+\"}[5m]))by(pod)",
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
@@ -2776,7 +1816,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(rate(container_fs_reads_total{namespace=\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m]))by(pod)",
+          "expr": "sum(rate(container_fs_reads_total{namespace=\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+\"}[5m]))by(pod)",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -2831,6 +1871,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${datasource}",
+      "description": "IOPS (Input/Output Operations Per Second) by Weaviate pods",
       "fieldConfig": {
         "defaults": {
           "unit": "short"
@@ -2843,7 +1884,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 62
+        "y": 44
       },
       "hiddenSeries": false,
       "id": 126,
@@ -2861,21 +1902,10 @@
       "links": [],
       "nullPointMode": "null",
       "options": {
-        "alertThreshold": true,
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        },
-        "tooltipOptions": {
-          "mode": "single"
-        }
+        "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2886,7 +1916,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "ceil(sum by(pod) (rate(container_fs_reads_total{container!=\"\", namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m]) + rate(container_fs_writes_total{container!=\"\" ,namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m])))",
+          "expr": "ceil(sum by(pod) (rate(container_fs_reads_total{container!=\"\", namespace=~\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+\"}[5m]) + rate(container_fs_writes_total{container!=\"\" ,namespace=~\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+\"}[5m])))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -2943,6 +1973,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${datasource}",
+      "description": "Disk throughput (read and write) by Weaviate pods",
       "fieldConfig": {
         "defaults": {
           "unit": "Bps"
@@ -2955,7 +1986,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 62
+        "y": 44
       },
       "hiddenSeries": false,
       "id": 128,
@@ -2973,21 +2004,10 @@
       "links": [],
       "nullPointMode": "null",
       "options": {
-        "alertThreshold": true,
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        },
-        "tooltipOptions": {
-          "mode": "single"
-        }
+        "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2998,7 +2018,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m]) + rate(container_fs_writes_bytes_total{container!=\"\" ,namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", namespace=~\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}[5m]) + rate(container_fs_writes_bytes_total{container!=\"\" ,namespace=~\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}[5m]))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -3051,6 +2071,7 @@
     },
     {
       "datasource": "${datasource}",
+      "description": "Current storage I/O operations by Weaviate pods",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3280,18 +2301,18 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 69
+        "y": 51
       },
       "id": 130,
       "links": [],
       "options": {
         "showHeader": true
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by(pod) (rate(container_fs_reads_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_total{container!=\"\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -3302,7 +2323,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by(pod) (rate(container_fs_writes_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_writes_total{container!=\"\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -3313,7 +2334,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by(pod) (rate(container_fs_reads_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_total{container!=\"\",pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_total{container!=\"\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_total{container!=\"\",pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -3324,7 +2345,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -3335,7 +2356,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by(pod) (rate(container_fs_writes_bytes_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_writes_bytes_total{container!=\"\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -3346,7 +2367,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_bytes_total{container!=\"\",pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
+          "expr": "sum by(pod) (rate(container_fs_reads_bytes_total{container!=\"\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]) + rate(container_fs_writes_bytes_total{container!=\"\",pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\",namespace=~\"$namespace\"}[5m]))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -3376,9 +2397,9 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 76
+        "y": 58
       },
-      "id": 153,
+      "id": 147,
       "panels": [],
       "title": "Persistent Storage Insight",
       "type": "row"
@@ -3414,17 +2435,17 @@
         "h": 6,
         "w": 12,
         "x": 0,
-        "y": 77
+        "y": 59
       },
-      "id": 157,
+      "id": 151,
       "options": {
         "showHeader": true
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
-          "expr": "kubelet_volume_stats_capacity_bytes + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}",
+          "expr": "kubelet_volume_stats_capacity_bytes{job=\"kubelet\"}\n* on(persistentvolumeclaim, namespace) group_left(pod)\nkube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"^$app.*\", namespace=~\"$namespace\"}",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -3488,12 +2509,12 @@
         "h": 6,
         "w": 12,
         "x": 12,
-        "y": 77
+        "y": 59
       },
-      "id": 159,
+      "id": 153,
       "options": {
         "displayMode": "gradient",
-        "orientation": "horizontal",
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -3504,11 +2525,11 @@
         "showUnfilled": true,
         "text": {}
       },
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
-          "expr": "(kubelet_volume_stats_used_bytes{job=\"kubelet\"} / kubelet_volume_stats_capacity_bytes{job=\"kubelet\"}) * on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"} * 100",
+          "expr": "(\n  kubelet_volume_stats_used_bytes{job=\"kubelet\"}\n  * on(persistentvolumeclaim, namespace) group_left(pod)\n  kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"^$app.*\", namespace=~\"$namespace\"}\n)\n/\n(\n  kubelet_volume_stats_capacity_bytes{job=\"kubelet\"}\n  * on(persistentvolumeclaim, namespace) group_left(pod)\n  kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"^$app.*\", namespace=~\"$namespace\"}\n)\n* 100",
           "instant": true,
           "interval": "",
           "legendFormat": {{ `"{{pod}}"` }},
@@ -3571,9 +2592,9 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 83
+        "y": 65
       },
-      "id": 155,
+      "id": 149,
       "options": {
         "graph": {},
         "legend": {
@@ -3588,11 +2609,10 @@
           "mode": "single"
         }
       },
-      "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
-          "expr": "(kubelet_volume_stats_used_bytes + on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}) ",
+          "expr": "kubelet_volume_stats_used_bytes{job=\"kubelet\"}\n* on(persistentvolumeclaim, namespace) group_left(pod)\nkube_pod_spec_volumes_persistentvolumeclaims_info{\n  pod=~\"^$app.*\",\n  namespace=~\"$namespace\"\n}",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": {{ `"{{pod}}"` }},
@@ -3602,150 +2622,6 @@
       "title": "Persistent Volume Usage History",
       "type": "timeseries"
     },
-    {{- if $alerts }}
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0.8
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "Volume Usage Percentage alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 9,
-        "w": 24,
-        "x": 0,
-        "y": 91
-      },
-      "hiddenSeries": false,
-      "id": 177,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "(kubelet_volume_stats_used_bytes{job=\"kubelet\"} / kubelet_volume_stats_capacity_bytes{job=\"kubelet\"}) * on(persistentvolumeclaim) group_left(pod) kube_pod_spec_volumes_persistentvolumeclaims_info{pod=~\"$app-\\\\d+$\",namespace=~\"$namespace\"}",
-          "interval": "",
-          "legendFormat": {{ `"{{pod}}"` }},
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 0.8,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Volume Usage Percentage",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:153",
-          "format": "percentunit",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:154",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {{- end }}
     {
       "collapsed": false,
       "datasource": "${datasource}",
@@ -3753,7 +2629,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 100
+        "y": 73
       },
       "id": 144,
       "panels": [],
@@ -3766,10 +2642,9 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${datasource}",
+      "description": "Network receive bandwidth by Weaviate pods",
       "fieldConfig": {
-        "defaults": {
-          "unit": "Bps"
-        },
+        "defaults": {},
         "overrides": []
       },
       "fill": 1,
@@ -3778,7 +2653,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 101
+        "y": 74
       },
       "hiddenSeries": false,
       "id": 132,
@@ -3796,21 +2671,10 @@
       "links": [],
       "nullPointMode": "null",
       "options": {
-        "alertThreshold": true,
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        },
-        "tooltipOptions": {
-          "mode": "single"
-        }
+        "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3821,7 +2685,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(irate(container_network_receive_bytes_total{namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[$__rate_interval])) by (pod)",
+          "expr": "sum(irate(container_network_receive_bytes_total{namespace=~\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}[$__rate_interval])) by (pod)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -3878,6 +2742,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${datasource}",
+      "description": "Network transmit bandwidth by Weaviate pods",
       "fieldConfig": {
         "defaults": {
           "unit": "Bps"
@@ -3890,7 +2755,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 101
+        "y": 74
       },
       "hiddenSeries": false,
       "id": 134,
@@ -3908,21 +2773,10 @@
       "links": [],
       "nullPointMode": "null",
       "options": {
-        "alertThreshold": true,
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        },
-        "tooltipOptions": {
-          "mode": "single"
-        }
+        "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3933,7 +2787,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(irate(container_network_transmit_bytes_total{namespace=~\"$namespace\", pod=~\"$app-\\\\d+$\"}[$__rate_interval])) by (pod)",
+          "expr": "sum(irate(container_network_transmit_bytes_total{namespace=~\"$namespace\", pod=~\"$app-aggregator-\\\\d+$|$app-leaf-\\\\d+$|$app-\\\\d+$\"}[$__rate_interval])) by (pod)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -3984,149 +2838,6 @@
         "alignLevel": null
       }
     }
-    {{- if $alerts }}
-    ,
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                100
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1h",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10s",
-        "frequency": "30s",
-        "handler": 1,
-        "name": "RedisSentinel Too Many Connections alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 7,
-        "w": 24,
-        "x": 0,
-        "y": 108
-      },
-      "hiddenSeries": false,
-      "id": 179,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "{{ .Values.grafana.version }}",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "redis_connected_clients{job=\"$app-stats\",namespace=\"$namespace\",service=\"$app-stats\"}",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 100,
-          "visible": true
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "RedisSentinel Too Many Connections",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:84",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:85",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    }
-    {{- end }}
   ],
   "refresh": "10s",
   "schemaVersion": 27,
@@ -4134,17 +2845,19 @@
   "tags": [
     "db",
     "stats",
-    "redissentinel",
-    "kubedb"
+    "kubedb",
+    "weaviate"
   ],
   "templating": {
     "list": [
       {
+        "allFormat": "glob",
         "current": {
           "selected": false,
           "text": "Prometheus",
           "value": "Prometheus"
         },
+        "datasource": null,
         "description": null,
         "error": null,
         "hide": 0,
@@ -4163,6 +2876,7 @@
       {{- if not $alerts }}
       ,
       {
+        "allFormat": "glob",
         "allValue": "\".+\"",
         "current": {
           "selected": false,
@@ -4170,6 +2884,7 @@
           "value": "demo"
         },
         "datasource": "${datasource}",
+        "definition": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -4181,7 +2896,7 @@
         {{- if $shared }}
         "query": {
           "query": "label_values(kube_namespace_status_phase{phase=\"Active\"},namespace)",
-          "refId": "Prometheus-namespace-Variable-Query"
+          "refId": "StandardVariableQuery"
         },
         "type": "query",
         {{- else }}
@@ -4198,25 +2913,27 @@
         "useTags": false
       },
       {
+        "allFormat": "glob",
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "redissentinel-cluster",
-          "value": "redissentinel-cluster"
+          "text": "weaviate-sample",
+          "value": "weaviate-sample"
         },
         "datasource": "${datasource}",
+        "definition": "label_values(kubedb_com_weaviate_status_phase{namespace=~\"$namespace\"},app)",
         "description": null,
         "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": "",
+        "label": "Weaviate",
         "multi": false,
         "name": "app",
         "options": [],
         {{- if $shared }}
         "query": {
-          "query": "label_values(kubedb_com_redissentinel_status_phase{namespace=~\"$namespace\"},redissentinel)",
-          "refId": "Prometheus-app-Variable-Query"
+          "query": "label_values(kubedb_com_weaviate_status_phase{namespace=~\"$namespace\"},app)",
+          "refId": "StandardVariableQuery"
         },
         "type": "query",
         {{- else }}
@@ -4236,7 +2953,7 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {
@@ -4266,10 +2983,10 @@
   },
   "timezone": "",
   {{- if $shared }}
-  "title": "KubeDB / RedisSentinel / Summary",
+  "title": "KubeDB / Weaviate / Summary",
   {{- else }}
-  "title": {{ printf "KubeDB / RedisSentinel / Summary / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
+  "title": {{ printf "KubeDB / Weaviate / Summary / %s / %s" $.Values.app.namespace $.Values.app.name | quote }},
   {{- end }}
-  "uid": "BEj1VF1Sz",
-  "version": 4
+  "uid": "kubedb-weaviate-summary",
+  "version": 6
 }

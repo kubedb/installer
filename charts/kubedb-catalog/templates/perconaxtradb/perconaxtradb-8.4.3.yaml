@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.PerconaXtraDB (not (eq $ubi "operator")) }}
+{{ if not (has "8.4.3" .Values.disableVersions.PerconaXtraDB) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -18,7 +19,7 @@ metadata:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   coordinator:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/percona-xtradb-coordinator") $) }}:v0.39.0{{ include "catalog.ubi" $ }}'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/percona-xtradb-coordinator") $) }}:v0.40.0-rc.2{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/percona-xtradb-cluster") $) }}:8.4.3'
   exporter:
@@ -41,4 +42,5 @@ spec:
   version: 8.4.3
   podSecurityPolicies:
     databasePolicyName: {{ ternary "percona-xtradb-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+{{ end }}
 {{ end }}

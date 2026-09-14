@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.Kafka (not (eq $ubi "operator")) }}
+{{ if not (has "jdbc-2.7.4.final" .Values.disableVersions.Kafka) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -23,4 +24,5 @@ spec:
     runAsUser: 1001
   type: JDBC
   version: 2.7.4
+{{ end }}
 {{ end }}
