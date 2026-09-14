@@ -41,7 +41,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.15 $IMAGE_REGISTRY/appscode/sidekick:v0.0.15
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-medusa-plugin:v0.14.0-rc.2 $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.14.0-rc.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-backup-plugin:v0.3.0 $IMAGE_REGISTRY/kubedb/clickhouse-backup-plugin:v0.3.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-backup-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/oracle-backup-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-backup-plugin:v0.4.0-rc.2 $IMAGE_REGISTRY/kubedb/clickhouse-backup-plugin:v0.4.0-rc.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.25.0-rc.2 $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.25.0-rc.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.30.0-rc.2 $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.30.0-rc.2
@@ -79,6 +78,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-resti
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-restic-plugin:v0.30.0-rc.2_8.4.2 $IMAGE_REGISTRY/kubedb/mysql-restic-plugin:v0.30.0-rc.2_8.4.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-restic-plugin:v0.30.0-rc.2_9.0.1 $IMAGE_REGISTRY/kubedb/mysql-restic-plugin:v0.30.0-rc.2_9.0.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/neo4j-backup-plugin:v0.3.0-rc.2 $IMAGE_REGISTRY/kubedb/neo4j-backup-plugin:v0.3.0-rc.2
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-backup-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/oracle-backup-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.28.0-rc.2 $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.28.0-rc.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.30.0-rc.2_12.17 $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.30.0-rc.2_12.17
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.30.0-rc.2_14.10 $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.30.0-rc.2_14.10

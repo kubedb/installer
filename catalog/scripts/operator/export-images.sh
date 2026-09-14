@@ -38,7 +38,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.15 images/appscode-sidekick-v0.0.15.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-medusa-plugin:v0.14.0-rc.2 images/kubedb-cassandra-medusa-plugin-v0.14.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-backup-plugin:v0.3.0 images/kubedb-clickhouse-backup-plugin-v0.3.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-backup-plugin:v0.1.0 images/kubedb-oracle-backup-plugin-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-backup-plugin:v0.4.0-rc.2 images/kubedb-clickhouse-backup-plugin-v0.4.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.25.0-rc.2 images/kubedb-dashboard-restic-plugin-v0.25.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.30.0-rc.2 images/kubedb-elasticsearch-restic-plugin-v0.30.0-rc.2.tar
@@ -76,6 +75,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-res
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-restic-plugin:v0.30.0-rc.2_8.4.2 images/kubedb-mysql-restic-plugin-v0.30.0-rc.2_8.4.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-restic-plugin:v0.30.0-rc.2_9.0.1 images/kubedb-mysql-restic-plugin-v0.30.0-rc.2_9.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/neo4j-backup-plugin:v0.3.0-rc.2 images/kubedb-neo4j-backup-plugin-v0.3.0-rc.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-backup-plugin:v0.1.0 images/kubedb-oracle-backup-plugin-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.28.0-rc.2 images/kubedb-postgres-csi-snapshotter-plugin-v0.28.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.30.0-rc.2_12.17 images/kubedb-postgres-restic-plugin-v0.30.0-rc.2_12.17.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.30.0-rc.2_14.10 images/kubedb-postgres-restic-plugin-v0.30.0-rc.2_14.10.tar
