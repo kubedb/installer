@@ -1,0 +1,24 @@
+# Logical (pg_dump) backup of the DocumentDB Postgres backend.
+#
+# Identical in shape to postgres-backup - same plugin binary, same arguments. Everything
+# DocumentDB-specific happens inside the plugin, selected from the AppBinding's appRef Kind:
+# catalog registration, the pg_dump override, --dbname/--format/--exclude-schema. Nothing is
+# passed from here, so this Function stays a drop-in peer of the Postgres one.
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: documentdb-backup
+spec:
+  args:
+  - backup
+  - --namespace=${namespace:=default}
+  - --backupsession=${backupSession:=}
+  - --enable-cache=${enableCache:=}
+  - --scratch-dir=${scratchDir:=}
+  - --wait-timeout=${waitTimeout:=300}
+  - --pg-args=${args:=}
+  - --backup-cmd=${backupCmd:=}
+  - --user=${user:=}
+  availableVersions:
+  - "17.2"
+  image: ghcr.io/kubedb/postgres-restic-plugin:v0.30.0-rc.2_${DB_VERSION}

@@ -1,0 +1,22 @@
+# Logical restore, the counterpart of documentdb-backup.
+#
+# The plugin switches to pg_restore for a DocumentDB target because the archive is custom-format,
+# and pre-clears the target's own catalog before replaying. Again nothing is passed from here.
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: documentdb-restore
+spec:
+  args:
+  - restore
+  - --namespace=${namespace:=default}
+  - --restoresession=${restoreSession:=}
+  - --snapshot=${snapshot:=}
+  - --enable-cache=${enableCache:=}
+  - --scratch-dir=${scratchDir:=}
+  - --wait-timeout=${waitTimeout:=300}
+  - --pg-args=${args:=}
+  - --user=${user:=}
+  availableVersions:
+  - "17.2"
+  image: ghcr.io/kubedb/postgres-restic-plugin:v0.30.0-rc.2_${DB_VERSION}
