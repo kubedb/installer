@@ -81,6 +81,7 @@ func CompareFullVersions(vi FullVersion, vj FullVersion) bool {
 var appToKind = map[string]string{
 	"cassandra":          "Cassandra",
 	"clickhouse":         "ClickHouse",
+	"documentdb":         "DocumentDB",
 	"druid":              "Druid",
 	"elasticsearch":      "Elasticsearch",
 	"opensearch":         "Elasticsearch",
@@ -271,6 +272,15 @@ func main() {
 						args[i] = fmt.Sprintf(`--target-app-replicas=${TARGET_APP_REPLICAS:={{ .Values.%s.restore.targetAppReplicas }}}`, app)
 					}
 
+				case "documentdb":
+					// Unlike postgres, the backup and restore args are separate values keys.
+					if strings.HasPrefix(args[i], "--pg-args=") {
+						phase := "backup"
+						if strings.Contains(obj.GetName(), "restore") {
+							phase = "restore"
+						}
+						args[i] = fmt.Sprintf(`--pg-args=${args:={{ .Values.%s.%s.args }}}`, app, phase)
+					}
 				case "postgres":
 					if strings.HasPrefix(args[i], "--pg-args=") {
 						args[i] = fmt.Sprintf(`--pg-args=${args:={{ .Values.%s.args }}}`, app)
