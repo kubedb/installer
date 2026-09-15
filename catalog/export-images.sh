@@ -116,6 +116,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.1.4 images/appscode-images-elastic-9.1.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.1.9 images/appscode-images-elastic-9.1.9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.2.3 images/appscode-images-elastic-9.2.3.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.5.3 images/appscode-images-elastic-9.5.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/etcd:v3.5.21 images/appscode-images-etcd-v3.5.21.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/etcd:v3.6.4 images/appscode-images-etcd-v3.6.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ignite:2.17.0 images/appscode-images-ignite-2.17.0.tar
@@ -167,6 +168,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.1.4 images/appscode-images-kibana-9.1.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.1.9 images/appscode-images-kibana-9.1.9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.2.3 images/appscode-images-kibana-9.2.3.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.5.3 images/appscode-images-kibana-9.5.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.10.7-jammy images/appscode-images-mariadb-10.10.7-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.11.16-jammy images/appscode-images-mariadb-10.11.16-jammy.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.11.6-jammy images/appscode-images-mariadb-10.11.6-jammy.tar
@@ -229,12 +231,14 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:2.5.0 images/appscode-images-opensearch-dashboards-2.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:3.1.0 images/appscode-images-opensearch-dashboards-3.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:3.4.0 images/appscode-images-opensearch-dashboards-3.4.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:3.8.0 images/appscode-images-opensearch-dashboards-3.8.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:1.3.13 images/appscode-images-opensearch-1.3.13.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:1.3.20 images/appscode-images-opensearch-1.3.20.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.19.2 images/appscode-images-opensearch-2.19.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.5.0 images/appscode-images-opensearch-2.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:3.1.0 images/appscode-images-opensearch-3.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:3.4.0 images/appscode-images-opensearch-3.4.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:3.8.0 images/appscode-images-opensearch-3.8.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:5.7.44 images/appscode-images-percona-xtradb-cluster-5.7.44.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.0.40 images/appscode-images-percona-xtradb-cluster-8.0.40.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.4.3 images/appscode-images-percona-xtradb-cluster-8.4.3.tar
@@ -454,6 +458,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-r
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.4.32-focal images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_10.4.32-focal.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.6.16-focal images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_10.6.16-focal.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_11.1.3-jammy images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_11.1.3-jammy.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/milvus-backup-plugin:v0.1.0-rc.0 images/kubedb-milvus-backup-plugin-v0.1.0-rc.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.28.0-rc.2 images/kubedb-mongodb-csi-snapshotter-plugin-v0.28.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 images/kubedb-mongodb-init-4.2-v9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v12 images/kubedb-mongodb-init-6.0-v12.tar
