@@ -9,7 +9,7 @@
 
 {{ if and $featureGates.Neo4j (not (eq $ubi "operator")) }}
 {{ if not (has "2025.10.1" .Values.disableVersions.Neo4j) }}
-
+{{ if or (not .Values.skipDeprecated) (has "2025.10.1" .Values.enableVersions.Neo4j) }}
 {{ if or (not .Values.skipEndOfLife) (has "2025.10.1" .Values.enableVersions.Neo4j) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: Neo4jVersion
@@ -18,6 +18,20 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  archiver:
+    addon:
+      name: neo4j-addon
+      tasks:
+        fullBackup:
+          name: logical-backup
+        fullBackupRestore:
+          name: logical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+    walg:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/neo4j-backup-plugin") $) }}:v0.3.0-rc.2'
   db:
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "neo4j") $) }}:2025.10.1-enterprise'
   gitSyncer:
@@ -30,7 +44,9 @@ spec:
     denylist:
     - '>= 5.26.28-enterprise, <= 5.26.28-enterprise'
   version: 2025.10.1-enterprise
+  deprecated: {{ not (has "2025.10.1" .Values.enableVersions.Neo4j) }}
   endOfLife: {{ not (has "2025.10.1" .Values.enableVersions.Neo4j) }}
+{{ end }}
 {{ end }}
 {{ end }}
 {{ end }}
