@@ -119,6 +119,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/el
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.1.4 $IMAGE_REGISTRY/appscode-images/elastic:9.1.4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.1.9 $IMAGE_REGISTRY/appscode-images/elastic:9.1.9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.2.3 $IMAGE_REGISTRY/appscode-images/elastic:9.2.3
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/elastic:9.5.3 $IMAGE_REGISTRY/appscode-images/elastic:9.5.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/etcd:v3.5.21 $IMAGE_REGISTRY/appscode-images/etcd:v3.5.21
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/etcd:v3.6.4 $IMAGE_REGISTRY/appscode-images/etcd:v3.6.4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ignite:2.17.0 $IMAGE_REGISTRY/appscode-images/ignite:2.17.0
@@ -170,6 +171,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/ki
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.1.4 $IMAGE_REGISTRY/appscode-images/kibana:9.1.4
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.1.9 $IMAGE_REGISTRY/appscode-images/kibana:9.1.9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.2.3 $IMAGE_REGISTRY/appscode-images/kibana:9.2.3
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/kibana:9.5.3 $IMAGE_REGISTRY/appscode-images/kibana:9.5.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.10.7-jammy $IMAGE_REGISTRY/appscode-images/mariadb:10.10.7-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.11.16-jammy $IMAGE_REGISTRY/appscode-images/mariadb:10.11.16-jammy
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mariadb:10.11.6-jammy $IMAGE_REGISTRY/appscode-images/mariadb:10.11.6-jammy
@@ -232,12 +234,14 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/op
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:2.5.0 $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:3.1.0 $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:3.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:3.4.0 $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:3.4.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch-dashboards:3.8.0 $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:3.8.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:1.3.13 $IMAGE_REGISTRY/appscode-images/opensearch:1.3.13
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:1.3.20 $IMAGE_REGISTRY/appscode-images/opensearch:1.3.20
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.19.2 $IMAGE_REGISTRY/appscode-images/opensearch:2.19.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:2.5.0 $IMAGE_REGISTRY/appscode-images/opensearch:2.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:3.1.0 $IMAGE_REGISTRY/appscode-images/opensearch:3.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:3.4.0 $IMAGE_REGISTRY/appscode-images/opensearch:3.4.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/opensearch:3.8.0 $IMAGE_REGISTRY/appscode-images/opensearch:3.8.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:5.7.44 $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:5.7.44
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.0.40 $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.0.40
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/percona-xtradb-cluster:8.4.3 $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.4.3
@@ -457,6 +461,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-res
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.4.32-focal $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.4.32-focal
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.6.16-focal $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.6.16-focal
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_11.1.3-jammy $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_11.1.3-jammy
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/milvus-backup-plugin:v0.1.0-rc.0 $IMAGE_REGISTRY/kubedb/milvus-backup-plugin:v0.1.0-rc.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.28.0-rc.2 $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.28.0-rc.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v12 $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v12

@@ -8,50 +8,50 @@
 {{- end }}
 
 {{ if and $featureGates.Elasticsearch (not (eq $ubi "operator")) }}
-{{ if not (has "opensearch-3.4.0" .Values.disableVersions.Elasticsearch) }}
+{{ if not (has "xpack-9.5.3" .Values.disableVersions.Elasticsearch) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  name: 'opensearch-3.4.0'
+  name: 'xpack-9.5.3'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
-  authPlugin: OpenSearch
+  authPlugin: X-Pack
   dashboard:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/opensearch-dashboards") $) }}:3.4.0'
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kibana") $) }}:9.5.3'
   dashboardInitContainer:
-    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-dashboard-init") $) }}:3.1.0-opensearch-v2025.07.07'
+    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-dashboard-init") $) }}:9.1.4-xpack-v2025.09.24'
   db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/opensearch") $) }}:3.4.0'
-  distribution: OpenSearch
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/elastic") $) }}:9.5.3'
+  distribution: ElasticStack
   exporter:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "prometheuscommunity/elasticsearch-exporter") $) }}:v1.10.0'
   gitSyncer:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.4.2'
   initContainer:
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "tianon/toybox") $) }}:0.8.11'
-    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-init") $) }}:3.1-opensearch-v2026.1.15'
+    yqImage: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/elasticsearch-init") $) }}:9.1.4-xpack-v2025.12.12'
   securityContext:
     runAsAnyNonRoot: true
     runAsUser: 1000
   stash:
     addon:
       backupTask:
-        name: elasticsearch-backup-7.14.0
+        name: elasticsearch-backup-8.2.0
         params:
         - name: args
-          value: --match=^(?![.])(?!security-auditlog)(?!kubedb-system).+
+          value: --match=^(?![.])(?!apm-agent-configuration)(?!kubedb-system).+
       restoreTask:
-        name: elasticsearch-restore-7.14.0
+        name: elasticsearch-restore-8.2.0
         params:
         - name: args
-          value: --match=^(?![.])(?!security-auditlog)(?!kubedb-system)(?!top_queries).+
+          value: --match=^(?![.])(?!apm-agent-configuration)(?!kubedb-system).+
   updateConstraints:
     allowlist:
-    - '>= 3.4.0, < 3.9.0'
-  version: 3.4.0
+    - '>= 9.5.3, < 9.6.0'
+  version: 9.5.3
   podSecurityPolicies:
     databasePolicyName: {{ ternary "elasticsearch-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
 {{ end }}

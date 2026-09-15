@@ -110,6 +110,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-e
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-9.1.4.tar $IMAGE_REGISTRY/appscode-images/elastic:9.1.4
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-9.1.9.tar $IMAGE_REGISTRY/appscode-images/elastic:9.1.9
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-9.2.3.tar $IMAGE_REGISTRY/appscode-images/elastic:9.2.3
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-9.5.3.tar $IMAGE_REGISTRY/appscode-images/elastic:9.5.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-etcd-v3.5.21.tar $IMAGE_REGISTRY/appscode-images/etcd:v3.5.21
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-etcd-v3.6.4.tar $IMAGE_REGISTRY/appscode-images/etcd:v3.6.4
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-ignite-2.17.0.tar $IMAGE_REGISTRY/appscode-images/ignite:2.17.0
@@ -161,6 +162,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-k
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-9.1.4.tar $IMAGE_REGISTRY/appscode-images/kibana:9.1.4
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-9.1.9.tar $IMAGE_REGISTRY/appscode-images/kibana:9.1.9
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-9.2.3.tar $IMAGE_REGISTRY/appscode-images/kibana:9.2.3
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-9.5.3.tar $IMAGE_REGISTRY/appscode-images/kibana:9.5.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-10.10.7-jammy.tar $IMAGE_REGISTRY/appscode-images/mariadb:10.10.7-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-10.11.16-jammy.tar $IMAGE_REGISTRY/appscode-images/mariadb:10.11.16-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-10.11.6-jammy.tar $IMAGE_REGISTRY/appscode-images/mariadb:10.11.6-jammy
@@ -223,12 +225,14 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-o
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-2.5.0.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-3.1.0.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:3.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-3.4.0.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:3.4.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-3.8.0.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:3.8.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-1.3.13.tar $IMAGE_REGISTRY/appscode-images/opensearch:1.3.13
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-1.3.20.tar $IMAGE_REGISTRY/appscode-images/opensearch:1.3.20
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-2.19.2.tar $IMAGE_REGISTRY/appscode-images/opensearch:2.19.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-2.5.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:2.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-3.1.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:3.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-3.4.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:3.4.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-3.8.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:3.8.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-percona-xtradb-cluster-5.7.44.tar $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:5.7.44
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-percona-xtradb-cluster-8.0.40.tar $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.0.40
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-percona-xtradb-cluster-8.4.3.tar $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.4.3
@@ -448,6 +452,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-re
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_10.4.32-focal.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.4.32-focal
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_10.6.16-focal.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.6.16-focal
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_11.1.3-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_11.1.3-jammy
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-milvus-backup-plugin-v0.1.0-rc.0.tar $IMAGE_REGISTRY/kubedb/milvus-backup-plugin:v0.1.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-csi-snapshotter-plugin-v0.28.0-rc.2.tar $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.28.0-rc.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-4.2-v9.tar $IMAGE_REGISTRY/kubedb/mongodb-init:4.2-v9
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-init-6.0-v12.tar $IMAGE_REGISTRY/kubedb/mongodb-init:6.0-v12
