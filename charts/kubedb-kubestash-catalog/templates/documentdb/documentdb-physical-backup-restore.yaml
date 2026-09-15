@@ -1,0 +1,31 @@
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.DocumentDB (not (eq $ubi "operator")) }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'documentdb-physical-backup-restore'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  args:
+  - physical-restore
+  - --namespace=${namespace:=default}
+  - --restoresession=${restoreSession:=}
+  - --snapshot=${snapshot:=}
+  - --enable-cache=${enableCache:=}
+  - --scratch-dir=${scratchDir:=}
+  - --wait-timeout=${waitTimeout:={{ .Values.waitTimeout}}}
+  - --pg-args=${args:={{ .Values.documentdb.restore.args }}}
+  - --user=${user:=}
+  - --restore-cmd=${restoreCmd:=}
+  - --restore-path=${restorePath:=}
+  availableVersions:
+  - "17.2"
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-restic-plugin") $) }}:v0.30.0-rc.2_17.2{{ include "catalog.ubi" $ }}'
+{{ end }}
