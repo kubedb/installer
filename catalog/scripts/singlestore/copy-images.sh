@@ -49,3 +49,4 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-init:8.1-v2 $IMAGE_REGISTRY/kubedb/singlestore-init:8.1-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-init:8.5-v2 $IMAGE_REGISTRY/kubedb/singlestore-init:8.5-v2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-init:8.7.10-v1 $IMAGE_REGISTRY/kubedb/singlestore-init:8.7.10-v1
+$CMD cp --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.4.2 $IMAGE_REGISTRY/git-sync/git-sync:v4.4.2
