@@ -24,7 +24,10 @@ for dir in charts/*/; do
     if [ $num_files -le 1 ] ||
         [[ "$dir" =~ "-crds" ]] ||
         [[ "$dir" =~ "-metrics" ]] ||
-        [[ "$dir" =~ "-grafana-dashboards" ]]; then
+        [[ "$dir" =~ "-grafana-dashboards" ]] ||
+        [[ "$dir" = "kubedb-courier-addon-manager" ]]; then
+        # kubedb-courier-addon-manager needs an OCM hub-spoke topology;
+        # it is installed by hack/scripts/ocm-courier-test.sh (ci.yml job "ocm")
         make ct CT_COMMAND=lint TEST_CHARTS=charts/$dir
     elif [[ "$dir" = "dbgate" ]] ||
         [[ "$dir" = "kafka-ui" ]] ||
