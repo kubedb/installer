@@ -26,6 +26,7 @@ tar -zxvf $TARBALL
 
 CMD="./crane"
 
+$CMD push --allow-nondistributable-artifacts --insecure images/mariadb-maxscale-24.02.4.tar $IMAGE_REGISTRY/mariadb/maxscale:24.02.4
 $CMD push --allow-nondistributable-artifacts --insecure images/mariadb-maxscale-24.02.9.tar $IMAGE_REGISTRY/mariadb/maxscale:24.02.9
 $CMD push --allow-nondistributable-artifacts --insecure images/prom-mysqld-exporter-v0.18.0.tar $IMAGE_REGISTRY/prom/mysqld-exporter:v0.18.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-10.10.7-jammy.tar $IMAGE_REGISTRY/appscode-images/mariadb:10.10.7-jammy
@@ -45,7 +46,16 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-11.8.5-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:11.8.5-noble
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-12.1.2-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:12.1.2-noble
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mariadb-12.3.2-noble.tar $IMAGE_REGISTRY/appscode-images/mariadb:12.3.2-noble
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-migrator-mariadb-v0.6.0.tar $IMAGE_REGISTRY/kubedb/kubedb-migrator-mariadb:v0.6.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-migrator-mariadb-v0.7.0-rc.2.tar $IMAGE_REGISTRY/kubedb/kubedb-migrator-mariadb:v0.7.0-rc.2
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.26.0_10.10.7-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.26.0_10.10.7-jammy
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.26.0_10.11.6-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.26.0_10.11.6-jammy
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.26.0_10.4.32-focal.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.26.0_10.4.32-focal
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.26.0_10.5.23-focal.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.26.0_10.5.23-focal
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.26.0_10.6.16-focal.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.26.0_10.6.16-focal
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.26.0_11.0.4-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.26.0_11.0.4-jammy
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.26.0_11.1.3-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.26.0_11.1.3-jammy
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.26.0_11.2.2-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.26.0_11.2.2-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.27.0-rc.2_10.10.7-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.27.0-rc.2_10.10.7-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.27.0-rc.2_10.11.6-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.27.0-rc.2_10.11.6-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.27.0-rc.2_10.4.32-focal.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.27.0-rc.2_10.4.32-focal
@@ -54,5 +64,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-ar
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.27.0-rc.2_11.0.4-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.27.0-rc.2_11.0.4-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.27.0-rc.2_11.1.3-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.27.0-rc.2_11.1.3-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-archiver-v0.27.0-rc.2_11.2.2-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-archiver:v0.27.0-rc.2_11.2.2-jammy
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-coordinator-v0.46.0.tar $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.46.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-coordinator-v0.47.0-rc.2.tar $IMAGE_REGISTRY/kubedb/mariadb-coordinator:v0.47.0-rc.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-init-0.9.0.tar $IMAGE_REGISTRY/kubedb/mariadb-init:0.9.0
