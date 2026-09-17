@@ -564,7 +564,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabacku
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.2_9.7.1 images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_9.7.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-init:3.7-v1 images/kubedb-zookeeper-init-3.7-v1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.22.0-rc.2 images/kubedb-zookeeper-restic-plugin-v0.22.0-rc.2.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/shuvokumarmondal/solr-plugin:multi-backend-v3.0_linux_amd64 images/shuvokumarmondal-solr-plugin-multi-backend-v3.0_linux_amd64.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-plugin:v0.1.0 images/kubedb-solr-plugin-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04 images/mssql-server-2022-CU12-ubuntu-22.04.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04 images/mssql-server-2022-CU14-ubuntu-22.04.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU16-ubuntu-22.04 images/mssql-server-2022-CU16-ubuntu-22.04.tar

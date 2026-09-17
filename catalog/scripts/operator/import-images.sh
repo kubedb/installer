@@ -90,4 +90,4 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-xtrabackup
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_8.4.0.tar $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.2_8.4.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_9.7.1.tar $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.2_9.7.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-restic-plugin-v0.22.0-rc.2.tar $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.22.0-rc.2
-$CMD push --allow-nondistributable-artifacts --insecure images/shuvokumarmondal-solr-plugin-multi-backend-v3.0_linux_amd64.tar $IMAGE_REGISTRY/shuvokumarmondal/solr-plugin:multi-backend-v3.0_linux_amd64
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/solr-plugin:v0.1.0

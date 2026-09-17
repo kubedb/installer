@@ -88,4 +88,4 @@ k3s ctr images import images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_8.2.0.
 k3s ctr images import images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_8.4.0.tar
 k3s ctr images import images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_9.7.1.tar
 k3s ctr images import images/kubedb-zookeeper-restic-plugin-v0.22.0-rc.2.tar
-k3s ctr images import images/shuvokumarmondal-solr-plugin-multi-backend-v3.0_linux_amd64.tar
+k3s ctr images import images/kubedb-solr-plugin-v0.1.0.tar

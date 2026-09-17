@@ -96,6 +96,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabacku
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.2_8.4.0 images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_8.4.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.2_9.7.1 images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_9.7.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.22.0-rc.2 images/kubedb-zookeeper-restic-plugin-v0.22.0-rc.2.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/shuvokumarmondal/solr-plugin:multi-backend-v3.0_linux_amd64 images/shuvokumarmondal-solr-plugin-multi-backend-v3.0_linux_amd64.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-plugin:v0.1.0 images/kubedb-solr-plugin-v0.1.0.tar
 
 tar -czvf images.tar.gz images
