@@ -29,6 +29,7 @@ CMD="./crane"
 $CMD push --allow-nondistributable-artifacts --insecure images/tianon-toybox-0.8.11.tar $IMAGE_REGISTRY/tianon/toybox:0.8.11
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-kubectl-nonroot-1.34.tar $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.34
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.1.0.tar $IMAGE_REGISTRY/appscode/petset:v0.1.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.2.0.tar $IMAGE_REGISTRY/appscode/petset:v0.2.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.15.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.15
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-medusa-plugin-v0.14.0-rc.2.tar $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.14.0-rc.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-clickhouse-backup-plugin-v0.3.0.tar $IMAGE_REGISTRY/kubedb/clickhouse-backup-plugin:v0.3.0

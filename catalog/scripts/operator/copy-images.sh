@@ -38,6 +38,7 @@ CMD="./crane"
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/tianon/toybox:0.8.11 $IMAGE_REGISTRY/tianon/toybox:0.8.11
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/kubectl-nonroot:1.34 $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.34
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.1.0 $IMAGE_REGISTRY/appscode/petset:v0.1.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/petset:v0.2.0 $IMAGE_REGISTRY/appscode/petset:v0.2.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode/sidekick:v0.0.15 $IMAGE_REGISTRY/appscode/sidekick:v0.0.15
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-medusa-plugin:v0.14.0-rc.2 $IMAGE_REGISTRY/kubedb/cassandra-medusa-plugin:v0.14.0-rc.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-backup-plugin:v0.3.0 $IMAGE_REGISTRY/kubedb/clickhouse-backup-plugin:v0.3.0

@@ -396,6 +396,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-z
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-zookeeper-3.9.1.tar $IMAGE_REGISTRY/appscode-images/zookeeper:3.9.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-kubectl-nonroot-1.34.tar $IMAGE_REGISTRY/appscode/kubectl-nonroot:1.34
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.1.0.tar $IMAGE_REGISTRY/appscode/petset:v0.1.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-petset-v0.2.0.tar $IMAGE_REGISTRY/appscode/petset:v0.2.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-sidekick-v0.0.15.tar $IMAGE_REGISTRY/appscode/sidekick:v0.0.15
 $CMD push --allow-nondistributable-artifacts --insecure images/documentdb-documentdb-documentdb-local-pg17-0.109.0.tar $IMAGE_REGISTRY/documentdb/documentdb/documentdb-local:pg17-0.109.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-init-4.1.6-v2.tar $IMAGE_REGISTRY/kubedb/cassandra-init:4.1.6-v2
