@@ -84,7 +84,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-qdrant-res
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-restic-plugin-v0.30.0-rc.2.tar $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.30.0-rc.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-singlestore-restic-plugin-v0.25.0-rc.2_alma-8.1.32-e3d3cde6da.tar $IMAGE_REGISTRY/kubedb/singlestore-restic-plugin:v0.25.0-rc.2_alma-8.1.32-e3d3cde6da
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-singlestore-restic-plugin-v0.25.0-rc.2_alma-8.5.7-bf633c1a54.tar $IMAGE_REGISTRY/kubedb/singlestore-restic-plugin:v0.25.0-rc.2_alma-8.5.7-bf633c1a54
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/solr-plugin:v0.1.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-backup-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/solr-backup-plugin:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_2.4.29.tar $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.2_2.4.29
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_8.0.35.tar $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.2_8.0.35
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_8.1.0.tar $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.2_8.1.0

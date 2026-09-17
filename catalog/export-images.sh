@@ -557,7 +557,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.6.1 images/kubedb-solr-init-9.6.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.7.0 images/kubedb-solr-init-9.7.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-init:9.8.0 images/kubedb-solr-init-9.8.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-plugin:v0.1.0 images/kubedb-solr-plugin-v0.1.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-backup-plugin:v0.1.0 images/kubedb-solr-backup-plugin-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/wal-g:v2026.3.30_mongo images/kubedb-wal-g-v2026.3.30_mongo.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.2_2.4.29 images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_2.4.29.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.2_8.0.35 images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_8.0.35.tar

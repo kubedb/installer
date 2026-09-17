@@ -549,7 +549,7 @@ k3s ctr images import images/kubedb-solr-init-9.4.1.tar
 k3s ctr images import images/kubedb-solr-init-9.6.1.tar
 k3s ctr images import images/kubedb-solr-init-9.7.0.tar
 k3s ctr images import images/kubedb-solr-init-9.8.0.tar
-k3s ctr images import images/kubedb-solr-plugin-v0.1.0.tar
+k3s ctr images import images/kubedb-solr-backup-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-wal-g-v2026.3.30_mongo.tar
 k3s ctr images import images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_2.4.29.tar
 k3s ctr images import images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_8.0.35.tar

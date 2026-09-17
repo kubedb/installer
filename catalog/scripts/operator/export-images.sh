@@ -90,7 +90,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/qdrant-re
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.30.0-rc.2 images/kubedb-redis-restic-plugin-v0.30.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-restic-plugin:v0.25.0-rc.2_alma-8.1.32-e3d3cde6da images/kubedb-singlestore-restic-plugin-v0.25.0-rc.2_alma-8.1.32-e3d3cde6da.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-restic-plugin:v0.25.0-rc.2_alma-8.5.7-bf633c1a54 images/kubedb-singlestore-restic-plugin-v0.25.0-rc.2_alma-8.5.7-bf633c1a54.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-plugin:v0.1.0 images/kubedb-solr-plugin-v0.1.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-backup-plugin:v0.1.0 images/kubedb-solr-backup-plugin-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.2_2.4.29 images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_2.4.29.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.2_8.0.35 images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_8.0.35.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.2_8.1.0 images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_8.1.0.tar
