@@ -311,12 +311,12 @@ type ArbiterSpec struct {
 }
 
 type BackupSpec struct {
-	// S3Secret references the Secret holding the S3 credentials.
+	// S3Secrets holding their S3 credentials.
 	// +optional
-	S3Secret *core.LocalObjectReference `json:"s3Secret,omitempty"`
-	// GCSSecret references the Secret holding the GCS service account key.
+	S3Secrets []core.LocalObjectReference `json:"s3Secrets,omitempty"`
+	// GCSSecrets holding their GCS service account keys.
 	// +optional
-	GCSSecret *core.LocalObjectReference `json:"gcsSecret,omitempty"`
+	GCSSecrets []core.LocalObjectReference `json:"gcsSecrets,omitempty"`
 }
 
 type DBBindInterface interface {
