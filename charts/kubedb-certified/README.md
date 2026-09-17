@@ -1,14 +1,14 @@
-# KubeDB
+# kubedb-certified
 
-[KubeDB by AppsCode](https://github.com/kubedb) - Making running production-grade databases easy on Kubernetes
+[kubedb-certified](https://github.com/kubedb) - Making running production-grade databases easy on Kubernetes
 
 ## TL;DR;
 
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb --version=v2026.8.26-rc.2
-$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2026.8.26-rc.2
+$ helm search repo appscode/kubedb-certified --version=2026.8.26-rc.2
+$ helm upgrade -i kubedb-certified appscode/kubedb-certified -n kubedb --create-namespace --version=2026.8.26-rc.2
 ```
 
 ## Introduction
@@ -21,10 +21,10 @@ This chart deploys a KubeDB operator on a [Kubernetes](http://kubernetes.io) clu
 
 ## Installing the Chart
 
-To install/upgrade the chart with the release name `kubedb`:
+To install/upgrade the chart with the release name `kubedb-certified`:
 
 ```bash
-$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2026.8.26-rc.2
+$ helm upgrade -i kubedb-certified appscode/kubedb-certified -n kubedb --create-namespace --version=2026.8.26-rc.2
 ```
 
 The command deploys a KubeDB operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -33,17 +33,17 @@ The command deploys a KubeDB operator on the Kubernetes cluster in the default c
 
 ## Uninstalling the Chart
 
-To uninstall the `kubedb`:
+To uninstall the `kubedb-certified`:
 
 ```bash
-$ helm uninstall kubedb -n kubedb
+$ helm uninstall kubedb-certified -n kubedb
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
 ## Configuration
 
-The following table lists the configurable parameters of the `kubedb` chart and their default values.
+The following table lists the configurable parameters of the `kubedb-certified` chart and their default values.
 
 |                       Parameter                       |                                                                                                                                                                              Description                                                                                                                                                                              |                                                                                            Default                                                                                             |
 |-------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -147,12 +147,12 @@ The following table lists the configurable parameters of the `kubedb` chart and 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2026.8.26-rc.2 --set global.registry=kubedb
+$ helm upgrade -i kubedb-certified appscode/kubedb-certified -n kubedb --create-namespace --version=2026.8.26-rc.2 --set global.registry=kubedb
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb appscode/kubedb -n kubedb --create-namespace --version=v2026.8.26-rc.2 --values values.yaml
+$ helm upgrade -i kubedb-certified appscode/kubedb-certified -n kubedb --create-namespace --version=2026.8.26-rc.2 --values values.yaml
 ```
