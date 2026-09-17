@@ -551,7 +551,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-init-
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-init-9.6.1.tar $IMAGE_REGISTRY/kubedb/solr-init:9.6.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-init-9.7.0.tar $IMAGE_REGISTRY/kubedb/solr-init:9.7.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-init-9.8.0.tar $IMAGE_REGISTRY/kubedb/solr-init:9.8.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/solr-plugin:v0.1.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-solr-backup-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/solr-backup-plugin:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-wal-g-v2026.3.30_mongo.tar $IMAGE_REGISTRY/kubedb/wal-g:v2026.3.30_mongo
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_2.4.29.tar $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.2_2.4.29
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_8.0.35.tar $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.2_8.0.35

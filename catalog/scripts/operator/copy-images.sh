@@ -93,7 +93,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/qdrant-rest
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.30.0-rc.2 $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.30.0-rc.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-restic-plugin:v0.25.0-rc.2_alma-8.1.32-e3d3cde6da $IMAGE_REGISTRY/kubedb/singlestore-restic-plugin:v0.25.0-rc.2_alma-8.1.32-e3d3cde6da
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-restic-plugin:v0.25.0-rc.2_alma-8.5.7-bf633c1a54 $IMAGE_REGISTRY/kubedb/singlestore-restic-plugin:v0.25.0-rc.2_alma-8.5.7-bf633c1a54
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/solr-plugin:v0.1.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/solr-backup-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/solr-backup-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.2_2.4.29 $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.2_2.4.29
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.2_8.0.35 $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.2_8.0.35
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.2_8.1.0 $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.15.0-rc.2_8.1.0

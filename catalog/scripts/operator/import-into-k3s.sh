@@ -82,7 +82,7 @@ k3s ctr images import images/kubedb-qdrant-restic-plugin-v0.3.0-rc.2.tar
 k3s ctr images import images/kubedb-redis-restic-plugin-v0.30.0-rc.2.tar
 k3s ctr images import images/kubedb-singlestore-restic-plugin-v0.25.0-rc.2_alma-8.1.32-e3d3cde6da.tar
 k3s ctr images import images/kubedb-singlestore-restic-plugin-v0.25.0-rc.2_alma-8.5.7-bf633c1a54.tar
-k3s ctr images import images/kubedb-solr-plugin-v0.1.0.tar
+k3s ctr images import images/kubedb-solr-backup-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_2.4.29.tar
 k3s ctr images import images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_8.0.35.tar
 k3s ctr images import images/kubedb-xtrabackup-restic-plugin-v0.15.0-rc.2_8.1.0.tar
