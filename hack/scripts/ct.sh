@@ -19,6 +19,10 @@ set -eou pipefail
 for dir in charts/*/; do
     dir=${dir%*/}
     dir=${dir##*/}
+    if [[ "$dir" = "kubedb-courier-addon-manager" ]]; then
+        echo "Skipping $dir: requires an OCM hub-spoke cluster topology"
+        continue
+    fi
     num_files=$(find charts/${dir}/templates -type f | wc -l)
     echo $dir
     if [ $num_files -le 1 ] ||
