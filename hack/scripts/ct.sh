@@ -19,16 +19,15 @@ set -eou pipefail
 for dir in charts/*/; do
     dir=${dir%*/}
     dir=${dir##*/}
-    if [[ "$dir" = "kubedb-courier-addon-manager" ]]; then
-        echo "Skipping $dir: requires an OCM hub-spoke cluster topology"
-        continue
-    fi
     num_files=$(find charts/${dir}/templates -type f | wc -l)
     echo $dir
     if [ $num_files -le 1 ] ||
         [[ "$dir" =~ "-crds" ]] ||
         [[ "$dir" =~ "-metrics" ]] ||
-        [[ "$dir" =~ "-grafana-dashboards" ]]; then
+        [[ "$dir" =~ "-grafana-dashboards" ]] ||
+        [[ "$dir" = "kubedb-courier-addon-manager" ]]; then
+        # kubedb-courier-addon-manager needs an OCM hub-spoke topology;
+        # it is installed by hack/scripts/ocm-courier-test.sh (.github/workflows/ocm.yml)
         make ct CT_COMMAND=lint TEST_CHARTS=charts/$dir
     elif [[ "$dir" = "dbgate" ]] ||
         [[ "$dir" = "kafka-ui" ]] ||
