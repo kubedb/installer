@@ -27,7 +27,7 @@ for dir in charts/*/; do
         [[ "$dir" =~ "-grafana-dashboards" ]] ||
         [[ "$dir" = "kubedb-courier-addon-manager" ]]; then
         # kubedb-courier-addon-manager needs an OCM hub-spoke topology;
-        # it is installed by hack/scripts/ocm-courier-test.sh (.github/workflows/ocm.yml)
+        # it is installed by hack/scripts/ocm-courier-test.sh (ci.yml job "ocm")
         make ct CT_COMMAND=lint TEST_CHARTS=charts/$dir
     elif [[ "$dir" = "dbgate" ]] ||
         [[ "$dir" = "kafka-ui" ]] ||
