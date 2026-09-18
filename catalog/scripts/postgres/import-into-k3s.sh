@@ -162,9 +162,12 @@ k3s ctr images import images/kubedb-postgres-archiver-v0.28.0-rc.2_15.5-alpine.t
 k3s ctr images import images/kubedb-postgres-archiver-v0.28.0-rc.2_15.5-bookworm.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.28.0-rc.2_16.1-alpine.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.28.0-rc.2_16.1-bookworm.tar
+k3s ctr images import images/kubedb-postgres-archiver-v0.28.0-rc.2_16.15-stream9-ext.tar
+k3s ctr images import images/kubedb-postgres-archiver-v0.28.0-rc.2_17.11-stream9-ext.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.28.0-rc.2_17.2-alpine.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.28.0-rc.2_17.2-bookworm.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.28.0-rc.2_17.9-percona.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.28.0-rc.2_18.2-alpine.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.28.0-rc.2_18.2-bookworm.tar
+k3s ctr images import images/kubedb-postgres-archiver-v0.28.0-rc.2_18.6-stream9-ext.tar
 k3s ctr images import images/kubedb-postgres-init-0.21.0.tar

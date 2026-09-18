@@ -164,9 +164,12 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-a
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.28.0-rc.2_15.5-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_15.5-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.28.0-rc.2_16.1-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_16.1-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.28.0-rc.2_16.1-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_16.1-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.28.0-rc.2_16.15-stream9-ext.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_16.15-stream9-ext
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.28.0-rc.2_17.11-stream9-ext.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_17.11-stream9-ext
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.28.0-rc.2_17.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_17.2-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.28.0-rc.2_17.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_17.2-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.28.0-rc.2_17.9-percona.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_17.9-percona
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.28.0-rc.2_18.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_18.2-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.28.0-rc.2_18.2-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_18.2-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.28.0-rc.2_18.6-stream9-ext.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_18.6-stream9-ext
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-init-0.21.0.tar $IMAGE_REGISTRY/kubedb/postgres-init:0.21.0

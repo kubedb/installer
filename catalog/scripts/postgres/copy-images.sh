@@ -173,9 +173,12 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-ar
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_15.5-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_15.5-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_16.1-alpine $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_16.1-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_16.1-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_16.1-bookworm
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_16.15-stream9-ext $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_16.15-stream9-ext
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_17.11-stream9-ext $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_17.11-stream9-ext
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_17.2-alpine $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_17.2-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_17.2-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_17.2-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_17.9-percona $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_17.9-percona
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_18.2-alpine $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_18.2-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_18.2-bookworm $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_18.2-bookworm
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_18.6-stream9-ext $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_18.6-stream9-ext
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.21.0 $IMAGE_REGISTRY/kubedb/postgres-init:0.21.0
