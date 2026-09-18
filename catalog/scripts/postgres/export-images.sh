@@ -170,11 +170,14 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_15.5-bookworm images/kubedb-postgres-archiver-v0.28.0-rc.2_15.5-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_16.1-alpine images/kubedb-postgres-archiver-v0.28.0-rc.2_16.1-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_16.1-bookworm images/kubedb-postgres-archiver-v0.28.0-rc.2_16.1-bookworm.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_16.15-stream9-ext images/kubedb-postgres-archiver-v0.28.0-rc.2_16.15-stream9-ext.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_17.11-stream9-ext images/kubedb-postgres-archiver-v0.28.0-rc.2_17.11-stream9-ext.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_17.2-alpine images/kubedb-postgres-archiver-v0.28.0-rc.2_17.2-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_17.2-bookworm images/kubedb-postgres-archiver-v0.28.0-rc.2_17.2-bookworm.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_17.9-percona images/kubedb-postgres-archiver-v0.28.0-rc.2_17.9-percona.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_18.2-alpine images/kubedb-postgres-archiver-v0.28.0-rc.2_18.2-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_18.2-bookworm images/kubedb-postgres-archiver-v0.28.0-rc.2_18.2-bookworm.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_18.6-stream9-ext images/kubedb-postgres-archiver-v0.28.0-rc.2_18.6-stream9-ext.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-init:0.21.0 images/kubedb-postgres-init-0.21.0.tar
 
 tar -czvf images.tar.gz images
