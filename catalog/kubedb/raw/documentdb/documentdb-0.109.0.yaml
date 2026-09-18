@@ -3,6 +3,25 @@ kind: DocumentDBVersion
 metadata:
   name: pg17-0.109.0
 spec:
+  archiver:
+    addon:
+      name: documentdb-addon
+      tasks:
+        fullBackup:
+          name: physical-backup
+        fullBackupRestore:
+          name: physical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      # DocumentDB's backend is genuinely PostgreSQL 17.2 (postgresPluginVersion below), so the
+      # existing per-version postgres-archiver image is WAL-compatible - verified by pg_waldump
+      # decoding DocumentDB WAL correctly (archiver/poc.md). No DocumentDB-specific image needed.
+      image: ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_17.2-alpine
   coordinator:
     image: ghcr.io/kubedb/documentdb-coordinator:v0.3.0-rc.2
   db:
