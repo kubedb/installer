@@ -1,0 +1,47 @@
+{{- template "kubedb-catalog.refresh-versions" . }}
+
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.Kafka (not (eq $ubi "operator")) }}
+{{ if not (has "confluent-8.3.2" .Values.disableVersions.Kafka) }}
+
+{{ if or (not .Values.skipEndOfLife) (has "confluent-8.3.2" .Values.enableVersions.Kafka) }}
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: KafkaVersion
+metadata:
+  name: 'confluent-8.3.2'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  connectCluster:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kafka-connect-cluster") $) }}:4.2.0'
+  cruiseControl:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kafka-cruise-control") $) }}:4.2.0'
+  db:
+    # Confluent Server (Enterprise) referenced directly from Confluent's own
+    # registry -- not rehosted, per Confluent's commercial license terms.
+    # Requires Kafka.spec.license once the 30-day trial period expires.
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "confluentinc/cp-server") $) }}:8.3.2'
+  distribution: Confluent
+  securityContext:
+    runAsUser: 1001
+  ui:
+  - name: kafka-ui
+    version: v2026.3.30
+  updateConstraints:
+    allowlist:
+    - '>= 8.3.2'
+    denylist:
+    - < 8.3.2
+  version: 8.3.2
+  podSecurityPolicies:
+    databasePolicyName: {{ ternary "kafka-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
+  endOfLife: {{ not (has "confluent-8.3.2" .Values.enableVersions.Kafka) }}
+{{ end }}
+{{ end }}
+{{ end }}
