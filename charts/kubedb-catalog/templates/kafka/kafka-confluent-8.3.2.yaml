@@ -28,6 +28,12 @@ spec:
     # Requires Kafka.spec.license once the 30-day trial period expires.
     image: '{{ include "image.dockerHub" (merge (dict "_repo" "confluentinc/cp-server") $) }}:8.3.2'
   distribution: Confluent
+  # Only used when Kafka.spec.brokerRack is set: the operator still needs
+  # this (distro-agnostic) init container's node-label lookup to compute
+  # broker.rack, since that's only knowable once a pod is actually
+  # scheduled to a node, not at reconcile time. Unused otherwise.
+  initContainer:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kafka-init") $) }}:4.0-v2'
   securityContext:
     runAsUser: 1001
   ui:
