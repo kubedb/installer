@@ -94,6 +94,10 @@ Create the name of the service account to use
 {{ list .Values.proxies.weaviate ._repo | compact | join "/" }}
 {{- end }}
 
+{{- define "image.mariadb" -}}
+{{ list .Values.proxies.mariadb ._repo | compact | join "/" }}
+{{- end }}
+
 {{/*
 Returns if ubi images are to be used
 */}}
