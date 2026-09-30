@@ -26,6 +26,7 @@ tar -zxvf $TARBALL
 
 CMD="./crane"
 
+$CMD push --allow-nondistributable-artifacts --insecure images/prom-mysqld-exporter-v0.18.0.tar $IMAGE_REGISTRY/prom/mysqld-exporter:v0.18.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-percona-xtradb-cluster-5.7.44.tar $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:5.7.44
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-percona-xtradb-cluster-8.0.40.tar $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.0.40
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-percona-xtradb-cluster-8.4.3.tar $IMAGE_REGISTRY/appscode-images/percona-xtradb-cluster:8.4.3
