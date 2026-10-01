@@ -1,0 +1,26 @@
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.Milvus (not (eq $ubi "operator")) }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'milvus-csi-snapshotter'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  args:
+  - backup
+  - --namespace=${namespace:=default}
+  - --backupsession=${backupSession:=}
+  - --volume-snapshot-class-name=${volumeSnapshotClassName:=}
+  - --quiesce=${quiesce:=DenyWrites}
+  - --fence-settle=${fenceSettle:=10s}
+  - --fence-timeout=${fenceTimeout:=60s}
+  - --allow-quiesce-downgrade=${allowQuiesceDowngrade:=false}
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/milvus-csi-snapshotter-plugin") $) }}:v0.1.0-rc.0{{ include "catalog.ubi" $ }}'
+{{ end }}

@@ -20,6 +20,24 @@ metadata:
 spec:
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/milvus") $) }}:2.6.11'
+  archiver:
+    addon:
+      name: milvus-addon
+      tasks:
+        fullBackup:
+          name: physical-backup
+        fullBackupRestore:
+          name: physical-backup-restore
+        incBackupRestore:
+          name: local-wal-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/milvus-archiver") $) }}:v0.1.0-rc.0{{ include "catalog.ubi" $ }}'
   etcdVersion: v3.5.21
   securityContext:
     runAsUser: 1000
