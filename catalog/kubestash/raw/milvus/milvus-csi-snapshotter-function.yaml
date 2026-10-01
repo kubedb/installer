@@ -1,0 +1,15 @@
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: milvus-csi-snapshotter
+spec:
+  args:
+  - backup
+  - --namespace=${namespace:=default}
+  - --backupsession=${backupSession:=}
+  - --volume-snapshot-class-name=${volumeSnapshotClassName:=}
+  - --quiesce=${quiesce:=DenyWrites}
+  - --fence-settle=${fenceSettle:=10s}
+  - --fence-timeout=${fenceTimeout:=60s}
+  - --allow-quiesce-downgrade=${allowQuiesceDowngrade:=false}
+  image: ghcr.io/kubedb/milvus-csi-snapshotter-plugin:v0.1.0-rc.0
