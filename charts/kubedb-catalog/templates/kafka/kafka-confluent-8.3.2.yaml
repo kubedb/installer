@@ -8,13 +8,13 @@
 {{- end }}
 
 {{ if and $featureGates.Kafka (not (eq $ubi "operator")) }}
-{{ if not (has "4.2.0" .Values.disableVersions.Kafka) }}
+{{ if not (has "confluent-8.3.2" .Values.disableVersions.Kafka) }}
 
-{{ if or (not .Values.skipEndOfLife) (has "4.2.0" .Values.enableVersions.Kafka) }}
+{{ if or (not .Values.skipEndOfLife) (has "confluent-8.3.2" .Values.enableVersions.Kafka) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: KafkaVersion
 metadata:
-  name: '4.2.0'
+  name: 'confluent-8.3.2'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -23,23 +23,30 @@ spec:
   cruiseControl:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kafka-cruise-control") $) }}:4.2.0'
   db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/kafka") $) }}:4.2.0'
+    # Confluent Server (Enterprise) referenced directly from Confluent's own
+    # registry -- not rehosted, per Confluent's commercial license terms.
+    # Requires Kafka.spec.license once the 30-day trial period expires.
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "confluentinc/cp-server") $) }}:8.3.2'
+  distribution: Confluent
+  # Ships KubeDB's setup/launch scripts, the JMX exporter and the Cruise Control reporter; the operator
+  # runs them in the Confluent image (see kafka-init-docker/design.md).
   initContainer:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kafka-init") $) }}:4.0-v3'
   securityContext:
-    runAsUser: 1001
+    # Confluent's images run as appuser (uid 1000), which owns /etc/kafka and /var/lib/kafka/data
+    runAsUser: 1000
   ui:
   - name: kafka-ui
     version: v2026.3.30
   updateConstraints:
     allowlist:
-    - '>= 4.2.0'
+    - '>= 8.3.2'
     denylist:
-    - < 4.2.0
-  version: 4.2.0
+    - < 8.3.2
+  version: 8.3.2
   podSecurityPolicies:
     databasePolicyName: {{ ternary "kafka-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
-  endOfLife: {{ not (has "4.2.0" .Values.enableVersions.Kafka) }}
+  endOfLife: {{ not (has "confluent-8.3.2" .Values.enableVersions.Kafka) }}
 {{ end }}
 {{ end }}
 {{ end }}
