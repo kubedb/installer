@@ -323,4 +323,20 @@ rules:
     - update
     - patch
     - delete
-
+{{- if .Values.dcDR.enabled }}
+# DC-DR: the region check reads the OCM ManagedClusters (cached client: get, list, watch)
+- apiGroups:
+    - cluster.open-cluster-management.io
+  resources:
+    - managedclusters
+  verbs: ["get", "list", "watch"]
+{{- if not .Values.dcDR.coordKubeconfigSecret }}
+# DC-DR with the hub as the coordination plane: the orchestrator watches the
+# primary-DC Leases and patches the switchover handoff/quiesce annotations on them
+- apiGroups:
+    - coordination.k8s.io
+  resources:
+    - leases
+  verbs: ["get", "list", "watch", "patch"]
+{{- end }}
+{{- end }}
