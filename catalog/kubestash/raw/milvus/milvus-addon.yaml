@@ -51,7 +51,7 @@ spec:
       singleton: true
       parameters:
         - name: volumeSnapshotClassName
-          usage: The VolumeSnapshotClassName to be used by volumeSnapshot
+          usage: VolumeSnapshotClass for the CSI snapshot of the Standalone data PVC (warm cache)
           required: false
         - name: quiesce
           usage: How writes are quiesced for the crash-consistent capture. DenyWrites, Flush or None
@@ -103,7 +103,7 @@ spec:
           usage: Suffix appended to restored collection names
       singleton: true
     - name: physical-backup-restore
-      function: milvus-physical-restore
+      function: milvus-physical-backup-restore
       driver: Restic
       executor: Job
       singleton: true
@@ -116,20 +116,6 @@ spec:
           usage: Parallel object copies
           required: false
           default: "16"
-    - name: local-wal-restore
-      function: milvus-local-wal-restore
-      driver: Restic
-      executor: Job
-      singleton: true
-      volumeMounts:
-        - mountPath: /kubestash-data
-          name: kubestash-data-volume
-      volumeTemplate:
-        - name: kubestash-data-volume
-          source:
-            persistentVolumeClaim:
-              claimName: ${PVC_NAME}
-          usage: The data volume of the restored standalone Milvus.
     - name: manifest-restore
       function: kubedbmanifest-restore
       driver: Restic
