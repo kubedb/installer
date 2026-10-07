@@ -30,10 +30,12 @@ k3s ctr images import images/apicurio-apicurio-registry-kafkasql-2.5.11.Final.ta
 k3s ctr images import images/apicurio-apicurio-registry-mem-2.5.11.Final.tar
 k3s ctr images import images/clickhouse-clickhouse-keeper-24.4.1.tar
 k3s ctr images import images/clickhouse-clickhouse-keeper-25.12.3.tar
+k3s ctr images import images/clickhouse-clickhouse-keeper-25.5.11.tar
 k3s ctr images import images/clickhouse-clickhouse-keeper-25.7.1.tar
 k3s ctr images import images/clickhouse-clickhouse-keeper-26.2.6.tar
 k3s ctr images import images/clickhouse-clickhouse-server-24.4.1.tar
 k3s ctr images import images/clickhouse-clickhouse-server-25.12.3.tar
+k3s ctr images import images/clickhouse-clickhouse-server-25.5.11.tar
 k3s ctr images import images/clickhouse-clickhouse-server-25.7.1.tar
 k3s ctr images import images/clickhouse-clickhouse-server-26.2.6.tar
 k3s ctr images import images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar
