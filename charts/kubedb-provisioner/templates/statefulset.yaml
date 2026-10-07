@@ -105,11 +105,14 @@ spec:
         {{- end }}
         {{- if .Values.dcDR.enabled }}
         # Cross data center (DC-DR) failover orchestrator. localDC is this operator
-        # instance's data center (the OCM spoke cluster name); the coord kubeconfig points
-        # at the coordination control plane that holds the primary-DC Leases.
+        # instance's data center (the OCM spoke cluster name). With coordKubeconfigSecret
+        # the primary-DC Leases are read from that separate coordination control plane;
+        # without it they are read from this cluster (the hub is the coordination plane).
         - --dc-dr-enabled
         - --dc-dr-local-dc={{ required "dcDR.localDC is required when dcDR.enabled is true" .Values.dcDR.localDC }}
+        {{- if .Values.dcDR.coordKubeconfigSecret }}
         - --dc-dr-coord-kubeconfig=/etc/dr/coord/kubeconfig
+        {{- end }}
         {{- with .Values.dcDR.coordQPS }}
         - --dc-dr-coord-qps={{ . }}
         {{- end }}
@@ -151,7 +154,7 @@ spec:
         - mountPath: /var/run/secrets/appscode/license
           name: license
         {{- end }}
-        {{- if .Values.dcDR.enabled }}
+        {{- if and .Values.dcDR.enabled .Values.dcDR.coordKubeconfigSecret }}
         - mountPath: /etc/dr/coord
           name: dcdr-coord-kubeconfig
           readOnly: true
@@ -181,11 +184,11 @@ spec:
           defaultMode: 420
           secretName: {{ include "appscode.licenseSecretName" . }}
       {{- end }}
-      {{- if .Values.dcDR.enabled }}
+      {{- if and .Values.dcDR.enabled .Values.dcDR.coordKubeconfigSecret }}
       - name: dcdr-coord-kubeconfig
         secret:
           defaultMode: 420
-          secretName: {{ required "dcDR.coordKubeconfigSecret is required when dcDR.enabled is true" .Values.dcDR.coordKubeconfigSecret }}
+          secretName: {{ .Values.dcDR.coordKubeconfigSecret }}
       {{- end }}
       {{- if eq "true" ( include "distro.openshift" . ) }}
       securityContext:
