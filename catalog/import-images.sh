@@ -32,10 +32,12 @@ $CMD push --allow-nondistributable-artifacts --insecure images/apicurio-apicurio
 $CMD push --allow-nondistributable-artifacts --insecure images/apicurio-apicurio-registry-mem-2.5.11.Final.tar $IMAGE_REGISTRY/apicurio/apicurio-registry-mem:2.5.11.Final
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-keeper-24.4.1.tar $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:24.4.1
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-keeper-25.12.3.tar $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:25.12.3
+$CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-keeper-25.5.tar $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:25.5
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-keeper-25.7.1.tar $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:25.7.1
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-keeper-26.2.6.tar $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:26.2.6
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-server-24.4.1.tar $IMAGE_REGISTRY/clickhouse/clickhouse-server:24.4.1
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-server-25.12.3.tar $IMAGE_REGISTRY/clickhouse/clickhouse-server:25.12.3
+$CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-server-25.5.tar $IMAGE_REGISTRY/clickhouse/clickhouse-server:25.5
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-server-25.7.1.tar $IMAGE_REGISTRY/clickhouse/clickhouse-server:25.7.1
 $CMD push --allow-nondistributable-artifacts --insecure images/clickhouse-clickhouse-server-26.2.6.tar $IMAGE_REGISTRY/clickhouse/clickhouse-server:26.2.6
 $CMD push --allow-nondistributable-artifacts --insecure images/floragunncom-sg-elasticsearch-7.9.3-oss-47.1.0.tar $IMAGE_REGISTRY/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0

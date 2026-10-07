@@ -41,10 +41,12 @@ $CMD cp --allow-nondistributable-artifacts --insecure docker.io/apicurio/apicuri
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/apicurio/apicurio-registry-mem:2.5.11.Final $IMAGE_REGISTRY/apicurio/apicurio-registry-mem:2.5.11.Final
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-keeper:24.4.1 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:24.4.1
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-keeper:25.12.3 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:25.12.3
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-keeper:25.5 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:25.5
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-keeper:25.7.1 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:25.7.1
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-keeper:26.2.6 $IMAGE_REGISTRY/clickhouse/clickhouse-keeper:26.2.6
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-server:24.4.1 $IMAGE_REGISTRY/clickhouse/clickhouse-server:24.4.1
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-server:25.12.3 $IMAGE_REGISTRY/clickhouse/clickhouse-server:25.12.3
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-server:25.5 $IMAGE_REGISTRY/clickhouse/clickhouse-server:25.5
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-server:25.7.1 $IMAGE_REGISTRY/clickhouse/clickhouse-server:25.7.1
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/clickhouse/clickhouse-server:26.2.6 $IMAGE_REGISTRY/clickhouse/clickhouse-server:26.2.6
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0 $IMAGE_REGISTRY/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0
