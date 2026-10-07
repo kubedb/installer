@@ -46,5 +46,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlesto
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-init:8.1-v2 images/kubedb-singlestore-init-8.1-v2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-init:8.5-v2 images/kubedb-singlestore-init-8.5-v2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-init:8.7.10-v1 images/kubedb-singlestore-init-8.7.10-v1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure registry.k8s.io/git-sync/git-sync:v4.4.2 images/git-sync-git-sync-v4.4.2.tar
 
 tar -czvf images.tar.gz images
