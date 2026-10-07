@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.PgBouncer (not (eq $ubi "operator")) }}
+{{ if not (has "1.24.0" .Values.disableVersions.PgBouncer) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -30,4 +31,5 @@ spec:
     allowlist:
     - '>= 1.24.0'
   version: 1.24.0
+{{ end }}
 {{ end }}

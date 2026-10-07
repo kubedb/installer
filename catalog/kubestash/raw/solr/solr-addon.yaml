@@ -1,0 +1,27 @@
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Addon
+metadata:
+  name: solr-addon
+spec:
+  backupTasks:
+    - driver: Solr
+      executor: Job
+      function: solr-backup
+      name: logical-backup
+      parameters:
+        - default: --match=^(?![.])(?!apm-agent-configuration)(?!kubedb-system).+
+          name: args
+          required: false
+          usage: Specifies the database arguments which implies the indices which must be avoided while backup
+      singleton: true
+  restoreTasks:
+    - driver: Solr
+      executor: Job
+      function: solr-restore
+      name: logical-backup-restore
+      parameters:
+        - default: --match=^(?![.])(?!apm-agent-configuration)(?!kubedb-system).+
+          name: args
+          required: false
+          usage: Specifies the database arguments which implies the indices which must be avoided while restore
+      singleton: true

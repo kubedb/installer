@@ -29,16 +29,13 @@ var ignoreMissingList = []string{
 	"container-registry.oracle.com/database/enterprise:21.3.0.0",
 	"container-registry.oracle.com/database/observability-exporter:2.2.1",
 	"ghcr.io/kubedb/db2-coordinator:*-ubi",
-	// TODO: remove once the MySQL/MariaDB/MSSQLServer courier CLI images are published.
-	"ghcr.io/kubedb/kubedb-migrator-mysql:*",
-	"ghcr.io/kubedb/kubedb-migrator-mariadb:*",
-	"ghcr.io/kubedb/kubedb-migrator-mssqlserver:*",
-	// TODO: remove once the Etcd catalog images and the etcd-restic-plugin image are published.
-	"ghcr.io/appscode-images/etcd:*",
-	"ghcr.io/kubedb/etcd-restic-plugin:*",
 }
 
 var archSkipList = []string{
+	// Postgres Enterprise by AppsCode is published amd64-only by design; there is
+	// no arm64 build. Added late: the 16.9 catalog entries landed in #2425 without
+	// this, which has failed Test_CheckImageArchitectures on master since then.
+	"ghcr.io/appscode-images/postgres-enterprise:*",
 	"ghcr.io/appscode-images/weaviate:1.33.1", // Docker inspect not showing any arm64 image
 	"docker.io/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0",
 	"ghcr.io/appscode-images/druid:28.0.1",

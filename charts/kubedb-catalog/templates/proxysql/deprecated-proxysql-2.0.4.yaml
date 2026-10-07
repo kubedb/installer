@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.ProxySQL (not (eq $ubi "operator")) }}
+{{ if not (has "2.0.4" .Values.disableVersions.ProxySQL) }}
 {{ if or (not .Values.skipDeprecated) (has "2.0.4" .Values.enableVersions.ProxySQL) }}
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -27,5 +28,6 @@ spec:
   podSecurityPolicies:
     databasePolicyName: {{ ternary "proxysql-db" `""` (and .Values.psp.enabled (.Capabilities.APIVersions.Has "policy/v1beta1/PodSecurityPolicy")) }}
   deprecated: {{ not (has "2.0.4" .Values.enableVersions.ProxySQL) }}
+{{ end }}
 {{ end }}
 {{ end }}

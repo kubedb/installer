@@ -116,6 +116,14 @@ Returns if ubi images are to be used
     {{ $usedList := splitList "," $usedVersions }}
     {{ $userList := dig $kind (list) $.Values.enableVersions }}
     {{ $_ := set $.Values.enableVersions $kind (concat $usedList $userList | uniq) }}
+    {{/* an in-use version must keep its DBVersion object, otherwise the operator can no longer reconcile the running databases; so drop it from disableVersions */}}
+    {{ $keepDisabled := list }}
+    {{- range $v := dig $kind (list) (default (dict) $.Values.disableVersions) }}
+    {{- if not (has $v $usedList) }}
+    {{ $keepDisabled = append $keepDisabled $v }}
+    {{- end }}
+    {{- end }}
+    {{ $_ := set (default (dict) $.Values.disableVersions) $kind $keepDisabled }}
 {{- end }}
 {{- end }}
 {{- end }}

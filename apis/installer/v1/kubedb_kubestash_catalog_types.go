@@ -50,6 +50,7 @@ type KubedbKubestashCatalogSpec struct {
 	WaitTimeout    int64                       `json:"waitTimeout"`
 	Cassandra      KubestashDatabaseSpec       `json:"cassandra"`
 	ClickHouse     KubestashDatabaseSpec       `json:"clickhouse"`
+	DocumentDB     KubestashDatabaseSpec       `json:"documentdb"`
 	Druid          KubestashDatabaseSpec       `json:"druid"`
 	Elasticsearch  KubestashDatabaseSpec       `json:"elasticsearch"`
 	Opensearch     KubestashDatabaseSpec       `json:"opensearch"`

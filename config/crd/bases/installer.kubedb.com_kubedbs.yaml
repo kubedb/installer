@@ -1,7 +1,6 @@
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
-  creationTimestamp: null
   name: kubedbs.installer.kubedb.com
 spec:
   group: installer.kubedb.com
@@ -5238,6 +5237,12 @@ spec:
                     additionalProperties:
                       type: object
                       x-kubernetes-preserve-unknown-fields: true
+                    type: object
+                  disableVersions:
+                    additionalProperties:
+                      items:
+                        type: string
+                      type: array
                     type: object
                   distro:
                     properties:
@@ -10805,6 +10810,24 @@ spec:
                     - openshift
                     - ubi
                     type: object
+                  documentdb:
+                    description: KubestashDatabaseSpec is the schema for DB values
+                      file
+                    properties:
+                      backup:
+                        properties:
+                          args:
+                            type: string
+                        type: object
+                      restore:
+                        properties:
+                          args:
+                            type: string
+                        type: object
+                    required:
+                    - backup
+                    - restore
+                    type: object
                   druid:
                     description: KubestashDatabaseSpec is the schema for DB values
                       file
@@ -11069,6 +11092,7 @@ spec:
                 required:
                 - cassandra
                 - clickhouse
+                - documentdb
                 - druid
                 - elasticsearch
                 - enabled

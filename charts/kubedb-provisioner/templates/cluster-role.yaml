@@ -183,6 +183,13 @@ rules:
   resources:
   - "pods/status"
   verbs: ["update"]
+# DB2 HADR primary lease: the operator creates and moves it, and grants the
+# DB2 pods get/update on it so the primary's coordinator can renew it.
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 - apiGroups:
   - policy
   resources:
@@ -311,18 +318,6 @@ rules:
     - list
     - watch
     - get
-- apiGroups:
-    - operator.etcd.io
-  resources:
-    - etcdclusters
-  verbs:
-    - list
-    - watch
-    - get
-    - create
-    - update
-    - patch
-    - delete
 {{- if .Values.dcDR.enabled }}
 # DC-DR: the region check reads the OCM ManagedClusters (cached client: get, list, watch)
 - apiGroups:

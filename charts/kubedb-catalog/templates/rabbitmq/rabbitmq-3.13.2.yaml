@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.RabbitMQ (not (eq $ubi "operator")) }}
+{{ if not (has "3.13.2" .Values.disableVersions.RabbitMQ) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -24,4 +25,5 @@ spec:
   securityContext:
     runAsUser: 999
   version: 3.13.2
+{{ end }}
 {{ end }}

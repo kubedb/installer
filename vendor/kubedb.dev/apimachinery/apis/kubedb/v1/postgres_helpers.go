@@ -375,6 +375,30 @@ func (p *Postgres) SetDefaults(postgresVersion *catalog.PostgresVersion) {
 		p.Spec.AuthSecret.Kind = kubedb.ResourceKindSecret
 	}
 
+	if p.Spec.LeaderElection == nil && p.isDCDRDistributed() {
+		// A raft election timeout of Period * ElectionTick = 3s (the plain HA default below)
+		// is tuned for pods sharing a data center switch. Under DC-DR the same raft runs
+		// inside one DC but on a cluster whose API server and coordination control plane are
+		// shared with the cross data center machinery, and a control plane brownout that
+		// stalls the coordinator's reconcile goroutine for a few seconds is enough to lose
+		// leadership. Measured live: a hub etcd slowdown produced leadership churn
+		// (1 -> 2 -> 1 -> 3) DURING a cross-DC heal, which serialized three separate
+		// cross-DC rewinds and turned one fork into three, costing 841s of availability
+		// while every safety invariant held.
+		//
+		// 1s * 15 = 15s of election timeout rides out that class of brownout without
+		// changing what raft guarantees. The cost is a slower INTRA-DC failover detection
+		// (up to ~15s rather than ~3s) which is the right trade here: a DC-DR deployment
+		// already tolerates tens of seconds for the cross-DC path (30s marker TTL alone),
+		// and a spurious election is far more expensive than a slightly later real one
+		// because it can fork a timeline.
+		p.Spec.LeaderElection = &PostgreLeaderElectionConfig{
+			Period:                   metav1.Duration{Duration: 1 * time.Second},
+			ElectionTick:             15,
+			HeartbeatTick:            1,
+			MaximumLagBeforeFailover: 64 * 1024 * 1024,
+		}
+	}
 	if p.Spec.LeaderElection == nil {
 		p.Spec.LeaderElection = &PostgreLeaderElectionConfig{
 			// The upper limit of election timeout is 50000ms (50s), which should only be used when deploying a
@@ -728,4 +752,108 @@ func (p *Postgres) GetDeletionPolicy() string {
 
 func (p *Postgres) GetPersistentSecrets() []string {
 	return p.Spec.GetPersistentSecrets()
+}
+
+// hbaConnectionTypes are the connection types PostgreSQL accepts in the first column of a
+// pg_hba.conf record. "local" is deliberately absent: see ValidateHBAConfig.
+var hbaConnectionTypes = map[string]bool{
+	"host":         true,
+	"hostssl":      true,
+	"hostnossl":    true,
+	"hostgssenc":   true,
+	"hostnogssenc": true,
+}
+
+// ValidateHBAConfig validates user supplied pg_hba.conf records before they are spliced into
+// the generated $PGDATA/pg_hba.conf by postgres-init-docker's role scripts.
+//
+// pg_hba.conf is first-match-wins and the user block is spliced above KubeDB's catch-all
+// rules, which is what lets a user tighten access. That same position means a permissive user
+// record can shadow a KubeDB record, so the rules KubeDB depends on are not negotiable:
+//
+//   - "local" records are rejected. KubeDB's own local trust rules sit above the user block and
+//     would win anyway, so accepting these would silently do nothing.
+//   - records for the "replication" pseudo-database are rejected. They sit above KubeDB's
+//     replication rules, so "host replication all 0.0.0.0/0 trust" would hand out unauthenticated
+//     replication - a full copy of the cluster.
+//   - include/include_if_exists/include_dir are rejected. PostgreSQL only honours them from
+//     major 16 and the catalog ships 10-18, so they would be a silent no-op on most versions.
+//
+// The role scripts filter local/replication again as defence in depth, for the case where the
+// webhook is bypassed. Callers outside the webhook package (pkg/ops) use this too, which is why
+// it lives here rather than in pkg/webhooks.
+func ValidateHBAConfig(content string) error {
+	for i, raw := range strings.Split(content, "\n") {
+		lineNo := i + 1
+		line := strings.TrimSpace(raw)
+		if line == "" || strings.HasPrefix(line, "#") {
+			continue
+		}
+		fields := strings.Fields(line)
+		connType := strings.ToLower(fields[0])
+
+		if strings.HasPrefix(connType, "include") {
+			return fmt.Errorf("pg_hba.conf line %d: %q is not allowed; PostgreSQL only supports include directives in pg_hba.conf from major version 16 and KubeDB supports 10-18, so it would be silently ignored", lineNo, fields[0])
+		}
+		if connType == "local" {
+			return fmt.Errorf("pg_hba.conf line %d: %q records are not allowed; KubeDB's own local rules are matched first, so this would never take effect", lineNo, "local")
+		}
+		if !hbaConnectionTypes[connType] {
+			return fmt.Errorf("pg_hba.conf line %d: unknown connection type %q", lineNo, fields[0])
+		}
+		// host<type> database user address method
+		if len(fields) < 5 {
+			return fmt.Errorf("pg_hba.conf line %d: expected at least 5 fields (type database user address method), got %d: %q", lineNo, len(fields), line)
+		}
+		if strings.EqualFold(fields[1], "replication") {
+			return fmt.Errorf("pg_hba.conf line %d: rules for the %q database are reserved for KubeDB; a permissive rule here would expose unauthenticated replication", lineNo, "replication")
+		}
+	}
+	return nil
+}
+
+// isDCDRDistributed reports whether this Postgres is a cross data center disaster recovery
+// deployment, which is a distributed database explicitly opted in with the DC-DR annotation.
+// It mirrors the operator's own detection (isDCDRDistributed in pkg/controller) so defaults
+// applied here and behaviour applied there can never disagree about what a DC-DR database is.
+func (p Postgres) isDCDRDistributed() bool {
+	return p.Spec.Distributed && p.Annotations[DCDREnabledAnnotation] == "true"
+}
+
+// DCDREnabledAnnotation opts a distributed Postgres into cross data center disaster
+// recovery. It is the same key the operator reads (pkg/controller and pkg/ops both
+// define it locally as dcdrEnabledAnnotation); the constant lives here so defaulting
+// and behaviour cannot drift apart.
+const DCDREnabledAnnotation = "dr.kubedb.com/enabled"
+
+// WritableObservationTTL is how long a PostgresDCStatus.WritableObservedAt stamp stays
+// usable as evidence. The hub re-observes every DC on its resync (2 minutes), so this
+// tolerates two consecutive missed passes before a writable claim expires; past that the
+// database is treated as having no confirmed writable primary, which is the fail-closed
+// answer.
+const WritableObservationTTL = 5 * time.Minute
+
+// WritablePrimaryConfirmed reports whether this data center is POSITIVELY OBSERVED to hold a
+// writable primary right now.
+//
+// It exists because PostgresDCStatus.Writable fails open: it is seeded true for the active DC
+// from the placement and is only ever lowered by a probe that SUCCEEDED, so a dial failure, a
+// query failure, or a hub that stopped observing altogether all persist a true that looks
+// exactly like a healthy one. Every consumer that reads Writable as evidence - rather than as
+// the "keep waiting" default the planned switchover gate wants - has to require that the
+// observation actually happened, and recently. Two already got this wrong in ways that only
+// show up during an outage: the standing accept-data-loss re-drive stood down against a stale
+// true and left the coordinator holding, and the health check reported a wholly unreachable
+// DC-DR database as Critical/AcceptingConnection=True instead of NotReady.
+//
+// Leader is required too: a writable claim with no named leader pod names nothing that could
+// be serving.
+func (d *PostgresDCStatus) WritablePrimaryConfirmed(now time.Time) bool {
+	if d == nil || !d.Writable || d.Leader == "" {
+		return false
+	}
+	if d.WritableObservedAt == nil {
+		return false // never probed: the true is the placement default, not an observation
+	}
+	return now.Sub(d.WritableObservedAt.Time) <= WritableObservationTTL
 }

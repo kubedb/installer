@@ -27,16 +27,19 @@ waitTimeout: 300
 featureGates:
   ClickHouse: true
   Cassandra: true
+  DocumentDB: true
   Druid: true
   Elasticsearch: true
   Etcd: true
   Kafka: true
   MariaDB: true
   Memcached: true
+  Milvus: true
   MSSQLServer: true
   MongoDB: true
   MySQL: true
   Neo4j: true
+  Oracle: true
   PerconaXtraDB: true
   PgBouncer: true
   Pgpool: false
@@ -46,7 +49,7 @@ featureGates:
   Redis: true
   Qdrant: true
   Singlestore: true
-  Solr: false
+  Solr: true
   ZooKeeper: true
 
 cassandra:
@@ -102,6 +105,17 @@ mssqlserver:
   backup:
     args: ""
   restore:
+    args: ""
+documentdb:
+  # DocumentDB is a MongoDB-wire gateway over a Postgres backend and is backed up with the
+  # postgres-restic-plugin. Both logical (pg_dump/pg_restore) and physical (pg_basebackup)
+  # tasks are available; the plugin applies DocumentDB-specific handling so logical snapshots
+  # restore with collections intact.
+  backup:
+    # Arguments to pass to `pg_basebackup` during the backup process
+    args: ""
+  restore:
+    # Arguments to pass to the restore command during the restore process
     args: ""
 postgres:
   backup:

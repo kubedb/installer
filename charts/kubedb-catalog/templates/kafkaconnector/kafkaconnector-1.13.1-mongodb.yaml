@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.Kafka (not (eq $ubi "operator")) }}
+{{ if not (has "mongodb-1.13.1" .Values.disableVersions.Kafka) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -23,4 +24,5 @@ spec:
     runAsUser: 1001
   type: MongoDB
   version: 1.13.1
+{{ end }}
 {{ end }}

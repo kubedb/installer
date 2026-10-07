@@ -43,6 +43,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-e
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-9.1.4.tar $IMAGE_REGISTRY/appscode-images/elastic:9.1.4
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-9.1.9.tar $IMAGE_REGISTRY/appscode-images/elastic:9.1.9
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-9.2.3.tar $IMAGE_REGISTRY/appscode-images/elastic:9.2.3
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-elastic-9.5.3.tar $IMAGE_REGISTRY/appscode-images/elastic:9.5.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-6.8.23.tar $IMAGE_REGISTRY/appscode-images/kibana:6.8.23
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-7.17.15.tar $IMAGE_REGISTRY/appscode-images/kibana:7.17.15
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-7.17.28.tar $IMAGE_REGISTRY/appscode-images/kibana:7.17.28
@@ -58,15 +59,18 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-k
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-9.1.4.tar $IMAGE_REGISTRY/appscode-images/kibana:9.1.4
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-9.1.9.tar $IMAGE_REGISTRY/appscode-images/kibana:9.1.9
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-9.2.3.tar $IMAGE_REGISTRY/appscode-images/kibana:9.2.3
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-kibana-9.5.3.tar $IMAGE_REGISTRY/appscode-images/kibana:9.5.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-1.3.13.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:1.3.13
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-1.3.20.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:1.3.20
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-2.19.2.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.19.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-2.5.0.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:2.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-3.1.0.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:3.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-3.4.0.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:3.4.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-dashboards-3.8.0.tar $IMAGE_REGISTRY/appscode-images/opensearch-dashboards:3.8.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-1.3.13.tar $IMAGE_REGISTRY/appscode-images/opensearch:1.3.13
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-1.3.20.tar $IMAGE_REGISTRY/appscode-images/opensearch:1.3.20
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-2.19.2.tar $IMAGE_REGISTRY/appscode-images/opensearch:2.19.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-2.5.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:2.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-3.1.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:3.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-3.4.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:3.4.0
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-opensearch-3.8.0.tar $IMAGE_REGISTRY/appscode-images/opensearch:3.8.0

@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.ClickHouse (not (eq $ubi "operator")) }}
+{{ if not (has "25.7.1" .Values.disableVersions.ClickHouse) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -43,8 +44,12 @@ spec:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/clickhouse-init") $) }}:24.4.1-v3'
   securityContext:
     runAsUser: 101
+  ui:
+  - name: clickhouse-ui
+    version: v2026.3.30
   updateConstraints:
     allowlist:
     - '>= 25.7.1'
   version: 25.7.1
+{{ end }}
 {{ end }}

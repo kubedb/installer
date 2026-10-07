@@ -22,11 +22,11 @@ spec:
     - name: databases
       required: false
       usage: List of databases to backup. If not specified, all databases will be backed up.
-    - default: --compress=true,--expand-commands,--remote-address-resolution=true,--type=FULL
+    - default: --compress=true,--expand-commands,--type=FULL
       name: neo4jAdminArgs
       required: false
       usage: Arguments to be passed to the neo4j-admin backup command, separate by space.
-    - default: system
+    - default: system,kubedbsystem
       name: excludeDatabases
       required: false
       usage: Comma-separated Neo4j database names to skip during backup
@@ -42,6 +42,28 @@ spec:
       source:
         emptyDir: {}
       usage: Holds temporary files and cache.
+  - driver: Restic
+    executor: Job
+    function: kubedbmanifest-backup
+    name: manifest-backup
+    parameters:
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for temp files/cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temp files and restic cache.
   restoreTasks:
   - driver: Neo4jAdmin
     executor: Job
@@ -56,7 +78,7 @@ spec:
       name: databases
       required: false
       usage: List of databases to restore. If not specified, all databases will be restore.
-    - default: system,neo4j
+    - default: system,kubedbsystem
       name: excludeDatabases
       required: false
       usage: Comma-separated Neo4j database names to skip during restore
@@ -67,6 +89,9 @@ spec:
     - name: seedServerName
       required: false
       usage: Name of the seed server to restore from. If not specified, the restore will be done from the primary server.
+    - name: remoteAliasCredentialsSecret
+      required: false
+      usage: Name of the Secret containing credentials for authenticating with the remote Neo4j alias during restore.
     singleton: true
     volumeMounts:
     - mountPath: /kubestash-tmp
@@ -76,4 +101,26 @@ spec:
       source:
         emptyDir: {}
       usage: Holds temporary files and cache.
+  - driver: Restic
+    executor: Job
+    function: kubedbmanifest-restore
+    name: manifest-restore
+    parameters:
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
 {{ end }}

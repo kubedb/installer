@@ -79,6 +79,11 @@ type DocumentDBVersionSpec struct {
 	//+ optional
 	PostgresVersion string `json:"postgresVersion,omitempty"`
 
+	// Postgres version of the backup plugin image to use, published as spec.version on the
+	// <db>-admin AppBinding - e.g. "17.2", not the major "17" in PostgresVersion.
+	// +optional
+	PostgresPluginVersion string `json:"postgresPluginVersion,omitempty"`
+
 	// +optional
 	UI []ChartInfo `json:"ui,omitempty"`
 

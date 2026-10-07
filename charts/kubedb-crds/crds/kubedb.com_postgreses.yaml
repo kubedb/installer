@@ -1414,6 +1414,24 @@ spec:
                     default: 60s
                     type: string
                 type: object
+              license:
+                properties:
+                  secretRef:
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        default: ""
+                        type: string
+                      optional:
+                        type: boolean
+                    required:
+                    - key
+                    type: object
+                    x-kubernetes-map-type: atomic
+                required:
+                - secretRef
+                type: object
               mode:
                 type: string
               monitor:
@@ -5235,6 +5253,10 @@ spec:
                 type: integer
               replication:
                 properties:
+                  bestEffortCrossDCLagBytesForFailover:
+                    format: int64
+                    minimum: 0
+                    type: integer
                   forceFailoverAcceptingDataLossAfter:
                     type: string
                   maxSlotWALKeepSize:
@@ -5259,6 +5281,8 @@ spec:
                       - primary
                       - standby
                       - stats
+                      - dashboard
+                      - readreplica
                       type: string
                     metadata:
                       properties:
@@ -5672,6 +5696,52 @@ spec:
                   - type
                   type: object
                 type: array
+              disasterRecovery:
+                properties:
+                  activeDC:
+                    type: string
+                  dataCenters:
+                    items:
+                      properties:
+                        clusterName:
+                          type: string
+                        crossDCStreamer:
+                          type: string
+                        healthy:
+                          type: boolean
+                        lagBytes:
+                          format: int64
+                          type: integer
+                        lagObservedAt:
+                          format: date-time
+                          type: string
+                        leader:
+                          type: string
+                        notReadyPods:
+                          items:
+                            type: string
+                          type: array
+                        role:
+                          type: string
+                        writable:
+                          type: boolean
+                        writableObservedAt:
+                          format: date-time
+                          type: string
+                      required:
+                      - clusterName
+                      type: object
+                    type: array
+                  lastTransitionTime:
+                    format: date-time
+                    type: string
+                  phase:
+                    type: string
+                  protected:
+                    type: boolean
+                  protectionMessage:
+                    type: string
+                type: object
               observedGeneration:
                 format: int64
                 type: integer
@@ -10263,7 +10333,7 @@ spec:
                       - standby
                       - stats
                       - dashboard
-                      - secondary
+                      - readreplica
                       type: string
                     metadata:
                       properties:

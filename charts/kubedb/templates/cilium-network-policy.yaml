@@ -1,5 +1,5 @@
 {{- if eq "true" ( include "security.useCiliumNetworkPolicy" . ) }}
-# Allow every pod in the operator namespace to reach the Kubernetes API server.
+# Allow the operator pods to reach the Kubernetes API server.
 # Required when the operator runs with >1 replica (leader election against
 # kube-apiserver) or when DBs are reconciled across namespaces.
 apiVersion: cilium.io/v2
@@ -8,7 +8,9 @@ metadata:
   name: {{ .Release.Name }}-egress-kubernetes-api
   namespace: {{ .Release.Namespace }}
 spec:
-  endpointSelector: {}
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ .Release.Name }}
   egress:
   - toEntities:
     - kube-apiserver
@@ -17,14 +19,16 @@ spec:
       - port: "6443"
         protocol: TCP
 ---
-# Allow every pod in the operator namespace to resolve DNS.
+# Allow the operator pods to resolve DNS.
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
   name: {{ .Release.Name }}-egress-dns
   namespace: {{ .Release.Namespace }}
 spec:
-  endpointSelector: {}
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ .Release.Name }}
   egress:
   - toEndpoints:
     - matchLabels:

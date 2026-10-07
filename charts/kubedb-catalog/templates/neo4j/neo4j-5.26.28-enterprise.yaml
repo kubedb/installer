@@ -8,6 +8,7 @@
 {{- end }}
 
 {{ if and $featureGates.Neo4j (not (eq $ubi "operator")) }}
+{{ if not (has "5.26.28" .Values.disableVersions.Neo4j) }}
 
 
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -17,6 +18,20 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  archiver:
+    addon:
+      name: neo4j-addon
+      tasks:
+        fullBackup:
+          name: logical-backup
+        fullBackupRestore:
+          name: logical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+    walg:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/neo4j-backup-plugin") $) }}:v0.3.0-rc.2'
   db:
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "neo4j") $) }}:5.26.28-enterprise'
   gitSyncer:
@@ -29,4 +44,5 @@ spec:
     denylist:
     - '>= 2025.10.1-enterprise'
   version: 5.26.28-enterprise
+{{ end }}
 {{ end }}

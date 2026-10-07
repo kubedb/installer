@@ -1,0 +1,24 @@
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.Milvus (not (eq $ubi "operator")) }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'milvus-restore'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  args:
+  - restore
+  - --namespace=${namespace:=default}
+  - --restoresession=${restoreSession:=}
+  - --snapshot=${snapshot:=}
+  - --wait-timeout=${waitTimeout:={{ .Values.waitTimeout}}}
+  - --restore-suffix=${restoreSuffix:=_restored}
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/milvus-backup-plugin") $) }}:v0.1.0-rc.0{{ include "catalog.ubi" $ }}'
+{{ end }}
