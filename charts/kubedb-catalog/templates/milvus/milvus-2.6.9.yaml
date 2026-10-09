@@ -18,8 +18,6 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
-  db:
-    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/milvus") $) }}:2.6.9'
   archiver:
     addon:
       name: milvus-addon
@@ -35,7 +33,9 @@ spec:
         volumeSnapshot:
           name: volume-snapshot
     walg:
-      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/milvus-archiver") $) }}:v0.1.0-rc.0{{ include "catalog.ubi" $ }}'
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/milvus-archiver") $) }}:v0.1.0-rc.0'
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/milvus") $) }}:2.6.9'
   etcdVersion: v3.5.21
   securityContext:
     runAsUser: 1000
