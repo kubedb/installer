@@ -14,6 +14,15 @@ metadata:
     {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
 spec:
   backupTasks:
+  - name: volume-snapshot
+    function: documentdb-csi-snapshotter
+    driver: VolumeSnapshotter
+    executor: Job
+    singleton: true
+    parameters:
+      - name: volumeSnapshotClassName
+        usage: The VolumeSnapshotClassName to be used by volumeSnapshot
+        required: false
   - driver: Restic
     executor: Job
     function: documentdb-backup

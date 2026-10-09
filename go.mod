@@ -13,12 +13,12 @@ require (
 	gomodules.xyz/semvers v0.0.2
 	k8s.io/api v0.34.3
 	k8s.io/apimachinery v0.34.3
-	kmodules.xyz/client-go v0.34.6
+	kmodules.xyz/client-go v0.34.7-0.20260916091548-45e2a0e7782d
 	kmodules.xyz/go-containerregistry v0.0.15
 	kmodules.xyz/image-packer v0.0.0-20260708055132-ed3c452e3c7f
-	kmodules.xyz/resource-metadata v0.47.0
+	kmodules.xyz/resource-metadata v0.49.1-0.20260916091615-a7e699f904a2
 	kmodules.xyz/schema-checker v0.4.2
-	kubedb.dev/apimachinery v0.67.0-rc.2.0.20260914094702-6c2693e2197b
+	kubedb.dev/apimachinery v0.67.0-rc.2.0.20261002142507-8558d60f19c4
 	kubeops.dev/installer v0.0.0-20260709042603-f9ac9c90c456
 	sigs.k8s.io/yaml v1.6.0
 	stash.appscode.dev/installer v0.12.2-0.20260224175756-ac464b38bf6c
@@ -115,7 +115,7 @@ require (
 	gomodules.xyz/jsonpath v0.0.2 // indirect
 	gomodules.xyz/mergo v0.3.13 // indirect
 	gomodules.xyz/pointer v0.1.0 // indirect
-	gomodules.xyz/x v0.0.17 // indirect
+	gomodules.xyz/x v0.0.18 // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
 	gopkg.in/evanphx/json-patch.v4 v4.13.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
