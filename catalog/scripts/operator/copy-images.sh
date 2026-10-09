@@ -43,6 +43,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra-m
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-backup-plugin:v0.3.0 $IMAGE_REGISTRY/kubedb/clickhouse-backup-plugin:v0.3.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-backup-plugin:v0.4.0-rc.2 $IMAGE_REGISTRY/kubedb/clickhouse-backup-plugin:v0.4.0-rc.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.25.0-rc.2 $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.25.0-rc.2
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/documentdb-csi-snapshotter-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/documentdb-csi-snapshotter-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.30.0-rc.2 $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.30.0-rc.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/etcd-restic-plugin:v0.1.0-rc.2_3.5.21 $IMAGE_REGISTRY/kubedb/etcd-restic-plugin:v0.1.0-rc.2_3.5.21
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/etcd-restic-plugin:v0.1.0-rc.2_3.6.4 $IMAGE_REGISTRY/kubedb/etcd-restic-plugin:v0.1.0-rc.2_3.6.4

@@ -32,6 +32,7 @@ k3s ctr images import images/kubedb-cassandra-medusa-plugin-v0.14.0-rc.2.tar
 k3s ctr images import images/kubedb-clickhouse-backup-plugin-v0.3.0.tar
 k3s ctr images import images/kubedb-clickhouse-backup-plugin-v0.4.0-rc.2.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.25.0-rc.2.tar
+k3s ctr images import images/kubedb-documentdb-csi-snapshotter-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-elasticsearch-restic-plugin-v0.30.0-rc.2.tar
 k3s ctr images import images/kubedb-etcd-restic-plugin-v0.1.0-rc.2_3.5.21.tar
 k3s ctr images import images/kubedb-etcd-restic-plugin-v0.1.0-rc.2_3.6.4.tar

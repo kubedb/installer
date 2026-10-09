@@ -416,6 +416,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.25.0-rc.2 $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.25.0-rc.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/db2-coordinator:v0.8.0-rc.2 $IMAGE_REGISTRY/kubedb/db2-coordinator:v0.8.0-rc.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/documentdb-coordinator:v0.3.0-rc.2 $IMAGE_REGISTRY/kubedb/documentdb-coordinator:v0.3.0-rc.2
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/documentdb-csi-snapshotter-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/documentdb-csi-snapshotter-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/documentdb-init:0.1.0 $IMAGE_REGISTRY/kubedb/documentdb-init:0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:28.0.1 $IMAGE_REGISTRY/kubedb/druid-init:28.0.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:30.0.1 $IMAGE_REGISTRY/kubedb/druid-init:30.0.1

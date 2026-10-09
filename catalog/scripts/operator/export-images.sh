@@ -40,6 +40,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/cassandra
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-backup-plugin:v0.3.0 images/kubedb-clickhouse-backup-plugin-v0.3.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhouse-backup-plugin:v0.4.0-rc.2 images/kubedb-clickhouse-backup-plugin-v0.4.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.25.0-rc.2 images/kubedb-dashboard-restic-plugin-v0.25.0-rc.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/documentdb-csi-snapshotter-plugin:v0.1.0 images/kubedb-documentdb-csi-snapshotter-plugin-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/elasticsearch-restic-plugin:v0.30.0-rc.2 images/kubedb-elasticsearch-restic-plugin-v0.30.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/etcd-restic-plugin:v0.1.0-rc.2_3.5.21 images/kubedb-etcd-restic-plugin-v0.1.0-rc.2_3.5.21.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/etcd-restic-plugin:v0.1.0-rc.2_3.6.4 images/kubedb-etcd-restic-plugin-v0.1.0-rc.2_3.6.4.tar

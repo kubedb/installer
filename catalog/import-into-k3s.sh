@@ -405,6 +405,7 @@ k3s ctr images import images/kubedb-clickhouse-init-24.4.1-v3.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.25.0-rc.2.tar
 k3s ctr images import images/kubedb-db2-coordinator-v0.8.0-rc.2.tar
 k3s ctr images import images/kubedb-documentdb-coordinator-v0.3.0-rc.2.tar
+k3s ctr images import images/kubedb-documentdb-csi-snapshotter-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-documentdb-init-0.1.0.tar
 k3s ctr images import images/kubedb-druid-init-28.0.1.tar
 k3s ctr images import images/kubedb-druid-init-30.0.1.tar
