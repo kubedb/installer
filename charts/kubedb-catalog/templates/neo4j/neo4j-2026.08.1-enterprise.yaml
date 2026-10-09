@@ -34,6 +34,15 @@ spec:
       image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/neo4j-backup-plugin") $) }}:v0.3.0-rc.2'
   db:
     image: '{{ include "image.dockerLibrary" (merge (dict "_repo" "neo4j") $) }}:2026.08.1-enterprise'
+  logForwarder:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "otel/opentelemetry-collector-contrib") $) }}:0.153.0'
+  logCapabilities:
+  - name: query
+    format: neo4j-text
+    requiresEnterprise: true
+  - name: security
+    format: neo4j-text
+    requiresEnterprise: true
   gitSyncer:
     image: '{{ include "image.kubernetes" (merge (dict "_repo" "git-sync/git-sync") $) }}:v4.4.2'
   securityContext:
