@@ -32,6 +32,7 @@ k3s ctr images import images/kubedb-cassandra-medusa-plugin-v0.14.0-rc.2.tar
 k3s ctr images import images/kubedb-clickhouse-backup-plugin-v0.3.0.tar
 k3s ctr images import images/kubedb-clickhouse-backup-plugin-v0.4.0-rc.2.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.25.0-rc.2.tar
+k3s ctr images import images/kubedb-documentdb-csi-snapshotter-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-elasticsearch-restic-plugin-v0.30.0-rc.2.tar
 k3s ctr images import images/kubedb-etcd-restic-plugin-v0.1.0-rc.2_3.5.21.tar
 k3s ctr images import images/kubedb-etcd-restic-plugin-v0.1.0-rc.2_3.6.4.tar
@@ -53,6 +54,7 @@ k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_10.4.32-f
 k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_10.6.16-focal.tar
 k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_11.1.3-jammy.tar
 k3s ctr images import images/kubedb-milvus-backup-plugin-v0.1.0-rc.0.tar
+k3s ctr images import images/kubedb-milvus-csi-snapshotter-plugin-v0.1.0-rc.0.tar
 k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.28.0-rc.2.tar
 k3s ctr images import images/kubedb-mongodb-restic-plugin-v0.30.0-rc.2_4.2.3.tar
 k3s ctr images import images/kubedb-mongodb-restic-plugin-v0.30.0-rc.2_4.4.6.tar

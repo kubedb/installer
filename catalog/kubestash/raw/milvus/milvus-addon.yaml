@@ -14,6 +14,83 @@ spec:
           required: false
           usage: Collections to backup (comma-separated, empty means all)
       singleton: true
+    - name: physical-backup
+      function: milvus-physical-backup
+      driver: Restic
+      executor: Job
+      singleton: true
+      parameters:
+        - name: quiesce
+          usage: How writes are quiesced for the crash-consistent capture. DenyWrites, Flush or None
+          required: false
+          default: DenyWrites
+        - name: fenceSettle
+          usage: Time to let Milvus pick up the write fence (it polls etcd config every 5s)
+          required: false
+          default: 10s
+        - name: fenceTimeout
+          usage: Maximum time writes may stay denied
+          required: false
+          default: 60s
+        - name: flushTimeout
+          usage: FlushAll timeout
+          required: false
+          default: 10m
+        - name: allowQuiesceDowngrade
+          usage: Fall back to Flush when quotaAndLimits.enabled is false
+          required: false
+          default: "false"
+        - name: parallelism
+          usage: Parallel object copies
+          required: false
+          default: "16"
+    - name: volume-snapshot
+      function: milvus-csi-snapshotter
+      driver: VolumeSnapshotter
+      executor: Job
+      singleton: true
+      parameters:
+        - name: volumeSnapshotClassName
+          usage: VolumeSnapshotClass for the CSI snapshot of the Standalone data PVC (warm cache)
+          required: false
+        - name: quiesce
+          usage: How writes are quiesced for the crash-consistent capture. DenyWrites, Flush or None
+          required: false
+          default: DenyWrites
+        - name: fenceSettle
+          usage: Time to let Milvus pick up the write fence
+          required: false
+          default: 10s
+        - name: fenceTimeout
+          usage: Maximum time writes may stay denied
+          required: false
+          default: 60s
+        - name: allowQuiesceDowngrade
+          usage: Fall back to Flush when quotaAndLimits.enabled is false
+          required: false
+          default: "false"
+    - name: manifest-backup
+      function: kubedbmanifest-backup
+      driver: Restic
+      executor: Job
+      singleton: true
+      parameters:
+        - name: enableCache
+          usage: Enable or disable caching. Disabling caching may impact backup performance.
+          required: false
+          default: "true"
+        - name: scratchDir
+          usage: Directory for holding temporary files and restic cache.
+          required: false
+          default: /kubestash-tmp
+      volumeTemplate:
+        - name: kubestash-tmp-volume
+          usage: Holds temporary files and restic cache.
+          source:
+            emptyDir: {}
+      volumeMounts:
+        - name: kubestash-tmp-volume
+          mountPath: /kubestash-tmp
   restoreTasks:
     - driver: Milvus
       executor: Job
@@ -25,3 +102,39 @@ spec:
           required: false
           usage: Suffix appended to restored collection names
       singleton: true
+    - name: physical-backup-restore
+      function: milvus-physical-backup-restore
+      driver: Restic
+      executor: Job
+      singleton: true
+      parameters:
+        - name: verify
+          usage: Verification after the restore. sample, full or none
+          required: false
+          default: sample
+        - name: parallelism
+          usage: Parallel object copies
+          required: false
+          default: "16"
+    - name: manifest-restore
+      function: kubedbmanifest-restore
+      driver: Restic
+      executor: Job
+      singleton: true
+      parameters:
+        - name: enableCache
+          usage: Enable or disable caching. Disabling caching may impact backup performance.
+          required: false
+          default: "true"
+        - name: scratchDir
+          usage: Directory for holding temporary files and restic cache.
+          required: false
+          default: /kubestash-tmp
+      volumeTemplate:
+        - name: kubestash-tmp-volume
+          usage: Holds temporary files and restic cache.
+          source:
+            emptyDir: {}
+      volumeMounts:
+        - name: kubestash-tmp-volume
+          mountPath: /kubestash-tmp

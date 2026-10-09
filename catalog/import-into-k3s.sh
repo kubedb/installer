@@ -405,6 +405,7 @@ k3s ctr images import images/kubedb-clickhouse-init-24.4.1-v3.tar
 k3s ctr images import images/kubedb-dashboard-restic-plugin-v0.25.0-rc.2.tar
 k3s ctr images import images/kubedb-db2-coordinator-v0.8.0-rc.2.tar
 k3s ctr images import images/kubedb-documentdb-coordinator-v0.3.0-rc.2.tar
+k3s ctr images import images/kubedb-documentdb-csi-snapshotter-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-documentdb-init-0.1.0.tar
 k3s ctr images import images/kubedb-druid-init-28.0.1.tar
 k3s ctr images import images/kubedb-druid-init-30.0.1.tar
@@ -452,7 +453,9 @@ k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_10.11.6-j
 k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_10.4.32-focal.tar
 k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_10.6.16-focal.tar
 k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_11.1.3-jammy.tar
+k3s ctr images import images/kubedb-milvus-archiver-v0.1.0-rc.0.tar
 k3s ctr images import images/kubedb-milvus-backup-plugin-v0.1.0-rc.0.tar
+k3s ctr images import images/kubedb-milvus-csi-snapshotter-plugin-v0.1.0-rc.0.tar
 k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.28.0-rc.2.tar
 k3s ctr images import images/kubedb-mongodb-init-4.2-v9.tar
 k3s ctr images import images/kubedb-mongodb-init-6.0-v12.tar

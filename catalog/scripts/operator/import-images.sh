@@ -34,6 +34,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-cassandra-
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-clickhouse-backup-plugin-v0.3.0.tar $IMAGE_REGISTRY/kubedb/clickhouse-backup-plugin:v0.3.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-clickhouse-backup-plugin-v0.4.0-rc.2.tar $IMAGE_REGISTRY/kubedb/clickhouse-backup-plugin:v0.4.0-rc.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-dashboard-restic-plugin-v0.25.0-rc.2.tar $IMAGE_REGISTRY/kubedb/dashboard-restic-plugin:v0.25.0-rc.2
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-documentdb-csi-snapshotter-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/documentdb-csi-snapshotter-plugin:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-elasticsearch-restic-plugin-v0.30.0-rc.2.tar $IMAGE_REGISTRY/kubedb/elasticsearch-restic-plugin:v0.30.0-rc.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-etcd-restic-plugin-v0.1.0-rc.2_3.5.21.tar $IMAGE_REGISTRY/kubedb/etcd-restic-plugin:v0.1.0-rc.2_3.5.21
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-etcd-restic-plugin-v0.1.0-rc.2_3.6.4.tar $IMAGE_REGISTRY/kubedb/etcd-restic-plugin:v0.1.0-rc.2_3.6.4
@@ -55,6 +56,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-re
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_10.6.16-focal.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.6.16-focal
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_11.1.3-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_11.1.3-jammy
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-milvus-backup-plugin-v0.1.0-rc.0.tar $IMAGE_REGISTRY/kubedb/milvus-backup-plugin:v0.1.0-rc.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-milvus-csi-snapshotter-plugin-v0.1.0-rc.0.tar $IMAGE_REGISTRY/kubedb/milvus-csi-snapshotter-plugin:v0.1.0-rc.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-csi-snapshotter-plugin-v0.28.0-rc.2.tar $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.28.0-rc.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-restic-plugin-v0.30.0-rc.2_4.2.3.tar $IMAGE_REGISTRY/kubedb/mongodb-restic-plugin:v0.30.0-rc.2_4.2.3
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-restic-plugin-v0.30.0-rc.2_4.4.6.tar $IMAGE_REGISTRY/kubedb/mongodb-restic-plugin:v0.30.0-rc.2_4.4.6

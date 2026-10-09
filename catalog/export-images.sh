@@ -413,6 +413,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/clickhous
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/dashboard-restic-plugin:v0.25.0-rc.2 images/kubedb-dashboard-restic-plugin-v0.25.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/db2-coordinator:v0.8.0-rc.2 images/kubedb-db2-coordinator-v0.8.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/documentdb-coordinator:v0.3.0-rc.2 images/kubedb-documentdb-coordinator-v0.3.0-rc.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/documentdb-csi-snapshotter-plugin:v0.1.0 images/kubedb-documentdb-csi-snapshotter-plugin-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/documentdb-init:0.1.0 images/kubedb-documentdb-init-0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:28.0.1 images/kubedb-druid-init-28.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/druid-init:30.0.1 images/kubedb-druid-init-30.0.1.tar
@@ -460,7 +461,9 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-r
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.4.32-focal images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_10.4.32-focal.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_10.6.16-focal images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_10.6.16-focal.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.25.0-rc.2_11.1.3-jammy images/kubedb-mariadb-restic-plugin-v0.25.0-rc.2_11.1.3-jammy.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/milvus-archiver:v0.1.0-rc.0 images/kubedb-milvus-archiver-v0.1.0-rc.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/milvus-backup-plugin:v0.1.0-rc.0 images/kubedb-milvus-backup-plugin-v0.1.0-rc.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/milvus-csi-snapshotter-plugin:v0.1.0-rc.0 images/kubedb-milvus-csi-snapshotter-plugin-v0.1.0-rc.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.28.0-rc.2 images/kubedb-mongodb-csi-snapshotter-plugin-v0.28.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 images/kubedb-mongodb-init-4.2-v9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v12 images/kubedb-mongodb-init-6.0-v12.tar
