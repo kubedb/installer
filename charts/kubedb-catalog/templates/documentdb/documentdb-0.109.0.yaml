@@ -18,6 +18,22 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  archiver:
+    addon:
+      name: documentdb-addon
+      tasks:
+        fullBackup:
+          name: physical-backup
+        fullBackupRestore:
+          name: physical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/postgres-archiver") $) }}:v0.28.0-rc.2_17.2-alpine'
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/documentdb-coordinator") $) }}:v0.3.0-rc.2{{ include "catalog.ubi" $ }}'
   db:
