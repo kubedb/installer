@@ -18,10 +18,10 @@ jobs:
     name: Build
     runs-on: ubuntu-24.04
     steps:
-      - name: Set up Go 1.25
+      - name: Set up Go 1.27
         uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5.6.0
         with:
-          go-version: '1.25'
+          go-version: '1.27'
         id: go
 
       - name: Check out code into the Go module directory
@@ -41,7 +41,7 @@ jobs:
           sudo mv yqq /usr/local/bin/yqq
           pipx install yq==3.4.3
           # install kubectl
-          curl -LO https://dl.k8s.io/release/v1.32.1/bin/linux/amd64/kubectl
+          curl -LO https://dl.k8s.io/release/v1.37.0/bin/linux/amd64/kubectl
           chmod +x ./kubectl
           sudo mv ./kubectl /usr/local/bin/kubectl
 
@@ -70,7 +70,7 @@ jobs:
     needs: build
     strategy:
       matrix:
-        k8s: [v1.29.14, v1.31.14, v1.33.7, v1.35.0]
+        k8s: [v1.31.14, v1.33.12, v1.35.8, v1.37.0]
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
@@ -84,7 +84,7 @@ jobs:
         id: kind
         uses: helm/kind-action@ef37e7f390d99f746eb8b610417061a60e82a6cc # v1.14.0
         with:
-          version: v0.31.0
+          version: v0.33.0
           node_image: kindest/node:${{ matrix.k8s }}
 
       - name: Prepare cluster for testing
@@ -239,7 +239,7 @@ jobs:
         if: steps.changes.outputs.run == 'true'
         uses: helm/kind-action@ef37e7f390d99f746eb8b610417061a60e82a6cc # v1.14.0
         with:
-          version: v0.31.0
+          version: v0.33.0
           install_only: true
 
       - name: Install helm and clusteradm
