@@ -601,6 +601,34 @@ func setDefaultGPUAndNetwork(gpu *MilvusGPUSpec, network *MilvusNetworkSpec) {
 	}
 }
 
+// IsLegacyRocksMQ reports whether this is a Standalone Milvus created before the Woodpecker WAL.
+func (m *Milvus) IsLegacyRocksMQ() bool {
+	if m.IsDistributed() {
+		return false
+	}
+	return m.GetAnnotations()[kubedb.MilvusWALAnnotation] == kubedb.MilvusWALRocksMQ
+}
+
+func (m *Milvus) SidekickName() string {
+	return m.Name + "-" + kubedb.MilvusSidekickSuffix
+}
+
+func (m *Milvus) SidekickLabels(skName string) map[string]string {
+	return meta_util.OverwriteKeys(nil, kubedb.CommonSidekickLabels(), map[string]string{
+		meta_util.ComponentLabelKey: skName,
+		kubedb.SidekickOwnerName:    m.Name,
+		kubedb.SidekickOwnerKind:    m.ResourceFQN(),
+	})
+}
+
+func (m *Milvus) ArchiverBackupConfigName() string {
+	return m.Name + "-" + kubedb.MilvusArchiverBackupConfigSuffix
+}
+
+func (m *Milvus) IncrementalSnapshotName() string {
+	return m.Name + "-" + kubedb.MilvusIncrementalSnapshotSuffix
+}
+
 func (m *Milvus) SetDefaults(kc client.Client) {
 	if m.Spec.DeletionPolicy == "" {
 		m.Spec.DeletionPolicy = DeletionPolicyDelete
@@ -644,6 +672,8 @@ func (m *Milvus) SetDefaults(kc client.Client) {
 	}
 
 	m.setMetaStorageDefaults()
+
+	m.setArchiverDefaults()
 
 	m.SetHealthCheckerDefaults()
 
@@ -871,4 +901,19 @@ func (m *Milvus) GetDeletionPolicy() string {
 
 func (m *Milvus) AsOwner() *metav1.OwnerReference {
 	return metav1.NewControllerRef(m, SchemeGroupVersion.WithKind(m.ResourceKind()))
+}
+
+func (m *Milvus) setArchiverDefaults() {
+	if m.Spec.Init != nil && m.Spec.Init.Archiver != nil {
+		a := m.Spec.Init.Archiver
+		if a.EncryptionSecret != nil && a.EncryptionSecret.Namespace == "" {
+			a.EncryptionSecret.Namespace = m.GetNamespace()
+		}
+		if a.FullDBRepository != nil && a.FullDBRepository.Namespace == "" {
+			a.FullDBRepository.Namespace = m.GetNamespace()
+		}
+		if a.ManifestRepository != nil && a.ManifestRepository.Namespace == "" {
+			a.ManifestRepository.Namespace = m.GetNamespace()
+		}
+	}
 }

@@ -1730,6 +1730,7 @@ func autoConvert_v1_ElasticsearchSpec_To_v1alpha2_ElasticsearchSpec(in *v1.Elast
 	out.ConfigSecret = (*corev1.LocalObjectReference)(unsafe.Pointer(in.ConfigSecret))
 	// WARNING: in.Configuration requires manual conversion: does not exist in peer-type
 	out.SecureConfigSecret = (*corev1.LocalObjectReference)(unsafe.Pointer(in.SecureConfigSecret))
+	// WARNING: in.License requires manual conversion: does not exist in peer-type
 	if err := Convert_v2_PodTemplateSpec_To_v1_PodTemplateSpec(&in.PodTemplate, &out.PodTemplate, s); err != nil {
 		return err
 	}

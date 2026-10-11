@@ -40,3 +40,4 @@ $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:20
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.07.1-enterprise $IMAGE_REGISTRY/neo4j:2026.07.1-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.08.1-enterprise $IMAGE_REGISTRY/neo4j:2026.08.1-enterprise
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:5.26.28-enterprise $IMAGE_REGISTRY/neo4j:5.26.28-enterprise
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/neo4j-backup-plugin:v0.3.0-rc.2 $IMAGE_REGISTRY/kubedb/neo4j-backup-plugin:v0.3.0-rc.2

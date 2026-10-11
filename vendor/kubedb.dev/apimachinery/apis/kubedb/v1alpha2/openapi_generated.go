@@ -612,6 +612,9 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ConsumerNamespaces":                            schema_apimachinery_apis_kubedb_v1alpha2_ConsumerNamespaces(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.CoordinatorSpec":                               schema_apimachinery_apis_kubedb_v1alpha2_CoordinatorSpec(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DB2":                                           schema_apimachinery_apis_kubedb_v1alpha2_DB2(ref),
+		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DB2HADRDatabase":                               schema_apimachinery_apis_kubedb_v1alpha2_DB2HADRDatabase(ref),
+		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DB2HADRSeedSpec":                               schema_apimachinery_apis_kubedb_v1alpha2_DB2HADRSeedSpec(ref),
+		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DB2HADRSpec":                                   schema_apimachinery_apis_kubedb_v1alpha2_DB2HADRSpec(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DB2List":                                       schema_apimachinery_apis_kubedb_v1alpha2_DB2List(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DB2Spec":                                       schema_apimachinery_apis_kubedb_v1alpha2_DB2Spec(ref),
 		"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DB2Status":                                     schema_apimachinery_apis_kubedb_v1alpha2_DB2Status(ref),
@@ -34960,6 +34963,22 @@ func schema_apimachinery_apis_kubedb_v1alpha2_ClickHouseStatus(ref common.Refere
 							},
 						},
 					},
+					"observedDataPVCUIDs": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ObservedDataPVCUIDs records the last verified Kubernetes UID of each ClickHouse data PVC, keyed by PVC name.",
+							Type:        []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Default: "",
+										Type:    []string{"string"},
+										Format:  "",
+									},
+								},
+							},
+						},
+					},
 				},
 			},
 		},
@@ -35330,6 +35349,118 @@ func schema_apimachinery_apis_kubedb_v1alpha2_DB2(ref common.ReferenceCallback) 
 	}
 }
 
+func schema_apimachinery_apis_kubedb_v1alpha2_DB2HADRDatabase(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "DB2HADRDatabase is one HADR-replicated database.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the Db2 database name: a letter followed by up to 7 letters or digits. It is stored upper-case, as Db2 reports it.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"port": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Port is this database's HADR_LOCAL_SVC / HADR_REMOTE_SVC. Db2 needs a distinct port for every HADR database in an instance. Defaulted to the lowest free port from 55000, and immutable once set: moving a running database to another port would disconnect its standbys.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+				},
+				Required: []string{"name"},
+			},
+		},
+	}
+}
+
+func schema_apimachinery_apis_kubedb_v1alpha2_DB2HADRSeedSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"method": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Method is the seed transport. Only Stream is implemented; SharedVolume and ObjectStorage are deliberately absent from the enum until they are built, because accepting a method the operator cannot act on is worse than not offering it.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_apimachinery_apis_kubedb_v1alpha2_DB2HADRSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "DB2HADRSpec configures Db2 HADR. Pod ordinal 0 is the first primary, ordinal 1 the principal standby and ordinals 2+ auxiliary standbys, which Db2 forces to SUPERASYNC.\n\nHADR is per-database in Db2, not per-instance: every database is configured, seeded, started and taken over on its own. Only the databases listed in Databases are protected. A database created by hand on the primary is not replicated and would not survive a failover; the operator reports such databases in the HADRUnreplicatedDatabases condition rather than enrolling them behind the user's back.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"databases": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Databases are the databases to replicate. All of them fail over together, so every one is always primary on the same pod.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Default: map[string]interface{}{},
+										Ref:     ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DB2HADRDatabase"),
+									},
+								},
+							},
+						},
+					},
+					"databaseName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "DatabaseName is the single database to replicate.\n\nDeprecated: use Databases. When Databases is empty this is treated as a one-entry list; when Databases is set it is ignored.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"syncMode": {
+						SchemaProps: spec.SchemaProps{
+							Description: "SyncMode applies to the principal standby. Auxiliary standbys are always SUPERASYNC regardless of this value.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"timeoutSeconds": {
+						SchemaProps: spec.SchemaProps{
+							Description: "TimeoutSeconds is HADR_TIMEOUT: how long a member waits without hearing from its peer before it treats the connection as lost. A node that dies silently is only noticed this long after its last heartbeat.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"peerWindowSeconds": {
+						SchemaProps: spec.SchemaProps{
+							Description: "PeerWindowSeconds is HADR_PEER_WINDOW. For SYNC/NEARSYNC it must be at least timeoutSeconds + 60. Db2 counts the peer window from the last heartbeat, but notices a silent failure only timeoutSeconds later: with a shorter window the standby goes straight to REMOTE_CATCHUP_PENDING, and a lossless takeover is no longer possible. The extra 60 seconds cover the primary lease running out and the operator promoting the standby.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"seed": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Seed controls how a standby is initialized from the primary.",
+							Default:     map[string]interface{}{},
+							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DB2HADRSeedSpec"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DB2HADRDatabase", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DB2HADRSeedSpec"},
+	}
+}
+
 func schema_apimachinery_apis_kubedb_v1alpha2_DB2List(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -35458,11 +35589,17 @@ func schema_apimachinery_apis_kubedb_v1alpha2_DB2Spec(ref common.ReferenceCallba
 							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.InitSpec"),
 						},
 					},
+					"hadr": {
+						SchemaProps: spec.SchemaProps{
+							Description: "HADR configures High Availability Disaster Recovery replication. Only meaningful when Replicas > 1; setting it with Replicas == 1 is rejected.",
+							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DB2HADRSpec"),
+						},
+					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PersistentVolumeClaimSpec", "kmodules.xyz/client-go/api/v1.HealthCheckSpec", "kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.InitSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.NamedServiceTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.SecretReference"},
+			"k8s.io/api/core/v1.PersistentVolumeClaimSpec", "kmodules.xyz/client-go/api/v1.HealthCheckSpec", "kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DB2HADRSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.InitSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.NamedServiceTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.SecretReference"},
 	}
 }
 
@@ -36040,12 +36177,18 @@ func schema_apimachinery_apis_kubedb_v1alpha2_DocumentDBSpec(ref common.Referenc
 							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.InitSpec"),
 						},
 					},
+					"archiver": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Archiver controls continuous archiving (WAL backup) for this database. It is normally set by the operator, which matches a DocumentDBArchiver to this database through that archiver's spec.databases selector; setting it explicitly pins a specific archiver.",
+							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Archiver"),
+						},
+					},
 				},
 				Required: []string{"version"},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PersistentVolumeClaimSpec", "kmodules.xyz/client-go/api/v1.HealthCheckSpec", "kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDBConfiguration", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDBLeaderElectionConfig", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDBReplication", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDBTLSConfig", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.InitSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.NamedServiceTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.SecretReference"},
+			"k8s.io/api/core/v1.PersistentVolumeClaimSpec", "kmodules.xyz/client-go/api/v1.HealthCheckSpec", "kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Archiver", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDBConfiguration", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDBLeaderElectionConfig", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDBReplication", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.DocumentDBTLSConfig", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.InitSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.NamedServiceTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.SecretReference"},
 	}
 }
 
@@ -41287,12 +41430,24 @@ func schema_apimachinery_apis_kubedb_v1alpha2_MilvusSpec(ref common.ReferenceCal
 							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusGPUSpec"),
 						},
 					},
+					"init": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Init is used to initialize the database from an archiver: a full backup (and, when the archiver records a change log, the log up to a recovery timestamp) is restored into this new Milvus before it starts.",
+							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.InitSpec"),
+						},
+					},
+					"archiver": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Archiver controls the continuous archiver (base backups and point-in-time recovery) of this database. It references a MilvusArchiver that also selects this database (double opt-in).",
+							Ref:         ref("kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Archiver"),
+						},
+					},
 				},
 				Required: []string{"version", "objectStorage"},
 			},
 		},
 		Dependencies: []string{
-			"k8s.io/api/core/v1.PersistentVolumeClaimSpec", "kmodules.xyz/client-go/api/v1.HealthCheckSpec", "kmodules.xyz/monitoring-agent-api/api/v1.AgentSpec", "kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ConfigurationSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MetaStorageSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusGPUSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusNetworkSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusTLSConfig", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusTopology", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.NamedServiceTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ObjectStorageSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.SecretReference"},
+			"k8s.io/api/core/v1.PersistentVolumeClaimSpec", "kmodules.xyz/client-go/api/v1.HealthCheckSpec", "kmodules.xyz/monitoring-agent-api/api/v1.AgentSpec", "kmodules.xyz/offshoot-api/api/v2.PodTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.Archiver", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ConfigurationSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.InitSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MetaStorageSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusGPUSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusNetworkSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusTLSConfig", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.MilvusTopology", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.NamedServiceTemplateSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.ObjectStorageSpec", "kubedb.dev/apimachinery/apis/kubedb/v1alpha2.SecretReference"},
 	}
 }
 

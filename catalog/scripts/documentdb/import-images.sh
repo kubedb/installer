@@ -27,5 +27,6 @@ tar -zxvf $TARBALL
 CMD="./crane"
 
 $CMD push --allow-nondistributable-artifacts --insecure images/documentdb-documentdb-documentdb-local-pg17-0.109.0.tar $IMAGE_REGISTRY/documentdb/documentdb/documentdb-local:pg17-0.109.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-documentdb-coordinator-v0.3.0-rc.2.tar $IMAGE_REGISTRY/kubedb/documentdb-coordinator:v0.3.0-rc.2
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-documentdb-coordinator-v0.4.0.tar $IMAGE_REGISTRY/kubedb/documentdb-coordinator:v0.4.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-documentdb-init-0.1.0.tar $IMAGE_REGISTRY/kubedb/documentdb-init:0.1.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.28.0-rc.2_17.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_17.2-alpine

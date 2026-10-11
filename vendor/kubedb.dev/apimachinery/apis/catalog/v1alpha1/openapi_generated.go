@@ -608,6 +608,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.DB2Coordinator":                               schema_apimachinery_apis_catalog_v1alpha1_DB2Coordinator(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.DB2Version":                                   schema_apimachinery_apis_catalog_v1alpha1_DB2Version(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.DB2VersionDatabase":                           schema_apimachinery_apis_catalog_v1alpha1_DB2VersionDatabase(ref),
+		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.DB2VersionInitContainer":                      schema_apimachinery_apis_catalog_v1alpha1_DB2VersionInitContainer(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.DB2VersionList":                               schema_apimachinery_apis_catalog_v1alpha1_DB2VersionList(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.DB2VersionSpec":                               schema_apimachinery_apis_catalog_v1alpha1_DB2VersionSpec(ref),
 		"kubedb.dev/apimachinery/apis/catalog/v1alpha1.DocumentDBCoordinator":                        schema_apimachinery_apis_catalog_v1alpha1_DocumentDBCoordinator(ref),
@@ -34717,6 +34718,27 @@ func schema_apimachinery_apis_catalog_v1alpha1_DB2VersionDatabase(ref common.Ref
 	}
 }
 
+func schema_apimachinery_apis_catalog_v1alpha1_DB2VersionInitContainer(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "DB2VersionInitContainer is the DB2 init container image. It is pinned per DB2Version so a release needing a different command sequence ships a different init image, with no version branching in operator code.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"image": {
+						SchemaProps: spec.SchemaProps{
+							Default: "",
+							Type:    []string{"string"},
+							Format:  "",
+						},
+					},
+				},
+				Required: []string{"image"},
+			},
+		},
+	}
+}
+
 func schema_apimachinery_apis_catalog_v1alpha1_DB2VersionList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -34803,6 +34825,13 @@ func schema_apimachinery_apis_catalog_v1alpha1_DB2VersionSpec(ref common.Referen
 							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.DB2Coordinator"),
 						},
 					},
+					"initContainer": {
+						SchemaProps: spec.SchemaProps{
+							Description: "init container image",
+							Default:     map[string]interface{}{},
+							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.DB2VersionInitContainer"),
+						},
+					},
 					"deprecated": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Deprecated versions usable but regarded as obsolete and best avoided, typically due to having been superseded.",
@@ -34848,7 +34877,7 @@ func schema_apimachinery_apis_catalog_v1alpha1_DB2VersionSpec(ref common.Referen
 			},
 		},
 		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.DB2Coordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.DB2VersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
+			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.DB2Coordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.DB2VersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.DB2VersionInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
 	}
 }
 
@@ -35080,6 +35109,13 @@ func schema_apimachinery_apis_catalog_v1alpha1_DocumentDBVersionSpec(ref common.
 							Format:      "",
 						},
 					},
+					"archiver": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Archiver defines the wal-g image and the KubeStash addon tasks used for continuous archiving (PITR). The wal-g image runs as a sidekick beside the primary and pushes WAL segments; the addon task names identify the full/manifest backup and restore tasks in the DocumentDB addon.",
+							Default:     map[string]interface{}{},
+							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.ArchiverSpec"),
+						},
+					},
 					"ui": {
 						SchemaProps: spec.SchemaProps{
 							Type: []string{"array"},
@@ -35104,7 +35140,7 @@ func schema_apimachinery_apis_catalog_v1alpha1_DocumentDBVersionSpec(ref common.
 			},
 		},
 		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.DocumentDBCoordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.DocumentDBInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.DocumentDBVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
+			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ArchiverSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.DocumentDBCoordinator", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.DocumentDBInitContainer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.DocumentDBVersionDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.GitSyncer", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
 	}
 }
 
@@ -38350,12 +38386,19 @@ func schema_apimachinery_apis_catalog_v1alpha1_MilvusVersionSpec(ref common.Refe
 							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"),
 						},
 					},
+					"archiver": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Archiver holds the images and KubeStash addon tasks used by the MilvusArchiver (base backup, point-in-time recovery, restore).",
+							Default:     map[string]interface{}{},
+							Ref:         ref("kubedb.dev/apimachinery/apis/catalog/v1alpha1.ArchiverSpec"),
+						},
+					},
 				},
 				Required: []string{"version", "etcdVersion", "db"},
 			},
 		},
 		Dependencies: []string{
-			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
+			"kubedb.dev/apimachinery/apis/catalog/v1alpha1.ArchiverSpec", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.ChartInfo", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.MilvusDatabase", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.SecurityContext", "kubedb.dev/apimachinery/apis/catalog/v1alpha1.UpdateConstraints"},
 	}
 }
 
