@@ -1,3 +1,4 @@
+{{- $dcdr := .Values.dcDR | default dict }}
 {{- $major := default "0" .Capabilities.KubeVersion.Major | trimSuffix "+" | int64 }}
 {{- $minor := default "0" .Capabilities.KubeVersion.Minor | trimSuffix "+" | int64 }}
 {{- $criticalAddon := and .Values.criticalAddon (or (eq .Release.Namespace "kube-system") (and (ge $major 1) (ge $minor 17))) -}}
@@ -103,20 +104,20 @@ spec:
         - --enable-network-policy=true
         - --network-policy-flavor={{ default "kubernetes" .Values.global.networkPolicy.flavor }}
         {{- end }}
-        {{- if .Values.dcDR.enabled }}
+        {{- if $dcdr.enabled }}
         # Cross data center (DC-DR) failover orchestrator. localDC is this operator
         # instance's data center (the OCM spoke cluster name). With coordKubeconfigSecret
         # the primary-DC Leases are read from that separate coordination control plane;
         # without it they are read from this cluster (the hub is the coordination plane).
         - --dc-dr-enabled
-        - --dc-dr-local-dc={{ required "dcDR.localDC is required when dcDR.enabled is true" .Values.dcDR.localDC }}
-        {{- if .Values.dcDR.coordKubeconfigSecret }}
+        - --dc-dr-local-dc={{ required "dcDR.localDC is required when dcDR.enabled is true" $dcdr.localDC }}
+        {{- if $dcdr.coordKubeconfigSecret }}
         - --dc-dr-coord-kubeconfig=/etc/dr/coord/kubeconfig
         {{- end }}
-        {{- with .Values.dcDR.coordQPS }}
+        {{- with $dcdr.coordQPS }}
         - --dc-dr-coord-qps={{ . }}
         {{- end }}
-        {{- with .Values.dcDR.coordBurst }}
+        {{- with $dcdr.coordBurst }}
         - --dc-dr-coord-burst={{ . }}
         {{- end }}
         {{- end }}
@@ -154,7 +155,7 @@ spec:
         - mountPath: /var/run/secrets/appscode/license
           name: license
         {{- end }}
-        {{- if and .Values.dcDR.enabled .Values.dcDR.coordKubeconfigSecret }}
+        {{- if and $dcdr.enabled $dcdr.coordKubeconfigSecret }}
         - mountPath: /etc/dr/coord
           name: dcdr-coord-kubeconfig
           readOnly: true
@@ -184,11 +185,11 @@ spec:
           defaultMode: 420
           secretName: {{ include "appscode.licenseSecretName" . }}
       {{- end }}
-      {{- if and .Values.dcDR.enabled .Values.dcDR.coordKubeconfigSecret }}
+      {{- if and $dcdr.enabled $dcdr.coordKubeconfigSecret }}
       - name: dcdr-coord-kubeconfig
         secret:
           defaultMode: 420
-          secretName: {{ .Values.dcDR.coordKubeconfigSecret }}
+          secretName: {{ $dcdr.coordKubeconfigSecret }}
       {{- end }}
       {{- if eq "true" ( include "distro.openshift" . ) }}
       securityContext:

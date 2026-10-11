@@ -108,6 +108,34 @@ type KubedbProvisionerSpec struct {
 	NetworkPolicy NetworkPolicySpec `json:"networkPolicy"`
 	// +optional
 	Distro shared.DistroSpec `json:"distro"`
+	// DcDR enables the cross data center (DC-DR) failover orchestrator. Unset (the
+	// default) runs a plain, non DC-DR provisioner.
+	// +optional
+	DcDR *DcDRSpec `json:"dcDR,omitempty"`
+}
+
+// DcDRSpec configures the DC-DR failover orchestrator in the provisioner.
+type DcDRSpec struct {
+	// Enable the DC-DR failover orchestrator.
+	// +optional
+	Enabled bool `json:"enabled,omitempty"`
+	// The data center (OCM spoke cluster) name this operator instance runs in; it is the
+	// marker activeDC, the Lease holderIdentity, and the PlacementPolicy clusterName.
+	// +optional
+	LocalDC string `json:"localDC,omitempty"`
+	// Name of a Secret in the operator namespace whose "kubeconfig" key is the
+	// coordination control plane kubeconfig (where the primary-DC Leases live), mounted at
+	// /etc/dr/coord. Leave empty when this cluster is itself the coordination plane.
+	// +optional
+	CoordKubeconfigSecret string `json:"coordKubeconfigSecret,omitempty"`
+	// QPS for the client talking to the coordination control plane apiserver. Unset, the
+	// operator binary's default applies.
+	// +optional
+	CoordQPS *int32 `json:"coordQPS,omitempty"`
+	// Burst for the client talking to the coordination control plane apiserver. Unset, the
+	// operator binary's default applies.
+	// +optional
+	CoordBurst *int32 `json:"coordBurst,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
