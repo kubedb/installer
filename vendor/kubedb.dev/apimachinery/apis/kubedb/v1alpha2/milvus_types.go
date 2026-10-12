@@ -128,6 +128,18 @@ type MilvusSpec struct {
 	// per-role under spec.topology.distributed.<role>.gpu.
 	// +optional
 	GPU *MilvusGPUSpec `json:"gpu,omitempty"`
+
+	// Init is used to initialize the database from an archiver: a full backup
+	// (and, when the archiver records a change log, the log up to a recovery
+	// timestamp) is restored into this new Milvus before it starts.
+	// +optional
+	Init *InitSpec `json:"init,omitempty"`
+
+	// Archiver controls the continuous archiver (base backups and point-in-time
+	// recovery) of this database. It references a MilvusArchiver that also
+	// selects this database (double opt-in).
+	// +optional
+	Archiver *Archiver `json:"archiver,omitempty"`
 }
 
 // +k8s:deepcopy-gen=true

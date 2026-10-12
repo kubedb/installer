@@ -1,3 +1,4 @@
+{{- $dcdr := .Values.dcDR | default dict }}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -326,7 +327,7 @@ rules:
     - list
     - watch
     - get
-{{- if .Values.dcDR.enabled }}
+{{- if $dcdr.enabled }}
 # DC-DR: the region check reads the OCM ManagedClusters (cached client: get, list, watch)
 - apiGroups:
     - cluster.open-cluster-management.io
@@ -340,7 +341,7 @@ rules:
   resources:
     - postgresopsrequests
   verbs: ["list", "create"]
-{{- if not .Values.dcDR.coordKubeconfigSecret }}
+{{- if not $dcdr.coordKubeconfigSecret }}
 # DC-DR with the hub as the coordination plane: the orchestrator watches the
 # primary-DC Leases and patches the switchover handoff/quiesce annotations on them
 - apiGroups:

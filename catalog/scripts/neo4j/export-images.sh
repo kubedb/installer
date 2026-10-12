@@ -37,5 +37,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.07.1-enterprise images/library-neo4j-2026.07.1-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:2026.08.1-enterprise images/library-neo4j-2026.08.1-enterprise.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/library/neo4j:5.26.28-enterprise images/library-neo4j-5.26.28-enterprise.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/neo4j-backup-plugin:v0.3.0-rc.2 images/kubedb-neo4j-backup-plugin-v0.3.0-rc.2.tar
 
 tar -czvf images.tar.gz images

@@ -25,5 +25,6 @@ TARBALL=${1:-}
 tar -zxvf $TARBALL
 
 k3s ctr images import images/documentdb-documentdb-documentdb-local-pg17-0.109.0.tar
-k3s ctr images import images/kubedb-documentdb-coordinator-v0.3.0-rc.2.tar
+k3s ctr images import images/kubedb-documentdb-coordinator-v0.4.0.tar
 k3s ctr images import images/kubedb-documentdb-init-0.1.0.tar
+k3s ctr images import images/kubedb-postgres-archiver-v0.28.0-rc.2_17.2-alpine.tar

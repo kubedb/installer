@@ -7,8 +7,8 @@
 ```bash
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm search repo appscode/kubedb-provisioner --version=v0.67.0-rc.2
-$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.67.0-rc.2
+$ helm search repo appscode/kubedb-provisioner --version=v0.68.0
+$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.68.0
 ```
 
 ## Introduction
@@ -24,7 +24,7 @@ This chart deploys a KubeDB Provisioner operator on a [Kubernetes](http://kubern
 To install/upgrade the chart with the release name `kubedb-provisioner`:
 
 ```bash
-$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.67.0-rc.2
+$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.68.0
 ```
 
 The command deploys a KubeDB Provisioner operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -85,11 +85,6 @@ The following table lists the configurable parameters of the `kubedb-provisioner
 | additionalPodSecurityPolicies        | Additional psp names passed to operator <br> Example: <br> `helm template ./chart/kubedb \` <br> `--set additionalPodSecurityPolicies[0]=abc \` <br> `--set additionalPodSecurityPolicies[1]=xyz`                                                                                                                                                                               | <code>[]</code>                                                                                                                                                                                |
 | psp.enabled                          |                                                                                                                                                                                                                                                                                                                                                                                 | <code>false</code>                                                                                                                                                                             |
 | maxConcurrentReconciles              | The maximum number of concurrent reconciles which can be run                                                                                                                                                                                                                                                                                                                    | <code>0</code>                                                                                                                                                                                 |
-| dcDR.enabled                         | enable the DC-DR failover orchestrator                                                                                                                                                                                                                                                                                                                                          | <code>false</code>                                                                                                                                                                             |
-| dcDR.localDC                         | the data center (OCM spoke cluster) name this operator instance runs in; it is the marker activeDC, the Lease holderIdentity, and the PlacementPolicy clusterName                                                                                                                                                                                                               | <code>""</code>                                                                                                                                                                                |
-| dcDR.coordKubeconfigSecret           | name of a Secret in the operator namespace whose "kubeconfig" key is the coordination control plane kubeconfig (where the primary-DC Leases live); mounted at /etc/dr/coord. Leave empty when this cluster is itself the coordination plane (a stretched-etcd hub): the operator then reads the Leases from this cluster.                                                       | <code>""</code>                                                                                                                                                                                |
-| dcDR.coordQPS                        | QPS/burst for the client talking to the coordination control plane apiserver, a separate, shared, more lightweight apiserver than the main workload one. Left unset the operator binary defaults to 50/100; override here for larger multi-DB deployments or to relieve throttling (unset client-go default is 5/10, see postgres pkg/cmds).                                    | <code>""</code>                                                                                                                                                                                |
-| dcDR.coordBurst                      |                                                                                                                                                                                                                                                                                                                                                                                 | <code>""</code>                                                                                                                                                                                |
 | envFrom                              | List of sources to populate environment variables in the container                                                                                                                                                                                                                                                                                                              | <code>[]</code>                                                                                                                                                                                |
 | env                                  | List of environment variables to set in the container                                                                                                                                                                                                                                                                                                                           | <code>[]</code>                                                                                                                                                                                |
 | networkPolicy.enabled                |                                                                                                                                                                                                                                                                                                                                                                                 | <code>false</code>                                                                                                                                                                             |
@@ -101,12 +96,12 @@ The following table lists the configurable parameters of the `kubedb-provisioner
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm upgrade -i`. For example:
 
 ```bash
-$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.67.0-rc.2 --set replicaCount=1
+$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.68.0 --set replicaCount=1
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```bash
-$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.67.0-rc.2 --values values.yaml
+$ helm upgrade -i kubedb-provisioner appscode/kubedb-provisioner -n kubedb --create-namespace --version=v0.68.0 --values values.yaml
 ```

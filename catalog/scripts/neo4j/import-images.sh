@@ -31,3 +31,4 @@ $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-202
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2026.07.1-enterprise.tar $IMAGE_REGISTRY/neo4j:2026.07.1-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-2026.08.1-enterprise.tar $IMAGE_REGISTRY/neo4j:2026.08.1-enterprise
 $CMD push --allow-nondistributable-artifacts --insecure images/library-neo4j-5.26.28-enterprise.tar $IMAGE_REGISTRY/neo4j:5.26.28-enterprise
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-neo4j-backup-plugin-v0.3.0-rc.2.tar $IMAGE_REGISTRY/kubedb/neo4j-backup-plugin:v0.3.0-rc.2

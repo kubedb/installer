@@ -72,6 +72,11 @@ type MilvusVersionSpec struct {
 	UI []ChartInfo `json:"ui,omitempty"`
 	// update constraints
 	UpdateConstraints UpdateConstraints `json:"updateConstraints,omitempty"`
+
+	// Archiver holds the images and KubeStash addon tasks used by the
+	// MilvusArchiver (base backup, point-in-time recovery, restore).
+	// +optional
+	Archiver ArchiverSpec `json:"archiver,omitempty"`
 }
 
 // +k8s:deepcopy-gen=true
