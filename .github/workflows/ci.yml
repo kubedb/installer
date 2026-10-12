@@ -212,13 +212,12 @@ jobs:
       # tested here only when the chart or its test changes.
       - name: Check for relevant changes
         id: changes
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
-            files=$(gh pr diff ${{ github.event.pull_request.number }} --name-only -R ${{ github.repository }})
+            git fetch --no-tags --depth=1 origin ${{ github.event.pull_request.base.sha }}
+            files=$(git diff --name-only ${{ github.event.pull_request.base.sha }} HEAD -- . ":!vendor")
           elif [ "${{ github.event_name }}" = "push" ]; then
-            files=$(git diff --name-only HEAD^ HEAD)
+            files=$(git diff --name-only HEAD^ HEAD -- . ":!vendor")
           else
             files=charts/kubedb-courier-addon-manager/
           fi
