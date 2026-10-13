@@ -490,7 +490,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-rest
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-restic-plugin-v0.31.0_9.0.1.tar $IMAGE_REGISTRY/kubedb/mysql-restic-plugin:v0.31.0_9.0.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-router-init-v0.46.0.tar $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.46.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysqld-exporter-v0.18.0.tar $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.18.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-neo4j-backup-plugin-v0.3.0-rc.2.tar $IMAGE_REGISTRY/kubedb/neo4j-backup-plugin:v0.3.0-rc.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-neo4j-backup-plugin-v0.4.0.tar $IMAGE_REGISTRY/kubedb/neo4j-backup-plugin:v0.4.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-backup-plugin-v0.2.0.tar $IMAGE_REGISTRY/kubedb/oracle-backup-plugin:v0.2.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-coordinator-v0.14.0.tar $IMAGE_REGISTRY/kubedb/oracle-coordinator:v0.14.0
