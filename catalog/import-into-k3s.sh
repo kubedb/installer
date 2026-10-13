@@ -344,6 +344,7 @@ k3s ctr images import images/appscode-images-postgres-17.5-alpine.tar
 k3s ctr images import images/appscode-images-postgres-17.5-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-17.8-alpine.tar
 k3s ctr images import images/appscode-images-postgres-17.8-bookworm.tar
+k3s ctr images import images/appscode-images-postgres-17.9-alpine.tar
 k3s ctr images import images/appscode-images-postgres-17.9-alpine-ext.tar
 k3s ctr images import images/appscode-images-postgres-17.9-bookworm.tar
 k3s ctr images import images/appscode-images-postgres-17.9-bookworm-ext.tar
