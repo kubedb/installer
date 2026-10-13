@@ -149,6 +149,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/po
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.5-bookworm $IMAGE_REGISTRY/appscode-images/postgres:17.5-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.8-alpine $IMAGE_REGISTRY/appscode-images/postgres:17.8-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.8-bookworm $IMAGE_REGISTRY/appscode-images/postgres:17.8-bookworm
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-alpine $IMAGE_REGISTRY/appscode-images/postgres:17.9-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-alpine-ext $IMAGE_REGISTRY/appscode-images/postgres:17.9-alpine-ext
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-bookworm $IMAGE_REGISTRY/appscode-images/postgres:17.9-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.9-bookworm-ext $IMAGE_REGISTRY/appscode-images/postgres:17.9-bookworm-ext
