@@ -194,9 +194,12 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached:1.6.40-alpine images/appscode-images-memcached-1.6.40-alpine.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/memcached_exporter:v0.14.3-ac images/appscode-images-memcached_exporter-v0.14.3-ac.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/milvus:2.6.11 images/appscode-images-milvus-2.6.11.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/milvus:2.6.15 images/appscode-images-milvus-2.6.15.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/milvus:2.6.15-gpu images/appscode-images-milvus-2.6.15-gpu.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/milvus:2.6.7 images/appscode-images-milvus-2.6.7.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/milvus:2.6.9 images/appscode-images-milvus-2.6.9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/milvus:3.0.0 images/appscode-images-milvus-3.0.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/milvus:3.0.0-gpu images/appscode-images-milvus-3.0.0-gpu.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:4.4.26 images/appscode-images-mongo-4.4.26.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:5.0.31 images/appscode-images-mongo-5.0.31.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:6.0.24 images/appscode-images-mongo-6.0.24.tar

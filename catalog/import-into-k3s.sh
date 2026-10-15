@@ -186,9 +186,12 @@ k3s ctr images import images/appscode-images-memcached-1.6.33-alpine.tar
 k3s ctr images import images/appscode-images-memcached-1.6.40-alpine.tar
 k3s ctr images import images/appscode-images-memcached_exporter-v0.14.3-ac.tar
 k3s ctr images import images/appscode-images-milvus-2.6.11.tar
+k3s ctr images import images/appscode-images-milvus-2.6.15.tar
+k3s ctr images import images/appscode-images-milvus-2.6.15-gpu.tar
 k3s ctr images import images/appscode-images-milvus-2.6.7.tar
 k3s ctr images import images/appscode-images-milvus-2.6.9.tar
 k3s ctr images import images/appscode-images-milvus-3.0.0.tar
+k3s ctr images import images/appscode-images-milvus-3.0.0-gpu.tar
 k3s ctr images import images/appscode-images-mongo-4.4.26.tar
 k3s ctr images import images/appscode-images-mongo-5.0.31.tar
 k3s ctr images import images/appscode-images-mongo-6.0.24.tar
