@@ -64,7 +64,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-res
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.26.0_10.4.32-focal $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.26.0_10.4.32-focal
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.26.0_10.6.16-focal $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.26.0_10.6.16-focal
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.26.0_11.1.3-jammy $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.26.0_11.1.3-jammy
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/milvus-backup-plugin:v0.1.0-rc.0 $IMAGE_REGISTRY/kubedb/milvus-backup-plugin:v0.1.0-rc.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/milvus-backup-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/milvus-backup-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/milvus-csi-snapshotter-plugin:v0.2.0 $IMAGE_REGISTRY/kubedb/milvus-csi-snapshotter-plugin:v0.2.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.29.0 $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.29.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-restic-plugin:v0.31.0_4.2.3 $IMAGE_REGISTRY/kubedb/mongodb-restic-plugin:v0.31.0_4.2.3
@@ -83,7 +83,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-resti
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/neo4j-backup-plugin:v0.4.0 $IMAGE_REGISTRY/kubedb/neo4j-backup-plugin:v0.4.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-backup-plugin:v0.2.0 $IMAGE_REGISTRY/kubedb/oracle-backup-plugin:v0.2.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.29.0 $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.29.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.30.0-rc.2_17.2 $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.30.0-rc.2_17.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.31.0_12.17 $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.31.0_12.17
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.31.0_14.10 $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.31.0_14.10
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.31.0_16.4 $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.31.0_16.4
