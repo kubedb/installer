@@ -1,0 +1,70 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  name: 8.4.8-oracle
+spec:
+  archiver:
+    addon:
+      name: mysql-addon
+      tasks:
+        fullBackup:
+          name: physical-backup
+        fullBackupRestore:
+          name: physical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: ghcr.io/kubedb/mysql-archiver:(v0.28.0-rc.2)_8.4.3
+  coordinator:
+    image: ghcr.io/kubedb/mysql-coordinator:v0.45.0-rc.2
+  courier:
+    cli:
+      image: ghcr.io/kubedb/kubedb-migrator-mysql:v0.7.0-rc.2
+    statusReporter:
+      image: ghcr.io/kubedb/kubedb-courier:v0.7.0-rc.2
+  db:
+    image: container-registry.oracle.com/mysql/enterprise-server:8.4.8
+  distribution: MySQL
+  exporter:
+    image: ghcr.io/kubedb/mysqld-exporter:v0.18.0
+  gitSyncer:
+    image: registry.k8s.io/git-sync/git-sync:v4.4.2
+  initContainer:
+    image: ghcr.io/kubedb/mysql-init:0.2.0
+  license:
+    required: true
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  replicationModeDetector:
+    image: ghcr.io/kubedb/replication-mode-detector:v0.54.0-rc.2
+  router:
+    image: ghcr.io/appscode-images/mysql-router:8.4.8
+  routerInitContainer:
+    image: ghcr.io/kubedb/mysql-router-init:v0.45.0-rc.2
+  securityContext:
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: mysql-backup-8.0.21
+      restoreTask:
+        name: mysql-restore-8.0.21
+  ui:
+  - name: phpmyadmin
+    version: v2026.3.30
+  updateConstraints:
+    allowlist:
+      groupReplication:
+      - '>= 8.4.8, <= 9.1.0'
+      standalone:
+      - '>= 8.4.8, <= 9.1.0'
+    denylist:
+      groupReplication:
+      - < 8.4.8
+      standalone:
+      - < 8.4.8
+  version: 8.4.8
