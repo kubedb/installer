@@ -500,7 +500,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-res
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-restic-plugin:v0.31.0_9.0.1 images/kubedb-mysql-restic-plugin-v0.31.0_9.0.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-router-init:v0.46.0 images/kubedb-mysql-router-init-v0.46.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysqld-exporter:v0.18.0 images/kubedb-mysqld-exporter-v0.18.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/neo4j-backup-plugin:v0.3.0-rc.2 images/kubedb-neo4j-backup-plugin-v0.3.0-rc.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/neo4j-backup-plugin:v0.4.0 images/kubedb-neo4j-backup-plugin-v0.4.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-backup-plugin:v0.2.0 images/kubedb-oracle-backup-plugin-v0.2.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-coordinator:v0.14.0 images/kubedb-oracle-coordinator-v0.14.0.tar
