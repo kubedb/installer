@@ -458,7 +458,7 @@ k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.26.0_10.4.32-focal.
 k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.26.0_10.6.16-focal.tar
 k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.26.0_11.1.3-jammy.tar
 k3s ctr images import images/kubedb-milvus-archiver-v0.2.0.tar
-k3s ctr images import images/kubedb-milvus-backup-plugin-v0.1.0-rc.0.tar
+k3s ctr images import images/kubedb-milvus-backup-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-milvus-csi-snapshotter-plugin-v0.2.0.tar
 k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.29.0.tar
 k3s ctr images import images/kubedb-mongodb-init-4.2-v9.tar
@@ -527,7 +527,6 @@ k3s ctr images import images/kubedb-postgres-archiver-v0.29.0_18.2-bookworm.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.29.0_18.6-stream9-ext.tar
 k3s ctr images import images/kubedb-postgres-csi-snapshotter-plugin-v0.29.0.tar
 k3s ctr images import images/kubedb-postgres-init-0.21.0.tar
-k3s ctr images import images/kubedb-postgres-restic-plugin-v0.30.0-rc.2_17.2.tar
 k3s ctr images import images/kubedb-postgres-restic-plugin-v0.31.0_12.17.tar
 k3s ctr images import images/kubedb-postgres-restic-plugin-v0.31.0_14.10.tar
 k3s ctr images import images/kubedb-postgres-restic-plugin-v0.31.0_16.4.tar

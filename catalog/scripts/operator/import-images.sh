@@ -55,7 +55,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-re
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.26.0_10.4.32-focal.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.26.0_10.4.32-focal
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.26.0_10.6.16-focal.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.26.0_10.6.16-focal
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mariadb-restic-plugin-v0.26.0_11.1.3-jammy.tar $IMAGE_REGISTRY/kubedb/mariadb-restic-plugin:v0.26.0_11.1.3-jammy
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-milvus-backup-plugin-v0.1.0-rc.0.tar $IMAGE_REGISTRY/kubedb/milvus-backup-plugin:v0.1.0-rc.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-milvus-backup-plugin-v0.1.0.tar $IMAGE_REGISTRY/kubedb/milvus-backup-plugin:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-milvus-csi-snapshotter-plugin-v0.2.0.tar $IMAGE_REGISTRY/kubedb/milvus-csi-snapshotter-plugin:v0.2.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-csi-snapshotter-plugin-v0.29.0.tar $IMAGE_REGISTRY/kubedb/mongodb-csi-snapshotter-plugin:v0.29.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mongodb-restic-plugin-v0.31.0_4.2.3.tar $IMAGE_REGISTRY/kubedb/mongodb-restic-plugin:v0.31.0_4.2.3
@@ -74,7 +74,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-rest
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-neo4j-backup-plugin-v0.4.0.tar $IMAGE_REGISTRY/kubedb/neo4j-backup-plugin:v0.4.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-backup-plugin-v0.2.0.tar $IMAGE_REGISTRY/kubedb/oracle-backup-plugin:v0.2.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-csi-snapshotter-plugin-v0.29.0.tar $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.29.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.30.0-rc.2_17.2.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.30.0-rc.2_17.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.31.0_12.17.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.31.0_12.17
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.31.0_14.10.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.31.0_14.10
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.31.0_16.4.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.31.0_16.4

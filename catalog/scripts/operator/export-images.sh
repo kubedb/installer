@@ -61,7 +61,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-r
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.26.0_10.4.32-focal images/kubedb-mariadb-restic-plugin-v0.26.0_10.4.32-focal.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.26.0_10.6.16-focal images/kubedb-mariadb-restic-plugin-v0.26.0_10.6.16-focal.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mariadb-restic-plugin:v0.26.0_11.1.3-jammy images/kubedb-mariadb-restic-plugin-v0.26.0_11.1.3-jammy.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/milvus-backup-plugin:v0.1.0-rc.0 images/kubedb-milvus-backup-plugin-v0.1.0-rc.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/milvus-backup-plugin:v0.1.0 images/kubedb-milvus-backup-plugin-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/milvus-csi-snapshotter-plugin:v0.2.0 images/kubedb-milvus-csi-snapshotter-plugin-v0.2.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-csi-snapshotter-plugin:v0.29.0 images/kubedb-mongodb-csi-snapshotter-plugin-v0.29.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-restic-plugin:v0.31.0_4.2.3 images/kubedb-mongodb-restic-plugin-v0.31.0_4.2.3.tar
@@ -80,7 +80,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-res
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/neo4j-backup-plugin:v0.4.0 images/kubedb-neo4j-backup-plugin-v0.4.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-backup-plugin:v0.2.0 images/kubedb-oracle-backup-plugin-v0.2.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.29.0 images/kubedb-postgres-csi-snapshotter-plugin-v0.29.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.30.0-rc.2_17.2 images/kubedb-postgres-restic-plugin-v0.30.0-rc.2_17.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.31.0_12.17 images/kubedb-postgres-restic-plugin-v0.31.0_12.17.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.31.0_14.10 images/kubedb-postgres-restic-plugin-v0.31.0_14.10.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.31.0_16.4 images/kubedb-postgres-restic-plugin-v0.31.0_16.4.tar
