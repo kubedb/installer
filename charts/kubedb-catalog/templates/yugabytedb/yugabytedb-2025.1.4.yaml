@@ -1,0 +1,44 @@
+{{- template "kubedb-catalog.refresh-versions" . }}
+
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.YugabyteDB (not (eq $ubi "operator")) }}
+{{ if not (has "2025.1.4" .Values.disableVersions.YugabyteDB) }}
+
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: YugabyteDBVersion
+metadata:
+  name: '2025.1.4'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  build: 2025.1.4.0-b103
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/yugabyte") $) }}:2025.1.4.0-b103'
+  defaultFlags:
+    master:
+      enforce_tablet_replica_limits: "true"
+      split_respects_tablet_replica_limits: "true"
+      use_memory_defaults_optimized_for_ysql: "true"
+    tserver:
+      use_memory_defaults_optimized_for_ysql: "true"
+  features:
+    clientOnlyCertReload: false
+  memory:
+    masterLimitPercent: 85
+    tserverLimitPercent: 70
+  securityContext:
+    runAsUser: 10001
+  updateConstraints:
+    allowlist:
+    - < 2025.1.4
+  version: 2025.1.4
+  ysqlMajorVersion: 15
+{{ end }}
+{{ end }}

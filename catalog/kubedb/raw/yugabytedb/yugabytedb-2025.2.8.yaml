@@ -1,0 +1,27 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: YugabyteDBVersion
+metadata:
+  name: 2025.2.8
+spec:
+  build: 2025.2.8.0-b60
+  db:
+    image: ghcr.io/appscode-images/yugabyte:2025.2.8.0-b60
+  defaultFlags:
+    master:
+      enforce_tablet_replica_limits: "true"
+      split_respects_tablet_replica_limits: "true"
+      use_memory_defaults_optimized_for_ysql: "true"
+    tserver:
+      use_memory_defaults_optimized_for_ysql: "true"
+  features:
+    clientOnlyCertReload: true
+  memory:
+    masterLimitPercent: 85
+    tserverLimitPercent: 70
+  securityContext:
+    runAsUser: 10001
+  updateConstraints:
+    allowlist:
+    - '>= 2025.1.4, < 2025.2.8'
+  version: 2025.2.8
+  ysqlMajorVersion: 15
