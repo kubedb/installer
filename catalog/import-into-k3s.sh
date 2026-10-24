@@ -77,11 +77,16 @@ k3s ctr images import images/singlestore-cluster-in-a-box-alma-8.1.32-e3d3cde6da
 k3s ctr images import images/singlestore-cluster-in-a-box-alma-8.5.22-fe61f40cd1-4.1.0-1.17.11.tar
 k3s ctr images import images/singlestore-cluster-in-a-box-alma-8.5.7-bf633c1a54-4.0.17-1.17.8.tar
 k3s ctr images import images/singlestore-cluster-in-a-box-alma-8.7.10-95e2357384-4.1.0-1.17.14.tar
+k3s ctr images import images/temporalio-admin-tools-1.32.1.tar
+k3s ctr images import images/temporalio-server-1.32.1.tar
+k3s ctr images import images/temporalio-ui-2.54.1.tar
 k3s ctr images import images/tianon-toybox-0.8.11.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg13-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg14-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg15-oss.tar
 k3s ctr images import images/timescale-timescaledb-2.14.2-pg16-oss.tar
+k3s ctr images import images/ubercadence-server-v1.4.2.tar
+k3s ctr images import images/ubercadence-web-v4.0.17.tar
 k3s ctr images import images/aiven-open-karapace-3.15.0.tar
 k3s ctr images import images/appscode-images-cassandra-exporter-2.3.8.tar
 k3s ctr images import images/appscode-images-cassandra-management-4.1.11.tar

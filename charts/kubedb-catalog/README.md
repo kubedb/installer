@@ -64,6 +64,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | featureGates.DB2                           |                                                 | <code>true</code>                          |
 | featureGates.DocumentDB                    |                                                 | <code>true</code>                          |
 | featureGates.Druid                         |                                                 | <code>true</code>                          |
+| featureGates.DurableWorkflow               |                                                 | <code>true</code>                          |
 | featureGates.Elasticsearch                 |                                                 | <code>true</code>                          |
 | featureGates.Etcd                          |                                                 | <code>true</code>                          |
 | featureGates.HanaDB                        |                                                 | <code>true</code>                          |
@@ -115,6 +116,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | skipEndOfLife                              |                                                 | <code>false</code>                         |
 | enableVersions.Aerospike                   |                                                 | <code>[]</code>                            |
 | enableVersions.Druid                       |                                                 | <code>[]</code>                            |
+| enableVersions.DurableWorkflow             |                                                 | <code>[]</code>                            |
 | enableVersions.Elasticsearch               |                                                 | <code>[]</code>                            |
 | enableVersions.Hazelcast                   |                                                 | <code>[]</code>                            |
 | enableVersions.Ignite                      |                                                 | <code>[]</code>                            |
@@ -140,6 +142,7 @@ The following table lists the configurable parameters of the `kubedb-catalog` ch
 | enableVersions.Weaviate                    |                                                 | <code>[]</code>                            |
 | disableVersions.Aerospike                  |                                                 | <code>[]</code>                            |
 | disableVersions.Druid                      |                                                 | <code>[]</code>                            |
+| disableVersions.DurableWorkflow            |                                                 | <code>[]</code>                            |
 | disableVersions.Elasticsearch              |                                                 | <code>[]</code>                            |
 | disableVersions.Hazelcast                  |                                                 | <code>[]</code>                            |
 | disableVersions.Ignite                     |                                                 | <code>[]</code>                            |
