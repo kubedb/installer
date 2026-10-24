@@ -404,6 +404,8 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/va
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:8.1.1 $IMAGE_REGISTRY/appscode-images/valkey:8.1.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/weaviate:1.33.1 $IMAGE_REGISTRY/appscode-images/weaviate:1.33.1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/weaviate:1.37.12 $IMAGE_REGISTRY/appscode-images/weaviate:1.37.12
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/yugabyte:2025.1.4.0-b103 $IMAGE_REGISTRY/appscode-images/yugabyte:2025.1.4.0-b103
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/yugabyte:2025.2.8.0-b60 $IMAGE_REGISTRY/appscode-images/yugabyte:2025.2.8.0-b60
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.7.2 $IMAGE_REGISTRY/appscode-images/zookeeper:3.7.2
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.8.3 $IMAGE_REGISTRY/appscode-images/zookeeper:3.8.3
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.9.1 $IMAGE_REGISTRY/appscode-images/zookeeper:3.9.1
@@ -581,6 +583,8 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.16.0_8.2.0 $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.16.0_8.2.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.16.0_8.4.0 $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.16.0_8.4.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.16.0_9.7.1 $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.16.0_9.7.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/yugabytedb-restic-plugin:v0.1.0_2025.1.4 $IMAGE_REGISTRY/kubedb/yugabytedb-restic-plugin:v0.1.0_2025.1.4
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/yugabytedb-restic-plugin:v0.1.0_2025.2.8 $IMAGE_REGISTRY/kubedb/yugabytedb-restic-plugin:v0.1.0_2025.2.8
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-init:3.7-v1 $IMAGE_REGISTRY/kubedb/zookeeper-init:3.7-v1
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.23.0 $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.23.0
 $CMD cp --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04 $IMAGE_REGISTRY/mssql/server:2022-CU12-ubuntu-22.04
