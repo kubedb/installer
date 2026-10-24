@@ -1,0 +1,40 @@
+{{ $featureGates := .Values.featureGates }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+{{- end }}
+
+{{ if $featureGates.YugabyteDB }}
+
+apiVersion: metrics.appscode.com/v1alpha1
+kind: MetricsConfiguration
+metadata:
+  name: catalog-kubedb-com-yugabytedbversion
+spec:
+  targetRef:
+    apiVersion: catalog.kubedb.com/v1alpha1
+    kind: YugabyteDBVersion
+  metrics:
+    - name: created
+      help: "Unix creation timestamp"
+      type: gauge
+      field:
+        path: .metadata.creationTimestamp
+        type: DateTime
+      metricValue:
+        valueFromPath: .metadata.creationTimestamp
+    - name: info
+      help: "YugabyteDB versions info"
+      type: gauge
+      labels:
+        - key: db_image
+          valuePath: .spec.db.image
+        - key: build
+          valuePath: .spec.build
+        - key: ysql_major_version
+          valuePath: .spec.ysqlMajorVersion
+        - key: deprecated
+          valuePath: .spec.deprecated
+      metricValue:
+        value: 1
+
+{{ end }}
