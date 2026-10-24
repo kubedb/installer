@@ -62,6 +62,7 @@ type KubedbKubestashCatalogSpec struct {
 	Redis          KubestashDatabaseSpec       `json:"redis"`
 	Postgres       KubestashPostgresSpec       `json:"postgres"`
 	Singlestore    KubestashDatabaseSpec       `json:"singlestore"`
+	YugabyteDB     KubestashDatabaseSpec       `json:"yugabytedb"`
 	ZooKeeper      KubestashDatabaseSpec       `json:"zookeeper"`
 	Kubedbverifier KubestashVerifierSpec       `json:"kubedbverifier"`
 	// +optional

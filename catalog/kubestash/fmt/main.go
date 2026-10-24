@@ -106,6 +106,7 @@ var appToKind = map[string]string{
 	"redis":              "Redis",
 	"singlestore":        "Singlestore",
 	"solr":               "Solr",
+	"yugabytedb":         "YugabyteDB",
 	"zookeeper":          "ZooKeeper",
 }
 
@@ -298,6 +299,14 @@ func main() {
 				case "singlestore":
 					if strings.HasPrefix(args[i], "--singlestore-args=") {
 						args[i] = fmt.Sprintf(`--singlestore-args=${args:={{ .Values.%s.args }}}`, app)
+					}
+				case "yugabytedb":
+					if strings.HasPrefix(args[i], "--ysql-args=") {
+						phase := "backup"
+						if strings.Contains(obj.GetName(), "restore") {
+							phase = "restore"
+						}
+						args[i] = fmt.Sprintf(`--ysql-args=${args:={{ .Values.%s.%s.args }}}`, app, phase)
 					}
 				case "zookeeper":
 					if strings.HasPrefix(args[i], "--zookeeper-args=") {

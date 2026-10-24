@@ -1507,6 +1507,7 @@ func (in *KubedbKubestashCatalogSpec) DeepCopyInto(out *KubedbKubestashCatalogSp
 	out.Redis = in.Redis
 	out.Postgres = in.Postgres
 	out.Singlestore = in.Singlestore
+	out.YugabyteDB = in.YugabyteDB
 	out.ZooKeeper = in.ZooKeeper
 	out.Kubedbverifier = in.Kubedbverifier
 	out.Distro = in.Distro
