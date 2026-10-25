@@ -65,6 +65,19 @@ spec:
                     type: object
                     x-kubernetes-map-type: atomic
                 type: object
+              clone:
+                properties:
+                  asOf:
+                    format: date-time
+                    type: string
+                  sourceDatabase:
+                    type: string
+                  targetDatabase:
+                    type: string
+                required:
+                - sourceDatabase
+                - targetDatabase
+                type: object
               configuration:
                 properties:
                   applyConfig:
@@ -88,6 +101,17 @@ spec:
                     - "false"
                     type: string
                 type: object
+              connectionManager:
+                properties:
+                  enabled:
+                    type: boolean
+                  maxClientConnections:
+                    format: int32
+                    minimum: 1
+                    type: integer
+                required:
+                - enabled
+                type: object
               databaseRef:
                 properties:
                   name:
@@ -95,8 +119,14 @@ spec:
                     type: string
                 type: object
                 x-kubernetes-map-type: atomic
+              finalizeUpgrade:
+                type: object
               horizontalScaling:
                 properties:
+                  readReplica:
+                    format: int32
+                    minimum: 0
+                    type: integer
                   tserver:
                     format: int32
                     minimum: 1
@@ -106,7 +136,30 @@ spec:
                 default: 1
                 format: int32
                 type: integer
+              migration:
+                properties:
+                  oldPVReclaimPolicy:
+                    type: string
+                  storageClassName:
+                    type: string
+                required:
+                - storageClassName
+                type: object
               restart:
+                type: object
+              rewind:
+                properties:
+                  database:
+                    type: string
+                  minus:
+                    type: string
+                  restoreTime:
+                    format: date-time
+                    type: string
+                required:
+                - database
+                type: object
+              rollbackUpgrade:
                 type: object
               rolling:
                 properties:
@@ -227,6 +280,8 @@ spec:
                     type: boolean
                   rotateCertificates:
                     type: boolean
+                  webserver:
+                    type: boolean
                 type: object
               type:
                 enum:
@@ -238,9 +293,20 @@ spec:
                 - VerticalScaling
                 - VolumeExpansion
                 - UpdateVersion
+                - FinalizeUpgrade
+                - RollbackUpgrade
+                - StorageMigration
+                - Rewind
+                - Clone
                 type: string
               updateVersion:
                 properties:
+                  finalize:
+                    default: Auto
+                    enum:
+                    - Auto
+                    - Manual
+                    type: string
                   soakDuration:
                     type: string
                   targetVersion:
@@ -302,6 +368,54 @@ spec:
                     - Restart
                     - InPlace
                     type: string
+                  readReplica:
+                    properties:
+                      nodeSelectionPolicy:
+                        type: string
+                      resources:
+                        properties:
+                          claims:
+                            items:
+                              properties:
+                                name:
+                                  type: string
+                                request:
+                                  type: string
+                              required:
+                              - name
+                              type: object
+                            type: array
+                            x-kubernetes-list-map-keys:
+                            - name
+                            x-kubernetes-list-type: map
+                          limits:
+                            additionalProperties:
+                              anyOf:
+                              - type: integer
+                              - type: string
+                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                              x-kubernetes-int-or-string: true
+                            type: object
+                          requests:
+                            additionalProperties:
+                              anyOf:
+                              - type: integer
+                              - type: string
+                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                              x-kubernetes-int-or-string: true
+                            type: object
+                        type: object
+                      topology:
+                        properties:
+                          key:
+                            type: string
+                          value:
+                            type: string
+                        required:
+                        - key
+                        - value
+                        type: object
+                    type: object
                   tserver:
                     properties:
                       nodeSelectionPolicy:
@@ -364,6 +478,12 @@ spec:
                     - Offline
                     - Online
                     type: string
+                  readReplica:
+                    anyOf:
+                    - type: integer
+                    - type: string
+                    pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                    x-kubernetes-int-or-string: true
                   tserver:
                     anyOf:
                     - type: integer
