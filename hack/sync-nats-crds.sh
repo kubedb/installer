@@ -14,7 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 # Syncs the NATS CRDs from a kubedb/apimachinery checkout into this repo, the
 # way crd-importer does (descriptions stripped, app.kubernetes.io/name label).
 # Safe to rerun; usage: hack/sync-nats-crds.sh [path-to-apimachinery]

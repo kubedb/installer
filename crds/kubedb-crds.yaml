@@ -376556,6 +376556,100 @@ spec:
             type: object
           spec:
             properties:
+              arbiter:
+                properties:
+                  replicas:
+                    format: int32
+                    type: integer
+                  storage:
+                    properties:
+                      accessModes:
+                        items:
+                          type: string
+                        type: array
+                        x-kubernetes-list-type: atomic
+                      dataSource:
+                        properties:
+                          apiGroup:
+                            type: string
+                          kind:
+                            type: string
+                          name:
+                            type: string
+                        required:
+                        - kind
+                        - name
+                        type: object
+                        x-kubernetes-map-type: atomic
+                      dataSourceRef:
+                        properties:
+                          apiGroup:
+                            type: string
+                          kind:
+                            type: string
+                          name:
+                            type: string
+                          namespace:
+                            type: string
+                        required:
+                        - kind
+                        - name
+                        type: object
+                      resources:
+                        properties:
+                          limits:
+                            additionalProperties:
+                              anyOf:
+                              - type: integer
+                              - type: string
+                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                              x-kubernetes-int-or-string: true
+                            type: object
+                          requests:
+                            additionalProperties:
+                              anyOf:
+                              - type: integer
+                              - type: string
+                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                              x-kubernetes-int-or-string: true
+                            type: object
+                        type: object
+                      selector:
+                        properties:
+                          matchExpressions:
+                            items:
+                              properties:
+                                key:
+                                  type: string
+                                operator:
+                                  type: string
+                                values:
+                                  items:
+                                    type: string
+                                  type: array
+                                  x-kubernetes-list-type: atomic
+                              required:
+                              - key
+                              - operator
+                              type: object
+                            type: array
+                            x-kubernetes-list-type: atomic
+                          matchLabels:
+                            additionalProperties:
+                              type: string
+                            type: object
+                        type: object
+                        x-kubernetes-map-type: atomic
+                      storageClassName:
+                        type: string
+                      volumeAttributesClassName:
+                        type: string
+                      volumeMode:
+                        type: string
+                      volumeName:
+                        type: string
+                    type: object
+                type: object
               auth:
                 properties:
                   mode:
@@ -376715,6 +376809,39 @@ spec:
                 type: string
               disableSecurity:
                 type: boolean
+              distributed:
+                type: boolean
+              gateway:
+                properties:
+                  name:
+                    type: string
+                  rejectUnknown:
+                    type: boolean
+                  remotes:
+                    items:
+                      properties:
+                        name:
+                          type: string
+                        natsRef:
+                          properties:
+                            name:
+                              type: string
+                            namespace:
+                              type: string
+                          required:
+                          - name
+                          type: object
+                        urls:
+                          items:
+                            type: string
+                          type: array
+                      required:
+                      - name
+                      type: object
+                    type: array
+                type: object
+              gatewayTLS:
+                type: boolean
               halted:
                 type: boolean
               healthChecker:
@@ -376848,6 +376975,44 @@ spec:
                     type: string
                   gracePeriod:
                     type: string
+                type: object
+              leafNodeTLS:
+                type: boolean
+              leafNodes:
+                properties:
+                  accept:
+                    type: boolean
+                  jetStreamDomain:
+                    type: string
+                  remotes:
+                    items:
+                      properties:
+                        account:
+                          type: string
+                        credentialsSecret:
+                          properties:
+                            name:
+                              default: ""
+                              type: string
+                          type: object
+                          x-kubernetes-map-type: atomic
+                        domain:
+                          type: string
+                        natsRef:
+                          properties:
+                            name:
+                              type: string
+                            namespace:
+                              type: string
+                          required:
+                          - name
+                          type: object
+                        urls:
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
                 type: object
               monitor:
                 properties:
@@ -380453,6 +380618,7 @@ spec:
                       - stats
                       - dashboard
                       - readreplica
+                      - leafnodes
                       type: string
                     metadata:
                       properties:
@@ -380625,10 +380791,28 @@ spec:
             properties:
               authSecret:
                 properties:
-                  lastUpdateTimestamp:
+                  activeFrom:
                     format: date-time
                     type: string
+                  apiGroup:
+                    default: ""
+                    type: string
+                  externallyManaged:
+                    type: boolean
+                  kind:
+                    default: Secret
+                    type: string
+                  name:
+                    type: string
+                  rotateAfter:
+                    type: string
+                  secretStoreName:
+                    type: string
+                required:
+                - kind
+                - name
                 type: object
+                x-kubernetes-map-type: atomic
               conditions:
                 items:
                   properties:
@@ -751991,6 +752175,100 @@ spec:
             type: object
           spec:
             properties:
+              arbiter:
+                properties:
+                  replicas:
+                    format: int32
+                    type: integer
+                  storage:
+                    properties:
+                      accessModes:
+                        items:
+                          type: string
+                        type: array
+                        x-kubernetes-list-type: atomic
+                      dataSource:
+                        properties:
+                          apiGroup:
+                            type: string
+                          kind:
+                            type: string
+                          name:
+                            type: string
+                        required:
+                        - kind
+                        - name
+                        type: object
+                        x-kubernetes-map-type: atomic
+                      dataSourceRef:
+                        properties:
+                          apiGroup:
+                            type: string
+                          kind:
+                            type: string
+                          name:
+                            type: string
+                          namespace:
+                            type: string
+                        required:
+                        - kind
+                        - name
+                        type: object
+                      resources:
+                        properties:
+                          limits:
+                            additionalProperties:
+                              anyOf:
+                              - type: integer
+                              - type: string
+                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                              x-kubernetes-int-or-string: true
+                            type: object
+                          requests:
+                            additionalProperties:
+                              anyOf:
+                              - type: integer
+                              - type: string
+                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                              x-kubernetes-int-or-string: true
+                            type: object
+                        type: object
+                      selector:
+                        properties:
+                          matchExpressions:
+                            items:
+                              properties:
+                                key:
+                                  type: string
+                                operator:
+                                  type: string
+                                values:
+                                  items:
+                                    type: string
+                                  type: array
+                                  x-kubernetes-list-type: atomic
+                              required:
+                              - key
+                              - operator
+                              type: object
+                            type: array
+                            x-kubernetes-list-type: atomic
+                          matchLabels:
+                            additionalProperties:
+                              type: string
+                            type: object
+                        type: object
+                        x-kubernetes-map-type: atomic
+                      storageClassName:
+                        type: string
+                      volumeAttributesClassName:
+                        type: string
+                      volumeMode:
+                        type: string
+                      volumeName:
+                        type: string
+                    type: object
+                type: object
               auth:
                 properties:
                   mode:
@@ -752150,6 +752428,39 @@ spec:
                 type: string
               disableSecurity:
                 type: boolean
+              distributed:
+                type: boolean
+              gateway:
+                properties:
+                  name:
+                    type: string
+                  rejectUnknown:
+                    type: boolean
+                  remotes:
+                    items:
+                      properties:
+                        name:
+                          type: string
+                        natsRef:
+                          properties:
+                            name:
+                              type: string
+                            namespace:
+                              type: string
+                          required:
+                          - name
+                          type: object
+                        urls:
+                          items:
+                            type: string
+                          type: array
+                      required:
+                      - name
+                      type: object
+                    type: array
+                type: object
+              gatewayTLS:
+                type: boolean
               halted:
                 type: boolean
               healthChecker:
@@ -752283,6 +752594,44 @@ spec:
                     type: string
                   gracePeriod:
                     type: string
+                type: object
+              leafNodeTLS:
+                type: boolean
+              leafNodes:
+                properties:
+                  accept:
+                    type: boolean
+                  jetStreamDomain:
+                    type: string
+                  remotes:
+                    items:
+                      properties:
+                        account:
+                          type: string
+                        credentialsSecret:
+                          properties:
+                            name:
+                              default: ""
+                              type: string
+                          type: object
+                          x-kubernetes-map-type: atomic
+                        domain:
+                          type: string
+                        natsRef:
+                          properties:
+                            name:
+                              type: string
+                            namespace:
+                              type: string
+                          required:
+                          - name
+                          type: object
+                        urls:
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
                 type: object
               monitor:
                 properties:
@@ -755888,6 +756237,7 @@ spec:
                       - stats
                       - dashboard
                       - readreplica
+                      - leafnodes
                       type: string
                     metadata:
                       properties:
@@ -756060,10 +756410,28 @@ spec:
             properties:
               authSecret:
                 properties:
-                  lastUpdateTimestamp:
+                  activeFrom:
                     format: date-time
                     type: string
+                  apiGroup:
+                    default: ""
+                    type: string
+                  externallyManaged:
+                    type: boolean
+                  kind:
+                    default: Secret
+                    type: string
+                  name:
+                    type: string
+                  rotateAfter:
+                    type: string
+                  secretStoreName:
+                    type: string
+                required:
+                - kind
+                - name
                 type: object
+                x-kubernetes-map-type: atomic
               conditions:
                 items:
                   properties:
@@ -882307,6 +882675,19 @@ spec:
                 x-kubernetes-map-type: atomic
               horizontalScaling:
                 properties:
+                  dataCenters:
+                    items:
+                      properties:
+                        clusterName:
+                          type: string
+                        replicas:
+                          format: int32
+                          type: integer
+                      required:
+                      - clusterName
+                      - replicas
+                      type: object
+                    type: array
                   replicas:
                     format: int32
                     type: integer
