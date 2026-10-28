@@ -494,7 +494,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archi
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-archiver:v0.29.0_9.1.0 $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.29.0_9.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-coordinator:v0.46.0 $IMAGE_REGISTRY/kubedb/mysql-coordinator:v0.46.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-csi-snapshotter-plugin:v0.29.0 $IMAGE_REGISTRY/kubedb/mysql-csi-snapshotter-plugin:v0.29.0
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:0.2.0 $IMAGE_REGISTRY/kubedb/mysql-init:0.2.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:0.3.0 $IMAGE_REGISTRY/kubedb/mysql-init:0.3.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-init:5.7-v9 $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-restic-plugin:v0.31.0_5.7.25 $IMAGE_REGISTRY/kubedb/mysql-restic-plugin:v0.31.0_5.7.25
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-restic-plugin:v0.31.0_8.0.21 $IMAGE_REGISTRY/kubedb/mysql-restic-plugin:v0.31.0_8.0.21

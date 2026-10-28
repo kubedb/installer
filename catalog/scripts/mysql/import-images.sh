@@ -56,7 +56,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-arch
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-archiver-v0.29.0_8.4.3.tar $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.29.0_8.4.3
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-archiver-v0.29.0_9.1.0.tar $IMAGE_REGISTRY/kubedb/mysql-archiver:v0.29.0_9.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-coordinator-v0.46.0.tar $IMAGE_REGISTRY/kubedb/mysql-coordinator:v0.46.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-0.2.0.tar $IMAGE_REGISTRY/kubedb/mysql-init:0.2.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-0.3.0.tar $IMAGE_REGISTRY/kubedb/mysql-init:0.3.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-init-5.7-v9.tar $IMAGE_REGISTRY/kubedb/mysql-init:5.7-v9
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-router-init-v0.46.0.tar $IMAGE_REGISTRY/kubedb/mysql-router-init:v0.46.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysqld-exporter-v0.18.0.tar $IMAGE_REGISTRY/kubedb/mysqld-exporter:v0.18.0
