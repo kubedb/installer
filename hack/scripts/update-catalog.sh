@@ -28,6 +28,7 @@ declare -a components=(
     clickhouse
     documentdb
     druid
+    durableworkflow
     elasticsearch
     hazelcast
     kafka
