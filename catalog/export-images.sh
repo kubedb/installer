@@ -444,8 +444,8 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-mi
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mssqlserver:v0.8.0 images/kubedb-kubedb-migrator-mssqlserver-v0.8.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mysql:v0.8.0 images/kubedb-kubedb-migrator-mysql-v0.8.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-postgresql:v0.8.0 images/kubedb-kubedb-migrator-postgresql-v0.8.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.55.0 images/kubedb-kubedb-ops-manager-v0.55.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-provisioner:v0.68.0 images/kubedb-kubedb-provisioner-v0.68.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.55.1 images/kubedb-kubedb-ops-manager-v0.55.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-provisioner:v0.68.1 images/kubedb-kubedb-provisioner-v0.68.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-schema-manager:v0.44.0 images/kubedb-kubedb-schema-manager-v0.44.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ui-server:v0.44.0 images/kubedb-kubedb-ui-server-v0.44.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-verifier:v0.19.0 images/kubedb-kubedb-verifier-v0.19.0.tar

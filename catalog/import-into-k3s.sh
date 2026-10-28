@@ -436,8 +436,8 @@ k3s ctr images import images/kubedb-kubedb-migrator-mongodb-v0.8.0.tar
 k3s ctr images import images/kubedb-kubedb-migrator-mssqlserver-v0.8.0.tar
 k3s ctr images import images/kubedb-kubedb-migrator-mysql-v0.8.0.tar
 k3s ctr images import images/kubedb-kubedb-migrator-postgresql-v0.8.0.tar
-k3s ctr images import images/kubedb-kubedb-ops-manager-v0.55.0.tar
-k3s ctr images import images/kubedb-kubedb-provisioner-v0.68.0.tar
+k3s ctr images import images/kubedb-kubedb-ops-manager-v0.55.1.tar
+k3s ctr images import images/kubedb-kubedb-provisioner-v0.68.1.tar
 k3s ctr images import images/kubedb-kubedb-schema-manager-v0.44.0.tar
 k3s ctr images import images/kubedb-kubedb-ui-server-v0.44.0.tar
 k3s ctr images import images/kubedb-kubedb-verifier-v0.19.0.tar
