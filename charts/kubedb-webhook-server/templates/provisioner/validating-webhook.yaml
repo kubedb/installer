@@ -436,6 +436,25 @@ webhooks:
   sideEffects: None
   matchPolicy: Equivalent
 {{- end }}
+{{- if $featureGates.NATS }}
+- name: natswebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-nats
+      port: 443
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
+  rules:
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["natses"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+  matchPolicy: Equivalent
+{{- end }}
 {{- if $featureGates.Neo4j }}
 - name: neo4jwebhook.validators.kubedb.com
   clientConfig:

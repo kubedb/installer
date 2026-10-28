@@ -48,7 +48,7 @@ if [ ! -d "$OPNPULSE_DIR" ]; then
 fi
 
 DEFAULT_DBS=(clickhouse connectcluster elasticsearch hanadb mariadb milvus mongodb
-    mssqlserver mysql neo4j oracle perconaxtradb pgbouncer postgres proxysql qdrant
+    mssqlserver mysql nats neo4j oracle perconaxtradb pgbouncer postgres proxysql qdrant
     rabbitmq redis solr weaviate zookeeper)
 
 DBS=("$@")
