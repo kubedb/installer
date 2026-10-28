@@ -78,6 +78,7 @@ The following table lists the configurable parameters of the `kubedb-metrics` ch
 | featureGates.Singlestore   |                             | <code>true</code>  |
 | featureGates.Solr          |                             | <code>true</code>  |
 | featureGates.Weaviate      |                             | <code>true</code>  |
+| featureGates.YugabyteDB    |                             | <code>false</code> |
 | featureGates.ZooKeeper     |                             | <code>true</code>  |
 
 

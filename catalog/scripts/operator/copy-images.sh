@@ -102,4 +102,6 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.16.0_8.2.0 $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.16.0_8.2.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.16.0_8.4.0 $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.16.0_8.4.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.16.0_9.7.1 $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.16.0_9.7.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/yugabytedb-restic-plugin:v0.1.0_2025.1.4 $IMAGE_REGISTRY/kubedb/yugabytedb-restic-plugin:v0.1.0_2025.1.4
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/yugabytedb-restic-plugin:v0.1.0_2025.2.8 $IMAGE_REGISTRY/kubedb/yugabytedb-restic-plugin:v0.1.0_2025.2.8
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.23.0 $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.23.0
