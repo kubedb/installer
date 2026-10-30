@@ -144,6 +144,43 @@ spec:
   - driver: Restic
     executor: Job
     function: postgres-physical-backup-restore
+    name: physical-restore-dcdr
+    parameters:
+    - name: args
+      required: false
+      usage: Arguments to be passed to the dump command.
+    - default: postgres
+      name: user
+      required: false
+      usage: Specifies database user (not applicable for basic authentication)
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    - default: tar
+      name: restoreCmd
+      required: false
+      usage: Restore command to use on dumped restic tar file
+    - default: /data
+      name: restorePath
+      required: false
+      usage: Restore Path for postgres data directory
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+  - driver: Restic
+    executor: Job
+    function: postgres-physical-backup-restore
     name: physical-backup-restore
     parameters:
     - name: args
