@@ -301,6 +301,8 @@ const (
 	MySQLComponentRouter  = "router"
 	MySQLCustomConfigFile = "my-inline.cnf"
 
+	MySQLArchiverRestoreAnnotation = "ops.kubedb.com/archiver-restore"
+
 	// mysql volume and volume Mounts
 
 	MySQLVolumeNameTemp      = "tmp"
@@ -359,18 +361,23 @@ const (
 	PerconaXtraDBMySQLUserGroupID              = 1001
 
 	// =========================== MariaDB Constants ============================
-	MariaDBMaxClusterNameLength          = 32
-	MariaDBStandaloneReplicas            = 1
-	MariaDBDefaultClusterSize            = 3
-	MariaDBDataMountPath                 = "/var/lib/mysql"
-	MariaDBDataLostFoundPath             = MariaDBDataMountPath + "/lost+found"
-	MariaDBInitDBVolumeName              = "initial-script"
-	MariaDBInitDBMountPath               = "/docker-entrypoint-initdb.d"
-	MariaDBCustomConfigMountPath         = "/etc/mysql/conf.d/"
-	MariaDBClusterCustomConfigMountPath  = "/etc/mysql/custom.conf.d/"
-	MariaDBCustomConfigVolumeName        = "custom-config"
-	MariaDBTLSConfigCustom               = "custom"
-	MariaDBInitContainerName             = "mariadb-init"
+	MariaDBMaxClusterNameLength         = 32
+	MariaDBStandaloneReplicas           = 1
+	MariaDBDefaultClusterSize           = 3
+	MariaDBDataMountPath                = "/var/lib/mysql"
+	MariaDBDataLostFoundPath            = MariaDBDataMountPath + "/lost+found"
+	MariaDBInitDBVolumeName             = "initial-script"
+	MariaDBInitDBMountPath              = "/docker-entrypoint-initdb.d"
+	MariaDBCustomConfigMountPath        = "/etc/mysql/conf.d/"
+	MariaDBClusterCustomConfigMountPath = "/etc/mysql/custom.conf.d/"
+	MariaDBCustomConfigVolumeName       = "custom-config"
+	MariaDBTLSConfigCustom              = "custom"
+	MariaDBInitContainerName            = "mariadb-init"
+
+	MariaDBComponentKey = MariaDBKey + "/component"
+	MariaDBComponentDB  = "database"
+
+	MariaDBArchiverRestoreAnnotation     = "ops.kubedb.com/archiver-restore"
 	MariaDBCoordinatorContainerName      = "md-coordinator"
 	MariaDBRunScriptVolumeName           = "run-script"
 	MariaDBRunScriptVolumeMountPath      = "/run-script"
@@ -954,6 +961,11 @@ const (
 	// milvus containers when spec.metaStorage.tls is configured.
 	MilvusMetaEtcdTLSVolName   = "meta-etcd-tls"
 	MilvusMetaEtcdTLSMountPath = "/milvus/etcd-tls"
+
+	// MilvusObjectStorageCAVolName / MilvusObjectStorageCAMountPath mount the CA
+	// bundle of spec.objectStorage.tls; the file is always named MilvusTLSCACert.
+	MilvusObjectStorageCAVolName   = "object-storage-ca"
+	MilvusObjectStorageCAMountPath = "/milvus/object-storage-ca"
 
 	// VirtualSecretsMetaEtcdVolume / VirtualSecretsMetaEtcdVolumeMountPath surface
 	// the internally managed meta etcd's virtual auth secret (when
@@ -2670,6 +2682,10 @@ const (
 	// SkipBackupPauseAnnotation, when set to "true" on an OpsRequest, prevents the
 	// ops-manager from pausing the BackupConfiguration before executing the operation.
 	SkipBackupPauseAnnotation = "kubedb.com/skip-backup-pause"
+
+	SuspendArchiverAnnotation = "kubedb.com/suspend-archiver"
+
+	StripPVCDataSourceAnnotation = "kubedb.com/strip-pvc-datasource"
 
 	// Archiver
 	OwnerDatabasesAnnotation                  = "kubedb.com/owner-databases"
