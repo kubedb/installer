@@ -81,6 +81,7 @@ k3s ctr images import images/kubedb-provider-aws-v0.29.0.tar
 k3s ctr images import images/kubedb-provider-azure-v0.29.0.tar
 k3s ctr images import images/kubedb-provider-gcp-v0.29.0.tar
 k3s ctr images import images/kubedb-qdrant-restic-plugin-v0.4.0.tar
+k3s ctr images import images/kubedb-redis-archiver-v0.1.0.tar
 k3s ctr images import images/kubedb-redis-restic-plugin-v0.31.0.tar
 k3s ctr images import images/kubedb-singlestore-restic-plugin-v0.26.0_alma-8.1.32-e3d3cde6da.tar
 k3s ctr images import images/kubedb-singlestore-restic-plugin-v0.26.0_alma-8.5.7-bf633c1a54.tar
