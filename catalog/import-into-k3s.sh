@@ -546,6 +546,7 @@ k3s ctr images import images/kubedb-proxysql-2.7.3-debian.tar
 k3s ctr images import images/kubedb-proxysql-3.0.1-debian.tar
 k3s ctr images import images/kubedb-qdrant-restic-plugin-v0.4.0.tar
 k3s ctr images import images/kubedb-rabbitmq-init-v2026.1.19.tar
+k3s ctr images import images/kubedb-redis-archiver-v0.1.0.tar
 k3s ctr images import images/kubedb-redis-coordinator-v0.47.0.tar
 k3s ctr images import images/kubedb-redis-init-0.12.2.tar
 k3s ctr images import images/kubedb-redis-restic-plugin-v0.31.0.tar
