@@ -24,6 +24,83 @@ spec:
       required: false
       usage: Collections to backup (comma-separated, empty means all)
     singleton: true
+  - driver: Restic
+    executor: Job
+    function: milvus-physical-backup
+    name: physical-backup
+    parameters:
+    - default: DenyWrites
+      name: quiesce
+      required: false
+      usage: How writes are quiesced for the crash-consistent capture. DenyWrites, Flush or None
+    - default: 10s
+      name: fenceSettle
+      required: false
+      usage: Time to let Milvus pick up the write fence (it polls etcd config every 5s)
+    - default: 60s
+      name: fenceTimeout
+      required: false
+      usage: Maximum time writes may stay denied
+    - default: 10m
+      name: flushTimeout
+      required: false
+      usage: FlushAll timeout
+    - default: "false"
+      name: allowQuiesceDowngrade
+      required: false
+      usage: Fall back to Flush when quotaAndLimits.enabled is false
+    - default: "16"
+      name: parallelism
+      required: false
+      usage: Parallel object copies
+    singleton: true
+  - driver: VolumeSnapshotter
+    executor: Job
+    function: milvus-csi-snapshotter
+    name: volume-snapshot
+    parameters:
+    - name: volumeSnapshotClassName
+      required: false
+      usage: VolumeSnapshotClass for the CSI snapshot of the Standalone data PVC (warm cache)
+    - default: DenyWrites
+      name: quiesce
+      required: false
+      usage: How writes are quiesced for the crash-consistent capture. DenyWrites, Flush or None
+    - default: 10s
+      name: fenceSettle
+      required: false
+      usage: Time to let Milvus pick up the write fence
+    - default: 60s
+      name: fenceTimeout
+      required: false
+      usage: Maximum time writes may stay denied
+    - default: "false"
+      name: allowQuiesceDowngrade
+      required: false
+      usage: Fall back to Flush when quotaAndLimits.enabled is false
+    singleton: true
+  - driver: Restic
+    executor: Job
+    function: kubedbmanifest-backup
+    name: manifest-backup
+    parameters:
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
   restoreTasks:
   - driver: Milvus
     executor: Job
@@ -35,4 +112,40 @@ spec:
       required: false
       usage: Suffix appended to restored collection names
     singleton: true
+  - driver: Restic
+    executor: Job
+    function: milvus-physical-backup-restore
+    name: physical-backup-restore
+    parameters:
+    - default: sample
+      name: verify
+      required: false
+      usage: Verification after the restore. sample, full or none
+    - default: "16"
+      name: parallelism
+      required: false
+      usage: Parallel object copies
+    singleton: true
+  - driver: Restic
+    executor: Job
+    function: kubedbmanifest-restore
+    name: manifest-restore
+    parameters:
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
 {{ end }}

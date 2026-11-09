@@ -33,7 +33,8 @@ mv /tmp/crane images
 CMD="./images/crane"
 
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/documentdb/documentdb/documentdb-local:pg17-0.109.0 images/documentdb-documentdb-documentdb-local-pg17-0.109.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/documentdb-coordinator:v0.3.0-rc.2 images/kubedb-documentdb-coordinator-v0.3.0-rc.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/documentdb-coordinator:v0.4.0 images/kubedb-documentdb-coordinator-v0.4.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/documentdb-init:0.1.0 images/kubedb-documentdb-init-0.1.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-archiver:v0.28.0-rc.2_17.2-alpine images/kubedb-postgres-archiver-v0.28.0-rc.2_17.2-alpine.tar
 
 tar -czvf images.tar.gz images

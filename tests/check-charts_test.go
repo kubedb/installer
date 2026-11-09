@@ -29,6 +29,9 @@ var ignoreMissingList = []string{
 	"container-registry.oracle.com/database/enterprise:21.3.0.0",
 	"container-registry.oracle.com/database/observability-exporter:2.2.1",
 	"ghcr.io/kubedb/db2-coordinator:*-ubi",
+	// Not released in v2026.10.12: the plugin's code (kubedb/documentdb-csi-snapshotter-plugin#1)
+	// is not merged yet, so no image is published for this release.
+	"ghcr.io/kubedb/documentdb-csi-snapshotter-plugin:*",
 }
 
 var archSkipList = []string{
@@ -36,6 +39,9 @@ var archSkipList = []string{
 	// no arm64 build. Added late: the 16.9 catalog entries landed in #2425 without
 	// this, which has failed Test_CheckImageArchitectures on master since then.
 	"ghcr.io/appscode-images/postgres-enterprise:*",
+	// The stream9-ext archivers are built FROM postgres-enterprise stream9, which is amd64-only,
+	// so postgres-archiver builds them for amd64 only (AMD64_ONLY_DB_PATTERNS in its Makefile).
+	"ghcr.io/kubedb/postgres-archiver:*-stream9-ext",
 	"ghcr.io/appscode-images/weaviate:1.33.1", // Docker inspect not showing any arm64 image
 	"docker.io/floragunncom/sg-elasticsearch:7.9.3-oss-47.1.0",
 	"ghcr.io/appscode-images/druid:28.0.1",

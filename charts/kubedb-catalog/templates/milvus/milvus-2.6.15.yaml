@@ -1,0 +1,49 @@
+{{- template "kubedb-catalog.refresh-versions" . }}
+
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.Milvus (not (eq $ubi "operator")) }}
+{{ if not (has "2.6.15" .Values.disableVersions.Milvus) }}
+
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MilvusVersion
+metadata:
+  name: '2.6.15'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/milvus") $) }}:2.6.15'
+  etcdVersion: v3.5.21
+  securityContext:
+    runAsUser: 1000
+  version: 2.6.15
+{{ end }}
+
+---
+{{ if not (has "2.6.15-gpu" .Values.disableVersions.Milvus) }}
+
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MilvusVersion
+metadata:
+  name: '2.6.15-gpu'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    gpu:
+      supported: true
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/milvus") $) }}:2.6.15-gpu'
+  etcdVersion: v3.5.21
+  securityContext:
+    runAsUser: 1000
+  version: 2.6.15
+{{ end }}
+{{ end }}

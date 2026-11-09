@@ -1,5 +1,5 @@
 {{- if eq "true" ( include "security.useCiliumNetworkPolicy" . ) }}
-# Allow provisioner pods to reach external registries.
+# Allow the operator pods to reach external registries.
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
@@ -8,7 +8,7 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/name: kubedb-provisioner
+      app.kubernetes.io/instance: {{ .Release.Name }}
   egress:
   - toEntities:
     - world
@@ -17,7 +17,7 @@ spec:
       - port: "443"
         protocol: TCP
 ---
-# Allow the provisioner pods to reach database pods (any kubedb-managed
+# Allow the operator pods to reach database pods (any kubedb-managed
 # namespace, on the standard DB ports).
 apiVersion: cilium.io/v2
 kind: CiliumClusterwideNetworkPolicy
@@ -26,7 +26,7 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/name: kubedb-provisioner
+      app.kubernetes.io/instance: {{ .Release.Name }}
       k8s:io.kubernetes.pod.namespace: {{ .Release.Namespace }}
   egress:
   - toEndpoints:
