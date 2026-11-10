@@ -27,62 +27,7 @@ import (
 )
 
 func main() {
-	r := configdata.LicenseRestrictions{
-		dbv1a2.ResourceKindDruid: configdata.Restrictions{{
-			VersionConstraint: "*",
-		}},
-		dbv1.ResourceKindElasticsearch: configdata.Restrictions{{
-			VersionConstraint: "*",
-			Distributions:     []string{"OpenSearch"},
-		}},
-		dbv1.ResourceKindKafka: configdata.Restrictions{{
-			VersionConstraint: "*",
-		}},
-		dbv1.ResourceKindMariaDB: configdata.Restrictions{{
-			VersionConstraint: "*",
-		}},
-		dbv1.ResourceKindMemcached: configdata.Restrictions{{
-			VersionConstraint: "*",
-		}},
-		dbv1.ResourceKindMySQL: configdata.Restrictions{{
-			VersionConstraint: "*",
-		}},
-		dbv1.ResourceKindPerconaXtraDB: configdata.Restrictions{{
-			VersionConstraint: "*",
-		}},
-		dbv1.ResourceKindPgBouncer: configdata.Restrictions{{
-			VersionConstraint: "*",
-		}},
-		dbv1a2.ResourceKindPgpool: configdata.Restrictions{{
-			VersionConstraint: "*",
-		}},
-		dbv1.ResourceKindPostgres: configdata.Restrictions{{
-			VersionConstraint: "*",
-			Distributions:     []string{"Official"},
-		}},
-		dbv1.ResourceKindProxySQL: configdata.Restrictions{{
-			VersionConstraint: "*",
-		}},
-		dbv1a2.ResourceKindRabbitmq: configdata.Restrictions{{
-			VersionConstraint: "*",
-		}},
-		dbv1.ResourceKindRedis: configdata.Restrictions{
-			{
-				VersionConstraint: "<= 7.2.4",
-				Distributions:     []string{"Official"},
-			},
-			{
-				VersionConstraint: ">= 7.2.5",
-				Distributions:     []string{"Valkey"},
-			},
-		},
-		dbv1a2.ResourceKindSolr: configdata.Restrictions{{
-			VersionConstraint: "*",
-		}},
-		dbv1a2.ResourceKindZooKeeper: configdata.Restrictions{{
-			VersionConstraint: "*",
-		}},
-	}
+	r := openSourceRestrictions()
 
 	fmt.Printf("License Restrictions:\n")
 	je := json.NewEncoder(os.Stdout)
@@ -97,5 +42,97 @@ func main() {
 	err = je.Encode(r.ToV1())
 	if err != nil {
 		panic(err)
+	}
+}
+
+func openSourceRestrictions() configdata.LicenseRestrictions {
+	return configdata.LicenseRestrictions{
+		dbv1a2.ResourceKindAerospike: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
+		dbv1a2.ResourceKindCassandra: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
+		dbv1a2.ResourceKindClickHouse: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
+		dbv1a2.ResourceKindDocumentDB: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
+		dbv1a2.ResourceKindDruid: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
+		dbv1.ResourceKindElasticsearch: configdata.Restrictions{{
+			VersionConstraint: "*",
+			Distributions:     []string{"OpenSearch"},
+		}},
+		dbv1a2.ResourceKindEtcd: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
+		dbv1a2.ResourceKindIgnite: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
+		dbv1.ResourceKindKafka: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
+		dbv1.ResourceKindMariaDB: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
+		dbv1.ResourceKindMemcached: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
+		dbv1a2.ResourceKindMilvus: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
+		dbv1.ResourceKindMySQL: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
+		dbv1.ResourceKindPerconaXtraDB: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
+		dbv1.ResourceKindPgBouncer: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
+		dbv1a2.ResourceKindPgpool: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
+		dbv1.ResourceKindPostgres: configdata.Restrictions{
+			{
+				VersionConstraint: "*",
+				Distributions:     []string{"Official", "PostGIS", "DocumentDB", "Percona"},
+			},
+			{
+				VersionConstraint: "= 11.11 || = 12.6 || = 13.14 || = 14.11",
+				Distributions:     []string{"TimescaleDB"},
+			},
+		},
+		dbv1.ResourceKindProxySQL: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
+		dbv1a2.ResourceKindQdrant: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
+		dbv1a2.ResourceKindRabbitmq: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
+		dbv1.ResourceKindRedis: configdata.Restrictions{
+			{
+				VersionConstraint: "< 7.3.0 || >= 8.0.0",
+				Distributions:     []string{"Official"},
+			},
+			{
+				VersionConstraint: "*",
+				Distributions:     []string{"Valkey"},
+			},
+		},
+		dbv1a2.ResourceKindSolr: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
+		dbv1a2.ResourceKindWeaviate: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
+		dbv1a2.ResourceKindZooKeeper: configdata.Restrictions{{
+			VersionConstraint: "*",
+		}},
 	}
 }
