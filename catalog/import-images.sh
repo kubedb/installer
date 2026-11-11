@@ -395,6 +395,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-v
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-valkey-8.1.1.tar $IMAGE_REGISTRY/appscode-images/valkey:8.1.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-weaviate-1.33.1.tar $IMAGE_REGISTRY/appscode-images/weaviate:1.33.1
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-weaviate-1.37.12.tar $IMAGE_REGISTRY/appscode-images/weaviate:1.37.12
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-yugabyte-2025.1.4.0-b103.tar $IMAGE_REGISTRY/appscode-images/yugabyte:2025.1.4.0-b103
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-yugabyte-2025.2.8.0-b60.tar $IMAGE_REGISTRY/appscode-images/yugabyte:2025.2.8.0-b60
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-zookeeper-3.7.2.tar $IMAGE_REGISTRY/appscode-images/zookeeper:3.7.2
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-zookeeper-3.8.3.tar $IMAGE_REGISTRY/appscode-images/zookeeper:3.8.3
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-zookeeper-3.9.1.tar $IMAGE_REGISTRY/appscode-images/zookeeper:3.9.1
@@ -572,6 +574,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-xtrabackup
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-xtrabackup-restic-plugin-v0.16.0_8.2.0.tar $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.16.0_8.2.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-xtrabackup-restic-plugin-v0.16.0_8.4.0.tar $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.16.0_8.4.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-xtrabackup-restic-plugin-v0.16.0_9.7.1.tar $IMAGE_REGISTRY/kubedb/xtrabackup-restic-plugin:v0.16.0_9.7.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-yugabytedb-restic-plugin-v0.1.0_2025.1.4.tar $IMAGE_REGISTRY/kubedb/yugabytedb-restic-plugin:v0.1.0_2025.1.4
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-yugabytedb-restic-plugin-v0.1.0_2025.2.8.tar $IMAGE_REGISTRY/kubedb/yugabytedb-restic-plugin:v0.1.0_2025.2.8
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-init-3.7-v1.tar $IMAGE_REGISTRY/kubedb/zookeeper-init:3.7-v1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-zookeeper-restic-plugin-v0.23.0.tar $IMAGE_REGISTRY/kubedb/zookeeper-restic-plugin:v0.23.0
 $CMD push --allow-nondistributable-artifacts --insecure images/mssql-server-2022-CU12-ubuntu-22.04.tar $IMAGE_REGISTRY/mssql/server:2022-CU12-ubuntu-22.04

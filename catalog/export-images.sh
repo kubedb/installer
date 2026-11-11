@@ -401,6 +401,8 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/valkey:8.1.1 images/appscode-images-valkey-8.1.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/weaviate:1.33.1 images/appscode-images-weaviate-1.33.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/weaviate:1.37.12 images/appscode-images-weaviate-1.37.12.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/yugabyte:2025.1.4.0-b103 images/appscode-images-yugabyte-2025.1.4.0-b103.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/yugabyte:2025.2.8.0-b60 images/appscode-images-yugabyte-2025.2.8.0-b60.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.7.2 images/appscode-images-zookeeper-3.7.2.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.8.3 images/appscode-images-zookeeper-3.8.3.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/zookeeper:3.9.1 images/appscode-images-zookeeper-3.9.1.tar
@@ -578,6 +580,8 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabacku
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.16.0_8.2.0 images/kubedb-xtrabackup-restic-plugin-v0.16.0_8.2.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.16.0_8.4.0 images/kubedb-xtrabackup-restic-plugin-v0.16.0_8.4.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.16.0_9.7.1 images/kubedb-xtrabackup-restic-plugin-v0.16.0_9.7.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/yugabytedb-restic-plugin:v0.1.0_2025.1.4 images/kubedb-yugabytedb-restic-plugin-v0.1.0_2025.1.4.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/yugabytedb-restic-plugin:v0.1.0_2025.2.8 images/kubedb-yugabytedb-restic-plugin-v0.1.0_2025.2.8.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-init:3.7-v1 images/kubedb-zookeeper-init-3.7-v1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.23.0 images/kubedb-zookeeper-restic-plugin-v0.23.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04 images/mssql-server-2022-CU12-ubuntu-22.04.tar

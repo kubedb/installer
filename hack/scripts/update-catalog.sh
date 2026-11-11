@@ -50,6 +50,7 @@ declare -a components=(
     schemaregistry
     singlestore
     solr
+    yugabytedb
     zookeeper
 )
 

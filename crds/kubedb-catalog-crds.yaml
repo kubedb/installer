@@ -5342,6 +5342,144 @@ kind: CustomResourceDefinition
 metadata:
   labels:
     app.kubernetes.io/name: kubedb
+  name: yugabytedbversions.catalog.kubedb.com
+spec:
+  group: catalog.kubedb.com
+  names:
+    categories:
+    - catalog
+    - kubedb
+    - appscode
+    kind: YugabyteDBVersion
+    listKind: YugabyteDBVersionList
+    plural: yugabytedbversions
+    shortNames:
+    - ybversion
+    singular: yugabytedbversion
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.version
+      name: Version
+      type: string
+    - jsonPath: .spec.db.image
+      name: DB_IMAGE
+      type: string
+    - jsonPath: .spec.deprecated
+      name: Deprecated
+      type: boolean
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              build:
+                type: string
+              db:
+                properties:
+                  image:
+                    type: string
+                required:
+                - image
+                type: object
+              defaultFlags:
+                properties:
+                  master:
+                    additionalProperties:
+                      type: string
+                    type: object
+                  tserver:
+                    additionalProperties:
+                      type: string
+                    type: object
+                type: object
+              deprecated:
+                type: boolean
+              endOfLife:
+                type: boolean
+              features:
+                properties:
+                  clientOnlyCertReload:
+                    type: boolean
+                type: object
+              memory:
+                properties:
+                  masterLimitPercent:
+                    default: 85
+                    format: int32
+                    maximum: 100
+                    minimum: 1
+                    type: integer
+                  tserverLimitPercent:
+                    default: 70
+                    format: int32
+                    maximum: 100
+                    minimum: 1
+                    type: integer
+                type: object
+              securityContext:
+                properties:
+                  runAsUser:
+                    format: int64
+                    type: integer
+                type: object
+              ui:
+                items:
+                  properties:
+                    disable:
+                      type: boolean
+                    name:
+                      type: string
+                    values:
+                      x-kubernetes-preserve-unknown-fields: true
+                    version:
+                      type: string
+                  required:
+                  - name
+                  type: object
+                type: array
+              updateConstraints:
+                properties:
+                  allowlist:
+                    items:
+                      type: string
+                    type: array
+                  denylist:
+                    items:
+                      type: string
+                    type: array
+                type: object
+              version:
+                type: string
+              ysqlMajorVersion:
+                format: int32
+                type: integer
+            required:
+            - db
+            - version
+            - ysqlMajorVersion
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  labels:
+    app.kubernetes.io/name: kubedb
   name: zookeeperversions.catalog.kubedb.com
 spec:
   group: catalog.kubedb.com

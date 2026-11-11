@@ -99,6 +99,8 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabacku
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.16.0_8.2.0 images/kubedb-xtrabackup-restic-plugin-v0.16.0_8.2.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.16.0_8.4.0 images/kubedb-xtrabackup-restic-plugin-v0.16.0_8.4.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/xtrabackup-restic-plugin:v0.16.0_9.7.1 images/kubedb-xtrabackup-restic-plugin-v0.16.0_9.7.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/yugabytedb-restic-plugin:v0.1.0_2025.1.4 images/kubedb-yugabytedb-restic-plugin-v0.1.0_2025.1.4.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/yugabytedb-restic-plugin:v0.1.0_2025.2.8 images/kubedb-yugabytedb-restic-plugin-v0.1.0_2025.2.8.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/zookeeper-restic-plugin:v0.23.0 images/kubedb-zookeeper-restic-plugin-v0.23.0.tar
 
 tar -czvf images.tar.gz images

@@ -1,0 +1,32 @@
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.YugabyteDB (not (eq $ubi "operator")) }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'yugabytedb-restore'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  args:
+  - restore
+  - --namespace=${namespace:=default}
+  - --restoresession=${restoreSession:=}
+  - --snapshot=${snapshot:=}
+  - --enable-cache=${enableCache:=}
+  - --scratch-dir=${scratchDir:=}
+  - --wait-timeout=${waitTimeout:={{ .Values.waitTimeout}}}
+  - --ysql-args=${args:={{ .Values.yugabytedb.restore.args }}}
+  - --databases=${databases:=}
+  - --include-roles=${includeRoles:=}
+  - --jobs=${jobs:=}
+  availableVersions:
+  - 2025.1.4
+  - 2025.2.8
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/yugabytedb-restic-plugin") $) }}:v0.1.0_${DB_VERSION}{{ include "catalog.ubi" $ }}'
+{{ end }}

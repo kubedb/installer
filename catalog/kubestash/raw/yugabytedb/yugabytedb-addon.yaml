@@ -1,0 +1,127 @@
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Addon
+metadata:
+  name: yugabytedb-addon
+spec:
+  backupTasks:
+  - name: logical-backup
+    function: yugabytedb-backup
+    driver: Restic
+    executor: Job
+    singleton: true
+    parameters:
+    - name: args
+      usage: Extra arguments to be passed to ysql_dump, separated by comma.
+      required: false
+    - name: databases
+      usage: Comma-separated list of YSQL databases to backup. If not specified, all user databases are backed up.
+      required: false
+    - name: excludeDatabases
+      usage: Comma-separated list of YSQL databases to skip.
+      required: false
+      default: "template0,template1,system_platform"
+    - name: includeRoles
+      usage: Backup roles and tablespaces with ysql_dumpall --roles-only.
+      required: false
+      default: "true"
+    - name: jobs
+      usage: Number of parallel jobs of ysql_dump (-j).
+      required: false
+      default: "4"
+    - name: enableCache
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+      required: false
+      default: "true"
+    - name: scratchDir
+      usage: Directory for holding temporary files and restic cache.
+      required: false
+      default: /kubestash-tmp
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      usage: Holds temporary files and restic cache.
+      source:
+        emptyDir: {}
+    volumeMounts:
+    - name: kubestash-tmp-volume
+      mountPath: /kubestash-tmp
+  - name: manifest-backup
+    function: kubedbmanifest-backup
+    driver: Restic
+    executor: Job
+    singleton: true
+    parameters:
+    - name: enableCache
+      usage: Enable or disable caching.
+      required: false
+      default: "true"
+    - name: scratchDir
+      usage: Directory for temp files/cache.
+      required: false
+      default: /kubestash-tmp
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      usage: Holds temp files and restic cache.
+      source:
+        emptyDir: {}
+    volumeMounts:
+    - name: kubestash-tmp-volume
+      mountPath: /kubestash-tmp
+  restoreTasks:
+  - name: logical-backup-restore
+    function: yugabytedb-restore
+    driver: Restic
+    executor: Job
+    singleton: true
+    parameters:
+    - name: args
+      usage: Extra arguments to be passed to pg_restore, separated by comma.
+      required: false
+    - name: databases
+      usage: Comma-separated list of YSQL databases to restore. If not specified, all databases in the snapshot are restored.
+      required: false
+    - name: includeRoles
+      usage: Restore roles and tablespaces from the roles dump before the databases.
+      required: false
+      default: "true"
+    - name: jobs
+      usage: Number of parallel jobs of pg_restore (-j).
+      required: false
+      default: "4"
+    - name: enableCache
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+      required: false
+      default: "true"
+    - name: scratchDir
+      usage: Directory for holding temporary files and restic cache.
+      required: false
+      default: /kubestash-tmp
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      usage: Holds temporary files and restic cache.
+      source:
+        emptyDir: {}
+    volumeMounts:
+    - name: kubestash-tmp-volume
+      mountPath: /kubestash-tmp
+  - name: manifest-restore
+    function: kubedbmanifest-restore
+    driver: Restic
+    executor: Job
+    singleton: true
+    parameters:
+    - name: enableCache
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+      required: false
+      default: "true"
+    - name: scratchDir
+      usage: Directory for holding temporary files and restic cache.
+      required: false
+      default: /kubestash-tmp
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      usage: Holds temporary files and restic cache.
+      source:
+        emptyDir: {}
+    volumeMounts:
+    - name: kubestash-tmp-volume
+      mountPath: /kubestash-tmp

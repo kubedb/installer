@@ -91,4 +91,6 @@ k3s ctr images import images/kubedb-xtrabackup-restic-plugin-v0.16.0_8.1.0.tar
 k3s ctr images import images/kubedb-xtrabackup-restic-plugin-v0.16.0_8.2.0.tar
 k3s ctr images import images/kubedb-xtrabackup-restic-plugin-v0.16.0_8.4.0.tar
 k3s ctr images import images/kubedb-xtrabackup-restic-plugin-v0.16.0_9.7.1.tar
+k3s ctr images import images/kubedb-yugabytedb-restic-plugin-v0.1.0_2025.1.4.tar
+k3s ctr images import images/kubedb-yugabytedb-restic-plugin-v0.1.0_2025.2.8.tar
 k3s ctr images import images/kubedb-zookeeper-restic-plugin-v0.23.0.tar
