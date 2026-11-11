@@ -31,4 +31,4 @@ k3s ctr images import images/appscode-images-milvus-2.6.7.tar
 k3s ctr images import images/appscode-images-milvus-2.6.9.tar
 k3s ctr images import images/appscode-images-milvus-3.0.0.tar
 k3s ctr images import images/appscode-images-milvus-3.0.0-gpu.tar
-k3s ctr images import images/kubedb-milvus-archiver-v0.2.1.tar
+k3s ctr images import images/kubedb-milvus-archiver-v0.3.0.tar

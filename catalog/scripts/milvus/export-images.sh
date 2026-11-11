@@ -39,6 +39,6 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/milvus:2.6.9 images/appscode-images-milvus-2.6.9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/milvus:3.0.0 images/appscode-images-milvus-3.0.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/milvus:3.0.0-gpu images/appscode-images-milvus-3.0.0-gpu.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/milvus-archiver:v0.2.1 images/kubedb-milvus-archiver-v0.2.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/milvus-archiver:v0.3.0 images/kubedb-milvus-archiver-v0.3.0.tar
 
 tar -czvf images.tar.gz images

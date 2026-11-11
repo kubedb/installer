@@ -33,4 +33,4 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-milvus-2.6.9.tar $IMAGE_REGISTRY/appscode-images/milvus:2.6.9
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-milvus-3.0.0.tar $IMAGE_REGISTRY/appscode-images/milvus:3.0.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-milvus-3.0.0-gpu.tar $IMAGE_REGISTRY/appscode-images/milvus:3.0.0-gpu
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-milvus-archiver-v0.2.1.tar $IMAGE_REGISTRY/kubedb/milvus-archiver:v0.2.1
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-milvus-archiver-v0.3.0.tar $IMAGE_REGISTRY/kubedb/milvus-archiver:v0.3.0

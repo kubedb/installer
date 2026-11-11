@@ -42,4 +42,4 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mi
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/milvus:2.6.9 $IMAGE_REGISTRY/appscode-images/milvus:2.6.9
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/milvus:3.0.0 $IMAGE_REGISTRY/appscode-images/milvus:3.0.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/milvus:3.0.0-gpu $IMAGE_REGISTRY/appscode-images/milvus:3.0.0-gpu
-$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/milvus-archiver:v0.2.1 $IMAGE_REGISTRY/kubedb/milvus-archiver:v0.2.1
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/milvus-archiver:v0.3.0 $IMAGE_REGISTRY/kubedb/milvus-archiver:v0.3.0
