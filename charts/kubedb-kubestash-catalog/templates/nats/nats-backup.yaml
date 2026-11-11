@@ -1,0 +1,30 @@
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.NATS (not (eq $ubi "operator")) }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Function
+metadata:
+  name: 'nats-backup'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  args:
+  - backup
+  - --namespace=${namespace:=default}
+  - --backupsession=${backupSession:=}
+  - --wait-timeout=${waitTimeout:={{ .Values.waitTimeout}}}
+  - --enable-cache=${enableCache:=}
+  - --scratch-dir=${scratchDir:=}
+  - --streams=${streams:=}
+  - --exclude-streams=${excludeStreams:=}
+  - --include-consumers=${includeConsumers:=}
+  - --chunk-size=${chunkSize:=}
+  - --window-size=${windowSize:=}
+  - --js-domain=${jsDomain:=}
+  image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/nats-plugin") $) }}:v0.1.0{{ include "catalog.ubi" $ }}'
+{{ end }}

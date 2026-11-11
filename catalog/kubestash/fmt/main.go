@@ -94,6 +94,7 @@ var appToKind = map[string]string{
 	"mongodb":            "MongoDB",
 	"mssqlserver":        "MSSQLServer",
 	"mysql":              "MySQL",
+	"nats":               "NATS",
 	"neo4j":              "Neo4j",
 	"oracle":             "Oracle",
 	"perconaxtradb":      "PerconaXtraDB",

@@ -1,0 +1,38 @@
+{{- template "kubedb-catalog.refresh-versions" . }}
+
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.NATS (not (eq $ubi "operator")) }}
+{{ if not (has "2.14.8" .Values.disableVersions.NATS) }}
+
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: NATSVersion
+metadata:
+  name: '2.14.8'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  db:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/nats") $) }}:2.14.8-alpine'
+  exporter:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/prometheus-nats-exporter") $) }}:0.20.2'
+  lameDuck:
+    duration: 30s
+    gracePeriod: 10s
+  reloader:
+    image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/nats-server-config-reloader") $) }}:0.24.0'
+  securityContext:
+    runAsUser: 1000
+  updateConstraints:
+    allowlist:
+    - '>= 2.13.0, < 2.15.0'
+    denylist: []
+  version: 2.14.8
+{{ end }}
+{{ end }}

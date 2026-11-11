@@ -40,7 +40,7 @@ fi
 # DBs to sync: every DB that has perses sources in opnpulse. A DB dir with no
 # *-perses.json is skipped at runtime, so listing one that lacks sources is safe.
 DBS=(cassandra clickhouse connectcluster druid elasticsearch hanadb hazelcast
-    ignite kafka mariadb memcached milvus mongodb mssqlserver mysql neo4j oracle
+    ignite kafka mariadb memcached milvus mongodb mssqlserver mysql nats neo4j oracle
     perconaxtradb pgbouncer pgpool postgres proxysql qdrant rabbitmq redis
     singlestore solr zookeeper)
 

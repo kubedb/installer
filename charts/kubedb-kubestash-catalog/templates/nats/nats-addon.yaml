@@ -1,0 +1,136 @@
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.NATS (not (eq $ubi "operator")) }}
+apiVersion: addons.kubestash.com/v1alpha1
+kind: Addon
+metadata:
+  name: 'nats-addon'
+  labels:
+    {{- include "kubedb-kubestash-catalog.labels" . | nindent 4 }}
+spec:
+  backupTasks:
+  - driver: Restic
+    executor: Job
+    function: nats-backup
+    name: logical-backup
+    parameters:
+    - name: streams
+      required: false
+      usage: Comma separated JetStream streams to back up. Empty means all streams of the application account.
+    - name: excludeStreams
+      required: false
+      usage: Comma separated JetStream streams to leave out.
+    - default: "true"
+      name: includeConsumers
+      required: false
+      usage: Include the consumers and their positions in the stream snapshots.
+    - name: chunkSize
+      required: false
+      usage: Chunk size in bytes of the server's snapshot stream. Lower it on a slow link.
+    - name: windowSize
+      required: false
+      usage: Flow control window in bytes of the server's snapshot stream. Lower it on a slow link.
+    - name: jsDomain
+      required: false
+      usage: JetStream domain of the server, if it has one.
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for temp files/cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+  - driver: Restic
+    executor: Job
+    function: kubedbmanifest-backup
+    name: manifest-backup
+    parameters:
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for temp files/cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temp files and restic cache.
+  restoreTasks:
+  - driver: Restic
+    executor: Job
+    function: nats-restore
+    name: logical-backup-restore
+    parameters:
+    - default: "true"
+      name: overwriteKeys
+      required: false
+      usage: Operator mode. Overwrite the key Secrets of the target with the ones in the snapshot.
+    - name: jsDomain
+      required: false
+      usage: JetStream domain of the server, if it has one.
+    - default: "300"
+      name: waitTimeout
+      required: false
+      usage: Seconds to wait for the NATS to be ready.
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for temp files/cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+  - driver: Restic
+    executor: Job
+    function: kubedbmanifest-restore
+    name: manifest-restore
+    parameters:
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for temp files/cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files and restic cache.
+{{ end }}

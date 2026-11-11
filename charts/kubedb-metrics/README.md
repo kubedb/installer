@@ -65,6 +65,7 @@ The following table lists the configurable parameters of the `kubedb-metrics` ch
 | featureGates.MongoDB       |                             | <code>true</code>  |
 | featureGates.MSSQLServer   |                             | <code>true</code>  |
 | featureGates.MySQL         |                             | <code>true</code>  |
+| featureGates.NATS          |                             | <code>true</code>  |
 | featureGates.Neo4j         |                             | <code>true</code>  |
 | featureGates.Oracle        |                             | <code>true</code>  |
 | featureGates.PerconaXtraDB |                             | <code>true</code>  |
