@@ -83,6 +83,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-a
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-azure-v0.29.0.tar $IMAGE_REGISTRY/kubedb/provider-azure:v0.29.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-gcp-v0.29.0.tar $IMAGE_REGISTRY/kubedb/provider-gcp:v0.29.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-qdrant-restic-plugin-v0.4.0.tar $IMAGE_REGISTRY/kubedb/qdrant-restic-plugin:v0.4.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-archiver-v0.1.0.tar $IMAGE_REGISTRY/kubedb/redis-archiver:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-restic-plugin-v0.31.0.tar $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.31.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-singlestore-restic-plugin-v0.26.0_alma-8.1.32-e3d3cde6da.tar $IMAGE_REGISTRY/kubedb/singlestore-restic-plugin:v0.26.0_alma-8.1.32-e3d3cde6da
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-singlestore-restic-plugin-v0.26.0_alma-8.5.7-bf633c1a54.tar $IMAGE_REGISTRY/kubedb/singlestore-restic-plugin:v0.26.0_alma-8.5.7-bf633c1a54

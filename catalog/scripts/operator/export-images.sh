@@ -89,6 +89,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-azure:v0.29.0 images/kubedb-provider-azure-v0.29.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-gcp:v0.29.0 images/kubedb-provider-gcp-v0.29.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/qdrant-restic-plugin:v0.4.0 images/kubedb-qdrant-restic-plugin-v0.4.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-archiver:v0.1.0 images/kubedb-redis-archiver-v0.1.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.31.0 images/kubedb-redis-restic-plugin-v0.31.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-restic-plugin:v0.26.0_alma-8.1.32-e3d3cde6da images/kubedb-singlestore-restic-plugin-v0.26.0_alma-8.1.32-e3d3cde6da.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-restic-plugin:v0.26.0_alma-8.5.7-bf633c1a54 images/kubedb-singlestore-restic-plugin-v0.26.0_alma-8.5.7-bf633c1a54.tar

@@ -92,6 +92,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-aw
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-azure:v0.29.0 $IMAGE_REGISTRY/kubedb/provider-azure:v0.29.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-gcp:v0.29.0 $IMAGE_REGISTRY/kubedb/provider-gcp:v0.29.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/qdrant-restic-plugin:v0.4.0 $IMAGE_REGISTRY/kubedb/qdrant-restic-plugin:v0.4.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-archiver:v0.1.0 $IMAGE_REGISTRY/kubedb/redis-archiver:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.31.0 $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.31.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-restic-plugin:v0.26.0_alma-8.1.32-e3d3cde6da $IMAGE_REGISTRY/kubedb/singlestore-restic-plugin:v0.26.0_alma-8.1.32-e3d3cde6da
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-restic-plugin:v0.26.0_alma-8.5.7-bf633c1a54 $IMAGE_REGISTRY/kubedb/singlestore-restic-plugin:v0.26.0_alma-8.5.7-bf633c1a54

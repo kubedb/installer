@@ -547,6 +547,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-proxysql-3.0.1-debian.tar $IMAGE_REGISTRY/kubedb/proxysql:3.0.1-debian
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-qdrant-restic-plugin-v0.4.0.tar $IMAGE_REGISTRY/kubedb/qdrant-restic-plugin:v0.4.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-rabbitmq-init-v2026.1.19.tar $IMAGE_REGISTRY/kubedb/rabbitmq-init:v2026.1.19
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-archiver-v0.1.0.tar $IMAGE_REGISTRY/kubedb/redis-archiver:v0.1.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-coordinator-v0.47.0.tar $IMAGE_REGISTRY/kubedb/redis-coordinator:v0.47.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-init-0.12.2.tar $IMAGE_REGISTRY/kubedb/redis-init:0.12.2
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-redis-restic-plugin-v0.31.0.tar $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.31.0
