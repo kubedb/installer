@@ -53,8 +53,8 @@ k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.26.0_10.11.6-jammy.
 k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.26.0_10.4.32-focal.tar
 k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.26.0_10.6.16-focal.tar
 k3s ctr images import images/kubedb-mariadb-restic-plugin-v0.26.0_11.1.3-jammy.tar
-k3s ctr images import images/kubedb-milvus-backup-plugin-v0.1.0.tar
-k3s ctr images import images/kubedb-milvus-csi-snapshotter-plugin-v0.2.0.tar
+k3s ctr images import images/kubedb-milvus-backup-plugin-v0.1.1.tar
+k3s ctr images import images/kubedb-milvus-csi-snapshotter-plugin-v0.3.0.tar
 k3s ctr images import images/kubedb-mongodb-csi-snapshotter-plugin-v0.29.0.tar
 k3s ctr images import images/kubedb-mongodb-restic-plugin-v0.31.0_4.2.3.tar
 k3s ctr images import images/kubedb-mongodb-restic-plugin-v0.31.0_4.4.6.tar
