@@ -23,6 +23,14 @@ spec:
         - name: targetPod
           required: false
           usage: Oracle pod to run RMAN on.
+        - default: full
+          name: backupStrategy
+          required: false
+          usage: >-
+            full: a plain RMAN full backup. incremental: an RMAN INCREMENTAL
+            LEVEL 0, identical in content but the only kind of backup the
+            incremental-backup loop can chain LEVEL 1 and archived log backups
+            to, which point-in-time recovery needs.
       singleton: true
       volumeMounts:
         - mountPath: /kubestash-tmp
@@ -59,6 +67,14 @@ spec:
             Recovery target as an SCN. Defaults to the boundary recorded on the
             snapshot, which stops recovery exactly at the backup so no redo
             written after it is applied. Only set this to override that.
+        - name: recoveryTimestamp
+          required: false
+          usage: >-
+            Point-in-time recovery target as an RFC 3339 instant, e.g.
+            2026-11-11T14:32:10Z. Picks the LEVEL 0 full backup whose recovery
+            window covers it from the snapshot's repository and restores every
+            change committed before it. Mutually exclusive with untilTime and
+            untilSCN.
         - default: "false"
           name: restoreSPFile
           required: false

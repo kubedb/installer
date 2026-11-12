@@ -18,6 +18,16 @@ metadata:
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
+  archiver:
+    addon:
+      name: oracle-addon
+      tasks:
+        fullBackup:
+          name: physical-backup
+        fullBackupRestore:
+          name: physical-backup-restore
+    walg:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/oracle-backup-plugin") $) }}:v0.2.0'
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/oracle-coordinator") $) }}:v0.14.0{{ include "catalog.ubi" $ }}'
   dataGuard:
