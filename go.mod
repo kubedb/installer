@@ -13,12 +13,12 @@ require (
 	gomodules.xyz/semvers v0.0.2
 	k8s.io/api v0.34.3
 	k8s.io/apimachinery v0.34.3
-	kmodules.xyz/client-go v0.34.7-0.20260916091548-45e2a0e7782d
+	kmodules.xyz/client-go v0.34.7
 	kmodules.xyz/go-containerregistry v0.0.15
 	kmodules.xyz/image-packer v0.0.0-20260708055132-ed3c452e3c7f
-	kmodules.xyz/resource-metadata v0.49.1-0.20260916091615-a7e699f904a2
+	kmodules.xyz/resource-metadata v0.52.1
 	kmodules.xyz/schema-checker v0.4.2
-	kubedb.dev/apimachinery v0.68.1-0.20261104074019-2a01ab3a2ebb
+	kubedb.dev/apimachinery v0.69.0
 	kubeops.dev/installer v0.0.0-20260709042603-f9ac9c90c456
 	sigs.k8s.io/yaml v1.6.0
 	stash.appscode.dev/installer v0.12.2-0.20260224175756-ac464b38bf6c
@@ -28,7 +28,7 @@ require (
 	filippo.io/edwards25519 v1.1.1 // indirect
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
-	github.com/cert-manager/cert-manager v1.19.4 // indirect
+	github.com/cert-manager/cert-manager v1.19.6 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/codegangsta/inject v0.0.0-20150114235600-33e0aa1cb7c0 // indirect
 	github.com/containerd/stargz-snapshotter/estargz v0.18.1 // indirect
@@ -70,8 +70,8 @@ require (
 	github.com/huandu/xstrings v1.5.0 // indirect
 	github.com/imdario/mergo v0.3.16 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/klauspost/compress v1.18.7 // indirect
-	github.com/klauspost/cpuid/v2 v2.2.5 // indirect
+	github.com/klauspost/compress v1.20.2 // indirect
+	github.com/klauspost/cpuid/v2 v2.2.7 // indirect
 	github.com/mattn/go-runewidth v0.0.13 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
@@ -80,7 +80,7 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.3-0.20250322232337-35a7c28c31ee // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
-	github.com/onsi/gomega v1.36.2 // indirect
+	github.com/onsi/gomega v1.38.1 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.1.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
@@ -94,7 +94,7 @@ require (
 	github.com/sergi/go-diff v1.3.1 // indirect
 	github.com/shopspring/decimal v1.4.0 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
-	github.com/spf13/cast v1.7.0 // indirect
+	github.com/spf13/cast v1.9.2 // indirect
 	github.com/vbatts/tar-split v0.12.2 // indirect
 	github.com/x448/float16 v0.8.4 // indirect
 	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
@@ -102,13 +102,13 @@ require (
 	go.virtual-secrets.dev/apimachinery v0.2.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.3 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
-	golang.org/x/crypto v0.56.0 // indirect
-	golang.org/x/net v0.58.0 // indirect
+	golang.org/x/crypto v0.58.1-0.20261009181718-2f1f834330b2 // indirect
+	golang.org/x/net v0.62.0 // indirect
 	golang.org/x/oauth2 v0.36.0 // indirect
-	golang.org/x/sync v0.23.0 // indirect
-	golang.org/x/sys v0.48.0 // indirect
-	golang.org/x/term v0.46.0 // indirect
-	golang.org/x/text v0.41.0 // indirect
+	golang.org/x/sync v0.24.0 // indirect
+	golang.org/x/sys v0.49.0 // indirect
+	golang.org/x/term v0.47.0 // indirect
+	golang.org/x/text v0.43.0 // indirect
 	golang.org/x/time v0.14.0 // indirect
 	gomodules.xyz/encoding v0.0.8 // indirect
 	gomodules.xyz/jsonpatch/v2 v2.5.0 // indirect
@@ -119,7 +119,6 @@ require (
 	google.golang.org/protobuf v1.36.11 // indirect
 	gopkg.in/evanphx/json-patch.v4 v4.13.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
 	k8s.io/apiextensions-apiserver v0.34.3 // indirect
 	k8s.io/client-go v0.34.3 // indirect
 	k8s.io/klog/v2 v2.130.1 // indirect
@@ -129,11 +128,11 @@ require (
 	kmodules.xyz/custom-resources v0.34.0 // indirect
 	kmodules.xyz/monitoring-agent-api v0.34.1 // indirect
 	kmodules.xyz/offshoot-api v0.34.0 // indirect
-	kubeops.dev/operator-shard-manager v0.0.6-0.20260418091213-65daf7da824d // indirect
-	kubeops.dev/petset v0.1.1-0.20260709161836-19b3570c41ab // indirect
+	kubeops.dev/operator-shard-manager v0.0.7 // indirect
+	kubeops.dev/petset v0.2.0 // indirect
 	kubeops.dev/scanner v0.0.19 // indirect
-	kubeops.dev/sidekick v0.0.16-0.20260711064558-9f0ad344e447 // indirect
-	kubestash.dev/apimachinery v0.30.0 // indirect
+	kubeops.dev/sidekick v0.0.17 // indirect
+	kubestash.dev/apimachinery v0.32.0 // indirect
 	open-cluster-management.io/api v1.2.0 // indirect
 	sigs.k8s.io/controller-runtime v0.22.4 // indirect
 	sigs.k8s.io/gateway-api v1.4.0 // indirect
