@@ -554,6 +554,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.6.3-debian $IMAGE_REGISTRY/kubedb/proxysql:2.6.3-debian
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:2.7.3-debian $IMAGE_REGISTRY/kubedb/proxysql:2.7.3-debian
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/proxysql:3.0.1-debian $IMAGE_REGISTRY/kubedb/proxysql:3.0.1-debian
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/qdrant-csi-snapshotter-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/qdrant-csi-snapshotter-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/qdrant-restic-plugin:v0.4.0 $IMAGE_REGISTRY/kubedb/qdrant-restic-plugin:v0.4.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/rabbitmq-init:v2026.1.19 $IMAGE_REGISTRY/kubedb/rabbitmq-init:v2026.1.19
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-coordinator:v0.47.0 $IMAGE_REGISTRY/kubedb/redis-coordinator:v0.47.0
