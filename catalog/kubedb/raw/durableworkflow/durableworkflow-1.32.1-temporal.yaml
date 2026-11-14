@@ -1,0 +1,70 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: DurableWorkflowVersion
+metadata:
+  name: temporal-1.32.1
+spec:
+  adminTools:
+    image: docker.io/temporalio/admin-tools:1.32.1
+  defaultHistoryShards: 16
+  distribution: Temporal
+  ports:
+    frontend:
+      grpc: 7233
+      http: 7243
+      membership: 6933
+    history:
+      grpc: 7234
+      membership: 6934
+    internalFrontend:
+      grpc: 7236
+      http: 7246
+      membership: 6936
+    matching:
+      grpc: 7235
+      membership: 6935
+    metrics: 9090
+    ui: 8080
+    worker:
+      grpc: 7239
+      membership: 6939
+  rollout:
+    frontendShutdownDrainDuration: 60s
+    frontendShutdownFailHealthCheckDuration: 10s
+    historyMinInterval: 60s
+    historyShutdownDrainDuration: 30s
+    matchingShutdownDrainDuration: 10s
+    onlineSchemaUpdate: true
+    postHopSettle: 10m
+    preStopSleep: 10s
+    roleOrder:
+    - history
+    - matching
+    - internalFrontend
+    - frontend
+    - worker
+  schema:
+    dir: /etc/temporal/schema
+    stores:
+    - default: true
+      type: Postgres
+      visibility: true
+    - default: true
+      type: MySQL
+      visibility: true
+    - default: true
+      type: Cassandra
+    - type: Elasticsearch
+      visibility: true
+    - type: OpenSearch
+      visibility: true
+    tool: temporal-tools
+  securityContext:
+    runAsUser: 1000
+  server:
+    image: docker.io/temporalio/server:1.32.1
+  ui:
+    image: docker.io/temporalio/ui:2.54.1
+  updateConstraints:
+    allowlist:
+    - '> 1.32.1, < 1.33.0'
+  version: 1.32.1

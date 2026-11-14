@@ -79,11 +79,16 @@ $CMD push --allow-nondistributable-artifacts --insecure images/singlestore-clust
 $CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.5.22-fe61f40cd1-4.1.0-1.17.11.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11
 $CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.5.7-bf633c1a54-4.0.17-1.17.8.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8
 $CMD push --allow-nondistributable-artifacts --insecure images/singlestore-cluster-in-a-box-alma-8.7.10-95e2357384-4.1.0-1.17.14.tar $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.7.10-95e2357384-4.1.0-1.17.14
+$CMD push --allow-nondistributable-artifacts --insecure images/temporalio-admin-tools-1.32.1.tar $IMAGE_REGISTRY/temporalio/admin-tools:1.32.1
+$CMD push --allow-nondistributable-artifacts --insecure images/temporalio-server-1.32.1.tar $IMAGE_REGISTRY/temporalio/server:1.32.1
+$CMD push --allow-nondistributable-artifacts --insecure images/temporalio-ui-2.54.1.tar $IMAGE_REGISTRY/temporalio/ui:2.54.1
 $CMD push --allow-nondistributable-artifacts --insecure images/tianon-toybox-0.8.11.tar $IMAGE_REGISTRY/tianon/toybox:0.8.11
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg13-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg13-oss
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg14-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg14-oss
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg15-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg15-oss
 $CMD push --allow-nondistributable-artifacts --insecure images/timescale-timescaledb-2.14.2-pg16-oss.tar $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg16-oss
+$CMD push --allow-nondistributable-artifacts --insecure images/ubercadence-server-v1.4.2.tar $IMAGE_REGISTRY/ubercadence/server:v1.4.2
+$CMD push --allow-nondistributable-artifacts --insecure images/ubercadence-web-v4.0.17.tar $IMAGE_REGISTRY/ubercadence/web:v4.0.17
 $CMD push --allow-nondistributable-artifacts --insecure images/aiven-open-karapace-3.15.0.tar $IMAGE_REGISTRY/aiven-open/karapace:3.15.0
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-exporter-2.3.8.tar $IMAGE_REGISTRY/appscode-images/cassandra-exporter:2.3.8
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-cassandra-management-4.1.11.tar $IMAGE_REGISTRY/appscode-images/cassandra-management:4.1.11

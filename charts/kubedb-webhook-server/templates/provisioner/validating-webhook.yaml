@@ -135,6 +135,44 @@ webhooks:
   sideEffects: None
   matchPolicy: Equivalent
 {{- end }}
+{{- if $featureGates.DurableWorkflow }}
+- name: durableworkflowwebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-durableworkflow
+      port: 443
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
+  rules:
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["durableworkflows"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+  matchPolicy: Equivalent
+{{- end }}
+{{- if $featureGates.DurableWorkflow }}
+- name: workflownamespacewebhook.validators.kubedb.com
+  clientConfig:
+    service:
+      namespace: {{ .Release.Namespace }}
+      name: {{ include "kubedb-webhook-server.fullname" . }}
+      path: /validate-kubedb-com-v1alpha2-workflownamespace
+      port: 443
+{{- include "kubedb-webhook-server.webhook-ca-bundle" $ | nindent 4 }}
+  rules:
+    - apiGroups: ["kubedb.com"]
+      apiVersions: ["*"]
+      resources: ["workflownamespaces"]
+      operations: ["CREATE", "UPDATE", "DELETE"]
+  admissionReviewVersions: ["v1"]
+  failurePolicy: {{ .Values.apiserver.webhook.failurePolicy }}
+  sideEffects: None
+  matchPolicy: Equivalent
+{{- end }}
 {{- if $featureGates.Elasticsearch }}
 - name: elasticsearchwebhook.validators.kubedb.com
   clientConfig:

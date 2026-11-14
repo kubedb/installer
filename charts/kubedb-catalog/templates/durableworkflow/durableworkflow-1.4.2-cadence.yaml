@@ -1,0 +1,79 @@
+{{- template "kubedb-catalog.refresh-versions" . }}
+
+{{ $featureGates := .Values.featureGates }}
+{{ $ubi := .Values.distro.ubi }}
+{{- if .Values.global }}
+  {{ $featureGates = mergeOverwrite dict .Values.featureGates .Values.global.featureGates }}
+  {{ $ubi = default .Values.distro.ubi .Values.global.distro.ubi }}
+{{- end }}
+
+{{ if and $featureGates.DurableWorkflow (not (eq $ubi "operator")) }}
+{{ if not (has "cadence-1.4.2" .Values.disableVersions.DurableWorkflow) }}
+
+
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: DurableWorkflowVersion
+metadata:
+  name: 'cadence-1.4.2'
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  adminTools:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "ubercadence/server") $) }}:v1.4.2'
+  defaultHistoryShards: 16
+  distribution: Cadence
+  ports:
+    frontend:
+      grpc: 7833
+      tchannel: 7933
+    history:
+      grpc: 7834
+      tchannel: 7934
+    matching:
+      grpc: 7835
+      tchannel: 7935
+    metrics: 9090
+    ui: 8088
+    worker:
+      tchannel: 7939
+  rollout:
+    frontendShutdownDrainDuration: 10s
+    historyMinInterval: 60s
+    historyShutdownDrainDuration: 30s
+    matchingShutdownDrainDuration: 10s
+    onlineSchemaUpdate: true
+    preStopSleep: 10s
+    roleOrder:
+    - history
+    - matching
+    - frontend
+    - worker
+  schema:
+    dir: /etc/cadence/schema
+    stores:
+    - default: true
+      type: Postgres
+      visibility: true
+    - default: true
+      type: MySQL
+      visibility: true
+    - default: true
+      type: Cassandra
+      visibility: true
+    - type: Elasticsearch
+      visibility: true
+    - type: OpenSearch
+      visibility: true
+    tool: cadence-server
+  securityContext:
+    runAsUser: 1000
+  server:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "ubercadence/server") $) }}:v1.4.2'
+  ui:
+    image: '{{ include "image.dockerHub" (merge (dict "_repo" "ubercadence/web") $) }}:v4.0.17'
+  updateConstraints:
+    allowlist:
+    - '> 1.4.2, < 1.5.0'
+  version: 1.4.2
+{{ end }}
+{{ end }}
