@@ -27,6 +27,15 @@ spec:
       required: false
       usage: Maximum number of concurrent dump workers across all Qdrant nodes. Each worker streams one collection snapshot from a node to restic.
     singleton: true
+  - driver: VolumeSnapshotter
+    executor: Job
+    function: qdrant-csi-snapshotter
+    name: volume-snapshot
+    parameters:
+    - name: volumeSnapshotClassName
+      required: false
+      usage: The VolumeSnapshotClassName to be used by volumeSnapshot
+    singleton: true
   restoreTasks:
   - driver: Restic
     executor: Job
