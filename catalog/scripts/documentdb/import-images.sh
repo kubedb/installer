@@ -29,4 +29,3 @@ CMD="./crane"
 $CMD push --allow-nondistributable-artifacts --insecure images/documentdb-documentdb-documentdb-local-pg17-0.109.0.tar $IMAGE_REGISTRY/documentdb/documentdb/documentdb-local:pg17-0.109.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-documentdb-coordinator-v0.5.0.tar $IMAGE_REGISTRY/kubedb/documentdb-coordinator:v0.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-documentdb-init-0.1.0.tar $IMAGE_REGISTRY/kubedb/documentdb-init:0.1.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.30.0_17.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.30.0_17.2-alpine
