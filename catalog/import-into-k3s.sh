@@ -504,7 +504,6 @@ k3s ctr images import images/kubedb-pgbouncer-1.18.0.tar
 k3s ctr images import images/kubedb-pgbouncer-1.23.1.tar
 k3s ctr images import images/kubedb-pgbouncer-1.24.0.tar
 k3s ctr images import images/kubedb-pgbouncer_exporter-v0.1.1.tar
-k3s ctr images import images/kubedb-postgres-archiver-v0.28.0-rc.2_17.2-alpine.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.30.0_11.22-alpine.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.30.0_11.22-bookworm.tar
 k3s ctr images import images/kubedb-postgres-archiver-v0.30.0_12.17-alpine.tar

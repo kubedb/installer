@@ -506,7 +506,6 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pgbouncer-
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pgbouncer-1.23.1.tar $IMAGE_REGISTRY/kubedb/pgbouncer:1.23.1
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pgbouncer-1.24.0.tar $IMAGE_REGISTRY/kubedb/pgbouncer:1.24.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-pgbouncer_exporter-v0.1.1.tar $IMAGE_REGISTRY/kubedb/pgbouncer_exporter:v0.1.1
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.28.0-rc.2_17.2-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.28.0-rc.2_17.2-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.30.0_11.22-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.30.0_11.22-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.30.0_11.22-bookworm.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.30.0_11.22-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-archiver-v0.30.0_12.17-alpine.tar $IMAGE_REGISTRY/kubedb/postgres-archiver:v0.30.0_12.17-alpine
