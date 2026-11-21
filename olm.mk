@@ -48,14 +48,14 @@ endif
 # This is useful for CI or a project to utilize a specific version of the operator-sdk toolkit.
 OPERATOR_SDK_VERSION ?= v1.42.0
 
+# Directory that holds downloaded tooling (operator-sdk, kustomize, ...).
+LOCALBIN ?= $(BIN_DIR)
+
 # Container tool to use for building and pushing images
 CONTAINER_TOOL ?= docker
 
 # Image URL to use all building/pushing image targets
 IMG ?= $(IMAGE_TAG_BASE):$(VERSION)
-
-.PHONY: all
-all: docker-build
 
 ##@ General
 
@@ -153,9 +153,6 @@ deploy: kustomize ## Deploy controller to the K8s cluster specified in ~/.kube/c
 undeploy: ## Undeploy controller from the K8s cluster specified in ~/.kube/config.
 	$(KUSTOMIZE) build config/default | kubectl delete -f -
 
-OS := $(shell uname -s | tr '[:upper:]' '[:lower:]')
-ARCH := $(shell uname -m | sed 's/x86_64/amd64/' | sed 's/aarch64/arm64/')
-
 .PHONY: kustomize
 KUSTOMIZE = $(LOCALBIN)/kustomize
 kustomize: ## Download kustomize locally if necessary.
@@ -165,7 +162,7 @@ ifeq (,$(shell which kustomize 2>/dev/null))
 	set -e ;\
 	mkdir -p $(dir $(KUSTOMIZE)) ;\
 	curl -sSLo - https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v5.6.0/kustomize_v5.6.0_$(OS)_$(ARCH).tar.gz | \
-	tar xzf - -C $(dir $(HELM_OPERATOR)) ;\
+	tar xzf - -C $(dir $(KUSTOMIZE)) ;\
 	}
 else
 KUSTOMIZE = $(shell which kustomize)
@@ -248,7 +245,7 @@ bundle: kustomize operator-sdk ## Generate bundle manifests and metadata, then v
 	@$(MAKE) gen-custom-role --no-print-directory
 	@cd config/manifests/bases && sed -i.bak 's|^\([[:space:]]*containerImage:[[:space:]]*\).*|\1$(IMG)|' kubedb-installer.clusterserviceversion.yaml && rm -f kubedb-installer.clusterserviceversion.yaml.bak
 	$(KUSTOMIZE) build config/manifests | $(OPERATOR_SDK) generate bundle $(BUNDLE_GEN_FLAGS)
-	@grep -q '^  com.redhat.openshift.versions: v4.14-v4.21$$' bundle/metadata/annotations.yaml || { \
+	@grep -q '^  com.redhat.openshift.versions: v4.15-v4.21$$' bundle/metadata/annotations.yaml || { \
 		echo ''; \
 		echo '  # OpenShift annotations.'; \
 		echo '  com.redhat.openshift.versions: v4.15-v4.21'; \
