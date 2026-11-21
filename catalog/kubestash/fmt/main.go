@@ -83,6 +83,7 @@ var appToKind = map[string]string{
 	"clickhouse":         "ClickHouse",
 	"documentdb":         "DocumentDB",
 	"druid":              "Druid",
+	"durableworkflow":    "DurableWorkflow",
 	"elasticsearch":      "Elasticsearch",
 	"opensearch":         "Elasticsearch",
 	"etcd":               "Etcd",
