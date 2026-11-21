@@ -91,6 +91,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-re
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-aws:v0.30.0 $IMAGE_REGISTRY/kubedb/provider-aws:v0.30.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-azure:v0.30.0 $IMAGE_REGISTRY/kubedb/provider-azure:v0.30.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-gcp:v0.30.0 $IMAGE_REGISTRY/kubedb/provider-gcp:v0.30.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/qdrant-csi-snapshotter-plugin:v0.1.0 $IMAGE_REGISTRY/kubedb/qdrant-csi-snapshotter-plugin:v0.1.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/qdrant-restic-plugin:v0.5.0 $IMAGE_REGISTRY/kubedb/qdrant-restic-plugin:v0.5.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/redis-restic-plugin:v0.32.0 $IMAGE_REGISTRY/kubedb/redis-restic-plugin:v0.32.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/singlestore-restic-plugin:v0.27.0_alma-8.1.32-e3d3cde6da $IMAGE_REGISTRY/kubedb/singlestore-restic-plugin:v0.27.0_alma-8.1.32-e3d3cde6da
