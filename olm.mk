@@ -245,10 +245,10 @@ bundle: kustomize operator-sdk ## Generate bundle manifests and metadata, then v
 	@$(MAKE) gen-custom-role --no-print-directory
 	@cd config/manifests/bases && sed -i.bak 's|^\([[:space:]]*containerImage:[[:space:]]*\).*|\1$(IMG)|' kubedb-installer.clusterserviceversion.yaml && rm -f kubedb-installer.clusterserviceversion.yaml.bak
 	$(KUSTOMIZE) build config/manifests | $(OPERATOR_SDK) generate bundle $(BUNDLE_GEN_FLAGS)
-	@grep -q '^  com.redhat.openshift.versions: v4.15-v4.21$$' bundle/metadata/annotations.yaml || { \
+	@grep -q '^  com.redhat.openshift.versions: v4.18-v5.0$$' bundle/metadata/annotations.yaml || { \
 		echo ''; \
 		echo '  # OpenShift annotations.'; \
-		echo '  com.redhat.openshift.versions: v4.15-v4.21'; \
+		echo '  com.redhat.openshift.versions: v4.18-v5.0'; \
 	} >> bundle/metadata/annotations.yaml
 	$(OPERATOR_SDK) bundle validate ./bundle --select-optional name=operatorhubv2
 	$(OPERATOR_SDK) bundle validate ./bundle --select-optional name=capabilities
