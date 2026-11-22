@@ -34,6 +34,7 @@ declare -a components=(
     kafkaconnector
     mariadb
     memcached
+    milvus
     mongodb
     mssqlserver
     mysql
