@@ -197,8 +197,12 @@ k3s ctr images import images/appscode-images-mongo-5.0.31.tar
 k3s ctr images import images/appscode-images-mongo-6.0.24.tar
 k3s ctr images import images/appscode-images-mongo-7.0.21.tar
 k3s ctr images import images/appscode-images-mongo-7.0.28.tar
+k3s ctr images import images/appscode-images-mongo-7.0.48.tar
 k3s ctr images import images/appscode-images-mongo-8.0.10.tar
 k3s ctr images import images/appscode-images-mongo-8.0.17.tar
+k3s ctr images import images/appscode-images-mongo-8.0.38.tar
+k3s ctr images import images/appscode-images-mongo-8.3.17.tar
+k3s ctr images import images/appscode-images-mongo-9.0.8.tar
 k3s ctr images import images/appscode-images-mysql-router-8.0.45.tar
 k3s ctr images import images/appscode-images-mysql-router-8.4.8.tar
 k3s ctr images import images/appscode-images-mysql-router-9.0.1.tar
