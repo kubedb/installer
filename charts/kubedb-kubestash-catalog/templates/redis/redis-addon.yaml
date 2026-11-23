@@ -39,6 +39,28 @@ spec:
       source:
         emptyDir: {}
       usage: Holds temporary files and restic cache.
+  - driver: Restic
+    executor: Job
+    function: redis-physical-backup
+    name: physical-backup
+    parameters:
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files, the physical backup and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files, the physical backup and restic cache.
   - driver: RedisAOF
     executor: Job
     function: redis-aof-backup
@@ -67,6 +89,28 @@ spec:
         emptyDir: {}
       usage: Holds temporary files and restic cache.
   restoreTasks:
+  - driver: Restic
+    executor: Job
+    function: redis-physical-backup-restore
+    name: physical-backup-restore
+    parameters:
+    - default: "true"
+      name: enableCache
+      required: false
+      usage: Enable or disable caching. Disabling caching may impact backup performance.
+    - default: /kubestash-tmp
+      name: scratchDir
+      required: false
+      usage: Directory for holding temporary files, the physical backup and restic cache.
+    singleton: true
+    volumeMounts:
+    - mountPath: /kubestash-tmp
+      name: kubestash-tmp-volume
+    volumeTemplate:
+    - name: kubestash-tmp-volume
+      source:
+        emptyDir: {}
+      usage: Holds temporary files, the physical backup and restic cache.
   - driver: Restic
     executor: Job
     function: redis-restore
