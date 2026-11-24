@@ -447,6 +447,7 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migr
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mssqlserver:v0.9.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-mssqlserver:v0.9.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mysql:v0.9.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-mysql:v0.9.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-postgresql:v0.9.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-postgresql:v0.9.0
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-redis:v0.9.0 $IMAGE_REGISTRY/kubedb/kubedb-migrator-redis:v0.9.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.56.0 $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.56.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-provisioner:v0.69.0 $IMAGE_REGISTRY/kubedb/kubedb-provisioner:v0.69.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-schema-manager:v0.45.0 $IMAGE_REGISTRY/kubedb/kubedb-schema-manager:v0.45.0

@@ -444,6 +444,7 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-mi
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mssqlserver:v0.9.0 images/kubedb-kubedb-migrator-mssqlserver-v0.9.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mysql:v0.9.0 images/kubedb-kubedb-migrator-mysql-v0.9.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-postgresql:v0.9.0 images/kubedb-kubedb-migrator-postgresql-v0.9.0.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-redis:v0.9.0 images/kubedb-kubedb-migrator-redis-v0.9.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-ops-manager:v0.56.0 images/kubedb-kubedb-ops-manager-v0.56.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-provisioner:v0.69.0 images/kubedb-kubedb-provisioner-v0.69.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-schema-manager:v0.45.0 images/kubedb-kubedb-schema-manager-v0.45.0.tar
