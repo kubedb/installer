@@ -68,6 +68,7 @@ var archSkipList = []string{
 	"ghcr.io/appscode-images/singlestore-node:alma-8.9.3-bfa36a984a",
 	"ghcr.io/kubedb/db2-coordinator:*",
 	"ghcr.io/kubedb/kubedb-migrator-mssqlserver:*",
+	"ghcr.io/kubedb/kubedb-migrator-redis:*",
 	"ghcr.io/kubedb/mariadb-restic-plugin:*_10.11.6-jammy",
 	"ghcr.io/kubedb/mariadb-restic-plugin:*_10.4.32-focal",
 	"ghcr.io/kubedb/mariadb-restic-plugin:*_10.6.16-focal",

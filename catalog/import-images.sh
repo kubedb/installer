@@ -440,6 +440,7 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-mig
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-migrator-mssqlserver-v0.9.0.tar $IMAGE_REGISTRY/kubedb/kubedb-migrator-mssqlserver:v0.9.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-migrator-mysql-v0.9.0.tar $IMAGE_REGISTRY/kubedb/kubedb-migrator-mysql:v0.9.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-migrator-postgresql-v0.9.0.tar $IMAGE_REGISTRY/kubedb/kubedb-migrator-postgresql:v0.9.0
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-migrator-redis-v0.9.0.tar $IMAGE_REGISTRY/kubedb/kubedb-migrator-redis:v0.9.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-ops-manager-v0.56.0.tar $IMAGE_REGISTRY/kubedb/kubedb-ops-manager:v0.56.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-provisioner-v0.69.0.tar $IMAGE_REGISTRY/kubedb/kubedb-provisioner:v0.69.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-schema-manager-v0.45.0.tar $IMAGE_REGISTRY/kubedb/kubedb-schema-manager:v0.45.0

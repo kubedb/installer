@@ -20,6 +20,11 @@ metadata:
 spec:
   coordinator:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/redis-coordinator") $) }}:v0.48.0{{ include "catalog.ubi" $ }}'
+  courier:
+    cli:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-migrator-redis") $) }}:v0.9.0{{ include "catalog.ubi" $ }}'
+    statusReporter:
+      image: '{{ include "image.ghcr" (merge (dict "_repo" "kubedb/kubedb-courier") $) }}:v0.9.0{{ include "catalog.ubi" $ }}'
   db:
     image: '{{ include "image.ghcr" (merge (dict "_repo" "appscode-images/redis") $) }}:8.2.2-bookworm'
   distribution: Official
