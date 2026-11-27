@@ -44,8 +44,12 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:6.0.24 images/appscode-images-mongo-6.0.24.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.21 images/appscode-images-mongo-7.0.21.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.28 images/appscode-images-mongo-7.0.28.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.48 images/appscode-images-mongo-7.0.48.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.10 images/appscode-images-mongo-8.0.10.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.17 images/appscode-images-mongo-8.0.17.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.38 images/appscode-images-mongo-8.0.38.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.3.17 images/appscode-images-mongo-8.3.17.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:9.0.8 images/appscode-images-mongo-9.0.8.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/kubedb-migrator-mongodb:v0.9.0 images/kubedb-kubedb-migrator-mongodb-v0.9.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:4.2-v9 images/kubedb-mongodb-init-4.2-v9.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mongodb-init:6.0-v12 images/kubedb-mongodb-init-6.0-v12.tar

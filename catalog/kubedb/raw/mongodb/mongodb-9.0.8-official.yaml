@@ -1,0 +1,55 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  name: 9.0.8
+spec:
+  archiver:
+    addon:
+      name: mongodb-addon
+      tasks:
+        fullBackup:
+          name: logical-backup
+        fullBackupRestore:
+          name: logical-backup-restore
+        manifestBackup:
+          name: manifest-backup
+        manifestRestore:
+          name: manifest-restore
+        volumeSnapshot:
+          name: volume-snapshot
+    walg:
+      image: ghcr.io/kubedb/wal-g:v2026.3.30_mongo
+  courier:
+    cli:
+      image: ghcr.io/kubedb/kubedb-migrator-mongodb:v0.9.0
+    statusReporter:
+      image: ghcr.io/kubedb/kubedb-courier:v0.9.0
+  db:
+    image: ghcr.io/appscode-images/mongo:9.0.8
+  distribution: Official
+  exporter:
+    image: ghcr.io/kubedb/mongodb_exporter:v0.47.2
+  gitSyncer:
+    image: registry.k8s.io/git-sync/git-sync:v4.4.2
+  initContainer:
+    image: ghcr.io/kubedb/mongodb-init:6.0-v12
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+  replicationModeDetector:
+    image: ghcr.io/kubedb/replication-mode-detector:v0.56.0
+  securityContext:
+    runAsGroup: 999
+    runAsUser: 999
+  stash:
+    addon:
+      backupTask:
+        name: mongodb-backup-6.0.5
+      restoreTask:
+        name: mongodb-restore-6.0.5
+  ui:
+  - name: mongo-ui
+    version: v2026.3.30
+  updateConstraints:
+    allowlist:
+    - '>= 9.0.8, < 11.0.0'
+  version: 9.0.8

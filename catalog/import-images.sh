@@ -199,8 +199,12 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-m
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-6.0.24.tar $IMAGE_REGISTRY/appscode-images/mongo:6.0.24
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-7.0.21.tar $IMAGE_REGISTRY/appscode-images/mongo:7.0.21
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-7.0.28.tar $IMAGE_REGISTRY/appscode-images/mongo:7.0.28
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-7.0.48.tar $IMAGE_REGISTRY/appscode-images/mongo:7.0.48
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-8.0.10.tar $IMAGE_REGISTRY/appscode-images/mongo:8.0.10
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-8.0.17.tar $IMAGE_REGISTRY/appscode-images/mongo:8.0.17
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-8.0.38.tar $IMAGE_REGISTRY/appscode-images/mongo:8.0.38
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-8.3.17.tar $IMAGE_REGISTRY/appscode-images/mongo:8.3.17
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mongo-9.0.8.tar $IMAGE_REGISTRY/appscode-images/mongo:9.0.8
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-8.0.45.tar $IMAGE_REGISTRY/appscode-images/mysql-router:8.0.45
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-8.4.8.tar $IMAGE_REGISTRY/appscode-images/mysql-router:8.4.8
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-mysql-router-9.0.1.tar $IMAGE_REGISTRY/appscode-images/mysql-router:9.0.1

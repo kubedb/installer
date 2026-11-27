@@ -208,8 +208,12 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mo
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:6.0.24 $IMAGE_REGISTRY/appscode-images/mongo:6.0.24
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.21 $IMAGE_REGISTRY/appscode-images/mongo:7.0.21
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.28 $IMAGE_REGISTRY/appscode-images/mongo:7.0.28
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:7.0.48 $IMAGE_REGISTRY/appscode-images/mongo:7.0.48
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.10 $IMAGE_REGISTRY/appscode-images/mongo:8.0.10
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.17 $IMAGE_REGISTRY/appscode-images/mongo:8.0.17
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.0.38 $IMAGE_REGISTRY/appscode-images/mongo:8.0.38
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:8.3.17 $IMAGE_REGISTRY/appscode-images/mongo:8.3.17
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mongo:9.0.8 $IMAGE_REGISTRY/appscode-images/mongo:9.0.8
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:8.0.45 $IMAGE_REGISTRY/appscode-images/mysql-router:8.0.45
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:8.4.8 $IMAGE_REGISTRY/appscode-images/mysql-router:8.4.8
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/mysql-router:9.0.1 $IMAGE_REGISTRY/appscode-images/mysql-router:9.0.1
