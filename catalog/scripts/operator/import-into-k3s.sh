@@ -82,6 +82,7 @@ k3s ctr images import images/kubedb-postgres-restic-plugin-v0.33.0_19.0.tar
 k3s ctr images import images/kubedb-provider-aws-v0.30.0.tar
 k3s ctr images import images/kubedb-provider-azure-v0.30.0.tar
 k3s ctr images import images/kubedb-provider-gcp-v0.30.0.tar
+k3s ctr images import images/kubedb-qdrant-csi-snapshotter-plugin-v0.1.0.tar
 k3s ctr images import images/kubedb-qdrant-restic-plugin-v0.5.0.tar
 k3s ctr images import images/kubedb-redis-restic-plugin-v0.32.0.tar
 k3s ctr images import images/kubedb-singlestore-restic-plugin-v0.27.0_alma-8.1.32-e3d3cde6da.tar
