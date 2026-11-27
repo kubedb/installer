@@ -342,6 +342,8 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/po
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.13-alpine-ext $IMAGE_REGISTRY/appscode-images/postgres:16.13-alpine-ext
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.13-bookworm $IMAGE_REGISTRY/appscode-images/postgres:16.13-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.13-bookworm-ext $IMAGE_REGISTRY/appscode-images/postgres:16.13-bookworm-ext
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.16-alpine $IMAGE_REGISTRY/appscode-images/postgres:16.16-alpine
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.16-bookworm $IMAGE_REGISTRY/appscode-images/postgres:16.16-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.4-alpine $IMAGE_REGISTRY/appscode-images/postgres:16.4-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.4-bookworm $IMAGE_REGISTRY/appscode-images/postgres:16.4-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.6-alpine $IMAGE_REGISTRY/appscode-images/postgres:16.6-alpine
@@ -350,6 +352,8 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/po
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.8-bookworm $IMAGE_REGISTRY/appscode-images/postgres:16.8-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.9-alpine $IMAGE_REGISTRY/appscode-images/postgres:16.9-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:16.9-bookworm $IMAGE_REGISTRY/appscode-images/postgres:16.9-bookworm
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.12-alpine $IMAGE_REGISTRY/appscode-images/postgres:17.12-alpine
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.12-bookworm $IMAGE_REGISTRY/appscode-images/postgres:17.12-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.2-alpine $IMAGE_REGISTRY/appscode-images/postgres:17.2-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.2-bookworm $IMAGE_REGISTRY/appscode-images/postgres:17.2-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:17.4-alpine $IMAGE_REGISTRY/appscode-images/postgres:17.4-alpine
@@ -369,6 +373,8 @@ $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/po
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.3-alpine-ext $IMAGE_REGISTRY/appscode-images/postgres:18.3-alpine-ext
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.3-bookworm $IMAGE_REGISTRY/appscode-images/postgres:18.3-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.3-bookworm-ext $IMAGE_REGISTRY/appscode-images/postgres:18.3-bookworm-ext
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.7-alpine $IMAGE_REGISTRY/appscode-images/postgres:18.7-alpine
+$CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:18.7-bookworm $IMAGE_REGISTRY/appscode-images/postgres:18.7-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:19.0-alpine $IMAGE_REGISTRY/appscode-images/postgres:19.0-alpine
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/postgres:19.0-bookworm $IMAGE_REGISTRY/appscode-images/postgres:19.0-bookworm
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/rabbitmq:3.12.12-management-alpine $IMAGE_REGISTRY/appscode-images/rabbitmq:3.12.12-management-alpine

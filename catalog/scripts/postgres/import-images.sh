@@ -124,6 +124,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-p
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.13-alpine-ext.tar $IMAGE_REGISTRY/appscode-images/postgres:16.13-alpine-ext
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.13-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:16.13-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.13-bookworm-ext.tar $IMAGE_REGISTRY/appscode-images/postgres:16.13-bookworm-ext
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.16-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:16.16-alpine
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.16-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:16.16-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.4-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:16.4-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.4-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:16.4-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.6-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:16.6-alpine
@@ -132,6 +134,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-p
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.8-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:16.8-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.9-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:16.9-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-16.9-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:16.9-bookworm
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.12-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:17.12-alpine
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.12-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:17.12-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.2-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:17.2-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.2-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:17.2-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-17.4-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:17.4-alpine
@@ -151,6 +155,8 @@ $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-p
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-18.3-alpine-ext.tar $IMAGE_REGISTRY/appscode-images/postgres:18.3-alpine-ext
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-18.3-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:18.3-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-18.3-bookworm-ext.tar $IMAGE_REGISTRY/appscode-images/postgres:18.3-bookworm-ext
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-18.7-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:18.7-alpine
+$CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-18.7-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:18.7-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-19.0-alpine.tar $IMAGE_REGISTRY/appscode-images/postgres:19.0-alpine
 $CMD push --allow-nondistributable-artifacts --insecure images/appscode-images-postgres-19.0-bookworm.tar $IMAGE_REGISTRY/appscode-images/postgres:19.0-bookworm
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-kubedb-migrator-postgresql-v0.9.0.tar $IMAGE_REGISTRY/kubedb/kubedb-migrator-postgresql:v0.9.0
