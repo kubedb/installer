@@ -72,11 +72,13 @@ k3s ctr images import images/kubedb-mysql-restic-plugin-v0.32.0_9.0.1.tar
 k3s ctr images import images/kubedb-neo4j-backup-plugin-v0.5.0.tar
 k3s ctr images import images/kubedb-oracle-backup-plugin-v0.3.0.tar
 k3s ctr images import images/kubedb-postgres-csi-snapshotter-plugin-v0.30.0.tar
-k3s ctr images import images/kubedb-postgres-restic-plugin-v0.32.0_12.17.tar
-k3s ctr images import images/kubedb-postgres-restic-plugin-v0.32.0_14.10.tar
-k3s ctr images import images/kubedb-postgres-restic-plugin-v0.32.0_16.4.tar
 k3s ctr images import images/kubedb-postgres-restic-plugin-v0.32.0_17.2.tar
-k3s ctr images import images/kubedb-postgres-restic-plugin-v0.32.0_18.2.tar
+k3s ctr images import images/kubedb-postgres-restic-plugin-v0.33.0_12.17.tar
+k3s ctr images import images/kubedb-postgres-restic-plugin-v0.33.0_14.10.tar
+k3s ctr images import images/kubedb-postgres-restic-plugin-v0.33.0_16.4.tar
+k3s ctr images import images/kubedb-postgres-restic-plugin-v0.33.0_17.2.tar
+k3s ctr images import images/kubedb-postgres-restic-plugin-v0.33.0_18.2.tar
+k3s ctr images import images/kubedb-postgres-restic-plugin-v0.33.0_19.0.tar
 k3s ctr images import images/kubedb-provider-aws-v0.30.0.tar
 k3s ctr images import images/kubedb-provider-azure-v0.30.0.tar
 k3s ctr images import images/kubedb-provider-gcp-v0.30.0.tar

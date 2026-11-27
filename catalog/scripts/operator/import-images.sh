@@ -74,11 +74,13 @@ $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-mysql-rest
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-neo4j-backup-plugin-v0.5.0.tar $IMAGE_REGISTRY/kubedb/neo4j-backup-plugin:v0.5.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-oracle-backup-plugin-v0.3.0.tar $IMAGE_REGISTRY/kubedb/oracle-backup-plugin:v0.3.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-csi-snapshotter-plugin-v0.30.0.tar $IMAGE_REGISTRY/kubedb/postgres-csi-snapshotter-plugin:v0.30.0
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.32.0_12.17.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.32.0_12.17
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.32.0_14.10.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.32.0_14.10
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.32.0_16.4.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.32.0_16.4
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.32.0_17.2.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.32.0_17.2
-$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.32.0_18.2.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.32.0_18.2
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.33.0_12.17.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.33.0_12.17
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.33.0_14.10.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.33.0_14.10
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.33.0_16.4.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.33.0_16.4
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.33.0_17.2.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.33.0_17.2
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.33.0_18.2.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.33.0_18.2
+$CMD push --allow-nondistributable-artifacts --insecure images/kubedb-postgres-restic-plugin-v0.33.0_19.0.tar $IMAGE_REGISTRY/kubedb/postgres-restic-plugin:v0.33.0_19.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-aws-v0.30.0.tar $IMAGE_REGISTRY/kubedb/provider-aws:v0.30.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-azure-v0.30.0.tar $IMAGE_REGISTRY/kubedb/provider-azure:v0.30.0
 $CMD push --allow-nondistributable-artifacts --insecure images/kubedb-provider-gcp-v0.30.0.tar $IMAGE_REGISTRY/kubedb/provider-gcp:v0.30.0
