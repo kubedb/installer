@@ -85,11 +85,16 @@ $CMD pull --allow-nondistributable-artifacts --insecure docker.io/singlestore/cl
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11 images/singlestore-cluster-in-a-box-alma-8.5.22-fe61f40cd1-4.1.0-1.17.11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8 images/singlestore-cluster-in-a-box-alma-8.5.7-bf633c1a54-4.0.17-1.17.8.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/singlestore/cluster-in-a-box:alma-8.7.10-95e2357384-4.1.0-1.17.14 images/singlestore-cluster-in-a-box-alma-8.7.10-95e2357384-4.1.0-1.17.14.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/temporalio/admin-tools:1.32.1 images/temporalio-admin-tools-1.32.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/temporalio/server:1.32.1 images/temporalio-server-1.32.1.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/temporalio/ui:2.54.1 images/temporalio-ui-2.54.1.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/tianon/toybox:0.8.11 images/tianon-toybox-0.8.11.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg13-oss images/timescale-timescaledb-2.14.2-pg13-oss.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg14-oss images/timescale-timescaledb-2.14.2-pg14-oss.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg15-oss images/timescale-timescaledb-2.14.2-pg15-oss.tar
 $CMD pull --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg16-oss images/timescale-timescaledb-2.14.2-pg16-oss.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/ubercadence/server:v1.4.2 images/ubercadence-server-v1.4.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure docker.io/ubercadence/web:v4.0.17 images/ubercadence-web-v4.0.17.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/aiven-open/karapace:3.15.0 images/aiven-open-karapace-3.15.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-exporter:2.3.8 images/appscode-images-cassandra-exporter-2.3.8.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:4.1.11 images/appscode-images-cassandra-management-4.1.11.tar

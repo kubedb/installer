@@ -88,11 +88,16 @@ $CMD cp --allow-nondistributable-artifacts --insecure docker.io/singlestore/clus
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11 $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.22-fe61f40cd1-4.1.0-1.17.11
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8 $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.5.7-bf633c1a54-4.0.17-1.17.8
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/singlestore/cluster-in-a-box:alma-8.7.10-95e2357384-4.1.0-1.17.14 $IMAGE_REGISTRY/singlestore/cluster-in-a-box:alma-8.7.10-95e2357384-4.1.0-1.17.14
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/temporalio/admin-tools:1.32.1 $IMAGE_REGISTRY/temporalio/admin-tools:1.32.1
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/temporalio/server:1.32.1 $IMAGE_REGISTRY/temporalio/server:1.32.1
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/temporalio/ui:2.54.1 $IMAGE_REGISTRY/temporalio/ui:2.54.1
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/tianon/toybox:0.8.11 $IMAGE_REGISTRY/tianon/toybox:0.8.11
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg13-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg13-oss
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg14-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg14-oss
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg15-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg15-oss
 $CMD cp --allow-nondistributable-artifacts --insecure docker.io/timescale/timescaledb:2.14.2-pg16-oss $IMAGE_REGISTRY/timescale/timescaledb:2.14.2-pg16-oss
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/ubercadence/server:v1.4.2 $IMAGE_REGISTRY/ubercadence/server:v1.4.2
+$CMD cp --allow-nondistributable-artifacts --insecure docker.io/ubercadence/web:v4.0.17 $IMAGE_REGISTRY/ubercadence/web:v4.0.17
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/aiven-open/karapace:3.15.0 $IMAGE_REGISTRY/aiven-open/karapace:3.15.0
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-exporter:2.3.8 $IMAGE_REGISTRY/appscode-images/cassandra-exporter:2.3.8
 $CMD cp --allow-nondistributable-artifacts --insecure ghcr.io/appscode-images/cassandra-management:4.1.11 $IMAGE_REGISTRY/appscode-images/cassandra-management:4.1.11

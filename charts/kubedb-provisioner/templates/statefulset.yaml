@@ -143,6 +143,9 @@ spec:
               fieldPath: spec.serviceAccountName
         - name: GODEBUG
           value: x509negativeserial=1
+        # image of this binary: the probe helper copied into DurableWorkflow pods (`kubedb-provisioner dw-health`)
+        - name: OPERATOR_IMAGE
+          value: {{ include "operator.registry" . }}/{{ .Values.operator.repository }}:{{ .Values.operator.tag | default .Chart.AppVersion }}{{ include "operator.ubi" . }}
         ports:
         - name: metrics
           containerPort: {{ .Values.monitoring.bindPort }}
