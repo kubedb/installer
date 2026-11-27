@@ -80,11 +80,13 @@ $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/mysql-res
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/neo4j-backup-plugin:v0.5.0 images/kubedb-neo4j-backup-plugin-v0.5.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/oracle-backup-plugin:v0.3.0 images/kubedb-oracle-backup-plugin-v0.3.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-csi-snapshotter-plugin:v0.30.0 images/kubedb-postgres-csi-snapshotter-plugin-v0.30.0.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.32.0_12.17 images/kubedb-postgres-restic-plugin-v0.32.0_12.17.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.32.0_14.10 images/kubedb-postgres-restic-plugin-v0.32.0_14.10.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.32.0_16.4 images/kubedb-postgres-restic-plugin-v0.32.0_16.4.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.32.0_17.2 images/kubedb-postgres-restic-plugin-v0.32.0_17.2.tar
-$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.32.0_18.2 images/kubedb-postgres-restic-plugin-v0.32.0_18.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.33.0_12.17 images/kubedb-postgres-restic-plugin-v0.33.0_12.17.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.33.0_14.10 images/kubedb-postgres-restic-plugin-v0.33.0_14.10.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.33.0_16.4 images/kubedb-postgres-restic-plugin-v0.33.0_16.4.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.33.0_17.2 images/kubedb-postgres-restic-plugin-v0.33.0_17.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.33.0_18.2 images/kubedb-postgres-restic-plugin-v0.33.0_18.2.tar
+$CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/postgres-restic-plugin:v0.33.0_19.0 images/kubedb-postgres-restic-plugin-v0.33.0_19.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-aws:v0.30.0 images/kubedb-provider-aws-v0.30.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-azure:v0.30.0 images/kubedb-provider-azure-v0.30.0.tar
 $CMD pull --allow-nondistributable-artifacts --insecure ghcr.io/kubedb/provider-gcp:v0.30.0 images/kubedb-provider-gcp-v0.30.0.tar
